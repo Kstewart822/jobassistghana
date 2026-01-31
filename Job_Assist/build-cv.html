@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Build Your CV | Job Assist Ghana</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="tab-logo.png">
+
+  <!-- Fonts + Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- jsPDF for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- AOS (optional - safe to keep) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --deep-blue:#0a2a66;
+      --deep-blue-2:#0a3f86;
+      --gold:#f8c12e;
+      --gold-2:#ffda6a;
+      --ink:#0b1220;
+      --muted:#6b7280;
+      --bg:#f6f8fc;
+      --card:#ffffff;
+      --border:#e6ebf5;
+      --radius:14px;
+      --shadow:0 10px 30px rgba(10,42,102,.12);
+      --shadow-soft:0 8px 18px rgba(10,42,102,.10);
+      --max:1200px;
+
+      /* CV builder palette */
+      --bg-cream: #f9f8f4;
+      --card-white: #ffffff;
+      --text-dark: #1f2937;
+      --text-muted: #6b7280;
+      --border-light: #e5e7eb;
+      --success-green: #10b981;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.06);
+      --shadow-medium: 0 10px 36px rgba(7, 22, 50, 0.08);
+      --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html{scroll-behavior:smooth;overflow-x:hidden}
+    body{
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg-cream);
+      color:var(--text-dark);
+      overflow-x:hidden;
+      line-height:1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a{text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* =======================
+       NAVBAR (COPY FROM ABOUT)
+       ======================= */
+    header{
+      position:fixed;top:0;left:0;right:0;z-index:1000;
+      height:70px;
+      background:#123a7a;
+      display:flex;
+      align-items:center;
+      box-shadow:0 6px 18px rgba(0,0,0,.12);
+    }
+    .nav-wrap{
+      width:100%;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:160px;
+    }
+    .brand img{
+      height:36px;
+      width:auto;
+      filter:brightness(0) invert(1);
+    }
+
+    /* Desktop nav */
+    .desktop-nav{display:none}
+    .desktop-nav ul{
+      list-style:none;
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+    .desktop-nav a{
+      color:#fff;
+      font-weight:600;
+      font-size:14px;
+      padding:10px 12px;
+      border-radius:10px;
+      opacity:.95;
+      transition:all .2s ease;
+    }
+    .desktop-nav a:hover{opacity:1}
+    .desktop-nav a.active{
+      background:rgba(248,193,46,.18);
+      color:var(--gold);
+      box-shadow:inset 0 0 0 1px rgba(248,193,46,.25);
+    }
+
+    /* Right actions (MATCH HOMEPAGE) */
+    .nav-actions{
+      display:none;
+      align-items:center;
+      gap:10px;
+      min-width:200px;
+      justify-content:flex-end;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      height:40px;
+      padding:0 14px;
+      border-radius:10px;
+      font-weight:700;
+      font-size:13px;
+      cursor:pointer;
+      transition:transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease, border-color .15s ease;
+      user-select:none;
+      white-space:nowrap;
+      border: none;
+    }
+    .btn:active{transform:scale(.98)}
+    .btn-outline{
+      color:#fff;
+      background:transparent;
+      border:1px solid rgba(255,255,255,.35);
+    }
+    .btn-outline:hover{
+      border-color:rgba(255,255,255,.6);
+      box-shadow:0 10px 18px rgba(0,0,0,.12);
+    }
+    .btn-gold{
+      background:var(--gold);
+      color:#0a2456;
+      border:1px solid rgba(0,0,0,0);
+      box-shadow:0 10px 20px rgba(248,193,46,.25);
+    }
+    .btn-gold:hover{
+      background:var(--gold-2);
+      box-shadow:0 14px 26px rgba(248,193,46,.28);
+      transform:translateY(-1px);
+    }
+
+    /* Mobile */
+    .menu-icon{
+      width:44px;height:44px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size:20px;
+      border-radius:10px;
+      cursor:pointer;
+      user-select: none;
+    }
+    .menu-icon:hover{background:rgba(255,255,255,.08)}
+
+    .mobile-nav{
+      display:none;
+      position:fixed;
+      top:70px;left:0;right:0;
+      background:#123a7a;
+      border-top:1px solid rgba(255,255,255,.12);
+      z-index:999;
+      max-height:calc(100vh - 70px);
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+    }
+    .mobile-nav.active{display:block}
+    .mobile-nav .m-wrap{
+      padding:14px 16px 18px;
+      max-width:var(--max);
+      margin:0 auto;
+    }
+    .mobile-nav a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      color:#fff;
+      font-weight:600;
+      padding:12px 12px;
+      border-radius:12px;
+      opacity:.95;
+    }
+    .mobile-nav a.active{
+      background:rgba(248,193,46,.18);
+      color:var(--gold);
+      box-shadow:inset 0 0 0 1px rgba(248,193,46,.25);
+    }
+    .mobile-actions{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      margin-top:12px;
+    }
+    .mobile-actions .btn{width:100%}
+
+    /* =======================
+       CV BUILDER LAYOUT
+       ======================= */
+    .page-container{
+      max-width: 1400px;
+      margin: 92px auto 40px; /* 70px navbar + spacing */
+      padding: 20px;
+    }
+
+    .page-header{
+      text-align:center;
+      margin-bottom: 22px;
+      padding: 22px 18px;
+      background: var(--card-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-light);
+      border: 1px solid rgba(10,42,102,0.06);
+    }
+    .page-title{
+      font-family:'Playfair Display', serif;
+      font-size: 1.85rem;
+      color: var(--deep-blue);
+      margin-bottom: 6px;
+      line-height: 1.15;
+    }
+    .page-subtitle{
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 740px;
+      margin: 0 auto 20px;
+    }
+
+    .progress-steps{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .step{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      min-width: 78px;
+      position: relative;
+    }
+    .step-number{
+      width: 36px;height:36px;border-radius:50%;
+      background: var(--border-light);
+      color: var(--text-muted);
+      display:flex;align-items:center;justify-content:center;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 6px;
+      transition: all .2s ease;
+    }
+    .step-name{
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .step.active .step-number{
+      background: var(--gold);
+      color: #0a2456;
+      box-shadow: 0 10px 18px rgba(248,193,46,.25);
+      transform: translateY(-1px);
+    }
+    .step.completed .step-number{
+      background: var(--success-green);
+      color: #fff;
+    }
+    .step.active .step-name{
+      color: #0a2456;
+    }
+
+    .content-wrapper{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .form-container,
+    .preview-container{
+      background: var(--card-white);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow-medium);
+      border: 1px solid rgba(10,42,102,0.06);
+    }
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--gold);
+    }
+    .section-title i{ color: var(--gold); font-size: 18px; }
+    .section-title h2{
+      font-family:'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--deep-blue);
+    }
+
+    .form-group{ margin-bottom: 16px; }
+    .form-group label{
+      display:block;
+      margin-bottom: 6px;
+      font-weight: 700;
+      color: var(--deep-blue);
+      font-size: 13px;
+    }
+    .form-group label.required:after{ content:" *"; color:#ef4444; }
+
+    .form-control{
+      width:100%;
+      padding: 12px 14px;
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      color: var(--text-dark);
+      background: #fff;
+      transition: all .2s ease;
+      font-family:'Poppins', sans-serif;
+    }
+    .form-control:focus{
+      outline:none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(248,193,46,.12);
+    }
+    textarea.form-control{ min-height: 110px; resize: vertical; }
+
+    .form-row{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .dynamic-section{
+      background:#f8fafc;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      margin-bottom: 14px;
+      border-left: 4px solid var(--gold);
+    }
+
+    .skills-container{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .skill-tag{
+      display:inline-flex;
+      align-items:center;
+      background: rgba(10,42,102,.06);
+      border: 1px solid rgba(10,42,102,.10);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #0a2456;
+    }
+    .remove-skill{
+      margin-left: 8px;
+      cursor:pointer;
+      color: var(--muted);
+      font-weight: 800;
+    }
+    .remove-skill:hover{ color:#ef4444; }
+
+    .btn-ui{
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-weight: 800;
+      font-size: 13px;
+      cursor:pointer;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+      border: none;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      user-select:none;
+      white-space:nowrap;
+      font-family:'Poppins', sans-serif;
+    }
+    .btn-ui:active{ transform: scale(.98); }
+
+    .btn-primary-ui{
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-2) 100%);
+      color:#0a2456;
+      box-shadow: 0 10px 18px rgba(248,193,46,.18);
+    }
+    .btn-primary-ui:hover{
+      box-shadow: 0 14px 26px rgba(248,193,46,.24);
+      transform: translateY(-1px);
+    }
+    .btn-secondary-ui{
+      background:#fff;
+      color:#0a2456;
+      border: 2px solid var(--border-light);
+    }
+    .btn-secondary-ui:hover{
+      border-color: var(--gold);
+      box-shadow: 0 10px 18px rgba(10,42,102,.10);
+      transform: translateY(-1px);
+    }
+    .btn-danger-ui{
+      background: transparent;
+      color: #ef4444;
+      border: 2px solid #fecaca;
+      padding: 8px 12px;
+    }
+    .btn-danger-ui:hover{
+      background:#fef2f2;
+      transform: translateY(-1px);
+    }
+
+    .action-buttons{
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(10,42,102,.10);
+    }
+    .btn-large{
+      width:100%;
+      justify-content:center;
+      height: 44px;
+      font-size: 14px;
+      border-radius: 10px;
+    }
+    .btn-success-ui{
+      background: linear-gradient(135deg, var(--success-green) 0%, #34d399 100%);
+      color:#fff;
+      box-shadow: 0 12px 22px rgba(16,185,129,.18);
+    }
+    .btn-success-ui:hover{
+      box-shadow: 0 16px 28px rgba(16,185,129,.22);
+      transform: translateY(-1px);
+    }
+
+    /* Preview */
+    .preview-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--gold);
+    }
+    .preview-title{
+      font-family:'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--deep-blue);
+      margin-bottom: 4px;
+    }
+    .preview-subtitle{ color: var(--text-muted); font-size: 13px; }
+
+    .cv-preview{
+      background:#fff;
+      border-radius: var(--radius-md);
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    .cv-header{
+      background:#0a2a66;
+      padding: 18px;
+      color:#fff;
+    }
+    .cv-header-content{
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+      align-items:flex-start;
+      justify-content:space-between;
+    }
+    .cv-name{
+      font-family:'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .cv-title{
+      font-size: 15px;
+      opacity: .92;
+      margin-bottom: 10px;
+      font-style: italic;
+      font-weight: 600;
+    }
+    .cv-contact{
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+      font-size: 13px;
+      opacity: .92;
+    }
+    .cv-contact-item{ display:flex; align-items:center; gap: 8px; }
+    .cv-contact-item i{ color: var(--gold); width: 16px; text-align:center; }
+
+    .cv-logo{
+      height: 30px;
+      width:auto;
+      filter: brightness(0) invert(1);
+      opacity: .98;
+    }
+
+    .cv-single-column{ padding: 18px; }
+    .cv-section-title{
+      font-size: 13px;
+      color:#0a2a66;
+      border-bottom:1px solid #0a2a66;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+      font-weight: 900;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
+    .cv-responsibilities,
+    .cv-skills-list{ list-style:none; padding:0; }
+    .cv-responsibilities li,
+    .cv-skills-list li{
+      padding-left: 14px;
+      position: relative;
+      margin-bottom: 6px;
+      font-size: 13px;
+      line-height: 1.55;
+      color:#1f2937;
+    }
+    .cv-responsibilities li:before,
+    .cv-skills-list li:before{
+      content:"•";
+      position:absolute;
+      left:0;
+      color:#0a2a66;
+      font-weight: 900;
+    }
+    .cv-experience-item{ margin-bottom: 16px; }
+    .cv-job-title{ font-weight: 800; font-size: 14px; margin-bottom: 3px; }
+    .cv-company{ font-style: italic; color: var(--text-muted); font-size: 13px; margin-bottom: 3px; }
+    .cv-date{ color:#0a2a66; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+    .cv-education-item{ margin-bottom: 14px; }
+    .cv-education-degree{ font-weight: 800; font-size: 14px; margin-bottom: 3px; }
+    .cv-education-institution{ font-style: italic; color: var(--text-muted); font-size: 13px; margin-bottom: 3px; }
+    .cv-education-year{ color:#0a2a66; font-size: 12px; font-weight: 800; margin-bottom: 6px; }
+    .cv-references{ font-style: italic; color: var(--text-muted); font-size: 13px; }
+
+    /* Mobile preview toggle */
+    .mobile-preview-toggle{
+      display:flex;
+      background:#123a7a;
+      color:#fff;
+      border:none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor:pointer;
+      margin: 16px auto 0;
+      width:100%;
+      max-width: 320px;
+      justify-content:center;
+      gap: 10px;
+      font-size: 14px;
+      box-shadow: 0 10px 18px rgba(10,42,102,.16);
+    }
+    .mobile-preview-toggle:hover{ transform: translateY(-1px); }
+
+    /* Modal */
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.55);
+      z-index: 10000;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      backdrop-filter: blur(6px);
+    }
+    .modal-content{
+      background:#fff;
+      width:100%;
+      max-width: 520px;
+      border-radius: 16px;
+      padding: 22px 18px;
+      text-align:center;
+      box-shadow: var(--shadow-heavy);
+      border: 1px solid rgba(0,0,0,.08);
+    }
+    .modal-icon{
+      font-size: 46px;
+      color: var(--success-green);
+      margin-bottom: 12px;
+    }
+    .modal h2{
+      font-family:'Playfair Display', serif;
+      color:#0a2456;
+      font-size: 1.45rem;
+      margin-bottom: 8px;
+    }
+    .modal p{ color: var(--text-muted); font-size: 14px; margin-bottom: 18px; }
+    .modal-actions{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+
+    /* Spinner */
+    .spinner{
+      display:none;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid var(--gold);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 18px auto;
+    }
+    @keyframes spin{ to{ transform: rotate(360deg); } }
+
+    /* Utility */
+    .mt-20{ margin-top: 20px; }
+    .mb-20{ margin-bottom: 20px; }
+
+    /* Responsive */
+    @media (min-width: 768px){
+      .form-row{ grid-template-columns: 1fr 1fr; }
+      .content-wrapper{ grid-template-columns: 1fr 1fr; }
+      .preview-container{
+        position: sticky;
+        top: 90px;
+        height: fit-content;
+        max-height: calc(100vh - 120px);
+        overflow:auto;
+      }
+      .mobile-preview-toggle{ display:none; }
+      .cv-header-content{ flex-direction: row; align-items:flex-start; }
+      .cv-contact{ flex-direction: row; flex-wrap: wrap; gap: 18px; }
+      .action-buttons{ flex-direction: row; }
+      .btn-large{ width:auto; min-width: 220px; }
+      .modal-actions{ flex-direction: row; justify-content:center; }
+      .modal-actions .btn-ui{ width:auto; min-width: 190px; }
+      .mobile-actions{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 900px){
+      .desktop-nav{display:block}
+      .nav-actions{display:flex}
+      .menu-icon{display:none}
+      .mobile-nav{display:none !important}
+    }
+
+    /* FOOTER (COPY FROM ABOUT) */
+    .site-footer{
+      background:#001a3d;
+      color:#fff;
+      padding:46px 16px 18px;
+      margin-top: 34px;
+    }
+    .footer-wrap{
+      max-width:var(--max);
+      margin:0 auto;
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:24px;
+      padding-bottom:22px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .f-col h3{
+      color:#f5c542;
+      font-size:1.1rem;
+      margin-bottom:10px;
+    }
+    .f-col p, .f-col a{
+      color:rgba(255,255,255,.82);
+      font-size:.95rem;
+      line-height:1.6;
+    }
+    .f-links a{
+      display:block;
+      margin:8px 0;
+      transition:color .2s ease;
+      font-weight: 600;
+    }
+    .f-links a:hover{color:#f5c542}
+    .f-social{
+      display:flex;
+      gap:10px;
+      margin-top:12px;
+    }
+    .f-social a{
+      width:36px;height:36px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:10px;
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      transition:transform .15s ease, background .15s ease, color .15s ease;
+    }
+    .f-social a:hover{
+      background:#f5c542;
+      color:#0a2456;
+      transform:translateY(-2px);
+    }
+    .footer-bottom{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:space-between;
+      padding-top:16px;
+      font-size:.9rem;
+      color:rgba(255,255,255,.72);
+    }
+    .legal{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .legal a{
+      color:rgba(255,255,255,.72);
+      transition:color .2s ease;
+      font-weight:700;
+    }
+    .legal a:hover{color:#f5c542}
+
+    @media (min-width: 768px){
+      .footer-grid{grid-template-columns:1.2fr 1fr 1fr}
+      .footer-bottom{flex-direction:row;align-items:center}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR (EXACT COPY FROM ABOUT; only active link changes) -->
+  <header>
+    <div class="nav-wrap">
+      <a class="brand" href="job_assist.html" aria-label="Job Assist Ghana Home">
+        <img src="logo.png" alt="Job Assist Ghana Logo">
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary">
+        <ul>
+          <li><a href="job_assist.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="build-cv.html" class="active">Build a CV</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="btn btn-gold" href="login.html">Get Started</a>
+      </div>
+
+      <div class="menu-icon" onclick="toggleMenu()" aria-label="Open menu" role="button" tabindex="0">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+    <div class="m-wrap">
+      <a href="job_assist.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="build-cv.html" class="active">Build a CV</a>
+
+      <div class="mobile-actions">
+        <a class="btn btn-gold" href="login.html">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="page-container">
+
+    <div class="page-header">
+      <h1 class="page-title">Build Your Professional CV</h1>
+      <p class="page-subtitle">Create an impressive CV in minutes that helps you stand out to employers.</p>
+
+      <div class="progress-steps">
+        <div class="step active"><div class="step-number">1</div><span class="step-name">Personal</span></div>
+        <div class="step"><div class="step-number">2</div><span class="step-name">Experience</span></div>
+        <div class="step"><div class="step-number">3</div><span class="step-name">Education</span></div>
+        <div class="step"><div class="step-number">4</div><span class="step-name">Skills</span></div>
+        <div class="step"><div class="step-number">5</div><span class="step-name">Finalize</span></div>
+      </div>
+    </div>
+
+    <div class="content-wrapper">
+      <!-- FORM -->
+      <div class="form-container">
+        <form id="cvForm">
+
+          <!-- PERSONAL INFO -->
+          <div class="section-title">
+            <i class="fas fa-user"></i>
+            <h2>Personal Information</h2>
+          </div>
+
+          <div class="form-group">
+            <label class="required">Full Name</label>
+            <input id="fullName" class="form-control" placeholder="Your full name">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="required">Email</label>
+              <input id="email" class="form-control" placeholder="email@example.com">
+            </div>
+            <div class="form-group">
+              <label class="required">Phone</label>
+              <input id="phone" class="form-control" placeholder="024 000 0000">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Address</label>
+            <input id="address" class="form-control" placeholder="Accra, Ghana">
+          </div>
+
+          <div class="form-group">
+            <label>Professional Title</label>
+            <input id="professionalTitle" class="form-control" placeholder="Software Developer">
+          </div>
+
+          <div class="form-group">
+            <label>Professional Summary</label>
+            <textarea id="summary" class="form-control" placeholder="Write a short summary about your experience and strengths"></textarea>
+          </div>
+
+          <!-- EXPERIENCE -->
+          <div class="section-title mt-20">
+            <i class="fas fa-briefcase"></i>
+            <h2>Work Experience</h2>
+          </div>
+
+          <div id="experienceContainer">
+            <div class="dynamic-section">
+              <input id="jobTitle1" class="form-control mb-20" placeholder="Job Title">
+              <input id="company1" class="form-control mb-20" placeholder="Company">
+
+              <div class="form-row">
+                <input type="month" id="startDate1" class="form-control">
+                <input type="month" id="endDate1" class="form-control">
+              </div>
+
+              <textarea id="description1" class="form-control mt-20" placeholder="Responsibilities (one per line)"></textarea>
+
+              <button type="button" class="btn-ui btn-danger-ui remove-experience-btn mt-20">Remove</button>
+            </div>
+          </div>
+
+          <button type="button" class="btn-ui btn-secondary-ui" id="addExperience">
+            <i class="fa-solid fa-plus"></i> Add Experience
+          </button>
+
+          <!-- EDUCATION -->
+          <div class="section-title mt-20">
+            <i class="fas fa-graduation-cap"></i>
+            <h2>Education</h2>
+          </div>
+
+          <div id="educationContainer">
+            <div class="dynamic-section">
+              <input id="degree1" class="form-control mb-20" placeholder="Degree">
+              <input id="institution1" class="form-control mb-20" placeholder="Institution">
+
+              <div class="form-row">
+                <input id="eduStartDate1" class="form-control" placeholder="Start Year">
+                <input id="eduEndDate1" class="form-control" placeholder="End Year">
+              </div>
+
+              <textarea id="achievements1" class="form-control mt-20" placeholder="Achievements"></textarea>
+
+              <button type="button" class="btn-ui btn-danger-ui remove-education-btn mt-20">Remove</button>
+            </div>
+          </div>
+
+          <button type="button" class="btn-ui btn-secondary-ui" id="addEducation">
+            <i class="fa-solid fa-plus"></i> Add Education
+          </button>
+
+          <!-- SKILLS -->
+          <div class="section-title mt-20">
+            <i class="fas fa-star"></i>
+            <h2>Skills</h2>
+          </div>
+
+          <input id="skillInput" class="form-control" placeholder="Type a skill and press Enter">
+          <div id="skillsList" class="skills-container"></div>
+
+          <!-- ACTIONS -->
+          <div class="action-buttons">
+            <button type="button" class="btn-ui btn-success-ui btn-large" id="downloadBtn">
+              <i class="fa-solid fa-file-arrow-down"></i> Download CV (PDF)
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- PREVIEW -->
+      <div class="preview-container" id="previewContainer">
+        <div class="preview-header">
+          <div>
+            <h3 class="preview-title">CV Preview</h3>
+            <p class="preview-subtitle">Live preview updates as you type</p>
+          </div>
+          <img src="logo.png" alt="Job Assist Ghana" style="height:24px;width:auto;opacity:.85">
+        </div>
+
+        <div class="cv-preview" id="cvPreview">
+          <div class="cv-header">
+            <div class="cv-header-content">
+              <div class="cv-name-info">
+                <h1 class="cv-name" id="previewName">Your Name</h1>
+                <p class="cv-title" id="previewTitle">Professional Title</p>
+
+                <div class="cv-contact">
+                  <div class="cv-contact-item" id="previewEmail">
+                    <i class="fas fa-envelope"></i><span>your.email@example.com</span>
+                  </div>
+                  <div class="cv-contact-item" id="previewPhone">
+                    <i class="fas fa-phone"></i><span>024 000 0000</span>
+                  </div>
+                  <div class="cv-contact-item" id="previewAddress">
+                    <i class="fas fa-map-marker-alt"></i><span>Accra, Ghana</span>
+                  </div>
+                </div>
+              </div>
+
+              <img src="logo.png" alt="Job Assist Ghana" class="cv-logo">
+            </div>
+          </div>
+
+          <div class="cv-single-column">
+            <div class="cv-right-section">
+              <h3 class="cv-section-title">Professional Summary</h3>
+              <p id="previewSummary">A dedicated professional with strong skills and experience.</p>
+            </div>
+
+            <div class="cv-right-section">
+              <h3 class="cv-section-title">Work Experience</h3>
+              <div id="previewExperience"></div>
+            </div>
+
+            <div class="cv-right-section">
+              <h3 class="cv-section-title">Education</h3>
+              <div id="previewEducation"></div>
+            </div>
+
+            <div class="cv-right-section">
+              <h3 class="cv-section-title">Skills</h3>
+              <ul class="cv-skills-list" id="previewSkills"></ul>
+            </div>
+
+            <div class="cv-right-section">
+              <h3 class="cv-section-title">References</h3>
+              <p class="cv-references">Available upon request.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /content-wrapper -->
+
+    <!-- Mobile Preview Toggle -->
+    <button class="mobile-preview-toggle" id="mobilePreviewToggle">
+      <i class="fas fa-eye"></i> Preview CV
+    </button>
+
+  </main>
+
+  <!-- Success Modal -->
+  <div class="modal" id="successModal">
+    <div class="modal-content">
+      <div class="modal-icon"><i class="fas fa-check-circle"></i></div>
+      <h2>CV Ready!</h2>
+      <p>Your CV has been generated and is ready to download.</p>
+      <div class="modal-actions">
+        <button class="btn-ui btn-secondary-ui" id="closeModalBtn">Continue Editing</button>
+        <button class="btn-ui btn-success-ui" id="downloadPdfBtn">
+          <i class="fas fa-download"></i> Download PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div class="spinner" id="loadingSpinner"></div>
+
+  <!-- FOOTER (EXACT COPY FROM ABOUT) -->
+  <footer class="site-footer">
+    <div class="footer-wrap">
+      <div class="footer-grid">
+        <div class="f-col">
+          <h3>Job Assist Ghana</h3>
+          <p>Connecting talented Ghanaians with credible employers. Built for mobile, built for speed, built for real outcomes.</p>
+          <div class="f-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+
+        <div class="f-col">
+          <h3>Quick Links</h3>
+          <div class="f-links">
+            <a href="job_assist.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="build-cv.html">Build a CV</a>
+            <a href="login.html">Get Started</a>
+          </div>
+        </div>
+
+        <div class="f-col">
+          <h3>Contact</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Osu, Accra, Ghana</p>
+          <p><i class="fas fa-phone"></i> +233 (0) 59-477-2550</p>
+          <p><i class="fas fa-envelope"></i> info@jobassistgh.com</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="copy">© 2026 Job Assist Ghana. All rights reserved.</div>
+        <div class="legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+    // =========================
+    // INIT
+    // =========================
+    if (window.AOS) AOS.init({ duration: 800, once: true, offset: 50 });
+
+    // =========================
+    // MOBILE NAV TOGGLE (same behavior)
+    // =========================
+    function toggleMenu() {
+      const mobileNav = document.getElementById('mobile-nav');
+      mobileNav.classList.toggle('active');
+
+      const icon = document.querySelector('.menu-icon i');
+      if (icon) {
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+      }
+    }
+
+    // Close when clicking outside
+    document.addEventListener('click', function(event) {
+      const mobileNav = document.getElementById('mobile-nav');
+      const menuIcon = document.querySelector('.menu-icon');
+
+      if (!menuIcon || !mobileNav) return;
+      if (!menuIcon.contains(event.target) && !mobileNav.contains(event.target)) {
+        mobileNav.classList.remove('active');
+        const icon = document.querySelector('.menu-icon i');
+        if (icon) { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }
+      }
+    });
+
+    // Close after clicking menu link
+    document.querySelectorAll('#mobile-nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobile-nav').classList.remove('active');
+        const icon = document.querySelector('.menu-icon i');
+        if (icon) { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }
+      });
+    });
+
+    // =========================
+    // MOBILE PREVIEW TOGGLE
+    // =========================
+    const mobilePreviewToggle = document.getElementById('mobilePreviewToggle');
+    mobilePreviewToggle.addEventListener('click', () => {
+      const previewContainer = document.getElementById('previewContainer');
+      const isOpen = previewContainer.classList.toggle('active');
+      mobilePreviewToggle.innerHTML = isOpen
+        ? '<i class="fas fa-eye-slash"></i> Hide Preview'
+        : '<i class="fas fa-eye"></i> Preview CV';
+
+      if (isOpen) previewContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // =========================
+    // HELPERS
+    // =========================
+    function getInputByIdPrefix(section, prefix) {
+      return section.querySelector(`input[id^="${prefix}"]`);
+    }
+    function getTextareaByIdPrefix(section, prefix) {
+      return section.querySelector(`textarea[id^="${prefix}"]`);
+    }
+    function escapeHtml(str) {
+      return (str || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    // =========================
+    // SKILLS
+    // =========================
+    let skills = [];
+    const skillInput = document.getElementById('skillInput');
+    const skillsList = document.getElementById('skillsList');
+
+    function renderSkillsTags() {
+      skillsList.innerHTML = '';
+      skills.forEach((skill) => {
+        const tag = document.createElement('div');
+        tag.className = 'skill-tag';
+        tag.innerHTML = `${escapeHtml(skill)} <span class="remove-skill" data-s="${encodeURIComponent(skill)}">×</span>`;
+        skillsList.appendChild(tag);
+      });
+
+      skillsList.querySelectorAll('.remove-skill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const s = decodeURIComponent(btn.getAttribute('data-s'));
+          skills = skills.filter(x => x !== s);
+          renderSkillsTags();
+          updatePreview();
+          updateProgressSteps();
+        });
+      });
+    }
+
+    function addSkillFromInput() {
+      const value = (skillInput.value || '').trim();
+      if (!value) return;
+      if (!skills.includes(value)) skills.push(value);
+      skillInput.value = '';
+      renderSkillsTags();
+      updatePreview();
+      updateProgressSteps();
+    }
+
+    skillInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        addSkillFromInput();
+      }
+    });
+
+    // =========================
+    // DYNAMIC SECTIONS
+    // =========================
+    let experienceCount = 1;
+    let educationCount = 1;
+
+    function attachSectionListeners(section) {
+      section.querySelectorAll('input, textarea').forEach(el => {
+        el.addEventListener('input', () => {
+          updatePreview();
+          updateProgressSteps();
+        });
+      });
+
+      const removeBtn = section.querySelector('.remove-experience-btn, .remove-education-btn');
+      if (removeBtn) {
+        removeBtn.addEventListener('click', () => {
+          section.remove();
+          updatePreview();
+          updateProgressSteps();
+        });
+      }
+    }
+
+    document.getElementById('addExperience').addEventListener('click', () => {
+      experienceCount++;
+      const container = document.getElementById('experienceContainer');
+
+      const block = document.createElement('div');
+      block.className = 'dynamic-section';
+      block.innerHTML = `
+        <input id="jobTitle${experienceCount}" class="form-control mb-20" placeholder="Job Title">
+        <input id="company${experienceCount}" class="form-control mb-20" placeholder="Company">
+
+        <div class="form-row">
+          <input type="month" id="startDate${experienceCount}" class="form-control">
+          <input type="month" id="endDate${experienceCount}" class="form-control">
+        </div>
+
+        <textarea id="description${experienceCount}" class="form-control mt-20" placeholder="Responsibilities (one per line)"></textarea>
+
+        <button type="button" class="btn-ui btn-danger-ui remove-experience-btn mt-20">Remove</button>
+      `;
+      container.appendChild(block);
+      attachSectionListeners(block);
+      updatePreview();
+      updateProgressSteps();
+    });
+
+    document.getElementById('addEducation').addEventListener('click', () => {
+      educationCount++;
+      const container = document.getElementById('educationContainer');
+
+      const block = document.createElement('div');
+      block.className = 'dynamic-section';
+      block.innerHTML = `
+        <input id="degree${educationCount}" class="form-control mb-20" placeholder="Degree">
+        <input id="institution${educationCount}" class="form-control mb-20" placeholder="Institution">
+
+        <div class="form-row">
+          <input id="eduStartDate${educationCount}" class="form-control" placeholder="Start Year">
+          <input id="eduEndDate${educationCount}" class="form-control" placeholder="End Year">
+        </div>
+
+        <textarea id="achievements${educationCount}" class="form-control mt-20" placeholder="Achievements"></textarea>
+
+        <button type="button" class="btn-ui btn-danger-ui remove-education-btn mt-20">Remove</button>
+      `;
+      container.appendChild(block);
+      attachSectionListeners(block);
+      updatePreview();
+      updateProgressSteps();
+    });
+
+    // =========================
+    // DATE FORMATTERS
+    // =========================
+    function formatMonth(dateString) {
+      if (!dateString) return '';
+      const [year, month] = dateString.split('-');
+      const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const m = monthNames[(parseInt(month, 10) - 1)] || '';
+      return `${m} ${year}`;
+    }
+
+    function formatDateRange(startDate, endDate) {
+      if (!startDate && !endDate) return '';
+      const start = formatMonth(startDate);
+      if (start && endDate) return `${start} - ${formatMonth(endDate)}`;
+      if (start && !endDate) return `${start} - Present`;
+      return start;
+    }
+
+    function formatYearRange(startYear, endYear) {
+      if (!startYear && !endYear) return '';
+      if (startYear && endYear) return `${startYear} - ${endYear}`;
+      if (startYear && !endYear) return `${startYear} - Present`;
+      return startYear;
+    }
+
+    // =========================
+    // PREVIEW RENDERING
+    // =========================
+    function updatePreview() {
+      const fullName = document.getElementById('fullName').value.trim() || 'Your Name';
+      const title = document.getElementById('professionalTitle').value.trim() || 'Professional Title';
+      const email = document.getElementById('email').value.trim() || 'your.email@example.com';
+      const phone = document.getElementById('phone').value.trim() || '024 000 0000';
+      const address = document.getElementById('address').value.trim() || 'Accra, Ghana';
+      const summary = document.getElementById('summary').value.trim() || 'A dedicated professional with strong skills and experience.';
+
+      document.getElementById('previewName').textContent = fullName;
+      document.getElementById('previewTitle').textContent = title;
+      document.getElementById('previewEmail').querySelector('span').textContent = email;
+      document.getElementById('previewPhone').querySelector('span').textContent = phone;
+      document.getElementById('previewAddress').querySelector('span').textContent = address;
+      document.getElementById('previewSummary').textContent = summary;
+
+      // Skills
+      const previewSkills = document.getElementById('previewSkills');
+      previewSkills.innerHTML = '';
+      if (skills.length === 0) {
+        previewSkills.innerHTML = '<li>Add your skills here</li>';
+      } else {
+        skills.forEach(s => {
+          const li = document.createElement('li');
+          li.textContent = s;
+          previewSkills.appendChild(li);
+        });
+      }
+
+      // Education
+      const eduWrap = document.getElementById('previewEducation');
+      eduWrap.innerHTML = '';
+      const eduSections = document.querySelectorAll('#educationContainer .dynamic-section');
+      let eduAdded = 0;
+
+      eduSections.forEach(section => {
+        const degree = (getInputByIdPrefix(section, 'degree')?.value || '').trim();
+        const institution = (getInputByIdPrefix(section, 'institution')?.value || '').trim();
+        const startYear = (getInputByIdPrefix(section, 'eduStartDate')?.value || '').trim();
+        const endYear = (getInputByIdPrefix(section, 'eduEndDate')?.value || '').trim();
+
+        if (!degree && !institution) return;
+
+        eduAdded++;
+        const div = document.createElement('div');
+        div.className = 'cv-education-item';
+        div.innerHTML = `
+          <div class="cv-education-degree">${escapeHtml(degree)}</div>
+          <div class="cv-education-institution">${escapeHtml(institution)}</div>
+          <div class="cv-education-year">${escapeHtml(formatYearRange(startYear, endYear))}</div>
+        `;
+        eduWrap.appendChild(div);
+      });
+
+      if (eduAdded === 0) {
+        eduWrap.innerHTML = `
+          <div class="cv-education-item">
+            <div class="cv-education-degree">Add your degree</div>
+            <div class="cv-education-institution">University/College name</div>
+            <div class="cv-education-year">Start Year - End Year</div>
+          </div>
+        `;
+      }
+
+      // Experience
+      const expWrap = document.getElementById('previewExperience');
+      expWrap.innerHTML = '';
+      const expSections = document.querySelectorAll('#experienceContainer .dynamic-section');
+      let expAdded = 0;
+
+      expSections.forEach(section => {
+        const jobTitle = (getInputByIdPrefix(section, 'jobTitle')?.value || '').trim();
+        const company = (getInputByIdPrefix(section, 'company')?.value || '').trim();
+        const startDate = (getInputByIdPrefix(section, 'startDate')?.value || '').trim();
+        const endDate = (getInputByIdPrefix(section, 'endDate')?.value || '').trim();
+        const desc = (getTextareaByIdPrefix(section, 'description')?.value || '').trim();
+
+        if (!jobTitle && !company) return;
+
+        expAdded++;
+        const dateRange = formatDateRange(startDate, endDate);
+        const bullets = desc ? desc.split('\\n').map(x => x.trim()).filter(Boolean) : [];
+
+        const div = document.createElement('div');
+        div.className = 'cv-experience-item';
+        div.innerHTML = `
+          <div class="cv-job-title">${escapeHtml(jobTitle)}</div>
+          <div class="cv-company">${escapeHtml(company)}</div>
+          ${dateRange ? `<div class="cv-date">${escapeHtml(dateRange)}</div>` : ''}
+          ${bullets.length ? `<ul class="cv-responsibilities">${bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('')}</ul>` : ''}
+        `;
+        expWrap.appendChild(div);
+      });
+
+      if (expAdded === 0) {
+        expWrap.innerHTML = `
+          <div class="cv-experience-item">
+            <div class="cv-job-title">Add your job title</div>
+            <div class="cv-company">Company name</div>
+            <div class="cv-date">Start Date - End Date</div>
+            <ul class="cv-responsibilities">
+              <li>Describe your responsibilities</li>
+            </ul>
+          </div>
+        `;
+      }
+    }
+
+    // =========================
+    // PROGRESS STEPS
+    // =========================
+    function getFormData() {
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      let hasExperience = false;
+      document.querySelectorAll('#experienceContainer .dynamic-section').forEach(section => {
+        const jobTitle = (getInputByIdPrefix(section, 'jobTitle')?.value || '').trim();
+        const company = (getInputByIdPrefix(section, 'company')?.value || '').trim();
+        if (jobTitle || company) hasExperience = true;
+      });
+
+      let hasEducation = false;
+      document.querySelectorAll('#educationContainer .dynamic-section').forEach(section => {
+        const degree = (getInputByIdPrefix(section, 'degree')?.value || '').trim();
+        const inst = (getInputByIdPrefix(section, 'institution')?.value || '').trim();
+        if (degree || inst) hasEducation = true;
+      });
+
+      const hasSkills = skills.length > 0;
+
+      return {
+        personalInfoComplete: !!(fullName && email && phone),
+        experienceComplete: hasExperience,
+        educationComplete: hasEducation,
+        skillsComplete: hasSkills,
+        allComplete: !!(fullName && email && phone && hasExperience && hasEducation && hasSkills)
+      };
+    }
+
+    function updateProgressSteps() {
+      const steps = document.querySelectorAll('.step');
+      const formData = getFormData();
+
+      let activeStep = 0;
+      if (formData.personalInfoComplete) activeStep = 1;
+      if (formData.personalInfoComplete && formData.experienceComplete) activeStep = 2;
+      if (formData.personalInfoComplete && formData.experienceComplete && formData.educationComplete) activeStep = 3;
+      if (formData.personalInfoComplete && formData.experienceComplete && formData.educationComplete && formData.skillsComplete) activeStep = 4;
+      if (formData.allComplete) activeStep = 5;
+
+      steps.forEach((step, index) => {
+        step.classList.remove('active', 'completed');
+        if (index === activeStep - 1) step.classList.add('active');
+        if (index < activeStep - 1) step.classList.add('completed');
+      });
+    }
+
+    // =========================
+    // PDF HELPERS (LOGO + SPACING IMPROVEMENTS)
+    // =========================
+    async function loadImageDataURL(url) {
+      // Loads local image (e.g., logo.png) into a DataURL jsPDF can use.
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) throw new Error('Failed to load image: ' + url);
+      const blob = await res.blob();
+      return await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    }
+
+    // =========================
+    // PDF GENERATION
+    // =========================
+    async function generatePDF() {
+      const spinner = document.getElementById('loadingSpinner');
+      spinner.style.display = 'block';
+
+      try {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const margin = 15;
+        const contentWidth = pageWidth - (2 * margin);
+
+        const headerBlue = [10, 42, 102];
+        const accentGold = [248, 193, 46];
+        const darkText = [31, 41, 55];
+        const mutedText = [107, 114, 128];
+
+        function checkPageHeight(y, needed = 18) {
+          if (y + needed > pageHeight - margin) {
+            doc.addPage();
+            return margin;
+          }
+          return y;
+        }
+
+        function addWrapped(text, x, y, maxW, size = 12, style = 'normal', color = darkText, lineFactor = 0.40) {
+          doc.setFont('helvetica', style);
+          doc.setFontSize(size);
+          doc.setTextColor(...color);
+          const lines = doc.splitTextToSize(text, maxW);
+          doc.text(lines, x, y);
+          return y + (lines.length * (size * lineFactor));
+        }
+
+        // Data
+        const fullName = document.getElementById('fullName').value.trim() || 'Your Name';
+        const title = document.getElementById('professionalTitle').value.trim() || 'Professional Title';
+        const email = document.getElementById('email').value.trim() || 'your.email@example.com';
+        const phone = document.getElementById('phone').value.trim() || '024 000 0000';
+        const address = document.getElementById('address').value.trim() || 'Accra, Ghana';
+
+        // Load logo for PDF (logo.png in same folder)
+        let logoDataUrl = null;
+        try {
+          logoDataUrl = await loadImageDataURL('logo.png');
+        } catch (e) {
+          // If logo fails to load, continue without it (no crash)
+          console.warn(e);
+        }
+
+        // HEADER BAR
+        const headerH = 45;
+        doc.setFillColor(...headerBlue);
+        doc.rect(0, 0, pageWidth, headerH, 'F');
+
+        // Logo on far right (same line as name)
+        // We'll reserve space for the logo so the name doesn't overlap.
+        const logoW = 26;  // mm
+        const logoH = 10;  // mm
+        const logoX = pageWidth - margin - logoW;
+        const logoY = 10;  // top padding inside header
+
+        if (logoDataUrl) {
+          // Try PNG; if it errors, jsPDF usually accepts it as PNG dataURL.
+          doc.addImage(logoDataUrl, 'PNG', logoX, logoY, logoW, logoH);
+        }
+
+        // Name larger, but constrained to left area
+        const reservedRight = logoDataUrl ? (logoW + 8) : 0;
+        const nameMaxW = contentWidth - reservedRight;
+
+        doc.setTextColor(255, 255, 255);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(26); // ✅ bigger name
+        const nameLines = doc.splitTextToSize(fullName, nameMaxW);
+        doc.text(nameLines, margin, 18);
+
+        // Title (slightly tighter)
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(14);
+        doc.setTextColor(...accentGold);
+        // Reduce spacing by placing title closer
+        const titleY = 28;
+        doc.text(doc.splitTextToSize(title, nameMaxW), margin, titleY);
+
+        // Contact line tighter as requested (less gap under title)
+        doc.setFontSize(10.5);
+        doc.setTextColor(255, 255, 255);
+        const contactY = 35;
+        doc.text(doc.splitTextToSize(`${email}  |  ${phone}  |  ${address}`, contentWidth), margin, contactY);
+
+        let y = headerH + 12; // start content below header
+
+        // SUMMARY
+        y = checkPageHeight(y, 25);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(13);
+        doc.setTextColor(...headerBlue);
+        doc.text('PROFESSIONAL SUMMARY', margin, y);
+        y += 8;
+
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(11);
+        doc.setTextColor(...darkText);
+        const summary = document.getElementById('summary').value.trim() || '';
+        y = addWrapped(summary || 'A dedicated professional with strong skills and experience.', margin, y, contentWidth, 11, 'normal', darkText, 0.42);
+        y += 10;
+
+        // EXPERIENCE
+        y = checkPageHeight(y, 25);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(13);
+        doc.setTextColor(...headerBlue);
+        doc.text('WORK EXPERIENCE', margin, y);
+        y += 9;
+
+        const expSections = document.querySelectorAll('#experienceContainer .dynamic-section');
+        let anyExp = false;
+
+        expSections.forEach(section => {
+          const jobTitle = (getInputByIdPrefix(section, 'jobTitle')?.value || '').trim();
+          const company = (getInputByIdPrefix(section, 'company')?.value || '').trim();
+          const startDate = (getInputByIdPrefix(section, 'startDate')?.value || '').trim();
+          const endDate = (getInputByIdPrefix(section, 'endDate')?.value || '').trim();
+          const desc = (getTextareaByIdPrefix(section, 'description')?.value || '').trim();
+
+          if (!jobTitle && !company) return;
+          anyExp = true;
+
+          y = checkPageHeight(y, 36);
+
+          // Job title
+          y = addWrapped(jobTitle || 'Job Title', margin, y, contentWidth, 12, 'bold', darkText, 0.42);
+
+          // Company
+          if (company) {
+            doc.setFont('helvetica', 'italic');
+            doc.setFontSize(11);
+            doc.setTextColor(...mutedText);
+            y = addWrapped(company, margin, y, contentWidth, 11, 'italic', mutedText, 0.42);
+          }
+
+          // Date line
+          const dateLine = formatDateRange(startDate, endDate);
+          if (dateLine) {
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.setTextColor(...mutedText);
+            doc.text(dateLine, margin, y);
+            y += 8; // ✅ slightly more spacing than before
+          }
+
+          // Bullets with more breathing room
+          if (desc) {
+            const points = desc.split('\\n').map(x => x.trim()).filter(Boolean);
+            points.forEach(p => {
+              y = checkPageHeight(y, 10);
+              doc.setFont('helvetica', 'normal');
+              doc.setFontSize(11);
+              doc.setTextColor(...darkText);
+              const lines = doc.splitTextToSize('• ' + p, contentWidth - 5);
+              doc.text(lines, margin + 5, y);
+              y += lines.length * (11 * 0.40) + 2; // ✅ loosen bullet spacing
+            });
+          }
+
+          y += 10; // ✅ more space between roles
+        });
+
+        if (!anyExp) {
+          y = addWrapped('Add your work experience here.', margin, y, contentWidth, 11, 'normal', darkText, 0.42);
+          y += 8;
+        }
+
+        // EDUCATION
+        y = checkPageHeight(y, 25);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(13);
+        doc.setTextColor(...headerBlue);
+        doc.text('EDUCATION', margin, y);
+        y += 9;
+
+        const eduSections = document.querySelectorAll('#educationContainer .dynamic-section');
+        let anyEdu = false;
+
+        eduSections.forEach(section => {
+          const degree = (getInputByIdPrefix(section, 'degree')?.value || '').trim();
+          const inst = (getInputByIdPrefix(section, 'institution')?.value || '').trim();
+          const startYear = (getInputByIdPrefix(section, 'eduStartDate')?.value || '').trim();
+          const endYear = (getInputByIdPrefix(section, 'eduEndDate')?.value || '').trim();
+          const achievements = (getTextareaByIdPrefix(section, 'achievements')?.value || '').trim();
+
+          if (!degree && !inst) return;
+          anyEdu = true;
+
+          y = checkPageHeight(y, 30);
+
+          if (degree) y = addWrapped(degree, margin, y, contentWidth, 12, 'bold', darkText, 0.42);
+
+          if (inst) y = addWrapped(inst, margin, y, contentWidth, 11, 'italic', mutedText, 0.42);
+
+          const yearLine = formatYearRange(startYear, endYear);
+          if (yearLine) {
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.setTextColor(...mutedText);
+            doc.text(yearLine, margin, y);
+            y += 8; // ✅ more spacing
+          }
+
+          if (achievements) {
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(11);
+            doc.setTextColor(...darkText);
+            y = addWrapped(achievements, margin, y, contentWidth, 11, 'normal', darkText, 0.42);
+            y += 4;
+          }
+
+          y += 10; // ✅ more space between education entries
+        });
+
+        if (!anyEdu) {
+          y = addWrapped('Add your education here.', margin, y, contentWidth, 11, 'normal', darkText, 0.42);
+          y += 8;
+        }
+
+        // SKILLS
+        y = checkPageHeight(y, 25);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(13);
+        doc.setTextColor(...headerBlue);
+        doc.text('SKILLS', margin, y);
+        y += 9;
+
+        if (skills.length === 0) {
+          y = addWrapped('Add your skills here.', margin, y, contentWidth, 11, 'normal', darkText, 0.42);
+          y += 6;
+        } else {
+          skills.forEach(s => {
+            y = checkPageHeight(y, 10);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(11);
+            doc.setTextColor(...darkText);
+            const lines = doc.splitTextToSize('• ' + s, contentWidth - 5);
+            doc.text(lines, margin + 5, y);
+            y += lines.length * (11 * 0.40) + 3;
+          });
+        }
+
+        // REFERENCES
+        y += 10;
+        y = checkPageHeight(y, 18);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(13);
+        doc.setTextColor(...headerBlue);
+        doc.text('REFERENCES', margin, y);
+        y += 9;
+        doc.setFont('helvetica', 'italic');
+        doc.setFontSize(11);
+        doc.setTextColor(...mutedText);
+        doc.text('Available upon request.', margin, y);
+
+        doc.save(`CV_${fullName.replace(/\\s+/g, '_')}.pdf`);
+        spinner.style.display = 'none';
+      } catch (e) {
+        console.error(e);
+        spinner.style.display = 'none';
+        alert('PDF generation failed. Check console for details.');
+      }
+    }
+
+    // =========================
+    // DOWNLOAD FLOW (MODAL)
+    // =========================
+    const successModal = document.getElementById('successModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      const form = getFormData();
+      if (!form.personalInfoComplete) {
+        alert('Please fill Name, Email, and Phone first.');
+        return;
+      }
+      successModal.style.display = 'flex';
+    });
+
+    document.getElementById('downloadPdfBtn').addEventListener('click', async () => {
+      successModal.style.display = 'none';
+      await generatePDF();
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      successModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === successModal) successModal.style.display = 'none';
+    });
+
+    // =========================
+    // INPUT LISTENERS
+    // =========================
+    document.querySelectorAll('#cvForm input, #cvForm textarea').forEach(el => {
+      el.addEventListener('input', () => {
+        updatePreview();
+        updateProgressSteps();
+      });
+    });
+
+    document.querySelectorAll('#experienceContainer .dynamic-section').forEach(attachSectionListeners);
+    document.querySelectorAll('#educationContainer .dynamic-section').forEach(attachSectionListeners);
+
+    document.getElementById('cvForm').addEventListener('submit', (e) => e.preventDefault());
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const currentMonth = new Date().toISOString().slice(0, 7);
+      const start = document.getElementById('startDate1');
+      if (start && !start.value) start.value = currentMonth;
+
+      updatePreview();
+      updateProgressSteps();
+    });
+  </script>
+</body>
+</html>

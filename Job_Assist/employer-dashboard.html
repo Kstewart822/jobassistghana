@@ -1,0 +1,2134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Dashboard | Job Assist Ghana</title>
+    <link rel="icon" type="image/png" href="tab-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        :root {
+            --primary: #0a2a66;
+            --primary-dark: #071e4d;
+            --primary-light: #1e3a8a;
+            --secondary: #f8c12e;
+            --secondary-dark: #e6af1a;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --white: #ffffff;
+            --sidebar-width: 250px;
+            --sidebar-collapsed: 70px;
+            --navbar-height: 70px;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.4;
+        }
+
+        /* Container for consistent padding */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+            color: white;
+            height: 100vh;
+            position: fixed;
+            transition: var(--transition);
+            z-index: 100;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed);
+            overflow-y: hidden;
+        }
+
+        .sidebar-header {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            height: var(--navbar-height);
+            min-height: var(--navbar-height);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px; /* Reduced gap to match post-job page */
+        }
+
+        .logo-img-placeholder {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .logo-main {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo-sub {
+            font-size: 0.7rem;
+            font-weight: 500;
+            opacity: 0.8;
+            color: white;
+            margin-top: 1px; /* Adjusted spacing */
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.1);
+            color: var(--secondary);
+        }
+
+        .sidebar-menu {
+            padding: 15px 0;
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 3px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .sidebar-menu i {
+            margin-right: 15px;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .sidebar.collapsed .menu-text {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-header {
+            justify-content: center;
+            padding: 15px 5px;
+        }
+
+        .sidebar.collapsed .logo-text {
+            display: none;
+        }
+
+        .sidebar.collapsed .logo {
+            justify-content: center;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            width: calc(100% - var(--sidebar-width));
+        }
+
+        .main-content.expanded {
+            margin-left: var(--sidebar-collapsed);
+            width: calc(100% - var(--sidebar-collapsed));
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            height: var(--navbar-height);
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            flex-shrink: 0;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        .page-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .notification-icon:hover {
+            color: var(--primary);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Notification Dropdown (from post-job page) */
+        .notification-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 20px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 300px;
+            max-height: 350px;
+            overflow-y: auto;
+            display: none;
+            z-index: 101;
+        }
+
+        .notification-dropdown.show {
+            display: block;
+        }
+
+        .notification-header {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        .mark-all-read {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .notification-list {
+            list-style: none;
+        }
+
+        .notification-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--gray-light);
+            transition: var(--transition);
+        }
+
+        .notification-item:hover {
+            background-color: rgba(248, 193, 46, 0.1);
+        }
+
+        .notification-item.unread {
+            background-color: rgba(10, 42, 102, 0.05);
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-content {
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .notification-time {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        .notification-empty {
+            padding: 20px;
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+
+        .user-profile:hover {
+            background-color: var(--gray-light);
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 20px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 180px;
+            padding: 8px 0;
+            display: none;
+            z-index: 101;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 8px 16px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--gray-light);
+            color: var(--primary);
+        }
+
+        /* Dashboard Content */
+        .dashboard-content {
+            padding: 20px;
+            flex: 1;
+        }
+
+        /* Boost Prompt - Fixed with both X and Close button */
+        .boost-prompt {
+            background: linear-gradient(135deg, var(--warning), #fbbf24);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(245, 158, 11, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            animation: slideIn 0.5s ease;
+            position: relative;
+            display: none; /* Hidden by default */
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .boost-message {
+            flex: 1;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary);
+            padding-right: 30px; /* Space for close button */
+        }
+
+        .boost-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .boost-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+
+        .boost-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .close-boost-btn {
+            background-color: rgba(10, 42, 102, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(10, 42, 102, 0.2);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            font-size: 0.85rem;
+        }
+
+        .close-boost-btn:hover {
+            background-color: rgba(10, 42, 102, 0.2);
+            color: var(--primary-dark);
+        }
+
+        .close-boost-x {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: var(--transition);
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 2;
+        }
+
+        .close-boost-x:hover {
+            background-color: rgba(10, 42, 102, 0.1);
+            color: var(--primary-dark);
+        }
+
+        .welcome-section {
+            margin-bottom: 15px;
+            padding: 0 5px;
+        }
+
+        .welcome-title {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .welcome-subtitle {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 18px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .post-job-card {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .post-job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
+        }
+
+        .post-job-card i {
+            font-size: 35px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .post-job-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+        }
+
+        .post-job-card p {
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            font-size: 0.9rem;
+        }
+
+        .stats-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stats-card .card-title {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+
+        .stats-card .card-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stats-card .card-trend {
+            font-size: 0.8rem;
+            color: var(--success);
+        }
+
+        .stats-card .card-trend.negative {
+            color: var(--danger);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .action-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            text-align: center;
+            cursor: pointer;
+            border-top: 3px solid var(--secondary);
+        }
+
+        .action-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .action-card i {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .action-card h3 {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .action-card p {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Job Posts Section */
+        .section-title {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .job-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 12px;
+        }
+
+        .job-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border-top: 3px solid var(--primary);
+            position: relative;
+        }
+
+        .job-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .job-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        .job-status {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background-color: rgba(248, 193, 46, 0.1);
+            color: var(--secondary-dark);
+        }
+
+        .status-closed {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .job-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        .job-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--gray-light);
+            color: var(--dark);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--gray-light);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        .btn-accent {
+            background-color: var(--secondary);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .btn-accent:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            border-top: 5px solid var(--secondary);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal-body {
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--gray-light);
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(248, 193, 46, 0.2);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .payment-amount {
+            background-color: var(--gray-light);
+            padding: 12px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .payment-amount h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .payment-amount p {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary-dark);
+        }
+
+        /* Mobile Overlay */
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+        }
+
+        .mobile-overlay.show {
+            display: block;
+        }
+
+        /* ====================== */
+        /* MOBILE OPTIMIZATIONS */
+        /* ====================== */
+
+        /* Tablet (992px and below) */
+        @media (max-width: 992px) {
+            .dashboard-content {
+                padding: 15px;
+            }
+            
+            .sidebar {
+                transform: translateX(-100%);
+                width: 250px;
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .main-content.expanded {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .dashboard-cards,
+            .job-posts {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .navbar {
+                padding: 0 15px;
+            }
+            
+            .page-title {
+                font-size: 1.1rem;
+            }
+            
+            .notification-dropdown {
+                right: 15px;
+                width: 280px;
+            }
+        }
+
+        /* Mobile (768px and below) */
+        @media (max-width: 768px) {
+            .dashboard-content {
+                padding: 12px;
+            }
+            
+            .navbar {
+                padding: 0 12px;
+                height: 60px;
+            }
+            
+            .logo-main {
+                font-size: 1rem;
+            }
+            
+            .logo-img-placeholder {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .user-name {
+                display: none;
+            }
+            
+            .notification-icon {
+                font-size: 1rem;
+            }
+            
+            .user-avatar {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .dropdown-menu {
+                right: 12px;
+                width: 160px;
+            }
+            
+            .boost-prompt {
+                padding: 12px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .boost-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .boost-btn {
+                flex: 1;
+                justify-content: center;
+            }
+            
+            .close-boost-x {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-left: 10px;
+            }
+            
+            .welcome-section {
+                margin-bottom: 12px;
+            }
+            
+            .welcome-title {
+                font-size: 1.2rem;
+                margin-bottom: 3px;
+            }
+            
+            .welcome-subtitle {
+                font-size: 0.85rem;
+            }
+            
+            .post-job-card {
+                padding: 16px;
+                margin-bottom: 15px;
+            }
+            
+            .post-job-card i {
+                font-size: 30px;
+                margin-bottom: 8px;
+            }
+            
+            .post-job-card h3 {
+                font-size: 1.1rem;
+                margin-bottom: 5px;
+            }
+            
+            .post-job-card p {
+                font-size: 0.85rem;
+            }
+            
+            .dashboard-cards,
+            .quick-actions {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .job-posts {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .card,
+            .action-card,
+            .job-card {
+                padding: 14px;
+            }
+            
+            .stats-card .card-value {
+                font-size: 1.4rem;
+            }
+            
+            .action-card i {
+                font-size: 1.3rem;
+                margin-bottom: 6px;
+            }
+            
+            .action-card h3 {
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+            
+            .job-title {
+                font-size: 0.95rem;
+            }
+            
+            .job-meta {
+                font-size: 0.75rem;
+                gap: 6px;
+            }
+            
+            .job-stats {
+                padding-top: 10px;
+                margin-bottom: 10px;
+            }
+            
+            .stat-value {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 7px 10px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Small Mobile (576px and below) */
+        @media (max-width: 576px) {
+            .dashboard-content {
+                padding: 10px;
+            }
+            
+            .navbar {
+                padding: 0 10px;
+            }
+            
+            .mobile-menu-btn {
+                font-size: 1rem;
+            }
+            
+            .page-title {
+                font-size: 1rem;
+            }
+            
+            .boost-prompt {
+                padding: 10px;
+            }
+            
+            .boost-message {
+                font-size: 0.9rem;
+            }
+            
+            .boost-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+            
+            .close-boost-x {
+                font-size: 1rem;
+            }
+            
+            .welcome-title {
+                font-size: 1.1rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 0.8rem;
+            }
+            
+            .post-job-card {
+                padding: 14px;
+                margin-bottom: 12px;
+            }
+            
+            .post-job-card i {
+                font-size: 28px;
+                margin-bottom: 6px;
+            }
+            
+            .post-job-card h3 {
+                font-size: 1rem;
+            }
+            
+            .dashboard-cards,
+            .quick-actions,
+            .job-posts {
+                gap: 8px;
+            }
+            
+            .card,
+            .action-card,
+            .job-card {
+                padding: 12px;
+            }
+            
+            .stats-card .card-value {
+                font-size: 1.3rem;
+            }
+            
+            .action-card i {
+                font-size: 1.2rem;
+            }
+            
+            .action-card h3 {
+                font-size: 0.85rem;
+            }
+            
+            .action-card p {
+                font-size: 0.75rem;
+            }
+            
+            .section-title {
+                font-size: 0.95rem;
+            }
+            
+            .job-title {
+                font-size: 0.9rem;
+            }
+            
+            .job-status {
+                top: 10px;
+                right: 10px;
+                padding: 3px 6px;
+                font-size: 0.65rem;
+            }
+            
+            .job-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+            
+            .stat-value {
+                font-size: 0.9rem;
+            }
+            
+            .stat-label {
+                font-size: 0.65rem;
+            }
+            
+            .job-actions {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+            
+            .btn {
+                padding: 6px 8px;
+                font-size: 0.7rem;
+            }
+            
+            .modal-content {
+                padding: 16px;
+            }
+            
+            .modal-title {
+                font-size: 1rem;
+            }
+            
+            .modal-body {
+                font-size: 0.85rem;
+            }
+            
+            .notification-dropdown {
+                width: 240px;
+                right: 8px;
+            }
+        }
+
+        /* Extra Small Mobile (480px and below) */
+        @media (max-width: 480px) {
+            .dashboard-content {
+                padding: 8px;
+            }
+            
+            .navbar {
+                padding: 0 8px;
+                height: 55px;
+            }
+            
+            .logo-img-placeholder {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+            
+            .mobile-menu-btn {
+                font-size: 0.9rem;
+            }
+            
+            .page-title {
+                font-size: 0.9rem;
+            }
+            
+            .notification-icon {
+                font-size: 0.9rem;
+            }
+            
+            .notification-badge {
+                width: 16px;
+                height: 16px;
+                font-size: 0.65rem;
+            }
+            
+            .user-avatar {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .boost-prompt {
+                padding: 8px;
+            }
+            
+            .boost-message {
+                font-size: 0.85rem;
+                padding-right: 25px;
+            }
+            
+            .boost-btn {
+                padding: 7px 14px;
+                font-size: 0.8rem;
+            }
+            
+            .close-boost-x {
+                width: 20px;
+                height: 20px;
+                top: 6px;
+                right: 6px;
+            }
+            
+            .welcome-title {
+                font-size: 1rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 0.75rem;
+            }
+            
+            .post-job-card {
+                padding: 12px;
+            }
+            
+            .post-job-card i {
+                font-size: 26px;
+            }
+            
+            .post-job-card h3 {
+                font-size: 0.95rem;
+            }
+            
+            .post-job-card p {
+                font-size: 0.8rem;
+            }
+            
+            .card,
+            .action-card,
+            .job-card {
+                padding: 10px;
+            }
+            
+            .stats-card .card-title {
+                font-size: 0.8rem;
+            }
+            
+            .stats-card .card-value {
+                font-size: 1.2rem;
+            }
+            
+            .action-card h3 {
+                font-size: 0.8rem;
+            }
+            
+            .job-title {
+                font-size: 0.85rem;
+            }
+            
+            .job-meta {
+                font-size: 0.7rem;
+            }
+            
+            .stat-value {
+                font-size: 0.85rem;
+            }
+            
+            .btn {
+                padding: 5px 7px;
+                font-size: 0.65rem;
+            }
+            
+            .dropdown-menu {
+                width: 140px;
+                padding: 6px 0;
+            }
+            
+            .dropdown-menu a {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Very Small Mobile (360px and below) */
+        @media (max-width: 360px) {
+            .dashboard-content {
+                padding: 6px;
+            }
+            
+            .navbar {
+                padding: 0 6px;
+            }
+            
+            .logo-img-placeholder {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+            
+            .logo-main {
+                font-size: 0.9rem;
+            }
+            
+            .logo-sub {
+                font-size: 0.6rem;
+            }
+            
+            .boost-prompt {
+                padding: 6px;
+            }
+            
+            .boost-message {
+                font-size: 0.8rem;
+                padding-right: 22px;
+            }
+            
+            .boost-btn {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            
+            .close-boost-x {
+                width: 18px;
+                height: 18px;
+                font-size: 0.9rem;
+                top: 5px;
+                right: 5px;
+            }
+            
+            .welcome-title {
+                font-size: 0.95rem;
+            }
+            
+            .post-job-card {
+                padding: 10px;
+            }
+            
+            .post-job-card i {
+                font-size: 24px;
+            }
+            
+            .post-job-card h3 {
+                font-size: 0.9rem;
+            }
+            
+            .card,
+            .action-card,
+            .job-card {
+                padding: 8px;
+            }
+            
+            .section-title {
+                font-size: 0.9rem;
+            }
+            
+            .stats-card .card-value {
+                font-size: 1.1rem;
+            }
+            
+            .action-card h3 {
+                font-size: 0.75rem;
+            }
+            
+            .action-card p {
+                font-size: 0.7rem;
+            }
+            
+            .btn {
+                padding: 4px 6px;
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete Job Post</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this job post? This action cannot be undone.</p>
+                <p><strong>This job will be removed from your dashboard and the browse jobs pool.</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="confirmDelete">Delete Job</button>
+                <button class="btn btn-outline" id="cancelDelete">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="modal" id="logoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Confirm Logout</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to log out of your account?</p>
+                <p><strong>You will need to log in again to access your dashboard.</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="confirmLogout">Yes, Logout</button>
+                <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-img-placeholder">JA</div>
+                <div class="logo-text">
+                    <div class="logo-main">JobAssist</div>
+                    <div class="logo-sub">GHANA</div>
+                </div>
+            </div>
+            <button class="toggle-btn" id="sidebarToggle">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="employer-dashboard.html" class="active"><i class="fas fa-home"></i> <span class="menu-text">Dashboard</span></a></li>
+            <li><a href="job-type.html" id="postJobBtn"><i class="fas fa-plus-circle"></i> <span class="menu-text">Post Job</span></a></li>
+            <li><a href="my-job-post.html"><i class="fas fa-briefcase"></i> <span class="menu-text">My Job Posts</span></a></li>
+            <li><a href="boost-job.html"><i class="fas fa-rocket"></i> <span class="menu-text">Boost Job</span></a></li>
+            <li><a href="employer-payment.html"><i class="fas fa-credit-card"></i> <span class="menu-text">Payments</span></a></li>
+            <li><a href="esettings.html"><i class="fas fa-user-cog"></i> <span class="menu-text">Profile / Settings</span></a></li>
+            <li><a href="#" id="sidebarLogout"><i class="fas fa-sign-out-alt"></i> <span class="menu-text">Logout</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="page-title">Employer Dashboard</div>
+            <div class="navbar-right">
+                <!-- Notification Area - Updated with dropdown from post-job page -->
+                <div class="notification-icon" id="notificationIcon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="notification-dropdown" id="notificationDropdown">
+                    <div class="notification-header">
+                        <h3 class="notification-title">Notifications</h3>
+                        <button class="mark-all-read">Mark all as read</button>
+                    </div>
+                    <ul class="notification-list">
+                        <li class="notification-item unread">
+                            <div class="notification-content">Your job post for Marketing Manager has received 5 applications</div>
+                            <div class="notification-time">2 hours ago</div>
+                        </li>
+                        <li class="notification-item unread">
+                            <div class="notification-content">Payment for your last job post was successful</div>
+                            <div class="notification-time">5 hours ago</div>
+                        </li>
+                        <li class="notification-item unread">
+                            <div class="notification-content">New candidate applied for your Frontend Developer position</div>
+                            <div class="notification-time">1 day ago</div>
+                        </li>
+                        <li class="notification-item">
+                            <div class="notification-content">Your job post will expire in 3 days</div>
+                            <div class="notification-time">2 days ago</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="user-profile" id="userProfile">
+                    <div class="user-avatar">
+                        <img src="https://i.pravatar.cc/150?img=5" alt="User">
+                    </div>
+                    <div class="user-name">Nana Kwame</div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu">
+                    <a href="esettings.html"><i class="fas fa-user"></i> View Profile</a>
+                    <a href="employer-payment.html"><i class="fas fa-history"></i> Payment History</a>
+                    <a href="esettings.html"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#" id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Boost Prompt - Now with both X and Close button -->
+            <div class="boost-prompt" id="boostPrompt">
+                <div class="boost-message">
+                    If your job post isn't getting the attention it deserves, boost it to drive more applications.
+                </div>
+                <div class="boost-actions">
+                    <button class="boost-btn" id="boostJobBtn">
+                        <i class="fas fa-rocket"></i> Boost Job
+                    </button>
+                    <button class="close-boost-btn" id="closeBoostBtn">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+                <!-- X button at top right -->
+                <button class="close-boost-x" id="closeBoostX">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h1 class="welcome-title">Welcome, Nana Kwame 👋</h1>
+                <p class="welcome-subtitle">Manage your job listings, applicants, and payments here.</p>
+            </div>
+
+            <!-- Post Job Card (Always visible at top) -->
+            <a href="job-type.html" style="text-decoration: none;">
+                <div class="card post-job-card" id="postJobCard">
+                    <i class="fas fa-plus-circle"></i>
+                    <h3>Post a Job</h3>
+                    <p>Reach qualified candidates for your open positions</p>
+                </div>
+            </a>
+
+            <!-- Job Stats Section -->
+            <h2 class="section-title"><i class="fas fa-chart-line"></i> Job Statistics</h2>
+            <div class="dashboard-cards">
+                <div class="card stats-card">
+                    <div class="card-title">Active Job Posts</div>
+                    <div class="card-value">5</div>
+                    <div class="card-trend">+2 from last month</div>
+                </div>
+                <div class="card stats-card">
+                    <div class="card-title">Total Applicants</div>
+                    <div class="card-value">42</div>
+                    <div class="card-trend">+15 from last month</div>
+                </div>
+                <div class="card stats-card">
+                    <div class="card-title">Unlocked Applicants</div>
+                    <div class="card-value">12</div>
+                    <div class="card-trend">+5 from last month</div>
+                </div>
+            </div>
+
+            <!-- Quick Actions Section -->
+            <h2 class="section-title"><i class="fas fa-bolt"></i> Quick Actions</h2>
+            <div class="quick-actions">
+                <div class="action-card" id="viewMyJobs">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>View My Jobs</h3>
+                    <p>Manage your active job listings</p>
+                </div>
+                <div class="action-card" id="viewApplicants">
+                    <i class="fas fa-users"></i>
+                    <h3>View Applicants</h3>
+                    <p>Review and manage job applicants</p>
+                </div>
+                <div class="action-card" id="paymentHistory">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Payment History</h3>
+                    <p>View your transaction history</p>
+                </div>
+                <div class="action-card" id="profileSettings">
+                    <i class="fas fa-user-cog"></i>
+                    <h3>Profile Settings</h3>
+                    <p>Update your company information</p>
+                </div>
+            </div>
+
+            <!-- Recent Job Posts Section -->
+            <h2 class="section-title"><i class="fas fa-briefcase"></i> Recent Job Posts</h2>
+            <div class="job-posts" id="jobPostsContainer">
+                <!-- Job Card 1 -->
+                <div class="job-card" data-job-id="1">
+                    <h3 class="job-title">Frontend Developer</h3>
+                    <div class="job-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> Accra, Ghana</span>
+                        <span><i class="far fa-calendar"></i> 15 May 2023</span>
+                    </div>
+                    <div class="job-status status-active">Active</div>
+                    <div class="job-stats">
+                        <div class="stat">
+                            <div class="stat-value">18</div>
+                            <div class="stat-label">Applicants</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Unlocked</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Shortlisted</div>
+                        </div>
+                    </div>
+                    <div class="job-actions">
+                        <button class="btn btn-primary view-applicants-btn" data-job-id="1"><i class="fas fa-users"></i> View Applicants</button>
+                        <button class="btn btn-danger remove-job"><i class="fas fa-trash"></i> Remove</button>
+                    </div>
+                </div>
+
+                <!-- Job Card 2 -->
+                <div class="job-card" data-job-id="2">
+                    <h3 class="job-title">Marketing Manager</h3>
+                    <div class="job-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> Kumasi, Ghana</span>
+                        <span><i class="far fa-calendar"></i> 10 May 2023</span>
+                    </div>
+                    <div class="job-status status-active">Active</div>
+                    <div class="job-stats">
+                        <div class="stat">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">Applicants</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">7</div>
+                            <div class="stat-label">Unlocked</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Shortlisted</div>
+                        </div>
+                    </div>
+                    <div class="job-actions">
+                        <button class="btn btn-primary view-applicants-btn" data-job-id="2"><i class="fas fa-users"></i> View Applicants</button>
+                        <button class="btn btn-danger remove-job"><i class="fas fa-trash"></i> Remove</button>
+                    </div>
+                </div>
+
+                <!-- Job Card 3 -->
+                <div class="job-card" data-job-id="3">
+                    <h3 class="job-title">Data Analyst</h3>
+                    <div class="job-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> Accra, Ghana</span>
+                        <span><i class="far fa-calendar"></i> 5 May 2023</span>
+                    </div>
+                    <div class="job-status status-closed">Closed</div>
+                    <div class="job-stats">
+                        <div class="stat">
+                            <div class="stat-value">15</div>
+                            <div class="stat-label">Applicants</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">0</div>
+                            <div class="stat-label">Unlocked</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Shortlisted</div>
+                        </div>
+                    </div>
+                    <div class="job-actions">
+                        <button class="btn btn-outline view-job-btn" data-job-id="3"><i class="fas fa-eye"></i> View</button>
+                        <button class="btn btn-danger remove-job"><i class="fas fa-trash"></i> Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const mainContent = document.getElementById('mainContent');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const postJobBtn = document.getElementById('postJobBtn');
+        const postJobCard = document.getElementById('postJobCard');
+        const deleteModal = document.getElementById('deleteModal');
+        const confirmDeleteBtn = document.getElementById('confirmDelete');
+        const cancelDeleteBtn = document.getElementById('cancelDelete');
+        const logoutModal = document.getElementById('logoutModal');
+        const confirmLogoutBtn = document.getElementById('confirmLogout');
+        const cancelLogoutBtn = document.getElementById('cancelLogout');
+        const jobPostsContainer = document.getElementById('jobPostsContainer');
+        
+        // Boost elements
+        const boostPrompt = document.getElementById('boostPrompt');
+        const boostJobBtn = document.getElementById('boostJobBtn');
+        const closeBoostBtn = document.getElementById('closeBoostBtn');
+        const closeBoostX = document.getElementById('closeBoostX');
+        
+        // Notification elements
+        const notificationIcon = document.getElementById('notificationIcon');
+        const notificationDropdown = document.getElementById('notificationDropdown');
+        
+        // Quick action elements
+        const viewMyJobs = document.getElementById('viewMyJobs');
+        const viewApplicants = document.getElementById('viewApplicants');
+        const paymentHistory = document.getElementById('paymentHistory');
+        const profileSettings = document.getElementById('profileSettings');
+
+        // Toggle Sidebar (Desktop)
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+            
+            // Change icon based on state
+            const icon = this.querySelector('i');
+            if (sidebar.classList.contains('collapsed')) {
+                icon.className = 'fas fa-chevron-right';
+            } else {
+                icon.className = 'fas fa-chevron-left';
+            }
+        });
+
+        // Mobile Menu Toggle
+        let isMobileMenuOpen = false;
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            if (isMobileMenuOpen) {
+                // Close mobile menu
+                sidebar.classList.remove('mobile-open');
+                mobileOverlay.classList.remove('show');
+                isMobileMenuOpen = false;
+            } else {
+                // Open mobile menu
+                sidebar.classList.add('mobile-open');
+                mobileOverlay.classList.add('show');
+                isMobileMenuOpen = true;
+            }
+        });
+
+        // Close mobile menu when clicking overlay
+        mobileOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('mobile-open');
+            mobileOverlay.classList.remove('show');
+            isMobileMenuOpen = false;
+        });
+
+        // User Profile Dropdown
+        document.querySelector('.user-profile').addEventListener('click', function() {
+            document.querySelector('.dropdown-menu').classList.toggle('show');
+            // Close notification dropdown if open
+            notificationDropdown.classList.remove('show');
+        });
+
+        // Notification Dropdown
+        notificationIcon.addEventListener('click', function(e) {
+            e.stopPropagation();
+            notificationDropdown.classList.toggle('show');
+            // Close profile dropdown if open
+            document.querySelector('.dropdown-menu').classList.remove('show');
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.user-profile')) {
+                document.querySelector('.dropdown-menu').classList.remove('show');
+            }
+            
+            if (!event.target.closest('.notification-icon')) {
+                notificationDropdown.classList.remove('show');
+            }
+        });
+
+        // Mark all notifications as read
+        document.querySelector('.mark-all-read').addEventListener('click', function() {
+            document.querySelectorAll('.notification-item.unread').forEach(item => {
+                item.classList.remove('unread');
+            });
+            document.querySelector('.notification-badge').style.display = 'none';
+        });
+
+        // Post Job Navigation
+        postJobBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'job-type.html';
+        });
+        
+        postJobCard.addEventListener('click', function() {
+            window.location.href = 'job-type.html';
+        });
+
+        // View Applicants functionality - Redirect to applicant viewing page with specific job ID
+        document.querySelectorAll('.view-applicants-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const jobId = this.getAttribute('data-job-id');
+                // Navigate to applicant viewing page with specific job ID
+                window.location.href = `view-applicants.html?jobId=${jobId}`;
+            });
+        });
+
+        // View Job functionality (for closed jobs)
+        document.querySelectorAll('.view-job-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const jobId = this.getAttribute('data-job-id');
+                // Navigate to job details page with job ID
+                window.location.href = `job-details.html?jobId=${jobId}`;
+            });
+        });
+
+        // Job deletion functionality
+        let jobToDelete = null;
+        
+        // Add event listeners to all remove buttons
+        document.querySelectorAll('.remove-job').forEach(button => {
+            button.addEventListener('click', function() {
+                const jobCard = this.closest('.job-card');
+                jobToDelete = jobCard;
+                deleteModal.classList.add('show');
+            });
+        });
+
+        // Confirm deletion
+        confirmDeleteBtn.addEventListener('click', function() {
+            if (jobToDelete) {
+                const jobId = jobToDelete.getAttribute('data-job-id');
+                
+                // In a real app, this would send a request to the server
+                console.log(`Deleting job with ID: ${jobId}`);
+                
+                // Remove job from dashboard
+                jobToDelete.remove();
+                
+                // Show success message
+                alert('Job post deleted successfully. It has been removed from your dashboard and the browse jobs pool.');
+                
+                // Update active job count
+                updateJobCount();
+                
+                // Close modal
+                deleteModal.classList.remove('show');
+                jobToDelete = null;
+            }
+        });
+
+        // Cancel deletion
+        cancelDeleteBtn.addEventListener('click', function() {
+            deleteModal.classList.remove('show');
+            jobToDelete = null;
+        });
+
+        // Quick action handlers
+        viewMyJobs.addEventListener('click', function() {
+            window.location.href = 'my-job-post.html';
+        });
+        
+        viewApplicants.addEventListener('click', function() {
+            window.location.href = 'view-applicants.html';
+        });
+        
+        paymentHistory.addEventListener('click', function() {
+            window.location.href = 'employer-payment.html';
+        });
+        
+        profileSettings.addEventListener('click', function() {
+            window.location.href = 'esettings.html';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === deleteModal) {
+                deleteModal.classList.remove('show');
+                jobToDelete = null;
+            }
+            if (event.target === logoutModal) {
+                logoutModal.classList.remove('show');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('mobile-open');
+                mobileOverlay.classList.remove('show');
+                isMobileMenuOpen = false;
+            }
+        });
+
+        // Function to update job count after deletion
+        function updateJobCount() {
+            const activeJobs = document.querySelectorAll('.job-card .status-active').length;
+            document.querySelectorAll('.stats-card .card-value')[0].textContent = activeJobs;
+        }
+
+        // Logout functionality with custom modal
+        document.getElementById('sidebarLogout').addEventListener('click', function(e) {
+            e.preventDefault();
+            logoutModal.classList.add('show');
+        });
+
+        document.getElementById('dropdownLogout').addEventListener('click', function(e) {
+            e.preventDefault();
+            logoutModal.classList.add('show');
+        });
+
+        // Confirm logout
+        confirmLogoutBtn.addEventListener('click', function() {
+            // In a real app, this would clear session and redirect to login
+            window.location.href = 'login.html';
+        });
+
+        // Cancel logout
+        cancelLogoutBtn.addEventListener('click', function() {
+            logoutModal.classList.remove('show');
+        });
+
+        // Close modals with X button
+        document.querySelectorAll('.close-modal').forEach(button => {
+            button.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                modal.classList.remove('show');
+            });
+        });
+
+        // Boost job button handler
+        boostJobBtn.addEventListener('click', function() {
+            window.location.href = 'boost-job.html';
+        });
+
+        // Close boost prompt with the "Close" button
+        closeBoostBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent event bubbling
+            boostPrompt.style.display = 'none';
+            // Store in localStorage so it doesn't show again for this session
+            localStorage.setItem('boostPromptClosed', 'true');
+        });
+
+        // Close boost prompt with the "X" button
+        closeBoostX.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent event bubbling
+            boostPrompt.style.display = 'none';
+            // Store in localStorage so it doesn't show again for this session
+            localStorage.setItem('boostPromptClosed', 'true');
+        });
+
+        // Check if boost prompt should be shown (simulated logic)
+        function checkBoostPrompt() {
+            // Check if user has closed the prompt before
+            const promptClosed = localStorage.getItem('boostPromptClosed');
+            if (promptClosed === 'true') {
+                return; // Don't show if user closed it
+            }
+
+            // In a real app, this would check:
+            // 1. If there are active job posts
+            // 2. If any job is 5+ days old
+            // 3. If that job has fewer than 10 applicants
+            
+            // For demo purposes, we'll simulate this logic
+            // Show the prompt after a delay (simulating job being posted and not getting applicants)
+            setTimeout(() => {
+                // Randomly decide whether to show prompt (50% chance for demo)
+                const shouldShow = Math.random() > 0.5;
+                
+                if (shouldShow) {
+                    boostPrompt.style.display = 'flex';
+                    // Use the generic message as requested
+                    boostPrompt.querySelector('.boost-message').textContent = 
+                        "If your job post isn't getting the attention it deserves, boost it to drive more applications.";
+                }
+            }, 2000); // 2 second delay for demo
+        }
+
+        // Initialize boost prompt check on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkBoostPrompt();
+        });
+    </script>
+</body>
+</html>

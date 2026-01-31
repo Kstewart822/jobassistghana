@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Applications | Job Assist Ghana</title>
+    <link rel="icon" type="image/png" href="tab-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        :root {
+            --primary: #0a2a66;
+            --primary-dark: #071e4d;
+            --primary-light: #1e3a8a;
+            --secondary: #f8c12e;
+            --secondary-dark: #e6af1a;
+            --danger: #ef4444;
+            --danger-dark: #dc2626;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --white: #ffffff;
+            --sidebar-width: 250px;
+            --sidebar-collapsed: 70px;
+            --navbar-height: 70px;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.4;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+            color: white;
+            height: 100vh;
+            position: fixed;
+            transition: var(--transition);
+            z-index: 100;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed);
+            overflow-y: hidden;
+        }
+
+        .sidebar-header {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            height: var(--navbar-height);
+            min-height: var(--navbar-height);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img-placeholder {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .logo-main {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo-sub {
+            font-size: 0.7rem;
+            font-weight: 500;
+            opacity: 0.8;
+            color: white;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.1);
+            color: var(--secondary);
+        }
+
+        .sidebar-menu {
+            padding: 15px 0;
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 3px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .sidebar-menu i {
+            margin-right: 15px;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .sidebar.collapsed .menu-text {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-header {
+            justify-content: center;
+            padding: 15px 5px;
+        }
+
+        .sidebar.collapsed .logo-text {
+            display: none;
+        }
+
+        .sidebar.collapsed .logo {
+            justify-content: center;
+        }
+
+        /* Premium indicator */
+        .premium-indicator {
+            color: var(--secondary);
+            margin-left: auto;
+            font-size: 0.8rem;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            width: calc(100% - var(--sidebar-width));
+        }
+
+        .main-content.expanded {
+            margin-left: var(--sidebar-collapsed);
+            width: calc(100% - var(--sidebar-collapsed));
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            height: var(--navbar-height);
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            flex-shrink: 0;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        .page-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .notification-icon:hover {
+            color: var(--primary);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+
+        .user-profile:hover {
+            background-color: var(--gray-light);
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 20px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 180px;
+            padding: 8px 0;
+            display: none;
+            z-index: 101;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 8px 16px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--gray-light);
+            color: var(--primary);
+        }
+
+        /* Dashboard Content */
+        .dashboard-content {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .welcome-section {
+            margin-bottom: 15px;
+            padding: 0 5px;
+        }
+
+        .welcome-title {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .welcome-subtitle {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Stats Cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: var(--transition);
+            border-top: 3px solid var(--primary);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-card:nth-child(1) {
+            border-top-color: var(--primary);
+        }
+
+        .stat-card:nth-child(2) {
+            border-top-color: var(--secondary);
+        }
+
+        .stat-card:nth-child(3) {
+            border-top-color: var(--success);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            line-height: 1;
+        }
+
+        .stat-card:nth-child(1) .stat-number {
+            color: var(--primary);
+        }
+
+        .stat-card:nth-child(2) .stat-number {
+            color: var(--secondary);
+        }
+
+        .stat-card:nth-child(3) .stat-number {
+            color: var(--success);
+        }
+
+        .stat-label {
+            color: var(--dark);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .stat-subtitle {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        .performance-indicator {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            display: inline-block;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        .performance-excellent {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .performance-good {
+            background-color: rgba(248, 193, 46, 0.2);
+            color: var(--secondary);
+        }
+
+        .performance-improving {
+            background-color: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        /* Application Tabs */
+        .application-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 8px 16px;
+            background-color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            border: 1px solid var(--gray-light);
+            font-size: 0.85rem;
+        }
+
+        .tab.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .tab:hover:not(.active) {
+            background-color: var(--gray-light);
+        }
+
+        /* Applications Grid */
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .job-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border-top: 3px solid var(--primary);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .job-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .job-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+            color: var(--gray);
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .job-meta span {
+            display: inline-block;
+        }
+
+        .job-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+
+        .status-in-review {
+            background-color: rgba(248, 193, 46, 0.2);
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+        }
+
+        .status-accepted {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .job-description {
+            color: var(--dark);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .job-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--gray-light);
+            color: var(--dark);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--gray-light);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: var(--danger-dark);
+        }
+
+        /* Logout button style - matching notification badge red */
+        .btn-logout {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-logout:hover {
+            background-color: var(--danger-dark);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px 10px;
+            margin-top: 25px;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+        }
+
+        /* Mobile Overlay */
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+        }
+
+        .mobile-overlay.show {
+            display: block;
+        }
+
+        /* Notification Dropdown */
+        .notification-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 20px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 300px;
+            max-height: 350px;
+            overflow-y: auto;
+            display: none;
+            z-index: 101;
+        }
+
+        .notification-dropdown.show {
+            display: block;
+        }
+
+        .notification-header {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        .mark-all-read {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .notification-list {
+            list-style: none;
+        }
+
+        .notification-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--gray-light);
+            transition: var(--transition);
+        }
+
+        .notification-item:hover {
+            background-color: rgba(248, 193, 46, 0.1);
+        }
+
+        .notification-item.unread {
+            background-color: rgba(10, 42, 102, 0.05);
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-content {
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .notification-time {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 450px;
+            padding: 18px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            border-top: 5px solid var(--secondary);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal-body {
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        /* Employer Details Modal */
+        .offer-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .offer-detail {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        .detail-value {
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        /* View More Button */
+        .view-more-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .view-more-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .view-more-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* ====================== */
+        /* MOBILE OPTIMIZATIONS */
+        /* ====================== */
+
+        /* Tablet (992px and below) */
+        @media (max-width: 992px) {
+            .dashboard-content {
+                padding: 15px;
+            }
+            
+            .sidebar {
+                transform: translateX(-100%);
+                width: 250px;
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .main-content.expanded {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .applications-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .navbar {
+                padding: 0 15px;
+            }
+            
+            .page-title {
+                font-size: 1.1rem;
+            }
+            
+            .notification-dropdown {
+                right: 15px;
+                width: 280px;
+            }
+        }
+
+        /* Mobile (768px and below) */
+        @media (max-width: 768px) {
+            .dashboard-content {
+                padding: 12px;
+            }
+            
+            .navbar {
+                padding: 0 12px;
+                height: 60px;
+            }
+            
+            .logo-main {
+                font-size: 1rem;
+            }
+            
+            .logo-img-placeholder {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .user-name {
+                display: none;
+            }
+            
+            .notification-icon {
+                font-size: 1rem;
+            }
+            
+            .user-avatar {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .dropdown-menu {
+                right: 12px;
+                width: 160px;
+            }
+            
+            .welcome-section {
+                margin-bottom: 12px;
+            }
+            
+            .welcome-title {
+                font-size: 1.2rem;
+                margin-bottom: 3px;
+            }
+            
+            .welcome-subtitle {
+                font-size: 0.85rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .applications-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .stat-card,
+            .job-card {
+                padding: 14px;
+            }
+            
+            .stat-number {
+                font-size: 1.4rem;
+            }
+            
+            .section-title {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+            
+            .job-title {
+                font-size: 0.95rem;
+            }
+            
+            .job-meta {
+                font-size: 0.75rem;
+                gap: 6px;
+            }
+            
+            .job-status {
+                padding: 3px 6px;
+                font-size: 0.7rem;
+            }
+            
+            .job-description {
+                font-size: 0.8rem;
+                margin-bottom: 12px;
+            }
+            
+            .offer-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .detail-label {
+                font-size: 0.7rem;
+            }
+            
+            .detail-value {
+                font-size: 0.8rem;
+            }
+            
+            .btn {
+                padding: 7px 10px;
+                font-size: 0.75rem;
+            }
+            
+            .job-actions {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+            
+            .notification-dropdown {
+                right: 10px;
+                width: 260px;
+            }
+            
+            .view-more-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+            
+            .application-tabs {
+                gap: 6px;
+            }
+            
+            .tab {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .modal-content {
+                padding: 16px;
+            }
+            
+            .modal-title {
+                font-size: 1rem;
+            }
+        }
+
+        /* Small Mobile (576px and below) */
+        @media (max-width: 576px) {
+            .dashboard-content {
+                padding: 10px;
+            }
+            
+            .navbar {
+                padding: 0 10px;
+            }
+            
+            .mobile-menu-btn {
+                font-size: 1rem;
+            }
+            
+            .page-title {
+                font-size: 1rem;
+            }
+            
+            .welcome-title {
+                font-size: 1.1rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 0.8rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .applications-grid {
+                gap: 8px;
+            }
+            
+            .stat-card,
+            .job-card {
+                padding: 12px;
+            }
+            
+            .stat-number {
+                font-size: 1.3rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            
+            .stat-subtitle {
+                font-size: 0.7rem;
+            }
+            
+            .performance-indicator {
+                font-size: 0.65rem;
+                padding: 2px 6px;
+            }
+            
+            .job-title {
+                font-size: 0.9rem;
+            }
+            
+            .offer-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .job-actions {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+            
+            .btn {
+                padding: 6px 8px;
+                font-size: 0.7rem;
+            }
+            
+            .notification-dropdown {
+                width: 240px;
+                right: 8px;
+            }
+            
+            .footer {
+                padding: 12px 15px 8px;
+            }
+            
+            .footer-links {
+                gap: 10px;
+            }
+            
+            .footer-links a {
+                font-size: 0.8rem;
+            }
+            
+            .footer-bottom {
+                font-size: 0.75rem;
+            }
+            
+            .application-tabs {
+                justify-content: center;
+            }
+            
+            .tab {
+                padding: 5px 10px;
+                font-size: 0.75rem;
+                flex: 1;
+                text-align: center;
+            }
+        }
+
+        /* Extra Small Mobile (480px and below) */
+        @media (max-width: 480px) {
+            .dashboard-content {
+                padding: 8px;
+            }
+            
+            .navbar {
+                padding: 0 8px;
+                height: 55px;
+            }
+            
+            .logo-img-placeholder {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+            
+            .mobile-menu-btn {
+                font-size: 0.9rem;
+            }
+            
+            .page-title {
+                font-size: 0.9rem;
+            }
+            
+            .notification-icon {
+                font-size: 0.9rem;
+            }
+            
+            .notification-badge {
+                width: 16px;
+                height: 16px;
+                font-size: 0.65rem;
+            }
+            
+            .user-avatar {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .welcome-title {
+                font-size: 1rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 0.75rem;
+            }
+            
+            .stat-card,
+            .job-card {
+                padding: 10px;
+            }
+            
+            .stat-icon {
+                font-size: 1.1rem;
+                margin-bottom: 4px;
+            }
+            
+            .stat-number {
+                font-size: 1.2rem;
+                margin-bottom: 3px;
+            }
+            
+            .stat-label {
+                font-size: 0.75rem;
+            }
+            
+            .stat-subtitle {
+                font-size: 0.7rem;
+            }
+            
+            .performance-indicator {
+                font-size: 0.6rem;
+                padding: 2px 5px;
+            }
+            
+            .job-title {
+                font-size: 0.85rem;
+            }
+            
+            .job-meta {
+                font-size: 0.7rem;
+            }
+            
+            .job-description {
+                font-size: 0.75rem;
+            }
+            
+            .detail-label {
+                font-size: 0.65rem;
+            }
+            
+            .detail-value {
+                font-size: 0.75rem;
+            }
+            
+            .btn {
+                padding: 5px 7px;
+                font-size: 0.65rem;
+            }
+            
+            .dropdown-menu {
+                width: 140px;
+                padding: 6px 0;
+                right: 8px;
+            }
+            
+            .dropdown-menu a {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .notification-dropdown {
+                width: 220px;
+            }
+            
+            .notification-header {
+                padding: 10px 12px;
+            }
+            
+            .notification-title {
+                font-size: 0.9rem;
+            }
+            
+            .notification-item {
+                padding: 8px 12px;
+            }
+            
+            .notification-content {
+                font-size: 0.8rem;
+            }
+            
+            .notification-time {
+                font-size: 0.65rem;
+            }
+            
+            .view-more-btn {
+                padding: 7px 14px;
+                font-size: 0.8rem;
+            }
+            
+            .application-tabs {
+                flex-direction: column;
+                gap: 4px;
+            }
+            
+            .tab {
+                padding: 8px;
+                font-size: 0.75rem;
+                text-align: center;
+            }
+        }
+
+        /* Very Small Mobile (360px and below) */
+        @media (max-width: 360px) {
+            .dashboard-content {
+                padding: 6px;
+            }
+            
+            .navbar {
+                padding: 0 6px;
+            }
+            
+            .logo-img-placeholder {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+            
+            .logo-main {
+                font-size: 0.9rem;
+            }
+            
+            .logo-sub {
+                font-size: 0.6rem;
+            }
+            
+            .welcome-title {
+                font-size: 0.95rem;
+            }
+            
+            .stat-card,
+            .job-card {
+                padding: 8px;
+            }
+            
+            .stat-icon {
+                font-size: 1rem;
+            }
+            
+            .stat-number {
+                font-size: 1.1rem;
+            }
+            
+            .job-title {
+                font-size: 0.8rem;
+            }
+            
+            .btn {
+                padding: 4px 6px;
+                font-size: 0.6rem;
+            }
+            
+            .footer {
+                padding: 10px 12px 6px;
+            }
+            
+            .footer-links a {
+                font-size: 0.75rem;
+            }
+            
+            .footer-bottom {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- Logout Modal -->
+    <div class="modal" id="logoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Confirm Logout</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to log out?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-logout" id="confirmLogout">Log Out</button>
+                <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div class="modal" id="withdrawModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Withdraw Application</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to withdraw your application for <strong id="withdrawJobTitle">this job</strong>?</p>
+                <p>This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="confirmWithdraw">Yes, Withdraw</button>
+                <button class="btn btn-outline" id="cancelWithdraw">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Employer Details Modal -->
+    <div class="modal" id="employerDetailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Employer Details</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="offer-details">
+                    <div class="offer-detail">
+                        <span class="detail-label">Email</span>
+                        <span class="detail-value" id="employerEmail">hr@creativelabsgh.com</span>
+                    </div>
+                    <div class="offer-detail">
+                        <span class="detail-label">Phone Number</span>
+                        <span class="detail-value" id="employerPhone">+233 24 123 4567</span>
+                    </div>
+                    <div class="offer-detail">
+                        <span class="detail-label">Company Address</span>
+                        <span class="detail-value" id="employerAddress">123 Creative Street, Accra, Ghana</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="closeEmployerDetails">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-img-placeholder">JA</div>
+                <div class="logo-text">
+                    <div class="logo-main">JobAssist</div>
+                    <div class="logo-sub">GHANA</div>
+                </div>
+            </div>
+            <button class="toggle-btn" id="sidebarToggle">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="candidate-dashboard.html"><i class="fas fa-home"></i> <span class="menu-text">Dashboard</span></a></li>
+            <li><a href="your-applications.html" class="active"><i class="fas fa-list-alt"></i> <span class="menu-text">My Applications</span></a></li>
+            <li><a href="accepted-offers.html"><i class="fas fa-check-circle"></i> <span class="menu-text">Accepted Offers</span></a></li>
+            <li><a href="candidate-profile.html"><i class="fas fa-user"></i> <span class="menu-text">My Profile</span></a></li>
+            <li><a href="boost-profile.html"><i class="fas fa-rocket"></i> <span class="menu-text">Boost Application</span> <i class="fas fa-crown premium-indicator"></i></a></li>
+            <li><a href="browse-jobs.html"><i class="fas fa-search"></i> <span class="menu-text">Browse Jobs</span></a></li>
+            <li><a href="settings.html"><i class="fas fa-cog"></i> <span class="menu-text">Settings</span></a></li>
+            <li><a href="help.html"><i class="fas fa-question-circle"></i> <span class="menu-text">Help & Support</span></a></li>
+            <li><a href="#" id="sidebarLogout"><i class="fas fa-sign-out-alt"></i> <span class="menu-text">Logout</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="page-title">My Applications</div>
+            <div class="navbar-right">
+                <div class="notification-icon" id="notificationIcon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="notification-dropdown" id="notificationDropdown">
+                    <div class="notification-header">
+                        <h3 class="notification-title">Notifications</h3>
+                        <button class="mark-all-read">Mark all as read</button>
+                    </div>
+                    <ul class="notification-list">
+                        <li class="notification-item unread">
+                            <div class="notification-content">Your application for Frontend Developer has been submitted</div>
+                            <div class="notification-time">2 hours ago</div>
+                        </li>
+                        <li class="notification-item unread">
+                            <div class="notification-content">New job matches your profile: Data Analyst at Tech Solutions</div>
+                            <div class="notification-time">5 hours ago</div>
+                        </li>
+                        <li class="notification-item unread">
+                            <div class="notification-content">Your application for Marketing Manager is being reviewed</div>
+                            <div class="notification-time">1 day ago</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="user-profile" id="userProfile">
+                    <div class="user-avatar">
+                        <img src="https://i.pravatar.cc/150?img=12" alt="User">
+                    </div>
+                    <div class="user-name">Nana</div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu">
+                    <a href="candidate-profile.html"><i class="fas fa-user"></i> View Profile</a>
+                    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#" id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <div class="dashboard-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h1 class="welcome-title">My Applications</h1>
+                <p class="welcome-subtitle">Track all your job applications in one place</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalApplications">8</div>
+                    <div class="stat-label">Total Applications</div>
+                    <div class="stat-subtitle">Showing all time applications</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="successRate">67%</div>
+                    <div class="stat-label">Success Rate</div>
+                    <div class="stat-subtitle">Based on last 30 days activity</div>
+                    <div class="performance-indicator performance-excellent">Excellent</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="progressRate">+18%</div>
+                    <div class="stat-label">Weekly Progress Rate</div>
+                    <div class="stat-subtitle">Improvement from last week</div>
+                    <div class="performance-indicator performance-improving">Improving</div>
+                </div>
+            </div>
+
+            <!-- Application Tabs -->
+            <div class="application-tabs">
+                <div class="tab active" data-filter="all">All Applications (<span id="allCount">8</span>)</div>
+                <div class="tab" data-filter="in-review">In Review (<span id="inReviewCount">3</span>)</div>
+                <div class="tab" data-filter="accepted">Accepted (<span id="acceptedCount">2</span>)</div>
+                <div class="tab" data-filter="withdrawn">Withdrawn (<span id="withdrawnCount">0</span>)</div>
+            </div>
+
+            <!-- Applications Grid -->
+            <div class="applications-grid" id="applicationsContainer">
+                <!-- Application 1 - In Review -->
+                <div class="job-card" data-status="in-review">
+                    <h3 class="job-title">Frontend Developer</h3>
+                    <div class="job-meta">
+                        <span>Two Southeast Las</span>
+                        <span>Accra, Ghana</span>
+                        <span>Applied: 15 May 2023</span>
+                    </div>
+                    <div class="job-status status-in-review">In Review</div>
+                    <p class="job-description">We are looking for a skilled Frontend Developer with experience in React and modern JavaScript.</p>
+                    <div class="job-actions">
+                        <button class="btn btn-primary" onclick="viewJobDetails('frontend-developer')">View Details</button>
+                        <button class="btn btn-outline withdraw-application" data-job="Frontend Developer" data-company="Two Southeast Las">Withdraw Application</button>
+                    </div>
+                </div>
+
+                <!-- Application 2 - Accepted -->
+                <div class="job-card" data-status="accepted">
+                    <h3 class="job-title">Marketing Manager</h3>
+                    <div class="job-meta">
+                        <span>Global Emails Inc</span>
+                        <span>Kumasi, Ghana</span>
+                        <span>Applied: 10 May 2023</span>
+                    </div>
+                    <div class="job-status status-accepted">Accepted</div>
+                    <p class="job-description">Exciting opportunity for a Marketing Manager with 3+ years experience in brand management.</p>
+                    <div class="job-actions">
+                        <button class="btn btn-primary" onclick="viewJobDetails('marketing-manager')">View Details</button>
+                        <button class="btn btn-outline contact-employer" data-company="Global Emails Inc">Contact Employer</button>
+                    </div>
+                </div>
+
+                <!-- Application 3 - In Review -->
+                <div class="job-card" data-status="in-review">
+                    <h3 class="job-title">Data Analyst</h3>
+                    <div class="job-meta">
+                        <span>Tech Solutions Ltd</span>
+                        <span>Accra, Ghana</span>
+                        <span>Applied: 20 May 2023</span>
+                    </div>
+                    <div class="job-status status-in-review">In Review</div>
+                    <p class="job-description">Looking for a Data Analyst with experience in SQL, Python, and data visualization tools.</p>
+                    <div class="job-actions">
+                        <button class="btn btn-primary" onclick="viewJobDetails('data-analyst')">View Details</button>
+                        <button class="btn btn-outline withdraw-application" data-job="Data Analyst" data-company="Tech Solutions Ltd">Withdraw Application</button>
+                    </div>
+                </div>
+
+                <!-- Application 4 - In Review -->
+                <div class="job-card" data-status="in-review">
+                    <h3 class="job-title">UX Designer</h3>
+                    <div class="job-meta">
+                        <span>Design Studio</span>
+                        <span>Accra, Ghana</span>
+                        <span>Applied: 22 May 2023</span>
+                    </div>
+                    <div class="job-status status-in-review">In Review</div>
+                    <p class="job-description">Creative UX Designer needed for innovative projects with modern design tools.</p>
+                    <div class="job-actions">
+                        <button class="btn btn-primary" onclick="viewJobDetails('ux-designer')">View Details</button>
+                        <button class="btn btn-outline withdraw-application" data-job="UX Designer" data-company="Design Studio">Withdraw Application</button>
+                    </div>
+                </div>
+
+                <!-- Application 5 - Accepted -->
+                <div class="job-card" data-status="accepted">
+                    <h3 class="job-title">Senior UX Designer</h3>
+                    <div class="job-meta">
+                        <span>Creative Labs Ghana</span>
+                        <span>Accra, Ghana</span>
+                        <span>Applied: 18 May 2023</span>
+                    </div>
+                    <div class="job-status status-accepted">Accepted</div>
+                    <p class="job-description">Senior UX Designer position with focus on user-centered design methodologies.</p>
+                    <div class="job-actions">
+                        <button class="btn btn-primary" onclick="viewJobDetails('senior-ux-designer')">View Details</button>
+                        <button class="btn btn-outline contact-employer" data-company="Creative Labs Ghana">Contact Employer</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View More Button -->
+            <div class="view-more-container">
+                <button class="view-more-btn" onclick="window.location.href='browse-jobs.html'">Browse More Jobs</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const mainContent = document.getElementById('mainContent');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const logoutModal = document.getElementById('logoutModal');
+        const withdrawModal = document.getElementById('withdrawModal');
+        const employerDetailsModal = document.getElementById('employerDetailsModal');
+        const notificationIcon = document.getElementById('notificationIcon');
+        const notificationDropdown = document.getElementById('notificationDropdown');
+        const userProfile = document.getElementById('userProfile');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        const tabs = document.querySelectorAll('.tab');
+        const closeEmployerDetails = document.getElementById('closeEmployerDetails');
+        
+        // Employer Details Data
+        const employerDetails = {
+            'Global Emails Inc': {
+                email: 'hr@globalemails.com',
+                phone: '+233 50 111 2222',
+                address: '78 Business Avenue, Kumasi, Ghana'
+            },
+            'Tech Solutions Ltd': {
+                email: 'recruitment@techsolutions.com',
+                phone: '+233 55 333 4444',
+                address: '12 Tech Hub, Accra, Ghana'
+            },
+            'Creative Labs Ghana': {
+                email: 'hr@creativelabsgh.com',
+                phone: '+233 24 123 4567',
+                address: '123 Creative Street, Accra, Ghana'
+            },
+            'FinTech Innovations': {
+                email: 'careers@fintechinnovations.com',
+                phone: '+233 20 987 6543',
+                address: '45 Innovation Avenue, Accra, Ghana'
+            },
+            'Two Southeast Las': {
+                email: 'careers@twosoutheast.com',
+                phone: '+233 30 111 2222',
+                address: '45 Business Lane, Accra, Ghana'
+            },
+            'Design Studio': {
+                email: 'info@designstudiogh.com',
+                phone: '+233 27 555 6666',
+                address: '89 Design Avenue, Accra, Ghana'
+            }
+        };
+
+        // Initialize page
+        function initializePage() {
+            // Set stats
+            document.getElementById('totalApplications').textContent = '8';
+            document.getElementById('successRate').textContent = '67%';
+            document.getElementById('progressRate').textContent = '+18%';
+            
+            // Set tab counts
+            document.getElementById('allCount').textContent = '8';
+            document.getElementById('inReviewCount').textContent = '3';
+            document.getElementById('acceptedCount').textContent = '2';
+            document.getElementById('withdrawnCount').textContent = '0';
+            
+            // Show all applications by default
+            filterApplications('all');
+            
+            // Setup event listeners for contact employer buttons
+            setupContactEmployerButtons();
+            setupWithdrawButtons();
+        }
+
+        // View job details
+        function viewJobDetails(jobId) {
+            window.location.href = `view-details.html?id=${jobId}`;
+        }
+
+        // Contact employer
+        function contactEmployer(companyName) {
+            const employer = employerDetails[companyName];
+            
+            if (employer) {
+                document.getElementById('employerEmail').textContent = employer.email;
+                document.getElementById('employerPhone').textContent = employer.phone;
+                document.getElementById('employerAddress').textContent = employer.address;
+                employerDetailsModal.classList.add('show');
+            }
+        }
+
+        // Setup contact employer button listeners
+        function setupContactEmployerButtons() {
+            document.querySelectorAll('.contact-employer').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const companyName = this.getAttribute('data-company');
+                    contactEmployer(companyName);
+                });
+            });
+        }
+
+        // Filter applications by status
+        function filterApplications(status) {
+            const jobCards = document.querySelectorAll('.job-card');
+            jobCards.forEach(card => {
+                if (status === 'all') {
+                    card.style.display = 'flex';
+                } else {
+                    if (card.getAttribute('data-status') === status) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Withdraw application
+        function setupWithdrawButtons() {
+            document.querySelectorAll('.withdraw-application').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const jobTitle = this.getAttribute('data-job');
+                    document.getElementById('withdrawJobTitle').textContent = jobTitle;
+                    withdrawModal.classList.add('show');
+                });
+            });
+        }
+
+        // Toggle sidebar
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+            
+            const icon = this.querySelector('i');
+            if (sidebar.classList.contains('collapsed')) {
+                icon.className = 'fas fa-chevron-right';
+            } else {
+                icon.className = 'fas fa-chevron-left';
+            }
+        });
+
+        // Mobile menu toggle
+        let isMobileMenuOpen = false;
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            if (isMobileMenuOpen) {
+                sidebar.classList.remove('mobile-open');
+                mobileOverlay.classList.remove('show');
+                isMobileMenuOpen = false;
+            } else {
+                sidebar.classList.add('mobile-open');
+                mobileOverlay.classList.add('show');
+                isMobileMenuOpen = true;
+            }
+        });
+
+        // Close mobile menu on overlay click
+        mobileOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('mobile-open');
+            mobileOverlay.classList.remove('show');
+            isMobileMenuOpen = false;
+        });
+
+        // Toggle user dropdown
+        userProfile.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+
+        // Toggle notification dropdown
+        notificationIcon.addEventListener('click', function(e) {
+            e.stopPropagation();
+            notificationDropdown.classList.toggle('show');
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.user-profile')) {
+                dropdownMenu.classList.remove('show');
+            }
+            
+            if (!event.target.closest('.notification-icon')) {
+                notificationDropdown.classList.remove('show');
+            }
+        });
+
+        // Tab functionality
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.getAttribute('data-filter');
+                filterApplications(filter);
+            });
+        });
+
+        // Modal close buttons
+        document.querySelectorAll('.close-modal').forEach(button => {
+            button.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                modal.classList.remove('show');
+            });
+        });
+
+        // Close employer details modal
+        closeEmployerDetails.addEventListener('click', function() {
+            employerDetailsModal.classList.remove('show');
+        });
+
+        // Close modals on outside click
+        window.addEventListener('click', function(event) {
+            if (event.target === logoutModal) {
+                logoutModal.classList.remove('show');
+            }
+            if (event.target === withdrawModal) {
+                withdrawModal.classList.remove('show');
+            }
+            if (event.target === employerDetailsModal) {
+                employerDetailsModal.classList.remove('show');
+            }
+        });
+
+        // Logout functionality
+        document.getElementById('sidebarLogout').addEventListener('click', function(e) {
+            e.preventDefault();
+            logoutModal.classList.add('show');
+        });
+
+        document.getElementById('dropdownLogout').addEventListener('click', function(e) {
+            e.preventDefault();
+            dropdownMenu.classList.remove('show');
+            logoutModal.classList.add('show');
+        });
+
+        document.getElementById('confirmLogout').addEventListener('click', function() {
+            // Redirect to login.html after successful logout
+            logoutModal.classList.remove('show');
+            window.location.href = 'login.html';
+        });
+
+        document.getElementById('cancelLogout').addEventListener('click', function() {
+            logoutModal.classList.remove('show');
+        });
+
+        // Withdraw functionality
+        document.getElementById('confirmWithdraw').addEventListener('click', function() {
+            const jobTitle = document.getElementById('withdrawJobTitle').textContent;
+            alert(`Application for ${jobTitle} has been withdrawn.`);
+            withdrawModal.classList.remove('show');
+        });
+
+        document.getElementById('cancelWithdraw').addEventListener('click', function() {
+            withdrawModal.classList.remove('show');
+        });
+
+        // Mark all notifications as read
+        document.querySelector('.mark-all-read').addEventListener('click', function() {
+            document.querySelectorAll('.notification-item.unread').forEach(item => {
+                item.classList.remove('unread');
+            });
+            document.querySelector('.notification-badge').style.display = 'none';
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('mobile-open');
+                mobileOverlay.classList.remove('show');
+                isMobileMenuOpen = false;
+            }
+        });
+
+        // Initialize page when loaded
+        window.addEventListener('DOMContentLoaded', function() {
+            initializePage();
+        });
+    </script>
+</body>
+</html>

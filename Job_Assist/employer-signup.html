@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Employer Sign Up | Job Assist Ghana — Step 1 of 2</title>
+  <!-- Favicon - using your existing logo -->
+  <link rel="icon" type="image/png" href="tab-logo.png">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --deep-blue: #002147;
+      --accent-gold: #f8c12e;
+      --cream: #f9f8f4;
+      --muted: #6b7280;
+      --card-bg: #ffffff;
+      --radius: 12px;
+      --max-width: 1100px;
+      --error-red: #e74c3c;
+      --success-green: #2ecc71;
+    }
+
+    /* Reset + base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'San Francisco', sans-serif;
+      background:var(--cream);
+      color:#1f2937;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+    }
+
+    /* ---------- NAVBAR (same structure as homepage) ---------- */
+    .site-navbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:var(--deep-blue);
+      color:#fff;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+      width: 100%;
+    }
+    .nav-inner{
+      max-width:var(--max-width);
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 24px;
+    }
+    .brand img{height:48px; filter:brightness(0) invert(1);}
+    nav.desktop-nav ul{display:flex; gap:22px; margin:0; padding:0; list-style:none; align-items:center;}
+    nav.desktop-nav a{color:#fff; text-decoration:none; font-weight:600;}
+    nav.desktop-nav a:hover{color:var(--accent-gold);}
+
+    /* Login button styles */
+    .login-btn {
+      background: var(--accent-gold);
+      color: var(--deep-blue);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .login-btn:hover {
+      background: #ffda6a;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(248, 193, 46, 0.3);
+      color: var(--deep-blue);
+    }
+
+    /* Hamburger (mobile) */
+    .menu-icon{
+      display:none; 
+      font-size:28px;
+      cursor:pointer; 
+      color:#fff;
+      z-index: 1000;
+    }
+
+    /* Mobile Menu - Fixed to match homepage */
+    #mobile-menu{
+      display:none;
+      position: fixed;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      background-color: var(--deep-blue);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+    }
+
+    #mobile-menu.active {
+      display: block;
+    }
+
+    #mobile-menu ul {
+      list-style: none;
+      padding: 20px 0;
+      width: 100%;
+    }
+
+    #mobile-menu ul li {
+      padding: 12px 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+    }
+
+    #mobile-menu ul li:last-child {
+      border-bottom: none;
+    }
+
+    #mobile-menu ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      display: block;
+      transition: color 0.3s ease;
+      width: 100%;
+    }
+
+    #mobile-menu ul li a:hover,
+    #mobile-menu ul li a.active {
+      color: var(--accent-gold);
+    }
+
+    #mobile-menu .login-btn {
+      display: inline-block;
+      margin: 10px 30px;
+      text-align: center;
+      width: calc(100% - 60px);
+    }
+
+    /* ---------- PAGE LAYOUT ---------- */
+    .page {
+      max-width: var(--max-width);
+      margin: 40px auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 480px; /* main form left, empty right (or future info) */
+      gap: 36px;
+      align-items:start;
+      position: relative;
+    }
+
+    /* Progress / heading area */
+    .step-bar {
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin-bottom:18px;
+    }
+    .step-pill{
+      background:#e9eef7;
+      color:var(--deep-blue);
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+    }
+    .progress-line {
+      flex:1;
+      height:8px;
+      background:#e6e8eb;
+      border-radius:999px;
+      overflow:hidden;
+    }
+    .progress-line .fill{
+      width:50%; /* Step 1 of 2 */
+      height:100%;
+      background:linear-gradient(90deg,var(--accent-gold), #ffda6a);
+    }
+
+    .page-heading{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:18px;
+    }
+    .page-heading h1{
+      margin:0;
+      color:var(--deep-blue);
+      font-size:28px;
+    }
+
+    .candidate-cta {
+      padding:8px 12px;
+      border-radius:8px;
+      border:1px solid var(--deep-blue);
+      background:transparent;
+      color:var(--deep-blue);
+      text-decoration:none;
+      font-weight:700;
+      font-size:14px;
+      white-space:nowrap;
+    }
+    .candidate-cta:hover{background:rgba(0,33,71,0.05)}
+
+    .subtext {
+      color:var(--muted);
+      margin-bottom:22px;
+      max-width:720px;
+      font-size:15px;
+    }
+
+    /* ---------- FORM ---------- */
+    .signup-form {
+      background: var(--card-bg);
+      padding:28px;
+      border-radius:var(--radius);
+      box-shadow: 0 10px 36px rgba(7,22,50,0.06);
+      width:100%;
+    }
+
+    .field {
+      margin-bottom:14px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    label {
+      font-size:13px;
+      color:#374151;
+      font-weight:600;
+    }
+
+    .required::after {
+      content: " *";
+      color: #ef4444;
+    }
+
+    .checkbox-group {
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .checkbox-group input {
+      transform: scale(1.1);
+    }
+
+    .small-row {
+      display:flex;
+      gap:12px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    select,
+    textarea {
+      width:100%;
+      padding:12px 14px;
+      border-radius:8px;
+      border:1px solid #e5e7eb;
+      font-size:15px;
+      color:#111827;
+      background:#fff;
+    }
+    textarea{min-height:96px; resize:vertical}
+
+    .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+    .tooltip {
+      display:inline-block;
+      margin-left:8px;
+      color:var(--muted);
+      font-weight:700;
+      cursor:help;
+    }
+    .tip-box {
+      display:none;
+      position:absolute;
+      background:#fff;
+      border:1px solid #e6e6e6;
+      padding:10px;
+      border-radius:8px;
+      box-shadow:0 6px 18px rgba(11,22,50,0.08);
+      font-size:13px;
+      width:240px;
+      z-index:1200;
+    }
+
+    .field-inline { position:relative; }
+
+    /* reCAPTCHA placeholder */
+    .recaptcha {
+      border:1px dashed #d1d5db;
+      border-radius:8px;
+      padding:12px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin:16px 0;
+      background:#fafafa;
+    }
+    .recaptcha input{transform:scale(1.15)}
+
+    /* Continue button */
+    .actions {
+      margin-top:8px;
+    }
+    .btn-primary {
+      width:100%;
+      padding:12px 16px;
+      border-radius:10px;
+      background:linear-gradient(90deg,var(--accent-gold), #ffd86e);
+      color:var(--deep-blue);
+      border:none;
+      font-weight:800;
+      font-size:16px;
+      cursor:pointer;
+      box-shadow:0 8px 20px rgba(248,193,46,0.15);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:disabled {
+      opacity:0.5;
+      cursor:not-allowed;
+      transform:none;
+      box-shadow:none;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(248, 193, 46, 0.3);
+    }
+
+    .helper-note {
+      font-size:13px;
+      color:var(--muted);
+      margin-top:8px;
+    }
+
+    /* Right column placeholder (space for future info / images) */
+    .right-column {
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      align-items:center;
+      justify-content:center;
+      padding: 12px;
+    }
+    .placeholder-card {
+      width:100%;
+      height:200px;
+      border-radius:12px;
+      background:linear-gradient(180deg,#f7fafc,#eef2f7);
+      border:1px solid #e6eef8;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    /* Footer reassurance */
+    .security-note {
+      margin-top:16px;
+      font-size:13px;
+      color:var(--muted);
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    /* Section headers */
+    .form-section {
+      margin: 24px 0 16px 0;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e9eef7;
+      color: var(--deep-blue);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    /* Disabled field styling */
+    .disabled-field {
+      background-color: #f3f4f6 !important;
+      color: #9ca3af !important;
+      cursor: not-allowed;
+    }
+
+    /* Optional field indicator */
+    .optional-label {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: normal;
+      margin-left: 4px;
+    }
+
+    /* Loading spinner */
+    .loading-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--deep-blue);
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 10px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-spinner.active {
+      display: inline-block;
+    }
+
+    .btn-text {
+      transition: opacity 0.3s ease;
+    }
+
+    .btn-primary.loading .btn-text {
+      opacity: 0.7;
+    }
+
+    /* Success checkmark */
+    .success-checkmark {
+      display: none;
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+
+    .success-checkmark.active {
+      display: inline-block;
+    }
+
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: block;
+      stroke-width: 2;
+      stroke: var(--success-green);
+      stroke-miterlimit: 10;
+      box-shadow: inset 0px 0px 0px var(--success-green);
+      animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+    }
+
+    .check-circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      stroke-width: 2;
+      stroke-miterlimit: 10;
+      stroke: var(--success-green);
+      fill: none;
+      animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    .check-path {
+      transform-origin: 50% 50%;
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    }
+
+    @keyframes stroke {
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes scale {
+      0%, 100% {
+        transform: none;
+      }
+      50% {
+        transform: scale3d(1.1, 1.1, 1);
+      }
+    }
+
+    @keyframes fill {
+      100% {
+        box-shadow: inset 0px 0px 0px 30px var(--success-green);
+      }
+    }
+
+    /* Loading overlay */
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.95);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      border-radius: 12px;
+      z-index: 100;
+    }
+
+    .loading-overlay.active {
+      display: flex;
+    }
+
+    .loading-content {
+      text-align: center;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 36px rgba(7,22,50,0.15);
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .loading-dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .loading-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--accent-gold);
+      margin: 0 4px;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+
+    .loading-dot:nth-child(1) { animation-delay: -0.32s; }
+    .loading-dot:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { 
+        transform: scale(0);
+      } 40% { 
+        transform: scale(1.0);
+      }
+    }
+
+    /* Error message styling */
+    .error-message {
+      background-color: rgba(231, 76, 60, 0.1);
+      border: 1px solid var(--error-red);
+      color: var(--error-red);
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      font-size: 14px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    /* Other Industry Field */
+    .other-industry-field {
+      display: none;
+      margin-top: 8px;
+    }
+
+    .other-industry-field.show {
+      display: block;
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px){
+      .page { grid-template-columns: 1fr; padding: 18px; }
+      .right-column{order:2; width:100%; display: none;}
+      .signup-form{order:1}
+      nav.desktop-nav{display:none}
+      .menu-icon{display:block}
+    }
+
+    @media (max-width: 768px){
+      .nav-inner{padding:12px 20px;}
+      .page-heading h1{font-size:22px}
+      .page{margin:18px auto}
+      .row-2{grid-template-columns:1fr}
+      
+      #mobile-menu ul li {
+        padding: 12px 20px;
+      }
+      
+      #mobile-menu .login-btn {
+        margin: 10px 20px;
+        width: calc(100% - 40px);
+      }
+    }
+
+    @media (max-width: 480px){
+      .page-heading {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .candidate-cta {
+        align-self: flex-start;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="site-navbar">
+    <div class="nav-inner">
+      <a class="brand" href="job_assist.html"><img src="logo.png" alt="Job Assist Ghana logo"></a>
+
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="job_assist.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="login.html" class="login-btn">Login</a></li>
+        </ul>
+      </nav>
+
+      <div class="menu-icon" id="menuBtn">☰</div>
+    </div>
+
+    <!-- mobile menu (hidden by default) -->
+    <div id="mobile-menu">
+      <ul>
+        <li><a href="job_assist.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="login.html" class="login-btn">Login</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- MAIN PAGE -->
+  <main class="page" role="main">
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-content">
+        <div class="loading-spinner active"></div>
+        <h3>Creating your employer account...</h3>
+        <p>Please wait while we set up your company profile</p>
+        <div class="loading-dots">
+          <div class="loading-dot"></div>
+          <div class="loading-dot"></div>
+          <div class="loading-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEFT: form & text -->
+    <div>
+      <div class="step-bar" aria-hidden="true">
+        <div class="step-pill">Step 1 of 2</div>
+        <div class="progress-line" aria-hidden="true">
+          <div class="fill" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+
+      <div class="page-heading">
+        <h1>Create Employer Account</h1>
+        <a href="signup.html" class="candidate-cta">Sign up as Candidate →</a>
+      </div>
+
+      <p class="subtext">Register your company to start hiring qualified candidates. Complete your profile and proceed to payment to activate your employer account.</p>
+
+      <div class="error-message" id="errorMessage">
+        There was an issue creating your account. Please check your information and try again.
+      </div>
+
+      <form id="signupForm" class="signup-form" novalidate>
+        
+        <!-- 🏢 Company Information Section -->
+        <div class="form-section">🏢 Company Information</div>
+
+        <div class="field">
+          <label for="companyName" class="required">Company Name</label>
+          <input id="companyName" name="companyName" type="text" placeholder="Enter company name" required>
+        </div>
+
+        <div class="row-2">
+          <div class="field">
+            <label for="industry" class="required">Industry/Field</label>
+            <select id="industry" name="industry" required>
+              <option value="">Select industry</option>
+              <option>Education</option>
+              <option>Healthcare</option>
+              <option>Technology</option>
+              <option>Construction</option>
+              <option>Manufacturing</option>
+              <option>Retail</option>
+              <option>Hospitality</option>
+              <option>Finance</option>
+              <option>Agriculture</option>
+              <option>Other</option>
+            </select>
+            <!-- Other Industry Field -->
+            <div class="other-industry-field" id="otherIndustryField">
+              <label for="otherIndustry" class="required">Please specify your industry</label>
+              <input id="otherIndustry" name="otherIndustry" type="text" placeholder="Enter your industry">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="businessType" class="required">Business Type</label>
+            <select id="businessType" name="businessType" required>
+              <option value="">Select business type</option>
+              <option>Government Institution</option>
+              <option>Private-Owned Business</option>
+              <option>NGO</option>
+              <option>Others</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row-2">
+          <div class="field">
+            <label for="companySize" class="required">Company Size</label>
+            <select id="companySize" name="companySize" required>
+              <option value="">Select size</option>
+              <option>1–10 employees</option>
+              <option>11–50 employees</option>
+              <option>51–200 employees</option>
+              <option>201–1000 employees</option>
+              <option>1000+ employees</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="registrationNumber" id="registrationLabel">
+              Business Registration Number
+              <span class="optional-label">(Required for Private Businesses)</span>
+            </label>
+            <input id="registrationNumber" name="registrationNumber" type="text" placeholder="Enter registration number">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="companyDescription" class="required">Company Description</label>
+          <textarea id="companyDescription" name="companyDescription" placeholder="Brief overview of what your company does..." maxlength="200" required></textarea>
+          <div style="font-size:13px;color:var(--muted);margin-top:6px">Maximum 200 characters</div>
+        </div>
+
+        <!-- 👤 Employer/Recruiter Details Section -->
+        <div class="form-section">👤 Employer / Recruiter Details</div>
+
+        <div class="row-2">
+          <div class="field">
+            <label for="fullName" class="required">Full Name</label>
+            <input id="fullName" name="fullName" type="text" placeholder="Your full name" required>
+          </div>
+
+          <div class="field">
+            <label for="position" class="required">Position / Job Title</label>
+            <input id="position" name="position" type="text" placeholder="e.g. HR Manager, CEO" required>
+          </div>
+        </div>
+
+        <div class="row-2">
+          <div class="field">
+            <label for="workEmail">Work Email Address</label>
+            <input id="workEmail" name="workEmail" type="email" placeholder="company@email.com (optional)">
+          </div>
+
+          <div class="field">
+            <label for="phone" class="required">Phone Number</label>
+            <input id="phone" name="phone" type="tel" placeholder="e.g. 0244123456" required>
+          </div>
+        </div>
+
+        <!-- 📍 Location & Contact Info Section -->
+        <div class="form-section">📍 Location & Contact Info</div>
+
+        <div class="field">
+          <label for="companyAddress" class="required">Company Address</label>
+          <input id="companyAddress" name="companyAddress" type="text" placeholder="Full company address" required>
+        </div>
+
+        <div class="field">
+          <label for="cityRegion" class="required">City / Region</label>
+          <select id="cityRegion" name="cityRegion" required>
+            <option value="">Select region</option>
+            <option>Greater Accra</option>
+            <option>Ashanti</option>
+            <option>Central</option>
+            <option>Western</option>
+            <option>Eastern</option>
+            <option>Volta</option>
+            <option>Northern</option>
+            <option>Upper East</option>
+            <option>Upper West</option>
+            <option>Bono</option>
+            <option>Ahafo</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <!-- 🔐 Account Security Section -->
+        <div class="form-section">🔐 Account Security</div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="Your email address (optional)">
+        </div>
+
+        <div class="row-2">
+          <div class="field">
+            <label for="password" class="required">Password</label>
+            <input id="password" name="password" type="password" placeholder="Create password" required>
+          </div>
+          <div class="field">
+            <label for="confirmPassword" class="required">Confirm Password</label>
+            <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm password" required>
+          </div>
+        </div>
+
+        <!-- ✅ Terms & Agreement Section -->
+        <div class="form-section">✅ Terms & Agreement</div>
+
+        <!-- reCAPTCHA placeholder -->
+        <div class="recaptcha" id="recaptchaBox" role="group" aria-label="recaptcha">
+          <input id="fakeRecap" type="checkbox" />
+          <label for="fakeRecap" style="font-weight:600;color:#111827">I'm not a robot (reCAPTCHA)</label>
+        </div>
+
+        <!-- Terms checkbox -->
+        <div class="field" style="margin-top:6px">
+          <label class="required"><input id="agree" type="checkbox" style="margin-right:8px" required> I agree to the <a href="terms.html" style="color:var(--deep-blue); text-decoration:underline">Terms & Conditions</a> and <a href="privacy.html" style="color:var(--deep-blue); text-decoration:underline">Privacy Policy</a>.</label>
+        </div>
+
+        <div class="field">
+          <label><input id="newsletter" type="checkbox" style="margin-right:8px"> Subscribe to Job Assist Ghana updates and newsletters</label>
+        </div>
+
+        <div class="actions">
+          <button id="continueBtn" type="button" class="btn-primary">
+            <div class="loading-spinner" id="buttonSpinner"></div>
+            <div class="success-checkmark" id="successCheck">
+              <svg class="check-icon" viewBox="0 0 52 52">
+                <circle class="check-circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="check-path" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+              </svg>
+            </div>
+            <span class="btn-text">Next</span>
+          </button>
+          <div class="helper-note">Already have an account? <a href="login.html" style="color:var(--deep-blue); font-weight:700">Log in</a></div>
+          <div class="security-note">🔒 <span>We encrypt and store your data securely. Payment required to activate employer account.</span></div>
+        </div>
+      </form>
+    </div>
+
+    <!-- RIGHT: placeholder for images/content later -->
+    <aside class="right-column" aria-hidden="true">
+      <div class="placeholder-card">Employer Benefits Illustration</div>
+      <div class="placeholder-card">Verified Employer Badge</div>
+      <div class="placeholder-card">Hiring Success Stories</div>
+    </aside>
+  </main>
+
+  <footer style="max-width:var(--max-width);margin:30px auto;padding:20px;text-align:center;color:var(--muted);">
+    <div>© 2025 Job Assist Ghana. All rights reserved.</div>
+    <div style="margin-top:6px;font-size:13px">
+        <a href="privacy.html" style="color:inherit;text-decoration:none;">Privacy</a> | 
+        <a href="terms.html" style="color:inherit;text-decoration:none;">Terms</a> | 
+        <a href="contact.html" style="color:inherit;text-decoration:none;">Contact</a>
+    </div>
+  </footer>
+
+  <!-- ---------- SCRIPTS: mobile menu, validation ---------- -->
+  <script>
+    // Mobile menu functionality - matches homepage
+    function toggleMenu() {
+      const mobileNav = document.getElementById('mobile-menu');
+      mobileNav.classList.toggle('active');
+    }
+
+    // Update the menu icon event listener
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const continueBtn = document.getElementById('continueBtn');
+      const buttonSpinner = document.getElementById('buttonSpinner');
+      const successCheck = document.getElementById('successCheck');
+      const errorMessage = document.getElementById('errorMessage');
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      const industryField = document.getElementById('industry');
+      const otherIndustryField = document.getElementById('otherIndustryField');
+      const otherIndustryInput = document.getElementById('otherIndustry');
+      
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          mobileMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+            mobileMenu.classList.remove('active');
+          }
+        });
+
+        // Close menu when clicking on links
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+          });
+        });
+      }
+
+      // Industry field change handler
+      industryField.addEventListener('change', function() {
+        if (this.value === 'Other') {
+          otherIndustryField.classList.add('show');
+          otherIndustryInput.required = true;
+        } else {
+          otherIndustryField.classList.remove('show');
+          otherIndustryInput.required = false;
+          otherIndustryInput.value = '';
+        }
+        // Update form validation
+        continueBtn.disabled = !allValid();
+      });
+
+      // Handle form submission
+      continueBtn.addEventListener('click', function() {
+        if (!allValid()) {
+          showError('Please fill all required fields correctly.');
+          return;
+        }
+        
+        // Hide any previous error message
+        errorMessage.classList.remove('show');
+        
+        // Show loading state
+        setLoadingState(true);
+
+        // Simulate API call delay (1-2 seconds)
+        const delay = Math.random() * 1000 + 1000;
+        
+        setTimeout(() => {
+          // In a real application, this would be an actual API call
+          // For now, we'll simulate a successful account creation
+          const accountCreated = true; // Simulate successful account creation
+          
+          if (accountCreated) {
+            // Show success state briefly before redirecting
+            setSuccessState(true);
+            
+            // Redirect after showing success for a moment
+            setTimeout(() => {
+              // Redirect to verify-info page
+              window.location.href = 'verify-info.html';
+            }, 1000);
+          } else {
+            // Account creation failed
+            setLoadingState(false);
+            showError('There was an issue creating your account. Please try again.');
+          }
+        }, delay);
+      });
+
+      function setLoadingState(isLoading) {
+        if (isLoading) {
+          continueBtn.disabled = true;
+          continueBtn.classList.add('loading');
+          buttonSpinner.classList.add('active');
+          loadingOverlay.classList.add('active');
+        } else {
+          continueBtn.disabled = !allValid();
+          continueBtn.classList.remove('loading');
+          buttonSpinner.classList.remove('active');
+          loadingOverlay.classList.remove('active');
+          successCheck.classList.remove('active');
+        }
+      }
+
+      function setSuccessState(isSuccess) {
+        if (isSuccess) {
+          continueBtn.classList.add('loading');
+          buttonSpinner.classList.remove('active');
+          successCheck.classList.add('active');
+          loadingOverlay.classList.remove('active');
+        }
+      }
+
+      function showError(customMessage) {
+        if (customMessage) {
+          errorMessage.textContent = customMessage;
+        }
+        errorMessage.classList.add('show');
+        
+        // Scroll to error message for better UX
+        errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+
+    // Business Type logic to disable registration number for Government/NGO
+    document.addEventListener('DOMContentLoaded', function() {
+      const businessTypeField = document.getElementById('businessType');
+      const registrationNumberField = document.getElementById('registrationNumber');
+      const registrationLabel = document.getElementById('registrationLabel');
+      
+      function updateRegistrationField() {
+        const businessType = businessTypeField.value;
+        
+        if (businessType === 'Government Institution' || businessType === 'NGO') {
+          registrationNumberField.disabled = true;
+          registrationNumberField.classList.add('disabled-field');
+          registrationNumberField.value = 'Not applicable for this business type';
+          registrationNumberField.placeholder = 'Not applicable';
+          registrationLabel.classList.remove('required');
+        } else {
+          registrationNumberField.disabled = false;
+          registrationNumberField.classList.remove('disabled-field');
+          registrationNumberField.value = '';
+          registrationNumberField.placeholder = 'Enter registration number';
+          registrationLabel.classList.add('required');
+        }
+        
+        // Update form validation
+        continueBtn.disabled = !allValid();
+      }
+
+      // Initial setup
+      updateRegistrationField();
+
+      // Add event listener for business type
+      businessTypeField.addEventListener('change', updateRegistrationField);
+    });
+
+    // form validation logic for enabling Continue
+    const requiredIds = ['companyName','industry','businessType','companySize','companyDescription','fullName','position','phone','companyAddress','cityRegion','password','confirmPassword','agree','fakeRecap'];
+    const inputs = requiredIds.map(id => document.getElementById(id));
+    const continueBtn = document.getElementById('continueBtn');
+
+    function allValid(){
+      try {
+        const companyName = document.getElementById('companyName').value.trim();
+        const industry = document.getElementById('industry').value;
+        const businessType = document.getElementById('businessType').value;
+        const companySize = document.getElementById('companySize').value;
+        const registrationNumber = document.getElementById('registrationNumber').value.trim();
+        const companyDescription = document.getElementById('companyDescription').value.trim();
+        const fullName = document.getElementById('fullName').value.trim();
+        const position = document.getElementById('position').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const companyAddress = document.getElementById('companyAddress').value.trim();
+        const cityRegion = document.getElementById('cityRegion').value;
+        const pwd = document.getElementById('password').value;
+        const cpwd = document.getElementById('confirmPassword').value;
+        const agree = document.getElementById('agree').checked;
+        const rec = document.getElementById('fakeRecap').checked;
+        const otherIndustry = document.getElementById('otherIndustry').value.trim();
+
+        // Check all required fields
+        if(!companyName || !industry || !businessType || !companySize || !companyDescription || !fullName || !position || !phone || !companyAddress || !cityRegion || !pwd || !cpwd) return false;
+        
+        // Check if "Other" industry is selected and field is filled
+        if (industry === 'Other' && !otherIndustry) return false;
+        
+        // Check registration number only for private businesses
+        if ((businessType === 'Private-Owned Business' || businessType === 'Others') && !registrationNumber) return false;
+        
+        // Check password match
+        if(pwd !== cpwd) return false;
+        
+        // Check terms agreement
+        if(!agree) return false;
+        if(!rec) return false;
+
+        // Check company description length
+        if(companyDescription.length > 200) return false;
+
+        return true;
+      } catch(e){
+        return false;
+      }
+    }
+
+    // attach change listeners to toggle button
+    inputs.forEach(inp => {
+      if(!inp) return;
+      inp.addEventListener('input', ()=> continueBtn.disabled = !allValid());
+      inp.addEventListener('change', ()=> continueBtn.disabled = !allValid());
+    });
+
+    // also listen to password confirm for immediate feedback
+    document.getElementById('confirmPassword').addEventListener('input', function(){
+      const pw = document.getElementById('password').value;
+      const cp = this.value;
+      if(pw && cp && pw !== cp){
+        this.style.borderColor = '#fca5a5';
+      } else {
+        this.style.borderColor = '';
+      }
+    });
+
+    // Character counter for company description
+    document.getElementById('companyDescription').addEventListener('input', function(){
+      const length = this.value.length;
+      const counter = this.parentElement.querySelector('.char-counter') || (function(){
+        const counter = document.createElement('div');
+        counter.className = 'char-counter';
+        counter.style.fontSize = '13px';
+        counter.style.color = 'var(--muted)';
+        counter.style.marginTop = '6px';
+        this.parentElement.appendChild(counter);
+        return counter;
+      }.bind(this)());
+
+      counter.textContent = `${length}/200 characters`;
+      
+      if(length > 200) {
+        counter.style.color = '#ef4444';
+      } else {
+        counter.style.color = 'var(--muted)';
+      }
+    });
+  </script>
+</body>
+</html>

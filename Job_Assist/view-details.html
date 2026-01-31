@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details | Job Assist Ghana</title>
+    <link rel="icon" type="image/png" href="tab-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        :root {
+            --primary: #0a2a66;
+            --primary-dark: #071e4d;
+            --primary-light: #1e3a8a;
+            --secondary: #f8c12e;
+            --secondary-dark: #e6af1a;
+            --danger: #ef4444;
+            --danger-dark: #c53030;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --white: #ffffff;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.4;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* Header Section */
+        .header-section {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 25px 0;
+            margin-bottom: 25px;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 0.95rem;
+            align-self: flex-start;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(-2px);
+        }
+
+        .job-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .company-name {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .meta-item i {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            padding: 0 0 30px;
+        }
+
+        .job-details-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* Job Details Sections */
+        .details-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--gray-light);
+        }
+
+        .details-section:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--gray-light);
+            font-weight: 700;
+        }
+
+        .section-title i {
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+
+        .job-description {
+            line-height: 1.5;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        /* Requirements Grid */
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .requirement-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid var(--secondary);
+        }
+
+        .requirement-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .requirement-value {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        /* Skills List */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .skill-tag {
+            background: var(--primary);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Application Details */
+        .application-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            background: var(--light);
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .application-instructions {
+            background: rgba(16, 185, 129, 0.1);
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            border-left: 3px solid var(--success);
+        }
+
+        .instructions-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .instructions-title i {
+            font-size: 1rem;
+        }
+
+        /* Sidebar Actions */
+        .sidebar-actions {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--gray-light);
+            position: sticky;
+            top: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        .btn-secondary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            margin-top: 10px;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--gray-light);
+            color: var(--dark);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--gray-light);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #0d9c6b;
+        }
+
+        .btn-disabled {
+            background-color: var(--gray-light);
+            color: var(--gray);
+            cursor: not-allowed;
+        }
+
+        .btn-disabled:hover {
+            background-color: var(--gray-light);
+        }
+
+        /* Application Status Badge */
+        .application-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .status-applied {
+            background: var(--success);
+            color: white;
+        }
+
+        .status-premium {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .status-pending {
+            background: var(--warning);
+            color: white;
+        }
+
+        /* Premium Verification Section */
+        .premium-verification {
+            background: rgba(248, 193, 46, 0.1);
+            border: 1px solid var(--secondary);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .premium-verification h4 {
+            color: var(--primary);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.95rem;
+        }
+
+        .premium-verification p {
+            color: var(--gray);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        /* Security Assurance Section */
+        .security-assurance {
+            border-top: 1px solid var(--gray-light);
+            padding-top: 15px;
+        }
+
+        .verification-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .verification-icon {
+            color: var(--success);
+            font-size: 1.2rem;
+        }
+
+        .verification-text {
+            flex: 1;
+        }
+
+        .verification-title {
+            font-weight: 600;
+            color: var(--success);
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+        }
+
+        .verification-desc {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .security-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .security-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--dark);
+        }
+
+        .security-feature i {
+            color: var(--success);
+            width: 16px;
+            font-size: 0.9rem;
+        }
+
+        /* Report Button Container */
+        .report-container {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .report-note {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        /* Application Modal */
+        .application-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .application-modal.show {
+            display: flex;
+        }
+
+        .application-modal .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            padding: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-top: 5px solid var(--secondary);
+        }
+
+        .application-modal .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .application-modal .modal-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .application-modal .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .application-modal .modal-body {
+            margin-bottom: 12px;
+        }
+
+        .job-preview {
+            background: var(--light);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .job-preview-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+        }
+
+        .job-preview-company {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .application-tiers {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .tier-option {
+            flex: 1;
+            border: 1px solid var(--gray-light);
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .tier-option:hover {
+            border-color: var(--primary);
+        }
+
+        .tier-option.selected {
+            border-color: var(--secondary);
+            background: rgba(248, 193, 46, 0.1);
+        }
+
+        .tier-free {
+            border-left: 3px solid var(--success);
+        }
+
+        .tier-premium {
+            border-left: 3px solid var(--secondary);
+        }
+
+        .tier-badge {
+            display: inline-block;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .badge-free {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge-premium {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .tier-price {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin: 6px 0;
+        }
+
+        .tier-features {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-bottom: 8px;
+            text-align: left;
+            padding-left: 8px;
+        }
+
+        .tier-features li {
+            margin-bottom: 3px;
+            list-style-type: none;
+            position: relative;
+            padding-left: 12px;
+        }
+
+        .tier-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 0.7rem;
+        }
+
+        .premium-features li:before {
+            color: var(--secondary);
+        }
+
+        .tier-action {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.8rem;
+        }
+
+        .btn-free {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-free:hover {
+            background: #0d9c6b;
+        }
+
+        .btn-premium {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .btn-premium:hover {
+            background: var(--secondary-dark);
+        }
+
+        .application-success {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .success-icon {
+            font-size: 2rem;
+            color: var(--success);
+            margin-bottom: 10px;
+        }
+
+        .success-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .success-message {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .boost-cta {
+            background: rgba(248, 193, 46, 0.1);
+            border: 1px solid var(--secondary);
+            border-radius: 6px;
+            padding: 12px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .boost-cta h4 {
+            color: var(--primary);
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        .boost-cta p {
+            color: var(--gray);
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px 10px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+        }
+
+        /* ====================== */
+        /* MOBILE RESPONSIVENESS */
+        /* Using view-applicants principles */
+        /* ====================== */
+
+        /* Tablet (992px and below) */
+        @media (max-width: 992px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .header-section {
+                padding: 20px 0;
+                margin-bottom: 20px;
+            }
+            
+            .job-details-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .sidebar-actions {
+                position: static;
+                order: -1;
+            }
+            
+            .requirements-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .application-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .application-tiers {
+                flex-direction: column;
+            }
+        }
+
+        /* Mobile (768px and below) */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .header-section {
+                padding: 18px 0;
+            }
+            
+            .job-title {
+                font-size: 1.4rem;
+                margin-bottom: 3px;
+            }
+            
+            .company-name {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+            
+            .job-meta {
+                gap: 8px;
+            }
+            
+            .meta-item {
+                padding: 6px 10px;
+                font-size: 0.85rem;
+            }
+            
+            .details-section {
+                padding: 16px;
+                margin-bottom: 15px;
+            }
+            
+            .section-title {
+                font-size: 1rem;
+                margin-bottom: 12px;
+            }
+            
+            .job-description {
+                font-size: 0.9rem;
+            }
+            
+            .requirements-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .requirement-item {
+                padding: 12px;
+            }
+            
+            .requirement-label {
+                font-size: 0.75rem;
+            }
+            
+            .requirement-value {
+                font-size: 0.9rem;
+            }
+            
+            .skill-tag {
+                padding: 5px 10px;
+                font-size: 0.75rem;
+            }
+            
+            .application-details {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .detail-item {
+                padding: 12px;
+            }
+            
+            .detail-label {
+                font-size: 0.75rem;
+            }
+            
+            .detail-value {
+                font-size: 0.9rem;
+            }
+            
+            .sidebar-actions {
+                padding: 16px;
+            }
+            
+            .btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .application-modal .modal-content {
+                padding: 16px;
+            }
+            
+            .application-modal .modal-title {
+                font-size: 1rem;
+            }
+            
+            .tier-option {
+                padding: 10px;
+            }
+            
+            .tier-price {
+                font-size: 0.85rem;
+            }
+            
+            .tier-features {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Small Mobile (576px and below) */
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 12px;
+            }
+            
+            .header-section {
+                padding: 15px 0;
+            }
+            
+            .back-btn {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .job-title {
+                font-size: 1.2rem;
+            }
+            
+            .company-name {
+                font-size: 0.9rem;
+            }
+            
+            .meta-item {
+                flex: 1;
+                min-width: calc(50% - 8px);
+                justify-content: flex-start;
+            }
+            
+            .details-section {
+                padding: 14px;
+            }
+            
+            .section-title {
+                font-size: 0.95rem;
+            }
+            
+            .instructions-title {
+                font-size: 0.9rem;
+            }
+            
+            .verification-badge {
+                padding: 12px;
+                gap: 10px;
+            }
+            
+            .verification-title {
+                font-size: 0.9rem;
+            }
+            
+            .verification-desc {
+                font-size: 0.75rem;
+            }
+            
+            .security-feature {
+                font-size: 0.8rem;
+            }
+            
+            .btn {
+                padding: 9px 14px;
+                font-size: 0.85rem;
+            }
+            
+            .footer {
+                padding: 12px 15px 8px;
+            }
+            
+            .footer-links {
+                gap: 10px;
+            }
+            
+            .footer-links a {
+                font-size: 0.8rem;
+            }
+            
+            .footer-bottom {
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Extra Small Mobile (480px and below) */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            .header-section {
+                padding: 12px 0;
+            }
+            
+            .job-title {
+                font-size: 1.1rem;
+            }
+            
+            .company-name {
+                font-size: 0.85rem;
+            }
+            
+            .meta-item {
+                min-width: 100%;
+                font-size: 0.8rem;
+            }
+            
+            .meta-item i {
+                font-size: 0.8rem;
+            }
+            
+            .details-section {
+                padding: 12px;
+            }
+            
+            .job-description {
+                font-size: 0.85rem;
+            }
+            
+            .requirement-item {
+                padding: 10px;
+            }
+            
+            .skill-tag {
+                padding: 4px 8px;
+                font-size: 0.7rem;
+            }
+            
+            .detail-item {
+                padding: 10px;
+            }
+            
+            .sidebar-actions {
+                padding: 14px;
+            }
+            
+            .btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .application-status {
+                font-size: 0.65rem;
+                padding: 3px 6px;
+            }
+            
+            .application-modal .modal-content {
+                padding: 14px;
+            }
+        }
+
+        /* Very Small Mobile (360px and below) */
+        @media (max-width: 360px) {
+            .container {
+                padding: 0 8px;
+            }
+            
+            .header-section {
+                padding: 10px 0;
+            }
+            
+            .back-btn {
+                padding: 6px 10px;
+                font-size: 0.85rem;
+            }
+            
+            .job-title {
+                font-size: 1rem;
+            }
+            
+            .company-name {
+                font-size: 0.8rem;
+            }
+            
+            .details-section {
+                padding: 10px;
+            }
+            
+            .section-title {
+                font-size: 0.9rem;
+            }
+            
+            .btn {
+                padding: 7px 10px;
+                font-size: 0.75rem;
+            }
+            
+            .footer {
+                padding: 10px 12px 6px;
+            }
+            
+            .footer-links a {
+                font-size: 0.75rem;
+            }
+            
+            .footer-bottom {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Application Modal -->
+    <div class="application-modal" id="applicationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="applicationModalTitle">Apply for Job</h3>
+                <button class="close-modal" id="closeApplicationModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="job-preview">
+                    <div class="job-preview-title" id="modalJobTitle">Frontend Developer</div>
+                    <div class="job-preview-company" id="modalJobCompany">Two Southeast Las</div>
+                </div>
+
+                <div id="tierSelection">
+                    <h4 style="margin-bottom: 15px; color: var(--primary); font-size: 0.9rem;">Choose Application Type</h4>
+                    <div class="application-tiers">
+                        <div class="tier-option tier-free" data-tier="free">
+                            <div class="tier-badge badge-free">FREE</div>
+                            <div class="tier-price">₵0</div>
+                            <ul class="tier-features">
+                                <li>Basic application submission</li>
+                                <li>Standard placement in applicant list</li>
+                                <li>Application confirmation</li>
+                            </ul>
+                            <button class="tier-action btn-free">Apply Free</button>
+                        </div>
+                        <div class="tier-option tier-premium" data-tier="premium">
+                            <div class="tier-badge badge-premium">PREMIUM</div>
+                            <div class="tier-price">₵50</div>
+                            <ul class="tier-features premium-features">
+                                <li>Priority placement in applicant list</li>
+                                <li>Verified application badge</li>
+                                <li>Enhanced employer visibility</li>
+                                <li>Quality verification check</li>
+                            </ul>
+                            <button class="tier-action btn-premium">Apply with Premium</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="applicationSuccess" style="display: none;">
+                    <div class="application-success">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 class="success-title">Application Submitted!</h3>
+                        <p class="success-message" id="successMessage">Your application has been successfully submitted to the employer.</p>
+                        
+                        <div class="boost-cta">
+                            <h4>🚀 Boost Your Application</h4>
+                            <p>Get priority visibility and stand out from other applicants</p>
+                            <button class="btn btn-premium" id="boostNowBtn">
+                                <i class="fas fa-rocket"></i> Boost Application Now
+                            </button>
+                        </div>
+
+                        <button class="btn btn-outline" id="viewApplicationsBtn">
+                            <i class="fas fa-list"></i> View My Applications
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="header-section">
+        <div class="container">
+            <div class="header-content">
+                <button class="back-btn" id="backBtn">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <h1 class="job-title" id="jobTitle">Job Title</h1>
+                <div class="company-name" id="companyName">Company Name</div>
+                <div class="job-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="jobLocation">Location</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span id="jobSalary">Salary Range</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span id="jobType">Job Type</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span id="jobDeadline">Deadline</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <div class="job-details-container">
+                <!-- Left Column - Job Details -->
+                <div class="job-details">
+                    <!-- Job Description Section -->
+                    <section class="details-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-file-alt"></i> Job Description
+                        </h2>
+                        <div class="job-description" id="jobDescription">
+                            Loading job description...
+                        </div>
+                    </section>
+
+                    <!-- Requirements & Qualifications Section -->
+                    <section class="details-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-graduation-cap"></i> Requirements & Qualifications
+                        </h2>
+                        
+                        <div class="requirements-grid">
+                            <div class="requirement-item">
+                                <div class="requirement-label">Experience Level</div>
+                                <div class="requirement-value" id="experienceLevel">Not specified</div>
+                            </div>
+                            <div class="requirement-item">
+                                <div class="requirement-label">Education Level</div>
+                                <div class="requirement-value" id="educationLevel">Not specified</div>
+                            </div>
+                            <div class="requirement-item">
+                                <div class="requirement-label">Category</div>
+                                <div class="requirement-value" id="jobCategory">Not specified</div>
+                            </div>
+                            <div class="requirement-item">
+                                <div class="requirement-label">Vacancies</div>
+                                <div class="requirement-value" id="jobVacancies">Not specified</div>
+                            </div>
+                        </div>
+
+                        <div class="requirement-item">
+                            <div class="requirement-label">Specific Requirements & Skills</div>
+                            <div class="requirement-value" id="jobRequirements">Not specified</div>
+                            <div class="skills-list" id="skillsList">
+                                <!-- Skills will be dynamically added here -->
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Application Details Section -->
+                    <section class="details-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-clipboard-list"></i> Application Details
+                        </h2>
+                        
+                        <div class="application-details">
+                            <div class="detail-item">
+                                <div class="detail-label">Contact Email</div>
+                                <div class="detail-value" id="contactEmail">email@company.com</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Application Deadline</div>
+                                <div class="detail-value" id="applicationDeadline">Not specified</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Posted Date</div>
+                                <div class="detail-value" id="postedDate">Not specified</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Job ID</div>
+                                <div class="detail-value" id="jobId">Not specified</div>
+                            </div>
+                        </div>
+
+                        <div id="applicationInstructionsContainer" style="display: none;">
+                            <div class="application-instructions">
+                                <div class="instructions-title"><i class="fas fa-info-circle"></i> Application Instructions</div>
+                                <div id="applicationInstructions">Loading instructions...</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Column - Action Sidebar -->
+                <div class="sidebar-actions">
+                    <div class="action-buttons" id="actionButtons">
+                        <!-- Action buttons will be dynamically populated based on context -->
+                    </div>
+
+                    <!-- Premium Verification Status -->
+                    <div id="premiumStatusSection" style="display: none;">
+                        <div class="premium-verification">
+                            <h4><i class="fas fa-crown"></i> Premium Verified</h4>
+                            <p>Your application has premium verification and priority placement</p>
+                        </div>
+                    </div>
+
+                    <div class="security-assurance">
+                        <div class="verification-badge">
+                            <i class="fas fa-shield-check verification-icon"></i>
+                            <div class="verification-text">
+                                <div class="verification-title">Job Assist Ghana Verified</div>
+                                <div class="verification-desc">This employer is verified and approved to post jobs</div>
+                            </div>
+                        </div>
+
+                        <div class="security-features">
+                            <div class="security-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Payment verified employer</span>
+                            </div>
+                            <div class="security-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Company background checked</span>
+                            </div>
+                            <div class="security-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Secure application process</span>
+                            </div>
+                            <div class="security-feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>JobAssist Ghana verified</span>
+                            </div>
+                        </div>
+
+                        <!-- Report Button Section -->
+                        <div class="report-container">
+                            <button class="btn btn-danger" id="reportJobBtn">
+                                <i class="fas fa-flag"></i> Report Job/Business
+                            </button>
+                            <p class="report-note">
+                                Suspect a scam or fraudulent activity? Report it anonymously
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Job Data Structure (This would come from backend in real app)
+        const jobDatabase = {
+            'frontend-developer': {
+                id: 'frontend-developer',
+                title: 'Frontend Developer',
+                company: 'Two Southeast Las',
+                description: 'We are looking for a skilled Frontend Developer with 3+ years of experience in modern web technologies. The ideal candidate will be responsible for building responsive web applications and collaborating with our design and backend teams.\n\nResponsibilities:\n• Develop and maintain responsive web applications using React.js\n• Collaborate with UX/UI designers to implement design systems\n• Write clean, maintainable, and efficient code\n• Participate in code reviews and team meetings\n• Optimize applications for maximum speed and scalability\n• Stay up-to-date with emerging technologies and industry trends',
+                category: 'IT & Technology',
+                type: 'Full-time',
+                city: 'Accra',
+                region: 'Greater Accra',
+                salaryRange: '₵3,500 - ₵4,500 per month',
+                experienceLevel: 'Mid Level (2-5 years)',
+                educationLevel: "Bachelor's Degree",
+                requirements: 'React.js, JavaScript, HTML5, CSS3, Git, Responsive Design, REST APIs',
+                deadline: '2024-06-30',
+                vacancies: 2,
+                contactEmail: 'careers@twosoutheast.com',
+                applicationInstructions: 'Please include your portfolio link and GitHub profile in your application. Mention "Frontend Developer Application" in the subject line.',
+                postedDate: '2024-05-15'
+            },
+            'marketing-manager': {
+                id: 'marketing-manager',
+                title: 'Marketing Manager',
+                company: 'Global Emails Inc',
+                description: 'Exciting opportunity for a Marketing Manager with 3+ years experience in brand management and digital marketing strategies. You will lead our marketing efforts and drive brand awareness across multiple channels.\n\nKey Responsibilities:\n• Develop and execute comprehensive marketing strategies\n• Manage digital marketing campaigns across various platforms\n• Analyze market trends and customer insights\n• Coordinate with sales team to align marketing efforts\n• Manage marketing budget and measure ROI\n• Lead and mentor junior marketing team members',
+                category: 'Marketing & Sales',
+                type: 'Full-time',
+                city: 'Kumasi',
+                region: 'Ashanti',
+                salaryRange: '₵4,000 - ₵5,000 per month',
+                experienceLevel: 'Mid Level (2-5 years)',
+                educationLevel: "Bachelor's Degree",
+                requirements: 'Digital Marketing, Brand Management, Social Media, Analytics, Team Leadership, Campaign Management',
+                deadline: '2024-07-15',
+                vacancies: 1,
+                contactEmail: 'hr@globalemails.com',
+                applicationInstructions: 'Submit your CV along with a cover letter detailing your marketing achievements. Include examples of successful campaigns you have managed.',
+                postedDate: '2024-05-10'
+            },
+            'senior-ux-designer': {
+                id: 'senior-ux-designer',
+                title: 'Senior UX Designer',
+                company: 'Creative Labs Ghana',
+                description: 'Join our innovative team as a Senior UX Designer and help shape the future of digital products. We\'re looking for a creative problem-solver with a passion for user-centered design.\n\nWhat You\'ll Do:\n• Lead UX design for multiple digital products\n• Conduct user research and usability testing\n• Create wireframes, prototypes, and design systems\n• Collaborate with product managers and developers\n• Mentor junior designers and establish design best practices\n• Ensure design consistency across all platforms',
+                category: 'IT & Technology',
+                type: 'Full-time',
+                city: 'Accra',
+                region: 'Greater Accra',
+                salaryRange: '₵4,500 - ₵5,500 per month',
+                experienceLevel: 'Senior Level (5+ years)',
+                educationLevel: "Bachelor's Degree",
+                requirements: 'UX Design, User Research, Figma, Prototyping, Design Systems, Usability Testing',
+                deadline: '2024-06-20',
+                vacancies: 1,
+                contactEmail: 'design@creativelabsgh.com',
+                applicationInstructions: 'Please include your portfolio and case studies. We\'re particularly interested in your design process and problem-solving approach.',
+                postedDate: '2024-05-22'
+            },
+            'data-analyst': {
+                id: 'data-analyst',
+                title: 'Data Analyst',
+                company: 'Tech Solutions Ltd',
+                description: 'Looking for a Data Analyst with experience in SQL, Python, and data visualization tools. You will help transform raw data into actionable insights that drive business decisions.\n\nResponsibilities:\n• Analyze complex datasets to identify trends and patterns\n• Create reports and dashboards for stakeholders\n• Develop and maintain data pipelines\n• Collaborate with cross-functional teams\n• Ensure data quality and integrity',
+                category: 'IT & Technology',
+                type: 'Full-time',
+                city: 'Accra',
+                region: 'Greater Accra',
+                salaryRange: '₵3,000 - ₵4,000 per month',
+                experienceLevel: 'Mid Level (2-5 years)',
+                educationLevel: "Bachelor's Degree",
+                requirements: 'SQL, Python, Data Visualization, Statistics, Excel, Power BI',
+                deadline: '2024-06-25',
+                vacancies: 2,
+                contactEmail: 'careers@techsolutions.com',
+                applicationInstructions: 'Submit your CV along with examples of data analysis projects you have worked on.',
+                postedDate: '2024-05-20'
+            }
+        };
+
+        // Track applied jobs from localStorage
+        let appliedJobs = JSON.parse(localStorage.getItem('appliedJobs')) || [];
+        let currentJobId = null;
+        let currentJobData = null;
+
+        // Get job ID from URL parameters
+        function getJobIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id') || 'frontend-developer'; // Default for demo
+        }
+
+        // Get source page from URL parameters or sessionStorage
+        function getSourcePage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const source = urlParams.get('source');
+            
+            // If source is provided in URL, use it and store in sessionStorage
+            if (source) {
+                sessionStorage.setItem('viewDetailsSource', source);
+                return source;
+            }
+            
+            // Otherwise, check sessionStorage
+            const storedSource = sessionStorage.getItem('viewDetailsSource');
+            if (storedSource) {
+                return storedSource;
+            }
+            
+            // Default to browse-jobs if no source found
+            return 'browse-jobs';
+        }
+
+        // Get back button URL based on source
+        function getBackButtonURL(source) {
+            switch(source) {
+                case 'dashboard':
+                    return 'candidate-dashboard.html';
+                case 'applications':
+                    return 'your-applications.html';
+                case 'accepted':
+                    return 'accepted-offers.html';
+                case 'browse':
+                default:
+                    return 'browse-jobs.html';
+            }
+        }
+
+        // Format date for display
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-GB', options);
+        }
+
+        // Parse requirements into skills array
+        function parseRequirements(requirements) {
+            if (!requirements) return [];
+            return requirements.split(',').map(skill => skill.trim());
+        }
+
+        // Get appropriate action buttons based on application status
+        function getActionButtons(jobData) {
+            const buttons = [];
+            const currentApplication = appliedJobs.find(app => app.id === jobData.id);
+
+            if (currentApplication) {
+                // Application already submitted
+                const statusBadge = currentApplication.tier === 'premium' ? 
+                    '<span class="application-status status-premium">PREMIUM</span>' : 
+                    '<span class="application-status status-applied">APPLIED</span>';
+
+                buttons.push({
+                    text: `Applied ✓ ${statusBadge}`,
+                    type: 'outline',
+                    icon: 'fas fa-check',
+                    action: null,
+                    disabled: true,
+                    isHtml: true
+                });
+                
+                buttons.push({
+                    text: 'Boost Application',
+                    type: 'secondary',
+                    icon: 'fas fa-rocket',
+                    action: () => boostApplication(jobData.id)
+                });
+
+                // Show premium status section if premium
+                if (currentApplication.tier === 'premium') {
+                    document.getElementById('premiumStatusSection').style.display = 'block';
+                }
+            } else {
+                // Not applied yet
+                buttons.push({
+                    text: 'Apply Now',
+                    type: 'primary',
+                    icon: 'fas fa-paper-plane',
+                    action: () => openApplicationModal(jobData.id)
+                });
+            }
+
+            return buttons;
+        }
+
+        // Render action buttons
+        function renderActionButtons(buttons) {
+            const actionButtons = document.getElementById('actionButtons');
+            actionButtons.innerHTML = '';
+            buttons.forEach(button => {
+                const btn = document.createElement('button');
+                btn.className = `btn btn-${button.type}`;
+                
+                if (button.isHtml) {
+                    btn.innerHTML = `<i class="${button.icon}"></i> ${button.text}`;
+                } else {
+                    btn.innerHTML = `<i class="${button.icon}"></i> ${button.text}`;
+                }
+                
+                if (button.disabled) {
+                    btn.disabled = true;
+                    btn.classList.add('btn-disabled');
+                } else {
+                    btn.onclick = button.action;
+                }
+                
+                actionButtons.appendChild(btn);
+            });
+
+            // If no buttons to show (edge case)
+            if (buttons.length === 0) {
+                const message = document.createElement('div');
+                message.style.textAlign = 'center';
+                message.style.color = 'var(--gray)';
+                message.style.fontSize = '0.9rem';
+                message.textContent = 'No actions available';
+                actionButtons.appendChild(message);
+            }
+        }
+
+        // Update page with job data
+        function updateJobDetails(jobData) {
+            // Update header
+            document.getElementById('jobTitle').textContent = jobData.title;
+            document.getElementById('companyName').textContent = jobData.company;
+            document.getElementById('jobLocation').textContent = `${jobData.city}, ${jobData.region}`;
+            document.getElementById('jobSalary').textContent = jobData.salaryRange;
+            document.getElementById('jobType').textContent = jobData.type;
+            document.getElementById('jobDeadline').textContent = formatDate(jobData.deadline);
+
+            // Update job description
+            document.getElementById('jobDescription').textContent = jobData.description;
+
+            // Update requirements
+            document.getElementById('experienceLevel').textContent = jobData.experienceLevel;
+            document.getElementById('educationLevel').textContent = jobData.educationLevel || 'Not specified';
+            document.getElementById('jobCategory').textContent = jobData.category;
+            document.getElementById('jobVacancies').textContent = jobData.vacancies || 'Not specified';
+            document.getElementById('jobRequirements').textContent = jobData.requirements || 'Not specified';
+
+            // Update skills list
+            const skillsList = document.getElementById('skillsList');
+            const skills = parseRequirements(jobData.requirements);
+            skillsList.innerHTML = skills.map(skill => 
+                `<span class="skill-tag">${skill}</span>`
+            ).join('');
+
+            // Update application details
+            document.getElementById('contactEmail').textContent = jobData.contactEmail;
+            document.getElementById('applicationDeadline').textContent = formatDate(jobData.deadline);
+            document.getElementById('postedDate').textContent = formatDate(jobData.postedDate);
+            document.getElementById('jobId').textContent = jobData.id;
+
+            // Update application instructions
+            const instructionsContainer = document.getElementById('applicationInstructionsContainer');
+            const instructionsElement = document.getElementById('applicationInstructions');
+            if (jobData.applicationInstructions) {
+                instructionsElement.textContent = jobData.applicationInstructions;
+                instructionsContainer.style.display = 'block';
+            } else {
+                instructionsContainer.style.display = 'none';
+            }
+
+            // Update page title
+            document.title = `${jobData.title} - ${jobData.company} | JobAssist Ghana`;
+        }
+
+        // Function to handle report button click
+        function handleReportJob() {
+            if (!currentJobData) return;
+            
+            // Redirect to report page with job data
+            const jobData = encodeURIComponent(JSON.stringify({
+                id: currentJobData.id,
+                title: currentJobData.title,
+                company: currentJobData.company,
+                contactEmail: currentJobData.contactEmail
+            }));
+            
+            window.location.href = `report.html?job=${jobData}`;
+        }
+
+        // Application Modal Functions
+        function openApplicationModal(jobId) {
+            currentJobId = jobId;
+            currentJobData = jobDatabase[jobId];
+            
+            if (!currentJobData) return;
+            
+            // Reset modal state
+            document.getElementById('tierSelection').style.display = 'block';
+            document.getElementById('applicationSuccess').style.display = 'none';
+            
+            // Update modal content
+            document.getElementById('modalJobTitle').textContent = currentJobData.title;
+            document.getElementById('modalJobCompany').textContent = currentJobData.company;
+            document.getElementById('applicationModalTitle').textContent = `Apply for ${currentJobData.title}`;
+            
+            // Reset tier selection
+            document.querySelectorAll('.tier-option').forEach(option => option.classList.remove('selected'));
+            
+            // Show modal
+            document.getElementById('applicationModal').classList.add('show');
+        }
+
+        function closeApplicationModal() {
+            document.getElementById('applicationModal').classList.remove('show');
+        }
+
+        function submitApplication(tierType) {
+            if (!currentJobData) return;
+
+            const applicationData = {
+                id: currentJobData.id,
+                title: currentJobData.title,
+                company: currentJobData.company,
+                appliedAt: new Date().toISOString(),
+                tier: tierType,
+                status: tierType === 'premium' ? 'pending_payment' : 'submitted'
+            };
+
+            // Add to applied jobs
+            if (!appliedJobs.some(app => app.id === currentJobData.id)) {
+                appliedJobs.push(applicationData);
+                localStorage.setItem('appliedJobs', JSON.stringify(appliedJobs));
+            }
+
+            showApplicationSuccess(tierType);
+        }
+
+        function showApplicationSuccess(tierType) {
+            document.getElementById('tierSelection').style.display = 'none';
+            document.getElementById('applicationSuccess').style.display = 'block';
+
+            const successMessage = document.getElementById('successMessage');
+            
+            if (tierType === 'free') {
+                successMessage.textContent = 'Your free application has been successfully submitted to the employer.';
+            } else {
+                successMessage.textContent = 'Your premium application is pending payment confirmation.';
+                setTimeout(() => {
+                    window.location.href = `payment.html?service=application-premium&amount=50&name=Premium%20Application%20Verification&jobId=${currentJobId}`;
+                }, 2000);
+            }
+
+            // Update the action buttons on the main page
+            const buttons = getActionButtons(currentJobData);
+            renderActionButtons(buttons);
+        }
+
+        // Action functions
+        function boostApplication(jobId) {
+            // Redirect to boost page
+            window.location.href = `boost-profile.html?jobId=${jobId}`;
+        }
+
+        // Initialize page
+        function initializePage() {
+            const jobId = getJobIdFromURL();
+            const jobData = jobDatabase[jobId];
+            const sourcePage = getSourcePage();
+
+            if (jobData) {
+                currentJobId = jobId;
+                currentJobData = jobData;
+                updateJobDetails(jobData);
+                const buttons = getActionButtons(jobData);
+                renderActionButtons(buttons);
+                
+                // Set back button URL based on source
+                const backButton = document.getElementById('backBtn');
+                const backURL = getBackButtonURL(sourcePage);
+                backButton.onclick = () => {
+                    window.location.href = backURL;
+                };
+            } else {
+                alert('Job not found!');
+                window.history.back();
+            }
+
+            // Application modal event listeners
+            document.getElementById('closeApplicationModal').addEventListener('click', closeApplicationModal);
+            
+            // Tier selection
+            document.querySelectorAll('.tier-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.tier-option').forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+
+            // Tier action buttons
+            document.querySelectorAll('.tier-action').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const tierOption = this.closest('.tier-option');
+                    const tierType = tierOption.getAttribute('data-tier');
+                    submitApplication(tierType);
+                });
+            });
+
+            // Report button click handler
+            document.getElementById('reportJobBtn').addEventListener('click', handleReportJob);
+
+            // Boost now button
+            document.getElementById('boostNowBtn').addEventListener('click', function() {
+                window.location.href = `boost-profile.html?jobId=${currentJobId}`;
+            });
+
+            // View applications button
+            document.getElementById('viewApplicationsBtn').addEventListener('click', function() {
+                window.location.href = 'your-applications.html';
+            });
+
+            // Close modal when clicking outside
+            document.getElementById('applicationModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeApplicationModal();
+                }
+            });
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializePage);
+    </script>
+</body>
+</html>

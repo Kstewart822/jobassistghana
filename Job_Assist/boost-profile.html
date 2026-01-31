@@ -1,0 +1,2297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boost Application | Job Assist Ghana</title>
+    <link rel="icon" type="image/png" href="tab-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        :root {
+            --primary: #0a2a66;
+            --primary-dark: #071e4d;
+            --primary-light: #1e3a8a;
+            --secondary: #f8c12e;
+            --secondary-dark: #e6af1a;
+            --danger: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --white: #ffffff;
+            --sidebar-width: 250px;
+            --sidebar-collapsed: 70px;
+            --navbar-height: 70px;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.4;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+            color: white;
+            height: 100vh;
+            position: fixed;
+            transition: var(--transition);
+            z-index: 100;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed);
+            overflow-y: hidden;
+        }
+
+        .sidebar-header {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            height: var(--navbar-height);
+            min-height: var(--navbar-height);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img-placeholder {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .logo-main {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo-sub {
+            font-size: 0.7rem;
+            font-weight: 500;
+            opacity: 0.8;
+            color: white;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.1);
+            color: var(--secondary);
+        }
+
+        .sidebar-menu {
+            padding: 15px 0;
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 3px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .sidebar-menu i {
+            margin-right: 15px;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .sidebar.collapsed .menu-text {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-header {
+            justify-content: center;
+            padding: 15px 5px;
+        }
+
+        .sidebar.collapsed .logo-text {
+            display: none;
+        }
+
+        .sidebar.collapsed .logo {
+            justify-content: center;
+        }
+
+        .premium-indicator {
+            color: var(--secondary);
+            margin-left: auto;
+            font-size: 0.8rem;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            width: calc(100% - var(--sidebar-width));
+        }
+
+        .main-content.expanded {
+            margin-left: var(--sidebar-collapsed);
+            width: calc(100% - var(--sidebar-collapsed));
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            height: var(--navbar-height);
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            flex-shrink: 0;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        .page-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .notification-icon:hover {
+            color: var(--primary);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 20px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 300px;
+            max-height: 350px;
+            overflow-y: auto;
+            display: none;
+            z-index: 101;
+        }
+
+        .notification-dropdown.show {
+            display: block;
+        }
+
+        .notification-header {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        .mark-all-read {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .notification-list {
+            list-style: none;
+        }
+
+        .notification-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--gray-light);
+            transition: var(--transition);
+        }
+
+        .notification-item:hover {
+            background-color: rgba(248, 193, 46, 0.1);
+        }
+
+        .notification-item.unread {
+            background-color: rgba(10, 42, 102, 0.05);
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-content {
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .notification-time {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        .notification-empty {
+            padding: 20px;
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+
+        .user-profile:hover {
+            background-color: var(--gray-light);
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 20px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 180px;
+            padding: 8px 0;
+            display: none;
+            z-index: 101;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 8px 16px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--gray-light);
+            color: var(--primary);
+        }
+
+        /* Dashboard Content */
+        .dashboard-content {
+            padding: 20px;
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .welcome-section {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .welcome-title {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .welcome-subtitle {
+            color: var(--gray);
+            font-size: 0.95rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+
+        /* Application Info Card - For users with applications */
+        .application-info {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid var(--secondary);
+            max-width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .application-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .application-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .application-status {
+            background: var(--success);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .application-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 3px;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        .boost-explanation {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+
+        .explanation-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+        }
+
+        .explanation-text {
+            color: var(--dark);
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        /* No Applications Card - For users without applications */
+        .no-applications-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid var(--warning);
+            max-width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .no-applications-icon {
+            font-size: 3.5rem;
+            color: var(--warning);
+            margin-bottom: 15px;
+        }
+
+        .no-applications-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .no-applications-text {
+            color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .no-applications-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .no-applications-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .no-applications-feature i {
+            color: var(--success);
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+
+        .no-applications-feature-text h4 {
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+            color: var(--primary);
+        }
+
+        .no-applications-feature-text p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        /* Pricing Tiers - WIDER and SHORTER */
+        .pricing-tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+            max-width: 92%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-tier {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            border: 2px solid var(--gray-light);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 460px; /* Reduced height */
+        }
+
+        .pricing-tier:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .pricing-tier.popular {
+            border-color: var(--secondary);
+            transform: scale(1.02);
+        }
+
+        .pricing-tier.popular:hover {
+            transform: scale(1.02) translateY(-5px);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--secondary);
+            color: var(--primary);
+            padding: 6px 35px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+        }
+
+        .tier-icon {
+            font-size: 2.2rem; /* Slightly smaller */
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .tier-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .tier-price {
+            font-size: 2.2rem; /* Slightly smaller */
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        .tier-duration {
+            color: var(--gray);
+            margin-bottom: 15px; /* Reduced */
+            font-size: 0.9rem;
+        }
+
+        .tier-features {
+            list-style: none;
+            margin-bottom: 20px; /* Reduced */
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .tier-features li {
+            padding: 5px 0; /* Reduced padding */
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem; /* Slightly smaller text */
+            line-height: 1.3; /* Tighter line height */
+        }
+
+        .tier-features i {
+            color: var(--success);
+            font-size: 0.8rem; /* Smaller icon */
+            flex-shrink: 0;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-accent {
+            background-color: var(--secondary);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .btn-accent:hover {
+            background-color: var(--secondary-dark);
+        }
+
+        .btn-block {
+            width: 100%;
+            margin-top: auto;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            margin-bottom: 40px;
+            max-width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .benefit-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            transition: var(--transition);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .benefit-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .benefit-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            max-width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-title {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 25px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--secondary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 30px;
+            max-width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 12px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 8px;
+            padding: 18px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        .faq-answer {
+            margin-top: 12px;
+            color: var(--gray);
+            line-height: 1.5;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-toggle {
+            transition: var(--transition);
+            color: var(--primary);
+        }
+
+        /* Mobile Overlay */
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+        }
+
+        .mobile-overlay.show {
+            display: block;
+        }
+
+        /* NEW: Premium Application Verification Section */
+        .premium-verification {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid var(--success);
+            max-width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+            display: none;
+        }
+
+        .verification-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .verification-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .verification-badge {
+            background: var(--success);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .verification-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .feature-item i {
+            color: var(--success);
+            font-size: 1rem;
+        }
+
+        .verification-cta {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        /* Modal Styles - EXACT SAME AS candidate-dashboard.html */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 450px;
+            padding: 18px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            border-top: 5px solid var(--secondary);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal-body {
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        /* Logout button style - matching notification badge red */
+        .btn-logout {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-logout:hover {
+            background-color: var(--danger-dark);
+        }
+
+        /* Apply First Modal */
+        .apply-first-modal {
+            text-align: center;
+        }
+
+        .apply-first-icon {
+            font-size: 3rem;
+            color: var(--warning);
+            margin-bottom: 15px;
+        }
+
+        /* ====================== */
+        /* MOBILE OPTIMIZATIONS */
+        /* ====================== */
+
+        /* Tablet (992px and below) */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 250px;
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .main-content.expanded {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .pricing-tiers {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                max-width: 90%;
+            }
+
+            .pricing-tier.popular {
+                transform: none;
+            }
+
+            .pricing-tier.popular:hover {
+                transform: translateY(-5px);
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .application-info,
+            .no-applications-card,
+            .premium-verification,
+            .benefits-section,
+            .stats-section,
+            .faq-section {
+                max-width: 90%;
+            }
+            
+            .dashboard-content {
+                padding: 15px;
+            }
+            
+            .navbar {
+                padding: 0 15px;
+            }
+            
+            .page-title {
+                font-size: 1.1rem;
+            }
+            
+            .notification-dropdown {
+                right: 15px;
+                width: 280px;
+            }
+        }
+
+        /* Mobile (768px and below) */
+        @media (max-width: 768px) {
+            .dashboard-content {
+                padding: 12px;
+            }
+            
+            .navbar {
+                padding: 0 12px;
+                height: 60px;
+            }
+            
+            .logo-main {
+                font-size: 1rem;
+            }
+            
+            .logo-img-placeholder {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .user-name {
+                display: none;
+            }
+            
+            .notification-icon {
+                font-size: 1rem;
+            }
+            
+            .user-avatar {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .dropdown-menu {
+                right: 12px;
+                width: 160px;
+            }
+            
+            .welcome-section {
+                margin-bottom: 20px;
+                padding: 0 5px;
+            }
+            
+            .welcome-title {
+                font-size: 1.4rem;
+                margin-bottom: 6px;
+            }
+            
+            .welcome-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .application-info,
+            .no-applications-card,
+            .premium-verification,
+            .pricing-tier {
+                padding: 18px;
+            }
+            
+            .application-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                margin-bottom: 10px;
+            }
+            
+            .application-title {
+                font-size: 1.2rem;
+            }
+            
+            .application-status {
+                align-self: flex-start;
+            }
+            
+            .application-details {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .detail-label {
+                font-size: 0.75rem;
+            }
+            
+            .detail-value {
+                font-size: 0.85rem;
+            }
+            
+            .boost-explanation {
+                padding: 12px;
+            }
+            
+            .explanation-title {
+                font-size: 0.9rem;
+                margin-bottom: 6px;
+            }
+            
+            .explanation-text {
+                font-size: 0.85rem;
+            }
+            
+            .no-applications-icon {
+                font-size: 2.5rem;
+            }
+            
+            .no-applications-title {
+                font-size: 1.2rem;
+            }
+            
+            .no-applications-text {
+                font-size: 0.9rem;
+            }
+            
+            .no-applications-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-tiers {
+                gap: 15px;
+                margin-bottom: 30px;
+                max-width: 95%;
+            }
+            
+            .pricing-tier {
+                padding: 18px;
+                height: 440px; /* Even shorter on mobile */
+            }
+            
+            .popular-badge {
+                padding: 5px 30px;
+                font-size: 0.7rem;
+            }
+            
+            .tier-icon {
+                font-size: 2rem;
+                margin-bottom: 10px;
+            }
+            
+            .tier-name {
+                font-size: 1.2rem;
+            }
+            
+            .tier-price {
+                font-size: 2rem;
+            }
+            
+            .tier-duration {
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+            
+            .tier-features li {
+                padding: 4px 0;
+                font-size: 0.85rem;
+            }
+            
+            .benefits-section {
+                margin-bottom: 30px;
+                max-width: 95%;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .benefit-card {
+                padding: 18px;
+            }
+            
+            .benefit-icon {
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+            }
+            
+            .benefit-title {
+                font-size: 1rem;
+                margin-bottom: 6px;
+            }
+            
+            .benefit-description {
+                font-size: 0.85rem;
+            }
+            
+            .section-title {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+            
+            .stats-section {
+                padding: 20px;
+                margin-bottom: 25px;
+                max-width: 95%;
+            }
+            
+            .stats-title {
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .stat-number {
+                font-size: 1.8rem;
+                margin-bottom: 6px;
+            }
+            
+            .stat-label {
+                font-size: 0.85rem;
+            }
+            
+            .faq-section {
+                margin-bottom: 25px;
+                max-width: 95%;
+            }
+            
+            .faq-grid {
+                gap: 10px;
+            }
+            
+            .faq-item {
+                padding: 15px;
+            }
+            
+            .faq-question {
+                font-size: 0.9rem;
+            }
+            
+            .faq-answer {
+                font-size: 0.85rem;
+                margin-top: 10px;
+            }
+            
+            .btn {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+            
+            .verification-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .verification-title {
+                font-size: 1.2rem;
+            }
+            
+            .notification-dropdown {
+                right: 10px;
+                width: 260px;
+            }
+        }
+
+        /* Small Mobile (576px and below) */
+        @media (max-width: 576px) {
+            .dashboard-content {
+                padding: 10px;
+            }
+            
+            .navbar {
+                padding: 0 10px;
+            }
+            
+            .mobile-menu-btn {
+                font-size: 1rem;
+            }
+            
+            .page-title {
+                font-size: 1rem;
+            }
+            
+            .welcome-title {
+                font-size: 1.2rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 0.8rem;
+            }
+            
+            .application-info,
+            .no-applications-card,
+            .premium-verification,
+            .pricing-tier {
+                padding: 16px;
+                max-width: 95%;
+            }
+            
+            .application-title,
+            .verification-title {
+                font-size: 1.1rem;
+            }
+            
+            .application-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .no-applications-title {
+                font-size: 1.1rem;
+            }
+            
+            .pricing-tiers {
+                gap: 12px;
+                max-width: 100%;
+            }
+            
+            .tier-icon {
+                font-size: 1.8rem;
+            }
+            
+            .tier-name {
+                font-size: 1.1rem;
+            }
+            
+            .tier-price {
+                font-size: 1.8rem;
+            }
+            
+            .pricing-tier {
+                height: 420px; /* Compact on small mobile */
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .benefit-card {
+                padding: 16px;
+            }
+            
+            .section-title {
+                font-size: 1.1rem;
+            }
+            
+            .navbar {
+                padding: 0 12px;
+            }
+            
+            .logo-main {
+                font-size: 1.1rem;
+            }
+            
+            .logo-sub {
+                font-size: 0.65rem;
+            }
+            
+            .logo-img-placeholder {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Extra Small Mobile (480px and below) */
+        @media (max-width: 480px) {
+            .dashboard-content {
+                padding: 8px;
+            }
+            
+            .application-info,
+            .no-applications-card,
+            .premium-verification,
+            .pricing-tier {
+                padding: 14px;
+            }
+            
+            .welcome-title {
+                font-size: 1.1rem;
+            }
+            
+            .application-title,
+            .verification-title {
+                font-size: 1rem;
+            }
+            
+            .no-applications-title {
+                font-size: 1rem;
+            }
+            
+            .tier-price {
+                font-size: 1.6rem;
+            }
+            
+            .tier-name {
+                font-size: 1rem;
+            }
+            
+            .pricing-tier {
+                height: 400px; /* Even more compact */
+            }
+            
+            .btn {
+                padding: 7px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .navbar-right {
+                gap: 10px;
+            }
+            
+            .notification-icon {
+                font-size: 1rem;
+            }
+            
+            .notification-badge {
+                width: 16px;
+                height: 16px;
+                font-size: 0.65rem;
+            }
+            
+            .notification-dropdown {
+                width: 240px;
+                right: 8px;
+            }
+        }
+
+        /* Very Small Mobile (360px and below) */
+        @media (max-width: 360px) {
+            .dashboard-content {
+                padding: 6px;
+            }
+            
+            .application-info,
+            .no-applications-card,
+            .premium-verification,
+            .pricing-tier {
+                padding: 12px;
+            }
+            
+            .welcome-title {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+            
+            .logo-main {
+                font-size: 0.9rem;
+            }
+            
+            .logo-img-placeholder {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+            
+            .pricing-tier {
+                height: 380px; /* Compact height for very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="modal" id="logoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Confirm Logout</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to log out?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-logout" id="confirmLogout">Log Out</button>
+                <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Apply First Modal -->
+    <div class="modal" id="applyFirstModal">
+        <div class="modal-content apply-first-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Apply to a Job First</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="apply-first-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <p>You need to apply to a job before you can boost your application.</p>
+                <p style="margin-top: 8px; color: var(--gray); font-size: 0.9rem;">Boost your chances by applying to verified jobs and then using our premium boost features.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="browseJobsBtn">Browse Jobs</button>
+                <button class="btn btn-outline" id="closeApplyFirst">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-img-placeholder">JA</div>
+                <div class="logo-text">
+                    <div class="logo-main">JobAssist</div>
+                    <div class="logo-sub">GHANA</div>
+                </div>
+            </div>
+            <button class="toggle-btn" id="sidebarToggle">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="candidate-dashboard.html"><i class="fas fa-home"></i> <span class="menu-text">Dashboard</span></a></li>
+            <li><a href="your-applications.html"><i class="fas fa-list-alt"></i> <span class="menu-text">My Applications</span></a></li>
+            <li><a href="accepted-offers.html"><i class="fas fa-check-circle"></i> <span class="menu-text">Accepted Offers</span></a></li>
+            <li><a href="candidate-profile.html"><i class="fas fa-user"></i> <span class="menu-text">My Profile</span></a></li>
+            <li><a href="boost-profile.html" class="active"><i class="fas fa-rocket"></i> <span class="menu-text">Boost Application</span> <i class="fas fa-crown premium-indicator"></i></a></li>
+            <li><a href="browse-jobs.html"><i class="fas fa-search"></i> <span class="menu-text">Browse Jobs</span></a></li>
+            <li><a href="settings.html"><i class="fas fa-cog"></i> <span class="menu-text">Settings</span></a></li>
+            <li><a href="help.html"><i class="fas fa-question-circle"></i> <span class="menu-text">Help & Support</span></a></li>
+            <li><a href="#" id="sidebarLogout"><i class="fas fa-sign-out-alt"></i> <span class="menu-text">Logout</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="page-title">Boost Application</div>
+            <div class="navbar-right">
+                <div class="notification-icon" id="notificationIcon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="notification-dropdown" id="notificationDropdown">
+                    <div class="notification-header">
+                        <h3 class="notification-title">Notifications</h3>
+                        <button class="mark-all-read">Mark all as read</button>
+                    </div>
+                    <ul class="notification-list">
+                        <li class="notification-item unread">
+                            <div class="notification-content">Your application for Frontend Developer has been submitted</div>
+                            <div class="notification-time">2 hours ago</div>
+                        </li>
+                        <li class="notification-item unread">
+                            <div class="notification-content">New job matches your profile: Data Analyst at Tech Solutions</div>
+                            <div class="notification-time">5 hours ago</div>
+                        </li>
+                        <li class="notification-item unread">
+                            <div class="notification-content">Your profile has been viewed by 5 employers this week</div>
+                            <div class="notification-time">1 day ago</div>
+                        </li>
+                        <li class="notification-item">
+                            <div class="notification-content">Your application for UX Designer is being reviewed</div>
+                            <div class="notification-time">2 days ago</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="user-profile" id="userProfile">
+                    <div class="user-avatar">
+                        <img src="https://i.pravatar.cc/150?img=12" alt="User">
+                    </div>
+                    <div class="user-name">Nana</div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu">
+                    <a href="candidate-profile.html"><i class="fas fa-user"></i> View Profile</a>
+                    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#" id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h1 class="welcome-title">Stand Out From Other Applicants 🚀</h1>
+                <p class="welcome-subtitle">Boost your job application to get noticed faster by employers and increase your chances of getting hired</p>
+            </div>
+
+            <!-- NEW: Premium Application Verification Section -->
+            <div class="premium-verification" id="premiumVerificationSection">
+                <div class="verification-header">
+                    <h3 class="verification-title">Premium Application Verified ✅</h3>
+                    <span class="verification-badge">ACTIVE</span>
+                </div>
+                
+                <div class="verification-features">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Priority placement in applicant list</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Verified application badge</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Enhanced employer visibility</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Quality verification completed</span>
+                    </div>
+                </div>
+
+                <div class="verification-cta">
+                    <p style="margin-bottom: 15px; color: var(--gray);">Your application is already verified and has priority placement. Consider boosting for even greater visibility!</p>
+                </div>
+            </div>
+
+            <!-- Job Application Info - WILL BE POPULATED DYNAMICALLY -->
+            <div class="application-info" id="applicationInfoCard" style="display: none;">
+                <div class="application-header">
+                    <h3 class="application-title" id="jobTitle">Loading job details...</h3>
+                    <span class="application-status">Applied</span>
+                </div>
+                
+                <div class="application-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Application Date</div>
+                        <div class="detail-value" id="applicationDate">Loading...</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Application ID</div>
+                        <div class="detail-value" id="applicationId">Loading...</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Current Status</div>
+                        <div class="detail-value" id="currentStatus">Loading...</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Application Type</div>
+                        <div class="detail-value" id="applicationType">Loading...</div>
+                    </div>
+                </div>
+
+                <div class="boost-explanation">
+                    <h4 class="explanation-title"><i class="fas fa-info-circle"></i> How Boosting Works</h4>
+                    <p class="explanation-text">
+                        When you boost your application, we'll move you to the top of the applicant list for this specific job. 
+                        Employers typically review applications in the order they receive them, so being at the top significantly 
+                        increases your chances of being noticed and selected for an interview. Your boosted application will 
+                        also be highlighted with a special badge to draw extra attention from hiring managers.
+                    </p>
+                </div>
+            </div>
+
+            <!-- No Applications Card - FOR FIRST-TIME USERS -->
+            <div class="no-applications-card" id="noApplicationsCard" style="display: none;">
+                <div class="no-applications-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h2 class="no-applications-title">Apply to Verified Jobs First</h2>
+                <p class="no-applications-text">
+                    You haven't applied to any jobs yet. Boost your career by applying to verified jobs 
+                    from top employers and then use our premium boost features to stand out from other applicants.
+                </p>
+                
+                <div class="no-applications-features">
+                    <div class="no-applications-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <div class="no-applications-feature-text">
+                            <h4>Verified Employers Only</h4>
+                            <p>All employers on JobAssist Ghana are thoroughly verified to ensure legitimacy</p>
+                        </div>
+                    </div>
+                    <div class="no-applications-feature">
+                        <i class="fas fa-star"></i>
+                        <div class="no-applications-feature-text">
+                            <h4>Quality Job Listings</h4>
+                            <p>Find carefully curated job opportunities that match your skills and experience</p>
+                        </div>
+                    </div>
+                    <div class="no-applications-feature">
+                        <i class="fas fa-bolt"></i>
+                        <div class="no-applications-feature-text">
+                            <h4>Fast Application Process</h4>
+                            <p>Apply to multiple jobs quickly with your pre-filled profile information</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="browse-jobs.html" class="btn btn-accent">
+                    <i class="fas fa-search"></i> Browse Verified Jobs
+                </a>
+            </div>
+
+            <!-- Pricing Tiers - NOW WIDER AND SHORTER -->
+            <div class="pricing-tiers">
+                <!-- Professional Boost -->
+                <div class="pricing-tier popular">
+                    <div class="popular-badge">MOST POPULAR</div>
+                    <div class="tier-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3 class="tier-name">Professional Boost</h3>
+                    <div class="tier-price">₵120</div>
+                    <div class="tier-duration">Priority placement for 30 days</div>
+                    <ul class="tier-features">
+                        <li><i class="fas fa-check"></i> Top position in applicant list</li>
+                        <li><i class="fas fa-check"></i> Highlighted with premium badge</li>
+                        <li><i class="fas fa-check"></i> 30-day priority placement</li>
+                        <li><i class="fas fa-check"></i> Employer notification</li>
+                        <li><i class="fas fa-check"></i> Application tracking</li>
+                    </ul>
+                    <button class="btn btn-accent btn-block boost-button" data-tier="boost-pro" data-amount="120" data-name="Professional Boost">
+                        <i class="fas fa-crown"></i> Get Professional Boost
+                    </button>
+                </div>
+
+                <!-- Enterprise Boost -->
+                <div class="pricing-tier">
+                    <div class="tier-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="tier-name">Enterprise Boost</h3>
+                    <div class="tier-price">₵200</div>
+                    <div class="tier-duration">Maximum visibility for 90 days</div>
+                    <ul class="tier-features">
+                        <li><i class="fas fa-check"></i> Maximum priority placement</li>
+                        <li><i class="fas fa-check"></i> Premium highlighted badge</li>
+                        <li><i class="fas fa-check"></i> 90-day extended visibility</li>
+                        <li><i class="fas fa-check"></i> Priority employer notifications</li>
+                        <li><i class="fas fa-check"></i> Detailed application analytics</li>
+                        <li><i class="fas fa-check"></i> Dedicated support</li>
+                    </ul>
+                    <button class="btn btn-primary btn-block boost-button" data-tier="boost-enterprise" data-amount="200" data-name="Enterprise Boost">
+                        <i class="fas fa-briefcase"></i> Get Enterprise Boost
+                    </button>
+                </div>
+            </div>
+
+            <!-- Benefits Section -->
+            <div class="benefits-section">
+                <h3 class="section-title">Why Boost Your Application?</h3>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h4 class="benefit-title">Top of the List</h4>
+                        <p class="benefit-description">Get placed at the top of the applicant queue so employers see your application first</p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h4 class="benefit-title">Increased Visibility</h4>
+                        <p class="benefit-description">Stand out with a special badge that draws attention to your application</p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h4 class="benefit-title">Priority Notifications</h4>
+                        <p class="benefit-description">Employers receive special notifications about your boosted application</p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4 class="benefit-title">Better Response Rates</h4>
+                        <p class="benefit-description">Boosted applications receive 3x more responses from employers</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <h3 class="stats-title">Boosted Applications Get Better Results</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">3.5x</div>
+                        <div class="stat-label">More Likely to Be Viewed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">67%</div>
+                        <div class="stat-label">Faster Response Time</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2.8x</div>
+                        <div class="stat-label">More Interview Invitations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">89%</div>
+                        <div class="stat-label">User Satisfaction Rate</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h3 class="section-title">Frequently Asked Questions</h3>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            How long does the boost last?
+                            <i class="fas fa-chevron-down faq-toggle"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Professional Boost lasts for 30 days and Enterprise Boost lasts for 90 days. During this time, your application will maintain its priority position in the applicant list.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Can I boost multiple applications?
+                            <i class="fas fa-chevron-down faq-toggle"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Yes, you can boost multiple job applications. Each application requires its own boost purchase. Many users boost their most important applications to maximize their chances.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Is there a money-back guarantee?
+                            <i class="fas fa-chevron-down faq-toggle"></i>
+                        </div>
+                        <div class="faq-answer">
+                            We offer a 7-day money-back guarantee if you're not satisfied with the boost service. Contact our support team for assistance with refund requests.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            How soon will I see results?
+                            <i class="fas fa-chevron-down faq-toggle"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Your application will be boosted immediately after payment. Most users see increased employer interest within 24-48 hours as hiring managers review the prioritized applicant list.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const mainContent = document.getElementById('mainContent');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const boostButtons = document.querySelectorAll('.boost-button');
+        const faqItems = document.querySelectorAll('.faq-item');
+        const sidebarLogout = document.getElementById('sidebarLogout');
+        const dropdownLogout = document.getElementById('dropdownLogout');
+        const premiumVerificationSection = document.getElementById('premiumVerificationSection');
+        const applicationInfoCard = document.getElementById('applicationInfoCard');
+        const noApplicationsCard = document.getElementById('noApplicationsCard');
+        const notificationIcon = document.getElementById('notificationIcon');
+        const notificationDropdown = document.getElementById('notificationDropdown');
+        const logoutModal = document.getElementById('logoutModal');
+        const confirmLogout = document.getElementById('confirmLogout');
+        const cancelLogout = document.getElementById('cancelLogout');
+        const applyFirstModal = document.getElementById('applyFirstModal');
+        const browseJobsBtn = document.getElementById('browseJobsBtn');
+        const closeApplyFirst = document.getElementById('closeApplyFirst');
+
+        // Job database from localStorage (same as browse-jobs)
+        const jobDatabase = {
+            'frontend-developer': {
+                title: 'Frontend Developer',
+                company: 'Two Southeast Las',
+                location: 'Accra, Greater Accra',
+                type: 'Full-time',
+                salary: '₵3,500 - ₵4,500 monthly',
+                description: 'We are looking for a skilled Frontend Developer with 3+ years of experience in modern web technologies. The ideal candidate will be responsible for building responsive web applications and collaborating with our design and backend teams.',
+                industry: 'technology',
+                applicationDate: 'May 15, 2024',
+                applicationId: 'APP-789123',
+                status: 'Under Review'
+            },
+            'marketing-manager': {
+                title: 'Marketing Manager',
+                company: 'Global Emails Inc',
+                location: 'Kumasi, Ashanti',
+                type: 'Full-time',
+                salary: '₵4,000 - ₵5,000 monthly',
+                description: 'Exciting opportunity for a Marketing Manager with 3+ years experience in brand management and digital marketing strategies. You will lead our marketing efforts and drive brand awareness across multiple channels.',
+                industry: 'marketing',
+                applicationDate: 'May 10, 2024',
+                applicationId: 'APP-654321',
+                status: 'Under Review'
+            },
+            'senior-ux-designer': {
+                title: 'Senior UX Designer',
+                company: 'Creative Labs Ghana',
+                location: 'Accra, Greater Accra',
+                type: 'Full-time',
+                salary: '₵4,500 - ₵5,500 monthly',
+                description: 'Join our innovative team as a Senior UX Designer and help shape the future of digital products. We\'re looking for a creative problem-solver with a passion for user-centered design.',
+                industry: 'technology',
+                applicationDate: 'May 12, 2024',
+                applicationId: 'APP-456789',
+                status: 'Under Review'
+            },
+            'JBGH-2025-0128': {
+                title: 'Nurse Practitioner',
+                company: 'City Health Center',
+                location: 'Tema, Greater Accra',
+                type: 'Part-time',
+                salary: '₵2,000 - ₵3,500 monthly',
+                description: 'Provide quality healthcare services to patients. Must be registered with the Nursing and Midwifery Council.',
+                industry: 'healthcare',
+                applicationDate: 'May 8, 2024',
+                applicationId: 'APP-987654',
+                status: 'Under Review'
+            },
+            'JBGH-2025-0130': {
+                title: 'Accountant',
+                company: 'Business Solutions Ltd',
+                location: 'Kumasi, Ashanti',
+                type: 'Full-time',
+                salary: '₵2,200 - ₵3,800 monthly',
+                description: 'Manage financial records, prepare reports, and ensure compliance with accounting standards.',
+                industry: 'finance',
+                applicationDate: 'May 5, 2024',
+                applicationId: 'APP-321654',
+                status: 'Under Review'
+            },
+            'JBGH-2025-0131': {
+                title: 'Teacher',
+                company: 'Bright Future Academy',
+                location: 'Cape Coast, Central',
+                type: 'Full-time',
+                salary: '₵1,800 - ₵3,000 monthly',
+                description: 'Teach mathematics to high school students. Must have a degree in education with a math specialization.',
+                industry: 'education',
+                applicationDate: 'May 3, 2024',
+                applicationId: 'APP-147258',
+                status: 'Under Review'
+            }
+        };
+
+        // Initialize page with user's applications
+        function initializePage() {
+            // Get user's applied jobs from localStorage
+            const appliedJobs = JSON.parse(localStorage.getItem('appliedJobs')) || [];
+            
+            // Get the most recent application (last one in the array)
+            const mostRecentApplication = appliedJobs.length > 0 ? appliedJobs[appliedJobs.length - 1] : null;
+            
+            if (mostRecentApplication) {
+                // User has applications - show the application info card
+                noApplicationsCard.style.display = 'none';
+                applicationInfoCard.style.display = 'block';
+                
+                const jobData = jobDatabase[mostRecentApplication.id] || jobDatabase['frontend-developer'];
+                
+                // Update job application info with real data
+                document.getElementById('jobTitle').textContent = `${jobData.title} at ${jobData.company}`;
+                document.getElementById('applicationDate').textContent = jobData.applicationDate;
+                document.getElementById('applicationId').textContent = jobData.applicationId;
+                document.getElementById('currentStatus').textContent = jobData.status;
+                
+                // Show application type and premium verification status
+                const applicationType = mostRecentApplication.tier === 'premium' ? 'Premium (Verified)' : 'Free';
+                document.getElementById('applicationType').textContent = applicationType;
+                
+                // Show premium verification section if application is premium
+                if (mostRecentApplication.tier === 'premium') {
+                    premiumVerificationSection.style.display = 'block';
+                } else {
+                    premiumVerificationSection.style.display = 'none';
+                }
+                
+                // Update page title to reflect the job being boosted
+                document.title = `Boost ${jobData.title} Application | JobAssist Ghana`;
+            } else {
+                // User has no applications - show the "no applications" card
+                applicationInfoCard.style.display = 'none';
+                premiumVerificationSection.style.display = 'none';
+                noApplicationsCard.style.display = 'block';
+            }
+        }
+
+        // Toggle Sidebar
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+            
+            const icon = this.querySelector('i');
+            if (sidebar.classList.contains('collapsed')) {
+                icon.className = 'fas fa-chevron-right';
+            } else {
+                icon.className = 'fas fa-chevron-left';
+            }
+        });
+
+        // Mobile Menu Toggle
+        let isMobileMenuOpen = false;
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            if (isMobileMenuOpen) {
+                sidebar.classList.remove('mobile-open');
+                mobileOverlay.classList.remove('show');
+                isMobileMenuOpen = false;
+            } else {
+                sidebar.classList.add('mobile-open');
+                mobileOverlay.classList.add('show');
+                isMobileMenuOpen = true;
+            }
+        });
+
+        // Close mobile menu when clicking overlay
+        mobileOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('mobile-open');
+            mobileOverlay.classList.remove('show');
+            isMobileMenuOpen = false;
+        });
+
+        // User Profile Dropdown
+        document.querySelector('.user-profile').addEventListener('click', function() {
+            document.querySelector('.dropdown-menu').classList.toggle('show');
+        });
+
+        // Notification Dropdown
+        notificationIcon.addEventListener('click', function(e) {
+            e.stopPropagation();
+            notificationDropdown.classList.toggle('show');
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.user-profile')) {
+                document.querySelector('.dropdown-menu').classList.remove('show');
+            }
+            
+            if (!event.target.closest('.notification-icon')) {
+                notificationDropdown.classList.remove('show');
+            }
+        });
+
+        // Boost Package Selection - Check if user has applications first
+        boostButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Get user's applied jobs from localStorage
+                const appliedJobs = JSON.parse(localStorage.getItem('appliedJobs')) || [];
+                
+                if (appliedJobs.length === 0) {
+                    // User has no applications - show the apply first modal
+                    applyFirstModal.classList.add('show');
+                    return;
+                }
+                
+                // User has applications - proceed with boost
+                const tier = this.getAttribute('data-tier');
+                const amount = this.getAttribute('data-amount');
+                const name = this.getAttribute('data-name');
+                
+                // Get the most recent application
+                const mostRecentApplication = appliedJobs[appliedJobs.length - 1];
+                const jobId = mostRecentApplication.id;
+                
+                // Show loading state
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                this.disabled = true;
+
+                // Redirect to payment page with boost details
+                const paymentUrl = `payment.html?service=${tier}&amount=${amount}&name=${encodeURIComponent(name)}&jobId=${jobId}`;
+                window.location.href = paymentUrl;
+            });
+        });
+
+        // FAQ Toggle
+        faqItems.forEach(item => {
+            item.addEventListener('click', function() {
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== this) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                this.classList.toggle('active');
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('mobile-open');
+                mobileOverlay.classList.remove('show');
+                isMobileMenuOpen = false;
+            }
+        });
+
+        // Logout functionality
+        sidebarLogout.addEventListener('click', function(e) {
+            e.preventDefault();
+            logoutModal.classList.add('show');
+        });
+
+        dropdownLogout.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('.dropdown-menu').classList.remove('show');
+            logoutModal.classList.add('show');
+        });
+
+        // Logout modal buttons
+        confirmLogout.addEventListener('click', function() {
+            // Redirect to login page after logout
+            logoutModal.classList.remove('show');
+            window.location.href = 'login.html';
+        });
+
+        cancelLogout.addEventListener('click', function() {
+            logoutModal.classList.remove('show');
+        });
+
+        // Mark all notifications as read
+        document.querySelector('.mark-all-read').addEventListener('click', function() {
+            document.querySelectorAll('.notification-item.unread').forEach(item => {
+                item.classList.remove('unread');
+            });
+            document.querySelector('.notification-badge').style.display = 'none';
+        });
+
+        // Apply First Modal functionality
+        browseJobsBtn.addEventListener('click', function() {
+            applyFirstModal.classList.remove('show');
+            window.location.href = 'browse-jobs.html';
+        });
+
+        closeApplyFirst.addEventListener('click', function() {
+            applyFirstModal.classList.remove('show');
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === logoutModal) {
+                logoutModal.classList.remove('show');
+            }
+            if (event.target === applyFirstModal) {
+                applyFirstModal.classList.remove('show');
+            }
+        });
+
+        // Close modals with X button
+        document.querySelectorAll('.close-modal').forEach(button => {
+            button.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                modal.classList.remove('show');
+            });
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePage();
+        });
+    </script>
+</body>
+</html>

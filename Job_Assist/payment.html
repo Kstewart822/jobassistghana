@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment | Job Assist Ghana</title>
+    <link rel="icon" type="image/png" href="tab-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        :root {
+            --primary: #0a2a66;
+            --primary-dark: #071e4d;
+            --primary-light: #1e3a8a;
+            --secondary: #f8c12e;
+            --secondary-dark: #e6af1a;
+            --danger: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --white: #ffffff;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            min-height: 100vh;
+            line-height: 1.4;
+        }
+
+        /* Container - Desktop first, mobile optimized */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            height: 70px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img-placeholder {
+            width: 40px; 
+            height: 40px; 
+            background-color: var(--secondary); 
+            border-radius: 5px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: var(--primary); 
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .logo-main {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo-sub {
+            font-size: 0.7rem;
+            font-weight: 500;
+            opacity: 0.8;
+            color: var(--primary);
+        }
+
+        .page-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .notification-icon:hover {
+            color: var(--primary);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+
+        .user-profile:hover {
+            background-color: var(--gray-light);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 20px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 200px;
+            padding: 10px 0;
+            display: none;
+            z-index: 101;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--gray-light);
+            color: var(--primary);
+        }
+
+        /* Dashboard Content */
+        .dashboard-content {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .welcome-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .welcome-title {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .welcome-subtitle {
+            color: var(--gray);
+            font-size: 0.95rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+
+        /* Payment Container */
+        .payment-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        /* Order Summary */
+        .order-summary {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .order-header {
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .order-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .order-details {
+            margin-bottom: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray-light);
+            font-size: 0.95rem;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .item-value {
+            font-weight: 600;
+            color: var(--dark);
+            text-align: right;
+            font-size: 0.95rem;
+        }
+
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding-top: 12px;
+            border-top: 2px solid var(--gray-light);
+            color: var(--primary);
+        }
+
+        /* Payment Form */
+        .payment-form {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .form-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--gray-light);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(10, 42, 102, 0.1);
+        }
+
+        .form-control.error {
+            border-color: var(--danger);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            margin-bottom: 20px;
+        }
+
+        .payment-options {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .payment-option {
+            flex: 1;
+            border: 2px solid var(--gray-light);
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .payment-option:hover {
+            border-color: var(--primary);
+        }
+
+        .payment-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(10, 42, 102, 0.05);
+        }
+
+        .payment-icon {
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+            color: var(--primary);
+        }
+
+        .payment-name {
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background-color: var(--secondary);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .btn-accent:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .btn:disabled {
+            background-color: var(--gray-light);
+            color: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn:disabled:hover {
+            background-color: var(--gray-light);
+            transform: none;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .benefit-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            transition: var(--transition);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .benefit-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .benefit-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Paystack Integration */
+        .paystack-info {
+            background-color: var(--light);
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 15px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .paystack-logo {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* Validation Styles */
+        .error-message {
+            color: var(--danger);
+            font-size: 0.8rem;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .form-hint {
+            color: var(--gray);
+            font-size: 0.8rem;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* Service Type Badge */
+        .service-badge {
+            display: inline-block;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .badge-premium {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .badge-boost {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Job Application Info */
+        .job-application-info {
+            background: var(--light);
+            border-radius: 6px;
+            padding: 10px;
+            margin-top: 4px;
+        }
+
+        .job-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .job-company {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        /* ====================== */
+        /* MOBILE OPTIMIZATIONS */
+        /* ====================== */
+
+        /* Tablet (992px and below) */
+        @media (max-width: 992px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .payment-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Mobile (768px and below) */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .navbar {
+                padding: 0 15px;
+                height: 60px;
+            }
+            
+            .logo-main {
+                font-size: 1.1rem;
+            }
+            
+            .logo-img-placeholder {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .page-title {
+                font-size: 1.1rem;
+                display: none; /* Hide on very small screens */
+            }
+            
+            .user-name {
+                display: none;
+            }
+            
+            .notification-icon {
+                font-size: 1.1rem;
+            }
+            
+            .user-avatar {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .dashboard-content {
+                padding: 15px 12px;
+            }
+            
+            .welcome-section {
+                margin-bottom: 20px;
+                padding: 0 5px;
+            }
+            
+            .welcome-title {
+                font-size: 1.4rem;
+                margin-bottom: 6px;
+            }
+            
+            .welcome-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .payment-container {
+                gap: 15px;
+                margin-bottom: 30px;
+            }
+            
+            .order-summary,
+            .payment-form {
+                padding: 18px;
+            }
+            
+            .order-title,
+            .form-title {
+                font-size: 1.2rem;
+                margin-bottom: 12px;
+            }
+            
+            .order-item {
+                font-size: 0.9rem;
+                margin-bottom: 8px;
+                padding-bottom: 8px;
+            }
+            
+            .item-label {
+                font-size: 0.85rem;
+            }
+            
+            .item-value {
+                font-size: 0.9rem;
+            }
+            
+            .order-total {
+                font-size: 1rem;
+                padding-top: 10px;
+            }
+            
+            .form-label {
+                font-size: 0.85rem;
+                margin-bottom: 5px;
+            }
+            
+            .form-control {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .payment-options {
+                gap: 8px;
+            }
+            
+            .payment-option {
+                padding: 10px;
+            }
+            
+            .payment-icon {
+                font-size: 1.2rem;
+                margin-bottom: 4px;
+            }
+            
+            .payment-name {
+                font-size: 0.8rem;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .benefit-card {
+                padding: 18px;
+            }
+            
+            .benefit-icon {
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+            }
+            
+            .benefit-title {
+                font-size: 1rem;
+                margin-bottom: 6px;
+            }
+            
+            .benefit-description {
+                font-size: 0.85rem;
+            }
+            
+            .section-title {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+            
+            .btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Small Mobile (576px and below) */
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 12px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .payment-options {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .order-summary,
+            .payment-form {
+                padding: 16px;
+            }
+            
+            .order-header {
+                padding-bottom: 10px;
+                margin-bottom: 12px;
+            }
+            
+            .form-group {
+                margin-bottom: 12px;
+            }
+            
+            .welcome-title {
+                font-size: 1.2rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 0.85rem;
+            }
+            
+            .navbar {
+                padding: 0 12px;
+            }
+            
+            .logo-main {
+                font-size: 1rem;
+            }
+            
+            .logo-sub {
+                font-size: 0.65rem;
+            }
+        }
+
+        /* Extra Small Mobile (480px and below) */
+        @media (max-width: 480px) {
+            .dashboard-content {
+                padding: 12px 10px;
+            }
+            
+            .order-summary,
+            .payment-form {
+                padding: 15px;
+            }
+            
+            .order-title,
+            .form-title {
+                font-size: 1.1rem;
+            }
+            
+            .order-item {
+                font-size: 0.85rem;
+            }
+            
+            .item-label {
+                font-size: 0.8rem;
+            }
+            
+            .item-value {
+                font-size: 0.85rem;
+            }
+            
+            .form-control {
+                padding: 9px 11px;
+                font-size: 0.85rem;
+            }
+            
+            .benefit-card {
+                padding: 15px;
+            }
+            
+            .benefit-title {
+                font-size: 0.95rem;
+            }
+            
+            .btn {
+                padding: 9px 14px;
+                font-size: 0.85rem;
+            }
+            
+            .logo-img-placeholder {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+            
+            .navbar-right {
+                gap: 10px;
+            }
+            
+            .notification-icon {
+                font-size: 1rem;
+            }
+            
+            .notification-badge {
+                width: 16px;
+                height: 16px;
+                font-size: 0.65rem;
+            }
+        }
+
+        /* Very Small Mobile (360px and below) */
+        @media (max-width: 360px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            .dashboard-content {
+                padding: 10px 8px;
+            }
+            
+            .order-summary,
+            .payment-form {
+                padding: 14px;
+            }
+            
+            .welcome-title {
+                font-size: 1.1rem;
+            }
+            
+            .order-title,
+            .form-title {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .logo-main {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-img-placeholder">JA</div>
+            <div class="logo-text">
+                <div class="logo-main">JobAssist</div>
+                <div class="logo-sub">GHANA</div>
+            </div>
+        </div>
+        <div class="page-title">Payment</div>
+        <div class="navbar-right">
+            <div class="notification-icon">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </div>
+            <div class="user-profile" id="userProfile">
+                <div class="user-avatar">
+                    <img src="https://i.pravatar.cc/150?img=12" alt="User">
+                </div>
+                <div class="user-name">Nana</div>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu">
+                <a href="candidate-profile.html"><i class="fas fa-user"></i> View Profile</a>
+                <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+                <a href="#" id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h1 class="welcome-title">Complete Your Purchase</h1>
+            <p class="welcome-subtitle">Review your order details and complete the payment to activate your service</p>
+        </div>
+
+        <!-- Payment Container -->
+        <div class="payment-container">
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <div class="order-header">
+                    <h3 class="order-title">Order Summary</h3>
+                </div>
+                <div class="order-details">
+                    <div class="order-item">
+                        <div class="item-label">Service</div>
+                        <div class="item-value" id="serviceName">Loading service details...</div>
+                    </div>
+                    <div class="order-item">
+                        <div class="item-label">Job Application</div>
+                        <div class="item-value" id="jobApplication">
+                            <div id="jobDetails">
+                                <div class="job-title" id="jobTitle">Loading...</div>
+                                <div class="job-company" id="jobCompany">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-item">
+                        <div class="item-label">Application ID</div>
+                        <div class="item-value" id="applicationId">Loading...</div>
+                    </div>
+                    <div class="order-item">
+                        <div class="item-label">Duration</div>
+                        <div class="item-value" id="serviceDuration">Loading...</div>
+                    </div>
+                    <div class="order-item">
+                        <div class="item-label">Service Type</div>
+                        <div class="item-value" id="serviceType">Loading...</div>
+                    </div>
+                </div>
+                <div class="order-total">
+                    <div class="item-label">Total Amount</div>
+                    <div class="item-value" id="totalAmount">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Payment Form -->
+            <div class="payment-form">
+                <h3 class="form-title">Payment Details</h3>
+                
+                <!-- Payment Methods -->
+                <div class="payment-methods">
+                    <div class="form-label">Select Payment Method</div>
+                    <div class="payment-options">
+                        <div class="payment-option selected" data-method="mobile">
+                            <div class="payment-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="payment-name">Mobile Money</div>
+                        </div>
+                        <div class="payment-option" data-method="card">
+                            <div class="payment-icon">
+                                <i class="far fa-credit-card"></i>
+                            </div>
+                            <div class="payment-name">Card</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Money Form -->
+                <div class="payment-form-content" id="mobileForm">
+                    <div class="form-group">
+                        <label class="form-label" for="mobileProvider">Mobile Provider *</label>
+                        <select class="form-control" id="mobileProvider" required>
+                            <option value="">Select Provider</option>
+                            <option value="mtn">MTN Mobile Money</option>
+                            <option value="vodafone">Telecel Ghana (formerly Vodafone)</option>
+                            <option value="airteltigo">AT Ghana (Airtel / Airtel-Tigo)</option>
+                        </select>
+                        <div class="error-message" id="providerError">Please select a mobile provider</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="mobileNumber">Mobile Number *</label>
+                        <input type="text" class="form-control" id="mobileNumber" placeholder="e.g., 024 123 4567" required>
+                        <div class="error-message" id="mobileError">Please enter a valid 10-digit Ghana mobile number</div>
+                        <div class="form-hint">Enter your 10-digit Ghana mobile number</div>
+                    </div>
+                </div>
+
+                <!-- Card Payment Form -->
+                <div class="payment-form-content" id="cardForm" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label" for="cardNumber">Card Number *</label>
+                        <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                        <div class="error-message" id="cardError">Please enter a valid card number</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="expiryDate">Expiry Date *</label>
+                            <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
+                            <div class="error-message" id="expiryError">Please enter a valid expiry date (MM/YY)</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="cvv">CVV *</label>
+                            <input type="text" class="form-control" id="cvv" placeholder="123" required>
+                            <div class="error-message" id="cvvError">Please enter a valid CVV</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="cardName">Name on Card *</label>
+                        <input type="text" class="form-control" id="cardName" placeholder="John Doe" required>
+                        <div class="error-message" id="nameError">Please enter the name on your card</div>
+                    </div>
+                </div>
+
+                <div class="paystack-info">
+                    <i class="fas fa-lock"></i> Secured by <span class="paystack-logo">Paystack</span>
+                </div>
+
+                <button class="btn btn-accent btn-block" id="payButton" disabled>
+                    <i class="fas fa-lock"></i> Pay Now
+                </button>
+            </div>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="benefits-section">
+            <h3 class="section-title" id="benefitsTitle">What Happens After Payment?</h3>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4 class="benefit-title">Immediate Activation</h4>
+                    <p class="benefit-description">Your service will be activated immediately after successful payment</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h4 class="benefit-title">Support Available</h4>
+                    <p class="benefit-description">Our support team is available if you have any questions</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4 class="benefit-title">Secure Payment</h4>
+                    <p class="benefit-description">Your payment is processed securely through Paystack</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h4 class="benefit-title">Confirmation</h4>
+                    <p class="benefit-description">You'll receive a confirmation email after successful payment</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const userProfile = document.getElementById('userProfile');
+        const dropdownLogout = document.getElementById('dropdownLogout');
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        const paymentForms = document.querySelectorAll('.payment-form-content');
+        const payButton = document.getElementById('payButton');
+        
+        // Form elements
+        const mobileProvider = document.getElementById('mobileProvider');
+        const mobileNumber = document.getElementById('mobileNumber');
+        const cardNumber = document.getElementById('cardNumber');
+        const expiryDate = document.getElementById('expiryDate');
+        const cvv = document.getElementById('cvv');
+        const cardName = document.getElementById('cardName');
+        
+        // Error elements
+        const providerError = document.getElementById('providerError');
+        const mobileError = document.getElementById('mobileError');
+        const cardError = document.getElementById('cardError');
+        const expiryError = document.getElementById('expiryError');
+        const cvvError = document.getElementById('cvvError');
+        const nameError = document.getElementById('nameError');
+
+        // Order summary elements
+        const serviceName = document.getElementById('serviceName');
+        const jobApplication = document.getElementById('jobDetails');
+        const jobTitle = document.getElementById('jobTitle');
+        const jobCompany = document.getElementById('jobCompany');
+        const applicationId = document.getElementById('applicationId');
+        const serviceDuration = document.getElementById('serviceDuration');
+        const serviceType = document.getElementById('serviceType');
+        const totalAmount = document.getElementById('totalAmount');
+        const benefitsTitle = document.getElementById('benefitsTitle');
+
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const serviceTypeParam = urlParams.get('service');
+        const amount = urlParams.get('amount');
+        const serviceNameParam = urlParams.get('name');
+        const jobId = urlParams.get('jobId');
+        const appId = urlParams.get('appId') || 'APP 789123'; // Get app ID from URL or use default
+        
+        // Enhanced job database with more realistic data
+        const jobDatabase = {
+            'frontend-developer': {
+                title: 'Frontend Developer',
+                company: 'Two Southeast Las',
+                applicationDate: 'May 15, 2024',
+                applicationId: 'APP 789123',
+                status: 'Under Review',
+                location: 'Accra, Ghana',
+                salary: '₵5,000 - ₵8,000/month'
+            },
+            'backend-developer': {
+                title: 'Backend Developer',
+                company: 'Tech Solutions Ltd',
+                applicationDate: 'May 18, 2024',
+                applicationId: 'APP 456789',
+                status: 'Pending',
+                location: 'Kumasi, Ghana',
+                salary: '₵4,500 - ₵7,500/month'
+            },
+            'marketing-manager': {
+                title: 'Marketing Manager',
+                company: 'Global Emails Inc',
+                applicationDate: 'May 10, 2024',
+                applicationId: 'APP 654321',
+                status: 'Under Review',
+                location: 'Accra, Ghana',
+                salary: '₵6,000 - ₵9,000/month'
+            },
+            'data-analyst': {
+                title: 'Data Analyst',
+                company: 'Financial Insights Group',
+                applicationDate: 'May 20, 2024',
+                applicationId: 'APP 987654',
+                status: 'Pending',
+                location: 'Tema, Ghana',
+                salary: '₵4,000 - ₵6,500/month'
+            }
+        };
+
+        // Service details - UPDATED FOR TWO-TIER SYSTEM
+        const serviceDatabase = {
+            'application-premium': {
+                name: 'Premium Application Verification',
+                duration: 'Active until job filled',
+                amount: '₵50',
+                type: 'Premium Verification',
+                benefitsTitle: 'What Happens After Premium Verification?'
+            },
+            'boost-pro': {
+                name: 'Professional Boost',
+                duration: '30 days',
+                amount: '₵120',
+                type: 'Application Boost',
+                benefitsTitle: 'What Happens After Boosting?'
+            },
+            'boost-enterprise': {
+                name: 'Enterprise Boost',
+                duration: '90 days',
+                amount: '₵200',
+                type: 'Application Boost',
+                benefitsTitle: 'What Happens After Boosting?'
+            }
+        };
+
+        // Initialize page with service and job data
+        function initializePage() {
+            // Get job data - first try from localStorage, then from URL params, then from database
+            let jobData;
+            
+            // Try to get from localStorage first (most recent applications)
+            const appliedJobs = JSON.parse(localStorage.getItem('appliedJobs')) || [];
+            
+            if (appliedJobs.length > 0) {
+                // If jobId is specified in URL, find that specific job
+                if (jobId && jobDatabase[jobId]) {
+                    jobData = jobDatabase[jobId];
+                } else {
+                    // Otherwise, use the most recent application
+                    jobData = appliedJobs[0];
+                    
+                    // If we have stored job data from localStorage, use it
+                    if (!jobData.title && !jobData.company) {
+                        // Fallback to default if localStorage data is incomplete
+                        jobData = jobDatabase['frontend-developer'];
+                    }
+                }
+            } else {
+                // Fallback to database
+                jobData = jobDatabase[jobId] || jobDatabase['frontend-developer'];
+            }
+            
+            // Get service data
+            const serviceData = serviceDatabase[serviceTypeParam] || serviceDatabase['application-premium'];
+            
+            // Update order summary
+            serviceName.textContent = serviceData.name;
+            jobTitle.textContent = jobData.title;
+            jobCompany.textContent = jobData.company;
+            applicationId.textContent = appId || jobData.applicationId;
+            serviceDuration.textContent = serviceData.duration;
+            totalAmount.textContent = amount || serviceData.amount;
+            benefitsTitle.textContent = serviceData.benefitsTitle;
+            
+            // Update service type with badge
+            if (serviceData.type === 'Premium Verification') {
+                serviceType.innerHTML = `${serviceData.type} <span class="service-badge badge-premium">PREMIUM</span>`;
+            } else {
+                serviceType.innerHTML = `${serviceData.type} <span class="service-badge badge-boost">BOOST</span>`;
+            }
+            
+            // Update page title with job info
+            document.title = `Payment for ${jobData.title} | JobAssist Ghana`;
+        }
+
+        // User Profile Dropdown
+        userProfile.addEventListener('click', function() {
+            document.querySelector('.dropdown-menu').classList.toggle('show');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.user-profile')) {
+                document.querySelector('.dropdown-menu').classList.remove('show');
+            }
+        });
+
+        // Payment Method Selection
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Get payment method
+                const method = this.getAttribute('data-method');
+                
+                // Hide all payment forms
+                paymentForms.forEach(form => form.style.display = 'none');
+                
+                // Show selected payment form
+                document.getElementById(`${method}Form`).style.display = 'block';
+                
+                // Clear any existing errors when switching methods
+                clearErrors();
+                checkFormValidity();
+            });
+        });
+
+        // Validation functions
+        function validateMobileNumber(number) {
+            const cleanNumber = number.replace(/\s/g, '');
+            return /^(024|025|053|054|055|059|020|050|026|056|027|057)\d{7}$/.test(cleanNumber);
+        }
+
+        function validateCardNumber(number) {
+            const cleanNumber = number.replace(/\s/g, '');
+            return /^\d{16}$/.test(cleanNumber);
+        }
+
+        function validateExpiryDate(date) {
+            return /^(0[1-9]|1[0-2])\/\d{2}$/.test(date);
+        }
+
+        function validateCVV(cvv) {
+            return /^\d{3,4}$/.test(cvv);
+        }
+
+        function validateCardName(name) {
+            return name.trim().length >= 2;
+        }
+
+        // Format mobile number input
+        mobileNumber.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                value = value.match(/.{1,3}/g).join(' ');
+            }
+            
+            e.target.value = value;
+            checkFormValidity();
+        });
+
+        // Format card number input
+        cardNumber.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                value = value.match(/.{1,4}/g).join(' ');
+            }
+            
+            e.target.value = value;
+            checkFormValidity();
+        });
+
+        // Format expiry date input
+        expiryDate.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            
+            e.target.value = value;
+            checkFormValidity();
+        });
+
+        // Add input event listeners for real-time validation
+        const formInputs = [mobileProvider, mobileNumber, cardNumber, expiryDate, cvv, cardName];
+        formInputs.forEach(input => {
+            if (input) {
+                input.addEventListener('input', checkFormValidity);
+            }
+        });
+
+        // Clear all error states
+        function clearErrors() {
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.classList.remove('show');
+            });
+            document.querySelectorAll('.form-control').forEach(input => {
+                input.classList.remove('error');
+            });
+        }
+
+        // Check if form is valid (without showing errors)
+        function checkFormValidity() {
+            const selectedMethod = document.querySelector('.payment-option.selected').getAttribute('data-method');
+            let isValid = true;
+            
+            if (selectedMethod === 'mobile') {
+                // Validate mobile money form
+                if (!mobileProvider.value || !validateMobileNumber(mobileNumber.value)) {
+                    isValid = false;
+                }
+            } else {
+                // Validate card form
+                if (!validateCardNumber(cardNumber.value) || !validateExpiryDate(expiryDate.value) || 
+                    !validateCVV(cvv.value) || !validateCardName(cardName.value)) {
+                    isValid = false;
+                }
+            }
+            
+            // Update button state
+            payButton.disabled = !isValid;
+            
+            return isValid;
+        }
+
+        // Show validation errors
+        function showValidationErrors() {
+            const selectedMethod = document.querySelector('.payment-option.selected').getAttribute('data-method');
+            
+            if (selectedMethod === 'mobile') {
+                // Validate mobile money form
+                if (!mobileProvider.value) {
+                    providerError.classList.add('show');
+                    mobileProvider.classList.add('error');
+                }
+                
+                if (!validateMobileNumber(mobileNumber.value)) {
+                    mobileError.classList.add('show');
+                    mobileNumber.classList.add('error');
+                }
+            } else {
+                // Validate card form
+                if (!validateCardNumber(cardNumber.value)) {
+                    cardError.classList.add('show');
+                    cardNumber.classList.add('error');
+                }
+                
+                if (!validateExpiryDate(expiryDate.value)) {
+                    expiryError.classList.add('show');
+                    expiryDate.classList.add('error');
+                }
+                
+                if (!validateCVV(cvv.value)) {
+                    cvvError.classList.add('show');
+                    cvv.classList.add('error');
+                }
+                
+                if (!validateCardName(cardName.value)) {
+                    nameError.classList.add('show');
+                    cardName.classList.add('error');
+                }
+            }
+        }
+
+        // Handle Payment
+        payButton.addEventListener('click', function() {
+            // Clear previous errors
+            clearErrors();
+            
+            // Validate form and show errors if invalid
+            if (!checkFormValidity()) {
+                showValidationErrors();
+                return;
+            }
+            
+            // Get job details for confirmation
+            const appliedJobs = JSON.parse(localStorage.getItem('appliedJobs')) || [];
+            let jobData;
+            
+            if (jobId && jobDatabase[jobId]) {
+                jobData = jobDatabase[jobId];
+            } else if (appliedJobs.length > 0) {
+                jobData = appliedJobs[0];
+            } else {
+                jobData = jobDatabase['frontend-developer'];
+            }
+            
+            // Show loading state
+            const originalText = this.innerHTML;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Payment...';
+            this.disabled = true;
+
+            // In a real implementation, this would integrate with Paystack API
+            // For demonstration, we'll simulate payment processing with 80% success rate
+            setTimeout(() => {
+                const isSuccess = Math.random() > 0.2; // 80% success rate
+                
+                if (isSuccess) {
+                    // Update application status if it's a premium verification
+                    if (serviceTypeParam === 'application-premium') {
+                        const appliedJobs = JSON.parse(localStorage.getItem('appliedJobs')) || [];
+                        const jobIndex = appliedJobs.findIndex(app => app.id === jobId);
+                        if (jobIndex !== -1) {
+                            appliedJobs[jobIndex].status = 'verified';
+                            appliedJobs[jobIndex].tier = 'premium';
+                            appliedJobs[jobIndex].boosted = true;
+                            appliedJobs[jobIndex].boostExpiry = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString();
+                            localStorage.setItem('appliedJobs', JSON.stringify(appliedJobs));
+                        }
+                    } else if (serviceTypeParam === 'boost-pro' || serviceTypeParam === 'boost-enterprise') {
+                        // Update boost status
+                        const appliedJobs = JSON.parse(localStorage.getItem('appliedJobs')) || [];
+                        const jobIndex = appliedJobs.findIndex(app => app.id === jobId);
+                        if (jobIndex !== -1) {
+                            appliedJobs[jobIndex].boosted = true;
+                            appliedJobs[jobIndex].boostExpiry = serviceTypeParam === 'boost-pro' 
+                                ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+                                : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString();
+                            localStorage.setItem('appliedJobs', JSON.stringify(appliedJobs));
+                        }
+                    }
+                    
+                    // Redirect to success page with order details
+                    const successUrl = `payment-successful.html?service=${serviceTypeParam}&amount=${amount || '200'}&jobTitle=${encodeURIComponent(jobData.title)}&company=${encodeURIComponent(jobData.company)}&jobId=${jobId || 'frontend-developer'}`;
+                    window.location.href = successUrl;
+                } else {
+                    // Redirect to failure page with error details
+                    const failureUrl = `payment-failed.html?service=${serviceTypeParam}&amount=${amount || '200'}&jobTitle=${encodeURIComponent(jobData.title)}&company=${encodeURIComponent(jobData.company)}&jobId=${jobId || 'frontend-developer'}`;
+                    window.location.href = failureUrl;
+                }
+            }, 2000);
+        });
+
+        // Logout functionality
+        dropdownLogout.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('.dropdown-menu').classList.remove('show');
+            alert('Logging out...');
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePage();
+            checkFormValidity(); // Initial validation to set button state
+        });
+    </script>
+</body>
+</html>

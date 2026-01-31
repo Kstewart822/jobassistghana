@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Job Assist Ghana | Connect With Your Future Employer</title>
+
+  <link rel="icon" type="image/png" href="tab-logo.png">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --navy:#0a2a66;
+      --navy2:#0a4a9c;
+      --gold:#f8c12e;
+      --gold2:#ffda6a;
+      --ink:#0b1220;
+      --muted:#6b7280;
+      --bg:#ffffff;
+      --soft:#f5f7fb;
+      --soft2:#eef3ff;
+      --border: rgba(10,42,102,.12);
+
+      --nav-h: 68px; /* LOCKED navbar height across ALL pages */
+      --radius: 10px;
+      --shadow: 0 14px 34px rgba(10,42,102,.12);
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background: var(--bg);
+      color: #111827;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* =======================
+       NAVBAR (SHARED)
+       ======================= */
+    .site-nav{
+      position: fixed;
+      top:0; left:0; right:0;
+      z-index: 2000;
+      height: var(--nav-h);
+      background: rgba(10,42,102,.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 10px 28px rgba(0,0,0,.14);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav-inner{
+      height: var(--nav-h);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      text-decoration:none;
+      gap: 10px;
+      min-width: 140px;
+    }
+    .brand img{
+      height: 36px;
+      width:auto;
+      display:block;
+      filter: brightness(0) invert(1);
+    }
+
+    .nav-links{
+      display:none;
+      list-style:none;
+      margin:0;
+      padding:0;
+      align-items:center;
+      gap: 18px;
+    }
+    .nav-links a{
+      color: rgba(255,255,255,.92);
+      text-decoration:none;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 10px;
+      transition: color .2s ease, background .2s ease;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+    .nav-links a:hover{
+      color:#fff;
+      background: rgba(255,255,255,.08);
+    }
+    .nav-links a.active{
+      color: var(--gold);
+      background: rgba(248,193,46,.14);
+    }
+
+    .nav-cta{
+      display:none;
+      align-items:center;
+      gap: 10px;
+    }
+
+    .btn-solid{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 12px 16px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      transition: transform .12s ease, filter .2s ease, box-shadow .2s ease, background .2s ease;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .btn-solid-primary{
+      background: var(--gold);
+      color: var(--navy);
+      box-shadow: 0 14px 26px rgba(248,193,46,.24);
+    }
+    .btn-solid-primary:hover{
+      background: var(--gold2);
+      color: var(--navy);
+      transform: translateY(-1px);
+      box-shadow: 0 18px 30px rgba(248,193,46,.28);
+    }
+
+    .btn-solid-ghost{
+      background: transparent;
+      color: #fff;
+      border-color: rgba(255,255,255,.55);
+    }
+    .btn-solid-ghost:hover{
+      background: rgba(255,255,255,.12);
+      color:#fff;
+      transform: translateY(-1px);
+    }
+
+    .menu-btn{
+      width: 44px;
+      height: 44px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      cursor:pointer;
+    }
+    .menu-btn i{ font-size: 18px; }
+
+    .mobile-drawer{
+      position: fixed;
+      top: var(--nav-h);
+      left:0; right:0;
+      z-index: 1999;
+      display:none;
+      background: rgba(10,42,102,.985);
+      border-top: 1px solid rgba(255,255,255,.10);
+      max-height: calc(100vh - var(--nav-h));
+      overflow:auto;
+    }
+    .mobile-drawer.active{ display:block; }
+
+    .mobile-drawer a{
+      display:block;
+      padding: 14px 18px;
+      color: rgba(255,255,255,.92);
+      text-decoration:none;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .mobile-drawer a:hover{
+      background: rgba(255,255,255,.06);
+      color:#fff;
+    }
+    .mobile-drawer a.active{
+      color: var(--gold);
+      background: rgba(248,193,46,.14);
+    }
+    .mobile-drawer .mobile-cta{
+      padding: 14px 18px;
+      border-bottom:none;
+    }
+
+    @media (min-width: 992px){
+      .nav-links{ display:flex; }
+      .nav-cta{ display:flex; }
+      .menu-btn{ display:none; }
+      .mobile-drawer{ display:none !important; }
+      .nav-inner{ padding: 0 20px; }
+    }
+
+    .page-offset{ padding-top: var(--nav-h); }
+
+    /* =======================
+       HERO (UPDATED POSITIONING)
+       ======================= */
+    .hero{
+      position: relative;
+      min-height: calc(100vh - var(--nav-h));
+      display:flex;
+      align-items:flex-start; /* stop vertical-centering so we can push the card DOWN */
+      background: #0b1f4a;
+      overflow:hidden;
+    }
+    .hero .slides{
+      position:absolute;
+      inset:0;
+      z-index:0;
+    }
+    .hero .slide{
+      position:absolute;
+      inset:0;
+      background-size: cover;
+      background-position:center;
+      opacity:0;
+      transition: opacity 900ms ease;
+      transform: scale(1.02);
+    }
+    .hero .slide.active{ opacity: 1; }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(90deg, rgba(10,42,102,.92) 0%, rgba(10,42,102,.70) 45%, rgba(10,42,102,.32) 100%);
+      z-index:1;
+    }
+
+    .hero-inner{
+      position: relative;
+      z-index:2;
+      width: 100%;
+      /* PUSH THE CARD DOWN (mobile + desktop) */
+      padding: clamp(150px, 18vh, 210px) 16px 70px;
+    }
+
+    /* Wider but not overly tall */
+    .hero-card{
+      width: min(980px, 92vw);
+      max-width: 980px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 18px 44px rgba(0,0,0,.18);
+      border-radius: 14px;
+      padding: 22px 16px;
+      margin-top: clamp(140px, 20vh, 260px);
+    }
+
+    @media (min-width: 768px){
+      .hero-inner{
+        padding: clamp(140px, 20vh, 240px) 0 64px;
+      }
+      .hero-card{
+        padding: 30px 28px;
+      }
+    }
+
+    @media (max-width: 576px){
+      .hero-card{
+        padding: 18px 14px;
+        border-radius: 12px;
+      }
+      .hero p{
+        font-size: .95rem;
+        line-height: 1.65;
+      }
+      .hero-actions{
+        gap: 10px;
+        margin-top: 8px;
+      }
+      .btn-hero{
+        max-width: 100%;
+        padding: 13px 16px;
+      }
+    }
+
+    .hero-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 700;
+      color: rgba(255,255,255,.92);
+      font-size: 13px;
+      letter-spacing: .2px;
+      margin-bottom: 10px;
+    }
+    .hero-kicker .line{
+      width: 34px;
+      height: 2px;
+      background: var(--gold);
+      display:inline-block;
+    }
+
+    .hero h1{
+      font-family:'Playfair Display',serif;
+      color:#fff;
+      font-weight: 700;
+      line-height: 1.1;
+      font-size: 2.05rem;
+      margin-bottom: 12px;
+    }
+    @media (min-width: 768px){
+      .hero h1{ font-size: 3rem; }
+    }
+
+    .hero p{
+      color: rgba(255,255,255,.92);
+      margin: 0 0 18px;
+      line-height: 1.7;
+      font-size: 1rem;
+      max-width: 70ch;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    @media (min-width: 576px){
+      .hero-actions{
+        flex-direction: row;
+        align-items:center;
+      }
+    }
+
+    .btn-hero{
+      width: 100%;
+      max-width: 360px;
+      padding: 14px 18px;
+      border-radius: 6px;
+      font-weight: 900;
+      text-align:center;
+    }
+    @media (min-width: 576px){
+      .btn-hero{ width: auto; }
+    }
+
+    .hero-dots{
+      position:absolute;
+      left: 0; right: 0;
+      bottom: 18px;
+      z-index: 3;
+      display:flex;
+      justify-content:center;
+      gap: 8px;
+    }
+    .hero-dot{
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.55);
+      background: rgba(255,255,255,.18);
+      cursor:pointer;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .hero-dot.active{
+      background: var(--gold);
+      border-color: var(--gold);
+      transform: scale(1.15);
+    }
+   
+
+    /* =======================
+       SECTIONS
+       ======================= */
+    .section{
+      padding: 54px 0;
+    }
+    @media (min-width: 992px){
+      .section{ padding: 80px 0; }
+    }
+
+    .section-title{
+      font-family:'Playfair Display',serif;
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 1.85rem;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .section-subtitle{
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.7;
+      max-width: 70ch;
+    }
+
+    .card-pro{
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 10px 28px rgba(10,42,102,.08);
+      padding: 18px 16px;
+      height: 100%;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card-pro:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 18px 38px rgba(10,42,102,.12);
+    }
+
+    .icon-box{
+      width: 46px; height: 46px;
+      border-radius: 10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(10,42,102,.10);
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .card-pro h3{
+      font-weight: 800;
+      color: var(--navy);
+      font-size: 1.08rem;
+      margin-bottom: 8px;
+    }
+    .card-pro p{
+      color: var(--muted);
+      margin: 0 0 12px;
+      line-height: 1.7;
+      font-size: .98rem;
+    }
+    .card-link{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      color: var(--navy);
+      text-decoration:none;
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .card-link:hover{ color: var(--navy2); }
+
+    .bg-soft{ background: linear-gradient(135deg, var(--soft) 0%, var(--soft2) 100%); }
+
+    /* =======================
+       FOOTER (SHARED)
+       ======================= */
+    footer{
+      background:#001a3d;
+      color:#fff;
+      padding: 54px 0 28px;
+    }
+    .footer-title{
+      color:#f5c542;
+      font-weight:900;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+    .footer-text, .footer-link{
+      color: rgba(255,255,255,.85);
+      font-size: 14px;
+      line-height: 1.7;
+      text-decoration:none;
+    }
+    .footer-link:hover{ color:#f5c542; }
+    .footer-social{
+      display:flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .footer-social a{
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(255,255,255,.10);
+      color:#fff;
+      transition: all .2s ease;
+      text-decoration:none;
+    }
+    .footer-social a:hover{
+      background:#f5c542;
+      color: var(--navy);
+      transform: translateY(-2px);
+    }
+    .footer-divider{
+      border-top: 1px solid rgba(255,255,255,.14);
+      margin-top: 18px;
+      padding-top: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR (SHARED) -->
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="job_assist.html">
+        <img src="logo.png" alt="Job Assist Ghana Logo">
+      </a>
+
+      <ul class="nav-links">
+        <li><a class="active" href="job_assist.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="build-cv.html">Build a CV</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <a class="btn-solid btn-solid-primary" href="login.html">Get Started</a>
+      </div>
+
+      <button class="menu-btn" type="button" onclick="toggleMenu()" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <nav class="mobile-drawer" id="mobile-nav" aria-label="Mobile navigation">
+      <a class="active" href="job_assist.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="build-cv.html">Build a CV</a>
+      <div class="mobile-cta">
+        <a class="btn-solid btn-solid-primary w-100" href="login.html">Get Started</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-offset">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="slides">
+        <div class="slide active" style="background-image:url('background.png');"></div>
+        <div class="slide" style="background-image:url('background1.png');"></div>
+        <div class="slide" style="background-image:url('background2.png');"></div>
+        <div class="slide" style="background-image:url('background3.png');"></div>
+      </div>
+
+      <div class="container hero-inner">
+        <div class="hero-card" data-aos="fade-up">
+          <div class="hero-kicker">
+            <span class="line"></span>
+            <span>Job matching • CV builder • Verified connections</span>
+          </div>
+
+          <h1>Connect Ghana’s Talent With The Right Employers</h1>
+
+          <p>
+            Job Assist Ghana helps SHS, technical, and university graduates get discovered by employers.
+            Employers get faster access to job-ready candidates—without stress.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn-solid btn-solid-primary btn-hero" href="login.html">Get Started</a>
+            <a class="btn-solid btn-solid-ghost btn-hero" href="build-cv.html">Build Your CV</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-dots" aria-label="Hero slider dots">
+        <span class="hero-dot active" data-index="0"></span>
+        <span class="hero-dot" data-index="1"></span>
+        <span class="hero-dot" data-index="2"></span>
+        <span class="hero-dot" data-index="3"></span>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section">
+      <div class="container">
+        <div class="text-center mb-4 mb-lg-5" data-aos="fade-up">
+          <h2 class="section-title">How It Works</h2>
+          <p class="section-subtitle mx-auto">
+            A simple flow for job seekers and employers — built for speed, trust, and real outcomes.
+          </p>
+        </div>
+
+        <div class="row g-3 g-lg-4">
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-pro">
+              <div class="icon-box"><i class="fa-solid fa-user-check"></i></div>
+              <h3>Create your profile</h3>
+              <p>Job seekers and employers create verified accounts to unlock the full platform.</p>
+              <a class="card-link" href="login.html">Get Started <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card-pro">
+              <div class="icon-box"><i class="fa-solid fa-file-lines"></i></div>
+              <h3>Build a professional CV</h3>
+              <p>Create a clean CV that looks credible and increases your chances of getting shortlisted.</p>
+              <a class="card-link" href="build-cv.html">Build CV <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="card-pro">
+              <div class="icon-box"><i class="fa-solid fa-briefcase"></i></div>
+              <h3>Get matched & hired</h3>
+              <p>Employers find talent faster. Candidates get discovered and contacted for opportunities.</p>
+              <a class="card-link" href="login.html">Find Talent <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST / HIGHLIGHT -->
+    <section class="section bg-soft">
+      <div class="container">
+        <div class="row align-items-center g-4 g-lg-5">
+          <div class="col-lg-6" data-aos="fade-right">
+            <h2 class="section-title">Built For Trust, Speed & Serious Hiring</h2>
+            <p class="section-subtitle">
+              We focus on real outcomes: credible profiles, cleaner CVs, and better employer-candidate connections.
+              Everything is designed to look professional and work smoothly on mobile.
+            </p>
+
+            <div class="mt-4 d-flex flex-column gap-2">
+              <div class="d-flex gap-2 align-items-start">
+                <div class="icon-box" style="width:40px;height:40px;border-radius:8px;"><i class="fa-solid fa-shield"></i></div>
+                <div>
+                  <div style="font-weight:900;color:var(--navy);">Verified ecosystem</div>
+                  <div style="color:var(--muted);line-height:1.7;">Reduce scams and low-quality recruitment interactions.</div>
+                </div>
+              </div>
+
+              <div class="d-flex gap-2 align-items-start">
+                <div class="icon-box" style="width:40px;height:40px;border-radius:8px;"><i class="fa-solid fa-bolt"></i></div>
+                <div>
+                  <div style="font-weight:900;color:var(--navy);">Fast onboarding</div>
+                  <div style="color:var(--muted);line-height:1.7;">Get started quickly and begin connecting in minutes.</div>
+                </div>
+              </div>
+
+              <div class="d-flex gap-2 align-items-start">
+                <div class="icon-box" style="width:40px;height:40px;border-radius:8px;"><i class="fa-solid fa-mobile-screen"></i></div>
+                <div>
+                  <div style="font-weight:900;color:var(--navy);">Mobile-first design</div>
+                  <div style="color:var(--muted);line-height:1.7;">Optimized spacing, buttons, and performance for small screens.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-2 flex-wrap">
+              <a class="btn-solid btn-solid-primary" href="login.html">Get Started</a>
+              <a class="btn-solid btn-solid-ghost" href="about.html" style="color:var(--navy); border-color: var(--border); background:#fff;">Learn More</a>
+            </div>
+          </div>
+
+          <div class="col-lg-6" data-aos="fade-left">
+            <div class="card-pro" style="padding:22px 18px;">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div style="font-weight:900;color:var(--navy);">Quick Snapshot</div>
+                <div style="font-size:12px;color:var(--muted);">Platform overview</div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-6">
+                  <div class="p-3 rounded-3" style="background: var(--soft); border:1px solid var(--border);">
+                    <div style="font-size:12px;color:var(--muted);font-weight:700;">Job seekers</div>
+                    <div style="font-size:22px;font-weight:900;color:var(--navy);" id="count1">0</div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="p-3 rounded-3" style="background: var(--soft); border:1px solid var(--border);">
+                    <div style="font-size:12px;color:var(--muted);font-weight:700;">Employers</div>
+                    <div style="font-size:22px;font-weight:900;color:var(--navy);" id="count2">0</div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="p-3 rounded-3" style="background: var(--soft); border:1px solid var(--border);">
+                    <div style="font-size:12px;color:var(--muted);font-weight:700;">CVs created</div>
+                    <div style="font-size:22px;font-weight:900;color:var(--navy);" id="count3">0</div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="p-3 rounded-3" style="background: var(--soft); border:1px solid var(--border);">
+                    <div style="font-size:12px;color:var(--muted);font-weight:700;">Matches</div>
+                    <div style="font-size:22px;font-weight:900;color:var(--navy);" id="count4">0</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-3" style="color:var(--muted);font-size:13px;line-height:1.6;">
+                Numbers are sample values for UI demonstration. You can replace them with real stats later.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section">
+      <div class="container">
+        <div class="text-center mb-4 mb-lg-5" data-aos="fade-up">
+          <h2 class="section-title">Trusted By Graduates & Employers</h2>
+          <p class="section-subtitle mx-auto">Real feedback from people using the platform to get results.</p>
+        </div>
+
+        <div class="row g-3 g-lg-4">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-pro">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <img src="client1.png" alt="Client" style="width:48px;height:48px;border-radius:8px;object-fit:cover;border:1px solid var(--border);">
+                <div>
+                  <div style="font-weight:900;color:var(--navy);line-height:1.1;">Kwame Mensah</div>
+                  <div style="font-size:13px;color:var(--muted);">Graduate</div>
+                </div>
+              </div>
+              <p style="margin-bottom:12px;">
+                Job Assist Ghana helped me present myself professionally. The process was clear and easy to use on my phone.
+              </p>
+              <div style="color:#f5c542;font-size:14px;">★★★★★</div>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card-pro">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <img src="client2.png" alt="Client" style="width:48px;height:48px;border-radius:8px;object-fit:cover;border:1px solid var(--border);">
+                <div>
+                  <div style="font-weight:900;color:var(--navy);line-height:1.1;">Adjoa Owusu</div>
+                  <div style="font-size:13px;color:var(--muted);">Job Seeker</div>
+                </div>
+              </div>
+              <p style="margin-bottom:12px;">
+                The CV builder saved me time and made my CV look clean. I started getting more serious responses.
+              </p>
+              <div style="color:#f5c542;font-size:14px;">★★★★★</div>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="card-pro">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <img src="client3.png" alt="Client" style="width:48px;height:48px;border-radius:8px;object-fit:cover;border:1px solid var(--border);">
+                <div>
+                  <div style="font-weight:900;color:var(--navy);line-height:1.1;">Michael Tetteh</div>
+                  <div style="font-size:13px;color:var(--muted);">Employer</div>
+                </div>
+              </div>
+              <p style="margin-bottom:12px;">
+                We found candidates faster and the profiles were better organized. It works well for quick screening.
+              </p>
+              <div style="color:#f5c542;font-size:14px;">★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section bg-soft">
+      <div class="container">
+        <div class="card-pro" style="padding:26px 18px; background: linear-gradient(135deg, var(--navy) 0%, #0a3d62 100%); border: none; color:#fff;" data-aos="fade-up">
+          <div class="row align-items-center g-3">
+            <div class="col-lg-8">
+              <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:1.8rem;line-height:1.2;margin-bottom:8px;">
+                Ready to connect with your future?
+              </div>
+              <div style="opacity:.92; line-height:1.7;">
+                Get started as a candidate or employer — and use the CV builder to look professional from day one.
+              </div>
+            </div>
+            <div class="col-lg-4 d-flex flex-column flex-sm-row justify-content-lg-end gap-2">
+              <a class="btn-solid btn-solid-primary btn-hero" href="login.html">Get Started</a>
+              <a class="btn-solid btn-solid-ghost btn-hero" href="build-cv.html">Build CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER (SHARED) -->
+    <footer>
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <div class="footer-title">Job Assist Ghana</div>
+            <div class="footer-text">
+              Connecting talented Ghanaians with credible employers. Built for mobile, built for speed, built for real outcomes.
+            </div>
+
+            <div class="footer-social">
+              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="footer-title">Quick Links</div>
+            <div class="d-flex flex-column gap-2">
+              <a class="footer-link" href="job_assist.html">Home</a>
+              <a class="footer-link" href="about.html">About</a>
+              <a class="footer-link" href="build-cv.html">Build a CV</a>
+              <a class="footer-link" href="login.html">Get Started</a>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="footer-title">Contact</div>
+            <div class="footer-text"><i class="fas fa-map-marker-alt me-2"></i>Osu, Accra, Ghana</div>
+            <div class="footer-text"><i class="fas fa-phone me-2"></i>+233 (0) 59-477-2550</div>
+            <div class="footer-text"><i class="fas fa-envelope me-2"></i>info@jobassistgh.com</div>
+          </div>
+        </div>
+
+        <div class="footer-divider mt-4">
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+            <div class="footer-text mb-0">
+              © <span id="year"></span> Job Assist Ghana. All rights reserved.
+            </div>
+            <div class="d-flex gap-3 flex-wrap">
+              <a class="footer-link" href="privacy.html">Privacy</a>
+              <a class="footer-link" href="terms.html">Terms</a>
+              <a class="footer-link" href="contact.html">Contact</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- JS Libraries -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // AOS
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 60,
+      disable: window.innerWidth < 768 ? true : false
+    });
+
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile menu
+    function toggleMenu() {
+      const drawer = document.getElementById("mobile-nav");
+      const icon = document.querySelector(".menu-btn i");
+
+      drawer.classList.toggle("active");
+
+      if (drawer.classList.contains("active")) {
+        icon.classList.remove("fa-bars");
+        icon.classList.add("fa-xmark");
+      } else {
+        icon.classList.remove("fa-xmark");
+        icon.classList.add("fa-bars");
+      }
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function (event) {
+      const drawer = document.getElementById("mobile-nav");
+      const menuBtn = document.querySelector(".menu-btn");
+      const nav = document.querySelector(".site-nav");
+
+      if (!drawer || !menuBtn || !nav) return;
+
+      const clickedInsideNav = nav.contains(event.target);
+      if (!clickedInsideNav && drawer.classList.contains("active")) {
+        drawer.classList.remove("active");
+        const icon = document.querySelector(".menu-btn i");
+        icon.classList.remove("fa-xmark");
+        icon.classList.add("fa-bars");
+      }
+    });
+
+    // Close menu when clicking a link
+    document.querySelectorAll("#mobile-nav a").forEach(a => {
+      a.addEventListener("click", () => {
+        const drawer = document.getElementById("mobile-nav");
+        drawer.classList.remove("active");
+        const icon = document.querySelector(".menu-btn i");
+        icon.classList.remove("fa-xmark");
+        icon.classList.add("fa-bars");
+      });
+    });
+
+    // HERO SLIDER
+    let currentSlide = 0;
+    const slides = document.querySelectorAll(".hero .slide");
+    const dots = document.querySelectorAll(".hero-dot");
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      slides.forEach(s => s.classList.remove("active"));
+      dots.forEach(d => d.classList.remove("active"));
+
+      slides[index].classList.add("active");
+      dots[index].classList.add("active");
+      currentSlide = index;
+    }
+
+    function nextSlide() {
+      const next = (currentSlide + 1) % totalSlides;
+      showSlide(next);
+    }
+
+    let sliderTimer = setInterval(nextSlide, 6000);
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener("click", () => {
+        showSlide(idx);
+        clearInterval(sliderTimer);
+        sliderTimer = setInterval(nextSlide, 6000);
+      });
+    });
+
+    // COUNTERS
+    let countersDone = false;
+
+    function animateCounter(el, target, duration = 1400) {
+      const startTime = performance.now();
+
+      function update(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.floor(target * eased);
+        el.textContent = value.toLocaleString();
+
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    function initCounters() {
+      if (countersDone) return;
+      countersDone = true;
+
+      animateCounter(document.getElementById("count1"), 1250);
+      animateCounter(document.getElementById("count2"), 350);
+      animateCounter(document.getElementById("count3"), 890);
+      animateCounter(document.getElementById("count4"), 540);
+    }
+
+    const counterSection = document.querySelector(".bg-soft");
+    if (counterSection) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            initCounters();
+            obs.disconnect();
+          }
+        });
+      }, { threshold: 0.35 });
+
+      obs.observe(counterSection);
+    }
+
+    // Mobile tap fixes
+    document.querySelectorAll("a, button").forEach(el => {
+      el.style.webkitTapHighlightColor = "transparent";
+    });
+  </script>
+</body>
+</html>
