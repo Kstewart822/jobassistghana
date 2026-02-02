@@ -655,7 +655,7 @@
     
     <nav class="desktop-nav">
       <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="../index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="build-cv.html">Build a CV</a></li>
         <li><a href="login.html" class="login-btn active">Login</a></li>
@@ -668,7 +668,7 @@
     
     <nav class="mobile-nav" id="mobileNav">
       <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="../index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="build-cv.html">Build a CV</a></li>
         <li><a href="login.html" class="login-btn active">Login</a></li>
@@ -900,8 +900,8 @@
             
             setTimeout(() => {
               const dashboardPage = currentUserType === 'candidate' 
-                ? 'candidate-dashboard.html' 
-                : 'employer-dashboard.html';
+                ? 'candidate/candidate-dashboard.html' 
+                : 'employer/employer/employer/employer-dashboard.html';
               
               // Clear browser history before redirecting to prevent back navigation
               history.replaceState(null, '', dashboardPage);

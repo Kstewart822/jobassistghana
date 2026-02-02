@@ -470,12 +470,12 @@
             // Check if coming from employer payment page
             if (referrer.includes('employer-payment.html') || serviceParam.includes('job')) {
                 retryUrl = 'employer-payment.html' + window.location.search;
-                dashboardUrl = 'employer-dashboard.html';
+                dashboardUrl = 'employer/employer/employer/employer-dashboard.html';
             } 
             // Check if coming from candidate payment page
             else if (referrer.includes('payment.html') || serviceParam.includes('profile') || serviceParam.includes('boost') || serviceParam.includes('application')) {
                 retryUrl = 'payment.html' + window.location.search;
-                dashboardUrl = 'candidate-dashboard.html';
+                dashboardUrl = 'candidate/candidate-dashboard.html';
             }
             
             // Set button URLs
