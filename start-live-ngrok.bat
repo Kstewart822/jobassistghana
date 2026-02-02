@@ -1,6 +1,6 @@
 @echo off
 REM Start Live Server
-start "" "C:\Users\localhost\AppData\Local\Programs\Microsoft VS Code\Code.exe" "C:\Users\localhost\OneDrive\Documents\gpt\Job_Assist\job_assist.html" --reuse-window
+start "" "C:\Users\localhost\AppData\Local\Programs\Microsoft VS Code\Code.exe" "C:\Users\localhost\OneDrive\Documents\gpt\Job_Assist\index.html" --reuse-window
 
 REM Wait 5 seconds for Live Server to start
 timeout /t 5 /nobreak > nul
