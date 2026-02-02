@@ -309,3 +309,170 @@ Backend dev may choose the integration approach:
 - or migrate to a framework later (optional)
 
 The priority is making the platform functional end-to-end.
+
+
+Update: Admin Requirements (RBAC + Monitoring)
+Admin role scope (Phase 2, but can be started early)
+
+Admin must be able to:
+
+View platform activity (jobs created, applications submitted, payments, boosts)
+
+Moderate content (remove spam jobs, suspend users)
+
+Manage FAQs and basic site content (optional)
+
+Access an audit trail of important actions
+
+✅ Admin Session & Access Control
+
+Backend must support an admin session for monitoring/auditing.
+
+Acceptable implementations (backend dev chooses):
+
+Session-based auth (server sessions + cookies)
+
+JWT-based auth (admin token with stricter rules)
+
+Hybrid (JWT + refresh + admin-only protected routes)
+
+Minimum security expectations:
+
+Admin routes protected by RBAC middleware/guards
+
+Admin access should be revocable (suspend admin user, rotate secrets)
+
+Optional: 2FA for admin login (recommended later)
+
+✅ Core Entities Additions (Admin & Auditing)
+
+Add these entities/tables/collections (names can vary):
+
+admin_profiles (optional)
+
+If you want separate admin metadata:
+
+user_id (FK)
+
+admin_level (super_admin/admin/moderator)
+
+created_at, updated_at
+
+audit_logs (recommended)
+
+Tracks key actions across the platform.
+
+id
+
+actor_user_id (who performed action; can be admin/employer/candidate)
+
+actor_role
+
+action_type (e.g., JOB_CREATED, JOB_UPDATED, USER_SUSPENDED, PAYMENT_VERIFIED)
+
+entity_type (job/user/application/payment)
+
+entity_id
+
+description (human-readable summary)
+
+ip_address (optional)
+
+user_agent (optional)
+
+metadata (JSON)
+
+created_at
+
+Events that MUST be logged (minimum):
+
+user login attempts (success/failure)
+
+job created/edited/closed/deleted
+
+application submitted
+
+application status changed
+
+payment initiated/verified/failed
+
+boosts activated/deactivated
+
+admin actions (suspend user, remove job)
+
+system_notifications or activity_feed (optional)
+
+For showing “recent activity” in an admin dashboard:
+
+id
+
+type
+
+message
+
+severity (info/warn/critical)
+
+metadata (JSON)
+
+created_at
+
+✅ Admin Endpoints (Suggested)
+Admin auth (if separate)
+
+POST /admin/login (optional)
+
+OR use normal /auth/login with role check
+
+Monitoring & audit
+
+GET /admin/audit-logs
+
+filters: date range, actor, action_type, entity_type, entity_id
+
+GET /admin/activity-feed (optional)
+
+GET /admin/stats (optional: total jobs, users, applications, revenue)
+
+Moderation
+
+PATCH /admin/users/:id/suspend
+
+PATCH /admin/users/:id/unsuspend
+
+DELETE /admin/jobs/:id (or soft-delete)
+
+✅ FAQ Management (Content)
+
+Add an FAQ entity so FAQs can be updated without editing frontend code.
+
+faqs
+
+id
+
+question
+
+answer
+
+category (optional)
+
+is_published (boolean)
+
+sort_order (integer)
+
+created_by (admin user_id)
+
+updated_by (admin user_id)
+
+created_at, updated_at
+
+Suggested endpoints:
+
+GET /faqs (public, only published)
+
+GET /admin/faqs (admin, all)
+
+POST /admin/faqs
+
+PUT /admin/faqs/:id
+
+PATCH /admin/faqs/:id/publish
