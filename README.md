@@ -1,5 +1,9 @@
 # Job Assist Ghana
 
+## Live Demo
+
+https://kstewart822.github.io/jobassistghana/
+
 Job Assist Ghana is a multi-page web application built to connect **job seekers** with **employers** in Ghana.  
 This repository currently contains the **frontend (HTML/CSS/JS)** implementation.
 
