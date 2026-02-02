@@ -91,6 +91,12 @@ Planned next steps for backend integration, authentication, payments, and platfo
 
 - `NEXT_STEPS.md`
 
+## Backend Requirements
+
+Backend expectations, API contracts, roles, payment rules, and MVP milestones are documented here:
+
+- `BACKEND_REQUIREMENTS.md`
+
 ## Status
 ✅ Frontend UI implemented  
 🛠 Backend integration pending (authentication, database, APIs)
