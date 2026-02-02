@@ -85,6 +85,12 @@ A detailed handover document for continuing development is available here:
 
 ---
 
+## Roadmap
+
+Planned next steps for backend integration, authentication, payments, and platform growth are documented here:
+
+- `NEXT_STEPS.md`
+
 ## Status
 ✅ Frontend UI implemented  
 🛠 Backend integration pending (authentication, database, APIs)
