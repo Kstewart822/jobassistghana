@@ -81,7 +81,7 @@ You can open `Job_Assist/index.html` in your browser (some features may work bet
 ## Documentation (Developer Handover)
 A detailed handover document for continuing development is available here:
 
-- `DOCUMENTATION.md`
+- `docs/DOCUMENTATION.md`
 
 ---
 
@@ -89,13 +89,13 @@ A detailed handover document for continuing development is available here:
 
 Planned next steps for backend integration, authentication, payments, and platform growth are documented here:
 
-- `NEXT_STEPS.md`
+- `docs/NEXT_STEPS.md`
 
 ## Backend Requirements
 
 Backend expectations, API contracts, roles, payment rules, and MVP milestones are documented here:
 
-- `BACKEND_REQUIREMENTS.md`
+- `docs/BACKEND_REQUIREMENTS.md`
 
 ## Status
 ✅ Frontend UI implemented  
