@@ -1,250 +1,342 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login | Job Assist Ghana</title>
 
-  <link rel="icon" type="image/png" href="tab-logo.png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <!-- Fonts (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --blue: #0a2a66;
-      --gold: #f8c12e;
-      --bg: #f6f7fb;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --radius: 12px;
+    :root{
+      --primary:#0a2a66;
+      --primary-dark:#071e4d;
+      --accent:#f8c12e;
+      --bg:#f4f7fb;
+      --text:#0f172a;
+      --muted:#64748b;
+      --card:#ffffff;
+      --border:rgba(15,23,42,.12);
+      --shadow:0 14px 40px rgba(2, 8, 23, 0.12);
+      --radius:16px;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
+      min-height:100vh;
     }
-    header {
-      height: 70px;
-      background: #002147;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 5%;
+
+    /* Top nav (matches your public pages style) */
+    header{
+      position: sticky;
+      top:0;
+      z-index:10;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
     }
-    .logo {
-      color: #fff;
-      font-weight: 800;
-      font-size: 20px;
-      text-decoration: none;
+    .nav-wrap{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
     }
-    nav a {
-      color: #fff;
-      margin-left: 24px;
-      text-decoration: none;
-      font-weight: 600;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      text-decoration:none;
+      color:#fff;
+      font-weight:700;
+      letter-spacing:.3px;
     }
-    nav a.active { color: var(--gold); }
-    .login-btn {
-      background: var(--gold);
-      color: var(--blue);
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-weight: 700;
+    .brand img{
+      height: 34px;
+      width:auto;
+      display:block;
     }
-    .page {
-      min-height: calc(100vh - 70px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      list-style:none;
+      margin:0;
+      padding:0;
     }
-    .card {
-      background: #fff;
+    .nav-links a{
+      color:#eaf0ff;
+      text-decoration:none;
+      font-weight:600;
+      padding: 10px 14px;
+      border-radius: 10px;
+      transition: .15s ease;
+    }
+    .nav-links a:hover{
+      background: rgba(255,255,255,.08);
+    }
+    .nav-links a.active{
+      background: rgba(255,255,255,.14);
+      outline: 1px solid rgba(255,255,255,.18);
+    }
+    .nav-cta{
+      margin-left: 8px;
+      background: var(--accent);
+      color: #0b1b3a !important;
+      padding: 10px 16px !important;
+      border-radius: 12px;
+      font-weight:800 !important;
+      box-shadow: 0 10px 20px rgba(248,193,46,.25);
+    }
+
+    /* Page */
+    .page{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 38px 18px 70px;
+    }
+    .center{
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+    }
+
+    .card{
       width: 100%;
       max-width: 420px;
-      padding: 28px;
+      background: var(--card);
       border-radius: var(--radius);
-      box-shadow: 0 20px 40px rgba(0,0,0,.08);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      padding: 28px 26px;
+      margin-top: 54px;
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 16px;
-      color: var(--blue);
-      font-size: 24px;
+    .card h1{
+      margin: 0 0 16px;
+      font-size: 26px;
+      text-align:center;
+      color: var(--primary);
+      letter-spacing: .2px;
     }
-    .toggle {
-      display: flex;
-      background: #eef0f5;
-      border-radius: 10px;
-      padding: 4px;
-      margin-bottom: 20px;
+
+    /* Role switcher */
+    .user-type-toggle{
+      display:flex;
+      gap: 6px;
+      background: #eef2ff;
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid rgba(99,102,241,.12);
+      width: fit-content;
+      margin: 0 auto 14px;
     }
-    .toggle button {
-      flex: 1;
-      border: none;
+    .user-type-btn{
+      border: 0;
       background: transparent;
-      padding: 10px;
+      padding: 8px 14px;
+      border-radius: 10px;
       font-weight: 700;
-      cursor: pointer;
-      border-radius: 8px;
+      font-size: 13px;
       color: var(--muted);
+      cursor:pointer;
+      transition: .15s ease;
+      line-height: 1;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width: 92px;
     }
-    .toggle button.active {
-      background: var(--gold);
-      color: var(--blue);
+    .user-type-btn:hover{
+      background: rgba(10,42,102,.07);
+      color: var(--primary);
     }
-    label {
+    .user-type-btn.active{
+      background: var(--accent);
+      color: #0b1b3a;
+      box-shadow: 0 8px 16px rgba(248,193,46,.25);
+    }
+
+    /* Form */
+    label{
+      display:block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 12px 0 6px;
+    }
+    .input-row{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+    }
+    .country-code{
+      flex: 0 0 78px;
+      padding: 12px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 13px;
+      text-align:center;
+    }
+    input{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      outline:none;
       font-size: 14px;
-      font-weight: 600;
-      display: block;
-      margin: 14px 0 6px;
+      background:#fff;
     }
-    input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #d1d5db;
-      font-size: 15px;
+    input:focus{
+      border-color: rgba(10,42,102,.35);
+      box-shadow: 0 0 0 4px rgba(10,42,102,.10);
     }
-    .phone {
-      display: flex;
-      align-items: center;
-    }
-    .phone span {
-      padding: 12px;
-      background: #f3f4f6;
-      border: 1px solid #d1d5db;
-      border-right: none;
-      border-radius: 8px 0 0 8px;
-      font-weight: 600;
-      color: var(--muted);
-    }
-    .phone input {
-      border-radius: 0 8px 8px 0;
-      border-left: none;
-    }
-    .hint {
+    .hint{
       font-size: 12px;
       color: var(--muted);
-      margin-top: 4px;
+      margin-top: 6px;
     }
-    .error {
-      display: none;
-      margin-top: 12px;
-      background: #fee2e2;
-      color: #b91c1c;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-    button.submit {
-      margin-top: 20px;
-      width: 100%;
-      padding: 14px;
-      background: var(--gold);
-      color: var(--blue);
-      border: none;
-      border-radius: 10px;
-      font-weight: 800;
-      font-size: 15px;
-      cursor: pointer;
-    }
-    .footer {
+
+    .btn{
+      width:100%;
       margin-top: 18px;
-      text-align: center;
-      font-size: 14px;
+      padding: 12px 14px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #0b1b3a;
+      font-weight: 900;
+      cursor:pointer;
+      box-shadow: 0 12px 24px rgba(248,193,46,.25);
+      transition: .15s ease;
     }
-    .footer a {
-      color: var(--gold);
-      text-decoration: none;
-      font-weight: 700;
+    .btn:hover{ transform: translateY(-1px); }
+
+    .footer{
+      text-align:center;
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .footer a{
+      color: var(--accent);
+      text-decoration:none;
+      font-weight:800;
+    }
+    .footer a:hover{ text-decoration: underline; }
+
+    /* Mobile */
+    @media (max-width: 740px){
+      .nav-links{ gap: 6px; }
+      .nav-links a{ padding: 9px 10px; font-size: 13px; }
+      .card{ margin-top: 26px; }
     }
   </style>
 </head>
+
 <body>
-<header>
-  <a href="index.html" class="logo">JobAssist GHANA</a>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="build-cv.html">Build a CV</a>
-    <a href="login.html" class="login-btn active">Login</a>
-  </nav>
-</header>
+  <header>
+    <div class="nav-wrap">
+      <a class="brand" href="index.html" aria-label="Job Assist Ghana Home">
+        <img src="logo.png" alt="Job Assist Ghana logo">
+      </a>
 
-<main class="page">
-  <div class="card">
-    <h1 id="title">Employer Login</h1>
-
-    <div class="toggle">
-      <button id="candidateBtn">Candidate</button>
-      <button id="employerBtn" class="active">Employer</button>
+      <ul class="nav-links" aria-label="Primary">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="build-cv.html">Build a CV</a></li>
+        <li><a class="nav-cta active" href="login.html">Login</a></li>
+      </ul>
     </div>
+  </header>
 
-    <form id="loginForm">
-      <label>Phone Number</label>
-      <div class="phone">
-        <span>+233</span>
-        <input id="phone" type="tel" placeholder="241234567" maxlength="9" required />
-      </div>
-      <div class="hint">9 digits, without the first zero</div>
+  <main class="page">
+    <div class="center">
+      <section class="card" aria-label="Login card">
+        <h1 id="loginTitle">Employer Login</h1>
 
-      <label>Password</label>
-      <input id="password" type="password" placeholder="Enter your password" required />
+        <div class="user-type-toggle" role="tablist" aria-label="Choose account type">
+          <button type="button" class="user-type-btn" id="candidateBtn" aria-selected="false">Candidate</button>
+          <button type="button" class="user-type-btn active" id="employerBtn" aria-selected="true">Employer</button>
+        </div>
 
-      <div class="error" id="error">Invalid login details</div>
+        <form id="loginForm" onsubmit="return false;">
+          <label for="phone">Phone Number</label>
+          <div class="input-row">
+            <div class="country-code">GH +233</div>
+            <input id="phone" type="tel" placeholder="241234567" autocomplete="tel" />
+          </div>
+          <div class="hint">Format: 233241234567 (9 digits without the first zero)</div>
 
-      <button class="submit" type="submit">Login</button>
-    </form>
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="Enter your password" autocomplete="current-password" />
 
-    <div class="footer" id="signup">
-      Don’t have an account? <a href="employer-signup.html">Sign up as Employer</a>
+          <button class="btn" id="loginBtn" type="button">Login</button>
+
+          <div class="footer" style="margin-top:12px;">
+            <a href="forgot-password.html">Forgot Password?</a>
+          </div>
+
+          <div class="footer" id="signupLine">
+            Don’t have an account? <a id="signupLink" href="employer-signup.html">Sign up as Employer</a>
+          </div>
+        </form>
+      </section>
     </div>
-  </div>
-</main>
+  </main>
 
-<script>
-  const candidateBtn = document.getElementById('candidateBtn');
-  const employerBtn = document.getElementById('employerBtn');
-  const title = document.getElementById('title');
-  const signup = document.getElementById('signup');
-  const phone = document.getElementById('phone');
-  const form = document.getElementById('loginForm');
-  const error = document.getElementById('error');
-  let userType = 'employer';
+  <script>
+    // Safe redirects for your folder structure
+    const ROUTES = {
+      candidateDashboard: "candidate/candidate-dashboard.html",
+      employerDashboard: "employer/employer-dashboard.html",
+      candidateSignup: "signup.html",            // (adjust later if you split signups)
+      employerSignup: "employer-signup.html"
+    };
 
-  candidateBtn.onclick = () => {
-    userType = 'candidate';
-    candidateBtn.classList.add('active');
-    employerBtn.classList.remove('active');
-    title.textContent = 'Candidate Login';
-    signup.innerHTML = 'Don’t have an account? <a href="signup.html">Sign up as Candidate</a>';
-  };
+    const titleEl = document.getElementById("loginTitle");
+    const candidateBtn = document.getElementById("candidateBtn");
+    const employerBtn = document.getElementById("employerBtn");
+    const signupLine = document.getElementById("signupLine");
+    const signupLink = document.getElementById("signupLink");
+    const loginBtn = document.getElementById("loginBtn");
 
-  employerBtn.onclick = () => {
-    userType = 'employer';
-    employerBtn.classList.add('active');
-    candidateBtn.classList.remove('active');
-    title.textContent = 'Employer Login';
-    signup.innerHTML = 'Don’t have an account? <a href="employer-signup.html">Sign up as Employer</a>';
-  };
+    let role = "employer"; // default
 
-  phone.addEventListener('input', () => {
-    phone.value = phone.value.replace(/\D/g, '').slice(0,9);
-  });
+    function setRole(nextRole){
+      role = nextRole;
 
-  form.onsubmit = (e) => {
-    e.preventDefault();
-    error.style.display = 'none';
-    if (phone.value.length !== 9) {
-      error.textContent = 'Phone number must be 9 digits';
-      error.style.display = 'block';
-      return;
+      const isEmployer = role === "employer";
+      employerBtn.classList.toggle("active", isEmployer);
+      candidateBtn.classList.toggle("active", !isEmployer);
+      employerBtn.setAttribute("aria-selected", String(isEmployer));
+      candidateBtn.setAttribute("aria-selected", String(!isEmployer));
+
+      titleEl.textContent = isEmployer ? "Employer Login" : "Candidate Login";
+      signupLink.textContent = isEmployer ? "Sign up as Employer" : "Sign up as Candidate";
+      signupLink.href = isEmployer ? ROUTES.employerSignup : ROUTES.candidateSignup;
     }
-    window.location.href = userType === 'candidate'
-      ? 'candidate/candidate-dashboard.html'
-      : 'employer/employer-dashboard.html';
-  };
-</script>
+
+    candidateBtn.addEventListener("click", () => setRole("candidate"));
+    employerBtn.addEventListener("click", () => setRole("employer"));
+
+    loginBtn.addEventListener("click", () => {
+      // Demo redirect (until backend exists)
+      window.location.href = (role === "employer")
+        ? ROUTES.employerDashboard
+        : ROUTES.candidateDashboard;
+    });
+
+    // init
+    setRole("employer");
+  </script>
 </body>
 </html>
