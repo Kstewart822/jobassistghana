@@ -1881,8 +1881,321 @@
           });
       }
 
+<<<<<<< HEAD:view-details.html
       // Initialize when page loads
       document.addEventListener("DOMContentLoaded", initializePage);
+=======
+        // Get back button URL based on source
+        function getBackButtonURL(source) {
+            switch(source) {
+                case 'dashboard':
+                    return 'candidate/candidate-dashboard.html';
+                case 'applications':
+                    return 'your-applications.html';
+                case 'accepted':
+                    return 'accepted-offers.html';
+                case 'browse':
+                default:
+                    return 'candidate/browse-jobs.html';
+            }
+        }
+
+        // Format date for display
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-GB', options);
+        }
+
+        // Parse requirements into skills array
+        function parseRequirements(requirements) {
+            if (!requirements) return [];
+            return requirements.split(',').map(skill => skill.trim());
+        }
+
+        // Get appropriate action buttons based on application status
+        function getActionButtons(jobData) {
+            const buttons = [];
+            const currentApplication = appliedJobs.find(app => app.id === jobData.id);
+
+            if (currentApplication) {
+                // Application already submitted
+                const statusBadge = currentApplication.tier === 'premium' ? 
+                    '<span class="application-status status-premium">PREMIUM</span>' : 
+                    '<span class="application-status status-applied">APPLIED</span>';
+
+                buttons.push({
+                    text: `Applied ✓ ${statusBadge}`,
+                    type: 'outline',
+                    icon: 'fas fa-check',
+                    action: null,
+                    disabled: true,
+                    isHtml: true
+                });
+                
+                buttons.push({
+                    text: 'Boost Application',
+                    type: 'secondary',
+                    icon: 'fas fa-rocket',
+                    action: () => boostApplication(jobData.id)
+                });
+
+                // Show premium status section if premium
+                if (currentApplication.tier === 'premium') {
+                    document.getElementById('premiumStatusSection').style.display = 'block';
+                }
+            } else {
+                // Not applied yet
+                buttons.push({
+                    text: 'Apply Now',
+                    type: 'primary',
+                    icon: 'fas fa-paper-plane',
+                    action: () => openApplicationModal(jobData.id)
+                });
+            }
+
+            return buttons;
+        }
+
+        // Render action buttons
+        function renderActionButtons(buttons) {
+            const actionButtons = document.getElementById('actionButtons');
+            actionButtons.innerHTML = '';
+            buttons.forEach(button => {
+                const btn = document.createElement('button');
+                btn.className = `btn btn-${button.type}`;
+                
+                if (button.isHtml) {
+                    btn.innerHTML = `<i class="${button.icon}"></i> ${button.text}`;
+                } else {
+                    btn.innerHTML = `<i class="${button.icon}"></i> ${button.text}`;
+                }
+                
+                if (button.disabled) {
+                    btn.disabled = true;
+                    btn.classList.add('btn-disabled');
+                } else {
+                    btn.onclick = button.action;
+                }
+                
+                actionButtons.appendChild(btn);
+            });
+
+            // If no buttons to show (edge case)
+            if (buttons.length === 0) {
+                const message = document.createElement('div');
+                message.style.textAlign = 'center';
+                message.style.color = 'var(--gray)';
+                message.style.fontSize = '0.9rem';
+                message.textContent = 'No actions available';
+                actionButtons.appendChild(message);
+            }
+        }
+
+        // Update page with job data
+        function updateJobDetails(jobData) {
+            // Update header
+            document.getElementById('jobTitle').textContent = jobData.title;
+            document.getElementById('companyName').textContent = jobData.company;
+            document.getElementById('jobLocation').textContent = `${jobData.city}, ${jobData.region}`;
+            document.getElementById('jobSalary').textContent = jobData.salaryRange;
+            document.getElementById('jobType').textContent = jobData.type;
+            document.getElementById('jobDeadline').textContent = formatDate(jobData.deadline);
+
+            // Update job description
+            document.getElementById('jobDescription').textContent = jobData.description;
+
+            // Update requirements
+            document.getElementById('experienceLevel').textContent = jobData.experienceLevel;
+            document.getElementById('educationLevel').textContent = jobData.educationLevel || 'Not specified';
+            document.getElementById('jobCategory').textContent = jobData.category;
+            document.getElementById('jobVacancies').textContent = jobData.vacancies || 'Not specified';
+            document.getElementById('jobRequirements').textContent = jobData.requirements || 'Not specified';
+
+            // Update skills list
+            const skillsList = document.getElementById('skillsList');
+            const skills = parseRequirements(jobData.requirements);
+            skillsList.innerHTML = skills.map(skill => 
+                `<span class="skill-tag">${skill}</span>`
+            ).join('');
+
+            // Update application details
+            document.getElementById('contactEmail').textContent = jobData.contactEmail;
+            document.getElementById('applicationDeadline').textContent = formatDate(jobData.deadline);
+            document.getElementById('postedDate').textContent = formatDate(jobData.postedDate);
+            document.getElementById('jobId').textContent = jobData.id;
+
+            // Update application instructions
+            const instructionsContainer = document.getElementById('applicationInstructionsContainer');
+            const instructionsElement = document.getElementById('applicationInstructions');
+            if (jobData.applicationInstructions) {
+                instructionsElement.textContent = jobData.applicationInstructions;
+                instructionsContainer.style.display = 'block';
+            } else {
+                instructionsContainer.style.display = 'none';
+            }
+
+            // Update page title
+            document.title = `${jobData.title} - ${jobData.company} | JobAssist Ghana`;
+        }
+
+        // Function to handle report button click
+        function handleReportJob() {
+            if (!currentJobData) return;
+            
+            // Redirect to report page with job data
+            const jobData = encodeURIComponent(JSON.stringify({
+                id: currentJobData.id,
+                title: currentJobData.title,
+                company: currentJobData.company,
+                contactEmail: currentJobData.contactEmail
+            }));
+            
+            window.location.href = `report.html?job=${jobData}`;
+        }
+
+        // Application Modal Functions
+        function openApplicationModal(jobId) {
+            currentJobId = jobId;
+            currentJobData = jobDatabase[jobId];
+            
+            if (!currentJobData) return;
+            
+            // Reset modal state
+            document.getElementById('tierSelection').style.display = 'block';
+            document.getElementById('applicationSuccess').style.display = 'none';
+            
+            // Update modal content
+            document.getElementById('modalJobTitle').textContent = currentJobData.title;
+            document.getElementById('modalJobCompany').textContent = currentJobData.company;
+            document.getElementById('applicationModalTitle').textContent = `Apply for ${currentJobData.title}`;
+            
+            // Reset tier selection
+            document.querySelectorAll('.tier-option').forEach(option => option.classList.remove('selected'));
+            
+            // Show modal
+            document.getElementById('applicationModal').classList.add('show');
+        }
+
+        function closeApplicationModal() {
+            document.getElementById('applicationModal').classList.remove('show');
+        }
+
+        function submitApplication(tierType) {
+            if (!currentJobData) return;
+
+            const applicationData = {
+                id: currentJobData.id,
+                title: currentJobData.title,
+                company: currentJobData.company,
+                appliedAt: new Date().toISOString(),
+                tier: tierType,
+                status: tierType === 'premium' ? 'pending_payment' : 'submitted'
+            };
+
+            // Add to applied jobs
+            if (!appliedJobs.some(app => app.id === currentJobData.id)) {
+                appliedJobs.push(applicationData);
+                localStorage.setItem('appliedJobs', JSON.stringify(appliedJobs));
+            }
+
+            showApplicationSuccess(tierType);
+        }
+
+        function showApplicationSuccess(tierType) {
+            document.getElementById('tierSelection').style.display = 'none';
+            document.getElementById('applicationSuccess').style.display = 'block';
+
+            const successMessage = document.getElementById('successMessage');
+            
+            if (tierType === 'free') {
+                successMessage.textContent = 'Your free application has been successfully submitted to the employer.';
+            } else {
+                successMessage.textContent = 'Your premium application is pending payment confirmation.';
+                setTimeout(() => {
+                    window.location.href = `payment.html?service=application-premium&amount=50&name=Premium%20Application%20Verification&jobId=${currentJobId}`;
+                }, 2000);
+            }
+
+            // Update the action buttons on the main page
+            const buttons = getActionButtons(currentJobData);
+            renderActionButtons(buttons);
+        }
+
+        // Action functions
+        function boostApplication(jobId) {
+            // Redirect to boost page
+            window.location.href = `boost-profile.html?jobId=${jobId}`;
+        }
+
+        // Initialize page
+        function initializePage() {
+            const jobId = getJobIdFromURL();
+            const jobData = jobDatabase[jobId];
+            const sourcePage = getSourcePage();
+
+            if (jobData) {
+                currentJobId = jobId;
+                currentJobData = jobData;
+                updateJobDetails(jobData);
+                const buttons = getActionButtons(jobData);
+                renderActionButtons(buttons);
+                
+                // Set back button URL based on source
+                const backButton = document.getElementById('backBtn');
+                const backURL = getBackButtonURL(sourcePage);
+                backButton.onclick = () => {
+                    window.location.href = backURL;
+                };
+            } else {
+                alert('Job not found!');
+                window.history.back();
+            }
+
+            // Application modal event listeners
+            document.getElementById('closeApplicationModal').addEventListener('click', closeApplicationModal);
+            
+            // Tier selection
+            document.querySelectorAll('.tier-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.tier-option').forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+
+            // Tier action buttons
+            document.querySelectorAll('.tier-action').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const tierOption = this.closest('.tier-option');
+                    const tierType = tierOption.getAttribute('data-tier');
+                    submitApplication(tierType);
+                });
+            });
+
+            // Report button click handler
+            document.getElementById('reportJobBtn').addEventListener('click', handleReportJob);
+
+            // Boost now button
+            document.getElementById('boostNowBtn').addEventListener('click', function() {
+                window.location.href = `boost-profile.html?jobId=${currentJobId}`;
+            });
+
+            // View applications button
+            document.getElementById('viewApplicationsBtn').addEventListener('click', function() {
+                window.location.href = 'your-applications.html';
+            });
+
+            // Close modal when clicking outside
+            document.getElementById('applicationModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeApplicationModal();
+                }
+            });
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializePage);
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/view-details.html
     </script>
   </body>
 </html>

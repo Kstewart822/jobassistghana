@@ -513,6 +513,7 @@
         <i class="fas fa-home"></i> Back to Home
       </a>
 
+<<<<<<< HEAD:payment-successful.html
       <div class="support-contact">
         <p>
           Need help? Contact our support team at
@@ -521,6 +522,22 @@
           >
         </p>
       </div>
+=======
+        <a href="#" class="btn btn-primary" id="dashboardButton">
+            <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+        </a>
+        
+        <a href="../index.html" class="btn btn-outline">
+            <i class="fas fa-home"></i> Back to Home
+        </a>
+
+        <div class="support-contact">
+            <p>
+                Need help? Contact our support team at 
+                <a href="mailto:support@jobassistgh.com" class="support-email">support@jobassistgh.com</a>
+            </p>
+        </div>
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/payment-successful.html
     </div>
 
     <script>
@@ -534,6 +551,7 @@
         const jobId = urlParams.get("jobId");
         const name = urlParams.get("name") || "Service";
 
+<<<<<<< HEAD:payment-successful.html
         // Service configurations
         const services = {
           "profile-activation": {
@@ -651,6 +669,108 @@
             ],
           },
         };
+=======
+            // Service configurations
+            const services = {
+                'profile-activation': {
+                    name: "Profile Activation",
+                    message: "Your profile has been successfully activated and is now visible to employers.",
+                    description: "Your profile is now active and will appear in employer searches.",
+                    dashboardUrl: "candidate/candidate-dashboard.html",
+                    nextSteps: [
+                        "Your profile is now active and visible to employers",
+                        "You'll appear in employer search results",
+                        "Start applying to jobs immediately",
+                        "Complete your profile for better matches"
+                    ]
+                },
+                'boost-basic': {
+                    name: "Basic Profile Boost",
+                    message: "Your Basic Profile Boost has been activated! Your profile will get 3x more visibility for 7 days.",
+                    description: "Your profile boost is now active and will run for 7 days.",
+                    dashboardUrl: "candidate/candidate-dashboard.html",
+                    nextSteps: [
+                        "Profile visibility increased by 300%",
+                        "Boost active for 7 days",
+                        "You'll appear in featured sections",
+                        "Employers will see your profile first"
+                    ]
+                },
+                'boost-pro': {
+                    name: "Professional Profile Boost",
+                    message: "Your Professional Profile Boost has been activated! Enjoy 5x more visibility and priority placement for 30 days.",
+                    description: "Your professional boost is now active and will run for 30 days.",
+                    dashboardUrl: "candidate/candidate-dashboard.html",
+                    nextSteps: [
+                        "Profile visibility increased by 500%",
+                        "Boost active for 30 days",
+                        "Priority placement in search results",
+                        "Verified profile badge added"
+                    ]
+                },
+                'boost-enterprise': {
+                    name: "Enterprise Profile Boost",
+                    message: "Your Enterprise Profile Boost has been activated! Maximum visibility and premium features for 90 days.",
+                    description: "Your enterprise boost is now active and will run for 90 days.",
+                    dashboardUrl: "candidate/candidate-dashboard.html",
+                    nextSteps: [
+                        "Maximum profile visibility",
+                        "Boost active for 90 days",
+                        "Top placement in all searches",
+                        "Premium verification badge",
+                        "Priority customer support"
+                    ]
+                },
+                'job-posting': {
+                    name: "Job Posting",
+                    message: "Your job posting payment was successful! Your job is now live and visible to candidates.",
+                    description: "Your job posting is now active and visible to job seekers.",
+                    dashboardUrl: "employer/employer/employer/employer-dashboard.html",
+                    nextSteps: [
+                        "Your job is now live and visible",
+                        "Start receiving applications immediately",
+                        "Manage applications from your dashboard",
+                        "Promote your job for more visibility"
+                    ]
+                },
+                'premium-listing': {
+                    name: "Premium Job Listing",
+                    message: "Your premium job listing has been activated! Your job will be featured prominently for maximum visibility.",
+                    description: "Your premium listing is now active and will be featured.",
+                    dashboardUrl: "employer/employer/employer/employer-dashboard.html",
+                    nextSteps: [
+                        "Job featured in premium sections",
+                        "Priority placement in search results",
+                        "Increased candidate applications",
+                        "Featured employer badge"
+                    ]
+                },
+                'application-premium': {
+                    name: "Premium Application",
+                    message: "Your premium application payment was successful! Your application will get priority placement and verification.",
+                    description: "Your premium application is now being processed with priority verification.",
+                    dashboardUrl: jobId ? `view-details.html?id=${jobId}&payment_success=true` : "candidate/candidate-dashboard.html",
+                    nextSteps: [
+                        "Application marked as premium",
+                        "Priority verification in progress",
+                        "Employer will see your application first",
+                        "Verified applicant badge added"
+                    ]
+                },
+                'employer-premium': {
+                    name: "Employer Premium",
+                    message: "Your employer premium subscription is now active! Enjoy premium features and enhanced visibility.",
+                    description: "Your premium subscription is now active.",
+                    dashboardUrl: "employer/employer/employer/employer-dashboard.html",
+                    nextSteps: [
+                        "Premium features unlocked",
+                        "Enhanced company profile",
+                        "Priority support access",
+                        "Advanced applicant filtering"
+                    ]
+                }
+            };
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/payment-successful.html
 
         const service = services[serviceType] || services["profile-activation"];
 

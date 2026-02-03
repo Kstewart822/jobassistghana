@@ -474,7 +474,67 @@
         <p id="nextSteps">
           Your job posting is now live and visible to candidates.
         </p>
+<<<<<<< HEAD:epayment-successful.html
       </div>
+=======
+
+        <!-- Job Type Badge -->
+        <div id="jobTypeBadge" class="job-type-badge badge-standard">Standard</div>
+
+        <!-- Auto-redirect countdown -->
+        <div class="redirect-countdown">
+            <div class="countdown-text">
+                <i class="fas fa-clock"></i> 
+                Redirecting in 
+                <span class="countdown-number" id="countdown">5</span> seconds
+            </div>
+            <div class="countdown-progress">
+                <div class="progress-fill"></div>
+            </div>
+            <small style="color: var(--gray); font-size: 0.7rem; display: block; margin-top: 5px;">
+                Click anywhere to cancel
+            </small>
+        </div>
+
+        <!-- Payment Details -->
+        <div class="payment-details">
+            <div class="detail-item">
+                <span class="detail-label">Service:</span>
+                <span class="detail-value" id="serviceName">Job Posting</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Amount:</span>
+                <span class="detail-value amount" id="amountPaid">₵100.00</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Reference:</span>
+                <span class="detail-value" id="referenceCode">JA-JOB-789123</span>
+            </div>
+            <div class="detail-item" id="applicantCountItem" style="display: none;">
+                <span class="detail-label">Applicants:</span>
+                <span class="detail-value" id="applicantCount">0</span>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="btn-group">
+            <a href="employer/employer/employer-dashboard.html" class="btn btn-primary" id="dashboardBtn">
+                <i class="fas fa-home"></i> Go to Dashboard
+            </a>
+            
+            <a href="#" class="btn btn-accent" id="actionBtn">
+                <i class="fas fa-eye"></i> View Service
+            </a>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="whats-next">
+            <h3>What happens next?</h3>
+            <p id="nextSteps">
+                Your job posting is now live and visible to candidates.
+            </p>
+        </div>
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:employer/epayment-successful.html
     </div>
 
     <script>
@@ -606,9 +666,15 @@
         });
       }
 
+<<<<<<< HEAD:epayment-successful.html
       function redirectToDashboard() {
         window.location.href = "employer-dashboard.html";
       }
+=======
+        function redirectToDashboard() {
+            window.location.href = 'employer/employer/employer/employer-dashboard.html';
+        }
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:employer/epayment-successful.html
 
       // Initialize when page loads
       document.addEventListener("DOMContentLoaded", initializeSuccessPage);

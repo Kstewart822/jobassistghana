@@ -824,6 +824,7 @@
   </head>
   <body>
     <header class="site-header">
+<<<<<<< HEAD:report.html
       <div class="header-content">
         <a href="index.html" class="logo">
           <div class="logo-img">
@@ -835,6 +836,20 @@
           <a href="index.html">Home</a>
           <a href="about.html">About</a>
           <a href="login.html" class="login-btn">Login</a>
+=======
+        <div class="header-content">
+            <a href="../index.html" class="logo">
+                <div class="logo-img">
+                    <img src="logo.png" alt="Job Assist Ghana">
+                </div>
+            </a>
+            
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="login.html" class="login-btn">Login</a>
+            </div>
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/report.html
         </div>
       </div>
     </header>
@@ -1281,6 +1296,7 @@
                         <i class="fas fa-times"></i>
                     </button>
                 `;
+<<<<<<< HEAD:report.html
 
           fileList.appendChild(fileItem);
 
@@ -1347,6 +1363,154 @@
         );
         reportTypeRadios.forEach((radio) => {
           radio.addEventListener("change", validateForm);
+=======
+                
+                fileList.appendChild(fileItem);
+                
+                // Add remove functionality
+                const removeBtn = fileItem.querySelector('.remove-file');
+                removeBtn.addEventListener('click', () => {
+                    uploadedFiles = uploadedFiles.filter(f => f !== file);
+                    fileItem.remove();
+                });
+            }
+            
+            // Format file size
+            function formatFileSize(bytes) {
+                if (bytes < 1024) return bytes + ' bytes';
+                else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+                else return (bytes / 1048576).toFixed(1) + ' MB';
+            }
+            
+            // Form validation function
+            function validateForm() {
+                const phone = document.getElementById('reporter-phone').value.trim();
+                const businessName = document.getElementById('business-name').value.trim();
+                const reportType = document.querySelector('input[name="report-type"]:checked');
+                const incidentDetails = document.getElementById('incident-details').value.trim();
+                const actionRequested = document.getElementById('action-requested').value;
+                const consent = document.getElementById('consent').checked;
+                
+                // Check all required fields
+                if (phone && businessName && reportType && incidentDetails && actionRequested && consent) {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.add('enabled');
+                } else {
+                    submitBtn.disabled = true;
+                    submitBtn.classList.remove('enabled');
+                }
+            }
+            
+            // Add event listeners to all required fields
+            const requiredFields = [
+                document.getElementById('reporter-phone'),
+                document.getElementById('business-name'),
+                document.getElementById('incident-details'),
+                document.getElementById('action-requested'),
+                document.getElementById('consent')
+            ];
+            
+            // Add event listeners to radio buttons
+            const reportTypeRadios = document.querySelectorAll('input[name="report-type"]');
+            reportTypeRadios.forEach(radio => {
+                radio.addEventListener('change', validateForm);
+            });
+            
+            // Add event listeners to required fields
+            requiredFields.forEach(field => {
+                if (field.type === 'checkbox') {
+                    field.addEventListener('change', validateForm);
+                } else {
+                    field.addEventListener('input', validateForm);
+                }
+            });
+            
+            // Form submission
+            reportForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Basic validation
+                const requiredFields = reportForm.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (field.type === 'checkbox' && !field.checked) {
+                        isValid = false;
+                        field.parentElement.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+                    } else if (field.type !== 'checkbox' && !field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = 'var(--danger)';
+                    } else {
+                        if (field.type === 'checkbox') {
+                            field.parentElement.style.backgroundColor = '';
+                        } else {
+                            field.style.borderColor = '';
+                        }
+                    }
+                });
+                
+                if (!isValid) {
+                    alert('Please fill in all required fields marked with *');
+                    return;
+                }
+                
+                // Disable submit button and show loading
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting Report...';
+                
+                // Simulate API call/processing delay
+                setTimeout(() => {
+                    // Prepare report data
+                    const reportData = {
+                        reporterPhone: document.getElementById('reporter-phone').value,
+                        reporterEmail: document.getElementById('reporter-email').value,
+                        businessName: document.getElementById('business-name').value,
+                        businessContact: document.getElementById('business-contact').value,
+                        reportType: document.querySelector('input[name="report-type"]:checked').value,
+                        incidentDetails: document.getElementById('incident-details').value,
+                        actionRequested: document.getElementById('action-requested').value,
+                        evidenceFiles: uploadedFiles.length,
+                        originalJobData: jobData,
+                        submittedAt: new Date().toISOString()
+                    };
+                    
+                    // In a real application, you would send this data to your server
+                    console.log('Anonymous report submitted:', reportData);
+                    
+                    // Show submission animation overlay
+                    submissionOverlay.classList.add('active');
+                    
+                    // Animate processing steps
+                    setTimeout(() => {
+                        document.getElementById('step1').classList.add('completed');
+                        document.getElementById('step1').style.animation = 'stepIn 0.5s ease forwards';
+                        document.getElementById('step1').style.opacity = '1';
+                        
+                        setTimeout(() => {
+                            document.getElementById('step2').classList.add('active');
+                            document.getElementById('step2').style.animation = 'stepIn 0.5s ease forwards';
+                            document.getElementById('step2').style.opacity = '1';
+                            
+                            // Keep "Under Review" active (not completed)
+                            setTimeout(() => {
+                                // Auto-redirect to candidate/browse-jobs.html after 4 seconds
+                                setTimeout(() => {
+                                    window.location.href = 'candidate/browse-jobs.html';
+                                }, 4000);
+                                
+                            }, 2000);
+                        }, 1500);
+                    }, 500);
+                    
+                }, 1500); // Simulate 1.5 second processing time
+            });
+            
+            // Initialize form validation on page load
+            validateForm();
+            
+            // Set focus to phone field
+            document.getElementById('reporter-phone').focus();
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/report.html
         });
 
         // Add event listeners to required fields

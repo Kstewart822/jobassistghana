@@ -1681,6 +1681,7 @@
           unlockedPagination.appendChild(pageButton);
         }
 
+<<<<<<< HEAD:view-applicants.html
         // Next button
         const nextButton = document.createElement("button");
         nextButton.className = `pagination-btn ${currentUnlockedPage === totalPages ? "disabled" : ""}`;
@@ -1706,6 +1707,106 @@
           selectedApplicants.delete(applicantId);
         } else {
           selectedApplicants.add(applicantId);
+=======
+        function setupEventListeners() {
+            // Tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.dataset.tab;
+                    switchTab(tabId);
+                });
+            });
+            
+            // Clear selection
+            clearSelectionBtn.addEventListener('click', () => {
+                selectedApplicants.clear();
+                document.querySelectorAll('.applicant-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                updateCheckoutSummary();
+            });
+            
+            // Proceed to payment - FIXED PAYMENT DATA PASSING
+            proceedToPaymentBtn.addEventListener('click', () => {
+                if (selectedApplicants.size === 0) {
+                    showToast('Please select at least one applicant to unlock');
+                    return;
+                }
+                
+                // Calculate total amount
+                const totalAmount = selectedApplicants.size * APPLICANT_PRICE;
+                
+                // Store payment data in sessionStorage
+                const paymentData = {
+                    jobId: currentJobId,
+                    jobTitle: jobTitleElement.textContent,
+                    amount: totalAmount,
+                    selectedCount: selectedApplicants.size,
+                    applicantPrice: APPLICANT_PRICE,
+                    selectedApplicants: Array.from(selectedApplicants),
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Store in sessionStorage for payment page
+                sessionStorage.setItem('jobassist_payment_data', JSON.stringify(paymentData));
+                
+                // Redirect to payment page
+                window.location.href = `employer-payment.html?jobId=${currentJobId}&amount=${totalAmount}&count=${selectedApplicants.size}`;
+            });
+            
+            // Search
+            searchInput.addEventListener('input', () => {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                
+                // Filter all applicants
+                filteredApplicants = allApplicants.filter(applicant => 
+                    matchesSearch(applicant, searchTerm)
+                );
+                
+                // Filter unlocked applicants
+                filteredUnlockedApplicants = unlockedApplicants.filter(applicant => 
+                    matchesSearch(applicant, searchTerm)
+                );
+                
+                // Reset to first page
+                currentPage = 1;
+                currentUnlockedPage = 1;
+                
+                // Re-render
+                renderApplicants();
+                renderUnlockedApplicants();
+                setupPagination();
+                setupUnlockedPagination();
+            });
+            
+            // Close job modal
+            closeJobBtn.addEventListener('click', () => {
+                closeJobModal.classList.add('active');
+            });
+            
+            cancelCloseBtn.addEventListener('click', () => {
+                closeJobModal.classList.remove('active');
+            });
+            
+            // FIXED: Close job and redirect to dashboard
+            confirmCloseBtn.addEventListener('click', () => {
+                closeJobModal.classList.remove('active');
+                
+                // Show success message
+                showToast('Job listing closed successfully. Redirecting to dashboard...');
+                
+                // Redirect to employer dashboard after a delay
+                setTimeout(() => {
+                    window.location.href = 'employer/employer/employer/employer-dashboard.html';
+                }, 1500);
+            });
+            
+            closeJobModal.addEventListener('click', (e) => {
+                if (e.target === closeJobModal) {
+                    closeJobModal.classList.remove('active');
+                }
+            });
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:employer/view-applicants.html
         }
 
         // Update UI

@@ -1654,6 +1654,7 @@
               <h3 class="notification-title">Notifications</h3>
               <button class="mark-all-read">Mark all as read</button>
             </div>
+<<<<<<< HEAD:employer-payment.html
             <ul class="notification-list">
               <li class="notification-item unread">
                 <div class="notification-content">
@@ -1684,6 +1685,208 @@
           <div class="user-profile" id="userProfile">
             <div class="user-avatar">
               <img src="https://i.pravatar.cc/150?img=5" alt="User" />
+=======
+        </nav>
+
+        <!-- Payment Content -->
+        <div class="payment-content">
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tab active" data-tab="payment">Make Payment</div>
+                <div class="tab" data-tab="history">Transaction History</div>
+            </div>
+
+            <!-- Payment Tab -->
+            <div class="tab-content active" id="payment-tab">
+                <!-- Welcome Section -->
+                <div class="welcome-section">
+                    <h1 class="welcome-title" id="paymentTitle">Complete Your Purchase</h1>
+                    <p class="welcome-subtitle">Review your order details and complete the payment to activate your service</p>
+                </div>
+
+                <!-- Payment Container -->
+                <div class="payment-container">
+                    <!-- Order Summary -->
+                    <div class="order-summary">
+                        <div class="order-header">
+                            <h3 class="order-title">Order Summary</h3>
+                        </div>
+                        <div class="order-details">
+                            <div class="order-item">
+                                <div class="item-label">Service</div>
+                                <div class="item-value" id="serviceName">Loading...</div>
+                            </div>
+                            <div class="order-item">
+                                <div class="item-label">Job Type</div>
+                                <div class="item-value" id="serviceType">
+                                    <span id="jobTypeBadge" class="job-type-badge badge-standard">Standard</span>
+                                </div>
+                            </div>
+                            <div class="order-item">
+                                <div class="item-label">Description</div>
+                                <div class="item-value" id="serviceDescription">Loading...</div>
+                            </div>
+                            <div class="order-item" id="jobTitleItem" style="display: none;">
+                                <div class="item-label">Job Title</div>
+                                <div class="item-value" id="jobTitle">Loading...</div>
+                            </div>
+                            <div class="order-item" id="companyItem" style="display: none;">
+                                <div class="item-label">Company</div>
+                                <div class="item-value" id="companyName">Loading...</div>
+                            </div>
+                            <div class="order-item" id="applicantCountItem" style="display: none;">
+                                <div class="item-label">Applicants to Unlock</div>
+                                <div class="item-value" id="applicantCount">Loading...</div>
+                            </div>
+                            <div class="order-item">
+                                <div class="item-label">Reference Code</div>
+                                <div class="item-value" id="referenceCode">Loading...</div>
+                            </div>
+                            <div class="order-item" id="durationItem">
+                                <div class="item-label">Duration</div>
+                                <div class="item-value" id="serviceDuration">Loading...</div>
+                            </div>
+                        </div>
+                        <div class="order-total">
+                            <div class="item-label">Total Amount</div>
+                            <div class="item-value" id="totalAmount">₵0.00</div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Form -->
+                    <div class="payment-form">
+                        <h3 class="form-title">Payment Details</h3>
+                        
+                        <!-- Payment Methods -->
+                        <div class="payment-methods">
+                            <div class="form-label">Select Payment Method</div>
+                            <div class="payment-options">
+                                <div class="payment-option selected" data-method="mobile">
+                                    <div class="payment-icon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                    <div class="payment-name">Mobile Money</div>
+                                </div>
+                                <div class="payment-option" data-method="card">
+                                    <div class="payment-icon">
+                                        <i class="far fa-credit-card"></i>
+                                    </div>
+                                    <div class="payment-name">Card</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mobile Money Form -->
+                        <div class="payment-form-content" id="mobileForm">
+                            <div class="form-group">
+                                <label class="form-label" for="mobileProvider">Mobile Provider *</label>
+                                <select class="form-control" id="mobileProvider" required>
+                                    <option value="">Select Provider</option>
+                                    <option value="mtn">MTN Mobile Money</option>
+                                    <option value="vodafone">Telecel Ghana (formerly Vodafone)</option>
+                                    <option value="airteltigo">AT Ghana (Airtel / Airtel-Tigo)</option>
+                                </select>
+                                <div class="error-message" id="providerError">Please select a mobile provider</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="mobileNumber">Mobile Number *</label>
+                                <input type="text" class="form-control" id="mobileNumber" placeholder="e.g., 024 123 4567" required>
+                                <div class="error-message" id="mobileError">Please enter a valid 10-digit Ghana mobile number</div>
+                                <div class="form-hint">Enter your 10-digit Ghana mobile number</div>
+                            </div>
+                        </div>
+
+                        <!-- Card Payment Form -->
+                        <div class="payment-form-content" id="cardForm" style="display: none;">
+                            <div class="form-group">
+                                <label class="form-label" for="cardNumber">Card Number *</label>
+                                <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                                <div class="error-message" id="cardError">Please enter a valid card number</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="expiryDate">Expiry Date *</label>
+                                    <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
+                                    <div class="error-message" id="expiryError">Please enter a valid expiry date (MM/YY)</div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="cvv">CVV *</label>
+                                    <input type="text" class="form-control" id="cvv" placeholder="123" required>
+                                    <div class="error-message" id="cvvError">Please enter a valid CVV</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="cardName">Name on Card *</label>
+                                <input type="text" class="form-control" id="cardName" placeholder="John Doe" required>
+                                <div class="error-message" id="nameError">Please enter the name on your card</div>
+                            </div>
+                        </div>
+
+                        <div class="paystack-info">
+                            <i class="fas fa-lock"></i> Secured by <span class="paystack-logo">Paystack</span>
+                        </div>
+
+                        <button class="btn btn-accent btn-block" id="payNowBtn" disabled>
+                            <i class="fas fa-lock"></i> Pay <span id="payAmount">₵0.00</span>
+                        </button>
+                        <a href="employer/employer/employer-dashboard.html" class="btn btn-outline btn-block" style="margin-top: 10px; text-decoration: none; text-align: center;">
+                            <i class="fas fa-arrow-left"></i> Cancel Payment
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Benefits Section -->
+                <div class="benefits-section">
+                    <h3 class="section-title">What Happens After Payment?</h3>
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h4 class="benefit-title">Immediate Activation</h4>
+                            <p class="benefit-description">Your service will be activated immediately after successful payment</p>
+                        </div>
+
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <h4 class="benefit-title">Support Available</h4>
+                            <p class="benefit-description">Our support team is available if you have any questions</p>
+                        </div>
+
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4 class="benefit-title">Secure Payment</h4>
+                            <p class="benefit-description">Your payment is processed securely through Paystack</p>
+                        </div>
+
+                        <div class="benefit-card">
+                            <div class="benefit-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h4 class="benefit-title">Confirmation</h4>
+                            <p class="benefit-description">You'll receive a confirmation email after successful payment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction History Tab -->
+            <div class="tab-content" id="history-tab">
+                <div class="transactions-header">
+                    <h2 class="section-title"><i class="fas fa-history"></i> Transaction History</h2>
+                    <button class="btn btn-primary" id="exportBtn">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                </div>
+
+                <div class="transactions-list">
+                    <!-- Transaction Items will be populated dynamically -->
+                </div>
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:employer/employer-payment.html
             </div>
             <div class="user-name">Nana Kwame</div>
             <i class="fas fa-chevron-down"></i>

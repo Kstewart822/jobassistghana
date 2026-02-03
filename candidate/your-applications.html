@@ -1594,6 +1594,7 @@
         </div>
       </nav>
 
+<<<<<<< HEAD:your-applications.html
       <!-- Main Content Area -->
       <div class="dashboard-content">
         <!-- Welcome Section -->
@@ -1602,6 +1603,124 @@
           <p class="welcome-subtitle">
             Track all your job applications in one place
           </p>
+=======
+            <!-- Stats Cards -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalApplications">8</div>
+                    <div class="stat-label">Total Applications</div>
+                    <div class="stat-subtitle">Showing all time applications</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="successRate">67%</div>
+                    <div class="stat-label">Success Rate</div>
+                    <div class="stat-subtitle">Based on last 30 days activity</div>
+                    <div class="performance-indicator performance-excellent">Excellent</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="progressRate">+18%</div>
+                    <div class="stat-label">Weekly Progress Rate</div>
+                    <div class="stat-subtitle">Improvement from last week</div>
+                    <div class="performance-indicator performance-improving">Improving</div>
+                </div>
+            </div>
+
+            <!-- Application Tabs -->
+            <div class="application-tabs">
+                <div class="tab active" data-filter="all">All Applications (<span id="allCount">8</span>)</div>
+                <div class="tab" data-filter="in-review">In Review (<span id="inReviewCount">3</span>)</div>
+                <div class="tab" data-filter="accepted">Accepted (<span id="acceptedCount">2</span>)</div>
+                <div class="tab" data-filter="withdrawn">Withdrawn (<span id="withdrawnCount">0</span>)</div>
+            </div>
+
+            <!-- Applications Grid -->
+            <div class="applications-grid" id="applicationsContainer">
+                <!-- Application 1 - In Review -->
+                <div class="job-card" data-status="in-review">
+                    <h3 class="job-title">Frontend Developer</h3>
+                    <div class="job-meta">
+                        <span>Two Southeast Las</span>
+                        <span>Accra, Ghana</span>
+                        <span>Applied: 15 May 2023</span>
+                    </div>
+                    <div class="job-status status-in-review">In Review</div>
+                    <p class="job-description">We are looking for a skilled Frontend Developer with experience in React and modern JavaScript.</p>
+                    <div class="job-actions">
+                        <button class="btn btn-primary" onclick="viewJobDetails('frontend-developer')">View Details</button>
+                        <button class="btn btn-outline withdraw-application" data-job="Frontend Developer" data-company="Two Southeast Las">Withdraw Application</button>
+                    </div>
+                </div>
+
+                <!-- Application 2 - Accepted -->
+                <div class="job-card" data-status="accepted">
+                    <h3 class="job-title">Marketing Manager</h3>
+                    <div class="job-meta">
+                        <span>Global Emails Inc</span>
+                        <span>Kumasi, Ghana</span>
+                        <span>Applied: 10 May 2023</span>
+                    </div>
+                    <div class="job-status status-accepted">Accepted</div>
+                    <p class="job-description">Exciting opportunity for a Marketing Manager with 3+ years experience in brand management.</p>
+                    <div class="job-actions">
+                        <button class="btn btn-primary" onclick="viewJobDetails('marketing-manager')">View Details</button>
+                        <button class="btn btn-outline contact-employer" data-company="Global Emails Inc">Contact Employer</button>
+                    </div>
+                </div>
+
+                <!-- Application 3 - In Review -->
+                <div class="job-card" data-status="in-review">
+                    <h3 class="job-title">Data Analyst</h3>
+                    <div class="job-meta">
+                        <span>Tech Solutions Ltd</span>
+                        <span>Accra, Ghana</span>
+                        <span>Applied: 20 May 2023</span>
+                    </div>
+                    <div class="job-status status-in-review">In Review</div>
+                    <p class="job-description">Looking for a Data Analyst with experience in SQL, Python, and data visualization tools.</p>
+                    <div class="job-actions">
+                        <button class="btn btn-primary" onclick="viewJobDetails('data-analyst')">View Details</button>
+                        <button class="btn btn-outline withdraw-application" data-job="Data Analyst" data-company="Tech Solutions Ltd">Withdraw Application</button>
+                    </div>
+                </div>
+
+                <!-- Application 4 - In Review -->
+                <div class="job-card" data-status="in-review">
+                    <h3 class="job-title">UX Designer</h3>
+                    <div class="job-meta">
+                        <span>Design Studio</span>
+                        <span>Accra, Ghana</span>
+                        <span>Applied: 22 May 2023</span>
+                    </div>
+                    <div class="job-status status-in-review">In Review</div>
+                    <p class="job-description">Creative UX Designer needed for innovative projects with modern design tools.</p>
+                    <div class="job-actions">
+                        <button class="btn btn-primary" onclick="viewJobDetails('ux-designer')">View Details</button>
+                        <button class="btn btn-outline withdraw-application" data-job="UX Designer" data-company="Design Studio">Withdraw Application</button>
+                    </div>
+                </div>
+
+                <!-- Application 5 - Accepted -->
+                <div class="job-card" data-status="accepted">
+                    <h3 class="job-title">Senior UX Designer</h3>
+                    <div class="job-meta">
+                        <span>Creative Labs Ghana</span>
+                        <span>Accra, Ghana</span>
+                        <span>Applied: 18 May 2023</span>
+                    </div>
+                    <div class="job-status status-accepted">Accepted</div>
+                    <p class="job-description">Senior UX Designer position with focus on user-centered design methodologies.</p>
+                    <div class="job-actions">
+                        <button class="btn btn-primary" onclick="viewJobDetails('senior-ux-designer')">View Details</button>
+                        <button class="btn btn-outline contact-employer" data-company="Creative Labs Ghana">Contact Employer</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View More Button -->
+            <div class="view-more-container">
+                <button class="view-more-btn" onclick="window.location.href='candidate/browse-jobs.html'">Browse More Jobs</button>
+            </div>
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/your-applications.html
         </div>
 
         <!-- Stats Cards -->

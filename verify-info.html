@@ -141,6 +141,26 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         width: 100%;
       }
+<<<<<<< HEAD
+=======
+      
+      #mobile-menu .login-btn {
+        margin: 10px 20px;
+        width: calc(100% - 40px);
+      }
+      
+      .btn-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="site-navbar">
+    <div class="nav-inner">
+      <a class="brand" href="../index.html"><img src="logo.png" alt="Job Assist Ghana logo"></a>
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
 
       #mobile-menu ul li:last-child {
         border-bottom: none;
@@ -469,7 +489,7 @@
       <!-- mobile menu (hidden by default) -->
       <div id="mobile-menu">
         <ul>
-          <li><a href="index.html">Home</a></li>
+          <li><a href="../index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="login.html" class="login-btn">Login</a></li>
         </ul>
@@ -493,6 +513,7 @@
           </div>
         </div>
 
+<<<<<<< HEAD
         <div class="page-heading">
           <h1 id="pageTitle">Verify Your Information</h1>
           <a
@@ -502,6 +523,17 @@
             >Sign up as Employer →</a
           >
         </div>
+=======
+    <!-- mobile menu (hidden by default) -->
+    <div id="mobile-menu">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="login.html" class="login-btn">Login</a></li>
+      </ul>
+    </div>
+  </header>
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
 
         <p class="subtext" id="pageSubtext">
           Please review all your information carefully before creating your
@@ -754,10 +786,41 @@
             mobileMenu.classList.toggle("active");
           });
 
+<<<<<<< HEAD
           // Close menu when clicking outside
           document.addEventListener("click", function (e) {
             if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
               mobileMenu.classList.remove("active");
+=======
+      // Handle Back button click
+      backBtn.addEventListener('click', function() {
+        // Go back to appropriate signup page
+        if (userType === 'employer') {
+          window.location.href = 'employer-signup.html';
+        } else {
+          window.location.href = 'signup.html';
+        }
+      });
+
+      // Handle Create Account button click
+      createAccountBtn.addEventListener('click', function() {
+        setCreateAccountLoadingState(true);
+        
+        // Simulate API call delay (1-2 seconds)
+        const delay = Math.random() * 1000 + 1000;
+        
+        setTimeout(() => {
+          // In a real application, this would be an actual API call
+          // For now, we'll simulate a successful account creation
+          const accountCreated = true; // Simulate successful account creation
+          
+          if (accountCreated) {
+            // Redirect to appropriate dashboard
+            if (userType === 'employer') {
+              window.location.href = 'employer/employer/employer/employer-dashboard.html';
+            } else {
+              window.location.href = 'candidate/candidate-dashboard.html';
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
             }
           });
 

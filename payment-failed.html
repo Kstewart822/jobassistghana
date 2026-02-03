@@ -443,6 +443,7 @@
     </div>
 
     <script>
+<<<<<<< HEAD
       // Initialize failure page based on URL parameters
       function initializeFailurePage() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -467,6 +468,77 @@
           if (refParam) {
             document.getElementById("paymentRef").textContent = refParam;
           }
+=======
+        // Initialize failure page based on URL parameters
+        function initializeFailurePage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const serviceParam = urlParams.get('service') || '';
+            const amountParam = urlParams.get('amount') || '';
+            const refParam = urlParams.get('ref') || '';
+            
+            // Show payment info if available
+            const paymentInfo = document.getElementById('paymentInfo');
+            if (serviceParam || amountParam || refParam) {
+                paymentInfo.style.display = 'block';
+                
+                if (serviceParam) {
+                    document.getElementById('paymentService').textContent = 
+                        formatServiceName(serviceParam);
+                }
+                
+                if (amountParam) {
+                    document.getElementById('paymentAmount').textContent = amountParam;
+                }
+                
+                if (refParam) {
+                    document.getElementById('paymentRef').textContent = refParam;
+                }
+            }
+            
+            // Determine redirect URLs based on referrer or service type
+            const referrer = document.referrer;
+            let retryUrl = 'payment.html';
+            let dashboardUrl = 'index.html'; // Default to home
+            
+            // Check if coming from employer payment page
+            if (referrer.includes('employer-payment.html') || serviceParam.includes('job')) {
+                retryUrl = 'employer-payment.html' + window.location.search;
+                dashboardUrl = 'employer/employer/employer/employer-dashboard.html';
+            } 
+            // Check if coming from candidate payment page
+            else if (referrer.includes('payment.html') || serviceParam.includes('profile') || serviceParam.includes('boost') || serviceParam.includes('application')) {
+                retryUrl = 'payment.html' + window.location.search;
+                dashboardUrl = 'candidate/candidate-dashboard.html';
+            }
+            
+            // Set button URLs
+            document.getElementById('retryButton').href = retryUrl;
+            document.getElementById('dashboardButton').href = dashboardUrl;
+            
+            // Update page title
+            if (serviceParam) {
+                const serviceName = formatServiceName(serviceParam);
+                document.title = `${serviceName} Payment Failed | JobAssist Ghana`;
+            }
+        }
+        
+        function formatServiceName(service) {
+            // Generic service name formatting
+            const serviceMap = {
+                'job_posting': 'Job Posting',
+                'job_posting_premium': 'Premium Job Posting',
+                'job_posting_standard': 'Standard Job Posting',
+                'unlock_applicants': 'Applicant Unlock',
+                'job_boost': 'Job Boost',
+                'profile-activation': 'Profile Activation',
+                'boost-basic': 'Profile Boost',
+                'boost-pro': 'Professional Boost',
+                'boost-enterprise': 'Enterprise Boost',
+                'application-premium': 'Premium Application'
+            };
+            
+            return serviceMap[service] || service.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
         }
 
         // Determine redirect URLs based on referrer or service type

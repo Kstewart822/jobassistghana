@@ -63,10 +63,10 @@ Typical journey:
 - Build CV → Export to PDF
 
 Key pages (examples):
-- `browse-jobs.html`
+- `candidate/browse-jobs.html`
 - `view-details.html`
 - `signup.html` / `login.html`
-- `candidate-dashboard.html`
+- `candidate/candidate-dashboard.html`
 - `your-applications.html`
 - `candidate-profile.html`
 - `build-cv.html`
@@ -79,7 +79,7 @@ Typical journey:
 Key pages (examples):
 - `employer-signup.html`
 - `login.html`
-- `employer-dashboard.html`
+- `employer/employer/employer/employer-dashboard.html`
 - `post-job.html`
 - `my-job-post.html`
 - `view-applicants.html`

@@ -1640,6 +1640,7 @@
         </div>
       </nav>
 
+<<<<<<< HEAD:accepted-offers.html
       <!-- Dashboard Content -->
       <div class="dashboard-content">
         <!-- Welcome Section -->
@@ -1648,6 +1649,99 @@
           <p class="welcome-subtitle">
             Congratulations on your job offers! Manage them here.
           </p>
+=======
+            <!-- Accepted Offers Section -->
+            <h2 class="section-title"><i class="fas fa-check-circle"></i> Your Accepted Offers (<span id="offersCount">2</span>)</h2>
+            
+            <!-- Accepted Offers Container -->
+            <div class="accepted-offers-container" id="acceptedOffersContainer">
+                <!-- Offer Card 1 -->
+                <div class="accepted-offer-card">
+                    <div class="offer-header">
+                        <h3 class="offer-title">Senior UX Designer</h3>
+                        <div class="offer-date">Accepted: 22 May 2023</div>
+                    </div>
+                    <div class="offer-details">
+                        <div class="offer-detail">
+                            <span class="detail-label">Company</span>
+                            <span class="detail-value">Creative Labs Ghana</span>
+                        </div>
+                        <div class="offer-detail">
+                            <span class="detail-label">Location</span>
+                            <span class="detail-value">Accra, Ghana</span>
+                        </div>
+                        <div class="offer-detail">
+                            <span class="detail-label">Job ID</span>
+                            <span class="detail-value">CLG-UX-001</span>
+                        </div>
+                        <div class="offer-detail">
+                            <span class="detail-label">Applied Date</span>
+                            <span class="detail-value">18 May 2023</span>
+                        </div>
+                        <div class="offer-detail">
+                            <span class="detail-label">Salary</span>
+                            <span class="detail-value">₵4,500/month</span>
+                        </div>
+                    </div>
+                    <div class="job-status status-accepted">Accepted</div>
+                    <p>Congratulations! You've accepted this offer. The employer will contact you with further details.</p>
+                    <div class="offer-actions">
+                        <!-- ACCENT YELLOW/GOLD BUTTON -->
+                        <button class="btn btn-accent" onclick="viewJobDetails('senior-ux-designer', 'accepted-offers')">View Details</button>
+                        <button class="btn btn-outline contact-employer" data-company="Creative Labs Ghana">Contact Employer</button>
+                        <button class="btn btn-danger withdraw-offer" data-job="Senior UX Designer">Withdraw Acceptance</button>
+                    </div>
+                </div>
+
+                <!-- Offer Card 2 -->
+                <div class="accepted-offer-card">
+                    <div class="offer-header">
+                        <h3 class="offer-title">Product Manager</h3>
+                        <div class="offer-date">Accepted: 18 May 2023</div>
+                    </div>
+                    <div class="offer-details">
+                        <div class="offer-detail">
+                            <span class="detail-label">Company</span>
+                            <span class="detail-value">FinTech Innovations</span>
+                        </div>
+                        <div class="offer-detail">
+                            <span class="detail-label">Location</span>
+                            <span class="detail-value">Accra, Ghana (Remote)</span>
+                        </div>
+                        <div class="offer-detail">
+                            <span class="detail-label">Job ID</span>
+                            <span class="detail-value">FTI-PM-045</span>
+                        </div>
+                        <div class="offer-detail">
+                            <span class="detail-label">Applied Date</span>
+                            <span class="detail-value">15 May 2023</span>
+                        </div>
+                        <div class="offer-detail">
+                            <span class="detail-label">Salary</span>
+                            <span class="detail-value">₵5,200/month</span>
+                        </div>
+                    </div>
+                    <div class="job-status status-accepted">Accepted</div>
+                    <p>You've accepted this offer. Awaiting contact from the employer.</p>
+                    <div class="offer-actions">
+                        <!-- ACCENT YELLOW/GOLD BUTTON -->
+                        <button class="btn btn-accent" onclick="viewJobDetails('product-manager', 'accepted-offers')">View Details</button>
+                        <button class="btn btn-outline contact-employer" data-company="FinTech Innovations">Contact Employer</button>
+                        <button class="btn btn-danger withdraw-offer" data-job="Product Manager">Withdraw Acceptance</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- If there are no accepted offers (hidden by default) -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-state-icon">
+                    <i class="far fa-file-alt"></i>
+                </div>
+                <h3 class="empty-state-title">No Accepted Offers Yet</h3>
+                <p class="empty-state-text">When you accept job offers from employers, they will appear here. Keep applying and interviewing to receive offers!</p>
+                <button class="btn btn-primary" onclick="window.location.href='candidate/browse-jobs.html'">Browse Jobs</button>
+            </div>
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/accepted-offers.html
         </div>
 
         <!-- Stats Section -->

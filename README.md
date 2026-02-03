@@ -55,9 +55,8 @@ Job_Assist/
 ├── index.html # Main landing page
 ├── about.html
 ├── login.html
-├── candidate-dashboard.html
-├── employer-dashboard.html
-├── post-job.html
+├── candidate/candidate-dashboard.html
+├── employer/employer/employer/employer/employer-dashboard.html├── post-job.html
 ├── build-cv.html
 ├── payment.html
 └── (many other pages)

@@ -381,6 +381,7 @@
         margin-top: 5px;
       }
 
+<<<<<<< HEAD
       .user-type-toggle {
         display: flex;
         background: #f3f4f6;
@@ -388,6 +389,36 @@
         padding: 4px;
         margin-bottom: 1.5rem;
       }
+=======
+  <!-- Header with Mobile Menu -->
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Job Assist Ghana Logo">
+    </div>
+    
+    <nav class="desktop-nav">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="build-cv.html">Build a CV</a></li>
+        <li><a href="login.html" class="login-btn active">Login</a></li>
+      </ul>
+    </nav>
+    
+    <div class="menu-icon" id="menuIcon">
+      <i class="fas fa-bars"></i>
+    </div>
+    
+    <nav class="mobile-nav" id="mobileNav">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="build-cv.html">Build a CV</a></li>
+        <li><a href="login.html" class="login-btn active">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
 
       .user-type-btn {
         flex: 1;
@@ -839,6 +870,7 @@
           mobileNav.classList.toggle("active");
         });
 
+<<<<<<< HEAD
         // Close mobile menu when clicking outside
         document.addEventListener("click", function (event) {
           if (
@@ -846,6 +878,91 @@
             !mobileNav.contains(event.target)
           ) {
             mobileNav.classList.remove("active");
+=======
+      // Phone number validation - now accepts 9 digits (without leading zero)
+      phoneInput.addEventListener('input', function() {
+        this.value = this.value.replace(/\D/g, '');
+        if (this.value.length > 9) {
+          this.value = this.value.slice(0, 9);
+        }
+      });
+
+      // User type toggle functionality
+      candidateBtn.addEventListener('click', function() {
+        candidateBtn.classList.add('active');
+        employerBtn.classList.remove('active');
+        document.querySelector('h2').textContent = 'Candidate Login';
+        currentUserType = 'candidate';
+        
+        phoneInput.type = 'tel';
+        phoneInput.pattern = '[0-9]{9}';
+        phoneInput.placeholder = '241234567';
+        
+        signupText.innerHTML = 'Don\'t have an account? <a href="signup.html">Sign up as Candidate</a>';
+      });
+
+      employerBtn.addEventListener('click', function() {
+        employerBtn.classList.add('active');
+        candidateBtn.classList.remove('active');
+        document.querySelector('h2').textContent = 'Employer Login';
+        currentUserType = 'employer';
+        
+        phoneInput.type = 'tel';
+        phoneInput.pattern = '[0-9]{9}';
+        phoneInput.placeholder = '241234567';
+        
+        signupText.innerHTML = 'Don\'t have an account? <a href="employer-signup.html">Sign up as Employer</a>';
+      });
+
+      // Handle login form submission
+      loginForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        errorMessage.classList.remove('show');
+        setLoadingState(true);
+
+        const phone = phoneInput.value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        // Updated validation for 9 digits (without leading zero)
+        if (phone.length !== 9) {
+          showError("Please enter a valid 9-digit phone number (without the first zero).");
+          setLoadingState(false);
+          return;
+        }
+
+        if (!password) {
+          showError("Please enter your password.");
+          setLoadingState(false);
+          return;
+        }
+
+        const delay = Math.random() * 1000 + 1000;
+        
+        setTimeout(() => {
+          // For validation, we'll prepend "0" to match the sample data format
+          const phoneWithZero = "0" + phone;
+          const userList = currentUserType === 'candidate' ? users.candidates : users.employers;
+          const userExists = userList.some(user => 
+            user.phone === phoneWithZero && user.password === password
+          );
+
+          if (userExists) {
+            setSuccessState(true);
+            
+            setTimeout(() => {
+              const dashboardPage = currentUserType === 'candidate' 
+                ? 'candidate/candidate-dashboard.html' 
+                : 'employer/employer/employer/employer-dashboard.html';
+              
+              // Clear browser history before redirecting to prevent back navigation
+              history.replaceState(null, '', dashboardPage);
+              window.location.replace(dashboardPage);
+            }, 1000);
+          } else {
+            setLoadingState(false);
+            showError();
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
           }
         });
 

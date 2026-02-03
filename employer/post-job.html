@@ -1216,6 +1216,7 @@
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
+<<<<<<< HEAD:post-job.html
       <div class="sidebar-header">
         <div class="logo">
           <div class="logo-img-placeholder">JA</div>
@@ -1223,6 +1224,19 @@
             <div class="logo-main">JobAssist</div>
             <div class="logo-sub">GHANA</div>
           </div>
+=======
+        <div class="sidebar-header">
+            <a href="../index.html" class="logo">
+                <div class="logo-img-placeholder">JA</div>
+                <div class="logo-text">
+                    <div class="logo-main">JobAssist</div>
+                    <div class="logo-sub">GHANA</div>
+                </div>
+            </a>
+            <button class="toggle-btn" id="sidebarToggle">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:employer/post-job.html
         </div>
         <button class="toggle-btn" id="sidebarToggle">
           <i class="fas fa-chevron-left"></i>
@@ -1304,6 +1318,7 @@
                 <div class="notification-content">
                   Payment for your last job post was successful
                 </div>
+<<<<<<< HEAD:post-job.html
                 <div class="notification-time">5 hours ago</div>
               </li>
               <li class="notification-item unread">
@@ -1323,6 +1338,210 @@
           <div class="user-profile" id="userProfile">
             <div class="user-avatar">
               <img src="https://i.pravatar.cc/150?img=5" alt="User" />
+=======
+
+                <form id="jobPostForm">
+                    <!-- Hidden input to store job type -->
+                    <input type="hidden" id="selectedJobType" value="standard">
+                    
+                    <!-- Job Details Section -->
+                    <div class="form-section">
+                        <h2 class="section-title"><i class="fas fa-briefcase"></i> Job Details</h2>
+                        
+                        <div class="form-group">
+                            <label for="jobTitle">Job Title <span class="required-asterisk">*</span></label>
+                            <input type="text" id="jobTitle" class="form-control" placeholder="e.g., Marketing Officer" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobDescription">Job Description <span class="required-asterisk">*</span></label>
+                            <textarea id="jobDescription" class="form-control" placeholder="Describe the role, responsibilities, and what makes your company a great place to work..." required></textarea>
+                            <div class="form-hint">Be specific about duties, expectations, and company culture</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobCategory">Category / Industry <span class="required-asterisk">*</span></label>
+                            <select id="jobCategory" class="form-control" required>
+                                <option value="">Select Category</option>
+                                <option value="IT">IT & Technology</option>
+                                <option value="Marketing">Marketing & Sales</option>
+                                <option value="Administration">Administration</option>
+                                <option value="Finance">Finance & Accounting</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Education">Education</option>
+                                <option value="Engineering">Engineering</option>
+                                <option value="Hospitality">Hospitality & Tourism</option>
+                                <option value="Manufacturing">Manufacturing</option>
+                                <option value="Retail">Retail</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Other Category Input -->
+                        <div class="form-group" id="otherCategoryGroup" style="display: none;">
+                            <label for="otherCategory">Please specify your industry <span class="required-asterisk">*</span></label>
+                            <input type="text" id="otherCategory" class="form-control" placeholder="Enter your specific industry">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobType">Job Type <span class="required-asterisk">*</span></label>
+                            <select id="jobType" class="form-control" required>
+                                <option value="">Select Type</option>
+                                <option value="Full-time">Full-time</option>
+                                <option value="Part-time">Part-time</option>
+                                <option value="Remote">Remote</option>
+                                <option value="Contract">Contract</option>
+                                <option value="Internship">Internship</option>
+                                <option value="Temporary">Temporary</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Location & Salary Section -->
+                    <div class="form-section">
+                        <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Location & Compensation</h2>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City <span class="required-asterisk">*</span></label>
+                                <input type="text" id="city" class="form-control" placeholder="e.g., Accra" required>
+                                <div class="form-hint">Start typing your city name</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="region">Region <span class="required-asterisk">*</span></label>
+                                <select id="region" class="form-control" required disabled>
+                                    <option value="">Select Region</option>
+                                    <option value="Greater Accra">Greater Accra</option>
+                                    <option value="Ashanti">Ashanti</option>
+                                    <option value="Western">Western</option>
+                                    <option value="Western North">Western North</option>
+                                    <option value="Central">Central</option>
+                                    <option value="Eastern">Eastern</option>
+                                    <option value="Volta">Volta</option>
+                                    <option value="Oti">Oti</option>
+                                    <option value="Bono">Bono</option>
+                                    <option value="Bono East">Bono East</option>
+                                    <option value="Ahafo">Ahafo</option>
+                                    <option value="Northern">Northern</option>
+                                    <option value="Savannah">Savannah</option>
+                                    <option value="North East">North East</option>
+                                    <option value="Upper East">Upper East</option>
+                                    <option value="Upper West">Upper West</option>
+                                </select>
+                                <div class="form-hint">Region will be auto-selected based on city</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="salaryRange">Salary Range <span class="required-asterisk">*</span></label>
+                            <select id="salaryRange" class="form-control" required>
+                                <option value="">Select Salary Range</option>
+                                <option value="₵1,000 - ₵1,500">₵1,000 - ₵1,500 per month</option>
+                                <option value="₵1,500 - ₵2,000">₵1,500 - ₵2,000 per month</option>
+                                <option value="₵2,000 - ₵2,500">₵2,000 - ₵2,500 per month</option>
+                                <option value="₵2,500 - ₵3,000">₵2,500 - ₵3,000 per month</option>
+                                <option value="₵3,000 - ₵3,500">₵3,000 - ₵3,500 per month</option>
+                                <option value="₵3,500 - ₵4,000">₵3,500 - ₵4,000 per month</option>
+                                <option value="₵4,000 - ₵4,500">₵4,000 - ₵4,500 per month</option>
+                                <option value="₵4,500 - ₵5,000">₵4,500 - ₵5,000 per month</option>
+                                <option value="₵5,000 - ₵6,000">₵5,000 - ₵6,000 per month</option>
+                                <option value="₵6,000 - ₵7,000">₵6,000 - ₵7,000 per month</option>
+                                <option value="₵7,000 - ₵8,000">₵7,000 - ₵8,000 per month</option>
+                                <option value="₵8,000 - ₵9,000">₵8,000 - ₵9,000 per month</option>
+                                <option value="₵9,000 - ₵10,000">₵9,000 - ₵10,000 per month</option>
+                                <option value="₵10,000+">₵10,000+ per month</option>
+                                <option value="Negotiable">Negotiable</option>
+                                <option value="Commission-based">Commission-based</option>
+                            </select>
+                            <div class="form-hint">Select the appropriate salary range for this position</div>
+                        </div>
+                    </div>
+
+                    <!-- Requirements Section -->
+                    <div class="form-section">
+                        <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Requirements & Qualifications</h2>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="experienceLevel">Experience Level <span class="required-asterisk">*</span></label>
+                                <select id="experienceLevel" class="form-control" required>
+                                    <option value="">Select Level</option>
+                                    <option value="Entry">Entry Level (0-2 years)</option>
+                                    <option value="Mid">Mid Level (2-5 years)</option>
+                                    <option value="Senior">Senior Level (5+ years)</option>
+                                    <option value="Executive">Executive Level</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="educationLevel">Education Level <span class="required-asterisk">*</span></label>
+                                <select id="educationLevel" class="form-control" required>
+                                    <option value="">Select Education</option>
+                                    <option value="High School">High School</option>
+                                    <option value="Diploma">Diploma</option>
+                                    <option value="Bachelor's Degree">Bachelor's Degree</option>
+                                    <option value="Master's Degree">Master's Degree</option>
+                                    <option value="PhD">PhD</option>
+                                    <option value="No Formal Education">No Formal Education Required</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="requirements">Specific Requirements & Skills</label>
+                            <textarea id="requirements" class="form-control" placeholder="List any specific skills, certifications, or qualifications required for this position..."></textarea>
+                            <div class="form-hint">Separate requirements with commas or bullet points</div>
+                        </div>
+                    </div>
+
+                    <!-- Application Details Section -->
+                    <div class="form-section">
+                        <h2 class="section-title"><i class="fas fa-clipboard-list"></i> Application Details</h2>
+                        
+                        <!-- Premium Deadline Notice -->
+                        <div class="premium-feature-notice" id="premiumDeadlineNotice" style="display: none;">
+                            <i class="fas fa-crown"></i>
+                            <strong>Premium Job Feature:</strong> Your job will remain active for 5 months. The application deadline is optional.
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="deadline">Application Deadline <span class="required-asterisk" id="deadlineRequired">*</span></label>
+                                <input type="date" id="deadline" class="form-control" required>
+                                <div class="premium-deadline-info" id="premiumDeadlineInfo" style="display: none;">
+                                    <i class="fas fa-calendar-check"></i> Your premium job will automatically expire after 5 months from the posting date.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="vacancies">Number of Vacancies</label>
+                                <input type="number" id="vacancies" class="form-control" placeholder="e.g., 2" min="1">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactEmail">Contact Email</label>
+                            <input type="email" id="contactEmail" class="form-control" placeholder="For receiving applications and candidate info">
+                            <div class="form-hint">Optional - some small businesses don't use email</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="applicationInstructions">Application Instructions (Optional)</label>
+                            <textarea id="applicationInstructions" class="form-control" placeholder="Any specific instructions for applicants..."></textarea>
+                            <div class="form-hint">E.g., "Include portfolio links" or "Mention reference code in subject"</div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <a href="employer/employer/employer-dashboard.html" class="btn btn-outline">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </a>
+                        <button type="submit" class="btn btn-accent" id="submitBtn">
+                            <div class="loading-spinner" id="buttonSpinner"></div>
+                            <span class="btn-text" id="submitButtonText">Proceed to Payment ₵100</span>
+                        </button>
+                    </div>
+                </form>
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:employer/post-job.html
             </div>
             <div class="user-name">Nana Kwame</div>
             <i class="fas fa-chevron-down"></i>

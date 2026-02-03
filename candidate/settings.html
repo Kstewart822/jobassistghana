@@ -1218,6 +1218,143 @@
           right: 8px;
         }
 
+<<<<<<< HEAD:settings.html
+=======
+        /* Modal Styles - EXACT SAME AS candidate/candidate-dashboard.html */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 450px;
+            padding: 18px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            border-top: 5px solid var(--secondary);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal-body {
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        /* Delete Animation Styles */
+        .delete-animation {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+        }
+
+        .delete-animation.show {
+            display: flex;
+        }
+
+        .delete-animation-content {
+            max-width: 400px;
+            padding: 30px;
+            animation: fadeInScale 0.5s ease;
+        }
+
+        .delete-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--danger);
+            animation: pulse 1.5s infinite;
+        }
+
+        .delete-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .delete-subtext {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Footer - Dark blue minimal footer */
+>>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/settings.html
         .footer {
           padding: 12px 15px 8px;
         }
