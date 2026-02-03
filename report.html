@@ -1,1034 +1,1150 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Report a Business | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png">
-    
+    <link rel="icon" type="image/png" href="tab-logo.png" />
+
     <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
     <style>
-        :root {
-            --primary: #0a2a66;
-            --primary-dark: #071e4d;
-            --secondary: #f8c12e;
-            --secondary-dark: #e6af1a;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gray: #64748b;
-            --gray-light: #e2e8f0;
-            --success: #10b981;
-            --danger: #ef4444;
-            --danger-dark: #c53030;
-            --warning: #f59e0b;
-            --info: #3b82f6;
+      :root {
+        --primary: #0a2a66;
+        --primary-dark: #071e4d;
+        --secondary: #f8c12e;
+        --secondary-dark: #e6af1a;
+        --light: #f8fafc;
+        --dark: #1e293b;
+        --gray: #64748b;
+        --gray-light: #e2e8f0;
+        --success: #10b981;
+        --danger: #ef4444;
+        --danger-dark: #c53030;
+        --warning: #f59e0b;
+        --info: #3b82f6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+        background-color: var(--light);
+      }
+
+      /* Header Styles */
+      .site-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        padding: 1rem 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: white;
+      }
+
+      .logo-img {
+        height: 40px;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-img img {
+        height: 100%;
+        width: auto;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--secondary);
+      }
+
+      .login-btn {
+        background: var(--secondary);
+        color: var(--primary);
+        padding: 8px 20px;
+        border-radius: 6px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .login-btn:hover {
+        background: var(--secondary-dark);
+        transform: translateY(-2px);
+      }
+
+      /* Main Content */
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* Page Header */
+      .page-header {
+        text-align: center;
+        margin: 3rem 0 2rem;
+      }
+
+      .page-header h1 {
+        color: var(--primary);
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header p {
+        color: var(--gray);
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Report Container */
+      .report-container {
+        background: white;
+        border-radius: 12px;
+        padding: 2.5rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Job Preview Section */
+      .job-preview-section {
+        background: rgba(10, 42, 102, 0.1);
+        border-left: 4px solid var(--primary);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .job-preview-section h3 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .job-preview-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+      }
+
+      .preview-item {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .preview-label {
+        font-size: 0.85rem;
+        color: var(--gray);
+        margin-bottom: 4px;
+        font-weight: 500;
+      }
+
+      .preview-value {
+        font-weight: 600;
+        color: var(--dark);
+        font-size: 1rem;
+      }
+
+      /* Anonymous Notice */
+      .anonymous-notice {
+        background: rgba(59, 130, 246, 0.1);
+        border-left: 4px solid var(--info);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .anonymous-notice h3 {
+        color: var(--info);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* Important Notice */
+      .important-notice {
+        background: rgba(239, 68, 68, 0.1);
+        border-left: 4px solid var(--danger);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .important-notice h3 {
+        color: var(--danger);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* Form Styles */
+      .form-group {
+        margin-bottom: 1.8rem;
+      }
+
+      label {
+        font-size: 14px;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 8px;
+        color: var(--primary);
+      }
+
+      .required {
+        color: var(--danger);
+      }
+
+      .field-note {
+        font-size: 0.85rem;
+        color: var(--gray);
+        margin-top: 4px;
+        font-style: italic;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--gray-light);
+        border-radius: 8px;
+        font-size: 15px;
+        font-family: "Segoe UI", sans-serif;
+        transition:
+          border 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      input[type="text"]:focus,
+      input[type="email"]:focus,
+      input[type="tel"]:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--secondary);
+        box-shadow: 0 0 0 3px rgba(248, 193, 46, 0.2);
+      }
+
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .radio-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-top: 10px;
+      }
+
+      .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+
+      .radio-option input[type="radio"] {
+        width: 18px;
+        height: 18px;
+      }
+
+      /* Checkbox for consent */
+      .checkbox-option {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: var(--light);
+        transition: background-color 0.3s ease;
+      }
+
+      .checkbox-option:hover {
+        background-color: rgba(10, 42, 102, 0.05);
+      }
+
+      .checkbox-option input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        margin-top: 3px;
+        flex-shrink: 0;
+      }
+
+      /* File Upload */
+      .file-upload {
+        border: 2px dashed var(--gray-light);
+        border-radius: 8px;
+        padding: 2rem;
+        text-align: center;
+        background: var(--light);
+        transition: border 0.3s ease;
+        cursor: pointer;
+      }
+
+      .file-upload:hover {
+        border-color: var(--secondary);
+      }
+
+      .file-upload i {
+        font-size: 2.5rem;
+        color: var(--gray);
+        margin-bottom: 1rem;
+      }
+
+      .file-upload p {
+        color: var(--gray);
+        margin-bottom: 0.5rem;
+      }
+
+      .file-upload span {
+        font-size: 0.9rem;
+        color: var(--gray);
+      }
+
+      /* Submit Button */
+      .submit-btn {
+        width: 100%;
+        padding: 16px;
+        background: #cccccc;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 1rem;
+      }
+
+      .submit-btn.enabled {
+        background: linear-gradient(135deg, var(--danger), var(--danger-dark));
+      }
+
+      .submit-btn.enabled:hover {
+        background: linear-gradient(135deg, #dc2626, #b91c1c);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+      }
+
+      .submit-btn:disabled {
+        background: #cccccc;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      /* Submission Animation Overlay */
+      .submission-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.98);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2.5rem;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.5s ease,
+          visibility 0.5s ease;
+      }
+
+      .submission-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .submission-icon {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2rem;
+        position: relative;
+        animation: scaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        animation-delay: 0.2s;
+        opacity: 0;
+      }
+
+      .submission-icon::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: rgba(10, 42, 102, 0.2);
+        animation: pulse 2s ease-out infinite;
+        animation-delay: 0.8s;
+      }
+
+      .submission-icon i {
+        font-size: 4rem;
+        color: white;
+        animation: bounceIn 0.8s ease forwards;
+        animation-delay: 0.4s;
+        opacity: 0;
+      }
+
+      .submission-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        text-align: center;
+        animation: fadeInUp 0.6s ease forwards;
+        animation-delay: 0.6s;
+        opacity: 0;
+      }
+
+      .submission-message {
+        font-size: 1.2rem;
+        color: var(--dark);
+        text-align: center;
+        margin-bottom: 3rem;
+        max-width: 600px;
+        line-height: 1.7;
+        animation: fadeInUp 0.6s ease forwards;
+        animation-delay: 0.8s;
+        opacity: 0;
+      }
+
+      .submission-message strong {
+        color: var(--primary);
+      }
+
+      /* Processing Animation */
+      .processing-animation {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2rem;
+        animation: fadeInUp 0.6s ease forwards;
+        animation-delay: 1s;
+        opacity: 0;
+      }
+
+      .processing-steps {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .processing-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        opacity: 0;
+      }
+
+      .processing-step-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: var(--gray-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.8rem;
+        position: relative;
+        transition: all 0.5s ease;
+      }
+
+      .processing-step.completed .processing-step-icon {
+        background: var(--success);
+        transform: scale(1.1);
+      }
+
+      .processing-step.active .processing-step-icon {
+        background: var(--secondary);
+        animation: pulseSmall 1.5s infinite;
+        transform: scale(1.1);
+      }
+
+      .processing-step-line {
+        width: 50px;
+        height: 4px;
+        background: var(--gray-light);
+        transition: all 0.5s ease;
+      }
+
+      .processing-step.completed ~ .processing-step-line {
+        background: var(--success);
+      }
+
+      .processing-step-text {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--gray);
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .processing-step.active .processing-step-text {
+        color: var(--primary);
+      }
+
+      .processing-step.completed .processing-step-text {
+        color: var(--success);
+      }
+
+      /* Serious Investigation Message */
+      .investigation-message {
+        background: rgba(10, 42, 102, 0.1);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-top: 2rem;
+        max-width: 600px;
+        text-align: center;
+        animation: fadeInUp 0.6s ease forwards;
+        animation-delay: 1.5s;
+        opacity: 0;
+      }
+
+      .investigation-message h4 {
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .investigation-message p {
+        color: var(--dark);
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+
+      /* Animation Keyframes */
+      @keyframes scaleIn {
+        0% {
+          transform: scale(0);
+          opacity: 0;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        70% {
+          transform: scale(1.1);
+          opacity: 1;
         }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background-color: var(--light);
+        100% {
+          transform: scale(1);
+          opacity: 1;
         }
-        
-        /* Header Styles */
-        .site-header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 0.5;
         }
-        
+        50% {
+          transform: scale(1.2);
+          opacity: 0.2;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0.5;
+        }
+      }
+
+      @keyframes pulseSmall {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(248, 193, 46, 0.4);
+        }
+        70% {
+          transform: scale(1.05);
+          box-shadow: 0 0 0 10px rgba(248, 193, 46, 0);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(248, 193, 46, 0);
+        }
+      }
+
+      @keyframes bounceIn {
+        0% {
+          transform: scale(0.3);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+        70% {
+          transform: scale(0.9);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes stepIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Footer */
+      .site-footer {
+        background: var(--primary);
+        color: white;
+        padding: 2rem 0;
+        margin-top: 3rem;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        text-align: center;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1rem;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: var(--secondary);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
         .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
         }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: white;
-        }
-        
-        .logo-img {
-            height: 40px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-img img {
-            height: 100%;
-            width: auto;
-        }
-        
+
         .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
+          gap: 1rem;
         }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-links a:hover {
-            color: var(--secondary);
-        }
-        
-        .login-btn {
-            background: var(--secondary);
-            color: var(--primary);
-            padding: 8px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .login-btn:hover {
-            background: var(--secondary-dark);
-            transform: translateY(-2px);
-        }
-        
-        /* Main Content */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* Page Header */
-        .page-header {
-            text-align: center;
-            margin: 3rem 0 2rem;
-        }
-        
+
         .page-header h1 {
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+          font-size: 2rem;
         }
-        
-        .page-header p {
-            color: var(--gray);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* Report Container */
+
         .report-container {
-            background: white;
-            border-radius: 12px;
-            padding: 2.5rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
+          padding: 1.5rem;
         }
-        
-        /* Job Preview Section */
-        .job-preview-section {
-            background: rgba(10, 42, 102, 0.1);
-            border-left: 4px solid var(--primary);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .job-preview-section h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .job-preview-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .preview-item {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .preview-label {
-            font-size: 0.85rem;
-            color: var(--gray);
-            margin-bottom: 4px;
-            font-weight: 500;
-        }
-        
-        .preview-value {
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 1rem;
-        }
-        
-        /* Anonymous Notice */
-        .anonymous-notice {
-            background: rgba(59, 130, 246, 0.1);
-            border-left: 4px solid var(--info);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .anonymous-notice h3 {
-            color: var(--info);
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        /* Important Notice */
-        .important-notice {
-            background: rgba(239, 68, 68, 0.1);
-            border-left: 4px solid var(--danger);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .important-notice h3 {
-            color: var(--danger);
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        /* Form Styles */
-        .form-group {
-            margin-bottom: 1.8rem;
-        }
-        
-        label {
-            font-size: 14px;
-            font-weight: 600;
-            display: block;
-            margin-bottom: 8px;
-            color: var(--primary);
-        }
-        
-        .required {
-            color: var(--danger);
-        }
-        
-        .field-note {
-            font-size: 0.85rem;
-            color: var(--gray);
-            margin-top: 4px;
-            font-style: italic;
-        }
-        
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--gray-light);
-            border-radius: 8px;
-            font-size: 15px;
-            font-family: 'Segoe UI', sans-serif;
-            transition: border 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="tel"]:focus,
-        textarea:focus,
-        select:focus {
-            outline: none;
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(248, 193, 46, 0.2);
-        }
-        
-        textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
+
         .radio-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-top: 10px;
+          flex-direction: column;
+          gap: 1rem;
         }
-        
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-        
-        .radio-option input[type="radio"] {
-            width: 18px;
-            height: 18px;
-        }
-        
-        /* Checkbox for consent */
-        .checkbox-option {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            cursor: pointer;
-            padding: 10px;
-            border-radius: 8px;
-            background-color: var(--light);
-            transition: background-color 0.3s ease;
-        }
-        
-        .checkbox-option:hover {
-            background-color: rgba(10, 42, 102, 0.05);
-        }
-        
-        .checkbox-option input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            margin-top: 3px;
-            flex-shrink: 0;
-        }
-        
-        /* File Upload */
-        .file-upload {
-            border: 2px dashed var(--gray-light);
-            border-radius: 8px;
-            padding: 2rem;
-            text-align: center;
-            background: var(--light);
-            transition: border 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .file-upload:hover {
-            border-color: var(--secondary);
-        }
-        
-        .file-upload i {
-            font-size: 2.5rem;
-            color: var(--gray);
-            margin-bottom: 1rem;
-        }
-        
-        .file-upload p {
-            color: var(--gray);
-            margin-bottom: 0.5rem;
-        }
-        
-        .file-upload span {
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-        
-        /* Submit Button */
-        .submit-btn {
-            width: 100%;
-            padding: 16px;
-            background: #cccccc;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 1rem;
-        }
-        
-        .submit-btn.enabled {
-            background: linear-gradient(135deg, var(--danger), var(--danger-dark));
-        }
-        
-        .submit-btn.enabled:hover {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-        }
-        
-        .submit-btn:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        /* Submission Animation Overlay */
-        .submission-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.98);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2.5rem;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-        
-        .submission-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .submission-icon {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 2rem;
-            position: relative;
-            animation: scaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-            animation-delay: 0.2s;
-            opacity: 0;
-        }
-        
-        .submission-icon::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: rgba(10, 42, 102, 0.2);
-            animation: pulse 2s ease-out infinite;
-            animation-delay: 0.8s;
-        }
-        
-        .submission-icon i {
-            font-size: 4rem;
-            color: white;
-            animation: bounceIn 0.8s ease forwards;
-            animation-delay: 0.4s;
-            opacity: 0;
-        }
-        
-        .submission-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            text-align: center;
-            animation: fadeInUp 0.6s ease forwards;
-            animation-delay: 0.6s;
-            opacity: 0;
-        }
-        
-        .submission-message {
-            font-size: 1.2rem;
-            color: var(--dark);
-            text-align: center;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            line-height: 1.7;
-            animation: fadeInUp 0.6s ease forwards;
-            animation-delay: 0.8s;
-            opacity: 0;
-        }
-        
-        .submission-message strong {
-            color: var(--primary);
-        }
-        
-        /* Processing Animation */
-        .processing-animation {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.6s ease forwards;
-            animation-delay: 1s;
-            opacity: 0;
-        }
-        
-        .processing-steps {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .processing-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            opacity: 0;
-        }
-        
-        .processing-step-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: var(--gray-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.8rem;
-            position: relative;
-            transition: all 0.5s ease;
-        }
-        
-        .processing-step.completed .processing-step-icon {
-            background: var(--success);
-            transform: scale(1.1);
-        }
-        
-        .processing-step.active .processing-step-icon {
-            background: var(--secondary);
-            animation: pulseSmall 1.5s infinite;
-            transform: scale(1.1);
-        }
-        
-        .processing-step-line {
-            width: 50px;
-            height: 4px;
-            background: var(--gray-light);
-            transition: all 0.5s ease;
-        }
-        
-        .processing-step.completed ~ .processing-step-line {
-            background: var(--success);
-        }
-        
-        .processing-step-text {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--gray);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .processing-step.active .processing-step-text {
-            color: var(--primary);
-        }
-        
-        .processing-step.completed .processing-step-text {
-            color: var(--success);
-        }
-        
-        /* Serious Investigation Message */
-        .investigation-message {
-            background: rgba(10, 42, 102, 0.1);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            max-width: 600px;
-            text-align: center;
-            animation: fadeInUp 0.6s ease forwards;
-            animation-delay: 1.5s;
-            opacity: 0;
-        }
-        
-        .investigation-message h4 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .investigation-message p {
-            color: var(--dark);
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-        
-        /* Animation Keyframes */
-        @keyframes scaleIn {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            70% {
-                transform: scale(1.1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.5;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 0.2;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0.5;
-            }
-        }
-        
-        @keyframes pulseSmall {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(248, 193, 46, 0.4);
-            }
-            70% {
-                transform: scale(1.05);
-                box-shadow: 0 0 0 10px rgba(248, 193, 46, 0);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(248, 193, 46, 0);
-            }
-        }
-        
-        @keyframes bounceIn {
-            0% {
-                transform: scale(0.3);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 1;
-            }
-            70% {
-                transform: scale(0.9);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes stepIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Footer */
-        .site-footer {
-            background: var(--primary);
-            color: white;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-        
+
         .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1rem;
+          flex-direction: column;
+          gap: 1rem;
         }
-        
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
+
+        .submission-icon {
+          width: 100px;
+          height: 100px;
         }
-        
-        .footer-links a:hover {
-            color: var(--secondary);
+
+        .submission-icon i {
+          font-size: 3rem;
         }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-            
-            .nav-links {
-                gap: 1rem;
-            }
-            
-            .page-header h1 {
-                font-size: 2rem;
-            }
-            
-            .report-container {
-                padding: 1.5rem;
-            }
-            
-            .radio-group {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .submission-icon {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .submission-icon i {
-                font-size: 3rem;
-            }
-            
-            .submission-title {
-                font-size: 2rem;
-            }
-            
-            .submission-message {
-                font-size: 1.1rem;
-            }
-            
-            .processing-steps {
-                gap: 30px;
-            }
-            
-            .processing-step-icon {
-                width: 60px;
-                height: 60px;
-                font-size: 1.5rem;
-            }
-            
-            .processing-step-line {
-                width: 30px;
-            }
-            
-            .job-preview-info {
-                grid-template-columns: 1fr;
-            }
+
+        .submission-title {
+          font-size: 2rem;
         }
-        
-        @media (max-width: 480px) {
-            .page-header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .report-container {
-                padding: 1rem;
-            }
-            
-            .file-upload {
-                padding: 1.5rem;
-            }
-            
-            .submission-title {
-                font-size: 1.8rem;
-            }
-            
-            .submission-message {
-                font-size: 1rem;
-            }
-            
-            .processing-steps {
-                gap: 20px;
-            }
-            
-            .processing-step-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
-            
-            .processing-step-line {
-                width: 20px;
-            }
-            
-            .processing-step-text {
-                font-size: 0.9rem;
-            }
+
+        .submission-message {
+          font-size: 1.1rem;
         }
+
+        .processing-steps {
+          gap: 30px;
+        }
+
+        .processing-step-icon {
+          width: 60px;
+          height: 60px;
+          font-size: 1.5rem;
+        }
+
+        .processing-step-line {
+          width: 30px;
+        }
+
+        .job-preview-info {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .page-header h1 {
+          font-size: 1.8rem;
+        }
+
+        .report-container {
+          padding: 1rem;
+        }
+
+        .file-upload {
+          padding: 1.5rem;
+        }
+
+        .submission-title {
+          font-size: 1.8rem;
+        }
+
+        .submission-message {
+          font-size: 1rem;
+        }
+
+        .processing-steps {
+          gap: 20px;
+        }
+
+        .processing-step-icon {
+          width: 50px;
+          height: 50px;
+          font-size: 1.2rem;
+        }
+
+        .processing-step-line {
+          width: 20px;
+        }
+
+        .processing-step-text {
+          font-size: 0.9rem;
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header class="site-header">
-        <div class="header-content">
-            <a href="index.html" class="logo">
-                <div class="logo-img">
-                    <img src="logo.png" alt="Job Assist Ghana">
-                </div>
-            </a>
-            
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="login.html" class="login-btn">Login</a>
-            </div>
+      <div class="header-content">
+        <a href="index.html" class="logo">
+          <div class="logo-img">
+            <img src="logo.png" alt="Job Assist Ghana" />
+          </div>
+        </a>
+
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="login.html" class="login-btn">Login</a>
         </div>
+      </div>
     </header>
 
     <div class="container">
-        <div class="page-header">
-            <h1>Report a Business/Company</h1>
-            <p>Help us maintain a safe and trustworthy job platform by reporting suspicious or fraudulent activities</p>
+      <div class="page-header">
+        <h1>Report a Business/Company</h1>
+        <p>
+          Help us maintain a safe and trustworthy job platform by reporting
+          suspicious or fraudulent activities
+        </p>
+      </div>
+
+      <div class="report-container">
+        <!-- Job Preview Section -->
+        <div
+          class="job-preview-section"
+          id="jobPreviewSection"
+          style="display: none"
+        >
+          <h3><i class="fas fa-file-alt"></i> Reporting this Job/Business:</h3>
+          <div class="job-preview-info" id="jobPreviewInfo">
+            <!-- Job information will be dynamically inserted here -->
+          </div>
+          <p style="margin-top: 10px; font-size: 0.9rem; color: var(--gray)">
+            <i class="fas fa-info-circle"></i> Job/business details are
+            pre-filled from your report. You only need to provide your
+            information and report details.
+          </p>
         </div>
-        
-        <div class="report-container">
-            <!-- Job Preview Section -->
-            <div class="job-preview-section" id="jobPreviewSection" style="display: none;">
-                <h3><i class="fas fa-file-alt"></i> Reporting this Job/Business:</h3>
-                <div class="job-preview-info" id="jobPreviewInfo">
-                    <!-- Job information will be dynamically inserted here -->
-                </div>
-                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--gray);">
-                    <i class="fas fa-info-circle"></i> Job/business details are pre-filled from your report. You only need to provide your information and report details.
-                </p>
-            </div>
-            
-            <!-- Anonymous Notice -->
-            <div class="anonymous-notice">
-                <h3><i class="fas fa-user-secret"></i> Anonymous Reporting</h3>
-                <p>This report is <strong>completely anonymous</strong>. We do not require or store your personal name. Your identity will be protected throughout the investigation process.</p>
-            </div>
-            
-            <!-- Important Notice -->
-            <div class="important-notice">
-                <h3><i class="fas fa-exclamation-triangle"></i> Important Information</h3>
-                <p>This reporting system is for <strong>suspected fraudulent activities, scams, or unethical business practices</strong> only. All reports are taken seriously and investigated according to Ghanaian laws including the <strong>Labour Act, 2003 (Act 651)</strong> and <strong>Electronic Transactions Act, 2008 (Act 772)</strong>.</p>
-            </div>
-            
-            <!-- Report Form -->
-            <form id="reportForm">
-                <!-- Your Information - ANONYMOUS -->
-                <div class="form-group">
-                    <label for="reporter-phone">Your Phone Number <span class="required">*</span></label>
-                    <input type="tel" id="reporter-phone" placeholder="Enter your phone number" required>
-                    <div class="field-note">We need your phone number so we can reach you if we need to follow up on your report. Your phone number will be kept confidential.</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="reporter-email">Your Email Address (Optional)</label>
-                    <input type="email" id="reporter-email" placeholder="Enter your email address (optional)">
-                </div>
-                
-                <!-- Business Information (Pre-filled from job details) -->
-                <div class="form-group">
-                    <label for="business-name">Business/Company Name <span class="required">*</span></label>
-                    <input type="text" id="business-name" placeholder="Business/company name" required readonly style="background-color: var(--light);">
-                </div>
-                
-                <div class="form-group">
-                    <label for="business-contact">Business Contact Information</label>
-                    <input type="text" id="business-contact" placeholder="Business contact information" readonly style="background-color: var(--light);">
-                </div>
-                
-                <!-- Report Type -->
-                <div class="form-group">
-                    <label>Type of Report <span class="required">*</span></label>
-                    <div class="radio-group">
-                        <label class="radio-option">
-                            <input type="radio" name="report-type" value="scam" required>
-                            <span>Suspected Scam/Fraud</span>
-                        </label>
-                        <label class="radio-option">
-                            <input type="radio" name="report-type" value="fake-job">
-                            <span>Fake Job Posting</span>
-                        </label>
-                        <label class="radio-option">
-                            <input type="radio" name="report-type" value="unethical">
-                            <span>Unethical Business Practices</span>
-                        </label>
-                        <label class="radio-option">
-                            <input type="radio" name="report-type" value="harassment">
-                            <span>Harassment/Discrimination</span>
-                        </label>
-                        <label class="radio-option">
-                            <input type="radio" name="report-type" value="other">
-                            <span>Other Issue</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <!-- Incident Details -->
-                <div class="form-group">
-                    <label for="incident-details">Incident Details <span class="required">*</span></label>
-                    <textarea id="incident-details" placeholder="Please provide detailed information about what happened, including dates, communication, and any evidence you have..." required></textarea>
-                    <small style="color: var(--gray); font-size: 0.9rem;">Be as specific as possible. Include dates, names, communication methods, and what was promised vs. what was delivered.</small>
-                </div>
-                
-                <!-- Evidence Upload -->
-                <div class="form-group">
-                    <label>Evidence (Optional but Recommended)</label>
-                    <p style="color: var(--gray); margin-bottom: 10px; font-size: 0.95rem;">Upload screenshots, emails, documents, or other evidence that supports your report.</p>
-                    
-                    <div class="file-upload" id="fileUploadArea">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Drag & drop files here or click to browse</p>
-                        <span>Maximum file size: 5MB each (Images, PDF, DOC)</span>
-                        <input type="file" id="evidence-files" multiple style="display: none;">
-                    </div>
-                    <div id="fileList" style="margin-top: 10px;"></div>
-                </div>
-                
-                <!-- Action Requested -->
-                <div class="form-group">
-                    <label for="action-requested">What action would you like us to take? <span class="required">*</span></label>
-                    <select id="action-requested" required>
-                        <option value="">Select preferred action</option>
-                        <option value="investigate">Investigate the business</option>
-                        <option value="remove">Remove from platform</option>
-                        <option value="warning">Issue warning to business</option>
-                        <option value="legal">Forward to legal authorities</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                
-                <!-- Consent -->
-                <div class="form-group">
-                    <label class="checkbox-option">
-                        <input type="checkbox" id="consent" required>
-                        <span>I understand that this anonymous report will be investigated and I may be contacted for additional information. I confirm that the information provided is accurate to the best of my knowledge. <span class="required">*</span></span>
-                    </label>
-                </div>
-                
-                <!-- Submit Button -->
-                <button type="submit" class="submit-btn" id="submitReportBtn" disabled>
-                    <i class="fas fa-flag"></i> Submit Anonymous Report
-                </button>
-            </form>
+
+        <!-- Anonymous Notice -->
+        <div class="anonymous-notice">
+          <h3><i class="fas fa-user-secret"></i> Anonymous Reporting</h3>
+          <p>
+            This report is <strong>completely anonymous</strong>. We do not
+            require or store your personal name. Your identity will be protected
+            throughout the investigation process.
+          </p>
         </div>
+
+        <!-- Important Notice -->
+        <div class="important-notice">
+          <h3>
+            <i class="fas fa-exclamation-triangle"></i> Important Information
+          </h3>
+          <p>
+            This reporting system is for
+            <strong
+              >suspected fraudulent activities, scams, or unethical business
+              practices</strong
+            >
+            only. All reports are taken seriously and investigated according to
+            Ghanaian laws including the
+            <strong>Labour Act, 2003 (Act 651)</strong> and
+            <strong>Electronic Transactions Act, 2008 (Act 772)</strong>.
+          </p>
+        </div>
+
+        <!-- Report Form -->
+        <form id="reportForm">
+          <!-- Your Information - ANONYMOUS -->
+          <div class="form-group">
+            <label for="reporter-phone"
+              >Your Phone Number <span class="required">*</span></label
+            >
+            <input
+              type="tel"
+              id="reporter-phone"
+              placeholder="Enter your phone number"
+              required
+            />
+            <div class="field-note">
+              We need your phone number so we can reach you if we need to follow
+              up on your report. Your phone number will be kept confidential.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="reporter-email">Your Email Address (Optional)</label>
+            <input
+              type="email"
+              id="reporter-email"
+              placeholder="Enter your email address (optional)"
+            />
+          </div>
+
+          <!-- Business Information (Pre-filled from job details) -->
+          <div class="form-group">
+            <label for="business-name"
+              >Business/Company Name <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="business-name"
+              placeholder="Business/company name"
+              required
+              readonly
+              style="background-color: var(--light)"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="business-contact">Business Contact Information</label>
+            <input
+              type="text"
+              id="business-contact"
+              placeholder="Business contact information"
+              readonly
+              style="background-color: var(--light)"
+            />
+          </div>
+
+          <!-- Report Type -->
+          <div class="form-group">
+            <label>Type of Report <span class="required">*</span></label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="report-type" value="scam" required />
+                <span>Suspected Scam/Fraud</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="report-type" value="fake-job" />
+                <span>Fake Job Posting</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="report-type" value="unethical" />
+                <span>Unethical Business Practices</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="report-type" value="harassment" />
+                <span>Harassment/Discrimination</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="report-type" value="other" />
+                <span>Other Issue</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Incident Details -->
+          <div class="form-group">
+            <label for="incident-details"
+              >Incident Details <span class="required">*</span></label
+            >
+            <textarea
+              id="incident-details"
+              placeholder="Please provide detailed information about what happened, including dates, communication, and any evidence you have..."
+              required
+            ></textarea>
+            <small style="color: var(--gray); font-size: 0.9rem"
+              >Be as specific as possible. Include dates, names, communication
+              methods, and what was promised vs. what was delivered.</small
+            >
+          </div>
+
+          <!-- Evidence Upload -->
+          <div class="form-group">
+            <label>Evidence (Optional but Recommended)</label>
+            <p
+              style="
+                color: var(--gray);
+                margin-bottom: 10px;
+                font-size: 0.95rem;
+              "
+            >
+              Upload screenshots, emails, documents, or other evidence that
+              supports your report.
+            </p>
+
+            <div class="file-upload" id="fileUploadArea">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Drag & drop files here or click to browse</p>
+              <span>Maximum file size: 5MB each (Images, PDF, DOC)</span>
+              <input
+                type="file"
+                id="evidence-files"
+                multiple
+                style="display: none"
+              />
+            </div>
+            <div id="fileList" style="margin-top: 10px"></div>
+          </div>
+
+          <!-- Action Requested -->
+          <div class="form-group">
+            <label for="action-requested"
+              >What action would you like us to take?
+              <span class="required">*</span></label
+            >
+            <select id="action-requested" required>
+              <option value="">Select preferred action</option>
+              <option value="investigate">Investigate the business</option>
+              <option value="remove">Remove from platform</option>
+              <option value="warning">Issue warning to business</option>
+              <option value="legal">Forward to legal authorities</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <!-- Consent -->
+          <div class="form-group">
+            <label class="checkbox-option">
+              <input type="checkbox" id="consent" required />
+              <span
+                >I understand that this anonymous report will be investigated
+                and I may be contacted for additional information. I confirm
+                that the information provided is accurate to the best of my
+                knowledge. <span class="required">*</span></span
+              >
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            class="submit-btn"
+            id="submitReportBtn"
+            disabled
+          >
+            <i class="fas fa-flag"></i> Submit Anonymous Report
+          </button>
+        </form>
+      </div>
     </div>
 
     <!-- Submission Animation Overlay -->
     <div class="submission-overlay" id="submissionOverlay">
-        <div class="submission-icon">
-            <i class="fas fa-shield-alt"></i>
-        </div>
-        <h2 class="submission-title">Report Submitted Successfully!</h2>
-        <p class="submission-message">
-            <strong>Thank you for your courage in reporting this issue.</strong><br><br>
-            Your report has been received and is now entering our investigation process.
-        </p>
-        
-        <div class="processing-animation">
-            <div class="processing-steps">
-                <div class="processing-step" id="step1">
-                    <div class="processing-step-icon">
-                        <i class="fas fa-check"></i>
-                    </div>
-                    <div class="processing-step-text">Report Received</div>
-                </div>
-                
-                <div class="processing-step-line"></div>
-                
-                <div class="processing-step" id="step2">
-                    <div class="processing-step-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <div class="processing-step-text">Under Review</div>
-                </div>
+      <div class="submission-icon">
+        <i class="fas fa-shield-alt"></i>
+      </div>
+      <h2 class="submission-title">Report Submitted Successfully!</h2>
+      <p class="submission-message">
+        <strong>Thank you for your courage in reporting this issue.</strong
+        ><br /><br />
+        Your report has been received and is now entering our investigation
+        process.
+      </p>
+
+      <div class="processing-animation">
+        <div class="processing-steps">
+          <div class="processing-step" id="step1">
+            <div class="processing-step-icon">
+              <i class="fas fa-check"></i>
             </div>
+            <div class="processing-step-text">Report Received</div>
+          </div>
+
+          <div class="processing-step-line"></div>
+
+          <div class="processing-step" id="step2">
+            <div class="processing-step-icon">
+              <i class="fas fa-search"></i>
+            </div>
+            <div class="processing-step-text">Under Review</div>
+          </div>
         </div>
-        
-        <div class="investigation-message">
-            <h4><i class="fas fa-gavel"></i> Investigation in Progress</h4>
-            <p>
-                Our team will conduct a thorough review of your report. This process ensures we take appropriate action while maintaining fairness and due process. 
-                Investigations may take time as we gather all necessary information and follow proper procedures.
-            </p>
-        </div>
-        
-        <p class="submission-message" style="font-size: 1rem; color: var(--gray); margin-top: 2rem;">
-            You will be redirected to browse jobs in a moment...
+      </div>
+
+      <div class="investigation-message">
+        <h4><i class="fas fa-gavel"></i> Investigation in Progress</h4>
+        <p>
+          Our team will conduct a thorough review of your report. This process
+          ensures we take appropriate action while maintaining fairness and due
+          process. Investigations may take time as we gather all necessary
+          information and follow proper procedures.
         </p>
+      </div>
+
+      <p
+        class="submission-message"
+        style="font-size: 1rem; color: var(--gray); margin-top: 2rem"
+      >
+        You will be redirected to browse jobs in a moment...
+      </p>
     </div>
 
     <footer class="site-footer">
-        <div class="footer-content">
-            <p>© 2025 Job Assist Ghana. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms & Conditions</a>
-                <a href="contact.html">Contact Us</a>
-            </div>
-            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-                Committed to maintaining a safe and trustworthy job platform
-            </p>
+      <div class="footer-content">
+        <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms & Conditions</a>
+          <a href="contact.html">Contact Us</a>
         </div>
+        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8">
+          Committed to maintaining a safe and trustworthy job platform
+        </p>
+      </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get job data from URL parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            const jobDataParam = urlParams.get('job');
-            
-            let jobData = null;
-            
-            if (jobDataParam) {
-                try {
-                    jobData = JSON.parse(decodeURIComponent(jobDataParam));
-                    
-                    // Show job preview section
-                    document.getElementById('jobPreviewSection').style.display = 'block';
-                    
-                    // Update job preview information
-                    const jobPreviewInfo = document.getElementById('jobPreviewInfo');
-                    jobPreviewInfo.innerHTML = `
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get job data from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const jobDataParam = urlParams.get("job");
+
+        let jobData = null;
+
+        if (jobDataParam) {
+          try {
+            jobData = JSON.parse(decodeURIComponent(jobDataParam));
+
+            // Show job preview section
+            document.getElementById("jobPreviewSection").style.display =
+              "block";
+
+            // Update job preview information
+            const jobPreviewInfo = document.getElementById("jobPreviewInfo");
+            jobPreviewInfo.innerHTML = `
                         <div class="preview-item">
                             <div class="preview-label">Job Title</div>
                             <div class="preview-value">${jobData.title}</div>
@@ -1042,265 +1158,299 @@
                             <div class="preview-value">${jobData.id}</div>
                         </div>
                     `;
-                    
-                    // Pre-fill business information in the form
-                    document.getElementById('business-name').value = jobData.company;
-                    
-                    if (jobData.contactEmail) {
-                        document.getElementById('business-contact').value = jobData.contactEmail;
-                    }
-                    
-                } catch (error) {
-                    console.error('Error parsing job data:', error);
-                }
-            } else {
-                // If no job data, set business name as required text field
-                const businessNameInput = document.getElementById('business-name');
-                businessNameInput.readOnly = false;
-                businessNameInput.style.backgroundColor = 'white';
-                businessNameInput.placeholder = 'Enter business/company name';
+
+            // Pre-fill business information in the form
+            document.getElementById("business-name").value = jobData.company;
+
+            if (jobData.contactEmail) {
+              document.getElementById("business-contact").value =
+                jobData.contactEmail;
             }
-            
-            // File upload functionality
-            const fileUploadArea = document.getElementById('fileUploadArea');
-            const fileInput = document.getElementById('evidence-files');
-            const fileList = document.getElementById('fileList');
-            const reportForm = document.getElementById('reportForm');
-            const submitBtn = document.getElementById('submitReportBtn');
-            const submissionOverlay = document.getElementById('submissionOverlay');
-            
-            let uploadedFiles = [];
-            
-            // File upload click event
-            fileUploadArea.addEventListener('click', () => {
-                fileInput.click();
-            });
-            
-            // File input change event
-            fileInput.addEventListener('change', (e) => {
-                handleFiles(e.target.files);
-            });
-            
-            // Drag and drop functionality
-            fileUploadArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                fileUploadArea.style.borderColor = 'var(--secondary)';
-                fileUploadArea.style.backgroundColor = 'rgba(248, 193, 46, 0.05)';
-            });
-            
-            fileUploadArea.addEventListener('dragleave', (e) => {
-                e.preventDefault();
-                fileUploadArea.style.borderColor = 'var(--gray-light)';
-                fileUploadArea.style.backgroundColor = 'var(--light)';
-            });
-            
-            fileUploadArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                fileUploadArea.style.borderColor = 'var(--gray-light)';
-                fileUploadArea.style.backgroundColor = 'var(--light)';
-                
-                if (e.dataTransfer.files.length) {
-                    handleFiles(e.dataTransfer.files);
-                }
-            });
-            
-            // Handle uploaded files
-            function handleFiles(files) {
-                for (let i = 0; i < files.length; i++) {
-                    const file = files[i];
-                    
-                    // Check file size (5MB limit)
-                    if (file.size > 5 * 1024 * 1024) {
-                        alert(`File "${file.name}" exceeds the 5MB size limit and was not uploaded.`);
-                        continue;
-                    }
-                    
-                    // Check file type
-                    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-                    if (!allowedTypes.includes(file.type)) {
-                        alert(`File "${file.name}" is not an allowed file type. Please upload images, PDF, or DOC files only.`);
-                        continue;
-                    }
-                    
-                    uploadedFiles.push(file);
-                    displayFile(file);
-                }
-                
-                // Reset file input
-                fileInput.value = '';
+          } catch (error) {
+            console.error("Error parsing job data:", error);
+          }
+        } else {
+          // If no job data, set business name as required text field
+          const businessNameInput = document.getElementById("business-name");
+          businessNameInput.readOnly = false;
+          businessNameInput.style.backgroundColor = "white";
+          businessNameInput.placeholder = "Enter business/company name";
+        }
+
+        // File upload functionality
+        const fileUploadArea = document.getElementById("fileUploadArea");
+        const fileInput = document.getElementById("evidence-files");
+        const fileList = document.getElementById("fileList");
+        const reportForm = document.getElementById("reportForm");
+        const submitBtn = document.getElementById("submitReportBtn");
+        const submissionOverlay = document.getElementById("submissionOverlay");
+
+        let uploadedFiles = [];
+
+        // File upload click event
+        fileUploadArea.addEventListener("click", () => {
+          fileInput.click();
+        });
+
+        // File input change event
+        fileInput.addEventListener("change", (e) => {
+          handleFiles(e.target.files);
+        });
+
+        // Drag and drop functionality
+        fileUploadArea.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          fileUploadArea.style.borderColor = "var(--secondary)";
+          fileUploadArea.style.backgroundColor = "rgba(248, 193, 46, 0.05)";
+        });
+
+        fileUploadArea.addEventListener("dragleave", (e) => {
+          e.preventDefault();
+          fileUploadArea.style.borderColor = "var(--gray-light)";
+          fileUploadArea.style.backgroundColor = "var(--light)";
+        });
+
+        fileUploadArea.addEventListener("drop", (e) => {
+          e.preventDefault();
+          fileUploadArea.style.borderColor = "var(--gray-light)";
+          fileUploadArea.style.backgroundColor = "var(--light)";
+
+          if (e.dataTransfer.files.length) {
+            handleFiles(e.dataTransfer.files);
+          }
+        });
+
+        // Handle uploaded files
+        function handleFiles(files) {
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+
+            // Check file size (5MB limit)
+            if (file.size > 5 * 1024 * 1024) {
+              alert(
+                `File "${file.name}" exceeds the 5MB size limit and was not uploaded.`,
+              );
+              continue;
             }
-            
-            // Display uploaded file
-            function displayFile(file) {
-                const fileItem = document.createElement('div');
-                fileItem.style.display = 'flex';
-                fileItem.style.alignItems = 'center';
-                fileItem.style.gap = '10px';
-                fileItem.style.padding = '8px';
-                fileItem.style.backgroundColor = 'var(--light)';
-                fileItem.style.borderRadius = '6px';
-                fileItem.style.marginBottom = '8px';
-                
-                // File icon based on type
-                let icon = 'fa-file';
-                if (file.type.startsWith('image/')) icon = 'fa-file-image';
-                else if (file.type === 'application/pdf') icon = 'fa-file-pdf';
-                else if (file.type.includes('word')) icon = 'fa-file-word';
-                
-                fileItem.innerHTML = `
+
+            // Check file type
+            const allowedTypes = [
+              "image/jpeg",
+              "image/png",
+              "image/gif",
+              "application/pdf",
+              "application/msword",
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            ];
+            if (!allowedTypes.includes(file.type)) {
+              alert(
+                `File "${file.name}" is not an allowed file type. Please upload images, PDF, or DOC files only.`,
+              );
+              continue;
+            }
+
+            uploadedFiles.push(file);
+            displayFile(file);
+          }
+
+          // Reset file input
+          fileInput.value = "";
+        }
+
+        // Display uploaded file
+        function displayFile(file) {
+          const fileItem = document.createElement("div");
+          fileItem.style.display = "flex";
+          fileItem.style.alignItems = "center";
+          fileItem.style.gap = "10px";
+          fileItem.style.padding = "8px";
+          fileItem.style.backgroundColor = "var(--light)";
+          fileItem.style.borderRadius = "6px";
+          fileItem.style.marginBottom = "8px";
+
+          // File icon based on type
+          let icon = "fa-file";
+          if (file.type.startsWith("image/")) icon = "fa-file-image";
+          else if (file.type === "application/pdf") icon = "fa-file-pdf";
+          else if (file.type.includes("word")) icon = "fa-file-word";
+
+          fileItem.innerHTML = `
                     <i class="fas ${icon}" style="color: var(--primary);"></i>
                     <span style="flex: 1; font-size: 0.9rem;">${file.name} (${formatFileSize(file.size)})</span>
                     <button type="button" class="remove-file" style="background: none; border: none; color: var(--danger); cursor: pointer;">
                         <i class="fas fa-times"></i>
                     </button>
                 `;
-                
-                fileList.appendChild(fileItem);
-                
-                // Add remove functionality
-                const removeBtn = fileItem.querySelector('.remove-file');
-                removeBtn.addEventListener('click', () => {
-                    uploadedFiles = uploadedFiles.filter(f => f !== file);
-                    fileItem.remove();
-                });
-            }
-            
-            // Format file size
-            function formatFileSize(bytes) {
-                if (bytes < 1024) return bytes + ' bytes';
-                else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-                else return (bytes / 1048576).toFixed(1) + ' MB';
-            }
-            
-            // Form validation function
-            function validateForm() {
-                const phone = document.getElementById('reporter-phone').value.trim();
-                const businessName = document.getElementById('business-name').value.trim();
-                const reportType = document.querySelector('input[name="report-type"]:checked');
-                const incidentDetails = document.getElementById('incident-details').value.trim();
-                const actionRequested = document.getElementById('action-requested').value;
-                const consent = document.getElementById('consent').checked;
-                
-                // Check all required fields
-                if (phone && businessName && reportType && incidentDetails && actionRequested && consent) {
-                    submitBtn.disabled = false;
-                    submitBtn.classList.add('enabled');
-                } else {
-                    submitBtn.disabled = true;
-                    submitBtn.classList.remove('enabled');
-                }
-            }
-            
-            // Add event listeners to all required fields
-            const requiredFields = [
-                document.getElementById('reporter-phone'),
-                document.getElementById('business-name'),
-                document.getElementById('incident-details'),
-                document.getElementById('action-requested'),
-                document.getElementById('consent')
-            ];
-            
-            // Add event listeners to radio buttons
-            const reportTypeRadios = document.querySelectorAll('input[name="report-type"]');
-            reportTypeRadios.forEach(radio => {
-                radio.addEventListener('change', validateForm);
-            });
-            
-            // Add event listeners to required fields
-            requiredFields.forEach(field => {
-                if (field.type === 'checkbox') {
-                    field.addEventListener('change', validateForm);
-                } else {
-                    field.addEventListener('input', validateForm);
-                }
-            });
-            
-            // Form submission
-            reportForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Basic validation
-                const requiredFields = reportForm.querySelectorAll('[required]');
-                let isValid = true;
-                
-                requiredFields.forEach(field => {
-                    if (field.type === 'checkbox' && !field.checked) {
-                        isValid = false;
-                        field.parentElement.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
-                    } else if (field.type !== 'checkbox' && !field.value.trim()) {
-                        isValid = false;
-                        field.style.borderColor = 'var(--danger)';
-                    } else {
-                        if (field.type === 'checkbox') {
-                            field.parentElement.style.backgroundColor = '';
-                        } else {
-                            field.style.borderColor = '';
-                        }
-                    }
-                });
-                
-                if (!isValid) {
-                    alert('Please fill in all required fields marked with *');
-                    return;
-                }
-                
-                // Disable submit button and show loading
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting Report...';
-                
-                // Simulate API call/processing delay
-                setTimeout(() => {
-                    // Prepare report data
-                    const reportData = {
-                        reporterPhone: document.getElementById('reporter-phone').value,
-                        reporterEmail: document.getElementById('reporter-email').value,
-                        businessName: document.getElementById('business-name').value,
-                        businessContact: document.getElementById('business-contact').value,
-                        reportType: document.querySelector('input[name="report-type"]:checked').value,
-                        incidentDetails: document.getElementById('incident-details').value,
-                        actionRequested: document.getElementById('action-requested').value,
-                        evidenceFiles: uploadedFiles.length,
-                        originalJobData: jobData,
-                        submittedAt: new Date().toISOString()
-                    };
-                    
-                    // In a real application, you would send this data to your server
-                    console.log('Anonymous report submitted:', reportData);
-                    
-                    // Show submission animation overlay
-                    submissionOverlay.classList.add('active');
-                    
-                    // Animate processing steps
-                    setTimeout(() => {
-                        document.getElementById('step1').classList.add('completed');
-                        document.getElementById('step1').style.animation = 'stepIn 0.5s ease forwards';
-                        document.getElementById('step1').style.opacity = '1';
-                        
-                        setTimeout(() => {
-                            document.getElementById('step2').classList.add('active');
-                            document.getElementById('step2').style.animation = 'stepIn 0.5s ease forwards';
-                            document.getElementById('step2').style.opacity = '1';
-                            
-                            // Keep "Under Review" active (not completed)
-                            setTimeout(() => {
-                                // Auto-redirect to browse-jobs.html after 4 seconds
-                                setTimeout(() => {
-                                    window.location.href = 'browse-jobs.html';
-                                }, 4000);
-                                
-                            }, 2000);
-                        }, 1500);
-                    }, 500);
-                    
-                }, 1500); // Simulate 1.5 second processing time
-            });
-            
-            // Initialize form validation on page load
-            validateForm();
-            
-            // Set focus to phone field
-            document.getElementById('reporter-phone').focus();
+
+          fileList.appendChild(fileItem);
+
+          // Add remove functionality
+          const removeBtn = fileItem.querySelector(".remove-file");
+          removeBtn.addEventListener("click", () => {
+            uploadedFiles = uploadedFiles.filter((f) => f !== file);
+            fileItem.remove();
+          });
+        }
+
+        // Format file size
+        function formatFileSize(bytes) {
+          if (bytes < 1024) return bytes + " bytes";
+          else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
+          else return (bytes / 1048576).toFixed(1) + " MB";
+        }
+
+        // Form validation function
+        function validateForm() {
+          const phone = document.getElementById("reporter-phone").value.trim();
+          const businessName = document
+            .getElementById("business-name")
+            .value.trim();
+          const reportType = document.querySelector(
+            'input[name="report-type"]:checked',
+          );
+          const incidentDetails = document
+            .getElementById("incident-details")
+            .value.trim();
+          const actionRequested =
+            document.getElementById("action-requested").value;
+          const consent = document.getElementById("consent").checked;
+
+          // Check all required fields
+          if (
+            phone &&
+            businessName &&
+            reportType &&
+            incidentDetails &&
+            actionRequested &&
+            consent
+          ) {
+            submitBtn.disabled = false;
+            submitBtn.classList.add("enabled");
+          } else {
+            submitBtn.disabled = true;
+            submitBtn.classList.remove("enabled");
+          }
+        }
+
+        // Add event listeners to all required fields
+        const requiredFields = [
+          document.getElementById("reporter-phone"),
+          document.getElementById("business-name"),
+          document.getElementById("incident-details"),
+          document.getElementById("action-requested"),
+          document.getElementById("consent"),
+        ];
+
+        // Add event listeners to radio buttons
+        const reportTypeRadios = document.querySelectorAll(
+          'input[name="report-type"]',
+        );
+        reportTypeRadios.forEach((radio) => {
+          radio.addEventListener("change", validateForm);
         });
+
+        // Add event listeners to required fields
+        requiredFields.forEach((field) => {
+          if (field.type === "checkbox") {
+            field.addEventListener("change", validateForm);
+          } else {
+            field.addEventListener("input", validateForm);
+          }
+        });
+
+        // Form submission
+        reportForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Basic validation
+          const requiredFields = reportForm.querySelectorAll("[required]");
+          let isValid = true;
+
+          requiredFields.forEach((field) => {
+            if (field.type === "checkbox" && !field.checked) {
+              isValid = false;
+              field.parentElement.style.backgroundColor =
+                "rgba(239, 68, 68, 0.1)";
+            } else if (field.type !== "checkbox" && !field.value.trim()) {
+              isValid = false;
+              field.style.borderColor = "var(--danger)";
+            } else {
+              if (field.type === "checkbox") {
+                field.parentElement.style.backgroundColor = "";
+              } else {
+                field.style.borderColor = "";
+              }
+            }
+          });
+
+          if (!isValid) {
+            alert("Please fill in all required fields marked with *");
+            return;
+          }
+
+          // Disable submit button and show loading
+          submitBtn.disabled = true;
+          submitBtn.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Submitting Report...';
+
+          // Simulate API call/processing delay
+          setTimeout(() => {
+            // Prepare report data
+            const reportData = {
+              reporterPhone: document.getElementById("reporter-phone").value,
+              reporterEmail: document.getElementById("reporter-email").value,
+              businessName: document.getElementById("business-name").value,
+              businessContact:
+                document.getElementById("business-contact").value,
+              reportType: document.querySelector(
+                'input[name="report-type"]:checked',
+              ).value,
+              incidentDetails:
+                document.getElementById("incident-details").value,
+              actionRequested:
+                document.getElementById("action-requested").value,
+              evidenceFiles: uploadedFiles.length,
+              originalJobData: jobData,
+              submittedAt: new Date().toISOString(),
+            };
+
+            // In a real application, you would send this data to your server
+            console.log("Anonymous report submitted:", reportData);
+
+            // Show submission animation overlay
+            submissionOverlay.classList.add("active");
+
+            // Animate processing steps
+            setTimeout(() => {
+              document.getElementById("step1").classList.add("completed");
+              document.getElementById("step1").style.animation =
+                "stepIn 0.5s ease forwards";
+              document.getElementById("step1").style.opacity = "1";
+
+              setTimeout(() => {
+                document.getElementById("step2").classList.add("active");
+                document.getElementById("step2").style.animation =
+                  "stepIn 0.5s ease forwards";
+                document.getElementById("step2").style.opacity = "1";
+
+                // Keep "Under Review" active (not completed)
+                setTimeout(() => {
+                  // Auto-redirect to browse-jobs.html after 4 seconds
+                  setTimeout(() => {
+                    window.location.href = "browse-jobs.html";
+                  }, 4000);
+                }, 2000);
+              }, 1500);
+            }, 500);
+          }, 1500); // Simulate 1.5 second processing time
+        });
+
+        // Initialize form validation on page load
+        validateForm();
+
+        // Set focus to phone field
+        document.getElementById("reporter-phone").focus();
+      });
     </script>
-</body>
+  </body>
 </html>

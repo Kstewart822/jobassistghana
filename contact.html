@@ -1,594 +1,630 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Us | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png">
+    <link rel="icon" type="image/png" href="tab-logo.png" />
     <style>
-        :root {
-            --primary: #0a2a66;
-            --primary-dark: #071e4d;
-            --secondary: #f8c12e;
-            --secondary-dark: #e6af1a;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gray: #64748b;
-            --gray-light: #e2e8f0;
-            --success: #10b981;
-            --danger: #ef4444;
-            --info: #3b82f6;
-            --login-color: #0a2a66;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background-color: var(--light);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* Header Styles - EXACT SAME */
-        .site-header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
+      :root {
+        --primary: #0a2a66;
+        --primary-dark: #071e4d;
+        --secondary: #f8c12e;
+        --secondary-dark: #e6af1a;
+        --light: #f8fafc;
+        --dark: #1e293b;
+        --gray: #64748b;
+        --gray-light: #e2e8f0;
+        --success: #10b981;
+        --danger: #ef4444;
+        --info: #3b82f6;
+        --login-color: #0a2a66;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+        background-color: var(--light);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* Header Styles - EXACT SAME */
+      .site-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        padding: 1rem 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: white;
+      }
+
+      .logo-img {
+        height: 40px;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo-img img {
+        height: 100%;
+        width: auto;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+      }
+
+      .logo-main {
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+
+      .logo-sub {
+        font-size: 0.7rem;
+        font-weight: 500;
+        opacity: 0.9;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--secondary);
+      }
+
+      .login-btn {
+        background: var(--secondary);
+        color: var(--login-color);
+        padding: 8px 20px;
+        border-radius: 6px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .login-btn:hover {
+        background: var(--secondary-dark);
+        transform: translateY(-2px);
+      }
+
+      /* Page Header */
+      .page-header {
+        text-align: center;
+        margin: 3rem 0 2rem;
+      }
+
+      .page-header h1 {
+        color: var(--primary);
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-header p {
+        color: var(--gray);
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Contact Content */
+      .contact-content {
+        background: white;
+        border-radius: 12px;
+        padding: 2.5rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        margin-bottom: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      /* Contact Grid */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .contact-card {
+        background: var(--light);
+        border-radius: 10px;
+        padding: 2rem;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        border: 1px solid var(--gray-light);
+      }
+
+      .contact-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(10, 42, 102, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .card-icon i {
+        font-size: 1.8rem;
+        color: var(--primary);
+      }
+
+      .contact-card h3 {
+        color: var(--primary);
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+      }
+
+      .contact-info {
+        margin-top: 1.5rem;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+      }
+
+      .contact-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .contact-item i {
+        color: var(--secondary);
+        font-size: 1.2rem;
+        margin-top: 2px;
+      }
+
+      .contact-details h4 {
+        color: var(--primary);
+        font-size: 1rem;
+        margin-bottom: 4px;
+      }
+
+      .contact-details p {
+        color: var(--gray);
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .contact-details a {
+        color: var(--primary);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .contact-details a:hover {
+        color: var(--secondary);
+        text-decoration: underline;
+      }
+
+      /* Hours Section */
+      .hours-section {
+        background: rgba(248, 193, 46, 0.1);
+        border-left: 4px solid var(--secondary);
+        padding: 1.5rem;
+        margin: 2rem 0;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .hours-section h3 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .hours-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .hour-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border-bottom: 1px dashed rgba(100, 116, 139, 0.2);
+      }
+
+      .hour-item:last-child {
+        border-bottom: none;
+      }
+
+      .day {
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      .time {
+        color: var(--gray);
+      }
+
+      /* Location Card */
+      .location-card {
+        background: rgba(16, 185, 129, 0.1);
+        border-left: 4px solid var(--success);
+        padding: 1.5rem;
+        margin: 2rem 0;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .location-card h3 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .back-home {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--primary);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 2rem;
+        transition: all 0.3s ease;
+      }
+
+      .back-home:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(10, 42, 102, 0.2);
+      }
+
+      /* Footer */
+      .site-footer {
+        background: var(--primary);
+        color: white;
+        padding: 2rem 0;
+        margin-top: 3rem;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        text-align: center;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 1rem;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: var(--secondary);
+      }
+
+      @media (max-width: 768px) {
         .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
         }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: white;
-        }
-        
-        .logo-img {
-            height: 40px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-img img {
-            height: 100%;
-            width: auto;
-        }
-        
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
-        
-        .logo-main {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-        
-        .logo-sub {
-            font-size: 0.7rem;
-            font-weight: 500;
-            opacity: 0.9;
-        }
-        
+
         .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
+          gap: 1rem;
         }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-links a:hover {
-            color: var(--secondary);
-        }
-        
-        .login-btn {
-            background: var(--secondary);
-            color: var(--login-color);
-            padding: 8px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .login-btn:hover {
-            background: var(--secondary-dark);
-            transform: translateY(-2px);
-        }
-        
-        /* Page Header */
-        .page-header {
-            text-align: center;
-            margin: 3rem 0 2rem;
-        }
-        
+
         .page-header h1 {
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+          font-size: 2rem;
         }
-        
-        .page-header p {
-            color: var(--gray);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* Contact Content */
+
         .contact-content {
-            background: white;
-            border-radius: 12px;
-            padding: 2.5rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            margin-bottom: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
+          padding: 1.5rem;
         }
-        
-        /* Contact Grid */
+
         .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
         }
-        
+
         .contact-card {
-            background: var(--light);
-            border-radius: 10px;
-            padding: 2rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid var(--gray-light);
+          padding: 1.5rem;
         }
-        
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-        
-        .card-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(10, 42, 102, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .card-icon i {
-            font-size: 1.8rem;
-            color: var(--primary);
-        }
-        
-        .contact-card h3 {
-            color: var(--primary);
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .contact-info {
-            margin-top: 1.5rem;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
-        }
-        
-        .contact-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        
-        .contact-item i {
-            color: var(--secondary);
-            font-size: 1.2rem;
-            margin-top: 2px;
-        }
-        
-        .contact-details h4 {
-            color: var(--primary);
-            font-size: 1rem;
-            margin-bottom: 4px;
-        }
-        
-        .contact-details p {
-            color: var(--gray);
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-        
-        .contact-details a {
-            color: var(--primary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .contact-details a:hover {
-            color: var(--secondary);
-            text-decoration: underline;
-        }
-        
-        /* Hours Section */
-        .hours-section {
-            background: rgba(248, 193, 46, 0.1);
-            border-left: 4px solid var(--secondary);
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .hours-section h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
-        .hours-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .hour-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px dashed rgba(100, 116, 139, 0.2);
-        }
-        
-        .hour-item:last-child {
-            border-bottom: none;
-        }
-        
-        .day {
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        .time {
-            color: var(--gray);
-        }
-        
-        /* Location Card */
-        .location-card {
-            background: rgba(16, 185, 129, 0.1);
-            border-left: 4px solid var(--success);
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .location-card h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
-        .back-home {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--primary);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 2rem;
-            transition: all 0.3s ease;
-        }
-        
-        .back-home:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(10, 42, 102, 0.2);
-        }
-        
-        /* Footer */
-        .site-footer {
-            background: var(--primary);
-            color: white;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-        
+
         .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1rem;
+          flex-direction: column;
+          gap: 1rem;
         }
-        
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
+
+        .hours-list {
+          grid-template-columns: 1fr;
         }
-        
-        .footer-links a:hover {
-            color: var(--secondary);
+      }
+
+      @media (max-width: 480px) {
+        .page-header h1 {
+          font-size: 1.8rem;
         }
-        
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-            
-            .nav-links {
-                gap: 1rem;
-            }
-            
-            .page-header h1 {
-                font-size: 2rem;
-            }
-            
-            .contact-content {
-                padding: 1.5rem;
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .contact-card {
-                padding: 1.5rem;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .hours-list {
-                grid-template-columns: 1fr;
-            }
+
+        .contact-content {
+          padding: 1rem;
         }
-        
-        @media (max-width: 480px) {
-            .page-header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .contact-content {
-                padding: 1rem;
-            }
-            
-            .card-icon {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .card-icon i {
-                font-size: 1.5rem;
-            }
+
+        .card-icon {
+          width: 50px;
+          height: 50px;
         }
+
+        .card-icon i {
+          font-size: 1.5rem;
+        }
+      }
     </style>
     <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
     <header class="site-header">
-        <div class="header-content">
-            <a href="index.html" class="logo">
-                <div class="logo-img">
-                    <img src="logo.png" alt="Job Assist Ghana">
-                </div>
-            </a>
-            
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="login.html" class="login-btn">Login</a>
-            </div>
+      <div class="header-content">
+        <a href="index.html" class="logo">
+          <div class="logo-img">
+            <img src="logo.png" alt="Job Assist Ghana" />
+          </div>
+        </a>
+
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="login.html" class="login-btn">Login</a>
         </div>
+      </div>
     </header>
 
     <div class="container">
-        <div class="page-header">
-            <h1>Contact Us</h1>
-            <p>Get in touch with Job Assist Ghana. We're here to help you with your job search and recruitment needs.</p>
+      <div class="page-header">
+        <h1>Contact Us</h1>
+        <p>
+          Get in touch with Job Assist Ghana. We're here to help you with your
+          job search and recruitment needs.
+        </p>
+      </div>
+
+      <div class="contact-content">
+        <!-- Contact Grid -->
+        <div class="contact-grid">
+          <!-- General Inquiries Card -->
+          <div class="contact-card">
+            <div class="card-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <h3>General Inquiries</h3>
+            <p>
+              For general questions about our platform, services, or partnership
+              opportunities.
+            </p>
+
+            <div class="contact-info">
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div class="contact-details">
+                  <h4>Email</h4>
+                  <p>
+                    <a href="mailto:info@jobassistgh.com"
+                      >info@jobassistgh.com</a
+                    >
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div class="contact-details">
+                  <h4>Phone</h4>
+                  <p><a href="tel:+233594772550">+233 (0) 59-477-2550</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Technical Support Card -->
+          <div class="contact-card">
+            <div class="card-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h3>Technical Support</h3>
+            <p>
+              Need help with your account, technical issues, or platform
+              features?
+            </p>
+
+            <div class="contact-info">
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div class="contact-details">
+                  <h4>Support Email</h4>
+                  <p>
+                    <a href="mailto:support@jobassistgh.com"
+                      >support@jobassistgh.com</a
+                    >
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <div class="contact-details">
+                  <h4>Response Time</h4>
+                  <p>Within 24-48 hours</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Legal & Compliance Card -->
+          <div class="contact-card">
+            <div class="card-icon">
+              <i class="fas fa-balance-scale"></i>
+            </div>
+            <h3>Legal & Compliance</h3>
+            <p>
+              For privacy policy, terms of service, data protection, and legal
+              inquiries.
+            </p>
+
+            <div class="contact-info">
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div class="contact-details">
+                  <h4>Legal Email</h4>
+                  <p>
+                    <a href="mailto:legal@jobassistgh.com"
+                      >legal@jobassistgh.com</a
+                    >
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <i class="fas fa-user-tie"></i>
+                <div class="contact-details">
+                  <h4>Data Protection Officer</h4>
+                  <p>Available upon request</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        <div class="contact-content">
-            <!-- Contact Grid -->
-            <div class="contact-grid">
-                <!-- General Inquiries Card -->
-                <div class="contact-card">
-                    <div class="card-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h3>General Inquiries</h3>
-                    <p>For general questions about our platform, services, or partnership opportunities.</p>
-                    
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div class="contact-details">
-                                <h4>Email</h4>
-                                <p><a href="mailto:info@jobassistgh.com">info@jobassistgh.com</a></p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <div class="contact-details">
-                                <h4>Phone</h4>
-                                <p><a href="tel:+233594772550">+233 (0) 59-477-2550</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Technical Support Card -->
-                <div class="contact-card">
-                    <div class="card-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>Technical Support</h3>
-                    <p>Need help with your account, technical issues, or platform features?</p>
-                    
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div class="contact-details">
-                                <h4>Support Email</h4>
-                                <p><a href="mailto:support@jobassistgh.com">support@jobassistgh.com</a></p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <i class="fas fa-clock"></i>
-                            <div class="contact-details">
-                                <h4>Response Time</h4>
-                                <p>Within 24-48 hours</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Legal & Compliance Card -->
-                <div class="contact-card">
-                    <div class="card-icon">
-                        <i class="fas fa-balance-scale"></i>
-                    </div>
-                    <h3>Legal & Compliance</h3>
-                    <p>For privacy policy, terms of service, data protection, and legal inquiries.</p>
-                    
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div class="contact-details">
-                                <h4>Legal Email</h4>
-                                <p><a href="mailto:legal@jobassistgh.com">legal@jobassistgh.com</a></p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <i class="fas fa-user-tie"></i>
-                            <div class="contact-details">
-                                <h4>Data Protection Officer</h4>
-                                <p>Available upon request</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+        <!-- Operating Hours -->
+        <div class="hours-section">
+          <h3>Operating Hours</h3>
+          <p>Our team is available during the following hours (GMT):</p>
+
+          <div class="hours-list">
+            <div class="hour-item">
+              <span class="day">Monday - Friday</span>
+              <span class="time">8:00 AM - 6:00 PM</span>
             </div>
-            
-            <!-- Operating Hours -->
-            <div class="hours-section">
-                <h3>Operating Hours</h3>
-                <p>Our team is available during the following hours (GMT):</p>
-                
-                <div class="hours-list">
-                    <div class="hour-item">
-                        <span class="day">Monday - Friday</span>
-                        <span class="time">8:00 AM - 6:00 PM</span>
-                    </div>
-                    <div class="hour-item">
-                        <span class="day">Saturday</span>
-                        <span class="time">9:00 AM - 2:00 PM</span>
-                    </div>
-                    <div class="hour-item">
-                        <span class="day">Sunday</span>
-                        <span class="time">Closed</span>
-                    </div>
-                    <div class="hour-item">
-                        <span class="day">Public Holidays</span>
-                        <span class="time">Closed</span>
-                    </div>
-                </div>
-                
-                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray);">
-                    <i class="fas fa-info-circle"></i> Emergency support available for premium users 24/7
-                </p>
+            <div class="hour-item">
+              <span class="day">Saturday</span>
+              <span class="time">9:00 AM - 2:00 PM</span>
             </div>
-            
-            <!-- Physical Location -->
-            <div class="location-card">
-                <h3>Our Location</h3>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div class="contact-details">
-                        <h4>Office Address</h4>
-                        <p>Job Assist Ghana<br>
-                        Osu, Accra, Ghana<br>
-                        (Near Osu Oxford Street)</p>
-                        <p style="margin-top: 0.5rem; color: var(--gray);">
-                            <i class="fas fa-map-signs"></i> 
-                            <em>Visits by appointment only</em>
-                        </p>
-                    </div>
-                </div>
+            <div class="hour-item">
+              <span class="day">Sunday</span>
+              <span class="time">Closed</span>
             </div>
-            
-            <!-- Back to Home Button -->
-            <div style="text-align: center;">
-                <a href="index.html" class="back-home">
-                    <i class="fas fa-home"></i> Back to Home
-                </a>
+            <div class="hour-item">
+              <span class="day">Public Holidays</span>
+              <span class="time">Closed</span>
             </div>
+          </div>
+
+          <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray)">
+            <i class="fas fa-info-circle"></i> Emergency support available for
+            premium users 24/7
+          </p>
         </div>
+
+        <!-- Physical Location -->
+        <div class="location-card">
+          <h3>Our Location</h3>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div class="contact-details">
+              <h4>Office Address</h4>
+              <p>
+                Job Assist Ghana<br />
+                Osu, Accra, Ghana<br />
+                (Near Osu Oxford Street)
+              </p>
+              <p style="margin-top: 0.5rem; color: var(--gray)">
+                <i class="fas fa-map-signs"></i>
+                <em>Visits by appointment only</em>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back to Home Button -->
+        <div style="text-align: center">
+          <a href="index.html" class="back-home">
+            <i class="fas fa-home"></i> Back to Home
+          </a>
+        </div>
+      </div>
     </div>
 
     <footer class="site-footer">
-        <div class="footer-content">
-            <p>© 2025 Job Assist Ghana. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms & Conditions</a>
-                <a href="contact.html">Contact Us</a>
-            </div>
-            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-                Connecting talent with opportunity across Ghana
-            </p>
+      <div class="footer-content">
+        <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms & Conditions</a>
+          <a href="contact.html">Contact Us</a>
         </div>
+        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8">
+          Connecting talent with opportunity across Ghana
+        </p>
+      </div>
     </footer>
-</body>
+  </body>
 </html>

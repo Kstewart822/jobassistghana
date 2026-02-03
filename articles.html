@@ -1,1859 +1,2097 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Articles | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+
+      :root {
+        --primary: #0a2a66;
+        --primary-dark: #071e4d;
+        --secondary: #f8c12e;
+        --secondary-dark: #e6af1a;
+        --danger: #ef4444;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --light: #f8fafc;
+        --dark: #1e293b;
+        --gray: #64748b;
+        --gray-light: #e2e8f0;
+        --sidebar-width: 250px;
+        --sidebar-collapsed: 70px;
+        --navbar-height: 70px;
+        --transition: all 0.2s ease;
+      }
+
+      body {
+        background-color: #f1f5f9;
+        color: var(--dark);
+        display: flex;
+        min-height: 100vh;
+        overflow-x: hidden;
+        line-height: 1.4;
+      }
+
+      /* Sidebar Styles */
+      .sidebar {
+        width: var(--sidebar-width);
+        background: linear-gradient(
+          180deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        height: 100vh;
+        position: fixed;
+        transition: var(--transition);
+        z-index: 100;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .sidebar.collapsed {
+        width: var(--sidebar-collapsed);
+        overflow-y: hidden;
+      }
+
+      .sidebar-header {
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        height: var(--navbar-height);
+        min-height: var(--navbar-height);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo-img-placeholder {
+        width: 40px;
+        height: 40px;
+        background-color: var(--secondary);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-weight: bold;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+      }
+
+      .logo-main {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      .logo-sub {
+        font-size: 0.7rem;
+        font-weight: 500;
+        opacity: 0.8;
+        color: white;
+      }
+
+      .toggle-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        flex-shrink: 0;
+      }
+
+      .toggle-btn:hover {
+        transform: scale(1.1);
+        color: var(--secondary);
+      }
+
+      .sidebar-menu {
+        padding: 15px 0;
+        list-style: none;
+      }
+
+      .sidebar-menu li {
+        margin-bottom: 3px;
+      }
+
+      .sidebar-menu a {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+
+      .sidebar-menu a:hover,
+      .sidebar-menu a.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-left: 4px solid var(--secondary);
+      }
+
+      .sidebar-menu i {
+        margin-right: 15px;
+        font-size: 1rem;
+        width: 20px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .sidebar.collapsed .menu-text {
+        display: none;
+      }
+
+      .sidebar.collapsed .sidebar-header {
+        justify-content: center;
+        padding: 15px 5px;
+      }
+
+      .sidebar.collapsed .logo-text {
+        display: none;
+      }
+
+      .sidebar.collapsed .logo {
+        justify-content: center;
+      }
+
+      .premium-indicator {
+        color: var(--secondary);
+        margin-left: auto;
+        font-size: 0.8rem;
+      }
+
+      /* Main Content Area */
+      .main-content {
+        flex: 1;
+        margin-left: var(--sidebar-width);
+        transition: var(--transition);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - var(--sidebar-width));
+      }
+
+      .main-content.expanded {
+        margin-left: var(--sidebar-collapsed);
+        width: calc(100% - var(--sidebar-collapsed));
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        height: var(--navbar-height);
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        position: sticky;
+        top: 0;
+        z-index: 99;
+        flex-shrink: 0;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.1rem;
+        color: var(--primary);
+        cursor: pointer;
+      }
+
+      .page-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--dark);
+      }
+
+      .navbar-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      /* Notification Dropdown */
+      .notification-icon {
+        position: relative;
+        cursor: pointer;
+        font-size: 1.1rem;
+        color: var(--gray);
+        transition: var(--transition);
+      }
+
+      .notification-icon:hover {
+        color: var(--primary);
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: var(--danger);
+        color: white;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        font-size: 0.7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .notification-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 300px;
+        max-height: 350px;
+        overflow-y: auto;
+        display: none;
+        z-index: 101;
+      }
+
+      .notification-dropdown.show {
+        display: block;
+      }
+
+      .notification-header {
+        padding: 12px 15px;
+        border-bottom: 1px solid var(--gray-light);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .notification-title {
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 0.95rem;
+      }
+
+      .mark-all-read {
+        background: none;
+        border: none;
+        color: var(--primary);
+        cursor: pointer;
+        font-size: 0.8rem;
+      }
+
+      .notification-list {
+        list-style: none;
+      }
+
+      .notification-item {
+        padding: 10px 15px;
+        border-bottom: 1px solid var(--gray-light);
+        transition: var(--transition);
+      }
+
+      .notification-item:hover {
+        background-color: rgba(248, 193, 46, 0.1);
+      }
+
+      .notification-item.unread {
+        background-color: rgba(10, 42, 102, 0.05);
+      }
+
+      .notification-item:last-child {
+        border-bottom: none;
+      }
+
+      .notification-content {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+      }
+
+      .notification-time {
+        font-size: 0.7rem;
+        color: var(--gray);
+      }
+
+      .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 50px;
+        transition: var(--transition);
+      }
+
+      .user-profile:hover {
+        background-color: var(--gray-light);
+      }
+
+      .user-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .user-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .user-name {
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 180px;
+        padding: 8px 0;
+        display: none;
+        z-index: 101;
+      }
+
+      .dropdown-menu.show {
+        display: block;
+      }
+
+      .dropdown-menu a {
+        display: block;
+        padding: 8px 16px;
+        text-decoration: none;
+        color: var(--dark);
+        transition: var(--transition);
+        font-size: 0.85rem;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: var(--gray-light);
+        color: var(--primary);
+      }
+
+      /* Article Content - Compact */
+      .article-content {
+        padding: 20px;
+        flex: 1;
+      }
+
+      /* Back Button - Compact */
+      .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 15px;
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        transition: var(--transition);
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .back-button:hover {
+        background: var(--primary-dark);
+        transform: translateY(-1px);
+      }
+
+      /* Article Header - Compact */
+      .article-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .article-title {
+        font-size: 1.4rem;
+        margin-bottom: 8px;
+        font-weight: 700;
+      }
+
+      .article-subtitle {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        margin-bottom: 15px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .article-meta {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        font-size: 0.8rem;
+        opacity: 0.8;
+        flex-wrap: wrap;
+      }
+
+      /* Article Content Container */
+      .article-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .content-section {
+        background: white;
+        border-radius: 8px;
+        padding: 18px;
+        margin-bottom: 15px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--gray-light);
+      }
+
+      .section-title {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+      }
+
+      .section-title i {
+        color: var(--secondary);
+      }
+
+      .section-content {
+        line-height: 1.5;
+        color: var(--dark);
+        font-size: 0.9rem;
+      }
+
+      .section-content p {
+        margin-bottom: 10px;
+      }
+
+      .section-content ul,
+      .section-content ol {
+        margin: 10px 0;
+        padding-left: 20px;
+      }
+
+      .section-content li {
+        margin-bottom: 6px;
+      }
+
+      /* Feature Grid - Compact */
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+        margin: 15px 0;
+      }
+
+      .feature-item {
+        background: var(--light);
+        padding: 12px;
+        border-radius: 6px;
+        border-left: 3px solid var(--secondary);
+        border: 1px solid var(--gray-light);
+      }
+
+      .feature-icon {
+        font-size: 1.3rem;
+        color: var(--primary);
+        margin-bottom: 8px;
+      }
+
+      .feature-title {
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: var(--primary);
+        font-size: 0.9rem;
+      }
+
+      .feature-description {
+        color: var(--gray);
+        font-size: 0.8rem;
+        line-height: 1.3;
+      }
+
+      /* Stats Section - Compact */
+      .stats-section {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        border-radius: 8px;
+        padding: 18px;
+        margin: 15px 0;
+        text-align: center;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin-bottom: 3px;
+        color: var(--secondary);
+      }
+
+      .stat-label {
+        font-size: 0.8rem;
+        opacity: 0.9;
+      }
+
+      /* Process Steps - Compact */
+      .process-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 12px;
+        margin: 15px 0;
+      }
+
+      .process-step {
+        text-align: center;
+        padding: 12px;
+        background: var(--light);
+        border-radius: 6px;
+        position: relative;
+        border: 1px solid var(--gray-light);
+      }
+
+      .step-number {
+        width: 30px;
+        height: 30px;
+        background: var(--primary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        margin: 0 auto 10px;
+        font-size: 0.9rem;
+      }
+
+      .step-title {
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: var(--primary);
+        font-size: 0.85rem;
+      }
+
+      .step-description {
+        color: var(--gray);
+        font-size: 0.8rem;
+        line-height: 1.3;
+      }
+
+      /* Buttons - Compact */
+      .btn {
+        padding: 8px 15px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        border: none;
+        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 1px solid var(--primary);
+        color: var(--primary);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .btn-danger {
+        background-color: var(--danger);
+        color: white;
+      }
+
+      .btn-danger:hover {
+        background-color: #dc2626;
+      }
+
+      /* Resources Section - Compact */
+      .resources-section {
+        margin-bottom: 20px;
+      }
+
+      .resources-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+      }
+
+      .resource-card {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+        border-left: 3px solid var(--secondary);
+        border: 1px solid var(--gray-light);
+      }
+
+      .resource-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border-color: var(--secondary);
+      }
+
+      .resource-icon {
+        font-size: 1.5rem;
+        color: var(--primary);
+        margin-bottom: 8px;
+      }
+
+      .resource-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: var(--primary);
+      }
+
+      .resource-description {
+        color: var(--gray);
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+        line-height: 1.3;
+      }
+
+      /* Footer - Compact */
+      .footer {
+        background-color: var(--primary);
+        color: white;
+        padding: 15px 20px 10px;
+        margin-top: 20px;
+        flex-shrink: 0;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 12px;
+      }
+
+      .footer-section h3 {
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        color: var(--secondary);
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 5px;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 0.85rem;
+      }
+
+      .footer-links a:hover {
+        color: var(--secondary);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.8rem;
+      }
+
+      /* Mobile Overlay */
+      .mobile-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+      }
+
+      .mobile-overlay.show {
+        display: block;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      .modal-content {
+        background-color: white;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 450px;
+        padding: 18px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        border-top: 5px solid var(--secondary);
+      }
+
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .modal-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .close-modal {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: var(--gray);
+      }
+
+      .modal-body {
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+        color: var(--dark);
+      }
+
+      .modal-footer {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+      }
+
+      /* Coming Soon Popup - Compact */
+      .coming-soon-popup {
+        background-color: white;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 350px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        animation: popupIn 0.3s ease-out;
+      }
+
+      .coming-soon-header {
+        background-color: var(--secondary);
+        color: var(--primary);
+        padding: 12px 15px;
+        font-weight: 600;
+        font-size: 1rem;
+        text-align: center;
+      }
+
+      .coming-soon-content {
+        padding: 20px 15px;
+        text-align: center;
+      }
+
+      .coming-soon-icon {
+        font-size: 2.5rem;
+        color: var(--secondary);
+        margin-bottom: 12px;
+      }
+
+      .coming-soon-message {
+        color: var(--dark);
+        margin-bottom: 15px;
+        line-height: 1.5;
+        font-size: 0.9rem;
+      }
+
+      .btn-got-it {
+        background-color: var(--primary);
+        color: white;
+        padding: 8px 24px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+        font-size: 0.9rem;
+      }
+
+      .btn-got-it:hover {
+        background-color: var(--primary-dark);
+      }
+
+      @keyframes popupIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* ========================================== */
+      /* MOBILE RESPONSIVENESS - view-applicants style */
+      /* ========================================== */
+
+      /* Tablet (992px and below) */
+      @media (max-width: 992px) {
+        .article-content {
+          padding: 15px;
         }
 
-        :root {
-            --primary: #0a2a66;
-            --primary-dark: #071e4d;
-            --secondary: #f8c12e;
-            --secondary-dark: #e6af1a;
-            --danger: #ef4444;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gray: #64748b;
-            --gray-light: #e2e8f0;
-            --sidebar-width: 250px;
-            --sidebar-collapsed: 70px;
-            --navbar-height: 70px;
-            --transition: all 0.2s ease;
-        }
-
-        body {
-            background-color: #f1f5f9;
-            color: var(--dark);
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
-            line-height: 1.4;
-        }
-
-        /* Sidebar Styles */
         .sidebar {
-            width: var(--sidebar-width);
-            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-            color: white;
-            height: 100vh;
-            position: fixed;
-            transition: var(--transition);
-            z-index: 100;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-            overflow-x: hidden;
+          transform: translateX(-100%);
+          width: 250px;
         }
 
-        .sidebar.collapsed {
-            width: var(--sidebar-collapsed);
-            overflow-y: hidden;
+        .sidebar.mobile-open {
+          transform: translateX(0);
         }
 
-        .sidebar-header {
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            height: var(--navbar-height);
-            min-height: var(--navbar-height);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-img-placeholder {
-            width: 40px;
-            height: 40px;
-            background-color: var(--secondary);
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
-
-        .logo-main {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: white;
-        }
-
-        .logo-sub {
-            font-size: 0.7rem;
-            font-weight: 500;
-            opacity: 0.8;
-            color: white;
-        }
-
-        .toggle-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            flex-shrink: 0;
-        }
-
-        .toggle-btn:hover {
-            transform: scale(1.1);
-            color: var(--secondary);
-        }
-
-        .sidebar-menu {
-            padding: 15px 0;
-            list-style: none;
-        }
-
-        .sidebar-menu li {
-            margin-bottom: 3px;
-        }
-
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-left: 4px solid var(--secondary);
-        }
-
-        .sidebar-menu i {
-            margin-right: 15px;
-            font-size: 1rem;
-            width: 20px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        .sidebar.collapsed .menu-text {
-            display: none;
-        }
-
-        .sidebar.collapsed .sidebar-header {
-            justify-content: center;
-            padding: 15px 5px;
-        }
-
-        .sidebar.collapsed .logo-text {
-            display: none;
-        }
-
-        .sidebar.collapsed .logo {
-            justify-content: center;
-        }
-
-        .premium-indicator {
-            color: var(--secondary);
-            margin-left: auto;
-            font-size: 0.8rem;
-        }
-
-        /* Main Content Area */
         .main-content {
-            flex: 1;
-            margin-left: var(--sidebar-width);
-            transition: var(--transition);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            width: calc(100% - var(--sidebar-width));
+          margin-left: 0;
+          width: 100%;
         }
 
         .main-content.expanded {
-            margin-left: var(--sidebar-collapsed);
-            width: calc(100% - var(--sidebar-collapsed));
-        }
-
-        /* Navbar Styles */
-        .navbar {
-            height: var(--navbar-height);
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            position: sticky;
-            top: 0;
-            z-index: 99;
-            flex-shrink: 0;
+          margin-left: 0;
+          width: 100%;
         }
 
         .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.1rem;
-            color: var(--primary);
-            cursor: pointer;
+          display: block;
+        }
+
+        .navbar {
+          padding: 0 15px;
         }
 
         .page-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        /* Notification Dropdown */
-        .notification-icon {
-            position: relative;
-            cursor: pointer;
-            font-size: 1.1rem;
-            color: var(--gray);
-            transition: var(--transition);
-        }
-
-        .notification-icon:hover {
-            color: var(--primary);
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: var(--danger);
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+          font-size: 1.1rem;
         }
 
         .notification-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 20px;
-            background-color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 300px;
-            max-height: 350px;
-            overflow-y: auto;
-            display: none;
-            z-index: 101;
+          right: 15px;
+          width: 280px;
         }
 
-        .notification-dropdown.show {
-            display: block;
-        }
-
-        .notification-header {
-            padding: 12px 15px;
-            border-bottom: 1px solid var(--gray-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .notification-title {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 0.95rem;
-        }
-
-        .mark-all-read {
-            background: none;
-            border: none;
-            color: var(--primary);
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .notification-list {
-            list-style: none;
-        }
-
-        .notification-item {
-            padding: 10px 15px;
-            border-bottom: 1px solid var(--gray-light);
-            transition: var(--transition);
-        }
-
-        .notification-item:hover {
-            background-color: rgba(248, 193, 46, 0.1);
-        }
-
-        .notification-item.unread {
-            background-color: rgba(10, 42, 102, 0.05);
-        }
-
-        .notification-item:last-child {
-            border-bottom: none;
-        }
-
-        .notification-content {
-            font-size: 0.85rem;
-            margin-bottom: 4px;
-        }
-
-        .notification-time {
-            font-size: 0.7rem;
-            color: var(--gray);
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 50px;
-            transition: var(--transition);
-        }
-
-        .user-profile:hover {
-            background-color: var(--gray-light);
-        }
-
-        .user-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background-color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .user-name {
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: 20px;
-            background-color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 180px;
-            padding: 8px 0;
-            display: none;
-            z-index: 101;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-menu a {
-            display: block;
-            padding: 8px 16px;
-            text-decoration: none;
-            color: var(--dark);
-            transition: var(--transition);
-            font-size: 0.85rem;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: var(--gray-light);
-            color: var(--primary);
-        }
-
-        /* Article Content - Compact */
-        .article-content {
-            padding: 20px;
-            flex: 1;
-        }
-
-        /* Back Button - Compact */
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 15px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            transition: var(--transition);
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .back-button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-        }
-
-        /* Article Header - Compact */
         .article-header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+          padding: 18px;
         }
 
         .article-title {
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-            font-weight: 700;
+          font-size: 1.3rem;
         }
 
         .article-subtitle {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-bottom: 15px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .article-meta {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            font-size: 0.8rem;
-            opacity: 0.8;
-            flex-wrap: wrap;
-        }
-
-        /* Article Content Container */
-        .article-container {
-            max-width: 800px;
-            margin: 0 auto;
+          font-size: 0.85rem;
         }
 
         .content-section {
-            background: white;
-            border-radius: 8px;
-            padding: 18px;
-            margin-bottom: 15px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--gray-light);
+          padding: 15px;
         }
 
         .section-title {
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 700;
+          font-size: 1rem;
         }
 
-        .section-title i {
-            color: var(--secondary);
-        }
-
-        .section-content {
-            line-height: 1.5;
-            color: var(--dark);
-            font-size: 0.9rem;
-        }
-
-        .section-content p {
-            margin-bottom: 10px;
-        }
-
-        .section-content ul, .section-content ol {
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-
-        .section-content li {
-            margin-bottom: 6px;
-        }
-
-        /* Feature Grid - Compact */
         .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            margin: 15px 0;
+          grid-template-columns: 1fr;
         }
 
-        .feature-item {
-            background: var(--light);
-            padding: 12px;
-            border-radius: 6px;
-            border-left: 3px solid var(--secondary);
-            border: 1px solid var(--gray-light);
-        }
-
-        .feature-icon {
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        .feature-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: var(--primary);
-            font-size: 0.9rem;
-        }
-
-        .feature-description {
-            color: var(--gray);
-            font-size: 0.8rem;
-            line-height: 1.3;
-        }
-
-        /* Stats Section - Compact */
-        .stats-section {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border-radius: 8px;
-            padding: 18px;
-            margin: 15px 0;
-            text-align: center;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 3px;
-            color: var(--secondary);
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            opacity: 0.9;
-        }
-
-        /* Process Steps - Compact */
         .process-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            margin: 15px 0;
-        }
-
-        .process-step {
-            text-align: center;
-            padding: 12px;
-            background: var(--light);
-            border-radius: 6px;
-            position: relative;
-            border: 1px solid var(--gray-light);
-        }
-
-        .step-number {
-            width: 30px;
-            height: 30px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            margin: 0 auto 10px;
-            font-size: 0.9rem;
-        }
-
-        .step-title {
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--primary);
-            font-size: 0.85rem;
-        }
-
-        .step-description {
-            color: var(--gray);
-            font-size: 0.8rem;
-            line-height: 1.3;
-        }
-
-        /* Buttons - Compact */
-        .btn {
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-danger {
-            background-color: var(--danger);
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background-color: #dc2626;
-        }
-
-        /* Resources Section - Compact */
-        .resources-section {
-            margin-bottom: 20px;
+          grid-template-columns: 1fr;
         }
 
         .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Mobile (768px and below) */
+      @media (max-width: 768px) {
+        .article-content {
+          padding: 12px;
+        }
+
+        .navbar {
+          padding: 0 12px;
+          height: 60px;
+        }
+
+        .logo-img-placeholder {
+          width: 35px;
+          height: 35px;
+          font-size: 1rem;
+        }
+
+        .user-name {
+          display: none;
+        }
+
+        .notification-icon {
+          font-size: 1rem;
+        }
+
+        .user-avatar {
+          width: 35px;
+          height: 35px;
+        }
+
+        .dropdown-menu {
+          right: 12px;
+          width: 160px;
+        }
+
+        .back-button {
+          padding: 7px 12px;
+          font-size: 0.85rem;
+        }
+
+        .article-header {
+          padding: 15px;
+          margin-bottom: 15px;
+        }
+
+        .article-title {
+          font-size: 1.2rem;
+        }
+
+        .article-subtitle {
+          font-size: 0.8rem;
+          margin-bottom: 10px;
+        }
+
+        .article-meta {
+          font-size: 0.75rem;
+          gap: 10px;
+        }
+
+        .content-section {
+          padding: 12px;
+          margin-bottom: 12px;
+        }
+
+        .section-title {
+          font-size: 0.95rem;
+          margin-bottom: 10px;
+        }
+
+        .section-content {
+          font-size: 0.85rem;
+        }
+
+        .feature-item {
+          padding: 10px;
+        }
+
+        .stats-section {
+          padding: 15px;
+        }
+
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+        }
+
+        .stat-number {
+          font-size: 1.3rem;
+        }
+
+        .process-step {
+          padding: 10px;
         }
 
         .resource-card {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-            transition: var(--transition);
-            border-left: 3px solid var(--secondary);
-            border: 1px solid var(--gray-light);
+          padding: 12px;
         }
 
-        .resource-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            border-color: var(--secondary);
+        .btn {
+          padding: 7px 12px;
+          font-size: 0.8rem;
         }
 
-        .resource-icon {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 8px;
+        .notification-dropdown {
+          right: 10px;
+          width: 260px;
+        }
+      }
+
+      /* Small Mobile (576px and below) */
+      @media (max-width: 576px) {
+        .article-content {
+          padding: 10px;
         }
 
-        .resource-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--primary);
+        .navbar {
+          padding: 0 10px;
         }
 
-        .resource-description {
-            color: var(--gray);
-            font-size: 0.8rem;
-            margin-bottom: 10px;
-            line-height: 1.3;
+        .mobile-menu-btn {
+          font-size: 1rem;
         }
 
-        /* Footer - Compact */
+        .page-title {
+          font-size: 1rem;
+        }
+
+        .back-button {
+          padding: 6px 10px;
+          font-size: 0.8rem;
+        }
+
+        .article-header {
+          padding: 12px;
+        }
+
+        .article-title {
+          font-size: 1.1rem;
+        }
+
+        .article-subtitle {
+          font-size: 0.75rem;
+        }
+
+        .section-content ul,
+        .section-content ol {
+          padding-left: 15px;
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .feature-grid {
+          gap: 10px;
+        }
+
+        .resources-grid {
+          gap: 10px;
+        }
+
         .footer {
-            background-color: var(--primary);
-            color: white;
-            padding: 15px 20px 10px;
-            margin-top: 20px;
-            flex-shrink: 0;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 12px;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            color: var(--secondary);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 5px;
+          padding: 12px 15px 8px;
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.85rem;
-        }
-
-        .footer-links a:hover {
-            color: var(--secondary);
+          font-size: 0.8rem;
         }
 
         .footer-bottom {
-            text-align: center;
-            padding-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.8rem;
+          font-size: 0.75rem;
+        }
+      }
+
+      /* Extra Small Mobile (480px and below) */
+      @media (max-width: 480px) {
+        .article-content {
+          padding: 8px;
         }
 
-        /* Mobile Overlay */
-        .mobile-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 99;
+        .navbar {
+          padding: 0 8px;
+          height: 55px;
         }
 
-        .mobile-overlay.show {
-            display: block;
+        .logo-img-placeholder {
+          width: 30px;
+          height: 30px;
+          font-size: 0.9rem;
         }
 
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
+        .mobile-menu-btn {
+          font-size: 0.9rem;
         }
 
-        .modal.show {
-            display: flex;
+        .page-title {
+          font-size: 0.9rem;
         }
 
-        .modal-content {
-            background-color: white;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 450px;
-            padding: 18px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            border-top: 5px solid var(--secondary);
+        .notification-icon {
+          font-size: 0.9rem;
         }
 
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
+        .notification-badge {
+          width: 16px;
+          height: 16px;
+          font-size: 0.65rem;
         }
 
-        .modal-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary);
+        .user-avatar {
+          width: 32px;
+          height: 32px;
         }
 
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            color: var(--gray);
+        .article-title {
+          font-size: 1rem;
         }
 
-        .modal-body {
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-            color: var(--dark);
+        .article-subtitle {
+          font-size: 0.7rem;
         }
 
-        .modal-footer {
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
-            flex-wrap: wrap;
+        .article-meta {
+          font-size: 0.7rem;
+          flex-direction: column;
+          gap: 5px;
         }
 
-        /* Coming Soon Popup - Compact */
-        .coming-soon-popup {
-            background-color: white;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 350px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            animation: popupIn 0.3s ease-out;
+        .content-section {
+          padding: 10px;
         }
 
-        .coming-soon-header {
-            background-color: var(--secondary);
-            color: var(--primary);
-            padding: 12px 15px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-align: center;
+        .section-title {
+          font-size: 0.9rem;
         }
 
-        .coming-soon-content {
-            padding: 20px 15px;
-            text-align: center;
+        .dropdown-menu {
+          width: 140px;
+          padding: 6px 0;
+          right: 8px;
         }
 
-        .coming-soon-icon {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 12px;
+        .dropdown-menu a {
+          padding: 6px 12px;
+          font-size: 0.8rem;
         }
 
-        .coming-soon-message {
-            color: var(--dark);
-            margin-bottom: 15px;
-            line-height: 1.5;
-            font-size: 0.9rem;
+        .notification-dropdown {
+          width: 220px;
         }
 
-        .btn-got-it {
-            background-color: var(--primary);
-            color: white;
-            padding: 8px 24px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-            font-size: 0.9rem;
+        .notification-header {
+          padding: 10px 12px;
         }
 
-        .btn-got-it:hover {
-            background-color: var(--primary-dark);
+        .notification-title {
+          font-size: 0.9rem;
         }
 
-        @keyframes popupIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .notification-item {
+          padding: 8px 12px;
         }
 
-        /* ========================================== */
-        /* MOBILE RESPONSIVENESS - view-applicants style */
-        /* ========================================== */
-
-        /* Tablet (992px and below) */
-        @media (max-width: 992px) {
-            .article-content {
-                padding: 15px;
-            }
-            
-            .sidebar {
-                transform: translateX(-100%);
-                width: 250px;
-            }
-
-            .sidebar.mobile-open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-                width: 100%;
-            }
-
-            .main-content.expanded {
-                margin-left: 0;
-                width: 100%;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .navbar {
-                padding: 0 15px;
-            }
-            
-            .page-title {
-                font-size: 1.1rem;
-            }
-            
-            .notification-dropdown {
-                right: 15px;
-                width: 280px;
-            }
-            
-            .article-header {
-                padding: 18px;
-            }
-            
-            .article-title {
-                font-size: 1.3rem;
-            }
-            
-            .article-subtitle {
-                font-size: 0.85rem;
-            }
-            
-            .content-section {
-                padding: 15px;
-            }
-            
-            .section-title {
-                font-size: 1rem;
-            }
-            
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .process-steps {
-                grid-template-columns: 1fr;
-            }
-            
-            .resources-grid {
-                grid-template-columns: 1fr;
-            }
+        .notification-content {
+          font-size: 0.8rem;
         }
 
-        /* Mobile (768px and below) */
-        @media (max-width: 768px) {
-            .article-content {
-                padding: 12px;
-            }
-            
-            .navbar {
-                padding: 0 12px;
-                height: 60px;
-            }
-            
-            .logo-img-placeholder {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
-            }
-            
-            .user-name {
-                display: none;
-            }
-            
-            .notification-icon {
-                font-size: 1rem;
-            }
-            
-            .user-avatar {
-                width: 35px;
-                height: 35px;
-            }
-            
-            .dropdown-menu {
-                right: 12px;
-                width: 160px;
-            }
-            
-            .back-button {
-                padding: 7px 12px;
-                font-size: 0.85rem;
-            }
-            
-            .article-header {
-                padding: 15px;
-                margin-bottom: 15px;
-            }
-            
-            .article-title {
-                font-size: 1.2rem;
-            }
-            
-            .article-subtitle {
-                font-size: 0.8rem;
-                margin-bottom: 10px;
-            }
-            
-            .article-meta {
-                font-size: 0.75rem;
-                gap: 10px;
-            }
-            
-            .content-section {
-                padding: 12px;
-                margin-bottom: 12px;
-            }
-            
-            .section-title {
-                font-size: 0.95rem;
-                margin-bottom: 10px;
-            }
-            
-            .section-content {
-                font-size: 0.85rem;
-            }
-            
-            .feature-item {
-                padding: 10px;
-            }
-            
-            .stats-section {
-                padding: 15px;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-            
-            .stat-number {
-                font-size: 1.3rem;
-            }
-            
-            .process-step {
-                padding: 10px;
-            }
-            
-            .resource-card {
-                padding: 12px;
-            }
-            
-            .btn {
-                padding: 7px 12px;
-                font-size: 0.8rem;
-            }
-            
-            .notification-dropdown {
-                right: 10px;
-                width: 260px;
-            }
+        .notification-time {
+          font-size: 0.65rem;
+        }
+      }
+
+      /* Very Small Mobile (360px and below) */
+      @media (max-width: 360px) {
+        .article-content {
+          padding: 6px;
         }
 
-        /* Small Mobile (576px and below) */
-        @media (max-width: 576px) {
-            .article-content {
-                padding: 10px;
-            }
-            
-            .navbar {
-                padding: 0 10px;
-            }
-            
-            .mobile-menu-btn {
-                font-size: 1rem;
-            }
-            
-            .page-title {
-                font-size: 1rem;
-            }
-            
-            .back-button {
-                padding: 6px 10px;
-                font-size: 0.8rem;
-            }
-            
-            .article-header {
-                padding: 12px;
-            }
-            
-            .article-title {
-                font-size: 1.1rem;
-            }
-            
-            .article-subtitle {
-                font-size: 0.75rem;
-            }
-            
-            .section-content ul, .section-content ol {
-                padding-left: 15px;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .feature-grid {
-                gap: 10px;
-            }
-            
-            .resources-grid {
-                gap: 10px;
-            }
-            
-            .footer {
-                padding: 12px 15px 8px;
-            }
-            
-            .footer-links a {
-                font-size: 0.8rem;
-            }
-            
-            .footer-bottom {
-                font-size: 0.75rem;
-            }
+        .navbar {
+          padding: 0 6px;
         }
 
-        /* Extra Small Mobile (480px and below) */
-        @media (max-width: 480px) {
-            .article-content {
-                padding: 8px;
-            }
-            
-            .navbar {
-                padding: 0 8px;
-                height: 55px;
-            }
-            
-            .logo-img-placeholder {
-                width: 30px;
-                height: 30px;
-                font-size: 0.9rem;
-            }
-            
-            .mobile-menu-btn {
-                font-size: 0.9rem;
-            }
-            
-            .page-title {
-                font-size: 0.9rem;
-            }
-            
-            .notification-icon {
-                font-size: 0.9rem;
-            }
-            
-            .notification-badge {
-                width: 16px;
-                height: 16px;
-                font-size: 0.65rem;
-            }
-            
-            .user-avatar {
-                width: 32px;
-                height: 32px;
-            }
-            
-            .article-title {
-                font-size: 1rem;
-            }
-            
-            .article-subtitle {
-                font-size: 0.7rem;
-            }
-            
-            .article-meta {
-                font-size: 0.7rem;
-                flex-direction: column;
-                gap: 5px;
-            }
-            
-            .content-section {
-                padding: 10px;
-            }
-            
-            .section-title {
-                font-size: 0.9rem;
-            }
-            
-            .dropdown-menu {
-                width: 140px;
-                padding: 6px 0;
-                right: 8px;
-            }
-            
-            .dropdown-menu a {
-                padding: 6px 12px;
-                font-size: 0.8rem;
-            }
-            
-            .notification-dropdown {
-                width: 220px;
-            }
-            
-            .notification-header {
-                padding: 10px 12px;
-            }
-            
-            .notification-title {
-                font-size: 0.9rem;
-            }
-            
-            .notification-item {
-                padding: 8px 12px;
-            }
-            
-            .notification-content {
-                font-size: 0.8rem;
-            }
-            
-            .notification-time {
-                font-size: 0.65rem;
-            }
+        .logo-img-placeholder {
+          width: 28px;
+          height: 28px;
+          font-size: 0.8rem;
         }
 
-        /* Very Small Mobile (360px and below) */
-        @media (max-width: 360px) {
-            .article-content {
-                padding: 6px;
-            }
-            
-            .navbar {
-                padding: 0 6px;
-            }
-            
-            .logo-img-placeholder {
-                width: 28px;
-                height: 28px;
-                font-size: 0.8rem;
-            }
-            
-            .logo-main {
-                font-size: 0.9rem;
-            }
-            
-            .logo-sub {
-                font-size: 0.6rem;
-            }
-            
-            .article-header {
-                padding: 10px;
-            }
-            
-            .article-title {
-                font-size: 0.95rem;
-            }
-            
-            .feature-item {
-                padding: 8px;
-            }
-            
-            .process-step {
-                padding: 8px;
-            }
-            
-            .resource-card {
-                padding: 10px;
-            }
-            
-            .btn {
-                padding: 6px 10px;
-                font-size: 0.75rem;
-            }
-            
-            .footer {
-                padding: 10px 12px 6px;
-            }
-            
-            .footer-links a {
-                font-size: 0.75rem;
-            }
-            
-            .footer-bottom {
-                font-size: 0.7rem;
-            }
+        .logo-main {
+          font-size: 0.9rem;
         }
+
+        .logo-sub {
+          font-size: 0.6rem;
+        }
+
+        .article-header {
+          padding: 10px;
+        }
+
+        .article-title {
+          font-size: 0.95rem;
+        }
+
+        .feature-item {
+          padding: 8px;
+        }
+
+        .process-step {
+          padding: 8px;
+        }
+
+        .resource-card {
+          padding: 10px;
+        }
+
+        .btn {
+          padding: 6px 10px;
+          font-size: 0.75rem;
+        }
+
+        .footer {
+          padding: 10px 12px 6px;
+        }
+
+        .footer-links a {
+          font-size: 0.75rem;
+        }
+
+        .footer-bottom {
+          font-size: 0.7rem;
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
     <!-- Logout Confirmation Modal -->
     <div class="modal" id="logoutModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Confirm Logout</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to log out?</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger" id="confirmLogout">Log Out</button>
-                <button class="btn btn-outline" id="cancelLogout">Cancel</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Confirm Logout</h3>
+          <button class="close-modal">&times;</button>
         </div>
+        <div class="modal-body">
+          <p>Are you sure you want to log out?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-danger" id="confirmLogout">Log Out</button>
+          <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+        </div>
+      </div>
     </div>
 
     <!-- Coming Soon Popup -->
     <div class="modal" id="comingSoonPopup">
-        <div class="coming-soon-popup">
-            <div class="coming-soon-header">Coming Soon!</div>
-            <div class="coming-soon-content">
-                <div class="coming-soon-icon">
-                    <i class="fas fa-tools"></i>
-                </div>
-                <p class="coming-soon-message">We're working hard to bring you this amazing feature. Stay tuned for updates!</p>
-                <button class="btn-got-it" id="closeComingSoon">Got It!</button>
-            </div>
+      <div class="coming-soon-popup">
+        <div class="coming-soon-header">Coming Soon!</div>
+        <div class="coming-soon-content">
+          <div class="coming-soon-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <p class="coming-soon-message">
+            We're working hard to bring you this amazing feature. Stay tuned for
+            updates!
+          </p>
+          <button class="btn-got-it" id="closeComingSoon">Got It!</button>
         </div>
+      </div>
     </div>
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
-                <div class="logo-img-placeholder">JA</div>
-                <div class="logo-text">
-                    <div class="logo-main">JobAssist</div>
-                    <div class="logo-sub">GHANA</div>
-                </div>
-            </div>
-            <button class="toggle-btn" id="sidebarToggle">
-                <i class="fas fa-chevron-left"></i>
-            </button>
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-img-placeholder">JA</div>
+          <div class="logo-text">
+            <div class="logo-main">JobAssist</div>
+            <div class="logo-sub">GHANA</div>
+          </div>
         </div>
-        <ul class="sidebar-menu">
-            <li><a href="candidate-dashboard.html"><i class="fas fa-home"></i> <span class="menu-text">Dashboard</span></a></li>
-            <li><a href="applications.html"><i class="fas fa-list-alt"></i> <span class="menu-text">My Applications</span></a></li>
-            <li><a href="accepted-offers.html"><i class="fas fa-check-circle"></i> <span class="menu-text">Accepted Offers</span></a></li>
-            <li><a href="candidate-profile.html"><i class="fas fa-user"></i> <span class="menu-text">My Profile</span></a></li>
-            <li><a href="boost-profile.html"><i class="fas fa-rocket"></i> <span class="menu-text">Boost Profile</span> <i class="fas fa-crown premium-indicator"></i></a></li>
-            <li><a href="browse-jobs.html"><i class="fas fa-search"></i> <span class="menu-text">Browse Jobs</span></a></li>
-            <li><a href="settings.html"><i class="fas fa-cog"></i> <span class="menu-text">Settings</span></a></li>
-            <li><a href="help.html"><i class="fas fa-question-circle"></i> <span class="menu-text">Help & Support</span></a></li>
-            <li><a href="#" id="sidebarLogout"><i class="fas fa-sign-out-alt"></i> <span class="menu-text">Logout</span></a></li>
-        </ul>
+        <button class="toggle-btn" id="sidebarToggle">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+      <ul class="sidebar-menu">
+        <li>
+          <a href="candidate-dashboard.html"
+            ><i class="fas fa-home"></i>
+            <span class="menu-text">Dashboard</span></a
+          >
+        </li>
+        <li>
+          <a href="applications.html"
+            ><i class="fas fa-list-alt"></i>
+            <span class="menu-text">My Applications</span></a
+          >
+        </li>
+        <li>
+          <a href="accepted-offers.html"
+            ><i class="fas fa-check-circle"></i>
+            <span class="menu-text">Accepted Offers</span></a
+          >
+        </li>
+        <li>
+          <a href="candidate-profile.html"
+            ><i class="fas fa-user"></i>
+            <span class="menu-text">My Profile</span></a
+          >
+        </li>
+        <li>
+          <a href="boost-profile.html"
+            ><i class="fas fa-rocket"></i>
+            <span class="menu-text">Boost Profile</span>
+            <i class="fas fa-crown premium-indicator"></i
+          ></a>
+        </li>
+        <li>
+          <a href="browse-jobs.html"
+            ><i class="fas fa-search"></i>
+            <span class="menu-text">Browse Jobs</span></a
+          >
+        </li>
+        <li>
+          <a href="settings.html"
+            ><i class="fas fa-cog"></i>
+            <span class="menu-text">Settings</span></a
+          >
+        </li>
+        <li>
+          <a href="help.html"
+            ><i class="fas fa-question-circle"></i>
+            <span class="menu-text">Help & Support</span></a
+          >
+        </li>
+        <li>
+          <a href="#" id="sidebarLogout"
+            ><i class="fas fa-sign-out-alt"></i>
+            <span class="menu-text">Logout</span></a
+          >
+        </li>
+      </ul>
     </aside>
 
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
-        <!-- Navbar -->
-        <nav class="navbar">
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="page-title">About JobAssist Ghana</div>
-            <div class="navbar-right">
-                <!-- Notification Area -->
-                <div class="notification-icon" id="notificationIcon">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge">3</span>
-                </div>
-                <div class="notification-dropdown" id="notificationDropdown">
-                    <div class="notification-header">
-                        <h3 class="notification-title">Notifications</h3>
-                        <button class="mark-all-read">Mark all as read</button>
-                    </div>
-                    <ul class="notification-list">
-                        <li class="notification-item unread">
-                            <div class="notification-content">Your application for Frontend Developer has been submitted</div>
-                            <div class="notification-time">2 hours ago</div>
-                        </li>
-                        <li class="notification-item unread">
-                            <div class="notification-content">New job matches your profile: Data Analyst at Tech Solutions</div>
-                            <div class="notification-time">5 hours ago</div>
-                        </li>
-                        <li class="notification-item unread">
-                            <div class="notification-content">Your profile has been viewed by 5 employers this week</div>
-                            <div class="notification-time">1 day ago</div>
-                        </li>
-                        <li class="notification-item">
-                            <div class="notification-content">Your application for UX Designer is being reviewed</div>
-                            <div class="notification-time">2 days ago</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="user-profile" id="userProfile">
-                    <div class="user-avatar">
-                        <img src="https://i.pravatar.cc/150?img=12" alt="User">
-                    </div>
-                    <div class="user-name">Nana</div>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-menu">
-                    <a href="candidate-profile.html"><i class="fas fa-user"></i> View Profile</a>
-                    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
-                    <a href="#" id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </div>
+      <!-- Navbar -->
+      <nav class="navbar">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="page-title">About JobAssist Ghana</div>
+        <div class="navbar-right">
+          <!-- Notification Area -->
+          <div class="notification-icon" id="notificationIcon">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </div>
+          <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notification-header">
+              <h3 class="notification-title">Notifications</h3>
+              <button class="mark-all-read">Mark all as read</button>
             </div>
-        </nav>
-
-        <!-- Article Content -->
-        <div class="article-content">
-            <!-- Back Button -->
-            <a href="help.html" class="back-button">
-                <i class="fas fa-arrow-left"></i> Back
-            </a>
-
-            <!-- Article Header -->
-            <div class="article-header">
-                <h1 class="article-title">About JobAssist Ghana</h1>
-                <p class="article-subtitle">Connecting talented Ghanaians with rewarding career opportunities through innovative technology and personalized support</p>
-                <div class="article-meta">
-                    <span><i class="fas fa-calendar"></i> Last updated: January 2025</span>
-                    <span><i class="fas fa-clock"></i> 5 min read</span>
+            <ul class="notification-list">
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  Your application for Frontend Developer has been submitted
                 </div>
+                <div class="notification-time">2 hours ago</div>
+              </li>
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  New job matches your profile: Data Analyst at Tech Solutions
+                </div>
+                <div class="notification-time">5 hours ago</div>
+              </li>
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  Your profile has been viewed by 5 employers this week
+                </div>
+                <div class="notification-time">1 day ago</div>
+              </li>
+              <li class="notification-item">
+                <div class="notification-content">
+                  Your application for UX Designer is being reviewed
+                </div>
+                <div class="notification-time">2 days ago</div>
+              </li>
+            </ul>
+          </div>
+          <div class="user-profile" id="userProfile">
+            <div class="user-avatar">
+              <img src="https://i.pravatar.cc/150?img=12" alt="User" />
             </div>
+            <div class="user-name">Nana</div>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="dropdown-menu">
+            <a href="candidate-profile.html"
+              ><i class="fas fa-user"></i> View Profile</a
+            >
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#" id="dropdownLogout"
+              ><i class="fas fa-sign-out-alt"></i> Logout</a
+            >
+          </div>
+        </div>
+      </nav>
 
-            <!-- Article Content Container -->
-            <div class="article-container">
-                <!-- Our Story Section -->
-                <div class="content-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-rocket"></i> Our Story & Mission
-                    </h2>
-                    <div class="section-content">
-                        <p>JobAssist Ghana was born from a simple yet powerful observation: while Ghana has an abundance of talented professionals and growing businesses, connecting the right talent with the right opportunities remains a significant challenge.</p>
-                        
-                        <p>Our mission is to create a bridge between ambitious professionals and forward-thinking companies, making the job search process more efficient, transparent, and rewarding for everyone involved.</p>
+      <!-- Article Content -->
+      <div class="article-content">
+        <!-- Back Button -->
+        <a href="help.html" class="back-button">
+          <i class="fas fa-arrow-left"></i> Back
+        </a>
 
-                        <div class="feature-grid">
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-bullseye"></i>
-                                </div>
-                                <h4 class="feature-title">Our Vision</h4>
-                                <p class="feature-description">To become Ghana's most trusted platform for career growth and talent discovery</p>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-handshake"></i>
-                                </div>
-                                <h4 class="feature-title">Our Values</h4>
-                                <p class="feature-description">Transparency, innovation, empowerment, and community success</p>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <h4 class="feature-title">Our Approach</h4>
-                                <p class="feature-description">Building relationships, not just transactions, in the job market</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- How It Works Section -->
-                <div class="content-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-cogs"></i> How JobAssist Works
-                    </h2>
-                    <div class="section-content">
-                        <p>Our platform is designed to make the job search process efficient, effective, and rewarding for both job seekers and employers.</p>
-
-                        <div class="process-steps">
-                            <div class="process-step">
-                                <div class="step-number">1</div>
-                                <h4 class="step-title">Create Your Profile</h4>
-                                <p class="step-description">Build a comprehensive professional profile with your skills, experience, and career objectives</p>
-                            </div>
-                            <div class="process-step">
-                                <div class="step-number">2</div>
-                                <h4 class="step-title">Discover Opportunities</h4>
-                                <p class="step-description">Browse verified job listings from employers across various industries in Ghana</p>
-                            </div>
-                            <div class="process-step">
-                                <div class="step-number">3</div>
-                                <h4 class="step-title">Apply Smartly</h4>
-                                <p class="step-description">Use our streamlined application system and track all your applications in one place</p>
-                            </div>
-                            <div class="process-step">
-                                <div class="step-number">4</div>
-                                <h4 class="step-title">Get Noticed</h4>
-                                <p class="step-description">Enhance your visibility with our activation and boosting features</p>
-                            </div>
-                        </div>
-
-                        <p>For employers, we provide smart talent matching, candidate screening tools, and dedicated support to help them find the right candidates efficiently.</p>
-                    </div>
-                </div>
-
-                <!-- Key Features Section -->
-                <div class="content-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-star"></i> What Makes Us Different
-                    </h2>
-                    <div class="section-content">
-                        <p>JobAssist Ghana stands out in the job market space through our unique approach and specialized features:</p>
-
-                        <h4 style="color: var(--primary); margin-top: 12px; font-size: 0.95rem;">🇬🇭 Ghana-Focused Solutions</h4>
-                        <p>We understand the unique dynamics of the Ghanaian job market. Our platform is tailored to address local challenges, including digital address verification, Ghana Card integration, and understanding of local industry requirements.</p>
-
-                        <h4 style="color: var(--primary); margin-top: 12px; font-size: 0.95rem;">🤖 Smart Matching Technology</h4>
-                        <p>Our algorithms analyze your skills, experience, and preferences to match you with relevant job opportunities. We're constantly improving our matching system to serve you better.</p>
-
-                        <h4 style="color: var(--primary); margin-top: 12px; font-size: 0.95rem;">💼 Comprehensive Career Support</h4>
-                        <p>Beyond job listings, we provide career guidance, CV building tools, and professional development resources to support your entire career journey.</p>
-
-                        <h4 style="color: var(--primary); margin-top: 12px; font-size: 0.95rem;">🔒 Trust & Verification</h4>
-                        <p>All employers and job listings are verified to ensure legitimacy and protect our users from fraudulent opportunities.</p>
-                    </div>
-                </div>
-
-                <!-- Our Commitment Section -->
-                <div class="content-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-heart"></i> Our Commitment to Quality
-                    </h2>
-                    <div class="section-content">
-                        <p>As a growing startup, we're committed to building a platform that genuinely serves the needs of Ghanaian professionals and employers.</p>
-
-                        <div class="stats-section">
-                            <h3 style="color: white; margin-bottom: 12px; font-size: 1rem;">Our Focus Areas</h3>
-                            <div class="stats-grid">
-                                <div class="stat-item">
-                                    <div class="stat-number">100%</div>
-                                    <div class="stat-label">Verified Employers</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">24/7</div>
-                                    <div class="stat-label">Platform Access</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">Fast</div>
-                                    <div class="stat-label">Response Times</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number">Growing</div>
-                                    <div class="stat-label">Community</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <p>We believe in quality over quantity. Every feature we build, every partnership we form, and every improvement we make is focused on delivering real value to our users. We're building this platform with you, for you.</p>
-                    </div>
-                </div>
-
-                <!-- Resources Section -->
-                <div class="resources-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-tools"></i> Helpful Resources
-                    </h2>
-
-                    <div class="resources-grid">
-                        <div class="resource-card">
-                            <div class="resource-icon">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                            <h3 class="resource-title">CV Builder Guide</h3>
-                            <p class="resource-description">Learn how to create a professional CV that stands out to employers with our comprehensive guide.</p>
-                            <a href="build-cv.html" class="btn btn-outline">View Guide</a>
-                        </div>
-
-                        <div class="resource-card">
-                            <div class="resource-icon">
-                                <i class="fas fa-video"></i>
-                            </div>
-                            <h3 class="resource-title">Video Tutorials</h3>
-                            <p class="resource-description">Watch step-by-step tutorials on how to make the most of JobAssist Ghana's features.</p>
-                            <button class="btn btn-outline coming-soon-btn">Watch Videos</button>
-                        </div>
-
-                        <div class="resource-card">
-                            <div class="resource-icon">
-                                <i class="fas fa-download"></i>
-                            </div>
-                            <h3 class="resource-title">Mobile App</h3>
-                            <p class="resource-description">Download our mobile app to search for jobs and manage applications on the go.</p>
-                            <button class="btn btn-outline coming-soon-btn">Download App</button>
-                        </div>
-
-                        <div class="resource-card">
-                            <div class="resource-icon">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <h3 class="resource-title">Community Forum</h3>
-                            <p class="resource-description">Connect with other job seekers, share experiences, and get advice from the community.</p>
-                            <button class="btn btn-outline coming-soon-btn">Join Forum</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Getting Started Section -->
-                <div class="content-section">
-                    <h2 class="section-title">
-                        <i class="fas fa-play-circle"></i> Getting Started
-                    </h2>
-                    <div class="section-content">
-                        <p>Ready to take the next step in your career journey? Here's how to get started:</p>
-
-                        <ol>
-                            <li><strong>Complete Your Profile:</strong> Add your professional details, skills, education, and work experience</li>
-                            <li><strong>Upload Your CV:</strong> Make sure your CV is up-to-date and professionally formatted</li>
-                            <li><strong>Set Your Preferences:</strong> Tell us what kind of opportunities you're looking for</li>
-                            <li><strong>Start Applying:</strong> Browse jobs and submit applications with ease</li>
-                            <li><strong>Stay Engaged:</strong> Update your profile regularly and respond to employer messages</li>
-                        </ol>
-
-                        <p>We're here to support you every step of the way. Your success is what drives us forward as we build this platform together.</p>
-
-                        <div style="text-align: center; margin-top: 20px;">
-                            <a href="login.html" class="btn btn-primary">
-                                <i class="fas fa-rocket"></i> Start Your Journey
-                            </a>
-                            <a href="help.html" class="btn btn-outline">
-                                <i class="fas fa-question-circle"></i> Get Help
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Article Header -->
+        <div class="article-header">
+          <h1 class="article-title">About JobAssist Ghana</h1>
+          <p class="article-subtitle">
+            Connecting talented Ghanaians with rewarding career opportunities
+            through innovative technology and personalized support
+          </p>
+          <div class="article-meta">
+            <span
+              ><i class="fas fa-calendar"></i> Last updated: January 2025</span
+            >
+            <span><i class="fas fa-clock"></i> 5 min read</span>
+          </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Job Assist Ghana</h3>
-                    <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem;">Connecting talented Ghanaians with rewarding career opportunities.</p>
+        <!-- Article Content Container -->
+        <div class="article-container">
+          <!-- Our Story Section -->
+          <div class="content-section">
+            <h2 class="section-title">
+              <i class="fas fa-rocket"></i> Our Story & Mission
+            </h2>
+            <div class="section-content">
+              <p>
+                JobAssist Ghana was born from a simple yet powerful observation:
+                while Ghana has an abundance of talented professionals and
+                growing businesses, connecting the right talent with the right
+                opportunities remains a significant challenge.
+              </p>
+
+              <p>
+                Our mission is to create a bridge between ambitious
+                professionals and forward-thinking companies, making the job
+                search process more efficient, transparent, and rewarding for
+                everyone involved.
+              </p>
+
+              <div class="feature-grid">
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-bullseye"></i>
+                  </div>
+                  <h4 class="feature-title">Our Vision</h4>
+                  <p class="feature-description">
+                    To become Ghana's most trusted platform for career growth
+                    and talent discovery
+                  </p>
                 </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="articles.html">About Us</a></li>
-                        <li><a href="build-cv.html">Build a CV</a></li>
-                        <li><a href="login.html">Login</a></li>
-                    </ul>
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-handshake"></i>
+                  </div>
+                  <h4 class="feature-title">Our Values</h4>
+                  <p class="feature-description">
+                    Transparency, innovation, empowerment, and community success
+                  </p>
                 </div>
-                <div class="footer-section">
-                    <h3>Contact Us</h3>
-                    <ul class="footer-links">
-                        <li>Accra, Ghana</li>
-                        <li>+233 123 456 799</li>
-                        <li>info@jobassistgh.com</li>
-                    </ul>
+                <div class="feature-item">
+                  <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                  </div>
+                  <h4 class="feature-title">Our Approach</h4>
+                  <p class="feature-description">
+                    Building relationships, not just transactions, in the job
+                    market
+                  </p>
                 </div>
+              </div>
             </div>
-            <div class="footer-bottom">
-                <p>© 2025 Job Assist Ghana All rights reserved. | Privacy Terms | Contact us</p>
+          </div>
+
+          <!-- How It Works Section -->
+          <div class="content-section">
+            <h2 class="section-title">
+              <i class="fas fa-cogs"></i> How JobAssist Works
+            </h2>
+            <div class="section-content">
+              <p>
+                Our platform is designed to make the job search process
+                efficient, effective, and rewarding for both job seekers and
+                employers.
+              </p>
+
+              <div class="process-steps">
+                <div class="process-step">
+                  <div class="step-number">1</div>
+                  <h4 class="step-title">Create Your Profile</h4>
+                  <p class="step-description">
+                    Build a comprehensive professional profile with your skills,
+                    experience, and career objectives
+                  </p>
+                </div>
+                <div class="process-step">
+                  <div class="step-number">2</div>
+                  <h4 class="step-title">Discover Opportunities</h4>
+                  <p class="step-description">
+                    Browse verified job listings from employers across various
+                    industries in Ghana
+                  </p>
+                </div>
+                <div class="process-step">
+                  <div class="step-number">3</div>
+                  <h4 class="step-title">Apply Smartly</h4>
+                  <p class="step-description">
+                    Use our streamlined application system and track all your
+                    applications in one place
+                  </p>
+                </div>
+                <div class="process-step">
+                  <div class="step-number">4</div>
+                  <h4 class="step-title">Get Noticed</h4>
+                  <p class="step-description">
+                    Enhance your visibility with our activation and boosting
+                    features
+                  </p>
+                </div>
+              </div>
+
+              <p>
+                For employers, we provide smart talent matching, candidate
+                screening tools, and dedicated support to help them find the
+                right candidates efficiently.
+              </p>
             </div>
-        </footer>
+          </div>
+
+          <!-- Key Features Section -->
+          <div class="content-section">
+            <h2 class="section-title">
+              <i class="fas fa-star"></i> What Makes Us Different
+            </h2>
+            <div class="section-content">
+              <p>
+                JobAssist Ghana stands out in the job market space through our
+                unique approach and specialized features:
+              </p>
+
+              <h4
+                style="
+                  color: var(--primary);
+                  margin-top: 12px;
+                  font-size: 0.95rem;
+                "
+              >
+                🇬🇭 Ghana-Focused Solutions
+              </h4>
+              <p>
+                We understand the unique dynamics of the Ghanaian job market.
+                Our platform is tailored to address local challenges, including
+                digital address verification, Ghana Card integration, and
+                understanding of local industry requirements.
+              </p>
+
+              <h4
+                style="
+                  color: var(--primary);
+                  margin-top: 12px;
+                  font-size: 0.95rem;
+                "
+              >
+                🤖 Smart Matching Technology
+              </h4>
+              <p>
+                Our algorithms analyze your skills, experience, and preferences
+                to match you with relevant job opportunities. We're constantly
+                improving our matching system to serve you better.
+              </p>
+
+              <h4
+                style="
+                  color: var(--primary);
+                  margin-top: 12px;
+                  font-size: 0.95rem;
+                "
+              >
+                💼 Comprehensive Career Support
+              </h4>
+              <p>
+                Beyond job listings, we provide career guidance, CV building
+                tools, and professional development resources to support your
+                entire career journey.
+              </p>
+
+              <h4
+                style="
+                  color: var(--primary);
+                  margin-top: 12px;
+                  font-size: 0.95rem;
+                "
+              >
+                🔒 Trust & Verification
+              </h4>
+              <p>
+                All employers and job listings are verified to ensure legitimacy
+                and protect our users from fraudulent opportunities.
+              </p>
+            </div>
+          </div>
+
+          <!-- Our Commitment Section -->
+          <div class="content-section">
+            <h2 class="section-title">
+              <i class="fas fa-heart"></i> Our Commitment to Quality
+            </h2>
+            <div class="section-content">
+              <p>
+                As a growing startup, we're committed to building a platform
+                that genuinely serves the needs of Ghanaian professionals and
+                employers.
+              </p>
+
+              <div class="stats-section">
+                <h3 style="color: white; margin-bottom: 12px; font-size: 1rem">
+                  Our Focus Areas
+                </h3>
+                <div class="stats-grid">
+                  <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Verified Employers</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Platform Access</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-number">Fast</div>
+                    <div class="stat-label">Response Times</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-number">Growing</div>
+                    <div class="stat-label">Community</div>
+                  </div>
+                </div>
+              </div>
+
+              <p>
+                We believe in quality over quantity. Every feature we build,
+                every partnership we form, and every improvement we make is
+                focused on delivering real value to our users. We're building
+                this platform with you, for you.
+              </p>
+            </div>
+          </div>
+
+          <!-- Resources Section -->
+          <div class="resources-section">
+            <h2 class="section-title">
+              <i class="fas fa-tools"></i> Helpful Resources
+            </h2>
+
+            <div class="resources-grid">
+              <div class="resource-card">
+                <div class="resource-icon">
+                  <i class="fas fa-file-alt"></i>
+                </div>
+                <h3 class="resource-title">CV Builder Guide</h3>
+                <p class="resource-description">
+                  Learn how to create a professional CV that stands out to
+                  employers with our comprehensive guide.
+                </p>
+                <a href="build-cv.html" class="btn btn-outline">View Guide</a>
+              </div>
+
+              <div class="resource-card">
+                <div class="resource-icon">
+                  <i class="fas fa-video"></i>
+                </div>
+                <h3 class="resource-title">Video Tutorials</h3>
+                <p class="resource-description">
+                  Watch step-by-step tutorials on how to make the most of
+                  JobAssist Ghana's features.
+                </p>
+                <button class="btn btn-outline coming-soon-btn">
+                  Watch Videos
+                </button>
+              </div>
+
+              <div class="resource-card">
+                <div class="resource-icon">
+                  <i class="fas fa-download"></i>
+                </div>
+                <h3 class="resource-title">Mobile App</h3>
+                <p class="resource-description">
+                  Download our mobile app to search for jobs and manage
+                  applications on the go.
+                </p>
+                <button class="btn btn-outline coming-soon-btn">
+                  Download App
+                </button>
+              </div>
+
+              <div class="resource-card">
+                <div class="resource-icon">
+                  <i class="fas fa-users"></i>
+                </div>
+                <h3 class="resource-title">Community Forum</h3>
+                <p class="resource-description">
+                  Connect with other job seekers, share experiences, and get
+                  advice from the community.
+                </p>
+                <button class="btn btn-outline coming-soon-btn">
+                  Join Forum
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Getting Started Section -->
+          <div class="content-section">
+            <h2 class="section-title">
+              <i class="fas fa-play-circle"></i> Getting Started
+            </h2>
+            <div class="section-content">
+              <p>
+                Ready to take the next step in your career journey? Here's how
+                to get started:
+              </p>
+
+              <ol>
+                <li>
+                  <strong>Complete Your Profile:</strong> Add your professional
+                  details, skills, education, and work experience
+                </li>
+                <li>
+                  <strong>Upload Your CV:</strong> Make sure your CV is
+                  up-to-date and professionally formatted
+                </li>
+                <li>
+                  <strong>Set Your Preferences:</strong> Tell us what kind of
+                  opportunities you're looking for
+                </li>
+                <li>
+                  <strong>Start Applying:</strong> Browse jobs and submit
+                  applications with ease
+                </li>
+                <li>
+                  <strong>Stay Engaged:</strong> Update your profile regularly
+                  and respond to employer messages
+                </li>
+              </ol>
+
+              <p>
+                We're here to support you every step of the way. Your success is
+                what drives us forward as we build this platform together.
+              </p>
+
+              <div style="text-align: center; margin-top: 20px">
+                <a href="login.html" class="btn btn-primary">
+                  <i class="fas fa-rocket"></i> Start Your Journey
+                </a>
+                <a href="help.html" class="btn btn-outline">
+                  <i class="fas fa-question-circle"></i> Get Help
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Job Assist Ghana</h3>
+            <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem">
+              Connecting talented Ghanaians with rewarding career opportunities.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="articles.html">About Us</a></li>
+              <li><a href="build-cv.html">Build a CV</a></li>
+              <li><a href="login.html">Login</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Contact Us</h3>
+            <ul class="footer-links">
+              <li>Accra, Ghana</li>
+              <li>+233 123 456 799</li>
+              <li>info@jobassistgh.com</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            © 2025 Job Assist Ghana All rights reserved. | Privacy Terms |
+            Contact us
+          </p>
+        </div>
+      </footer>
     </div>
 
     <script>
-        // DOM Elements
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const mainContent = document.getElementById('mainContent');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileOverlay = document.getElementById('mobileOverlay');
-        const logoutModal = document.getElementById('logoutModal');
-        const sidebarLogout = document.getElementById('sidebarLogout');
-        const dropdownLogout = document.getElementById('dropdownLogout');
-        const confirmLogout = document.getElementById('confirmLogout');
-        const cancelLogout = document.getElementById('cancelLogout');
-        const comingSoonPopup = document.getElementById('comingSoonPopup');
-        const closeComingSoon = document.getElementById('closeComingSoon');
-        const notificationIcon = document.getElementById('notificationIcon');
-        const notificationDropdown = document.getElementById('notificationDropdown');
-        const closeModalBtn = document.querySelector('.close-modal');
+      // DOM Elements
+      const sidebar = document.getElementById("sidebar");
+      const sidebarToggle = document.getElementById("sidebarToggle");
+      const mainContent = document.getElementById("mainContent");
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileOverlay = document.getElementById("mobileOverlay");
+      const logoutModal = document.getElementById("logoutModal");
+      const sidebarLogout = document.getElementById("sidebarLogout");
+      const dropdownLogout = document.getElementById("dropdownLogout");
+      const confirmLogout = document.getElementById("confirmLogout");
+      const cancelLogout = document.getElementById("cancelLogout");
+      const comingSoonPopup = document.getElementById("comingSoonPopup");
+      const closeComingSoon = document.getElementById("closeComingSoon");
+      const notificationIcon = document.getElementById("notificationIcon");
+      const notificationDropdown = document.getElementById(
+        "notificationDropdown",
+      );
+      const closeModalBtn = document.querySelector(".close-modal");
 
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            setupEventListeners();
+      // Initialize page
+      document.addEventListener("DOMContentLoaded", function () {
+        setupEventListeners();
+      });
+
+      // Set up event listeners
+      function setupEventListeners() {
+        // Sidebar toggle
+        sidebarToggle.addEventListener("click", function () {
+          sidebar.classList.toggle("collapsed");
+          mainContent.classList.toggle("expanded");
+
+          const icon = this.querySelector("i");
+          if (sidebar.classList.contains("collapsed")) {
+            icon.className = "fas fa-chevron-right";
+          } else {
+            icon.className = "fas fa-chevron-left";
+          }
         });
 
-        // Set up event listeners
-        function setupEventListeners() {
-            // Sidebar toggle
-            sidebarToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('collapsed');
-                mainContent.classList.toggle('expanded');
-                
-                const icon = this.querySelector('i');
-                if (sidebar.classList.contains('collapsed')) {
-                    icon.className = 'fas fa-chevron-right';
-                } else {
-                    icon.className = 'fas fa-chevron-left';
-                }
-            });
+        // Mobile menu toggle
+        let isMobileMenuOpen = false;
 
-            // Mobile menu toggle
-            let isMobileMenuOpen = false;
-            
-            mobileMenuBtn.addEventListener('click', function() {
-                if (isMobileMenuOpen) {
-                    sidebar.classList.remove('mobile-open');
-                    mobileOverlay.classList.remove('show');
-                    isMobileMenuOpen = false;
-                } else {
-                    sidebar.classList.add('mobile-open');
-                    mobileOverlay.classList.add('show');
-                    isMobileMenuOpen = true;
-                }
-            });
+        mobileMenuBtn.addEventListener("click", function () {
+          if (isMobileMenuOpen) {
+            sidebar.classList.remove("mobile-open");
+            mobileOverlay.classList.remove("show");
+            isMobileMenuOpen = false;
+          } else {
+            sidebar.classList.add("mobile-open");
+            mobileOverlay.classList.add("show");
+            isMobileMenuOpen = true;
+          }
+        });
 
-            // Close mobile menu when clicking overlay
-            mobileOverlay.addEventListener('click', function() {
-                sidebar.classList.remove('mobile-open');
-                mobileOverlay.classList.remove('show');
-                isMobileMenuOpen = false;
-            });
+        // Close mobile menu when clicking overlay
+        mobileOverlay.addEventListener("click", function () {
+          sidebar.classList.remove("mobile-open");
+          mobileOverlay.classList.remove("show");
+          isMobileMenuOpen = false;
+        });
 
-            // User profile dropdown
-            document.querySelector('.user-profile').addEventListener('click', function() {
-                document.querySelector('.dropdown-menu').classList.toggle('show');
-            });
+        // User profile dropdown
+        document
+          .querySelector(".user-profile")
+          .addEventListener("click", function () {
+            document.querySelector(".dropdown-menu").classList.toggle("show");
+          });
 
-            // Notification dropdown
-            notificationIcon.addEventListener('click', function(e) {
-                e.stopPropagation();
-                notificationDropdown.classList.toggle('show');
-            });
+        // Notification dropdown
+        notificationIcon.addEventListener("click", function (e) {
+          e.stopPropagation();
+          notificationDropdown.classList.toggle("show");
+        });
 
-            // Mark all notifications as read
-            document.querySelector('.mark-all-read').addEventListener('click', function() {
-                document.querySelectorAll('.notification-item.unread').forEach(item => {
-                    item.classList.remove('unread');
-                });
-                document.querySelector('.notification-badge').style.display = 'none';
-            });
+        // Mark all notifications as read
+        document
+          .querySelector(".mark-all-read")
+          .addEventListener("click", function () {
+            document
+              .querySelectorAll(".notification-item.unread")
+              .forEach((item) => {
+                item.classList.remove("unread");
+              });
+            document.querySelector(".notification-badge").style.display =
+              "none";
+          });
 
-            // Close dropdowns when clicking outside
-            document.addEventListener('click', function(event) {
-                if (!event.target.closest('.user-profile')) {
-                    document.querySelector('.dropdown-menu').classList.remove('show');
-                }
-                
-                if (!event.target.closest('.notification-icon')) {
-                    notificationDropdown.classList.remove('show');
-                }
-            });
+        // Close dropdowns when clicking outside
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest(".user-profile")) {
+            document.querySelector(".dropdown-menu").classList.remove("show");
+          }
 
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 992) {
-                    sidebar.classList.remove('mobile-open');
-                    mobileOverlay.classList.remove('show');
-                    isMobileMenuOpen = false;
-                }
-            });
+          if (!event.target.closest(".notification-icon")) {
+            notificationDropdown.classList.remove("show");
+          }
+        });
 
-            // Logout functionality with confirmation modal
-            sidebarLogout.addEventListener('click', function(e) {
-                e.preventDefault();
-                logoutModal.classList.add('show');
-            });
+        // Handle window resize
+        window.addEventListener("resize", function () {
+          if (window.innerWidth > 992) {
+            sidebar.classList.remove("mobile-open");
+            mobileOverlay.classList.remove("show");
+            isMobileMenuOpen = false;
+          }
+        });
 
-            dropdownLogout.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector('.dropdown-menu').classList.remove('show');
-                logoutModal.classList.add('show');
-            });
+        // Logout functionality with confirmation modal
+        sidebarLogout.addEventListener("click", function (e) {
+          e.preventDefault();
+          logoutModal.classList.add("show");
+        });
 
-            // Logout modal buttons
-            confirmLogout.addEventListener('click', function() {
-                // Redirect to login page
-                logoutModal.classList.remove('show');
-                window.location.href = 'login.html';
-            });
+        dropdownLogout.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(".dropdown-menu").classList.remove("show");
+          logoutModal.classList.add("show");
+        });
 
-            cancelLogout.addEventListener('click', function() {
-                logoutModal.classList.remove('show');
-            });
+        // Logout modal buttons
+        confirmLogout.addEventListener("click", function () {
+          // Redirect to login page
+          logoutModal.classList.remove("show");
+          window.location.href = "login.html";
+        });
 
-            // Close modal when clicking close button
-            closeModalBtn.addEventListener('click', function() {
-                logoutModal.classList.remove('show');
-            });
+        cancelLogout.addEventListener("click", function () {
+          logoutModal.classList.remove("show");
+        });
 
-            // Close modal when clicking outside
-            window.addEventListener('click', function(event) {
-                if (event.target === logoutModal) {
-                    logoutModal.classList.remove('show');
-                }
-                if (event.target === comingSoonPopup) {
-                    comingSoonPopup.classList.remove('show');
-                }
-            });
+        // Close modal when clicking close button
+        closeModalBtn.addEventListener("click", function () {
+          logoutModal.classList.remove("show");
+        });
 
-            // Coming Soon Popup functionality
-            function showComingSoon() {
-                comingSoonPopup.classList.add('show');
-            }
-            
-            function hideComingSoon() {
-                comingSoonPopup.classList.remove('show');
-            }
-            
-            // Add event listeners to all Coming Soon buttons
-            document.querySelectorAll('.coming-soon-btn').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    showComingSoon();
-                });
-            });
+        // Close modal when clicking outside
+        window.addEventListener("click", function (event) {
+          if (event.target === logoutModal) {
+            logoutModal.classList.remove("show");
+          }
+          if (event.target === comingSoonPopup) {
+            comingSoonPopup.classList.remove("show");
+          }
+        });
 
-            // Close coming soon popup
-            closeComingSoon.addEventListener('click', hideComingSoon);
+        // Coming Soon Popup functionality
+        function showComingSoon() {
+          comingSoonPopup.classList.add("show");
         }
+
+        function hideComingSoon() {
+          comingSoonPopup.classList.remove("show");
+        }
+
+        // Add event listeners to all Coming Soon buttons
+        document.querySelectorAll(".coming-soon-btn").forEach((button) => {
+          button.addEventListener("click", function (e) {
+            e.preventDefault();
+            showComingSoon();
+          });
+        });
+
+        // Close coming soon popup
+        closeComingSoon.addEventListener("click", hideComingSoon);
+      }
     </script>
-</body>
+  </body>
 </html>

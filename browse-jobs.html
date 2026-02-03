@@ -1,2548 +1,2703 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Browse Jobs | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+
+      :root {
+        --primary: #0a2a66;
+        --primary-dark: #071e4d;
+        --primary-light: #1e3a8a;
+        --secondary: #f8c12e;
+        --secondary-dark: #e6af1a;
+        --danger: #ef4444;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --light: #f8fafc;
+        --dark: #1e293b;
+        --gray: #64748b;
+        --gray-light: #e2e8f0;
+        --sidebar-width: 250px;
+        --sidebar-collapsed: 70px;
+        --navbar-height: 70px;
+        --transition: all 0.2s ease;
+      }
+
+      body {
+        background-color: #f1f5f9;
+        color: var(--dark);
+        display: flex;
+        min-height: 100vh;
+        overflow-x: hidden;
+        line-height: 1.4;
+      }
+
+      /* Sidebar Styles */
+      .sidebar {
+        width: var(--sidebar-width);
+        background: linear-gradient(
+          180deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        height: 100vh;
+        position: fixed;
+        transition: var(--transition);
+        z-index: 100;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .sidebar.collapsed {
+        width: var(--sidebar-collapsed);
+        overflow-y: hidden;
+      }
+
+      .sidebar-header {
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        height: var(--navbar-height);
+        min-height: var(--navbar-height);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo-img-placeholder {
+        width: 40px;
+        height: 40px;
+        background-color: var(--secondary);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-weight: bold;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+      }
+
+      .logo-main {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      .logo-sub {
+        font-size: 0.7rem;
+        font-weight: 500;
+        opacity: 0.8;
+        color: white;
+      }
+
+      .toggle-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        flex-shrink: 0;
+      }
+
+      .toggle-btn:hover {
+        transform: scale(1.1);
+        color: var(--secondary);
+      }
+
+      .sidebar-menu {
+        padding: 15px 0;
+        list-style: none;
+      }
+
+      .sidebar-menu li {
+        margin-bottom: 3px;
+      }
+
+      .sidebar-menu a {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+
+      .sidebar-menu a:hover,
+      .sidebar-menu a.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-left: 4px solid var(--secondary);
+      }
+
+      .sidebar-menu i {
+        margin-right: 15px;
+        font-size: 1rem;
+        width: 20px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .sidebar.collapsed .menu-text {
+        display: none;
+      }
+
+      .sidebar.collapsed .sidebar-header {
+        justify-content: center;
+        padding: 15px 5px;
+      }
+
+      .sidebar.collapsed .logo-text {
+        display: none;
+      }
+
+      .sidebar.collapsed .logo {
+        justify-content: center;
+      }
+
+      .premium-indicator {
+        color: var(--secondary);
+        margin-left: auto;
+        font-size: 0.8rem;
+      }
+
+      /* Main Content Area */
+      .main-content {
+        flex: 1;
+        margin-left: var(--sidebar-width);
+        transition: var(--transition);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - var(--sidebar-width));
+      }
+
+      .main-content.expanded {
+        margin-left: var(--sidebar-collapsed);
+        width: calc(100% - var(--sidebar-collapsed));
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        height: var(--navbar-height);
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        position: sticky;
+        top: 0;
+        z-index: 99;
+        flex-shrink: 0;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.1rem;
+        color: var(--primary);
+        cursor: pointer;
+      }
+
+      .page-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--dark);
+      }
+
+      .navbar-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      /* Notification Dropdown from candidate-dashboard */
+      .notification-icon {
+        position: relative;
+        cursor: pointer;
+        font-size: 1.1rem;
+        color: var(--gray);
+        transition: var(--transition);
+      }
+
+      .notification-icon:hover {
+        color: var(--primary);
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: var(--danger);
+        color: white;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        font-size: 0.7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .notification-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 300px;
+        max-height: 350px;
+        overflow-y: auto;
+        display: none;
+        z-index: 101;
+      }
+
+      .notification-dropdown.show {
+        display: block;
+      }
+
+      .notification-header {
+        padding: 12px 15px;
+        border-bottom: 1px solid var(--gray-light);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .notification-title {
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 0.95rem;
+      }
+
+      .mark-all-read {
+        background: none;
+        border: none;
+        color: var(--primary);
+        cursor: pointer;
+        font-size: 0.8rem;
+      }
+
+      .notification-list {
+        list-style: none;
+      }
+
+      .notification-item {
+        padding: 10px 15px;
+        border-bottom: 1px solid var(--gray-light);
+        transition: var(--transition);
+      }
+
+      .notification-item:hover {
+        background-color: rgba(248, 193, 46, 0.1);
+      }
+
+      .notification-item.unread {
+        background-color: rgba(10, 42, 102, 0.05);
+      }
+
+      .notification-item:last-child {
+        border-bottom: none;
+      }
+
+      .notification-content {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+      }
+
+      .notification-time {
+        font-size: 0.7rem;
+        color: var(--gray);
+      }
+
+      .notification-empty {
+        padding: 20px;
+        text-align: center;
+        color: var(--gray);
+        font-size: 0.9rem;
+      }
+
+      .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 50px;
+        transition: var(--transition);
+      }
+
+      .user-profile:hover {
+        background-color: var(--gray-light);
+      }
+
+      .user-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .user-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .user-name {
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 180px;
+        padding: 8px 0;
+        display: none;
+        z-index: 101;
+      }
+
+      .dropdown-menu.show {
+        display: block;
+      }
+
+      .dropdown-menu a {
+        display: block;
+        padding: 8px 16px;
+        text-decoration: none;
+        color: var(--dark);
+        transition: var(--transition);
+        font-size: 0.85rem;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: var(--gray-light);
+        color: var(--primary);
+      }
+
+      /* Browse Content */
+      .browse-content {
+        padding: 20px;
+        flex: 1;
+      }
+
+      /* Welcome Section - Compact like view-applicants */
+      .welcome-section {
+        margin-bottom: 15px;
+        padding: 0 5px;
+      }
+
+      .welcome-title {
+        font-size: 1.4rem;
+        margin-bottom: 4px;
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .welcome-subtitle {
+        color: var(--gray);
+        font-size: 0.9rem;
+      }
+
+      /* Search & Filter Bar - Compact */
+      .search-filter-bar {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--gray-light);
+      }
+
+      .search-filter-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        padding: 5px 0;
+      }
+
+      .search-filter-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--primary);
+      }
+
+      .search-filter-title i {
+        color: var(--secondary);
+        font-size: 1.1rem;
+      }
+
+      .toggle-arrow {
+        transition: var(--transition);
+        color: var(--gray);
+      }
+
+      .search-filter-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+
+      .search-filter-bar.expanded .search-filter-content {
+        max-height: 500px;
+        margin-top: 15px;
+      }
+
+      /* Search Section */
+      .search-section {
+        margin-bottom: 15px;
+      }
+
+      .search-container {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .search-input-wrapper {
+        flex: 1;
+        position: relative;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 12px 40px 12px 40px;
+        border: 1px solid var(--gray-light);
+        border-radius: 6px;
+        font-size: 0.95rem;
+        transition: var(--transition);
+        background-color: var(--light);
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--secondary);
+        background-color: white;
+        box-shadow: 0 0 0 3px rgba(248, 193, 46, 0.1);
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gray);
+        font-size: 1rem;
+      }
+
+      .search-btn {
+        padding: 12px 20px;
+        background: var(--secondary);
+        color: var(--primary);
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+        font-size: 0.95rem;
+      }
+
+      .search-btn:hover {
+        background-color: var(--secondary-dark);
+      }
+
+      /* Quick Filters */
+      .quick-filters {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+
+      .quick-filter-btn {
+        padding: 6px 12px;
+        background: var(--light);
+        border: 1px solid var(--gray-light);
+        border-radius: 16px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: var(--transition);
+        color: var(--dark);
+      }
+
+      .quick-filter-btn:hover,
+      .quick-filter-btn.active {
+        background: var(--secondary);
+        color: var(--primary);
+        border-color: var(--secondary);
+      }
+
+      /* Advanced Filters */
+      .advanced-filters {
+        background: var(--light);
+        border-radius: 6px;
+        padding: 15px;
+        margin-top: 12px;
+      }
+
+      .filter-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+      }
+
+      .filter-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .filter-group label {
+        margin-bottom: 6px;
+        font-weight: 500;
+        color: var(--dark);
+        font-size: 0.85rem;
+      }
+
+      .filter-group select {
+        padding: 8px 10px;
+        border: 1px solid var(--gray-light);
+        border-radius: 6px;
+        background-color: white;
+        font-size: 0.85rem;
+        transition: var(--transition);
+      }
+
+      .filter-group select:focus {
+        outline: none;
+        border-color: var(--secondary);
+      }
+
+      .filter-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 15px;
+        justify-content: flex-end;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+        border: none;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 1px solid var(--gray-light);
+        color: var(--dark);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--gray-light);
+      }
+
+      .btn-accent {
+        background: var(--secondary);
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      .btn-accent:hover {
+        background-color: var(--secondary-dark);
+      }
+
+      .btn-danger {
+        background-color: var(--danger);
+        color: white;
+      }
+
+      .btn-danger:hover {
+        background-color: #dc2626;
+      }
+
+      /* Jobs Grid - Compact cards like view-applicants */
+      .section-title {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .section-title i {
+        color: var(--secondary);
+      }
+
+      .job-count {
+        color: var(--gray);
+        font-weight: 500;
+        font-size: 0.9rem;
+        margin-left: 5px;
+      }
+
+      .jobs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+
+      /* Job Card - Compact styling */
+      .job-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+        border: 1px solid var(--gray-light);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        cursor: pointer;
+      }
+
+      .job-card:hover {
+        border-color: var(--secondary);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+      }
+
+      .job-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 8px;
+      }
+
+      .job-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 4px;
+        line-height: 1.3;
+      }
+
+      .job-id {
+        font-size: 0.7rem;
+        color: var(--gray);
+        background-color: var(--gray-light);
+        padding: 2px 6px;
+        border-radius: 4px;
+        white-space: nowrap;
+      }
+
+      .job-company {
+        font-weight: 500;
+        color: var(--dark);
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+      }
+
+      .job-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 8px;
+        color: var(--gray);
+        font-size: 0.8rem;
+      }
+
+      .job-meta span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .job-meta i {
+        color: var(--secondary);
+        font-size: 0.8rem;
+      }
+
+      .job-salary {
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        background: rgba(248, 193, 46, 0.1);
+        padding: 6px 10px;
+        border-radius: 4px;
+        display: inline-block;
+      }
+
+      .job-description {
+        color: var(--dark);
+        font-size: 0.85rem;
+        line-height: 1.4;
+        margin-bottom: 15px;
+        flex-grow: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .job-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: auto;
+      }
+
+      .btn-apply {
+        background: var(--secondary);
+        color: var(--primary);
+        padding: 10px;
+        border-radius: 6px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 0.85rem;
+      }
+
+      .btn-apply:hover {
+        background-color: var(--secondary-dark);
+      }
+
+      .btn-apply.disabled {
+        background: var(--gray-light);
+        color: var(--gray);
+        cursor: not-allowed;
+      }
+
+      .btn-boost {
+        background-color: transparent;
+        border: 1px solid var(--secondary);
+        color: var(--secondary);
+        padding: 10px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        position: relative;
+      }
+
+      .btn-boost:hover {
+        background-color: var(--secondary);
+        color: var(--primary);
+      }
+
+      .btn-boost.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        border-color: var(--gray);
+        color: var(--gray);
+      }
+
+      .btn-boost.disabled:hover {
+        background-color: transparent;
+        color: var(--gray);
+      }
+
+      /* Pagination */
+      .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        margin-top: 25px;
+        flex-wrap: wrap;
+      }
+
+      .pagination button {
+        padding: 8px 12px;
+        border: 1px solid var(--gray-light);
+        background-color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 500;
+        font-size: 0.85rem;
+        min-width: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .pagination button.active {
+        background: var(--secondary);
+        color: var(--primary);
+        border-color: var(--secondary);
+        font-weight: 600;
+      }
+
+      .pagination button:hover:not(.active) {
+        background-color: var(--secondary);
+        color: var(--primary);
+        border-color: var(--secondary);
+      }
+
+      .pagination button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .pagination button:disabled:hover {
+        background-color: white;
+        color: inherit;
+        border-color: var(--gray-light);
+      }
+
+      /* Loading State */
+      .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(0, 0, 0, 0.1);
+        border-left-color: var(--secondary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .searching-text {
+        color: var(--gray);
+        font-size: 0.95rem;
+      }
+
+      /* Empty State */
+      .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--gray);
+      }
+
+      .empty-state i {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+        color: var(--gray-light);
+      }
+
+      .empty-state h3 {
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+        color: var(--primary);
+      }
+
+      .empty-state p {
+        font-size: 0.9rem;
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      .modal-content {
+        background-color: white;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 450px;
+        padding: 18px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        border-top: 5px solid var(--secondary);
+      }
+
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .modal-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .close-modal {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: var(--gray);
+      }
+
+      .modal-body {
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+        color: var(--dark);
+      }
+
+      .modal-footer {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+      }
+
+      /* Application Tiers */
+      .application-tiers {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .tier-option {
+        flex: 1;
+        border: 1px solid var(--gray-light);
+        border-radius: 6px;
+        padding: 12px;
+        text-align: center;
+        cursor: pointer;
+        transition: var(--transition);
+        background: white;
+      }
+
+      .tier-option:hover {
+        border-color: var(--primary);
+      }
+
+      .tier-option.selected {
+        border-color: var(--secondary);
+        background: rgba(248, 193, 46, 0.1);
+      }
+
+      .tier-badge {
+        display: inline-block;
+        padding: 3px 6px;
+        border-radius: 4px;
+        font-size: 0.65rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+
+      .badge-free {
+        background: var(--success);
+        color: white;
+      }
+
+      .badge-premium {
+        background: var(--secondary);
+        color: var(--primary);
+      }
+
+      .tier-price {
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin: 6px 0;
+      }
+
+      .tier-features {
+        font-size: 0.75rem;
+        color: var(--gray);
+        margin-bottom: 8px;
+        text-align: left;
+        padding-left: 8px;
+      }
+
+      .tier-features li {
+        margin-bottom: 3px;
+        list-style-type: none;
+        position: relative;
+        padding-left: 12px;
+      }
+
+      .tier-features li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--success);
+        font-weight: bold;
+        font-size: 0.7rem;
+      }
+
+      .premium-features li:before {
+        color: var(--secondary);
+      }
+
+      .tier-action {
+        width: 100%;
+        padding: 8px;
+        border: none;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        font-size: 0.8rem;
+      }
+
+      .btn-free {
+        background: var(--success);
+        color: white;
+      }
+
+      .btn-free:hover {
+        background: #0d9c6b;
+      }
+
+      .btn-premium {
+        background: var(--secondary);
+        color: var(--primary);
+      }
+
+      .btn-premium:hover {
+        background: var(--secondary-dark);
+      }
+
+      /* Application Success */
+      .application-success {
+        text-align: center;
+        padding: 15px;
+      }
+
+      .success-icon {
+        font-size: 2rem;
+        color: var(--success);
+        margin-bottom: 10px;
+      }
+
+      .success-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 8px;
+      }
+
+      .success-message {
+        color: var(--gray);
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+      }
+
+      .boost-cta {
+        background: rgba(248, 193, 46, 0.1);
+        border: 1px solid var(--secondary);
+        border-radius: 6px;
+        padding: 12px;
+        margin: 15px 0;
+        text-align: center;
+      }
+
+      .boost-cta h4 {
+        color: var(--primary);
+        margin-bottom: 6px;
+        font-size: 0.9rem;
+      }
+
+      .boost-cta p {
+        color: var(--gray);
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+      }
+
+      /* Footer */
+      .footer {
+        background-color: var(--primary);
+        color: white;
+        padding: 15px 20px 10px;
+        margin-top: 25px;
+        flex-shrink: 0;
+        text-align: center;
+      }
+
+      .footer-links {
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 0.85rem;
+      }
+
+      .footer-links a:hover {
+        color: var(--secondary);
+      }
+
+      .footer-bottom {
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.8rem;
+      }
+
+      /* Mobile Overlay */
+      .mobile-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+      }
+
+      .mobile-overlay.show {
+        display: block;
+      }
+
+      /* Tooltip */
+      .tooltip {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--dark);
+        color: white;
+        padding: 6px 10px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        white-space: nowrap;
+        z-index: 10;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+        margin-bottom: 4px;
+      }
+
+      .tooltip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 4px solid transparent;
+        border-top-color: var(--dark);
+      }
+
+      .btn-boost:hover .tooltip {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Toast Notification */
+      .toast {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        background-color: var(--danger);
+        color: white;
+        padding: 12px 16px;
+        border-radius: 6px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        z-index: 1001;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transform: translateX(150%);
+        transition: transform 0.3s ease;
+        max-width: 300px;
+        font-size: 0.85rem;
+      }
+
+      .toast.show {
+        transform: translateX(0);
+      }
+
+      .toast i {
+        font-size: 1.1rem;
+      }
+
+      .toast.success {
+        background-color: var(--success);
+      }
+
+      .toast.warning {
+        background-color: var(--warning);
+      }
+
+      /* ====================== */
+      /* MOBILE RESPONSIVENESS */
+      /* Using view-applicants principles */
+      /* ====================== */
+
+      /* Tablet (992px and below) */
+      @media (max-width: 992px) {
+        .browse-content {
+          padding: 15px;
         }
 
-        :root {
-            --primary: #0a2a66;
-            --primary-dark: #071e4d;
-            --primary-light: #1e3a8a;
-            --secondary: #f8c12e;
-            --secondary-dark: #e6af1a;
-            --danger: #ef4444;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gray: #64748b;
-            --gray-light: #e2e8f0;
-            --sidebar-width: 250px;
-            --sidebar-collapsed: 70px;
-            --navbar-height: 70px;
-            --transition: all 0.2s ease;
-        }
-
-        body {
-            background-color: #f1f5f9;
-            color: var(--dark);
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
-            line-height: 1.4;
-        }
-
-        /* Sidebar Styles */
         .sidebar {
-            width: var(--sidebar-width);
-            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-            color: white;
-            height: 100vh;
-            position: fixed;
-            transition: var(--transition);
-            z-index: 100;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-            overflow-x: hidden;
+          transform: translateX(-100%);
+          width: 250px;
         }
 
-        .sidebar.collapsed {
-            width: var(--sidebar-collapsed);
-            overflow-y: hidden;
+        .sidebar.mobile-open {
+          transform: translateX(0);
         }
 
-        .sidebar-header {
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            height: var(--navbar-height);
-            min-height: var(--navbar-height);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-img-placeholder {
-            width: 40px;
-            height: 40px;
-            background-color: var(--secondary);
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
-
-        .logo-main {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: white;
-        }
-
-        .logo-sub {
-            font-size: 0.7rem;
-            font-weight: 500;
-            opacity: 0.8;
-            color: white;
-        }
-
-        .toggle-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            flex-shrink: 0;
-        }
-
-        .toggle-btn:hover {
-            transform: scale(1.1);
-            color: var(--secondary);
-        }
-
-        .sidebar-menu {
-            padding: 15px 0;
-            list-style: none;
-        }
-
-        .sidebar-menu li {
-            margin-bottom: 3px;
-        }
-
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-left: 4px solid var(--secondary);
-        }
-
-        .sidebar-menu i {
-            margin-right: 15px;
-            font-size: 1rem;
-            width: 20px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        .sidebar.collapsed .menu-text {
-            display: none;
-        }
-
-        .sidebar.collapsed .sidebar-header {
-            justify-content: center;
-            padding: 15px 5px;
-        }
-
-        .sidebar.collapsed .logo-text {
-            display: none;
-        }
-
-        .sidebar.collapsed .logo {
-            justify-content: center;
-        }
-
-        .premium-indicator {
-            color: var(--secondary);
-            margin-left: auto;
-            font-size: 0.8rem;
-        }
-
-        /* Main Content Area */
         .main-content {
-            flex: 1;
-            margin-left: var(--sidebar-width);
-            transition: var(--transition);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            width: calc(100% - var(--sidebar-width));
+          margin-left: 0;
+          width: 100%;
         }
 
         .main-content.expanded {
-            margin-left: var(--sidebar-collapsed);
-            width: calc(100% - var(--sidebar-collapsed));
-        }
-
-        /* Navbar Styles */
-        .navbar {
-            height: var(--navbar-height);
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            position: sticky;
-            top: 0;
-            z-index: 99;
-            flex-shrink: 0;
+          margin-left: 0;
+          width: 100%;
         }
 
         .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.1rem;
-            color: var(--primary);
-            cursor: pointer;
-        }
-
-        .page-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        /* Notification Dropdown from candidate-dashboard */
-        .notification-icon {
-            position: relative;
-            cursor: pointer;
-            font-size: 1.1rem;
-            color: var(--gray);
-            transition: var(--transition);
-        }
-
-        .notification-icon:hover {
-            color: var(--primary);
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: var(--danger);
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .notification-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 20px;
-            background-color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 300px;
-            max-height: 350px;
-            overflow-y: auto;
-            display: none;
-            z-index: 101;
-        }
-
-        .notification-dropdown.show {
-            display: block;
-        }
-
-        .notification-header {
-            padding: 12px 15px;
-            border-bottom: 1px solid var(--gray-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .notification-title {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 0.95rem;
-        }
-
-        .mark-all-read {
-            background: none;
-            border: none;
-            color: var(--primary);
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .notification-list {
-            list-style: none;
-        }
-
-        .notification-item {
-            padding: 10px 15px;
-            border-bottom: 1px solid var(--gray-light);
-            transition: var(--transition);
-        }
-
-        .notification-item:hover {
-            background-color: rgba(248, 193, 46, 0.1);
-        }
-
-        .notification-item.unread {
-            background-color: rgba(10, 42, 102, 0.05);
-        }
-
-        .notification-item:last-child {
-            border-bottom: none;
-        }
-
-        .notification-content {
-            font-size: 0.85rem;
-            margin-bottom: 4px;
-        }
-
-        .notification-time {
-            font-size: 0.7rem;
-            color: var(--gray);
-        }
-
-        .notification-empty {
-            padding: 20px;
-            text-align: center;
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 50px;
-            transition: var(--transition);
-        }
-
-        .user-profile:hover {
-            background-color: var(--gray-light);
-        }
-
-        .user-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background-color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .user-name {
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: 20px;
-            background-color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 180px;
-            padding: 8px 0;
-            display: none;
-            z-index: 101;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-menu a {
-            display: block;
-            padding: 8px 16px;
-            text-decoration: none;
-            color: var(--dark);
-            transition: var(--transition);
-            font-size: 0.85rem;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: var(--gray-light);
-            color: var(--primary);
-        }
-
-        /* Browse Content */
-        .browse-content {
-            padding: 20px;
-            flex: 1;
-        }
-
-        /* Welcome Section - Compact like view-applicants */
-        .welcome-section {
-            margin-bottom: 15px;
-            padding: 0 5px;
-        }
-
-        .welcome-title {
-            font-size: 1.4rem;
-            margin-bottom: 4px;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .welcome-subtitle {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        /* Search & Filter Bar - Compact */
-        .search-filter-bar {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--gray-light);
-        }
-
-        .search-filter-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            padding: 5px 0;
-        }
-
-        .search-filter-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .search-filter-title i {
-            color: var(--secondary);
-            font-size: 1.1rem;
-        }
-
-        .toggle-arrow {
-            transition: var(--transition);
-            color: var(--gray);
-        }
-
-        .search-filter-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .search-filter-bar.expanded .search-filter-content {
-            max-height: 500px;
-            margin-top: 15px;
-        }
-
-        /* Search Section */
-        .search-section {
-            margin-bottom: 15px;
-        }
-
-        .search-container {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .search-input-wrapper {
-            flex: 1;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 40px 12px 40px;
-            border: 1px solid var(--gray-light);
-            border-radius: 6px;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            background-color: var(--light);
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--secondary);
-            background-color: white;
-            box-shadow: 0 0 0 3px rgba(248, 193, 46, 0.1);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-            font-size: 1rem;
-        }
-
-        .search-btn {
-            padding: 12px 20px;
-            background: var(--secondary);
-            color: var(--primary);
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            white-space: nowrap;
-            font-size: 0.95rem;
-        }
-
-        .search-btn:hover {
-            background-color: var(--secondary-dark);
-        }
-
-        /* Quick Filters */
-        .quick-filters {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-        }
-
-        .quick-filter-btn {
-            padding: 6px 12px;
-            background: var(--light);
-            border: 1px solid var(--gray-light);
-            border-radius: 16px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--dark);
-        }
-
-        .quick-filter-btn:hover, .quick-filter-btn.active {
-            background: var(--secondary);
-            color: var(--primary);
-            border-color: var(--secondary);
-        }
-
-        /* Advanced Filters */
-        .advanced-filters {
-            background: var(--light);
-            border-radius: 6px;
-            padding: 15px;
-            margin-top: 12px;
-        }
-
-        .filter-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .filter-group label {
-            margin-bottom: 6px;
-            font-weight: 500;
-            color: var(--dark);
-            font-size: 0.85rem;
-        }
-
-        .filter-group select {
-            padding: 8px 10px;
-            border: 1px solid var(--gray-light);
-            border-radius: 6px;
-            background-color: white;
-            font-size: 0.85rem;
-            transition: var(--transition);
-        }
-
-        .filter-group select:focus {
-            outline: none;
-            border-color: var(--secondary);
-        }
-
-        .filter-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 15px;
-            justify-content: flex-end;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            font-size: 0.85rem;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--gray-light);
-            color: var(--dark);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--gray-light);
-        }
-
-        .btn-accent {
-            background: var(--secondary);
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .btn-accent:hover {
-            background-color: var(--secondary-dark);
-        }
-
-        .btn-danger {
-            background-color: var(--danger);
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background-color: #dc2626;
-        }
-
-        /* Jobs Grid - Compact cards like view-applicants */
-        .section-title {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .section-title i {
-            color: var(--secondary);
-        }
-
-        .job-count {
-            color: var(--gray);
-            font-weight: 500;
-            font-size: 0.9rem;
-            margin-left: 5px;
+          display: block;
         }
 
         .jobs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
+          grid-template-columns: repeat(2, 1fr);
         }
 
-        /* Job Card - Compact styling */
+        .filter-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .navbar {
+          padding: 0 15px;
+        }
+
+        .page-title {
+          font-size: 1.1rem;
+        }
+
+        .notification-dropdown {
+          right: 15px;
+          width: 280px;
+        }
+
+        .application-tiers {
+          flex-direction: column;
+        }
+      }
+
+      /* Mobile (768px and below) */
+      @media (max-width: 768px) {
+        .browse-content {
+          padding: 12px;
+        }
+
+        .navbar {
+          padding: 0 12px;
+          height: 60px;
+        }
+
+        .logo-img-placeholder {
+          width: 35px;
+          height: 35px;
+          font-size: 1rem;
+        }
+
+        .user-name {
+          display: none;
+        }
+
+        .notification-icon {
+          font-size: 1rem;
+        }
+
+        .user-avatar {
+          width: 35px;
+          height: 35px;
+        }
+
+        .dropdown-menu {
+          right: 12px;
+          width: 160px;
+        }
+
+        .welcome-section {
+          margin-bottom: 12px;
+        }
+
+        .welcome-title {
+          font-size: 1.2rem;
+          margin-bottom: 3px;
+        }
+
+        .welcome-subtitle {
+          font-size: 0.85rem;
+        }
+
+        .search-filter-bar {
+          padding: 12px;
+          margin-bottom: 15px;
+        }
+
+        .search-filter-title {
+          font-size: 0.95rem;
+        }
+
+        .search-input {
+          padding: 10px 35px 10px 35px;
+          font-size: 0.9rem;
+        }
+
+        .search-btn {
+          padding: 10px 15px;
+          font-size: 0.9rem;
+        }
+
+        .jobs-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
         .job-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 16px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            transition: var(--transition);
-            border: 1px solid var(--gray-light);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            cursor: pointer;
-        }
-
-        .job-card:hover {
-            border-color: var(--secondary);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transform: translateY(-2px);
-        }
-
-        .job-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 8px;
+          padding: 14px;
         }
 
         .job-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 4px;
-            line-height: 1.3;
-        }
-
-        .job-id {
-            font-size: 0.7rem;
-            color: var(--gray);
-            background-color: var(--gray-light);
-            padding: 2px 6px;
-            border-radius: 4px;
-            white-space: nowrap;
+          font-size: 0.95rem;
         }
 
         .job-company {
-            font-weight: 500;
-            color: var(--dark);
-            margin-bottom: 8px;
-            font-size: 0.9rem;
+          font-size: 0.85rem;
         }
 
         .job-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 8px;
-            color: var(--gray);
-            font-size: 0.8rem;
-        }
-
-        .job-meta span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .job-meta i {
-            color: var(--secondary);
-            font-size: 0.8rem;
+          font-size: 0.75rem;
+          gap: 8px;
         }
 
         .job-salary {
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            background: rgba(248, 193, 46, 0.1);
-            padding: 6px 10px;
-            border-radius: 4px;
-            display: inline-block;
+          font-size: 0.85rem;
+          padding: 5px 8px;
         }
 
         .job-description {
-            color: var(--dark);
-            font-size: 0.85rem;
-            line-height: 1.4;
-            margin-bottom: 15px;
-            flex-grow: 1;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+          font-size: 0.8rem;
+          margin-bottom: 12px;
+        }
+
+        .btn-apply,
+        .btn-boost {
+          padding: 8px;
+          font-size: 0.8rem;
+        }
+
+        .section-title {
+          font-size: 1rem;
+          margin-bottom: 12px;
+        }
+
+        .filter-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .notification-dropdown {
+          right: 10px;
+          width: 260px;
+        }
+
+        .toast {
+          right: 12px;
+          left: 12px;
+          max-width: none;
+          top: 70px;
+          font-size: 0.8rem;
+          padding: 10px 14px;
+        }
+      }
+
+      /* Small Mobile (576px and below) */
+      @media (max-width: 576px) {
+        .browse-content {
+          padding: 10px;
+        }
+
+        .navbar {
+          padding: 0 10px;
+        }
+
+        .mobile-menu-btn {
+          font-size: 1rem;
+        }
+
+        .page-title {
+          font-size: 1rem;
+        }
+
+        .welcome-title {
+          font-size: 1.1rem;
+        }
+
+        .welcome-subtitle {
+          font-size: 0.8rem;
+        }
+
+        .search-container {
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .search-btn {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .quick-filters {
+          justify-content: center;
+        }
+
+        .filter-actions {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .job-card {
+          padding: 12px;
+        }
+
+        .job-id {
+          font-size: 0.65rem;
         }
 
         .job-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: auto;
+          grid-template-columns: 1fr;
+          gap: 6px;
         }
 
-        .btn-apply {
-            background: var(--secondary);
-            color: var(--primary);
-            padding: 10px;
-            border-radius: 6px;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 0.85rem;
-        }
-
-        .btn-apply:hover {
-            background-color: var(--secondary-dark);
-        }
-
-        .btn-apply.disabled {
-            background: var(--gray-light);
-            color: var(--gray);
-            cursor: not-allowed;
-        }
-
-        .btn-boost {
-            background-color: transparent;
-            border: 1px solid var(--secondary);
-            color: var(--secondary);
-            padding: 10px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            position: relative;
-        }
-
-        .btn-boost:hover {
-            background-color: var(--secondary);
-            color: var(--primary);
-        }
-
-        .btn-boost.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            border-color: var(--gray);
-            color: var(--gray);
-        }
-
-        .btn-boost.disabled:hover {
-            background-color: transparent;
-            color: var(--gray);
-        }
-
-        /* Pagination */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            margin-top: 25px;
-            flex-wrap: wrap;
-        }
-
-        .pagination button {
-            padding: 8px 12px;
-            border: 1px solid var(--gray-light);
-            background-color: white;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-            font-size: 0.85rem;
-            min-width: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .pagination button.active {
-            background: var(--secondary);
-            color: var(--primary);
-            border-color: var(--secondary);
-            font-weight: 600;
-        }
-
-        .pagination button:hover:not(.active) {
-            background-color: var(--secondary);
-            color: var(--primary);
-            border-color: var(--secondary);
-        }
-
-        .pagination button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .pagination button:disabled:hover {
-            background-color: white;
-            color: inherit;
-            border-color: var(--gray-light);
-        }
-
-        /* Loading State */
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(0, 0, 0, 0.1);
-            border-left-color: var(--secondary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .searching-text {
-            color: var(--gray);
-            font-size: 0.95rem;
-        }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--gray);
-        }
-
-        .empty-state i {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
-            color: var(--gray-light);
-        }
-
-        .empty-state h3 {
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-            color: var(--primary);
-        }
-
-        .empty-state p {
-            font-size: 0.9rem;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-        }
-
-        .modal.show {
-            display: flex;
+        .notification-dropdown {
+          width: 240px;
+          right: 8px;
         }
 
         .modal-content {
-            background-color: white;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 450px;
-            padding: 18px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            border-top: 5px solid var(--secondary);
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
+          padding: 16px;
         }
 
         .modal-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary);
+          font-size: 1rem;
         }
 
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            color: var(--gray);
-        }
-
-        .modal-body {
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-            color: var(--dark);
-        }
-
-        .modal-footer {
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-        }
-
-        /* Application Tiers */
-        .application-tiers {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .tier-option {
-            flex: 1;
-            border: 1px solid var(--gray-light);
-            border-radius: 6px;
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            background: white;
-        }
-
-        .tier-option:hover {
-            border-color: var(--primary);
-        }
-
-        .tier-option.selected {
-            border-color: var(--secondary);
-            background: rgba(248, 193, 46, 0.1);
-        }
-
-        .tier-badge {
-            display: inline-block;
-            padding: 3px 6px;
-            border-radius: 4px;
-            font-size: 0.65rem;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .badge-free {
-            background: var(--success);
-            color: white;
-        }
-
-        .badge-premium {
-            background: var(--secondary);
-            color: var(--primary);
-        }
-
-        .tier-price {
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin: 6px 0;
-        }
-
-        .tier-features {
-            font-size: 0.75rem;
-            color: var(--gray);
-            margin-bottom: 8px;
-            text-align: left;
-            padding-left: 8px;
-        }
-
-        .tier-features li {
-            margin-bottom: 3px;
-            list-style-type: none;
-            position: relative;
-            padding-left: 12px;
-        }
-
-        .tier-features li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--success);
-            font-weight: bold;
-            font-size: 0.7rem;
-        }
-
-        .premium-features li:before {
-            color: var(--secondary);
-        }
-
-        .tier-action {
-            width: 100%;
-            padding: 8px;
-            border: none;
-            border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.8rem;
-        }
-
-        .btn-free {
-            background: var(--success);
-            color: white;
-        }
-
-        .btn-free:hover {
-            background: #0d9c6b;
-        }
-
-        .btn-premium {
-            background: var(--secondary);
-            color: var(--primary);
-        }
-
-        .btn-premium:hover {
-            background: var(--secondary-dark);
-        }
-
-        /* Application Success */
-        .application-success {
-            text-align: center;
-            padding: 15px;
-        }
-
-        .success-icon {
-            font-size: 2rem;
-            color: var(--success);
-            margin-bottom: 10px;
-        }
-
-        .success-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        .success-message {
-            color: var(--gray);
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-
-        .boost-cta {
-            background: rgba(248, 193, 46, 0.1);
-            border: 1px solid var(--secondary);
-            border-radius: 6px;
-            padding: 12px;
-            margin: 15px 0;
-            text-align: center;
-        }
-
-        .boost-cta h4 {
-            color: var(--primary);
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-        }
-
-        .boost-cta p {
-            color: var(--gray);
-            font-size: 0.8rem;
-            margin-bottom: 10px;
-        }
-
-        /* Footer */
         .footer {
-            background-color: var(--primary);
-            color: white;
-            padding: 15px 20px 10px;
-            margin-top: 25px;
-            flex-shrink: 0;
-            text-align: center;
+          padding: 12px 15px 8px;
         }
 
         .footer-links {
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
+          gap: 10px;
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.85rem;
-        }
-
-        .footer-links a:hover {
-            color: var(--secondary);
+          font-size: 0.8rem;
         }
 
         .footer-bottom {
-            padding-top: 8px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.8rem;
+          font-size: 0.75rem;
+        }
+      }
+
+      /* Extra Small Mobile (480px and below) */
+      @media (max-width: 480px) {
+        .browse-content {
+          padding: 8px;
         }
 
-        /* Mobile Overlay */
-        .mobile-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 99;
+        .navbar {
+          padding: 0 8px;
+          height: 55px;
         }
 
-        .mobile-overlay.show {
-            display: block;
+        .logo-img-placeholder {
+          width: 30px;
+          height: 30px;
+          font-size: 0.9rem;
         }
 
-        /* Tooltip */
-        .tooltip {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--dark);
-            color: white;
-            padding: 6px 10px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            white-space: nowrap;
-            z-index: 10;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            margin-bottom: 4px;
+        .mobile-menu-btn {
+          font-size: 0.9rem;
         }
 
-        .tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 4px solid transparent;
-            border-top-color: var(--dark);
+        .page-title {
+          font-size: 0.9rem;
         }
 
-        .btn-boost:hover .tooltip {
-            opacity: 1;
-            visibility: visible;
+        .notification-icon {
+          font-size: 0.9rem;
         }
 
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            background-color: var(--danger);
-            color: white;
-            padding: 12px 16px;
-            border-radius: 6px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            z-index: 1001;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transform: translateX(150%);
-            transition: transform 0.3s ease;
-            max-width: 300px;
-            font-size: 0.85rem;
+        .notification-badge {
+          width: 16px;
+          height: 16px;
+          font-size: 0.65rem;
         }
 
-        .toast.show {
-            transform: translateX(0);
+        .user-avatar {
+          width: 32px;
+          height: 32px;
         }
 
-        .toast i {
-            font-size: 1.1rem;
+        .welcome-title {
+          font-size: 1rem;
         }
 
-        .toast.success {
-            background-color: var(--success);
+        .welcome-subtitle {
+          font-size: 0.75rem;
         }
 
-        .toast.warning {
-            background-color: var(--warning);
+        .search-filter-bar {
+          padding: 10px;
         }
 
-        /* ====================== */
-        /* MOBILE RESPONSIVENESS */
-        /* Using view-applicants principles */
-        /* ====================== */
-
-        /* Tablet (992px and below) */
-        @media (max-width: 992px) {
-            .browse-content {
-                padding: 15px;
-            }
-            
-            .sidebar {
-                transform: translateX(-100%);
-                width: 250px;
-            }
-
-            .sidebar.mobile-open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-                width: 100%;
-            }
-
-            .main-content.expanded {
-                margin-left: 0;
-                width: 100%;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .jobs-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .filter-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .navbar {
-                padding: 0 15px;
-            }
-            
-            .page-title {
-                font-size: 1.1rem;
-            }
-            
-            .notification-dropdown {
-                right: 15px;
-                width: 280px;
-            }
-            
-            .application-tiers {
-                flex-direction: column;
-            }
+        .search-input {
+          padding: 8px 32px 8px 32px;
+          font-size: 0.85rem;
         }
 
-        /* Mobile (768px and below) */
-        @media (max-width: 768px) {
-            .browse-content {
-                padding: 12px;
-            }
-            
-            .navbar {
-                padding: 0 12px;
-                height: 60px;
-            }
-            
-            .logo-img-placeholder {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
-            }
-            
-            .user-name {
-                display: none;
-            }
-            
-            .notification-icon {
-                font-size: 1rem;
-            }
-            
-            .user-avatar {
-                width: 35px;
-                height: 35px;
-            }
-            
-            .dropdown-menu {
-                right: 12px;
-                width: 160px;
-            }
-            
-            .welcome-section {
-                margin-bottom: 12px;
-            }
-            
-            .welcome-title {
-                font-size: 1.2rem;
-                margin-bottom: 3px;
-            }
-            
-            .welcome-subtitle {
-                font-size: 0.85rem;
-            }
-            
-            .search-filter-bar {
-                padding: 12px;
-                margin-bottom: 15px;
-            }
-            
-            .search-filter-title {
-                font-size: 0.95rem;
-            }
-            
-            .search-input {
-                padding: 10px 35px 10px 35px;
-                font-size: 0.9rem;
-            }
-            
-            .search-btn {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-            
-            .jobs-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            
-            .job-card {
-                padding: 14px;
-            }
-            
-            .job-title {
-                font-size: 0.95rem;
-            }
-            
-            .job-company {
-                font-size: 0.85rem;
-            }
-            
-            .job-meta {
-                font-size: 0.75rem;
-                gap: 8px;
-            }
-            
-            .job-salary {
-                font-size: 0.85rem;
-                padding: 5px 8px;
-            }
-            
-            .job-description {
-                font-size: 0.8rem;
-                margin-bottom: 12px;
-            }
-            
-            .btn-apply,
-            .btn-boost {
-                padding: 8px;
-                font-size: 0.8rem;
-            }
-            
-            .section-title {
-                font-size: 1rem;
-                margin-bottom: 12px;
-            }
-            
-            .filter-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .notification-dropdown {
-                right: 10px;
-                width: 260px;
-            }
-            
-            .toast {
-                right: 12px;
-                left: 12px;
-                max-width: none;
-                top: 70px;
-                font-size: 0.8rem;
-                padding: 10px 14px;
-            }
+        .search-icon {
+          font-size: 0.9rem;
+          left: 10px;
         }
 
-        /* Small Mobile (576px and below) */
-        @media (max-width: 576px) {
-            .browse-content {
-                padding: 10px;
-            }
-            
-            .navbar {
-                padding: 0 10px;
-            }
-            
-            .mobile-menu-btn {
-                font-size: 1rem;
-            }
-            
-            .page-title {
-                font-size: 1rem;
-            }
-            
-            .welcome-title {
-                font-size: 1.1rem;
-            }
-            
-            .welcome-subtitle {
-                font-size: 0.8rem;
-            }
-            
-            .search-container {
-                flex-direction: column;
-                gap: 8px;
-            }
-            
-            .search-btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .quick-filters {
-                justify-content: center;
-            }
-            
-            .filter-actions {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .job-card {
-                padding: 12px;
-            }
-            
-            .job-id {
-                font-size: 0.65rem;
-            }
-            
-            .job-actions {
-                grid-template-columns: 1fr;
-                gap: 6px;
-            }
-            
-            .notification-dropdown {
-                width: 240px;
-                right: 8px;
-            }
-            
-            .modal-content {
-                padding: 16px;
-            }
-            
-            .modal-title {
-                font-size: 1rem;
-            }
-            
-            .footer {
-                padding: 12px 15px 8px;
-            }
-            
-            .footer-links {
-                gap: 10px;
-            }
-            
-            .footer-links a {
-                font-size: 0.8rem;
-            }
-            
-            .footer-bottom {
-                font-size: 0.75rem;
-            }
+        .job-card {
+          padding: 10px;
         }
 
-        /* Extra Small Mobile (480px and below) */
-        @media (max-width: 480px) {
-            .browse-content {
-                padding: 8px;
-            }
-            
-            .navbar {
-                padding: 0 8px;
-                height: 55px;
-            }
-            
-            .logo-img-placeholder {
-                width: 30px;
-                height: 30px;
-                font-size: 0.9rem;
-            }
-            
-            .mobile-menu-btn {
-                font-size: 0.9rem;
-            }
-            
-            .page-title {
-                font-size: 0.9rem;
-            }
-            
-            .notification-icon {
-                font-size: 0.9rem;
-            }
-            
-            .notification-badge {
-                width: 16px;
-                height: 16px;
-                font-size: 0.65rem;
-            }
-            
-            .user-avatar {
-                width: 32px;
-                height: 32px;
-            }
-            
-            .welcome-title {
-                font-size: 1rem;
-            }
-            
-            .welcome-subtitle {
-                font-size: 0.75rem;
-            }
-            
-            .search-filter-bar {
-                padding: 10px;
-            }
-            
-            .search-input {
-                padding: 8px 32px 8px 32px;
-                font-size: 0.85rem;
-            }
-            
-            .search-icon {
-                font-size: 0.9rem;
-                left: 10px;
-            }
-            
-            .job-card {
-                padding: 10px;
-            }
-            
-            .job-title {
-                font-size: 0.85rem;
-            }
-            
-            .job-company {
-                font-size: 0.8rem;
-            }
-            
-            .job-meta {
-                font-size: 0.7rem;
-            }
-            
-            .job-description {
-                font-size: 0.75rem;
-            }
-            
-            .btn-apply,
-            .btn-boost {
-                padding: 7px;
-                font-size: 0.75rem;
-            }
-            
-            .dropdown-menu {
-                width: 140px;
-                padding: 6px 0;
-                right: 8px;
-            }
-            
-            .dropdown-menu a {
-                padding: 6px 12px;
-                font-size: 0.8rem;
-            }
-            
-            .notification-dropdown {
-                width: 220px;
-            }
-            
-            .notification-header {
-                padding: 10px 12px;
-            }
-            
-            .notification-title {
-                font-size: 0.9rem;
-            }
-            
-            .notification-item {
-                padding: 8px 12px;
-            }
-            
-            .notification-content {
-                font-size: 0.8rem;
-            }
-            
-            .notification-time {
-                font-size: 0.65rem;
-            }
+        .job-title {
+          font-size: 0.85rem;
         }
 
-        /* Very Small Mobile (360px and below) */
-        @media (max-width: 360px) {
-            .browse-content {
-                padding: 6px;
-            }
-            
-            .navbar {
-                padding: 0 6px;
-            }
-            
-            .logo-img-placeholder {
-                width: 28px;
-                height: 28px;
-                font-size: 0.8rem;
-            }
-            
-            .logo-main {
-                font-size: 0.9rem;
-            }
-            
-            .logo-sub {
-                font-size: 0.6rem;
-            }
-            
-            .welcome-title {
-                font-size: 0.95rem;
-            }
-            
-            .job-card {
-                padding: 8px;
-            }
-            
-            .btn-apply,
-            .btn-boost {
-                padding: 6px;
-                font-size: 0.7rem;
-            }
-            
-            .footer {
-                padding: 10px 12px 6px;
-            }
-            
-            .footer-links a {
-                font-size: 0.75rem;
-            }
-            
-            .footer-bottom {
-                font-size: 0.7rem;
-            }
+        .job-company {
+          font-size: 0.8rem;
         }
+
+        .job-meta {
+          font-size: 0.7rem;
+        }
+
+        .job-description {
+          font-size: 0.75rem;
+        }
+
+        .btn-apply,
+        .btn-boost {
+          padding: 7px;
+          font-size: 0.75rem;
+        }
+
+        .dropdown-menu {
+          width: 140px;
+          padding: 6px 0;
+          right: 8px;
+        }
+
+        .dropdown-menu a {
+          padding: 6px 12px;
+          font-size: 0.8rem;
+        }
+
+        .notification-dropdown {
+          width: 220px;
+        }
+
+        .notification-header {
+          padding: 10px 12px;
+        }
+
+        .notification-title {
+          font-size: 0.9rem;
+        }
+
+        .notification-item {
+          padding: 8px 12px;
+        }
+
+        .notification-content {
+          font-size: 0.8rem;
+        }
+
+        .notification-time {
+          font-size: 0.65rem;
+        }
+      }
+
+      /* Very Small Mobile (360px and below) */
+      @media (max-width: 360px) {
+        .browse-content {
+          padding: 6px;
+        }
+
+        .navbar {
+          padding: 0 6px;
+        }
+
+        .logo-img-placeholder {
+          width: 28px;
+          height: 28px;
+          font-size: 0.8rem;
+        }
+
+        .logo-main {
+          font-size: 0.9rem;
+        }
+
+        .logo-sub {
+          font-size: 0.6rem;
+        }
+
+        .welcome-title {
+          font-size: 0.95rem;
+        }
+
+        .job-card {
+          padding: 8px;
+        }
+
+        .btn-apply,
+        .btn-boost {
+          padding: 6px;
+          font-size: 0.7rem;
+        }
+
+        .footer {
+          padding: 10px 12px 6px;
+        }
+
+        .footer-links a {
+          font-size: 0.75rem;
+        }
+
+        .footer-bottom {
+          font-size: 0.7rem;
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
     <!-- Toast Notification -->
     <div class="toast" id="toastNotification">
-        <i class="fas fa-exclamation-circle"></i>
-        <span id="toastMessage">You need to apply for this job first before boosting!</span>
+      <i class="fas fa-exclamation-circle"></i>
+      <span id="toastMessage"
+        >You need to apply for this job first before boosting!</span
+      >
     </div>
 
     <!-- Logout Confirmation Modal -->
     <div class="modal" id="logoutModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Confirm Logout</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to log out?</p>
-            </div>
-            <div class="modal-footer">
-                <!-- LOGOUT BUTTON IS RED (btn-danger) -->
-                <button class="btn btn-danger" id="confirmLogout">Log Out</button>
-                <button class="btn btn-outline" id="cancelLogout">Cancel</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Confirm Logout</h3>
+          <button class="close-modal">&times;</button>
         </div>
+        <div class="modal-body">
+          <p>Are you sure you want to log out?</p>
+        </div>
+        <div class="modal-footer">
+          <!-- LOGOUT BUTTON IS RED (btn-danger) -->
+          <button class="btn btn-danger" id="confirmLogout">Log Out</button>
+          <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+        </div>
+      </div>
     </div>
 
     <!-- Application Modal -->
     <div class="modal" id="applicationModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="applicationModalTitle">Apply for Job</h3>
-                <button class="close-modal" id="closeApplicationModal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="job-preview">
-                    <div class="job-preview-title" id="modalJobTitle">Frontend Developer</div>
-                    <div class="job-preview-company" id="modalJobCompany">Two Southeast Las</div>
-                </div>
-
-                <div id="tierSelection">
-                    <h4 style="margin-bottom: 15px; color: var(--primary); font-size: 0.9rem;">Choose Application Type</h4>
-                    <div class="application-tiers">
-                        <div class="tier-option tier-free" data-tier="free">
-                            <div class="tier-badge badge-free">FREE</div>
-                            <div class="tier-price">₵0</div>
-                            <ul class="tier-features">
-                                <li>Basic application submission</li>
-                                <li>Standard placement in applicant list</li>
-                                <li>Application confirmation</li>
-                            </ul>
-                            <button class="tier-action btn-free">Apply Free</button>
-                        </div>
-                        <div class="tier-option tier-premium" data-tier="premium">
-                            <div class="tier-badge badge-premium">PREMIUM</div>
-                            <div class="tier-price">₵50</div>
-                            <ul class="tier-features premium-features">
-                                <li>Priority placement in applicant list</li>
-                                <li>Verified application badge</li>
-                                <li>Enhanced employer visibility</li>
-                                <li>Quality verification check</li>
-                            </ul>
-                            <button class="tier-action btn-premium">Apply with Premium</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="applicationSuccess" style="display: none;">
-                    <div class="application-success">
-                        <div class="success-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <h3 class="success-title">Application Submitted!</h3>
-                        <p class="success-message" id="successMessage">Your application has been successfully submitted to the employer.</p>
-                        
-                        <div class="boost-cta">
-                            <h4>🚀 Boost Your Application</h4>
-                            <p>Get priority visibility and stand out from other applicants</p>
-                            <button class="btn btn-premium" id="boostNowBtn">
-                                <i class="fas fa-rocket"></i> Boost Application Now
-                            </button>
-                        </div>
-
-                        <button class="btn btn-outline" id="viewApplicationsBtn">
-                            <i class="fas fa-list"></i> View My Applications
-                        </button>
-                    </div>
-                </div>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="applicationModalTitle">Apply for Job</h3>
+          <button class="close-modal" id="closeApplicationModal">
+            &times;
+          </button>
         </div>
+        <div class="modal-body">
+          <div class="job-preview">
+            <div class="job-preview-title" id="modalJobTitle">
+              Frontend Developer
+            </div>
+            <div class="job-preview-company" id="modalJobCompany">
+              Two Southeast Las
+            </div>
+          </div>
+
+          <div id="tierSelection">
+            <h4
+              style="
+                margin-bottom: 15px;
+                color: var(--primary);
+                font-size: 0.9rem;
+              "
+            >
+              Choose Application Type
+            </h4>
+            <div class="application-tiers">
+              <div class="tier-option tier-free" data-tier="free">
+                <div class="tier-badge badge-free">FREE</div>
+                <div class="tier-price">₵0</div>
+                <ul class="tier-features">
+                  <li>Basic application submission</li>
+                  <li>Standard placement in applicant list</li>
+                  <li>Application confirmation</li>
+                </ul>
+                <button class="tier-action btn-free">Apply Free</button>
+              </div>
+              <div class="tier-option tier-premium" data-tier="premium">
+                <div class="tier-badge badge-premium">PREMIUM</div>
+                <div class="tier-price">₵50</div>
+                <ul class="tier-features premium-features">
+                  <li>Priority placement in applicant list</li>
+                  <li>Verified application badge</li>
+                  <li>Enhanced employer visibility</li>
+                  <li>Quality verification check</li>
+                </ul>
+                <button class="tier-action btn-premium">
+                  Apply with Premium
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="applicationSuccess" style="display: none">
+            <div class="application-success">
+              <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <h3 class="success-title">Application Submitted!</h3>
+              <p class="success-message" id="successMessage">
+                Your application has been successfully submitted to the
+                employer.
+              </p>
+
+              <div class="boost-cta">
+                <h4>🚀 Boost Your Application</h4>
+                <p>
+                  Get priority visibility and stand out from other applicants
+                </p>
+                <button class="btn btn-premium" id="boostNowBtn">
+                  <i class="fas fa-rocket"></i> Boost Application Now
+                </button>
+              </div>
+
+              <button class="btn btn-outline" id="viewApplicationsBtn">
+                <i class="fas fa-list"></i> View My Applications
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
-                <div class="logo-img-placeholder">JA</div>
-                <div class="logo-text">
-                    <div class="logo-main">JobAssist</div>
-                    <div class="logo-sub">GHANA</div>
-                </div>
-            </div>
-            <button class="toggle-btn" id="sidebarToggle">
-                <i class="fas fa-chevron-left"></i>
-            </button>
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-img-placeholder">JA</div>
+          <div class="logo-text">
+            <div class="logo-main">JobAssist</div>
+            <div class="logo-sub">GHANA</div>
+          </div>
         </div>
-        <ul class="sidebar-menu">
-            <li><a href="candidate-dashboard.html"><i class="fas fa-home"></i> <span class="menu-text">Dashboard</span></a></li>
-            <li><a href="your-applications.html"><i class="fas fa-list-alt"></i> <span class="menu-text">My Applications</span></a></li>
-            <li><a href="accepted-offers.html"><i class="fas fa-check-circle"></i> <span class="menu-text">Accepted Offers</span></a></li>
-            <li><a href="candidate-profile.html"><i class="fas fa-user"></i> <span class="menu-text">My Profile</span></a></li>
-            <li><a href="boost-profile.html"><i class="fas fa-rocket"></i> <span class="menu-text">Boost Application</span> <i class="fas fa-crown premium-indicator"></i></a></li>
-            <li><a href="browse-jobs.html" class="active"><i class="fas fa-search"></i> <span class="menu-text">Browse Jobs</span></a></li>
-            <li><a href="settings.html"><i class="fas fa-cog"></i> <span class="menu-text">Settings</span></a></li>
-            <li><a href="help.html"><i class="fas fa-question-circle"></i> <span class="menu-text">Help & Support</span></a></li>
-            <li><a href="#" id="sidebarLogout"><i class="fas fa-sign-out-alt"></i> <span class="menu-text">Logout</span></a></li>
-        </ul>
+        <button class="toggle-btn" id="sidebarToggle">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+      <ul class="sidebar-menu">
+        <li>
+          <a href="candidate-dashboard.html"
+            ><i class="fas fa-home"></i>
+            <span class="menu-text">Dashboard</span></a
+          >
+        </li>
+        <li>
+          <a href="your-applications.html"
+            ><i class="fas fa-list-alt"></i>
+            <span class="menu-text">My Applications</span></a
+          >
+        </li>
+        <li>
+          <a href="accepted-offers.html"
+            ><i class="fas fa-check-circle"></i>
+            <span class="menu-text">Accepted Offers</span></a
+          >
+        </li>
+        <li>
+          <a href="candidate-profile.html"
+            ><i class="fas fa-user"></i>
+            <span class="menu-text">My Profile</span></a
+          >
+        </li>
+        <li>
+          <a href="boost-profile.html"
+            ><i class="fas fa-rocket"></i>
+            <span class="menu-text">Boost Application</span>
+            <i class="fas fa-crown premium-indicator"></i
+          ></a>
+        </li>
+        <li>
+          <a href="browse-jobs.html" class="active"
+            ><i class="fas fa-search"></i>
+            <span class="menu-text">Browse Jobs</span></a
+          >
+        </li>
+        <li>
+          <a href="settings.html"
+            ><i class="fas fa-cog"></i>
+            <span class="menu-text">Settings</span></a
+          >
+        </li>
+        <li>
+          <a href="help.html"
+            ><i class="fas fa-question-circle"></i>
+            <span class="menu-text">Help & Support</span></a
+          >
+        </li>
+        <li>
+          <a href="#" id="sidebarLogout"
+            ><i class="fas fa-sign-out-alt"></i>
+            <span class="menu-text">Logout</span></a
+          >
+        </li>
+      </ul>
     </aside>
 
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
-        <!-- Navbar -->
-        <nav class="navbar">
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="page-title">Browse Jobs</div>
-            <div class="navbar-right">
-                <!-- Notification Area from candidate-dashboard -->
-                <div class="notification-icon" id="notificationIcon">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge">3</span>
-                </div>
-                <div class="notification-dropdown" id="notificationDropdown">
-                    <div class="notification-header">
-                        <h3 class="notification-title">Notifications</h3>
-                        <button class="mark-all-read">Mark all as read</button>
-                    </div>
-                    <ul class="notification-list">
-                        <li class="notification-item unread">
-                            <div class="notification-content">Your application for Frontend Developer has been submitted</div>
-                            <div class="notification-time">2 hours ago</div>
-                        </li>
-                        <li class="notification-item unread">
-                            <div class="notification-content">New job matches your profile: Data Analyst at Tech Solutions</div>
-                            <div class="notification-time">5 hours ago</div>
-                        </li>
-                        <li class="notification-item unread">
-                            <div class="notification-content">Your profile has been viewed by 5 employers this week</div>
-                            <div class="notification-time">1 day ago</div>
-                        </li>
-                        <li class="notification-item">
-                            <div class="notification-content">Your application for UX Designer is being reviewed</div>
-                            <div class="notification-time">2 days ago</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="user-profile" id="userProfile">
-                    <div class="user-avatar">
-                        <img src="https://i.pravatar.cc/150?img=12" alt="User">
-                    </div>
-                    <div class="user-name">Nana</div>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-menu">
-                    <a href="candidate-profile.html"><i class="fas fa-user"></i> View Profile</a>
-                    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
-                    <a href="#" id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </div>
+      <!-- Navbar -->
+      <nav class="navbar">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="page-title">Browse Jobs</div>
+        <div class="navbar-right">
+          <!-- Notification Area from candidate-dashboard -->
+          <div class="notification-icon" id="notificationIcon">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </div>
+          <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notification-header">
+              <h3 class="notification-title">Notifications</h3>
+              <button class="mark-all-read">Mark all as read</button>
             </div>
-        </nav>
+            <ul class="notification-list">
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  Your application for Frontend Developer has been submitted
+                </div>
+                <div class="notification-time">2 hours ago</div>
+              </li>
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  New job matches your profile: Data Analyst at Tech Solutions
+                </div>
+                <div class="notification-time">5 hours ago</div>
+              </li>
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  Your profile has been viewed by 5 employers this week
+                </div>
+                <div class="notification-time">1 day ago</div>
+              </li>
+              <li class="notification-item">
+                <div class="notification-content">
+                  Your application for UX Designer is being reviewed
+                </div>
+                <div class="notification-time">2 days ago</div>
+              </li>
+            </ul>
+          </div>
+          <div class="user-profile" id="userProfile">
+            <div class="user-avatar">
+              <img src="https://i.pravatar.cc/150?img=12" alt="User" />
+            </div>
+            <div class="user-name">Nana</div>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="dropdown-menu">
+            <a href="candidate-profile.html"
+              ><i class="fas fa-user"></i> View Profile</a
+            >
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#" id="dropdownLogout"
+              ><i class="fas fa-sign-out-alt"></i> Logout</a
+            >
+          </div>
+        </div>
+      </nav>
 
-        <!-- Browse Jobs Content -->
-        <div class="browse-content">
-            <!-- Welcome Section -->
-            <div class="welcome-section">
-                <h1 class="welcome-title">Discover Your Dream Career</h1>
-                <p class="welcome-subtitle">Find the perfect job that matches your skills and aspirations</p>
-            </div>
-
-            <!-- Compact Search & Filter Bar -->
-            <div class="search-filter-bar" id="searchFilterBar">
-                <div class="search-filter-header">
-                    <div class="search-filter-title">
-                        <i class="fas fa-search"></i>
-                        <span>Search & Filter Jobs</span>
-                    </div>
-                    <div class="toggle-arrow">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                </div>
-                <div class="search-filter-content">
-                    <!-- Search Section -->
-                    <div class="search-section">
-                        <div class="search-container">
-                            <div class="search-input-wrapper">
-                                <i class="fas fa-search search-icon"></i>
-                                <input type="text" class="search-input" id="searchInput" placeholder="Search for job titles, companies, or keywords..." />
-                            </div>
-                            <button class="search-btn" id="searchBtn">
-                                <i class="fas fa-search"></i> Search Jobs
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Quick Filters -->
-                    <div class="quick-filters">
-                        <button class="quick-filter-btn active" data-filter="all">All Jobs</button>
-                        <button class="quick-filter-btn" data-filter="technology">Technology</button>
-                        <button class="quick-filter-btn" data-filter="finance">Finance</button>
-                        <button class="quick-filter-btn" data-filter="remote">Remote</button>
-                        <button class="quick-filter-btn" data-filter="full-time">Full-time</button>
-                        <button class="quick-filter-btn" data-filter="part-time">Part-time</button>
-                    </div>
-
-                    <!-- Advanced Filters -->
-                    <div class="advanced-filters">
-                        <div class="filter-grid">
-                            <div class="filter-group">
-                                <label for="region"><i class="fas fa-map-marker-alt"></i> Region</label>
-                                <select id="region">
-                                    <option value="">All Regions</option>
-                                    <option value="ashanti">Ashanti Region</option>
-                                    <option value="greater-accra">Greater Accra Region</option>
-                                    <option value="western">Western Region</option>
-                                    <option value="eastern">Eastern Region</option>
-                                    <option value="central">Central Region</option>
-                                </select>
-                            </div>
-                            <div class="filter-group">
-                                <label for="job-type"><i class="fas fa-briefcase"></i> Job Type</label>
-                                <select id="job-type">
-                                    <option value="">All Types</option>
-                                    <option value="full-time">Full-time</option>
-                                    <option value="part-time">Part-time</option>
-                                    <option value="contract">Contract</option>
-                                    <option value="internship">Internship</option>
-                                    <option value="remote">Remote</option>
-                                </select>
-                            </div>
-                            <div class="filter-group">
-                                <label for="salary-range"><i class="fas fa-money-bill-wave"></i> Salary Range</label>
-                                <select id="salary-range">
-                                    <option value="">Any Salary</option>
-                                    <option value="0-2000">₵0 - ₵2,000</option>
-                                    <option value="2000-4000">₵2,000 - ₵4,000</option>
-                                    <option value="4000-6000">₵4,000 - ₵6,000</option>
-                                    <option value="6000+">₵6,000+</option>
-                                </select>
-                            </div>
-                            <div class="filter-group">
-                                <label for="industry"><i class="fas fa-industry"></i> Industry</label>
-                                <select id="industry">
-                                    <option value="">All Industries</option>
-                                    <option value="technology">Technology</option>
-                                    <option value="finance">Finance</option>
-                                    <option value="healthcare">Healthcare</option>
-                                    <option value="education">Education</option>
-                                    <option value="manufacturing">Manufacturing</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="filter-actions">
-                            <button class="btn btn-outline" id="resetFilters">
-                                <i class="fas fa-redo"></i> Reset
-                            </button>
-                            <button class="btn btn-accent" id="applyFilters">
-                                <i class="fas fa-filter"></i> Apply Filters
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jobs Section -->
-            <h2 class="section-title"><i class="fas fa-briefcase"></i> Available Jobs <span class="job-count" id="jobCount"></span></h2>
-            
-            <!-- Loading State -->
-            <div class="loading" id="loadingState" style="display: none;">
-                <div class="spinner"></div>
-                <div class="searching-text">Searching for the perfect jobs...</div>
-            </div>
-            
-            <!-- Empty State -->
-            <div class="empty-state" id="emptyState" style="display: none;">
-                <i class="fas fa-search"></i>
-                <h3>No jobs found</h3>
-                <p>Try adjusting your search criteria or browse all available jobs</p>
-                <button class="btn btn-accent" id="showAllJobs" style="margin-top: 15px;">
-                    <i class="fas fa-eye"></i> Show All Jobs
-                </button>
-            </div>
-            
-            <!-- Jobs Grid -->
-            <div class="jobs-grid" id="jobsContainer">
-                <!-- Job cards will be dynamically inserted here -->
-            </div>
-            
-            <!-- Pagination -->
-            <div class="pagination" id="pagination">
-                <!-- Pagination buttons will be dynamically inserted here -->
-            </div>
+      <!-- Browse Jobs Content -->
+      <div class="browse-content">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+          <h1 class="welcome-title">Discover Your Dream Career</h1>
+          <p class="welcome-subtitle">
+            Find the perfect job that matches your skills and aspirations
+          </p>
         </div>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-links">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="contact.html">Contact Us</a>
+        <!-- Compact Search & Filter Bar -->
+        <div class="search-filter-bar" id="searchFilterBar">
+          <div class="search-filter-header">
+            <div class="search-filter-title">
+              <i class="fas fa-search"></i>
+              <span>Search & Filter Jobs</span>
             </div>
-            <div class="footer-bottom">
-                <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+            <div class="toggle-arrow">
+              <i class="fas fa-chevron-down"></i>
             </div>
-        </footer>
+          </div>
+          <div class="search-filter-content">
+            <!-- Search Section -->
+            <div class="search-section">
+              <div class="search-container">
+                <div class="search-input-wrapper">
+                  <i class="fas fa-search search-icon"></i>
+                  <input
+                    type="text"
+                    class="search-input"
+                    id="searchInput"
+                    placeholder="Search for job titles, companies, or keywords..."
+                  />
+                </div>
+                <button class="search-btn" id="searchBtn">
+                  <i class="fas fa-search"></i> Search Jobs
+                </button>
+              </div>
+            </div>
+
+            <!-- Quick Filters -->
+            <div class="quick-filters">
+              <button class="quick-filter-btn active" data-filter="all">
+                All Jobs
+              </button>
+              <button class="quick-filter-btn" data-filter="technology">
+                Technology
+              </button>
+              <button class="quick-filter-btn" data-filter="finance">
+                Finance
+              </button>
+              <button class="quick-filter-btn" data-filter="remote">
+                Remote
+              </button>
+              <button class="quick-filter-btn" data-filter="full-time">
+                Full-time
+              </button>
+              <button class="quick-filter-btn" data-filter="part-time">
+                Part-time
+              </button>
+            </div>
+
+            <!-- Advanced Filters -->
+            <div class="advanced-filters">
+              <div class="filter-grid">
+                <div class="filter-group">
+                  <label for="region"
+                    ><i class="fas fa-map-marker-alt"></i> Region</label
+                  >
+                  <select id="region">
+                    <option value="">All Regions</option>
+                    <option value="ashanti">Ashanti Region</option>
+                    <option value="greater-accra">Greater Accra Region</option>
+                    <option value="western">Western Region</option>
+                    <option value="eastern">Eastern Region</option>
+                    <option value="central">Central Region</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label for="job-type"
+                    ><i class="fas fa-briefcase"></i> Job Type</label
+                  >
+                  <select id="job-type">
+                    <option value="">All Types</option>
+                    <option value="full-time">Full-time</option>
+                    <option value="part-time">Part-time</option>
+                    <option value="contract">Contract</option>
+                    <option value="internship">Internship</option>
+                    <option value="remote">Remote</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label for="salary-range"
+                    ><i class="fas fa-money-bill-wave"></i> Salary Range</label
+                  >
+                  <select id="salary-range">
+                    <option value="">Any Salary</option>
+                    <option value="0-2000">₵0 - ₵2,000</option>
+                    <option value="2000-4000">₵2,000 - ₵4,000</option>
+                    <option value="4000-6000">₵4,000 - ₵6,000</option>
+                    <option value="6000+">₵6,000+</option>
+                  </select>
+                </div>
+                <div class="filter-group">
+                  <label for="industry"
+                    ><i class="fas fa-industry"></i> Industry</label
+                  >
+                  <select id="industry">
+                    <option value="">All Industries</option>
+                    <option value="technology">Technology</option>
+                    <option value="finance">Finance</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="education">Education</option>
+                    <option value="manufacturing">Manufacturing</option>
+                  </select>
+                </div>
+              </div>
+              <div class="filter-actions">
+                <button class="btn btn-outline" id="resetFilters">
+                  <i class="fas fa-redo"></i> Reset
+                </button>
+                <button class="btn btn-accent" id="applyFilters">
+                  <i class="fas fa-filter"></i> Apply Filters
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Jobs Section -->
+        <h2 class="section-title">
+          <i class="fas fa-briefcase"></i> Available Jobs
+          <span class="job-count" id="jobCount"></span>
+        </h2>
+
+        <!-- Loading State -->
+        <div class="loading" id="loadingState" style="display: none">
+          <div class="spinner"></div>
+          <div class="searching-text">Searching for the perfect jobs...</div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none">
+          <i class="fas fa-search"></i>
+          <h3>No jobs found</h3>
+          <p>Try adjusting your search criteria or browse all available jobs</p>
+          <button
+            class="btn btn-accent"
+            id="showAllJobs"
+            style="margin-top: 15px"
+          >
+            <i class="fas fa-eye"></i> Show All Jobs
+          </button>
+        </div>
+
+        <!-- Jobs Grid -->
+        <div class="jobs-grid" id="jobsContainer">
+          <!-- Job cards will be dynamically inserted here -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination">
+          <!-- Pagination buttons will be dynamically inserted here -->
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
 
     <script>
-        // DOM Elements
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const mainContent = document.getElementById('mainContent');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileOverlay = document.getElementById('mobileOverlay');
-        const logoutModal = document.getElementById('logoutModal');
-        const sidebarLogout = document.getElementById('sidebarLogout');
-        const dropdownLogout = document.getElementById('dropdownLogout');
-        const confirmLogout = document.getElementById('confirmLogout');
-        const cancelLogout = document.getElementById('cancelLogout');
-        const jobsContainer = document.getElementById('jobsContainer');
-        const loadingState = document.getElementById('loadingState');
-        const emptyState = document.getElementById('emptyState');
-        const pagination = document.getElementById('pagination');
-        const applyFiltersBtn = document.getElementById('applyFilters');
-        const resetFiltersBtn = document.getElementById('resetFilters');
-        const searchInput = document.getElementById('searchInput');
-        const searchBtn = document.getElementById('searchBtn');
-        const toastNotification = document.getElementById('toastNotification');
-        const toastMessage = document.getElementById('toastMessage');
-        const searchFilterBar = document.getElementById('searchFilterBar');
-        const quickFilterBtns = document.querySelectorAll('.quick-filter-btn');
-        const jobCount = document.getElementById('jobCount');
-        const showAllJobsBtn = document.getElementById('showAllJobs');
-        const notificationIcon = document.getElementById('notificationIcon');
-        const notificationDropdown = document.getElementById('notificationDropdown');
+      // DOM Elements
+      const sidebar = document.getElementById("sidebar");
+      const sidebarToggle = document.getElementById("sidebarToggle");
+      const mainContent = document.getElementById("mainContent");
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileOverlay = document.getElementById("mobileOverlay");
+      const logoutModal = document.getElementById("logoutModal");
+      const sidebarLogout = document.getElementById("sidebarLogout");
+      const dropdownLogout = document.getElementById("dropdownLogout");
+      const confirmLogout = document.getElementById("confirmLogout");
+      const cancelLogout = document.getElementById("cancelLogout");
+      const jobsContainer = document.getElementById("jobsContainer");
+      const loadingState = document.getElementById("loadingState");
+      const emptyState = document.getElementById("emptyState");
+      const pagination = document.getElementById("pagination");
+      const applyFiltersBtn = document.getElementById("applyFilters");
+      const resetFiltersBtn = document.getElementById("resetFilters");
+      const searchInput = document.getElementById("searchInput");
+      const searchBtn = document.getElementById("searchBtn");
+      const toastNotification = document.getElementById("toastNotification");
+      const toastMessage = document.getElementById("toastMessage");
+      const searchFilterBar = document.getElementById("searchFilterBar");
+      const quickFilterBtns = document.querySelectorAll(".quick-filter-btn");
+      const jobCount = document.getElementById("jobCount");
+      const showAllJobsBtn = document.getElementById("showAllJobs");
+      const notificationIcon = document.getElementById("notificationIcon");
+      const notificationDropdown = document.getElementById(
+        "notificationDropdown",
+      );
 
-        // NEW VARIABLES FOR APPLICATION SYSTEM
-        const applicationModal = document.getElementById('applicationModal');
-        const closeApplicationModal = document.getElementById('closeApplicationModal');
-        const tierOptions = document.querySelectorAll('.tier-option');
-        const tierSelection = document.getElementById('tierSelection');
-        const applicationSuccess = document.getElementById('applicationSuccess');
-        const boostNowBtn = document.getElementById('boostNowBtn');
-        const viewApplicationsBtn = document.getElementById('viewApplicationsBtn');
-        let currentJobId = null;
-        let currentJobData = null;
+      // NEW VARIABLES FOR APPLICATION SYSTEM
+      const applicationModal = document.getElementById("applicationModal");
+      const closeApplicationModal = document.getElementById(
+        "closeApplicationModal",
+      );
+      const tierOptions = document.querySelectorAll(".tier-option");
+      const tierSelection = document.getElementById("tierSelection");
+      const applicationSuccess = document.getElementById("applicationSuccess");
+      const boostNowBtn = document.getElementById("boostNowBtn");
+      const viewApplicationsBtn = document.getElementById(
+        "viewApplicationsBtn",
+      );
+      let currentJobId = null;
+      let currentJobData = null;
 
-        // Filter elements
-        const regionFilter = document.getElementById('region');
-        const jobTypeFilter = document.getElementById('job-type');
-        const salaryFilter = document.getElementById('salary-range');
-        const industryFilter = document.getElementById('industry');
+      // Filter elements
+      const regionFilter = document.getElementById("region");
+      const jobTypeFilter = document.getElementById("job-type");
+      const salaryFilter = document.getElementById("salary-range");
+      const industryFilter = document.getElementById("industry");
 
-        // Sample job data
-        const jobsData = [
-            {
-                id: "frontend-developer",
-                title: "Frontend Developer",
-                company: "Two Southeast Las",
-                location: "Accra, Greater Accra",
-                type: "Full-time",
-                salary: "₵3,500 - ₵4,500 monthly",
-                description: "We are looking for a skilled Frontend Developer with 3+ years of experience in modern web technologies. The ideal candidate will be responsible for building responsive web applications and collaborating with our design and backend teams.",
-                industry: "technology"
-            },
-            {
-                id: "marketing-manager",
-                title: "Marketing Manager",
-                company: "Global Emails Inc",
-                location: "Kumasi, Ashanti",
-                type: "Full-time",
-                salary: "₵4,000 - ₵5,000 monthly",
-                description: "Exciting opportunity for a Marketing Manager with 3+ years experience in brand management and digital marketing strategies. You will lead our marketing efforts and drive brand awareness across multiple channels.",
-                industry: "marketing"
-            },
-            {
-                id: "senior-ux-designer",
-                title: "Senior UX Designer",
-                company: "Creative Labs Ghana",
-                location: "Accra, Greater Accra",
-                type: "Full-time",
-                salary: "₵4,500 - ₵5,500 monthly",
-                description: "Join our innovative team as a Senior UX Designer and help shape the future of digital products. We're looking for a creative problem-solver with a passion for user-centered design.",
-                industry: "technology"
-            },
-            {
-                id: "JBGH-2025-0128",
-                title: "Nurse Practitioner",
-                company: "City Health Center",
-                location: "Tema, Greater Accra",
-                type: "Part-time",
-                salary: "₵2,000 - ₵3,500 monthly",
-                description: "Provide quality healthcare services to patients. Must be registered with the Nursing and Midwifery Council.",
-                industry: "healthcare"
-            },
-            {
-                id: "JBGH-2025-0130",
-                title: "Accountant",
-                company: "Business Solutions Ltd",
-                location: "Kumasi, Ashanti",
-                type: "Full-time",
-                salary: "₵2,200 - ₵3,800 monthly",
-                description: "Manage financial records, prepare reports, and ensure compliance with accounting standards.",
-                industry: "finance"
-            },
-            {
-                id: "JBGH-2025-0131",
-                title: "Teacher",
-                company: "Bright Future Academy",
-                location: "Cape Coast, Central",
-                type: "Full-time",
-                salary: "₵1,800 - ₵3,000 monthly",
-                description: "Teach mathematics to high school students. Must have a degree in education with a math specialization.",
-                industry: "education"
-            }
-        ];
+      // Sample job data
+      const jobsData = [
+        {
+          id: "frontend-developer",
+          title: "Frontend Developer",
+          company: "Two Southeast Las",
+          location: "Accra, Greater Accra",
+          type: "Full-time",
+          salary: "₵3,500 - ₵4,500 monthly",
+          description:
+            "We are looking for a skilled Frontend Developer with 3+ years of experience in modern web technologies. The ideal candidate will be responsible for building responsive web applications and collaborating with our design and backend teams.",
+          industry: "technology",
+        },
+        {
+          id: "marketing-manager",
+          title: "Marketing Manager",
+          company: "Global Emails Inc",
+          location: "Kumasi, Ashanti",
+          type: "Full-time",
+          salary: "₵4,000 - ₵5,000 monthly",
+          description:
+            "Exciting opportunity for a Marketing Manager with 3+ years experience in brand management and digital marketing strategies. You will lead our marketing efforts and drive brand awareness across multiple channels.",
+          industry: "marketing",
+        },
+        {
+          id: "senior-ux-designer",
+          title: "Senior UX Designer",
+          company: "Creative Labs Ghana",
+          location: "Accra, Greater Accra",
+          type: "Full-time",
+          salary: "₵4,500 - ₵5,500 monthly",
+          description:
+            "Join our innovative team as a Senior UX Designer and help shape the future of digital products. We're looking for a creative problem-solver with a passion for user-centered design.",
+          industry: "technology",
+        },
+        {
+          id: "JBGH-2025-0128",
+          title: "Nurse Practitioner",
+          company: "City Health Center",
+          location: "Tema, Greater Accra",
+          type: "Part-time",
+          salary: "₵2,000 - ₵3,500 monthly",
+          description:
+            "Provide quality healthcare services to patients. Must be registered with the Nursing and Midwifery Council.",
+          industry: "healthcare",
+        },
+        {
+          id: "JBGH-2025-0130",
+          title: "Accountant",
+          company: "Business Solutions Ltd",
+          location: "Kumasi, Ashanti",
+          type: "Full-time",
+          salary: "₵2,200 - ₵3,800 monthly",
+          description:
+            "Manage financial records, prepare reports, and ensure compliance with accounting standards.",
+          industry: "finance",
+        },
+        {
+          id: "JBGH-2025-0131",
+          title: "Teacher",
+          company: "Bright Future Academy",
+          location: "Cape Coast, Central",
+          type: "Full-time",
+          salary: "₵1,800 - ₵3,000 monthly",
+          description:
+            "Teach mathematics to high school students. Must have a degree in education with a math specialization.",
+          industry: "education",
+        },
+      ];
 
-        // Track applied jobs
-        let appliedJobs = JSON.parse(localStorage.getItem('appliedJobs')) || [];
+      // Track applied jobs
+      let appliedJobs = JSON.parse(localStorage.getItem("appliedJobs")) || [];
 
-        // State variables
-        let currentPage = 1;
-        const jobsPerPage = 6;
-        let filteredJobs = [...jobsData];
-        let currentSearchQuery = '';
-        let currentQuickFilter = 'all';
+      // State variables
+      let currentPage = 1;
+      const jobsPerPage = 6;
+      let filteredJobs = [...jobsData];
+      let currentSearchQuery = "";
+      let currentQuickFilter = "all";
 
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            displayJobs();
-            setupEventListeners();
-            updateJobCount();
+      // Initialize the page
+      document.addEventListener("DOMContentLoaded", function () {
+        displayJobs();
+        setupEventListeners();
+        updateJobCount();
+      });
+
+      // Set up event listeners
+      function setupEventListeners() {
+        // Sidebar toggle
+        sidebarToggle.addEventListener("click", function () {
+          sidebar.classList.toggle("collapsed");
+          mainContent.classList.toggle("expanded");
+
+          const icon = this.querySelector("i");
+          if (sidebar.classList.contains("collapsed")) {
+            icon.className = "fas fa-chevron-right";
+          } else {
+            icon.className = "fas fa-chevron-left";
+          }
         });
 
-        // Set up event listeners
-        function setupEventListeners() {
-            // Sidebar toggle
-            sidebarToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('collapsed');
-                mainContent.classList.toggle('expanded');
-                
-                const icon = this.querySelector('i');
-                if (sidebar.classList.contains('collapsed')) {
-                    icon.className = 'fas fa-chevron-right';
-                } else {
-                    icon.className = 'fas fa-chevron-left';
-                }
-            });
+        // Mobile menu toggle
+        let isMobileMenuOpen = false;
 
-            // Mobile menu toggle
-            let isMobileMenuOpen = false;
-            
-            mobileMenuBtn.addEventListener('click', function() {
-                if (isMobileMenuOpen) {
-                    sidebar.classList.remove('mobile-open');
-                    mobileOverlay.classList.remove('show');
-                    isMobileMenuOpen = false;
-                } else {
-                    sidebar.classList.add('mobile-open');
-                    mobileOverlay.classList.add('show');
-                    isMobileMenuOpen = true;
-                }
-            });
+        mobileMenuBtn.addEventListener("click", function () {
+          if (isMobileMenuOpen) {
+            sidebar.classList.remove("mobile-open");
+            mobileOverlay.classList.remove("show");
+            isMobileMenuOpen = false;
+          } else {
+            sidebar.classList.add("mobile-open");
+            mobileOverlay.classList.add("show");
+            isMobileMenuOpen = true;
+          }
+        });
 
-            // Close mobile menu when clicking overlay
-            mobileOverlay.addEventListener('click', function() {
-                sidebar.classList.remove('mobile-open');
-                mobileOverlay.classList.remove('show');
-                isMobileMenuOpen = false;
-            });
+        // Close mobile menu when clicking overlay
+        mobileOverlay.addEventListener("click", function () {
+          sidebar.classList.remove("mobile-open");
+          mobileOverlay.classList.remove("show");
+          isMobileMenuOpen = false;
+        });
 
-            // User profile dropdown
-            document.querySelector('.user-profile').addEventListener('click', function() {
-                document.querySelector('.dropdown-menu').classList.toggle('show');
-            });
+        // User profile dropdown
+        document
+          .querySelector(".user-profile")
+          .addEventListener("click", function () {
+            document.querySelector(".dropdown-menu").classList.toggle("show");
+          });
 
-            // Notification dropdown from candidate-dashboard
-            notificationIcon.addEventListener('click', function(e) {
-                e.stopPropagation();
-                notificationDropdown.classList.toggle('show');
-            });
+        // Notification dropdown from candidate-dashboard
+        notificationIcon.addEventListener("click", function (e) {
+          e.stopPropagation();
+          notificationDropdown.classList.toggle("show");
+        });
 
-            // Close dropdowns when clicking outside
-            document.addEventListener('click', function(event) {
-                if (!event.target.closest('.user-profile')) {
-                    document.querySelector('.dropdown-menu').classList.remove('show');
-                }
-                
-                if (!event.target.closest('.notification-icon')) {
-                    notificationDropdown.classList.remove('show');
-                }
-            });
+        // Close dropdowns when clicking outside
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest(".user-profile")) {
+            document.querySelector(".dropdown-menu").classList.remove("show");
+          }
 
-            // Mark all notifications as read
-            document.querySelector('.mark-all-read').addEventListener('click', function() {
-                document.querySelectorAll('.notification-item.unread').forEach(item => {
-                    item.classList.remove('unread');
-                });
-                document.querySelector('.notification-badge').style.display = 'none';
-            });
+          if (!event.target.closest(".notification-icon")) {
+            notificationDropdown.classList.remove("show");
+          }
+        });
 
-            // Logout buttons
-            sidebarLogout.addEventListener('click', function(e) {
-                e.preventDefault();
-                logoutModal.classList.add('show');
-            });
+        // Mark all notifications as read
+        document
+          .querySelector(".mark-all-read")
+          .addEventListener("click", function () {
+            document
+              .querySelectorAll(".notification-item.unread")
+              .forEach((item) => {
+                item.classList.remove("unread");
+              });
+            document.querySelector(".notification-badge").style.display =
+              "none";
+          });
 
-            dropdownLogout.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector('.dropdown-menu').classList.remove('show');
-                logoutModal.classList.add('show');
-            });
+        // Logout buttons
+        sidebarLogout.addEventListener("click", function (e) {
+          e.preventDefault();
+          logoutModal.classList.add("show");
+        });
 
-            // Logout modal buttons - UPDATED TO REDIRECT TO LOGIN.HTML
-            confirmLogout.addEventListener('click', function() {
-                logoutModal.classList.remove('show');
-                window.location.href = 'login.html';
-            });
+        dropdownLogout.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(".dropdown-menu").classList.remove("show");
+          logoutModal.classList.add("show");
+        });
 
-            cancelLogout.addEventListener('click', function() {
-                logoutModal.classList.remove('show');
-            });
+        // Logout modal buttons - UPDATED TO REDIRECT TO LOGIN.HTML
+        confirmLogout.addEventListener("click", function () {
+          logoutModal.classList.remove("show");
+          window.location.href = "login.html";
+        });
 
-            // Close modal when clicking outside
-            window.addEventListener('click', function(event) {
-                if (event.target === logoutModal) {
-                    logoutModal.classList.remove('show');
-                }
-                if (event.target === applicationModal) {
-                    closeApplicationModalFunc();
-                }
-            });
+        cancelLogout.addEventListener("click", function () {
+          logoutModal.classList.remove("show");
+        });
 
-            // Search and filter functionality
-            applyFiltersBtn.addEventListener('click', applyFilters);
-            resetFiltersBtn.addEventListener('click', resetFilters);
-            searchBtn.addEventListener('click', performSearch);
-            
-            // Search input events
-            searchInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    performSearch();
-                }
-            });
+        // Close modal when clicking outside
+        window.addEventListener("click", function (event) {
+          if (event.target === logoutModal) {
+            logoutModal.classList.remove("show");
+          }
+          if (event.target === applicationModal) {
+            closeApplicationModalFunc();
+          }
+        });
 
-            // Search filter bar toggle
-            searchFilterBar.addEventListener('click', function(e) {
-                if (e.target.closest('.search-filter-header')) {
-                    searchFilterBar.classList.toggle('expanded');
-                }
-            });
+        // Search and filter functionality
+        applyFiltersBtn.addEventListener("click", applyFilters);
+        resetFiltersBtn.addEventListener("click", resetFilters);
+        searchBtn.addEventListener("click", performSearch);
 
-            // Quick filter buttons
-            quickFilterBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    quickFilterBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    currentQuickFilter = this.getAttribute('data-filter');
-                    applyQuickFilter();
-                });
-            });
+        // Search input events
+        searchInput.addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            performSearch();
+          }
+        });
 
-            // Show all jobs button
-            if (showAllJobsBtn) {
-                showAllJobsBtn.addEventListener('click', function() {
-                    resetFilters();
-                    searchFilterBar.classList.remove('expanded');
-                });
-            }
+        // Search filter bar toggle
+        searchFilterBar.addEventListener("click", function (e) {
+          if (e.target.closest(".search-filter-header")) {
+            searchFilterBar.classList.toggle("expanded");
+          }
+        });
 
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 992) {
-                    sidebar.classList.remove('mobile-open');
-                    mobileOverlay.classList.remove('show');
-                    isMobileMenuOpen = false;
-                }
-            });
+        // Quick filter buttons
+        quickFilterBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            quickFilterBtns.forEach((b) => b.classList.remove("active"));
+            this.classList.add("active");
 
-            // NEW APPLICATION MODAL EVENT LISTENERS
-            closeApplicationModal.addEventListener('click', closeApplicationModalFunc);
-            
-            // Tier selection
-            tierOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    tierOptions.forEach(opt => opt.classList.remove('selected'));
-                    this.classList.add('selected');
-                });
-            });
+            currentQuickFilter = this.getAttribute("data-filter");
+            applyQuickFilter();
+          });
+        });
 
-            // Tier action buttons
-            document.querySelectorAll('.tier-action').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const tierOption = this.closest('.tier-option');
-                    const tierType = tierOption.getAttribute('data-tier');
-                    submitApplication(tierType);
-                });
-            });
-
-            // Boost now button
-            boostNowBtn.addEventListener('click', function() {
-                window.location.href = `boost-profile.html?jobId=${currentJobId}`;
-            });
-
-            // View applications button
-            viewApplicationsBtn.addEventListener('click', function() {
-                window.location.href = 'your-applications.html';
-            });
+        // Show all jobs button
+        if (showAllJobsBtn) {
+          showAllJobsBtn.addEventListener("click", function () {
+            resetFilters();
+            searchFilterBar.classList.remove("expanded");
+          });
         }
 
-        // Show toast notification
-        function showToast(message, type = 'error') {
-            toastMessage.textContent = message;
-            toastNotification.className = `toast ${type}`;
-            toastNotification.classList.add('show');
-            
-            setTimeout(() => {
-                toastNotification.classList.remove('show');
-            }, 4000);
-        }
+        // Handle window resize
+        window.addEventListener("resize", function () {
+          if (window.innerWidth > 992) {
+            sidebar.classList.remove("mobile-open");
+            mobileOverlay.classList.remove("show");
+            isMobileMenuOpen = false;
+          }
+        });
 
-        // Update job count display
-        function updateJobCount() {
-            jobCount.textContent = `(${filteredJobs.length} jobs found)`;
-        }
+        // NEW APPLICATION MODAL EVENT LISTENERS
+        closeApplicationModal.addEventListener(
+          "click",
+          closeApplicationModalFunc,
+        );
 
-        // Apply quick filter
-        function applyQuickFilter() {
-            if (currentQuickFilter === 'all') {
-                filteredJobs = [...jobsData];
+        // Tier selection
+        tierOptions.forEach((option) => {
+          option.addEventListener("click", function () {
+            tierOptions.forEach((opt) => opt.classList.remove("selected"));
+            this.classList.add("selected");
+          });
+        });
+
+        // Tier action buttons
+        document.querySelectorAll(".tier-action").forEach((button) => {
+          button.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const tierOption = this.closest(".tier-option");
+            const tierType = tierOption.getAttribute("data-tier");
+            submitApplication(tierType);
+          });
+        });
+
+        // Boost now button
+        boostNowBtn.addEventListener("click", function () {
+          window.location.href = `boost-profile.html?jobId=${currentJobId}`;
+        });
+
+        // View applications button
+        viewApplicationsBtn.addEventListener("click", function () {
+          window.location.href = "your-applications.html";
+        });
+      }
+
+      // Show toast notification
+      function showToast(message, type = "error") {
+        toastMessage.textContent = message;
+        toastNotification.className = `toast ${type}`;
+        toastNotification.classList.add("show");
+
+        setTimeout(() => {
+          toastNotification.classList.remove("show");
+        }, 4000);
+      }
+
+      // Update job count display
+      function updateJobCount() {
+        jobCount.textContent = `(${filteredJobs.length} jobs found)`;
+      }
+
+      // Apply quick filter
+      function applyQuickFilter() {
+        if (currentQuickFilter === "all") {
+          filteredJobs = [...jobsData];
+        } else {
+          filteredJobs = jobsData.filter((job) => {
+            if (currentQuickFilter === "remote") {
+              return job.type.toLowerCase() === "remote";
+            } else if (currentQuickFilter === "full-time") {
+              return job.type.toLowerCase() === "full-time";
+            } else if (currentQuickFilter === "part-time") {
+              return job.type.toLowerCase() === "part-time";
             } else {
-                filteredJobs = jobsData.filter(job => {
-                    if (currentQuickFilter === 'remote') {
-                        return job.type.toLowerCase() === 'remote';
-                    } else if (currentQuickFilter === 'full-time') {
-                        return job.type.toLowerCase() === 'full-time';
-                    } else if (currentQuickFilter === 'part-time') {
-                        return job.type.toLowerCase() === 'part-time';
-                    } else {
-                        return job.industry === currentQuickFilter;
-                    }
-                });
+              return job.industry === currentQuickFilter;
             }
-            
+          });
+        }
+
+        currentPage = 1;
+        displayJobs();
+        updateJobCount();
+      }
+
+      // Perform search
+      function performSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+        currentSearchQuery = query;
+
+        if (query) {
+          loadingState.style.display = "flex";
+          jobsContainer.style.display = "none";
+          emptyState.style.display = "none";
+
+          setTimeout(() => {
+            filteredJobs = jobsData.filter((job) => {
+              return (
+                job.title.toLowerCase().includes(query) ||
+                job.company.toLowerCase().includes(query) ||
+                job.description.toLowerCase().includes(query)
+              );
+            });
+
             currentPage = 1;
             displayJobs();
             updateJobCount();
+            loadingState.style.display = "none";
+            jobsContainer.style.display = "grid";
+          }, 1500);
+        } else {
+          filteredJobs = [...jobsData];
+          currentPage = 1;
+          displayJobs();
+          updateJobCount();
         }
+      }
 
-        // Perform search
-        function performSearch() {
-            const query = searchInput.value.trim().toLowerCase();
-            currentSearchQuery = query;
-            
-            if (query) {
-                loadingState.style.display = 'flex';
-                jobsContainer.style.display = 'none';
-                emptyState.style.display = 'none';
-                
-                setTimeout(() => {
-                    filteredJobs = jobsData.filter(job => {
-                        return job.title.toLowerCase().includes(query) || 
-                               job.company.toLowerCase().includes(query) ||
-                               job.description.toLowerCase().includes(query);
-                    });
-                    
-                    currentPage = 1;
-                    displayJobs();
-                    updateJobCount();
-                    loadingState.style.display = 'none';
-                    jobsContainer.style.display = 'grid';
-                }, 1500);
-            } else {
-                filteredJobs = [...jobsData];
-                currentPage = 1;
-                displayJobs();
-                updateJobCount();
+      // Apply filters to job list
+      function applyFilters() {
+        loadingState.style.display = "flex";
+        jobsContainer.style.display = "none";
+        emptyState.style.display = "none";
+
+        setTimeout(() => {
+          const regionValue = regionFilter.value;
+          const jobTypeValue = jobTypeFilter.value;
+          const salaryValue = salaryFilter.value;
+          const industryValue = industryFilter.value;
+
+          filteredJobs = jobsData.filter((job) => {
+            if (
+              currentSearchQuery &&
+              !job.title.toLowerCase().includes(currentSearchQuery) &&
+              !job.company.toLowerCase().includes(currentSearchQuery) &&
+              !job.description.toLowerCase().includes(currentSearchQuery)
+            ) {
+              return false;
             }
-        }
 
-        // Apply filters to job list
-        function applyFilters() {
-            loadingState.style.display = 'flex';
-            jobsContainer.style.display = 'none';
-            emptyState.style.display = 'none';
-            
-            setTimeout(() => {
-                const regionValue = regionFilter.value;
-                const jobTypeValue = jobTypeFilter.value;
-                const salaryValue = salaryFilter.value;
-                const industryValue = industryFilter.value;
-
-                filteredJobs = jobsData.filter(job => {
-                    if (currentSearchQuery && 
-                        !job.title.toLowerCase().includes(currentSearchQuery) && 
-                        !job.company.toLowerCase().includes(currentSearchQuery) &&
-                        !job.description.toLowerCase().includes(currentSearchQuery)) {
-                        return false;
-                    }
-                    
-                    if (regionValue && !job.location.toLowerCase().includes(regionValue)) {
-                        return false;
-                    }
-                    
-                    if (jobTypeValue && job.type.toLowerCase() !== jobTypeValue) {
-                        return false;
-                    }
-                    
-                    if (industryValue && job.industry !== industryValue) {
-                        return false;
-                    }
-                    
-                    if (salaryValue) {
-                        if (salaryValue === "6000+" && !job.salary.includes("₵6,000")) {
-                            return false;
-                        }
-                    }
-                    
-                    return true;
-                });
-
-                currentPage = 1;
-                displayJobs();
-                updateJobCount();
-                loadingState.style.display = 'none';
-                jobsContainer.style.display = 'grid';
-            }, 800);
-        }
-
-        // Reset all filters
-        function resetFilters() {
-            regionFilter.value = '';
-            jobTypeFilter.value = '';
-            salaryFilter.value = '';
-            industryFilter.value = '';
-            searchInput.value = '';
-            currentSearchQuery = '';
-            
-            quickFilterBtns.forEach(btn => {
-                if (btn.getAttribute('data-filter') === 'all') {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-            currentQuickFilter = 'all';
-            
-            filteredJobs = [...jobsData];
-            currentPage = 1;
-            displayJobs();
-            updateJobCount();
-        }
-
-        // Display jobs based on current page and filters
-        function displayJobs() {
-            const startIndex = (currentPage - 1) * jobsPerPage;
-            const endIndex = startIndex + jobsPerPage;
-            const jobsToDisplay = filteredJobs.slice(startIndex, endIndex);
-            
-            jobsContainer.innerHTML = '';
-            
-            if (filteredJobs.length === 0) {
-                emptyState.style.display = 'block';
-                pagination.innerHTML = '';
-                return;
-            } else {
-                emptyState.style.display = 'none';
+            if (
+              regionValue &&
+              !job.location.toLowerCase().includes(regionValue)
+            ) {
+              return false;
             }
-            
-            jobsToDisplay.forEach(job => {
-                const isApplied = appliedJobs.some(app => app.id === job.id);
-                const jobCard = document.createElement('div');
-                jobCard.className = 'job-card';
-                jobCard.innerHTML = `
+
+            if (jobTypeValue && job.type.toLowerCase() !== jobTypeValue) {
+              return false;
+            }
+
+            if (industryValue && job.industry !== industryValue) {
+              return false;
+            }
+
+            if (salaryValue) {
+              if (salaryValue === "6000+" && !job.salary.includes("₵6,000")) {
+                return false;
+              }
+            }
+
+            return true;
+          });
+
+          currentPage = 1;
+          displayJobs();
+          updateJobCount();
+          loadingState.style.display = "none";
+          jobsContainer.style.display = "grid";
+        }, 800);
+      }
+
+      // Reset all filters
+      function resetFilters() {
+        regionFilter.value = "";
+        jobTypeFilter.value = "";
+        salaryFilter.value = "";
+        industryFilter.value = "";
+        searchInput.value = "";
+        currentSearchQuery = "";
+
+        quickFilterBtns.forEach((btn) => {
+          if (btn.getAttribute("data-filter") === "all") {
+            btn.classList.add("active");
+          } else {
+            btn.classList.remove("active");
+          }
+        });
+        currentQuickFilter = "all";
+
+        filteredJobs = [...jobsData];
+        currentPage = 1;
+        displayJobs();
+        updateJobCount();
+      }
+
+      // Display jobs based on current page and filters
+      function displayJobs() {
+        const startIndex = (currentPage - 1) * jobsPerPage;
+        const endIndex = startIndex + jobsPerPage;
+        const jobsToDisplay = filteredJobs.slice(startIndex, endIndex);
+
+        jobsContainer.innerHTML = "";
+
+        if (filteredJobs.length === 0) {
+          emptyState.style.display = "block";
+          pagination.innerHTML = "";
+          return;
+        } else {
+          emptyState.style.display = "none";
+        }
+
+        jobsToDisplay.forEach((job) => {
+          const isApplied = appliedJobs.some((app) => app.id === job.id);
+          const jobCard = document.createElement("div");
+          jobCard.className = "job-card";
+          jobCard.innerHTML = `
                     <div class="job-header">
                         <div>
                             <h3 class="job-title">${job.title}</h3>
@@ -2557,148 +2712,158 @@
                     <p class="job-salary">${job.salary}</p>
                     <p class="job-description">${job.description}</p>
                     <div class="job-actions">
-                        <button class="btn-apply ${isApplied ? 'disabled' : ''}" data-job-id="${job.id}">
-                            ${isApplied ? '<i class="fas fa-check"></i> Applied' : 'Apply Now'}
+                        <button class="btn-apply ${isApplied ? "disabled" : ""}" data-job-id="${job.id}">
+                            ${isApplied ? '<i class="fas fa-check"></i> Applied' : "Apply Now"}
                         </button>
-                        <button class="btn-boost ${isApplied ? '' : 'disabled'}" data-job-id="${job.id}">
+                        <button class="btn-boost ${isApplied ? "" : "disabled"}" data-job-id="${job.id}">
                             <i class="fas fa-rocket"></i> Boost
-                            ${!isApplied ? '<div class="tooltip">Apply first to boost this job</div>' : ''}
+                            ${!isApplied ? '<div class="tooltip">Apply first to boost this job</div>' : ""}
                         </button>
                     </div>
                 `;
-                jobsContainer.appendChild(jobCard);
-            });
-            
-            document.querySelectorAll('.job-card').forEach(card => {
-                card.addEventListener('click', function(e) {
-                    if (!e.target.closest('.job-actions')) {
-                        const jobId = this.querySelector('.btn-apply').getAttribute('data-job-id');
-                        window.location.href = `view-details.html?id=${jobId}`;
-                    }
-                });
-            });
-            
-            document.querySelectorAll('.btn-apply:not(.disabled)').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const jobId = this.getAttribute('data-job-id');
-                    currentJobId = jobId;
-                    currentJobData = jobsData.find(job => job.id === jobId);
-                    openApplicationModal();
-                });
-            });
-            
-            document.querySelectorAll('.btn-boost:not(.disabled)').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const jobId = this.getAttribute('data-job-id');
-                    window.location.href = `boost-profile.html?jobId=${jobId}`;
-                });
-            });
-            
-            updatePagination();
-        }
+          jobsContainer.appendChild(jobCard);
+        });
 
-        // Update pagination controls
-        function updatePagination() {
-            const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
-            
-            pagination.innerHTML = '';
-            
-            const prevButton = document.createElement('button');
-            prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
-            prevButton.disabled = currentPage === 1;
-            prevButton.addEventListener('click', function() {
-                if (currentPage > 1) {
-                    currentPage--;
-                    displayJobs();
-                }
-            });
-            pagination.appendChild(prevButton);
-            
-            for (let i = 1; i <= totalPages; i++) {
-                const pageButton = document.createElement('button');
-                pageButton.textContent = i;
-                pageButton.className = i === currentPage ? 'active' : '';
-                pageButton.addEventListener('click', function() {
-                    currentPage = i;
-                    displayJobs();
-                });
-                pagination.appendChild(pageButton);
+        document.querySelectorAll(".job-card").forEach((card) => {
+          card.addEventListener("click", function (e) {
+            if (!e.target.closest(".job-actions")) {
+              const jobId =
+                this.querySelector(".btn-apply").getAttribute("data-job-id");
+              window.location.href = `view-details.html?id=${jobId}`;
             }
-            
-            const nextButton = document.createElement('button');
-            nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
-            nextButton.disabled = currentPage === totalPages;
-            nextButton.addEventListener('click', function() {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    displayJobs();
-                }
+          });
+        });
+
+        document
+          .querySelectorAll(".btn-apply:not(.disabled)")
+          .forEach((button) => {
+            button.addEventListener("click", function (e) {
+              e.stopPropagation();
+              const jobId = this.getAttribute("data-job-id");
+              currentJobId = jobId;
+              currentJobData = jobsData.find((job) => job.id === jobId);
+              openApplicationModal();
             });
-            pagination.appendChild(nextButton);
+          });
+
+        document
+          .querySelectorAll(".btn-boost:not(.disabled)")
+          .forEach((button) => {
+            button.addEventListener("click", function (e) {
+              e.stopPropagation();
+              const jobId = this.getAttribute("data-job-id");
+              window.location.href = `boost-profile.html?jobId=${jobId}`;
+            });
+          });
+
+        updatePagination();
+      }
+
+      // Update pagination controls
+      function updatePagination() {
+        const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
+
+        pagination.innerHTML = "";
+
+        const prevButton = document.createElement("button");
+        prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        prevButton.disabled = currentPage === 1;
+        prevButton.addEventListener("click", function () {
+          if (currentPage > 1) {
+            currentPage--;
+            displayJobs();
+          }
+        });
+        pagination.appendChild(prevButton);
+
+        for (let i = 1; i <= totalPages; i++) {
+          const pageButton = document.createElement("button");
+          pageButton.textContent = i;
+          pageButton.className = i === currentPage ? "active" : "";
+          pageButton.addEventListener("click", function () {
+            currentPage = i;
+            displayJobs();
+          });
+          pagination.appendChild(pageButton);
         }
 
-        // NEW FUNCTIONS FOR APPLICATION SYSTEM
+        const nextButton = document.createElement("button");
+        nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        nextButton.disabled = currentPage === totalPages;
+        nextButton.addEventListener("click", function () {
+          if (currentPage < totalPages) {
+            currentPage++;
+            displayJobs();
+          }
+        });
+        pagination.appendChild(nextButton);
+      }
 
-        // Open application modal
-        function openApplicationModal() {
-            if (!currentJobData) return;
-            
-            tierSelection.style.display = 'block';
-            applicationSuccess.style.display = 'none';
-            
-            document.getElementById('modalJobTitle').textContent = currentJobData.title;
-            document.getElementById('modalJobCompany').textContent = currentJobData.company;
-            document.getElementById('applicationModalTitle').textContent = `Apply for ${currentJobData.title}`;
-            
-            tierOptions.forEach(option => option.classList.remove('selected'));
-            
-            applicationModal.classList.add('show');
+      // NEW FUNCTIONS FOR APPLICATION SYSTEM
+
+      // Open application modal
+      function openApplicationModal() {
+        if (!currentJobData) return;
+
+        tierSelection.style.display = "block";
+        applicationSuccess.style.display = "none";
+
+        document.getElementById("modalJobTitle").textContent =
+          currentJobData.title;
+        document.getElementById("modalJobCompany").textContent =
+          currentJobData.company;
+        document.getElementById("applicationModalTitle").textContent =
+          `Apply for ${currentJobData.title}`;
+
+        tierOptions.forEach((option) => option.classList.remove("selected"));
+
+        applicationModal.classList.add("show");
+      }
+
+      // Close application modal
+      function closeApplicationModalFunc() {
+        applicationModal.classList.remove("show");
+      }
+
+      // Submit application
+      function submitApplication(tierType) {
+        if (!currentJobData) return;
+
+        const applicationData = {
+          id: currentJobData.id,
+          title: currentJobData.title,
+          company: currentJobData.company,
+          appliedAt: new Date().toISOString(),
+          tier: tierType,
+          status: tierType === "premium" ? "pending_payment" : "submitted",
+        };
+
+        if (!appliedJobs.some((app) => app.id === currentJobData.id)) {
+          appliedJobs.push(applicationData);
+          localStorage.setItem("appliedJobs", JSON.stringify(appliedJobs));
         }
 
-        // Close application modal
-        function closeApplicationModalFunc() {
-            applicationModal.classList.remove('show');
+        showApplicationSuccess(tierType);
+      }
+
+      // Show application success
+      function showApplicationSuccess(tierType) {
+        tierSelection.style.display = "none";
+        applicationSuccess.style.display = "block";
+
+        const successMessage = document.getElementById("successMessage");
+
+        if (tierType === "free") {
+          successMessage.textContent =
+            "Your free application has been successfully submitted to the employer.";
+        } else {
+          successMessage.textContent =
+            "Your premium application is pending payment confirmation.";
+          setTimeout(() => {
+            window.location.href = `payment.html?service=application-premium&amount=50&name=Premium%20Application%20Verification&jobId=${currentJobId}`;
+          }, 2000);
         }
-
-        // Submit application
-        function submitApplication(tierType) {
-            if (!currentJobData) return;
-
-            const applicationData = {
-                id: currentJobData.id,
-                title: currentJobData.title,
-                company: currentJobData.company,
-                appliedAt: new Date().toISOString(),
-                tier: tierType,
-                status: tierType === 'premium' ? 'pending_payment' : 'submitted'
-            };
-
-            if (!appliedJobs.some(app => app.id === currentJobData.id)) {
-                appliedJobs.push(applicationData);
-                localStorage.setItem('appliedJobs', JSON.stringify(appliedJobs));
-            }
-
-            showApplicationSuccess(tierType);
-        }
-
-        // Show application success
-        function showApplicationSuccess(tierType) {
-            tierSelection.style.display = 'none';
-            applicationSuccess.style.display = 'block';
-
-            const successMessage = document.getElementById('successMessage');
-            
-            if (tierType === 'free') {
-                successMessage.textContent = 'Your free application has been successfully submitted to the employer.';
-            } else {
-                successMessage.textContent = 'Your premium application is pending payment confirmation.';
-                setTimeout(() => {
-                    window.location.href = `payment.html?service=application-premium&amount=50&name=Premium%20Application%20Verification&jobId=${currentJobId}`;
-                }, 2000);
-            }
-        }
+      }
     </script>
-</body>
+  </body>
 </html>

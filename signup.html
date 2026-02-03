@@ -1,1447 +1,1746 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Candidate Sign Up | Job Assist Ghana — Step 1 of 2</title>
-  <!-- Favicon - using your existing logo -->
-  <link rel="icon" type="image/png" href="tab-logo.png">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Candidate Sign Up | Job Assist Ghana — Step 1 of 2</title>
+    <!-- Favicon - using your existing logo -->
+    <link rel="icon" type="image/png" href="tab-logo.png" />
 
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <style>
-    :root{
-      --deep-blue: #002147;
-      --accent-gold: #f8c12e;
-      --cream: #f9f8f4;
-      --muted: #6b7280;
-      --card-bg: #ffffff;
-      --radius: 12px;
-      --max-width: 1100px;
-      --error-red: #e74c3c;
-      --success-green: #2ecc71;
-    }
-
-    /* Reset + base */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'San Francisco', sans-serif;
-      background:var(--cream);
-      color:#1f2937;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.4;
-    }
-
-    /* ---------- NAVBAR (same structure as homepage) ---------- */
-    .site-navbar{
-      position:sticky;
-      top:0;
-      z-index:1000;
-      background:var(--deep-blue);
-      color:#fff;
-      box-shadow:0 4px 12px rgba(0,0,0,0.08);
-      width: 100%;
-    }
-    .nav-inner{
-      max-width:var(--max-width);
-      margin:0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 24px;
-    }
-    .brand img{height:48px; filter:brightness(0) invert(1);}
-    nav.desktop-nav ul{display:flex; gap:22px; margin:0; padding:0; list-style:none; align-items:center;}
-    nav.desktop-nav a{color:#fff; text-decoration:none; font-weight:600;}
-    nav.desktop-nav a:hover{color:var(--accent-gold);}
-
-    /* Login button styles */
-    .login-btn {
-      background: var(--accent-gold);
-      color: var(--deep-blue);
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-    .login-btn:hover {
-      background: #ffda6a;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(248, 193, 46, 0.3);
-      color: var(--deep-blue);
-    }
-
-    /* Hamburger (mobile) */
-    .menu-icon{
-      display:none; 
-      font-size:28px;
-      cursor:pointer; 
-      color:#fff;
-      z-index: 1000;
-    }
-
-    /* Mobile Menu - Fixed to match homepage */
-    #mobile-menu{
-      display:none;
-      position: fixed;
-      top: 70px;
-      left: 0;
-      width: 100%;
-      background-color: var(--deep-blue);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      z-index: 999;
-    }
-
-    #mobile-menu.active {
-      display: block;
-    }
-
-    #mobile-menu ul {
-      list-style: none;
-      padding: 20px 0;
-      width: 100%;
-    }
-
-    #mobile-menu ul li {
-      padding: 12px 30px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      width: 100%;
-    }
-
-    #mobile-menu ul li:last-child {
-      border-bottom: none;
-    }
-
-    #mobile-menu ul li a {
-      color: white;
-      text-decoration: none;
-      font-size: 18px;
-      display: block;
-      transition: color 0.3s ease;
-      width: 100%;
-    }
-
-    #mobile-menu ul li a:hover,
-    #mobile-menu ul li a.active {
-      color: var(--accent-gold);
-    }
-
-    #mobile-menu .login-btn {
-      display: inline-block;
-      margin: 10px 30px;
-      text-align: center;
-      width: calc(100% - 60px);
-    }
-
-    /* ---------- PAGE LAYOUT ---------- */
-    .page {
-      max-width: var(--max-width);
-      margin: 40px auto;
-      padding: 20px;
-      display: grid;
-      grid-template-columns: 1fr 480px; /* main form left, empty right (or future info) */
-      gap: 36px;
-      align-items:start;
-      position: relative;
-    }
-
-    /* Progress / heading area */
-    .step-bar {
-      display:flex;
-      align-items:center;
-      gap:16px;
-      margin-bottom:18px;
-    }
-    .step-pill{
-      background:#e9eef7;
-      color:var(--deep-blue);
-      padding:6px 10px;
-      border-radius:999px;
-      font-weight:700;
-      font-size:14px;
-    }
-    .progress-line {
-      flex:1;
-      height:8px;
-      background:#e6e8eb;
-      border-radius:999px;
-      overflow:hidden;
-    }
-    .progress-line .fill{
-      width:50%; /* Step 1 of 2 */
-      height:100%;
-      background:linear-gradient(90deg,var(--accent-gold), #ffda6a);
-    }
-
-    .page-heading{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:18px;
-    }
-    .page-heading h1{
-      margin:0;
-      color:var(--deep-blue);
-      font-size:28px;
-    }
-
-    .employer-cta {
-      padding:8px 12px;
-      border-radius:8px;
-      border:1px solid var(--deep-blue);
-      background:transparent;
-      color:var(--deep-blue);
-      text-decoration:none;
-      font-weight:700;
-      font-size:14px;
-      white-space:nowrap;
-    }
-    .employer-cta:hover{background:rgba(0,33,71,0.05)}
-
-    .subtext {
-      color:var(--muted);
-      margin-bottom:22px;
-      max-width:720px;
-      font-size:15px;
-    }
-
-    /* ---------- FORM ---------- */
-    .signup-form {
-      background: var(--card-bg);
-      padding:28px;
-      border-radius:var(--radius);
-      box-shadow: 0 10px 36px rgba(7,22,50,0.06);
-      width:100%;
-    }
-
-    .field {
-      margin-bottom:14px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-
-    label {
-      font-size:13px;
-      color:#374151;
-      font-weight:600;
-    }
-
-    .required::after {
-      content: " *";
-      color: #ef4444;
-    }
-
-    .checkbox-group {
-      margin-top: 5px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #333;
-      font-size: 14px;
-    }
-
-    .checkbox-group input {
-      transform: scale(1.1);
-    }
-
-    .small-row {
-      display:flex;
-      gap:12px;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="password"],
-    select,
-    textarea {
-      width:100%;
-      padding:12px 14px;
-      border-radius:8px;
-      border:1px solid #e5e7eb;
-      font-size:15px;
-      color:#111827;
-      background:#fff;
-    }
-    textarea{min-height:96px; resize:vertical}
-
-    .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-
-    .tooltip {
-      display:inline-block;
-      margin-left:8px;
-      color:var(--muted);
-      font-weight:700;
-      cursor:help;
-    }
-    .tip-box {
-      display:none;
-      position:absolute;
-      background:#fff;
-      border:1px solid #e6e6e6;
-      padding:10px;
-      border-radius:8px;
-      box-shadow:0 6px 18px rgba(11,22,50,0.08);
-      font-size:13px;
-      width:240px;
-      z-index:1200;
-    }
-
-    .field-inline { position:relative; }
-
-    /* Passport Picture Upload Styles */
-    .passport-upload {
-      border: 2px dashed #d1d5db;
-      border-radius: 8px;
-      padding: 20px;
-      text-align: center;
-      background: #fafafa;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      margin-bottom: 14px;
-    }
-
-    .passport-upload:hover {
-      border-color: var(--accent-gold);
-      background: #fffdf5;
-    }
-
-    .passport-upload.dragover {
-      border-color: var(--accent-gold);
-      background: #fff9e6;
-    }
-
-    .upload-icon {
-      font-size: 40px;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
-
-    .upload-text {
-      color: var(--muted);
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-
-    .upload-btn {
-      background: var(--accent-gold);
-      color: var(--deep-blue);
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .upload-btn:hover {
-      background: #ffda6a;
-    }
-
-    .passport-preview {
-      display: none;
-      margin-top: 15px;
-      text-align: center;
-    }
-
-    .preview-image {
-      max-width: 150px;
-      max-height: 150px;
-      border-radius: 8px;
-      border: 2px solid var(--accent-gold);
-      object-fit: cover;
-    }
-
-    .remove-image {
-      display: block;
-      margin-top: 8px;
-      color: #ef4444;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 13px;
-      text-decoration: underline;
-    }
-
-    .file-info {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 5px;
-    }
-
-    .file-error {
-      color: #ef4444;
-      font-size: 12px;
-      margin-top: 5px;
-      display: none;
-    }
-
-    /* reCAPTCHA placeholder */
-    .recaptcha {
-      border:1px dashed #d1d5db;
-      border-radius:8px;
-      padding:12px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin:16px 0;
-      background:#fafafa;
-    }
-    .recaptcha input{transform:scale(1.15)}
-
-    /* Continue button */
-    .actions {
-      margin-top:8px;
-    }
-    .btn-primary {
-      width:100%;
-      padding:12px 16px;
-      border-radius:10px;
-      background:linear-gradient(90deg,var(--accent-gold), #ffd86e);
-      color:var(--deep-blue);
-      border:none;
-      font-weight:800;
-      font-size:16px;
-      cursor:pointer;
-      box-shadow:0 8px 20px rgba(248,193,46,0.15);
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: all 0.3s ease;
-    }
-    .btn-primary:disabled {
-      opacity:0.5;
-      cursor:not-allowed;
-      transform:none;
-      box-shadow:none;
-    }
-
-    .btn-primary:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(248, 193, 46, 0.3);
-    }
-
-    .helper-note {
-      font-size:13px;
-      color:var(--muted);
-      margin-top:8px;
-    }
-
-    /* Right column placeholder (space for future info / images) */
-    .right-column {
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-      align-items:center;
-      justify-content:center;
-      padding: 12px;
-    }
-    .placeholder-card {
-      width:100%;
-      height:200px;
-      border-radius:12px;
-      background:linear-gradient(180deg,#f7fafc,#eef2f7);
-      border:1px solid #e6eef8;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--muted);
-      font-weight:600;
-    }
-
-    /* Footer reassurance */
-    .security-note {
-      margin-top:16px;
-      font-size:13px;
-      color:var(--muted);
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
-
-    /* Disabled field styling */
-    .disabled-field {
-      background-color: #f3f4f6 !important;
-      color: #9ca3af !important;
-      cursor: not-allowed;
-    }
-
-    /* Loading spinner */
-    .loading-spinner {
-      display: none;
-      width: 20px;
-      height: 20px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      border-top-color: var(--deep-blue);
-      animation: spin 1s ease-in-out infinite;
-      margin-right: 10px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .loading-spinner.active {
-      display: inline-block;
-    }
-
-    .btn-text {
-      transition: opacity 0.3s ease;
-    }
-
-    .btn-primary.loading .btn-text {
-      opacity: 0.7;
-    }
-
-    /* Success checkmark */
-    .success-checkmark {
-      display: none;
-      width: 20px;
-      height: 20px;
-      margin-right: 10px;
-    }
-
-    .success-checkmark.active {
-      display: inline-block;
-    }
-
-    .check-icon {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      display: block;
-      stroke-width: 2;
-      stroke: var(--success-green);
-      stroke-miterlimit: 10;
-      box-shadow: inset 0px 0px 0px var(--success-green);
-      animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
-    }
-
-    .check-circle {
-      stroke-dasharray: 166;
-      stroke-dashoffset: 166;
-      stroke-width: 2;
-      stroke-miterlimit: 10;
-      stroke: var(--success-green);
-      fill: none;
-      animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-    }
-
-    .check-path {
-      transform-origin: 50% 50%;
-      stroke-dasharray: 48;
-      stroke-dashoffset: 48;
-      animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
-    }
-
-    @keyframes stroke {
-      100% {
-        stroke-dashoffset: 0;
+    <style>
+      :root {
+        --deep-blue: #002147;
+        --accent-gold: #f8c12e;
+        --cream: #f9f8f4;
+        --muted: #6b7280;
+        --card-bg: #ffffff;
+        --radius: 12px;
+        --max-width: 1100px;
+        --error-red: #e74c3c;
+        --success-green: #2ecc71;
       }
-    }
 
-    @keyframes scale {
-      0%, 100% {
-        transform: none;
+      /* Reset + base */
+      * {
+        box-sizing: border-box;
       }
-      50% {
-        transform: scale3d(1.1, 1.1, 1);
+      html,
+      body {
+        height: 100%;
       }
-    }
-
-    @keyframes fill {
-      100% {
-        box-shadow: inset 0px 0px 0px 30px var(--success-green);
+      body {
+        margin: 0;
+        font-family:
+          "Segoe UI",
+          -apple-system,
+          BlinkMacSystemFont,
+          "San Francisco",
+          sans-serif;
+        background: var(--cream);
+        color: #1f2937;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        line-height: 1.4;
       }
-    }
 
-    /* Loading overlay */
-    .loading-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(255, 255, 255, 0.95);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      border-radius: 12px;
-      z-index: 100;
-    }
-
-    .loading-overlay.active {
-      display: flex;
-    }
-
-    .loading-content {
-      text-align: center;
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 10px 36px rgba(7,22,50,0.15);
-      max-width: 400px;
-      width: 90%;
-    }
-
-    .loading-dots {
-      display: flex;
-      justify-content: center;
-      margin-top: 15px;
-    }
-
-    .loading-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: var(--accent-gold);
-      margin: 0 4px;
-      animation: bounce 1.4s infinite ease-in-out both;
-    }
-
-    .loading-dot:nth-child(1) { animation-delay: -0.32s; }
-    .loading-dot:nth-child(2) { animation-delay: -0.16s; }
-
-    @keyframes bounce {
-      0%, 80%, 100% { 
-        transform: scale(0);
-      } 40% { 
-        transform: scale(1.0);
+      /* ---------- NAVBAR (same structure as homepage) ---------- */
+      .site-navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: var(--deep-blue);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        width: 100%;
       }
-    }
+      .nav-inner {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 24px;
+      }
+      .brand img {
+        height: 48px;
+        filter: brightness(0) invert(1);
+      }
+      nav.desktop-nav ul {
+        display: flex;
+        gap: 22px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        align-items: center;
+      }
+      nav.desktop-nav a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      nav.desktop-nav a:hover {
+        color: var(--accent-gold);
+      }
 
-    /* Error message styling */
-    .error-message {
-      background-color: rgba(231, 76, 60, 0.1);
-      border: 1px solid var(--error-red);
-      color: var(--error-red);
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-      font-size: 14px;
-      display: none;
-    }
+      /* Login button styles */
+      .login-btn {
+        background: var(--accent-gold);
+        color: var(--deep-blue);
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+      .login-btn:hover {
+        background: #ffda6a;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(248, 193, 46, 0.3);
+        color: var(--deep-blue);
+      }
 
-    .error-message.show {
-      display: block;
-    }
+      /* Hamburger (mobile) */
+      .menu-icon {
+        display: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: #fff;
+        z-index: 1000;
+      }
 
-    /* NSS format info */
-    .nss-format {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 5px;
-    }
+      /* Mobile Menu - Fixed to match homepage */
+      #mobile-menu {
+        display: none;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: var(--deep-blue);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+      }
 
-    /* Other field styling */
-    .other-field {
-      display: none;
-      margin-top: 8px;
-    }
+      #mobile-menu.active {
+        display: block;
+      }
 
-    .other-field.show {
-      display: block;
-    }
+      #mobile-menu ul {
+        list-style: none;
+        padding: 20px 0;
+        width: 100%;
+      }
 
-    /* MOBILE */
-    @media (max-width: 900px){
-      .page { grid-template-columns: 1fr; padding: 18px; }
-      .right-column{order:2; width:100%; display: none;}
-      .signup-form{order:1}
-      nav.desktop-nav{display:none}
-      .menu-icon{display:block}
-    }
-
-    @media (max-width: 480px){
-      .nav-inner{padding:12px 20px;}
-      .page-heading h1{font-size:22px}
-      .page{margin:18px auto}
-      .row-2{grid-template-columns:1fr}
-      
       #mobile-menu ul li {
-        padding: 12px 20px;
+        padding: 12px 30px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%;
       }
-      
-      #mobile-menu .login-btn {
-        margin: 10px 20px;
-        width: calc(100% - 40px);
-      }
-    }
-  </style>
-</head>
-<body>
-  <!-- NAVBAR -->
-  <header class="site-navbar">
-    <div class="nav-inner">
-      <a class="brand" href="index.html"><img src="logo.png" alt="Job Assist Ghana logo"></a>
 
-      <nav class="desktop-nav" aria-label="Main navigation">
+      #mobile-menu ul li:last-child {
+        border-bottom: none;
+      }
+
+      #mobile-menu ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+        transition: color 0.3s ease;
+        width: 100%;
+      }
+
+      #mobile-menu ul li a:hover,
+      #mobile-menu ul li a.active {
+        color: var(--accent-gold);
+      }
+
+      #mobile-menu .login-btn {
+        display: inline-block;
+        margin: 10px 30px;
+        text-align: center;
+        width: calc(100% - 60px);
+      }
+
+      /* ---------- PAGE LAYOUT ---------- */
+      .page {
+        max-width: var(--max-width);
+        margin: 40px auto;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 1fr 480px; /* main form left, empty right (or future info) */
+        gap: 36px;
+        align-items: start;
+        position: relative;
+      }
+
+      /* Progress / heading area */
+      .step-bar {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+      .step-pill {
+        background: #e9eef7;
+        color: var(--deep-blue);
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .progress-line {
+        flex: 1;
+        height: 8px;
+        background: #e6e8eb;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .progress-line .fill {
+        width: 50%; /* Step 1 of 2 */
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent-gold), #ffda6a);
+      }
+
+      .page-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+      .page-heading h1 {
+        margin: 0;
+        color: var(--deep-blue);
+        font-size: 28px;
+      }
+
+      .employer-cta {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--deep-blue);
+        background: transparent;
+        color: var(--deep-blue);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+      .employer-cta:hover {
+        background: rgba(0, 33, 71, 0.05);
+      }
+
+      .subtext {
+        color: var(--muted);
+        margin-bottom: 22px;
+        max-width: 720px;
+        font-size: 15px;
+      }
+
+      /* ---------- FORM ---------- */
+      .signup-form {
+        background: var(--card-bg);
+        padding: 28px;
+        border-radius: var(--radius);
+        box-shadow: 0 10px 36px rgba(7, 22, 50, 0.06);
+        width: 100%;
+      }
+
+      .field {
+        margin-bottom: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      label {
+        font-size: 13px;
+        color: #374151;
+        font-weight: 600;
+      }
+
+      .required::after {
+        content: " *";
+        color: #ef4444;
+      }
+
+      .checkbox-group {
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #333;
+        font-size: 14px;
+      }
+
+      .checkbox-group input {
+        transform: scale(1.1);
+      }
+
+      .small-row {
+        display: flex;
+        gap: 12px;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="password"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+        font-size: 15px;
+        color: #111827;
+        background: #fff;
+      }
+      textarea {
+        min-height: 96px;
+        resize: vertical;
+      }
+
+      .row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .tooltip {
+        display: inline-block;
+        margin-left: 8px;
+        color: var(--muted);
+        font-weight: 700;
+        cursor: help;
+      }
+      .tip-box {
+        display: none;
+        position: absolute;
+        background: #fff;
+        border: 1px solid #e6e6e6;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 6px 18px rgba(11, 22, 50, 0.08);
+        font-size: 13px;
+        width: 240px;
+        z-index: 1200;
+      }
+
+      .field-inline {
+        position: relative;
+      }
+
+      /* Passport Picture Upload Styles */
+      .passport-upload {
+        border: 2px dashed #d1d5db;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        background: #fafafa;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        margin-bottom: 14px;
+      }
+
+      .passport-upload:hover {
+        border-color: var(--accent-gold);
+        background: #fffdf5;
+      }
+
+      .passport-upload.dragover {
+        border-color: var(--accent-gold);
+        background: #fff9e6;
+      }
+
+      .upload-icon {
+        font-size: 40px;
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+
+      .upload-text {
+        color: var(--muted);
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .upload-btn {
+        background: var(--accent-gold);
+        color: var(--deep-blue);
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .upload-btn:hover {
+        background: #ffda6a;
+      }
+
+      .passport-preview {
+        display: none;
+        margin-top: 15px;
+        text-align: center;
+      }
+
+      .preview-image {
+        max-width: 150px;
+        max-height: 150px;
+        border-radius: 8px;
+        border: 2px solid var(--accent-gold);
+        object-fit: cover;
+      }
+
+      .remove-image {
+        display: block;
+        margin-top: 8px;
+        color: #ef4444;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 13px;
+        text-decoration: underline;
+      }
+
+      .file-info {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 5px;
+      }
+
+      .file-error {
+        color: #ef4444;
+        font-size: 12px;
+        margin-top: 5px;
+        display: none;
+      }
+
+      /* reCAPTCHA placeholder */
+      .recaptcha {
+        border: 1px dashed #d1d5db;
+        border-radius: 8px;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 16px 0;
+        background: #fafafa;
+      }
+      .recaptcha input {
+        transform: scale(1.15);
+      }
+
+      /* Continue button */
+      .actions {
+        margin-top: 8px;
+      }
+      .btn-primary {
+        width: 100%;
+        padding: 12px 16px;
+        border-radius: 10px;
+        background: linear-gradient(90deg, var(--accent-gold), #ffd86e);
+        color: var(--deep-blue);
+        border: none;
+        font-weight: 800;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(248, 193, 46, 0.15);
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.3s ease;
+      }
+      .btn-primary:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .btn-primary:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(248, 193, 46, 0.3);
+      }
+
+      .helper-note {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+
+      /* Right column placeholder (space for future info / images) */
+      .right-column {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+      }
+      .placeholder-card {
+        width: 100%;
+        height: 200px;
+        border-radius: 12px;
+        background: linear-gradient(180deg, #f7fafc, #eef2f7);
+        border: 1px solid #e6eef8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      /* Footer reassurance */
+      .security-note {
+        margin-top: 16px;
+        font-size: 13px;
+        color: var(--muted);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      /* Disabled field styling */
+      .disabled-field {
+        background-color: #f3f4f6 !important;
+        color: #9ca3af !important;
+        cursor: not-allowed;
+      }
+
+      /* Loading spinner */
+      .loading-spinner {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--deep-blue);
+        animation: spin 1s ease-in-out infinite;
+        margin-right: 10px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loading-spinner.active {
+        display: inline-block;
+      }
+
+      .btn-text {
+        transition: opacity 0.3s ease;
+      }
+
+      .btn-primary.loading .btn-text {
+        opacity: 0.7;
+      }
+
+      /* Success checkmark */
+      .success-checkmark {
+        display: none;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+
+      .success-checkmark.active {
+        display: inline-block;
+      }
+
+      .check-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: block;
+        stroke-width: 2;
+        stroke: var(--success-green);
+        stroke-miterlimit: 10;
+        box-shadow: inset 0px 0px 0px var(--success-green);
+        animation:
+          fill 0.4s ease-in-out 0.4s forwards,
+          scale 0.3s ease-in-out 0.9s both;
+      }
+
+      .check-circle {
+        stroke-dasharray: 166;
+        stroke-dashoffset: 166;
+        stroke-width: 2;
+        stroke-miterlimit: 10;
+        stroke: var(--success-green);
+        fill: none;
+        animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+      }
+
+      .check-path {
+        transform-origin: 50% 50%;
+        stroke-dasharray: 48;
+        stroke-dashoffset: 48;
+        animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+      }
+
+      @keyframes stroke {
+        100% {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes scale {
+        0%,
+        100% {
+          transform: none;
+        }
+        50% {
+          transform: scale3d(1.1, 1.1, 1);
+        }
+      }
+
+      @keyframes fill {
+        100% {
+          box-shadow: inset 0px 0px 0px 30px var(--success-green);
+        }
+      }
+
+      /* Loading overlay */
+      .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.95);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        border-radius: 12px;
+        z-index: 100;
+      }
+
+      .loading-overlay.active {
+        display: flex;
+      }
+
+      .loading-content {
+        text-align: center;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 36px rgba(7, 22, 50, 0.15);
+        max-width: 400px;
+        width: 90%;
+      }
+
+      .loading-dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+      }
+
+      .loading-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: var(--accent-gold);
+        margin: 0 4px;
+        animation: bounce 1.4s infinite ease-in-out both;
+      }
+
+      .loading-dot:nth-child(1) {
+        animation-delay: -0.32s;
+      }
+      .loading-dot:nth-child(2) {
+        animation-delay: -0.16s;
+      }
+
+      @keyframes bounce {
+        0%,
+        80%,
+        100% {
+          transform: scale(0);
+        }
+        40% {
+          transform: scale(1);
+        }
+      }
+
+      /* Error message styling */
+      .error-message {
+        background-color: rgba(231, 76, 60, 0.1);
+        border: 1px solid var(--error-red);
+        color: var(--error-red);
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        font-size: 14px;
+        display: none;
+      }
+
+      .error-message.show {
+        display: block;
+      }
+
+      /* NSS format info */
+      .nss-format {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 5px;
+      }
+
+      /* Other field styling */
+      .other-field {
+        display: none;
+        margin-top: 8px;
+      }
+
+      .other-field.show {
+        display: block;
+      }
+
+      /* MOBILE */
+      @media (max-width: 900px) {
+        .page {
+          grid-template-columns: 1fr;
+          padding: 18px;
+        }
+        .right-column {
+          order: 2;
+          width: 100%;
+          display: none;
+        }
+        .signup-form {
+          order: 1;
+        }
+        nav.desktop-nav {
+          display: none;
+        }
+        .menu-icon {
+          display: block;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .nav-inner {
+          padding: 12px 20px;
+        }
+        .page-heading h1 {
+          font-size: 22px;
+        }
+        .page {
+          margin: 18px auto;
+        }
+        .row-2 {
+          grid-template-columns: 1fr;
+        }
+
+        #mobile-menu ul li {
+          padding: 12px 20px;
+        }
+
+        #mobile-menu .login-btn {
+          margin: 10px 20px;
+          width: calc(100% - 40px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <header class="site-navbar">
+      <div class="nav-inner">
+        <a class="brand" href="index.html"
+          ><img src="logo.png" alt="Job Assist Ghana logo"
+        /></a>
+
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="login.html" class="login-btn">Login</a></li>
+          </ul>
+        </nav>
+
+        <div class="menu-icon" id="menuBtn">☰</div>
+      </div>
+
+      <!-- mobile menu (hidden by default) -->
+      <div id="mobile-menu">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="login.html" class="login-btn">Login</a></li>
         </ul>
-      </nav>
-
-      <div class="menu-icon" id="menuBtn">☰</div>
-    </div>
-
-    <!-- mobile menu (hidden by default) -->
-    <div id="mobile-menu">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="login.html" class="login-btn">Login</a></li>
-      </ul>
-    </div>
-  </header>
-
-  <!-- MAIN PAGE -->
-  <main class="page" role="main">
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-      <div class="loading-content">
-        <div class="loading-spinner active"></div>
-        <h3>Processing your information...</h3>
-        <p>Please wait while we validate your details</p>
-        <div class="loading-dots">
-          <div class="loading-dot"></div>
-          <div class="loading-dot"></div>
-          <div class="loading-dot"></div>
-        </div>
       </div>
-    </div>
+    </header>
 
-    <!-- Step 1: Signup Form -->
-    <div id="step1">
-      <div class="step-bar" aria-hidden="true">
-        <div class="step-pill">Step 1 of 2</div>
-        <div class="progress-line" aria-hidden="true">
-          <div class="fill" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+    <!-- MAIN PAGE -->
+    <main class="page" role="main">
+      <!-- Loading Overlay -->
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+          <div class="loading-spinner active"></div>
+          <h3>Processing your information...</h3>
+          <p>Please wait while we validate your details</p>
+          <div class="loading-dots">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+          </div>
         </div>
       </div>
 
-      <div class="page-heading">
-        <h1>Create Candidate Account</h1>
-        <a href="employer-signup.html" class="employer-cta">Sign up as Employer →</a>
-      </div>
-
-      <p class="subtext">Sign up with your NSS number to verify your graduate status and make your profile visible to verified employers.</p>
-
-      <div class="error-message" id="errorMessage">
-        There was an issue with your information. Please check all required fields and try again.
-      </div>
-
-      <form id="signupForm" class="signup-form" novalidate>
-        <!-- Full name -->
-        <div class="field">
-          <label for="fullName" class="required">Full name</label>
-          <input id="fullName" name="fullName" type="text" placeholder="Full name" required>
+      <!-- Step 1: Signup Form -->
+      <div id="step1">
+        <div class="step-bar" aria-hidden="true">
+          <div class="step-pill">Step 1 of 2</div>
+          <div class="progress-line" aria-hidden="true">
+            <div
+              class="fill"
+              role="progressbar"
+              aria-valuenow="50"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
         </div>
 
-        <!-- NSS and Email side-by-side -->
-        <div class="row-2">
-          <div class="field field-inline">
-            <label for="nss">NSS Number
-              <span class="tooltip" data-tip="We use your NSS number to verify your graduate status. It is kept private and only used for verification.">🛈</span>
-            </label>
-            <input id="nss" name="nss" type="text" placeholder="e.g. NSS123456789 or GHS1234567" maxlength="13">
-            <div class="nss-format">Format: 3 capital letters followed by numbers (e.g., NSS123456789)</div>
-            <div class="checkbox-group">
+        <div class="page-heading">
+          <h1>Create Candidate Account</h1>
+          <a href="employer-signup.html" class="employer-cta"
+            >Sign up as Employer →</a
+          >
+        </div>
+
+        <p class="subtext">
+          Sign up with your NSS number to verify your graduate status and make
+          your profile visible to verified employers.
+        </p>
+
+        <div class="error-message" id="errorMessage">
+          There was an issue with your information. Please check all required
+          fields and try again.
+        </div>
+
+        <form id="signupForm" class="signup-form" novalidate>
+          <!-- Full name -->
+          <div class="field">
+            <label for="fullName" class="required">Full name</label>
+            <input
+              id="fullName"
+              name="fullName"
+              type="text"
+              placeholder="Full name"
+              required
+            />
+          </div>
+
+          <!-- NSS and Email side-by-side -->
+          <div class="row-2">
+            <div class="field field-inline">
+              <label for="nss"
+                >NSS Number
+                <span
+                  class="tooltip"
+                  data-tip="We use your NSS number to verify your graduate status. It is kept private and only used for verification."
+                  >🛈</span
+                >
+              </label>
+              <input
+                id="nss"
+                name="nss"
+                type="text"
+                placeholder="e.g. NSS123456789 or GHS1234567"
+                maxlength="13"
+              />
+              <div class="nss-format">
+                Format: 3 capital letters followed by numbers (e.g.,
+                NSS123456789)
+              </div>
+              <div class="checkbox-group">
                 <input type="checkbox" id="isShsGraduate" />
                 <label for="isShsGraduate">I am an SHS Graduate</label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="email">Email address</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Email address"
+              />
             </div>
           </div>
 
-          <div class="field">
-            <label for="email">Email address</label>
-            <input id="email" name="email" type="email" placeholder="Email address">
-          </div>
-        </div>
+          <!-- Phone & Gender -->
+          <div class="row-2">
+            <div class="field">
+              <label for="phone" class="required">Phone number</label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder="e.g. 0244123456"
+                required
+              />
+            </div>
 
-        <!-- Phone & Gender -->
-        <div class="row-2">
-          <div class="field">
-            <label for="phone" class="required">Phone number</label>
-            <input id="phone" name="phone" type="tel" placeholder="e.g. 0244123456" required>
+            <div class="field">
+              <label for="gender" class="required">Gender</label>
+              <select id="gender" name="gender" required>
+                <option value="">Select</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
           </div>
 
+          <!-- Ghana Card -->
+          <div class="field field-inline">
+            <label for="ghanacard" class="required"
+              >Ghana Card Number
+              <span
+                class="tooltip"
+                data-tip="Your Ghana Card number helps confirm your national identity; it will be used only for verification."
+                >🛈</span
+              >
+            </label>
+            <input
+              id="ghanacard"
+              name="ghanacard"
+              type="text"
+              placeholder="GHA-*********-*"
+              required
+            />
+          </div>
+
+          <!-- Digital Address -->
           <div class="field">
-            <label for="gender" class="required">Gender</label>
-            <select id="gender" name="gender" required>
-              <option value="">Select</option>
-              <option>Male</option>
-              <option>Female</option>
+            <label for="digitalAddress" class="required">Digital address</label>
+            <input
+              id="digitalAddress"
+              name="digitalAddress"
+              type="text"
+              placeholder="e.g. XX-0000-0000"
+              aria-describedby="digitalFormat"
+              required
+            />
+            <div
+              id="digitalFormat"
+              style="font-size: 13px; color: var(--muted); margin-top: 6px"
+            >
+              Format: two UPPER letters, dash, numbers, dashes (example:
+              <strong>XX-0000-0000</strong>)
+            </div>
+          </div>
+
+          <!-- Region + Willing to work outside -->
+          <div class="row-2">
+            <div class="field">
+              <label for="region" class="required">Region</label>
+              <select id="region" name="region" required>
+                <option value="">Select region</option>
+                <option>Greater Accra</option>
+                <option>Ashanti</option>
+                <option>Central</option>
+                <option>Western</option>
+                <option>Western North</option>
+                <option>Eastern</option>
+                <option>Volta</option>
+                <option>Oti</option>
+                <option>Northern</option>
+                <option>Savannah</option>
+                <option>North East</option>
+                <option>Upper East</option>
+                <option>Upper West</option>
+                <option>Bono</option>
+                <option>Bono East</option>
+                <option>Ahafo</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="outside" class="required"
+                >Willing to work outside your region?</label
+              >
+              <select id="outside" name="outside" required>
+                <option value="">Select</option>
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Field of study & Experience -->
+          <div class="row-2">
+            <div class="field">
+              <label for="study" class="required">Field of study</label>
+              <select id="study" name="study" required>
+                <option value="">Select field of study</option>
+                <!-- Regular options for tertiary graduates -->
+                <option value="computer-science">Computer Science</option>
+                <option value="business-admin">Business Administration</option>
+                <option value="engineering">Engineering</option>
+                <option value="medicine">Medicine</option>
+                <option value="law">Law</option>
+                <option value="education">Education</option>
+                <option value="agriculture">Agriculture</option>
+                <option value="nursing">Nursing</option>
+                <option value="accounting">Accounting</option>
+                <option value="economics">Economics</option>
+                <option value="other">Other</option>
+              </select>
+              <div class="other-field" id="studyOtherField">
+                <input
+                  type="text"
+                  id="studyOther"
+                  name="studyOther"
+                  placeholder="Please specify your field of study"
+                />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="experience" class="required">Experience level</label>
+              <select id="experience" name="experience" required>
+                <option value="">Select</option>
+                <option>No experience</option>
+                <option>1–2 years</option>
+                <option>3–5 years</option>
+                <option>5+ years</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Preferred Industry -->
+          <div class="field">
+            <label for="industry" class="required">Preferred industry</label>
+            <select id="industry" name="industry" required>
+              <option value="">Select industry</option>
+              <option>Agriculture</option>
+              <option>Education</option>
+              <option>Health</option>
+              <option>IT / Tech</option>
+              <option>Manufacturing</option>
+              <option>Retail</option>
+              <option>Hospitality</option>
+              <option>Logistics</option>
+              <option>Financial Services</option>
+              <option>Any</option>
+              <option>Other</option>
             </select>
-          </div>
-        </div>
-
-        <!-- Ghana Card -->
-        <div class="field field-inline">
-          <label for="ghanacard" class="required">Ghana Card Number
-            <span class="tooltip" data-tip="Your Ghana Card number helps confirm your national identity; it will be used only for verification.">🛈</span>
-          </label>
-          <input id="ghanacard" name="ghanacard" type="text" placeholder="GHA-*********-*" required>
-        </div>
-
-        <!-- Digital Address -->
-        <div class="field">
-          <label for="digitalAddress" class="required">Digital address</label>
-          <input id="digitalAddress" name="digitalAddress" type="text" placeholder="e.g. XX-0000-0000" aria-describedby="digitalFormat" required>
-          <div id="digitalFormat" style="font-size:13px;color:var(--muted);margin-top:6px">Format: two UPPER letters, dash, numbers, dashes (example: <strong>XX-0000-0000</strong>)</div>
-        </div>
-
-        <!-- Region + Willing to work outside -->
-        <div class="row-2">
-          <div class="field">
-            <label for="region" class="required">Region</label>
-            <select id="region" name="region" required>
-              <option value="">Select region</option>
-              <option>Greater Accra</option>
-              <option>Ashanti</option>
-              <option>Central</option>
-              <option>Western</option>
-              <option>Western North</option>
-              <option>Eastern</option>
-              <option>Volta</option>
-              <option>Oti</option>
-              <option>Northern</option>
-              <option>Savannah</option>
-              <option>North East</option>
-              <option>Upper East</option>
-              <option>Upper West</option>
-              <option>Bono</option>
-              <option>Bono East</option>
-              <option>Ahafo</option>
-            </select>
+            <div class="other-field" id="industryOtherField">
+              <input
+                type="text"
+                id="industryOther"
+                name="industryOther"
+                placeholder="Please specify your preferred industry"
+              />
+            </div>
           </div>
 
-          <div class="field">
-            <label for="outside" class="required">Willing to work outside your region?</label>
-            <select id="outside" name="outside" required>
+          <!-- Disabled field with spacing -->
+          <div class="field" style="margin-bottom: 24px">
+            <label for="disabled" class="required">Are you disabled?</label>
+            <select id="disabled" name="disabled" required>
               <option value="">Select</option>
               <option>Yes</option>
               <option>No</option>
             </select>
           </div>
-        </div>
 
-        <!-- Field of study & Experience -->
-        <div class="row-2">
-          <div class="field">
-            <label for="study" class="required">Field of study</label>
-            <select id="study" name="study" required>
-              <option value="">Select field of study</option>
-              <!-- Regular options for tertiary graduates -->
-              <option value="computer-science">Computer Science</option>
-              <option value="business-admin">Business Administration</option>
-              <option value="engineering">Engineering</option>
-              <option value="medicine">Medicine</option>
-              <option value="law">Law</option>
-              <option value="education">Education</option>
-              <option value="agriculture">Agriculture</option>
-              <option value="nursing">Nursing</option>
-              <option value="accounting">Accounting</option>
-              <option value="economics">Economics</option>
-              <option value="other">Other</option>
-            </select>
-            <div class="other-field" id="studyOtherField">
-              <input type="text" id="studyOther" name="studyOther" placeholder="Please specify your field of study">
+          <!-- Passwords -->
+          <div class="row-2">
+            <div class="field">
+              <label for="password" class="required">Password</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Password"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="confirmPassword" class="required"
+                >Confirm password</label
+              >
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                placeholder="Confirm password"
+                required
+              />
             </div>
           </div>
 
+          <!-- Passport Picture Upload -->
           <div class="field">
-            <label for="experience" class="required">Experience level</label>
-            <select id="experience" name="experience" required>
-              <option value="">Select</option>
-              <option>No experience</option>
-              <option>1–2 years</option>
-              <option>3–5 years</option>
-              <option>5+ years</option>
-            </select>
+            <label for="passportPicture" class="required"
+              >Upload Passport Picture</label
+            >
+            <div class="passport-upload" id="passportUpload">
+              <div class="upload-icon">📷</div>
+              <div class="upload-text">Click to upload or drag and drop</div>
+              <div class="file-info">PNG, JPG up to 2MB</div>
+              <input
+                type="file"
+                id="passportPicture"
+                name="passportPicture"
+                accept="image/png,image/jpeg,image/jpg"
+                style="display: none"
+              />
+              <button type="button" class="upload-btn">Choose File</button>
+            </div>
+            <div class="file-error" id="fileError">
+              File size must be less than 2MB
+            </div>
+            <div class="passport-preview" id="passportPreview">
+              <img
+                class="preview-image"
+                id="previewImage"
+                src=""
+                alt="Passport preview"
+              />
+              <button type="button" class="remove-image" id="removeImage">
+                Remove image
+              </button>
+            </div>
           </div>
-        </div>
 
-        <!-- Preferred Industry -->
-        <div class="field">
-          <label for="industry" class="required">Preferred industry</label>
-          <select id="industry" name="industry" required>
-            <option value="">Select industry</option>
-            <option>Agriculture</option>
-            <option>Education</option>
-            <option>Health</option>
-            <option>IT / Tech</option>
-            <option>Manufacturing</option>
-            <option>Retail</option>
-            <option>Hospitality</option>
-            <option>Logistics</option>
-            <option>Financial Services</option>
-            <option>Any</option>
-            <option>Other</option>
-          </select>
-          <div class="other-field" id="industryOtherField">
-            <input type="text" id="industryOther" name="industryOther" placeholder="Please specify your preferred industry">
+          <!-- reCAPTCHA placeholder -->
+          <div
+            class="recaptcha"
+            id="recaptchaBox"
+            role="group"
+            aria-label="recaptcha"
+          >
+            <input id="fakeRecap" type="checkbox" />
+            <label for="fakeRecap" style="font-weight: 600; color: #111827"
+              >I'm not a robot (reCAPTCHA)</label
+            >
           </div>
-        </div>
-        
-        <!-- Disabled field with spacing -->
-        <div class="field" style="margin-bottom: 24px;">
-          <label for="disabled" class="required">Are you disabled?</label>
-          <select id="disabled" name="disabled" required>
-            <option value="">Select</option>
-            <option>Yes</option>
-            <option>No</option>
-          </select>
-        </div>
 
-        <!-- Passwords -->
-        <div class="row-2">
-          <div class="field">
-            <label for="password" class="required">Password</label>
-            <input id="password" name="password" type="password" placeholder="Password" required>
+          <!-- Terms checkbox -->
+          <div class="field" style="margin-top: 6px">
+            <label class="required"
+              ><input
+                id="agree"
+                type="checkbox"
+                style="margin-right: 8px"
+                required
+              />
+              I agree to the
+              <a
+                href="terms.html"
+                style="color: var(--deep-blue); text-decoration: underline"
+                >Terms & Conditions</a
+              >
+              and
+              <a
+                href="privacy.html"
+                style="color: var(--deep-blue); text-decoration: underline"
+                >Privacy Policy</a
+              >.</label
+            >
           </div>
-          <div class="field">
-            <label for="confirmPassword" class="required">Confirm password</label>
-            <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm password" required>
+
+          <div class="actions">
+            <button id="nextBtn" type="button" class="btn-primary">
+              <div class="loading-spinner" id="buttonSpinner"></div>
+              <span class="btn-text">Next</span>
+            </button>
+            <div class="helper-note">
+              Already have an account?
+              <a
+                href="login.html"
+                style="color: var(--deep-blue); font-weight: 700"
+                >Log in</a
+              >
+            </div>
+            <div class="security-note">
+              🔒
+              <span
+                >We encrypt and store your data securely. Only verified
+                employers can view profiles.</span
+              >
+            </div>
           </div>
-        </div>
+        </form>
+      </div>
 
-        <!-- Passport Picture Upload -->
-        <div class="field">
-          <label for="passportPicture" class="required">Upload Passport Picture</label>
-          <div class="passport-upload" id="passportUpload">
-            <div class="upload-icon">📷</div>
-            <div class="upload-text">Click to upload or drag and drop</div>
-            <div class="file-info">PNG, JPG up to 2MB</div>
-            <input type="file" id="passportPicture" name="passportPicture" accept="image/png,image/jpeg,image/jpg" style="display: none;">
-            <button type="button" class="upload-btn">Choose File</button>
-          </div>
-          <div class="file-error" id="fileError">File size must be less than 2MB</div>
-          <div class="passport-preview" id="passportPreview">
-            <img class="preview-image" id="previewImage" src="" alt="Passport preview">
-            <button type="button" class="remove-image" id="removeImage">Remove image</button>
-          </div>
-        </div>
+      <!-- RIGHT: placeholder for images/content later -->
+      <aside class="right-column" aria-hidden="true">
+        <div class="placeholder-card">Image / Illustration slot 1</div>
+        <div class="placeholder-card">Image / Illustration slot 2</div>
+        <div class="placeholder-card">Image / Illustration slot 3</div>
+      </aside>
+    </main>
 
-        <!-- reCAPTCHA placeholder -->
-        <div class="recaptcha" id="recaptchaBox" role="group" aria-label="recaptcha">
-          <input id="fakeRecap" type="checkbox" />
-          <label for="fakeRecap" style="font-weight:600;color:#111827">I'm not a robot (reCAPTCHA)</label>
-        </div>
+    <footer
+      style="
+        max-width: var(--max-width);
+        margin: 30px auto;
+        padding: 20px;
+        text-align: center;
+        color: var(--muted);
+      "
+    >
+      <div>© 2025 Job Assist Ghana. All rights reserved.</div>
+      <div style="margin-top: 6px; font-size: 13px">
+        <a href="privacy.html" style="color: inherit; text-decoration: none"
+          >Privacy</a
+        >
+        |
+        <a href="terms.html" style="color: inherit; text-decoration: none"
+          >Terms</a
+        >
+        |
+        <a href="contact.html" style="color: inherit; text-decoration: none"
+          >Contact</a
+        >
+      </div>
+    </footer>
 
-        <!-- Terms checkbox -->
-        <div class="field" style="margin-top:6px">
-          <label class="required"><input id="agree" type="checkbox" style="margin-right:8px" required> I agree to the <a href="terms.html" style="color:var(--deep-blue); text-decoration:underline">Terms & Conditions</a> and <a href="privacy.html" style="color:var(--deep-blue); text-decoration:underline">Privacy Policy</a>.</label>
-        </div>
+    <!-- ---------- SCRIPTS: tooltips, mobile menu, validation ---------- -->
+    <script>
+      // Mobile menu functionality - matches homepage
+      function toggleMenu() {
+        const mobileNav = document.getElementById("mobile-menu");
+        mobileNav.classList.toggle("active");
+      }
 
-        <div class="actions">
-          <button id="nextBtn" type="button" class="btn-primary">
-            <div class="loading-spinner" id="buttonSpinner"></div>
-            <span class="btn-text">Next</span>
-          </button>
-          <div class="helper-note">Already have an account? <a href="login.html" style="color:var(--deep-blue); font-weight:700">Log in</a></div>
-          <div class="security-note">🔒 <span>We encrypt and store your data securely. Only verified employers can view profiles.</span></div>
-        </div>
-      </form>
-    </div>
+      // Update the menu icon event listener
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuBtn = document.getElementById("menuBtn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const nextBtn = document.getElementById("nextBtn");
+        const buttonSpinner = document.getElementById("buttonSpinner");
+        const errorMessage = document.getElementById("errorMessage");
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        const nssField = document.getElementById("nss");
 
-    <!-- RIGHT: placeholder for images/content later -->
-    <aside class="right-column" aria-hidden="true">
-      <div class="placeholder-card">Image / Illustration slot 1</div>
-      <div class="placeholder-card">Image / Illustration slot 2</div>
-      <div class="placeholder-card">Image / Illustration slot 3</div>
-    </aside>
-  </main>
+        if (menuBtn && mobileMenu) {
+          menuBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            mobileMenu.classList.toggle("active");
+          });
 
-  <footer style="max-width:var(--max-width);margin:30px auto;padding:20px;text-align:center;color:var(--muted);">
-    <div>© 2025 Job Assist Ghana. All rights reserved.</div>
-    <div style="margin-top:6px;font-size:13px">
-        <a href="privacy.html" style="color:inherit;text-decoration:none;">Privacy</a> | 
-        <a href="terms.html" style="color:inherit;text-decoration:none;">Terms</a> | 
-        <a href="contact.html" style="color:inherit;text-decoration:none;">Contact</a>
-    </div>
-  </footer>
+          // Close menu when clicking outside
+          document.addEventListener("click", function (e) {
+            if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+              mobileMenu.classList.remove("active");
+            }
+          });
 
-  <!-- ---------- SCRIPTS: tooltips, mobile menu, validation ---------- -->
-  <script>
-    // Mobile menu functionality - matches homepage
-    function toggleMenu() {
-      const mobileNav = document.getElementById('mobile-menu');
-      mobileNav.classList.toggle('active');
-    }
+          // Close menu when clicking on links
+          mobileMenu.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+              mobileMenu.classList.remove("active");
+            });
+          });
+        }
 
-    // Update the menu icon event listener
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuBtn = document.getElementById('menuBtn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const nextBtn = document.getElementById('nextBtn');
-      const buttonSpinner = document.getElementById('buttonSpinner');
-      const errorMessage = document.getElementById('errorMessage');
-      const loadingOverlay = document.getElementById('loadingOverlay');
-      const nssField = document.getElementById('nss');
-      
-      if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          mobileMenu.classList.toggle('active');
+        // NSS Number validation - first 3 characters must be capital letters
+        nssField.addEventListener("input", function () {
+          const value = this.value.trim();
+
+          // Auto-uppercase the first 3 characters
+          if (value.length >= 3) {
+            const prefix = value.substring(0, 3).toUpperCase();
+            const suffix = value.substring(3);
+            this.value = prefix + suffix;
+          }
+
+          // Validate format only if field has content
+          if (value && !validNssFormat(value)) {
+            this.style.borderColor = "#fca5a5";
+          } else {
+            this.style.borderColor = "";
+          }
+
+          // Update form validation
+          checkFormValidity();
         });
 
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-          if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-            mobileMenu.classList.remove('active');
+        // Handle Next button click
+        nextBtn.addEventListener("click", function () {
+          if (!allValid()) {
+            showError("Please fill all required fields correctly.");
+            return;
+          }
+
+          // Hide any previous error message
+          errorMessage.classList.remove("show");
+
+          // Show loading state
+          setLoadingState(true);
+
+          // Simulate API call delay (1-2 seconds)
+          const delay = Math.random() * 1000 + 1000;
+
+          setTimeout(() => {
+            setLoadingState(false);
+
+            // Redirect to verification page
+            window.location.href = "verify-info.html";
+          }, delay);
+        });
+
+        function setLoadingState(isLoading) {
+          if (isLoading) {
+            nextBtn.disabled = true;
+            nextBtn.classList.add("loading");
+            buttonSpinner.classList.add("active");
+            loadingOverlay.classList.add("active");
+          } else {
+            nextBtn.disabled = !allValid();
+            nextBtn.classList.remove("loading");
+            buttonSpinner.classList.remove("active");
+            loadingOverlay.classList.remove("active");
+          }
+        }
+
+        function showError(customMessage) {
+          if (customMessage) {
+            errorMessage.textContent = customMessage;
+          }
+          errorMessage.classList.add("show");
+
+          // Scroll to error message for better UX
+          errorMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+        // NSS validation function - first 3 characters must be capital letters
+        function validNssFormat(value) {
+          // If field is empty, it's valid (optional field)
+          if (!value || value.trim() === "") return true;
+
+          // Must have at least 3 characters
+          if (value.length < 3) return false;
+
+          // First 3 characters must be capital letters
+          const prefix = value.substring(0, 3);
+          if (!/^[A-Z]{3}$/.test(prefix)) return false;
+
+          // The rest can be any characters (letters, numbers, symbols)
+          // No further restrictions on the format
+          return true;
+        }
+      });
+
+      // SHS Graduate Field of Study Logic
+      document.addEventListener("DOMContentLoaded", function () {
+        const shsCheck = document.getElementById("isShsGraduate");
+        const studyField = document.getElementById("study");
+
+        // SHS program options
+        const shsPrograms = [
+          "Business",
+          "General Arts",
+          "General Science",
+          "Visual Arts",
+          "Agriculture",
+          "Home Science",
+          "Vocational Skills",
+        ];
+
+        // Regular tertiary programs
+        const tertiaryPrograms = [
+          { value: "computer-science", text: "Computer Science" },
+          { value: "business-admin", text: "Business Administration" },
+          { value: "engineering", text: "Engineering" },
+          { value: "medicine", text: "Medicine" },
+          { value: "law", text: "Law" },
+          { value: "education", text: "Education" },
+          { value: "agriculture", text: "Agriculture" },
+          { value: "nursing", text: "Nursing" },
+          { value: "accounting", text: "Accounting" },
+          { value: "economics", text: "Economics" },
+          { value: "other", text: "Other" },
+        ];
+
+        function updateStudyOptions() {
+          const currentValue = studyField.value;
+          studyField.innerHTML =
+            '<option value="">Select field of study</option>';
+
+          if (shsCheck.checked) {
+            // Add SHS programs
+            shsPrograms.forEach((program) => {
+              const option = document.createElement("option");
+              option.value = program.toLowerCase().replace(" ", "-");
+              option.textContent = program;
+              studyField.appendChild(option);
+            });
+          } else {
+            // Add tertiary programs
+            tertiaryPrograms.forEach((program) => {
+              const option = document.createElement("option");
+              option.value = program.value;
+              option.textContent = program.text;
+              studyField.appendChild(option);
+            });
+          }
+
+          // Try to restore previous selection if it exists in new options
+          if (currentValue) {
+            studyField.value = currentValue;
+          }
+
+          // Update form validation
+          checkFormValidity();
+        }
+
+        // Initial setup
+        updateStudyOptions();
+
+        // Add event listener for SHS checkbox
+        shsCheck.addEventListener("change", updateStudyOptions);
+      });
+
+      // Passport Picture Upload Functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const passportUpload = document.getElementById("passportUpload");
+        const fileInput = document.getElementById("passportPicture");
+        const uploadBtn = passportUpload.querySelector(".upload-btn");
+        const preview = document.getElementById("passportPreview");
+        const previewImage = document.getElementById("previewImage");
+        const removeBtn = document.getElementById("removeImage");
+        const fileError = document.getElementById("fileError");
+
+        // Click events
+        passportUpload.addEventListener("click", function (e) {
+          if (e.target !== uploadBtn) {
+            fileInput.click();
           }
         });
 
-        // Close menu when clicking on links
-        mobileMenu.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-          });
+        uploadBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          fileInput.click();
         });
-      }
 
-      // NSS Number validation - first 3 characters must be capital letters
-      nssField.addEventListener('input', function() {
-        const value = this.value.trim();
-        
-        // Auto-uppercase the first 3 characters
-        if (value.length >= 3) {
-          const prefix = value.substring(0, 3).toUpperCase();
-          const suffix = value.substring(3);
-          this.value = prefix + suffix;
+        // File input change
+        fileInput.addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (file) {
+            handleFileSelection(file);
+          }
+        });
+
+        // Drag and drop functionality
+        passportUpload.addEventListener("dragover", function (e) {
+          e.preventDefault();
+          passportUpload.classList.add("dragover");
+        });
+
+        passportUpload.addEventListener("dragleave", function () {
+          passportUpload.classList.remove("dragover");
+        });
+
+        passportUpload.addEventListener("drop", function (e) {
+          e.preventDefault();
+          passportUpload.classList.remove("dragover");
+          const file = e.dataTransfer.files[0];
+          if (file) {
+            handleFileSelection(file);
+          }
+        });
+
+        // Remove image
+        removeBtn.addEventListener("click", function () {
+          fileInput.value = "";
+          preview.style.display = "none";
+          fileError.style.display = "none";
+          checkFormValidity();
+        });
+
+        function handleFileSelection(file) {
+          // Check file type
+          const validTypes = ["image/jpeg", "image/jpg", "image/png"];
+          if (!validTypes.includes(file.type)) {
+            fileError.textContent =
+              "Please select a valid image file (PNG, JPG, JPEG)";
+            fileError.style.display = "block";
+            return;
+          }
+
+          // Check file size (2MB = 2 * 1024 * 1024 bytes)
+          const maxSize = 2 * 1024 * 1024;
+          if (file.size > maxSize) {
+            fileError.textContent = "File size must be less than 2MB";
+            fileError.style.display = "block";
+            return;
+          }
+
+          // Hide error and show preview
+          fileError.style.display = "none";
+
+          // Create preview
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            previewImage.src = e.target.result;
+            preview.style.display = "block";
+            checkFormValidity();
+          };
+          reader.readAsDataURL(file);
         }
-        
-        // Validate format only if field has content
-        if (value && !validNssFormat(value)) {
-          this.style.borderColor = '#fca5a5';
-        } else {
-          this.style.borderColor = '';
-        }
-        
-        // Update form validation
-        checkFormValidity();
       });
 
-      // Handle Next button click
-      nextBtn.addEventListener('click', function() {
-        if (!allValid()) {
-          showError('Please fill all required fields correctly.');
-          return;
-        }
-        
-        // Hide any previous error message
-        errorMessage.classList.remove('show');
-        
-        // Show loading state
-        setLoadingState(true);
+      // Simple tooltip behavior (hover and focus)
+      document.querySelectorAll(".tooltip").forEach(function (el) {
+        let tipText = el.getAttribute("data-tip");
+        const tipBox = document.createElement("div");
+        tipBox.className = "tip-box";
+        tipBox.innerText = tipText;
+        el.parentElement.appendChild(tipBox);
 
-        // Simulate API call delay (1-2 seconds)
-        const delay = Math.random() * 1000 + 1000;
-        
-        setTimeout(() => {
-          setLoadingState(false);
-          
-          // Redirect to verification page
-          window.location.href = 'verify-info.html';
-        }, delay);
+        el.addEventListener(
+          "mouseenter",
+          () => (tipBox.style.display = "block"),
+        );
+        el.addEventListener(
+          "mouseleave",
+          () => (tipBox.style.display = "none"),
+        );
+        el.addEventListener("focus", () => (tipBox.style.display = "block"));
+        el.addEventListener("blur", () => (tipBox.style.display = "none"));
       });
 
-      function setLoadingState(isLoading) {
-        if (isLoading) {
-          nextBtn.disabled = true;
-          nextBtn.classList.add('loading');
-          buttonSpinner.classList.add('active');
-          loadingOverlay.classList.add('active');
-        } else {
-          nextBtn.disabled = !allValid();
-          nextBtn.classList.remove('loading');
-          buttonSpinner.classList.remove('active');
-          loadingOverlay.classList.remove('active');
-        }
-      }
+      // Fix for SHS Graduate checkbox functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const nssField = document.getElementById("nss");
+        const shsCheck = document.getElementById("isShsGraduate");
 
-      function showError(customMessage) {
-        if (customMessage) {
-          errorMessage.textContent = customMessage;
+        // Apply the disabled state based on checkbox
+        function updateNssFieldState() {
+          if (shsCheck.checked) {
+            nssField.disabled = true;
+            nssField.classList.add("disabled-field");
+            nssField.value = "";
+            nssField.removeAttribute("required");
+          } else {
+            nssField.disabled = false;
+            nssField.classList.remove("disabled-field");
+            // NSS is no longer required
+            nssField.removeAttribute("required");
+          }
+          // Update form validation
+          checkFormValidity();
         }
-        errorMessage.classList.add('show');
-        
-        // Scroll to error message for better UX
-        errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Initial state
+        updateNssFieldState();
+
+        // Add event listener
+        shsCheck.addEventListener("change", updateNssFieldState);
+      });
+
+      // Handle "Other" field visibility for Field of Study
+      document.addEventListener("DOMContentLoaded", function () {
+        const studyField = document.getElementById("study");
+        const studyOtherField = document.getElementById("studyOtherField");
+
+        studyField.addEventListener("change", function () {
+          if (this.value === "other") {
+            studyOtherField.classList.add("show");
+            document
+              .getElementById("studyOther")
+              .setAttribute("required", "required");
+          } else {
+            studyOtherField.classList.remove("show");
+            document.getElementById("studyOther").removeAttribute("required");
+          }
+          checkFormValidity();
+        });
+      });
+
+      // Handle "Other" field visibility for Industry
+      document.addEventListener("DOMContentLoaded", function () {
+        const industryField = document.getElementById("industry");
+        const industryOtherField =
+          document.getElementById("industryOtherField");
+
+        industryField.addEventListener("change", function () {
+          if (this.value === "Other") {
+            industryOtherField.classList.add("show");
+            document
+              .getElementById("industryOther")
+              .setAttribute("required", "required");
+          } else {
+            industryOtherField.classList.remove("show");
+            document
+              .getElementById("industryOther")
+              .removeAttribute("required");
+          }
+          checkFormValidity();
+        });
+      });
+
+      // digital address pattern: two uppercase letters, dash, 1-10 numbers and dashes (relaxed)
+      function validDigital(val) {
+        // Accept formats like AE-0196-6661 or GA-1234 or AE-1234567890
+        return /^[A-Z]{2}[-][0-9\-]{1,20}$/.test(val);
       }
 
       // NSS validation function - first 3 characters must be capital letters
       function validNssFormat(value) {
         // If field is empty, it's valid (optional field)
-        if (!value || value.trim() === '') return true;
-        
+        if (!value || value.trim() === "") return true;
+
         // Must have at least 3 characters
         if (value.length < 3) return false;
-        
+
         // First 3 characters must be capital letters
         const prefix = value.substring(0, 3);
         if (!/^[A-Z]{3}$/.test(prefix)) return false;
-        
+
         // The rest can be any characters (letters, numbers, symbols)
         // No further restrictions on the format
         return true;
       }
-    });
 
-    // SHS Graduate Field of Study Logic
-    document.addEventListener('DOMContentLoaded', function() {
-      const shsCheck = document.getElementById('isShsGraduate');
-      const studyField = document.getElementById('study');
-      
-      // SHS program options
-      const shsPrograms = [
-        'Business',
-        'General Arts', 
-        'General Science',
-        'Visual Arts',
-        'Agriculture',
-        'Home Science',
-        'Vocational Skills'
-      ];
-      
-      // Regular tertiary programs
-      const tertiaryPrograms = [
-        {value: 'computer-science', text: 'Computer Science'},
-        {value: 'business-admin', text: 'Business Administration'},
-        {value: 'engineering', text: 'Engineering'},
-        {value: 'medicine', text: 'Medicine'},
-        {value: 'law', text: 'Law'},
-        {value: 'education', text: 'Education'},
-        {value: 'agriculture', text: 'Agriculture'},
-        {value: 'nursing', text: 'Nursing'},
-        {value: 'accounting', text: 'Accounting'},
-        {value: 'economics', text: 'Economics'},
-        {value: 'other', text: 'Other'}
-      ];
+      function allValid() {
+        // basic checks: non-empty required, passwords match, digital address pattern, terms checked, fakeRecap checked
+        const form = document.getElementById("signupForm");
 
-      function updateStudyOptions() {
-        const currentValue = studyField.value;
-        studyField.innerHTML = '<option value="">Select field of study</option>';
-        
-        if (shsCheck.checked) {
-          // Add SHS programs
-          shsPrograms.forEach(program => {
-            const option = document.createElement('option');
-            option.value = program.toLowerCase().replace(' ', '-');
-            option.textContent = program;
-            studyField.appendChild(option);
-          });
-        } else {
-          // Add tertiary programs
-          tertiaryPrograms.forEach(program => {
-            const option = document.createElement('option');
-            option.value = program.value;
-            option.textContent = program.text;
-            studyField.appendChild(option);
-          });
+        try {
+          const full = document.getElementById("fullName").value.trim();
+          const nss = document.getElementById("nss").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const phone = document.getElementById("phone").value.trim();
+          const gender = document.getElementById("gender").value;
+          const ghanacard = document.getElementById("ghanacard").value.trim();
+          const digital = document
+            .getElementById("digitalAddress")
+            .value.trim();
+          const region = document.getElementById("region").value;
+          const outside = document.getElementById("outside").value;
+          const study = document.getElementById("study").value;
+          const studyOther = document.getElementById("studyOther").value.trim();
+          const experience = document.getElementById("experience").value;
+          const industry = document.getElementById("industry").value;
+          const industryOther = document
+            .getElementById("industryOther")
+            .value.trim();
+          const disabled = document.getElementById("disabled").value;
+          const pwd = document.getElementById("password").value;
+          const cpwd = document.getElementById("confirmPassword").value;
+          const agree = document.getElementById("agree").checked;
+          const rec = document.getElementById("fakeRecap").checked;
+          const passport =
+            document.getElementById("passportPicture").files.length > 0;
+
+          // Check all required fields (excluding NSS and email)
+          if (
+            !full ||
+            !phone ||
+            !gender ||
+            !ghanacard ||
+            !digital ||
+            !region ||
+            !outside ||
+            !study ||
+            !experience ||
+            !industry ||
+            !disabled ||
+            !pwd ||
+            !cpwd
+          )
+            return false;
+
+          // NSS validation - if provided, must have valid format
+          if (nss && !validNssFormat(nss)) return false;
+
+          // If study is "other", studyOther must be filled
+          if (study === "other" && !studyOther) return false;
+
+          // If industry is "Other", industryOther must be filled
+          if (industry === "Other" && !industryOther) return false;
+
+          if (pwd !== cpwd) return false;
+          if (!validDigital(digital)) return false;
+          if (!agree) return false;
+          if (!rec) return false;
+          if (!passport) return false;
+
+          return true;
+        } catch (e) {
+          return false;
         }
-        
-        // Try to restore previous selection if it exists in new options
-        if (currentValue) {
-          studyField.value = currentValue;
-        }
-        
-        // Update form validation
-        checkFormValidity();
       }
 
-      // Initial setup
-      updateStudyOptions();
+      // Check form validity and update button state
+      function checkFormValidity() {
+        const nextBtn = document.getElementById("nextBtn");
+        nextBtn.disabled = !allValid();
+      }
 
-      // Add event listener for SHS checkbox
-      shsCheck.addEventListener('change', updateStudyOptions);
-    });
+      // attach change listeners to toggle button
+      const requiredIds = [
+        "fullName",
+        "phone",
+        "gender",
+        "ghanacard",
+        "digitalAddress",
+        "region",
+        "outside",
+        "study",
+        "experience",
+        "industry",
+        "disabled",
+        "password",
+        "confirmPassword",
+        "agree",
+        "fakeRecap",
+      ];
 
-    // Passport Picture Upload Functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const passportUpload = document.getElementById('passportUpload');
-      const fileInput = document.getElementById('passportPicture');
-      const uploadBtn = passportUpload.querySelector('.upload-btn');
-      const preview = document.getElementById('passportPreview');
-      const previewImage = document.getElementById('previewImage');
-      const removeBtn = document.getElementById('removeImage');
-      const fileError = document.getElementById('fileError');
-
-      // Click events
-      passportUpload.addEventListener('click', function(e) {
-        if (e.target !== uploadBtn) {
-          fileInput.click();
+      requiredIds.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.addEventListener("input", checkFormValidity);
+          element.addEventListener("change", checkFormValidity);
         }
       });
 
-      uploadBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        fileInput.click();
-      });
+      // Also listen to "Other" fields
+      document
+        .getElementById("studyOther")
+        ?.addEventListener("input", checkFormValidity);
+      document
+        .getElementById("industryOther")
+        ?.addEventListener("input", checkFormValidity);
 
-      // File input change
-      fileInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-          handleFileSelection(file);
-        }
-      });
-
-      // Drag and drop functionality
-      passportUpload.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        passportUpload.classList.add('dragover');
-      });
-
-      passportUpload.addEventListener('dragleave', function() {
-        passportUpload.classList.remove('dragover');
-      });
-
-      passportUpload.addEventListener('drop', function(e) {
-        e.preventDefault();
-        passportUpload.classList.remove('dragover');
-        const file = e.dataTransfer.files[0];
-        if (file) {
-          handleFileSelection(file);
-        }
-      });
-
-      // Remove image
-      removeBtn.addEventListener('click', function() {
-        fileInput.value = '';
-        preview.style.display = 'none';
-        fileError.style.display = 'none';
-        checkFormValidity();
-      });
-
-      function handleFileSelection(file) {
-        // Check file type
-        const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-        if (!validTypes.includes(file.type)) {
-          fileError.textContent = 'Please select a valid image file (PNG, JPG, JPEG)';
-          fileError.style.display = 'block';
-          return;
-        }
-
-        // Check file size (2MB = 2 * 1024 * 1024 bytes)
-        const maxSize = 2 * 1024 * 1024;
-        if (file.size > maxSize) {
-          fileError.textContent = 'File size must be less than 2MB';
-          fileError.style.display = 'block';
-          return;
-        }
-
-        // Hide error and show preview
-        fileError.style.display = 'none';
-
-        // Create preview
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          previewImage.src = e.target.result;
-          preview.style.display = 'block';
+      // also listen to password confirm for immediate feedback
+      document
+        .getElementById("confirmPassword")
+        .addEventListener("input", function () {
+          const pw = document.getElementById("password").value;
+          const cp = this.value;
+          if (pw && cp && pw !== cp) {
+            this.style.borderColor = "#fca5a5";
+          } else {
+            this.style.borderColor = "";
+          }
           checkFormValidity();
-        };
-        reader.readAsDataURL(file);
-      }
-    });
+        });
 
-    // Simple tooltip behavior (hover and focus)
-    document.querySelectorAll('.tooltip').forEach(function(el){
-      let tipText = el.getAttribute('data-tip');
-      const tipBox = document.createElement('div');
-      tipBox.className = 'tip-box';
-      tipBox.innerText = tipText;
-      el.parentElement.appendChild(tipBox);
-
-      el.addEventListener('mouseenter', ()=> tipBox.style.display = 'block');
-      el.addEventListener('mouseleave', ()=> tipBox.style.display = 'none');
-      el.addEventListener('focus', ()=> tipBox.style.display = 'block');
-      el.addEventListener('blur', ()=> tipBox.style.display = 'none');
-    });
-
-    // Fix for SHS Graduate checkbox functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const nssField = document.getElementById('nss');
-      const shsCheck = document.getElementById('isShsGraduate');
-
-      // Apply the disabled state based on checkbox
-      function updateNssFieldState() {
-        if (shsCheck.checked) {
-          nssField.disabled = true;
-          nssField.classList.add('disabled-field');
-          nssField.value = '';
-          nssField.removeAttribute('required');
-        } else {
-          nssField.disabled = false;
-          nssField.classList.remove('disabled-field');
-          // NSS is no longer required
-          nssField.removeAttribute('required');
-        }
-        // Update form validation
-        checkFormValidity();
-      }
-
-      // Initial state
-      updateNssFieldState();
-
-      // Add event listener
-      shsCheck.addEventListener('change', updateNssFieldState);
-    });
-
-    // Handle "Other" field visibility for Field of Study
-    document.addEventListener('DOMContentLoaded', function() {
-      const studyField = document.getElementById('study');
-      const studyOtherField = document.getElementById('studyOtherField');
-      
-      studyField.addEventListener('change', function() {
-        if (this.value === 'other') {
-          studyOtherField.classList.add('show');
-          document.getElementById('studyOther').setAttribute('required', 'required');
-        } else {
-          studyOtherField.classList.remove('show');
-          document.getElementById('studyOther').removeAttribute('required');
-        }
+      // Initial check on page load
+      document.addEventListener("DOMContentLoaded", function () {
         checkFormValidity();
       });
-    });
-
-    // Handle "Other" field visibility for Industry
-    document.addEventListener('DOMContentLoaded', function() {
-      const industryField = document.getElementById('industry');
-      const industryOtherField = document.getElementById('industryOtherField');
-      
-      industryField.addEventListener('change', function() {
-        if (this.value === 'Other') {
-          industryOtherField.classList.add('show');
-          document.getElementById('industryOther').setAttribute('required', 'required');
-        } else {
-          industryOtherField.classList.remove('show');
-          document.getElementById('industryOther').removeAttribute('required');
-        }
-        checkFormValidity();
-      });
-    });
-
-    // digital address pattern: two uppercase letters, dash, 1-10 numbers and dashes (relaxed)
-    function validDigital(val){
-      // Accept formats like AE-0196-6661 or GA-1234 or AE-1234567890
-      return /^[A-Z]{2}[-][0-9\-]{1,20}$/.test(val);
-    }
-
-    // NSS validation function - first 3 characters must be capital letters
-    function validNssFormat(value) {
-      // If field is empty, it's valid (optional field)
-      if (!value || value.trim() === '') return true;
-      
-      // Must have at least 3 characters
-      if (value.length < 3) return false;
-      
-      // First 3 characters must be capital letters
-      const prefix = value.substring(0, 3);
-      if (!/^[A-Z]{3}$/.test(prefix)) return false;
-      
-      // The rest can be any characters (letters, numbers, symbols)
-      // No further restrictions on the format
-      return true;
-    }
-
-    function allValid(){
-      // basic checks: non-empty required, passwords match, digital address pattern, terms checked, fakeRecap checked
-      const form = document.getElementById('signupForm');
-
-      try {
-        const full = document.getElementById('fullName').value.trim();
-        const nss = document.getElementById('nss').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const gender = document.getElementById('gender').value;
-        const ghanacard = document.getElementById('ghanacard').value.trim();
-        const digital = document.getElementById('digitalAddress').value.trim();
-        const region = document.getElementById('region').value;
-        const outside = document.getElementById('outside').value;
-        const study = document.getElementById('study').value;
-        const studyOther = document.getElementById('studyOther').value.trim();
-        const experience = document.getElementById('experience').value;
-        const industry = document.getElementById('industry').value;
-        const industryOther = document.getElementById('industryOther').value.trim();
-        const disabled = document.getElementById('disabled').value;
-        const pwd = document.getElementById('password').value;
-        const cpwd = document.getElementById('confirmPassword').value;
-        const agree = document.getElementById('agree').checked;
-        const rec = document.getElementById('fakeRecap').checked;
-        const passport = document.getElementById('passportPicture').files.length > 0;
-
-        // Check all required fields (excluding NSS and email)
-        if(!full || !phone || !gender || !ghanacard || !digital || !region || !outside || !study || !experience || !industry || !disabled || !pwd || !cpwd) return false;
-        
-        // NSS validation - if provided, must have valid format
-        if (nss && !validNssFormat(nss)) return false;
-        
-        // If study is "other", studyOther must be filled
-        if (study === 'other' && !studyOther) return false;
-        
-        // If industry is "Other", industryOther must be filled
-        if (industry === 'Other' && !industryOther) return false;
-        
-        if(pwd !== cpwd) return false;
-        if(!validDigital(digital)) return false;
-        if(!agree) return false;
-        if(!rec) return false;
-        if(!passport) return false;
-
-        return true;
-      } catch(e){
-        return false;
-      }
-    }
-
-    // Check form validity and update button state
-    function checkFormValidity() {
-      const nextBtn = document.getElementById('nextBtn');
-      nextBtn.disabled = !allValid();
-    }
-
-    // attach change listeners to toggle button
-    const requiredIds = ['fullName','phone','gender','ghanacard','digitalAddress','region','outside','study','experience','industry','disabled','password','confirmPassword','agree','fakeRecap'];
-    
-    requiredIds.forEach(id => {
-      const element = document.getElementById(id);
-      if (element) {
-        element.addEventListener('input', checkFormValidity);
-        element.addEventListener('change', checkFormValidity);
-      }
-    });
-
-    // Also listen to "Other" fields
-    document.getElementById('studyOther')?.addEventListener('input', checkFormValidity);
-    document.getElementById('industryOther')?.addEventListener('input', checkFormValidity);
-
-    // also listen to password confirm for immediate feedback
-    document.getElementById('confirmPassword').addEventListener('input', function(){
-      const pw = document.getElementById('password').value;
-      const cp = this.value;
-      if(pw && cp && pw !== cp){
-        this.style.borderColor = '#fca5a5';
-      } else {
-        this.style.borderColor = '';
-      }
-      checkFormValidity();
-    });
-
-    // Initial check on page load
-    document.addEventListener('DOMContentLoaded', function() {
-      checkFormValidity();
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>

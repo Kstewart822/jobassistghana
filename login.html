@@ -1,952 +1,1018 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login | Job Assist Ghana</title>
-  <!-- Favicon - using your existing logo -->
-  <link rel="icon" type="image/png" href="tab-logo.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Add no-cache meta tags to prevent browser caching -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-  
-  <style>
-    :root{
-      --deep-blue: #0a2a66;
-      --accent-gold: #f8c12e;
-      --cream: #f7f7f7;
-      --muted: #6b7280;
-      --card-bg: #ffffff;
-      --radius: 12px;
-      --max-width: 1200px;
-      --error-red: #e74c3c;
-      --success-green: #2ecc71;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Job Assist Ghana</title>
+    <!-- Favicon - using your existing logo -->
+    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    html, body {
-      height: 100%;
-      overflow: hidden;
-    }
+    <!-- Add no-cache meta tags to prevent browser caching -->
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
 
-    body {
-      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'San Francisco', sans-serif;
-      background-color: var(--cream);
-      margin: 0;
-      padding: 0;
-      color: #333;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      line-height: 1.6;
-      overflow: hidden;
-    }
-
-    /* Header Styles */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 5%;
-      background: #002147;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
-      width: 100%;
-      height: 70px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-    }
-
-    .logo img {
-      height: 40px;
-      width: auto;
-      filter: brightness(0) invert(1);
-    }
-
-    .desktop-nav {
-      display: none;
-    }
-
-    .desktop-nav ul {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 25px;
-      margin: 0;
-      padding: 0;
-    }
-
-    .desktop-nav ul li {
-      display: flex;
-      align-items: center;
-    }
-
-    .desktop-nav ul li a {
-      text-decoration: none;
-      color: white;
-      font-weight: 600;
-      font-size: 16px;
-      transition: color 0.3s;
-      position: relative;
-    }
-
-    .desktop-nav ul li a:after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -5px;
-      left: 0;
-      background-color: #f5c542;
-      transition: width 0.3s ease;
-    }
-
-    .desktop-nav ul li a:hover:after,
-    .desktop-nav ul li a.active:after {
-      width: 100%;
-    }
-
-    .desktop-nav ul li a:hover,
-    .desktop-nav ul li a.active {
-      color: #f5c542;
-    }
-
-    .login-btn {
-      background: #f8c12e;
-      color: var(--deep-blue) !important;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      font-size: 14px;
-    }
-
-    .login-btn::after {
-      display: none !important;
-    }
-
-    .login-btn:hover {
-      background: #ffda6a;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(248, 193, 46, 0.3);
-      color: var(--deep-blue) !important;
-    }
-
-    .menu-icon {
-      display: block;
-      font-size: 24px;
-      color: white;
-      cursor: pointer;
-      z-index: 1000;
-    }
-
-    .mobile-nav {
-      display: none;
-      position: fixed;
-      top: 70px;
-      left: 0;
-      width: 100%;
-      background: rgba(10, 42, 102, 0.98);
-      backdrop-filter: blur(10px);
-      z-index: 999;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .mobile-nav.active {
-      display: block;
-    }
-
-    .mobile-nav ul {
-      list-style: none;
-      padding: 0;
-      width: 100%;
-    }
-
-    .mobile-nav ul li {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .mobile-nav ul li:last-child {
-      border-bottom: none;
-    }
-
-    .mobile-nav ul li a {
-      color: white;
-      text-decoration: none;
-      font-size: 16px;
-      display: block;
-      padding: 15px 20px;
-      transition: all 0.3s ease;
-    }
-
-    .mobile-nav ul li a:hover,
-    .mobile-nav ul li a.active {
-      color: #f5c542;
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .mobile-nav .login-btn {
-      display: block;
-      margin: 15px 20px;
-      text-align: center;
-      color: var(--deep-blue) !important;
-      background: #f8c12e !important;
-    }
-
-    .mobile-nav .login-btn:hover {
-      background: #ffda6a !important;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(248, 193, 46, 0.3);
-    }
-
-    /* Login Container */
-    .login-wrapper {
-      margin-top: 70px;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: calc(100vh - 70px);
-      overflow: hidden;
-    }
-
-    .login-container {
-      max-width: 450px;
-      width: 100%;
-      background-color: white;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      position: relative;
-    }
-
-    .login-container h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: var(--deep-blue);
-      font-size: 1.6rem;
-    }
-
-    .form-group {
-      margin-bottom: 1.2rem;
-    }
-
-    label {
-      font-size: 14px;
-      font-weight: 600;
-      display: block;
-      margin-bottom: 8px;
-      color: var(--deep-blue);
-    }
-
-    /* Updated Phone Input with Country Code Picker */
-    .phone-input-container {
-      display: flex;
-      align-items: center;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      overflow: hidden;
-      transition: border 0.3s ease;
-    }
-
-    .phone-input-container:focus-within {
-      border-color: var(--accent-gold);
-      box-shadow: 0 0 0 3px rgba(248, 193, 46, 0.2);
-    }
-
-    .country-code-picker {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 0 12px;
-      background-color: #f8f9fa;
-      border-right: 1px solid #ddd;
-      height: 100%;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    .country-flag {
-      font-size: 16px;
-    }
-
-    input[type="tel"] {
-      flex: 1;
-      border: none;
-      padding: 12px;
-      font-size: 15px;
-      font-family: 'Segoe UI', sans-serif;
-      outline: none;
-    }
-
-    input[type="password"] {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 15px;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-      transition: border 0.3s ease;
-    }
-
-    input[type="password"]:focus {
-      outline: none;
-      border-color: var(--accent-gold);
-      box-shadow: 0 0 0 3px rgba(248, 193, 46, 0.2);
-    }
-
-    .btn {
-      background-color: var(--accent-gold);
-      border: none;
-      padding: 14px 24px;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      color: var(--deep-blue);
-      font-family: 'Segoe UI', sans-serif;
-      width: 100%;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .btn:hover:not(:disabled) {
-      background: #ffda6a;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(248, 193, 46, 0.3);
-    }
-
-    .btn:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 1.5rem;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .footer a {
-      color: var(--accent-gold);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
-    }
-
-    .phone-format {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 5px;
-    }
-
-    .user-type-toggle {
-      display: flex;
-      background: #f3f4f6;
-      border-radius: 8px;
-      padding: 4px;
-      margin-bottom: 1.5rem;
-    }
-
-    .user-type-btn {
-      flex: 1;
-      padding: 10px;
-      text-align: center;
-      border: none;
-      background: transparent;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .user-type-btn.active {
-      background: var(--accent-gold);
-      color: var(--deep-blue);
-    }
-
-    .error-message {
-      background-color: rgba(231, 76, 60, 0.1);
-      border: 1px solid var(--error-red);
-      color: var(--error-red);
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-      font-size: 14px;
-      display: none;
-    }
-
-    .error-message.show {
-      display: block;
-    }
-
-    .loading-spinner {
-      display: none;
-      width: 20px;
-      height: 20px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      border-top-color: var(--deep-blue);
-      animation: spin 1s ease-in-out infinite;
-      margin-right: 10px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .loading-spinner.active {
-      display: inline-block;
-    }
-
-    .btn-text {
-      transition: opacity 0.3s ease;
-    }
-
-    .btn.loading .btn-text {
-      opacity: 0.7;
-    }
-
-    .success-checkmark {
-      display: none;
-      width: 20px;
-      height: 20px;
-      margin-right: 10px;
-    }
-
-    .success-checkmark.active {
-      display: inline-block;
-    }
-
-    .check-icon {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      display: block;
-      stroke-width: 2;
-      stroke: var(--success-green);
-      stroke-miterlimit: 10;
-      box-shadow: inset 0px 0px 0px var(--success-green);
-      animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
-    }
-
-    .check-circle {
-      stroke-dasharray: 166;
-      stroke-dashoffset: 166;
-      stroke-width: 2;
-      stroke-miterlimit: 10;
-      stroke: var(--success-green);
-      fill: none;
-      animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-    }
-
-    .check-path {
-      transform-origin: 50% 50%;
-      stroke-dasharray: 48;
-      stroke-dashoffset: 48;
-      animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
-    }
-
-    @keyframes stroke {
-      100% {
-        stroke-dashoffset: 0;
+    <style>
+      :root {
+        --deep-blue: #0a2a66;
+        --accent-gold: #f8c12e;
+        --cream: #f7f7f7;
+        --muted: #6b7280;
+        --card-bg: #ffffff;
+        --radius: 12px;
+        --max-width: 1200px;
+        --error-red: #e74c3c;
+        --success-green: #2ecc71;
       }
-    }
 
-    @keyframes scale {
-      0%, 100% {
-        transform: none;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
-      50% {
-        transform: scale3d(1.1, 1.1, 1);
+
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
       }
-    }
 
-    @keyframes fill {
-      100% {
-        box-shadow: inset 0px 0px 0px 30px var(--success-green);
+      body {
+        font-family:
+          "Segoe UI",
+          -apple-system,
+          BlinkMacSystemFont,
+          "San Francisco",
+          sans-serif;
+        background-color: var(--cream);
+        margin: 0;
+        padding: 0;
+        color: #333;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        line-height: 1.6;
+        overflow: hidden;
       }
-    }
 
-    .loading-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(255, 255, 255, 0.9);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      border-radius: 12px;
-      z-index: 10;
-    }
-
-    .loading-overlay.active {
-      display: flex;
-    }
-
-    .loading-content {
-      text-align: center;
-    }
-
-    .loading-dots {
-      display: flex;
-      justify-content: center;
-      margin-top: 15px;
-    }
-
-    .loading-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: var(--accent-gold);
-      margin: 0 4px;
-      animation: bounce 1.4s infinite ease-in-out both;
-    }
-
-    .loading-dot:nth-child(1) { animation-delay: -0.32s; }
-    .loading-dot:nth-child(2) { animation-delay: -0.16s; }
-
-    @keyframes bounce {
-      0%, 80%, 100% { 
-        transform: scale(0);
-      } 40% { 
-        transform: scale(1.0);
+      /* Header Styles */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 5%;
+        background: #002147;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        height: 70px;
       }
-    }
 
-    /* Responsive Styles */
-    @media (min-width: 768px) {
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo img {
+        height: 40px;
+        width: auto;
+        filter: brightness(0) invert(1);
+      }
+
       .desktop-nav {
-        display: block;
+        display: none;
+      }
+
+      .desktop-nav ul {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        margin: 0;
+        padding: 0;
+      }
+
+      .desktop-nav ul li {
+        display: flex;
+        align-items: center;
+      }
+
+      .desktop-nav ul li a {
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+        font-size: 16px;
+        transition: color 0.3s;
+        position: relative;
+      }
+
+      .desktop-nav ul li a:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: #f5c542;
+        transition: width 0.3s ease;
+      }
+
+      .desktop-nav ul li a:hover:after,
+      .desktop-nav ul li a.active:after {
+        width: 100%;
+      }
+
+      .desktop-nav ul li a:hover,
+      .desktop-nav ul li a.active {
+        color: #f5c542;
+      }
+
+      .login-btn {
+        background: #f8c12e;
+        color: var(--deep-blue) !important;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        font-size: 14px;
+      }
+
+      .login-btn::after {
+        display: none !important;
+      }
+
+      .login-btn:hover {
+        background: #ffda6a;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(248, 193, 46, 0.3);
+        color: var(--deep-blue) !important;
       }
 
       .menu-icon {
-        display: none;
+        display: block;
+        font-size: 24px;
+        color: white;
+        cursor: pointer;
+        z-index: 1000;
       }
 
       .mobile-nav {
         display: none;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 42, 102, 0.98);
+        backdrop-filter: blur(10px);
+        z-index: 999;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
       }
 
-      .login-container {
-        padding: 2rem;
-      }
-    }
-
-    @media (max-width: 767px) {
-      .desktop-nav {
-        display: none;
-      }
-      
-      .menu-icon {
+      .mobile-nav.active {
         display: block;
       }
 
+      .mobile-nav ul {
+        list-style: none;
+        padding: 0;
+        width: 100%;
+      }
+
+      .mobile-nav ul li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .mobile-nav ul li:last-child {
+        border-bottom: none;
+      }
+
+      .mobile-nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        display: block;
+        padding: 15px 20px;
+        transition: all 0.3s ease;
+      }
+
+      .mobile-nav ul li a:hover,
+      .mobile-nav ul li a.active {
+        color: #f5c542;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .mobile-nav .login-btn {
+        display: block;
+        margin: 15px 20px;
+        text-align: center;
+        color: var(--deep-blue) !important;
+        background: #f8c12e !important;
+      }
+
+      .mobile-nav .login-btn:hover {
+        background: #ffda6a !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(248, 193, 46, 0.3);
+      }
+
+      /* Login Container */
       .login-wrapper {
-        padding: 15px;
+        margin-top: 70px;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 70px);
+        overflow: hidden;
+      }
+
+      .login-container {
+        max-width: 450px;
+        width: 100%;
+        background-color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+
+      .login-container h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: var(--deep-blue);
+        font-size: 1.6rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.2rem;
+      }
+
+      label {
+        font-size: 14px;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 8px;
+        color: var(--deep-blue);
+      }
+
+      /* Updated Phone Input with Country Code Picker */
+      .phone-input-container {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: border 0.3s ease;
+      }
+
+      .phone-input-container:focus-within {
+        border-color: var(--accent-gold);
+        box-shadow: 0 0 0 3px rgba(248, 193, 46, 0.2);
+      }
+
+      .country-code-picker {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 12px;
+        background-color: #f8f9fa;
+        border-right: 1px solid #ddd;
+        height: 100%;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .country-flag {
+        font-size: 16px;
+      }
+
+      input[type="tel"] {
+        flex: 1;
+        border: none;
+        padding: 12px;
+        font-size: 15px;
+        font-family: "Segoe UI", sans-serif;
+        outline: none;
+      }
+
+      input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 15px;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+        transition: border 0.3s ease;
+      }
+
+      input[type="password"]:focus {
+        outline: none;
+        border-color: var(--accent-gold);
+        box-shadow: 0 0 0 3px rgba(248, 193, 46, 0.2);
+      }
+
+      .btn {
+        background-color: var(--accent-gold);
+        border: none;
+        padding: 14px 24px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: var(--deep-blue);
+        font-family: "Segoe UI", sans-serif;
+        width: 100%;
+        position: relative;
+        display: flex;
+        justify-content: center;
         align-items: center;
       }
 
-      .login-container {
-        padding: 1.5rem;
-        margin: 0;
+      .btn:hover:not(:disabled) {
+        background: #ffda6a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(248, 193, 46, 0.3);
       }
-      
-      .login-container h2 {
-        font-size: 1.4rem;
-      }
-      
-      header {
-        padding: 15px 20px;
-      }
-    }
 
-    @media (max-width: 480px) {
-      .login-container {
-        padding: 1.2rem;
+      .btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
       }
-      
-      .login-container h2 {
-        font-size: 1.3rem;
-        margin-bottom: 1.2rem;
-      }
-      
-      .form-group {
-        margin-bottom: 1rem;
-      }
-      
+
       .footer {
-        margin-top: 1.2rem;
-        font-size: 13px;
-      }
-      
-      .user-type-toggle {
-        margin-bottom: 1.2rem;
-      }
-      
-      .btn {
-        padding: 12px 20px;
+        text-align: center;
+        margin-top: 1.5rem;
+        color: var(--muted);
         font-size: 14px;
       }
-      
-      .country-code-picker {
-        padding: 0 10px;
-        font-size: 13px;
-      }
-    }
 
-    @media (max-width: 360px) {
-      .login-container {
-        padding: 1rem;
+      .footer a {
+        color: var(--accent-gold);
+        text-decoration: none;
+        font-weight: 600;
       }
-      
-      .login-container h2 {
-        font-size: 1.2rem;
+
+      .footer a:hover {
+        text-decoration: underline;
       }
-      
-      input[type="tel"],
-      input[type="password"] {
-        padding: 10px;
-        font-size: 14px;
-      }
-      
-      .country-code-picker {
-        padding: 0 8px;
+
+      .phone-format {
         font-size: 12px;
+        color: var(--muted);
+        margin-top: 5px;
       }
-    }
-  </style>
-</head>
-<body>
 
-  <!-- Header with Mobile Menu -->
-  <header>
-    <div class="logo">
-      <img src="logo.png" alt="Job Assist Ghana Logo">
-    </div>
-    
-    <nav class="desktop-nav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="build-cv.html">Build a CV</a></li>
-        <li><a href="login.html" class="login-btn active">Login</a></li>
-      </ul>
-    </nav>
-    
-    <div class="menu-icon" id="menuIcon">
-      <i class="fas fa-bars"></i>
-    </div>
-    
-    <nav class="mobile-nav" id="mobileNav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="build-cv.html">Build a CV</a></li>
-        <li><a href="login.html" class="login-btn active">Login</a></li>
-      </ul>
-    </nav>
-  </header>
+      .user-type-toggle {
+        display: flex;
+        background: #f3f4f6;
+        border-radius: 8px;
+        padding: 4px;
+        margin-bottom: 1.5rem;
+      }
 
-  <!-- Login Section -->
-  <div class="login-wrapper">
-    <div class="login-container">
-      <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-content">
-          <div class="loading-spinner active"></div>
-          <h3>Verifying your credentials...</h3>
-          <div class="loading-dots">
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-          </div>
-        </div>
+      .user-type-btn {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+        border: none;
+        background: transparent;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .user-type-btn.active {
+        background: var(--accent-gold);
+        color: var(--deep-blue);
+      }
+
+      .error-message {
+        background-color: rgba(231, 76, 60, 0.1);
+        border: 1px solid var(--error-red);
+        color: var(--error-red);
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        font-size: 14px;
+        display: none;
+      }
+
+      .error-message.show {
+        display: block;
+      }
+
+      .loading-spinner {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--deep-blue);
+        animation: spin 1s ease-in-out infinite;
+        margin-right: 10px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loading-spinner.active {
+        display: inline-block;
+      }
+
+      .btn-text {
+        transition: opacity 0.3s ease;
+      }
+
+      .btn.loading .btn-text {
+        opacity: 0.7;
+      }
+
+      .success-checkmark {
+        display: none;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+
+      .success-checkmark.active {
+        display: inline-block;
+      }
+
+      .check-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: block;
+        stroke-width: 2;
+        stroke: var(--success-green);
+        stroke-miterlimit: 10;
+        box-shadow: inset 0px 0px 0px var(--success-green);
+        animation:
+          fill 0.4s ease-in-out 0.4s forwards,
+          scale 0.3s ease-in-out 0.9s both;
+      }
+
+      .check-circle {
+        stroke-dasharray: 166;
+        stroke-dashoffset: 166;
+        stroke-width: 2;
+        stroke-miterlimit: 10;
+        stroke: var(--success-green);
+        fill: none;
+        animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+      }
+
+      .check-path {
+        transform-origin: 50% 50%;
+        stroke-dasharray: 48;
+        stroke-dashoffset: 48;
+        animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+      }
+
+      @keyframes stroke {
+        100% {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes scale {
+        0%,
+        100% {
+          transform: none;
+        }
+        50% {
+          transform: scale3d(1.1, 1.1, 1);
+        }
+      }
+
+      @keyframes fill {
+        100% {
+          box-shadow: inset 0px 0px 0px 30px var(--success-green);
+        }
+      }
+
+      .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.9);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        border-radius: 12px;
+        z-index: 10;
+      }
+
+      .loading-overlay.active {
+        display: flex;
+      }
+
+      .loading-content {
+        text-align: center;
+      }
+
+      .loading-dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+      }
+
+      .loading-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: var(--accent-gold);
+        margin: 0 4px;
+        animation: bounce 1.4s infinite ease-in-out both;
+      }
+
+      .loading-dot:nth-child(1) {
+        animation-delay: -0.32s;
+      }
+      .loading-dot:nth-child(2) {
+        animation-delay: -0.16s;
+      }
+
+      @keyframes bounce {
+        0%,
+        80%,
+        100% {
+          transform: scale(0);
+        }
+        40% {
+          transform: scale(1);
+        }
+      }
+
+      /* Responsive Styles */
+      @media (min-width: 768px) {
+        .desktop-nav {
+          display: block;
+        }
+
+        .menu-icon {
+          display: none;
+        }
+
+        .mobile-nav {
+          display: none;
+        }
+
+        .login-container {
+          padding: 2rem;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .desktop-nav {
+          display: none;
+        }
+
+        .menu-icon {
+          display: block;
+        }
+
+        .login-wrapper {
+          padding: 15px;
+          align-items: center;
+        }
+
+        .login-container {
+          padding: 1.5rem;
+          margin: 0;
+        }
+
+        .login-container h2 {
+          font-size: 1.4rem;
+        }
+
+        header {
+          padding: 15px 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .login-container {
+          padding: 1.2rem;
+        }
+
+        .login-container h2 {
+          font-size: 1.3rem;
+          margin-bottom: 1.2rem;
+        }
+
+        .form-group {
+          margin-bottom: 1rem;
+        }
+
+        .footer {
+          margin-top: 1.2rem;
+          font-size: 13px;
+        }
+
+        .user-type-toggle {
+          margin-bottom: 1.2rem;
+        }
+
+        .btn {
+          padding: 12px 20px;
+          font-size: 14px;
+        }
+
+        .country-code-picker {
+          padding: 0 10px;
+          font-size: 13px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .login-container {
+          padding: 1rem;
+        }
+
+        .login-container h2 {
+          font-size: 1.2rem;
+        }
+
+        input[type="tel"],
+        input[type="password"] {
+          padding: 10px;
+          font-size: 14px;
+        }
+
+        .country-code-picker {
+          padding: 0 8px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header with Mobile Menu -->
+    <header>
+      <div class="logo">
+        <img src="logo.png" alt="Job Assist Ghana Logo" />
       </div>
 
-      <h2>Employer Login</h2>
+      <nav class="desktop-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="build-cv.html">Build a CV</a></li>
+          <li><a href="login.html" class="login-btn active">Login</a></li>
+        </ul>
+      </nav>
 
-      <div class="user-type-toggle">
-        <button class="user-type-btn" id="candidateBtn">Candidate</button>
-        <button class="user-type-btn active" id="employerBtn">Employer</button>
+      <div class="menu-icon" id="menuIcon">
+        <i class="fas fa-bars"></i>
       </div>
 
-      <div class="error-message" id="errorMessage">
-        Your credentials do not exist in our system. Please check your phone number and password, or sign up if you don't have an account.
-      </div>
+      <nav class="mobile-nav" id="mobileNav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="build-cv.html">Build a CV</a></li>
+          <li><a href="login.html" class="login-btn active">Login</a></li>
+        </ul>
+      </nav>
+    </header>
 
-      <form id="loginForm">
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <div class="phone-input-container">
-            <div class="country-code-picker">
-              <span class="country-flag">🇬🇭</span>
-              <span>+233</span>
+    <!-- Login Section -->
+    <div class="login-wrapper">
+      <div class="login-container">
+        <div class="loading-overlay" id="loadingOverlay">
+          <div class="loading-content">
+            <div class="loading-spinner active"></div>
+            <h3>Verifying your credentials...</h3>
+            <div class="loading-dots">
+              <div class="loading-dot"></div>
+              <div class="loading-dot"></div>
+              <div class="loading-dot"></div>
             </div>
-            <input type="tel" id="phone" placeholder="241234567" pattern="[0-9]{9}" required />
           </div>
-          <div class="phone-format">Format: 233241234567 (9 digits without the first zero)</div>
         </div>
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Enter your password" required />
+        <h2>Employer Login</h2>
+
+        <div class="user-type-toggle">
+          <button class="user-type-btn" id="candidateBtn">Candidate</button>
+          <button class="user-type-btn active" id="employerBtn">
+            Employer
+          </button>
         </div>
 
-        <button type="submit" class="btn" id="loginButton">
-          <div class="loading-spinner" id="buttonSpinner"></div>
-          <div class="success-checkmark" id="successCheck">
-            <svg class="check-icon" viewBox="0 0 52 52">
-              <circle class="check-circle" cx="26" cy="26" r="25" fill="none"/>
-              <path class="check-path" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-            </svg>
-          </div>
-          <span class="btn-text">Login</span>
-        </button>
-      </form>
+        <div class="error-message" id="errorMessage">
+          Your credentials do not exist in our system. Please check your phone
+          number and password, or sign up if you don't have an account.
+        </div>
 
-      <div class="footer">
-        <p><a href="forgot-password.html">Forgot Password?</a></p>
-        <p id="signup-text">Don't have an account? <a href="employer-signup.html">Sign up as Employer</a></p>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <div class="phone-input-container">
+              <div class="country-code-picker">
+                <span class="country-flag">🇬🇭</span>
+                <span>+233</span>
+              </div>
+              <input
+                type="tel"
+                id="phone"
+                placeholder="241234567"
+                pattern="[0-9]{9}"
+                required
+              />
+            </div>
+            <div class="phone-format">
+              Format: 233241234567 (9 digits without the first zero)
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn" id="loginButton">
+            <div class="loading-spinner" id="buttonSpinner"></div>
+            <div class="success-checkmark" id="successCheck">
+              <svg class="check-icon" viewBox="0 0 52 52">
+                <circle
+                  class="check-circle"
+                  cx="26"
+                  cy="26"
+                  r="25"
+                  fill="none"
+                />
+                <path
+                  class="check-path"
+                  fill="none"
+                  d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                />
+              </svg>
+            </div>
+            <span class="btn-text">Login</span>
+          </button>
+        </form>
+
+        <div class="footer">
+          <p><a href="forgot-password.html">Forgot Password?</a></p>
+          <p id="signup-text">
+            Don't have an account?
+            <a href="employer-signup.html">Sign up as Employer</a>
+          </p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    // Prevent browser caching of this page
-    window.onpageshow = function(event) {
-      if (event.persisted) {
-        window.location.reload();
-      }
-    };
+    <script>
+      // Prevent browser caching of this page
+      window.onpageshow = function (event) {
+        if (event.persisted) {
+          window.location.reload();
+        }
+      };
 
-    // Clear any forward/back navigation history
-    history.pushState(null, null, location.href);
-    window.onpopstate = function () {
-      history.go(1);
-    };
-
-    // Prevent going back via browser buttons
-    function preventBack() {
+      // Clear any forward/back navigation history
       history.pushState(null, null, location.href);
       window.onpopstate = function () {
         history.go(1);
       };
-    }
-    
-    // Call preventBack when page loads
-    document.addEventListener('DOMContentLoaded', function() {
-      preventBack();
-      
-      // Also prevent back navigation when page becomes visible again
-      document.addEventListener('visibilitychange', function() {
-        if (!document.hidden) {
-          preventBack();
-        }
-      });
-    });
 
-    // Mobile menu functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuIcon = document.getElementById('menuIcon');
-      const mobileNav = document.getElementById('mobileNav');
-      
-      // Toggle mobile menu
-      menuIcon.addEventListener('click', function(e) {
-        e.stopPropagation();
-        mobileNav.classList.toggle('active');
-      });
+      // Prevent going back via browser buttons
+      function preventBack() {
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+          history.go(1);
+        };
+      }
 
-      // Close mobile menu when clicking outside
-      document.addEventListener('click', function(event) {
-        if (!menuIcon.contains(event.target) && !mobileNav.contains(event.target)) {
-          mobileNav.classList.remove('active');
-        }
-      });
+      // Call preventBack when page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        preventBack();
 
-      // Close mobile menu when clicking on links
-      mobileNav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileNav.classList.remove('active');
+        // Also prevent back navigation when page becomes visible again
+        document.addEventListener("visibilitychange", function () {
+          if (!document.hidden) {
+            preventBack();
+          }
         });
       });
-    });
 
-    // Sample user data
-    const users = {
-      candidates: [
-        { phone: "0241234567", password: "password123" },
-        { phone: "0264133656", password: "test123" },
-        { phone: "0279876543", password: "candidate456" }
-      ],
-      employers: [
-        { phone: "0201112222", password: "employer123" },
-        { phone: "0234445555", password: "test456" },
-        { phone: "0264133656", password: "employer789" }
-      ]
-    };
+      // Mobile menu functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const menuIcon = document.getElementById("menuIcon");
+        const mobileNav = document.getElementById("mobileNav");
 
-    document.addEventListener('DOMContentLoaded', function() {
-      const loginForm = document.getElementById('loginForm');
-      const loginButton = document.getElementById('loginButton');
-      const buttonSpinner = document.getElementById('buttonSpinner');
-      const successCheck = document.getElementById('successCheck');
-      const errorMessage = document.getElementById('errorMessage');
-      const loadingOverlay = document.getElementById('loadingOverlay');
-      const phoneInput = document.getElementById('phone');
-      const candidateBtn = document.getElementById('candidateBtn');
-      const employerBtn = document.getElementById('employerBtn');
-      const signupText = document.getElementById('signup-text');
-      
-      let currentUserType = 'employer';
+        // Toggle mobile menu
+        menuIcon.addEventListener("click", function (e) {
+          e.stopPropagation();
+          mobileNav.classList.toggle("active");
+        });
 
-      // Phone number validation - now accepts 9 digits (without leading zero)
-      phoneInput.addEventListener('input', function() {
-        this.value = this.value.replace(/\D/g, '');
-        if (this.value.length > 9) {
-          this.value = this.value.slice(0, 9);
-        }
-      });
-
-      // User type toggle functionality
-      candidateBtn.addEventListener('click', function() {
-        candidateBtn.classList.add('active');
-        employerBtn.classList.remove('active');
-        document.querySelector('h2').textContent = 'Candidate Login';
-        currentUserType = 'candidate';
-        
-        phoneInput.type = 'tel';
-        phoneInput.pattern = '[0-9]{9}';
-        phoneInput.placeholder = '241234567';
-        
-        signupText.innerHTML = 'Don\'t have an account? <a href="signup.html">Sign up as Candidate</a>';
-      });
-
-      employerBtn.addEventListener('click', function() {
-        employerBtn.classList.add('active');
-        candidateBtn.classList.remove('active');
-        document.querySelector('h2').textContent = 'Employer Login';
-        currentUserType = 'employer';
-        
-        phoneInput.type = 'tel';
-        phoneInput.pattern = '[0-9]{9}';
-        phoneInput.placeholder = '241234567';
-        
-        signupText.innerHTML = 'Don\'t have an account? <a href="employer-signup.html">Sign up as Employer</a>';
-      });
-
-      // Handle login form submission
-      loginForm.addEventListener("submit", function(event) {
-        event.preventDefault();
-        
-        errorMessage.classList.remove('show');
-        setLoadingState(true);
-
-        const phone = phoneInput.value.trim();
-        const password = document.getElementById("password").value.trim();
-
-        // Updated validation for 9 digits (without leading zero)
-        if (phone.length !== 9) {
-          showError("Please enter a valid 9-digit phone number (without the first zero).");
-          setLoadingState(false);
-          return;
-        }
-
-        if (!password) {
-          showError("Please enter your password.");
-          setLoadingState(false);
-          return;
-        }
-
-        const delay = Math.random() * 1000 + 1000;
-        
-        setTimeout(() => {
-          // For validation, we'll prepend "0" to match the sample data format
-          const phoneWithZero = "0" + phone;
-          const userList = currentUserType === 'candidate' ? users.candidates : users.employers;
-          const userExists = userList.some(user => 
-            user.phone === phoneWithZero && user.password === password
-          );
-
-          if (userExists) {
-            setSuccessState(true);
-            
-            setTimeout(() => {
-              const dashboardPage = currentUserType === 'candidate' 
-                ? 'candidate-dashboard.html' 
-                : 'employer-dashboard.html';
-              
-              // Clear browser history before redirecting to prevent back navigation
-              history.replaceState(null, '', dashboardPage);
-              window.location.replace(dashboardPage);
-            }, 1000);
-          } else {
-            setLoadingState(false);
-            showError();
+        // Close mobile menu when clicking outside
+        document.addEventListener("click", function (event) {
+          if (
+            !menuIcon.contains(event.target) &&
+            !mobileNav.contains(event.target)
+          ) {
+            mobileNav.classList.remove("active");
           }
-        }, delay);
+        });
+
+        // Close mobile menu when clicking on links
+        mobileNav.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileNav.classList.remove("active");
+          });
+        });
       });
 
-      function setLoadingState(isLoading) {
-        if (isLoading) {
-          loginButton.disabled = true;
-          loginButton.classList.add('loading');
-          buttonSpinner.classList.add('active');
-          loadingOverlay.classList.add('active');
-        } else {
-          loginButton.disabled = false;
-          loginButton.classList.remove('loading');
-          buttonSpinner.classList.remove('active');
-          loadingOverlay.classList.remove('active');
-          successCheck.classList.remove('active');
-        }
-      }
+      // Sample user data
+      const users = {
+        candidates: [
+          { phone: "0241234567", password: "password123" },
+          { phone: "0264133656", password: "test123" },
+          { phone: "0279876543", password: "candidate456" },
+        ],
+        employers: [
+          { phone: "0201112222", password: "employer123" },
+          { phone: "0234445555", password: "test456" },
+          { phone: "0264133656", password: "employer789" },
+        ],
+      };
 
-      function setSuccessState(isSuccess) {
-        if (isSuccess) {
-          loginButton.classList.add('loading');
-          buttonSpinner.classList.remove('active');
-          successCheck.classList.add('active');
-          loadingOverlay.classList.remove('active');
-        }
-      }
+      document.addEventListener("DOMContentLoaded", function () {
+        const loginForm = document.getElementById("loginForm");
+        const loginButton = document.getElementById("loginButton");
+        const buttonSpinner = document.getElementById("buttonSpinner");
+        const successCheck = document.getElementById("successCheck");
+        const errorMessage = document.getElementById("errorMessage");
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        const phoneInput = document.getElementById("phone");
+        const candidateBtn = document.getElementById("candidateBtn");
+        const employerBtn = document.getElementById("employerBtn");
+        const signupText = document.getElementById("signup-text");
 
-      function showError(customMessage) {
-        if (customMessage) {
-          errorMessage.textContent = customMessage;
-        }
-        errorMessage.classList.add('show');
-        errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    });
-  </script>
+        let currentUserType = "employer";
 
-</body>
+        // Phone number validation - now accepts 9 digits (without leading zero)
+        phoneInput.addEventListener("input", function () {
+          this.value = this.value.replace(/\D/g, "");
+          if (this.value.length > 9) {
+            this.value = this.value.slice(0, 9);
+          }
+        });
+
+        // User type toggle functionality
+        candidateBtn.addEventListener("click", function () {
+          candidateBtn.classList.add("active");
+          employerBtn.classList.remove("active");
+          document.querySelector("h2").textContent = "Candidate Login";
+          currentUserType = "candidate";
+
+          phoneInput.type = "tel";
+          phoneInput.pattern = "[0-9]{9}";
+          phoneInput.placeholder = "241234567";
+
+          signupText.innerHTML =
+            'Don\'t have an account? <a href="signup.html">Sign up as Candidate</a>';
+        });
+
+        employerBtn.addEventListener("click", function () {
+          employerBtn.classList.add("active");
+          candidateBtn.classList.remove("active");
+          document.querySelector("h2").textContent = "Employer Login";
+          currentUserType = "employer";
+
+          phoneInput.type = "tel";
+          phoneInput.pattern = "[0-9]{9}";
+          phoneInput.placeholder = "241234567";
+
+          signupText.innerHTML =
+            'Don\'t have an account? <a href="employer-signup.html">Sign up as Employer</a>';
+        });
+
+        // Handle login form submission
+        loginForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          errorMessage.classList.remove("show");
+          setLoadingState(true);
+
+          const phone = phoneInput.value.trim();
+          const password = document.getElementById("password").value.trim();
+
+          // Updated validation for 9 digits (without leading zero)
+          if (phone.length !== 9) {
+            showError(
+              "Please enter a valid 9-digit phone number (without the first zero).",
+            );
+            setLoadingState(false);
+            return;
+          }
+
+          if (!password) {
+            showError("Please enter your password.");
+            setLoadingState(false);
+            return;
+          }
+
+          const delay = Math.random() * 1000 + 1000;
+
+          setTimeout(() => {
+            // For validation, we'll prepend "0" to match the sample data format
+            const phoneWithZero = "0" + phone;
+            const userList =
+              currentUserType === "candidate"
+                ? users.candidates
+                : users.employers;
+            const userExists = userList.some(
+              (user) =>
+                user.phone === phoneWithZero && user.password === password,
+            );
+
+            if (userExists) {
+              setSuccessState(true);
+
+              setTimeout(() => {
+                const dashboardPage =
+                  currentUserType === "candidate"
+                    ? "candidate-dashboard.html"
+                    : "employer-dashboard.html";
+
+                // Clear browser history before redirecting to prevent back navigation
+                history.replaceState(null, "", dashboardPage);
+                window.location.replace(dashboardPage);
+              }, 1000);
+            } else {
+              setLoadingState(false);
+              showError();
+            }
+          }, delay);
+        });
+
+        function setLoadingState(isLoading) {
+          if (isLoading) {
+            loginButton.disabled = true;
+            loginButton.classList.add("loading");
+            buttonSpinner.classList.add("active");
+            loadingOverlay.classList.add("active");
+          } else {
+            loginButton.disabled = false;
+            loginButton.classList.remove("loading");
+            buttonSpinner.classList.remove("active");
+            loadingOverlay.classList.remove("active");
+            successCheck.classList.remove("active");
+          }
+        }
+
+        function setSuccessState(isSuccess) {
+          if (isSuccess) {
+            loginButton.classList.add("loading");
+            buttonSpinner.classList.remove("active");
+            successCheck.classList.add("active");
+            loadingOverlay.classList.remove("active");
+          }
+        }
+
+        function showError(customMessage) {
+          if (customMessage) {
+            errorMessage.textContent = customMessage;
+          }
+          errorMessage.classList.add("show");
+          errorMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+    </script>
+  </body>
 </html>

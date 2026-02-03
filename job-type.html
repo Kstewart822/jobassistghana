@@ -1,562 +1,612 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Choose Job Type | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
 
-        :root {
-            --primary: #0a2a66;
-            --primary-dark: #071e4d;
-            --primary-light: #1e3a8a;
-            --secondary: #f8c12e;
-            --secondary-dark: #e6af1a;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gray: #64748b;
-            --gray-light: #e2e8f0;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --transition: all 0.2s ease;
-        }
+      :root {
+        --primary: #0a2a66;
+        --primary-dark: #071e4d;
+        --primary-light: #1e3a8a;
+        --secondary: #f8c12e;
+        --secondary-dark: #e6af1a;
+        --light: #f8fafc;
+        --dark: #1e293b;
+        --gray: #64748b;
+        --gray-light: #e2e8f0;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --transition: all 0.2s ease;
+      }
 
-        body {
-            background-color: #f1f5f9;
-            color: var(--dark);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+      body {
+        background-color: #f1f5f9;
+        color: var(--dark);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            flex: 1;
-        }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        flex: 1;
+      }
 
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            color: white;
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
+      /* Header */
+      .header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-dark),
+          var(--primary)
+        );
+        color: white;
+        padding: 20px 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
 
-        .logo-section {
-            display: flex;
-            align-items: center;
-            margin-left: 0;
-        }
+      .logo-section {
+        display: flex;
+        align-items: center;
+        margin-left: 0;
+      }
 
-        .logo {
-            height: 40px;
-            width: auto;
-            max-width: 160px;
-            object-fit: contain;
-        }
+      .logo {
+        height: 40px;
+        width: auto;
+        max-width: 160px;
+        object-fit: contain;
+      }
 
-        .back-btn {
-            background-color: var(--secondary);
-            color: var(--primary);
-            text-decoration: none;
-            padding: 10px 22px;
-            border-radius: 6px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-            white-space: nowrap;
-        }
+      .back-btn {
+        background-color: var(--secondary);
+        color: var(--primary);
+        text-decoration: none;
+        padding: 10px 22px;
+        border-radius: 6px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: var(--transition);
+        white-space: nowrap;
+      }
 
-        .back-btn:hover {
-            background-color: var(--secondary-dark);
-            transform: translateY(-1px);
-        }
+      .back-btn:hover {
+        background-color: var(--secondary-dark);
+        transform: translateY(-1px);
+      }
 
-        /* Main Content */
-        .main-content {
-            padding: 40px 0;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+      /* Main Content */
+      .main-content {
+        padding: 40px 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
 
-        .page-title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+      .page-title {
+        text-align: center;
+        margin-bottom: 30px;
+      }
 
-        .page-title h2 {
-            font-size: 2rem;
-            color: var(--primary);
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
+      .page-title h2 {
+        font-size: 2rem;
+        color: var(--primary);
+        font-weight: 800;
+        margin-bottom: 10px;
+      }
 
-        .page-title p {
-            font-size: 1rem;
-            color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.5;
-        }
+      .page-title p {
+        font-size: 1rem;
+        color: var(--gray);
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.5;
+      }
 
-        /* Job Type Cards - Two Column Layout */
+      /* Job Type Cards - Two Column Layout */
+      .job-types-container {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 40px;
+      }
+
+      .job-type-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        transition: var(--transition);
+        border: 2px solid transparent;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 450px;
+      }
+
+      .job-type-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        border-color: var(--secondary);
+      }
+
+      .card-header {
+        padding: 25px 30px 15px;
+        border-bottom: 1px solid var(--gray-light);
+      }
+
+      .card-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 15px;
+      }
+
+      .badge-standard {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: var(--success);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .badge-premium {
+        background-color: rgba(248, 193, 46, 0.1);
+        color: var(--primary);
+        border: 1px solid rgba(248, 193, 46, 0.3);
+      }
+
+      .card-title {
+        font-size: 1.4rem;
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .card-subtitle {
+        color: var(--gray);
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+      }
+
+      .card-price {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 5px;
+      }
+
+      .price-note {
+        color: var(--gray);
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+
+      .card-body {
+        padding: 20px 30px;
+        flex: 1;
+      }
+
+      .features-list {
+        list-style: none;
+        margin-bottom: 20px;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+        color: var(--dark);
+      }
+
+      .feature-item i {
+        color: var(--success);
+        margin-top: 2px;
+        flex-shrink: 0;
+      }
+
+      .feature-item.premium i {
+        color: var(--secondary);
+      }
+
+      .best-for {
+        background-color: rgba(248, 193, 46, 0.05);
+        border-left: 4px solid var(--secondary);
+        padding: 12px 15px;
+        border-radius: 6px;
+        margin-top: 15px;
+      }
+
+      .best-for-title {
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 5px;
+        font-size: 0.85rem;
+      }
+
+      .best-for-text {
+        color: var(--gray);
+        font-size: 0.8rem;
+        line-height: 1.4;
+      }
+
+      .card-footer {
+        padding: 20px 30px;
+        border-top: 1px solid var(--gray-light);
+        background-color: rgba(248, 248, 250, 0.5);
+      }
+
+      .select-btn {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        text-align: center;
+        background-color: var(--primary);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
+      }
+
+      .select-btn:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      .btn-standard {
+        background-color: var(--success);
+      }
+
+      .btn-standard:hover {
+        background-color: #0d9c6b;
+      }
+
+      .btn-premium {
+        background-color: var(--secondary);
+        color: var(--primary);
+      }
+
+      .btn-premium:hover {
+        background-color: var(--secondary-dark);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
         .job-types-container {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 40px;
+          flex-direction: column;
+          align-items: center;
+          gap: 25px;
         }
 
         .job-type-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: var(--transition);
-            border: 2px solid transparent;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 450px;
+          max-width: 500px;
         }
 
-        .job-type-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
-            border-color: var(--secondary);
+        .main-content {
+          padding: 30px 0;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 15px;
         }
 
-        .card-header {
-            padding: 25px 30px 15px;
-            border-bottom: 1px solid var(--gray-light);
+        .header {
+          padding: 15px 0;
         }
 
-        .card-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 15px;
+        .header-content {
+          gap: 15px;
         }
 
-        .badge-standard {
-            background-color: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+        .logo {
+          height: 35px;
         }
 
-        .badge-premium {
-            background-color: rgba(248, 193, 46, 0.1);
-            color: var(--primary);
-            border: 1px solid rgba(248, 193, 46, 0.3);
+        .back-btn {
+          padding: 8px 16px;
+          font-size: 0.9rem;
+        }
+
+        .main-content {
+          padding: 25px 0;
+        }
+
+        .page-title h2 {
+          font-size: 1.6rem;
+          margin-bottom: 8px;
+        }
+
+        .page-title p {
+          font-size: 0.9rem;
+        }
+
+        .card-header,
+        .card-body,
+        .card-footer {
+          padding: 20px;
         }
 
         .card-title {
-            font-size: 1.4rem;
-            color: var(--primary);
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .card-subtitle {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
+          font-size: 1.2rem;
         }
 
         .card-price {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        .price-note {
-            color: var(--gray);
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .card-body {
-            padding: 20px 30px;
-            flex: 1;
-        }
-
-        .features-list {
-            list-style: none;
-            margin-bottom: 20px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-            color: var(--dark);
-        }
-
-        .feature-item i {
-            color: var(--success);
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
-
-        .feature-item.premium i {
-            color: var(--secondary);
-        }
-
-        .best-for {
-            background-color: rgba(248, 193, 46, 0.05);
-            border-left: 4px solid var(--secondary);
-            padding: 12px 15px;
-            border-radius: 6px;
-            margin-top: 15px;
-        }
-
-        .best-for-title {
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 5px;
-            font-size: 0.85rem;
-        }
-
-        .best-for-text {
-            color: var(--gray);
-            font-size: 0.8rem;
-            line-height: 1.4;
-        }
-
-        .card-footer {
-            padding: 20px 30px;
-            border-top: 1px solid var(--gray-light);
-            background-color: rgba(248, 248, 250, 0.5);
+          font-size: 1.6rem;
         }
 
         .select-btn {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            text-align: center;
-            background-color: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
+          padding: 12px;
+          font-size: 0.9rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .header-content {
+          flex-direction: column;
+          align-items: stretch;
         }
 
-        .select-btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
+        .logo-section {
+          justify-content: center;
+          margin: 0;
         }
 
-        .btn-standard {
-            background-color: var(--success);
+        .back-btn {
+          width: 100%;
+          justify-content: center;
+          margin-top: 10px;
         }
 
-        .btn-standard:hover {
-            background-color: #0d9c6b;
+        .page-title h2 {
+          font-size: 1.4rem;
         }
 
-        .btn-premium {
-            background-color: var(--secondary);
-            color: var(--primary);
+        .card-header,
+        .card-body,
+        .card-footer {
+          padding: 16px;
         }
 
-        .btn-premium:hover {
-            background-color: var(--secondary-dark);
+        .feature-item {
+          font-size: 0.85rem;
+          margin-bottom: 10px;
         }
+      }
 
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .job-types-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 25px;
-            }
-            
-            .job-type-card {
-                max-width: 500px;
-            }
-            
-            .main-content {
-                padding: 30px 0;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
-            }
-
-            .header {
-                padding: 15px 0;
-            }
-
-            .header-content {
-                gap: 15px;
-            }
-
-            .logo {
-                height: 35px;
-            }
-
-            .back-btn {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
-
-            .main-content {
-                padding: 25px 0;
-            }
-
-            .page-title h2 {
-                font-size: 1.6rem;
-                margin-bottom: 8px;
-            }
-
-            .page-title p {
-                font-size: 0.9rem;
-            }
-
-            .card-header,
-            .card-body,
-            .card-footer {
-                padding: 20px;
-            }
-
-            .card-title {
-                font-size: 1.2rem;
-            }
-
-            .card-price {
-                font-size: 1.6rem;
-            }
-
-            .select-btn {
-                padding: 12px;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header-content {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .logo-section {
-                justify-content: center;
-                margin: 0;
-            }
-
-            .back-btn {
-                width: 100%;
-                justify-content: center;
-                margin-top: 10px;
-            }
-
-            .page-title h2 {
-                font-size: 1.4rem;
-            }
-
-            .card-header,
-            .card-body,
-            .card-footer {
-                padding: 16px;
-            }
-
-            .feature-item {
-                font-size: 0.85rem;
-                margin-bottom: 10px;
-            }
-        }
-
-        /* Ensure proper scrolling */
-        html, body {
-            height: 100%;
-            overflow-y: auto; /* Changed from 'hidden' to 'auto' */
-        }
+      /* Ensure proper scrolling */
+      html,
+      body {
+        height: 100%;
+        overflow-y: auto; /* Changed from 'hidden' to 'auto' */
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Header -->
     <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-section">
-                    <img src="logo.png" alt="JobAssist Ghana" class="logo">
-                </div>
-                <a href="employer-dashboard.html" class="back-btn">
-                    <i class="fas fa-arrow-left"></i> Back
-                </a>
-            </div>
+      <div class="container">
+        <div class="header-content">
+          <div class="logo-section">
+            <img src="logo.png" alt="JobAssist Ghana" class="logo" />
+          </div>
+          <a href="employer-dashboard.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back
+          </a>
         </div>
+      </div>
     </header>
 
     <!-- Main Content -->
     <main class="main-content">
-        <div class="container">
-            <div class="page-title">
-                <h2>Choose Your Job Posting Type</h2>
-                <p>Select the job posting option that best fits your hiring needs</p>
-            </div>
-
-            <div class="job-types-container">
-                <!-- Standard Job Posting Card -->
-                <div class="job-type-card">
-                    <div class="card-header">
-                        <div class="card-badge badge-standard">Standard</div>
-                        <h3 class="card-title">Standard Job Posting</h3>
-                        <p class="card-subtitle">Perfect for one-time hiring needs</p>
-                        <div class="card-price">₵100</div>
-                        <p class="price-note">One-time payment • 30 days active</p>
-                    </div>
-                    
-                    <div class="card-body">
-                        <ul class="features-list">
-                            <li class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>30-day visibility</strong> - Job stays active for 30 days</span>
-                            </li>
-                            <li class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>Applicant management</strong> - View and manage all applicants</span>
-                            </li>
-                            <li class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>Basic analytics</strong> - View page views and applicant counts</span>
-                            </li>
-                            <li class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>Standard support</strong> - Email support during business hours</span>
-                            </li>
-                            <li class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span><strong>Unlimited applicants</strong> - Receive unlimited applications</span>
-                            </li>
-                        </ul>
-
-                        <div class="best-for">
-                            <div class="best-for-title">Best For:</div>
-                            <div class="best-for-text">
-                                Small businesses, startups, one-time hires, seasonal positions, and project-based work.
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card-footer">
-                        <a href="post-job.html?type=standard" class="select-btn btn-standard">
-                            <i class="fas fa-briefcase"></i> Choose Standard Posting
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Premium Job Posting Card -->
-                <div class="job-type-card">
-                    <div class="card-header">
-                        <div class="card-badge badge-premium">Premium</div>
-                        <h3 class="card-title">Premium Job Posting</h3>
-                        <p class="card-subtitle">For businesses with ongoing hiring needs</p>
-                        <div class="card-price">₵300</div>
-                        <p class="price-note">One-time payment • 5 months active</p>
-                    </div>
-                    
-                    <div class="card-body">
-                        <ul class="features-list">
-                            <li class="feature-item premium">
-                                <i class="fas fa-crown"></i>
-                                <span><strong>5-month visibility</strong> - Job stays active for 5 months</span>
-                            </li>
-                            <li class="feature-item premium">
-                                <i class="fas fa-crown"></i>
-                                <span><strong>Priority placement</strong> - Job appears higher in search results</span>
-                            </li>
-                            <li class="feature-item premium">
-                                <i class="fas fa-crown"></i>
-                                <span><strong>Advanced analytics</strong> - Detailed insights and applicant tracking</span>
-                            </li>
-                            <li class="feature-item premium">
-                                <i class="fas fa-crown"></i>
-                                <span><strong>Dedicated support</strong> - Priority phone and email support</span>
-                            </li>
-                            <li class="feature-item premium">
-                                <i class="fas fa-crown"></i>
-                                <span><strong>Featured badge</strong> - Stand out with "Featured Employer" badge</span>
-                            </li>
-                        </ul>
-
-                        <div class="best-for">
-                            <div class="best-for-title">Best For:</div>
-                            <div class="best-for-text">
-                                Medium to large businesses, companies with ongoing hiring needs, positions that are hard to fill, and employers building talent pipelines.
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card-footer">
-                        <a href="post-job.html?type=premium" class="select-btn btn-premium">
-                            <i class="fas fa-crown"></i> Choose Premium Posting
-                        </a>
-                    </div>
-                </div>
-            </div>
+      <div class="container">
+        <div class="page-title">
+          <h2>Choose Your Job Posting Type</h2>
+          <p>Select the job posting option that best fits your hiring needs</p>
         </div>
+
+        <div class="job-types-container">
+          <!-- Standard Job Posting Card -->
+          <div class="job-type-card">
+            <div class="card-header">
+              <div class="card-badge badge-standard">Standard</div>
+              <h3 class="card-title">Standard Job Posting</h3>
+              <p class="card-subtitle">Perfect for one-time hiring needs</p>
+              <div class="card-price">₵100</div>
+              <p class="price-note">One-time payment • 30 days active</p>
+            </div>
+
+            <div class="card-body">
+              <ul class="features-list">
+                <li class="feature-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span
+                    ><strong>30-day visibility</strong> - Job stays active for
+                    30 days</span
+                  >
+                </li>
+                <li class="feature-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span
+                    ><strong>Applicant management</strong> - View and manage all
+                    applicants</span
+                  >
+                </li>
+                <li class="feature-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span
+                    ><strong>Basic analytics</strong> - View page views and
+                    applicant counts</span
+                  >
+                </li>
+                <li class="feature-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span
+                    ><strong>Standard support</strong> - Email support during
+                    business hours</span
+                  >
+                </li>
+                <li class="feature-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span
+                    ><strong>Unlimited applicants</strong> - Receive unlimited
+                    applications</span
+                  >
+                </li>
+              </ul>
+
+              <div class="best-for">
+                <div class="best-for-title">Best For:</div>
+                <div class="best-for-text">
+                  Small businesses, startups, one-time hires, seasonal
+                  positions, and project-based work.
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <a
+                href="post-job.html?type=standard"
+                class="select-btn btn-standard"
+              >
+                <i class="fas fa-briefcase"></i> Choose Standard Posting
+              </a>
+            </div>
+          </div>
+
+          <!-- Premium Job Posting Card -->
+          <div class="job-type-card">
+            <div class="card-header">
+              <div class="card-badge badge-premium">Premium</div>
+              <h3 class="card-title">Premium Job Posting</h3>
+              <p class="card-subtitle">
+                For businesses with ongoing hiring needs
+              </p>
+              <div class="card-price">₵300</div>
+              <p class="price-note">One-time payment • 5 months active</p>
+            </div>
+
+            <div class="card-body">
+              <ul class="features-list">
+                <li class="feature-item premium">
+                  <i class="fas fa-crown"></i>
+                  <span
+                    ><strong>5-month visibility</strong> - Job stays active for
+                    5 months</span
+                  >
+                </li>
+                <li class="feature-item premium">
+                  <i class="fas fa-crown"></i>
+                  <span
+                    ><strong>Priority placement</strong> - Job appears higher in
+                    search results</span
+                  >
+                </li>
+                <li class="feature-item premium">
+                  <i class="fas fa-crown"></i>
+                  <span
+                    ><strong>Advanced analytics</strong> - Detailed insights and
+                    applicant tracking</span
+                  >
+                </li>
+                <li class="feature-item premium">
+                  <i class="fas fa-crown"></i>
+                  <span
+                    ><strong>Dedicated support</strong> - Priority phone and
+                    email support</span
+                  >
+                </li>
+                <li class="feature-item premium">
+                  <i class="fas fa-crown"></i>
+                  <span
+                    ><strong>Featured badge</strong> - Stand out with "Featured
+                    Employer" badge</span
+                  >
+                </li>
+              </ul>
+
+              <div class="best-for">
+                <div class="best-for-title">Best For:</div>
+                <div class="best-for-text">
+                  Medium to large businesses, companies with ongoing hiring
+                  needs, positions that are hard to fill, and employers building
+                  talent pipelines.
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <a
+                href="post-job.html?type=premium"
+                class="select-btn btn-premium"
+              >
+                <i class="fas fa-crown"></i> Choose Premium Posting
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <script>
-        // Simple animation for card selection
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.job-type-card');
-            
-            cards.forEach(card => {
-                card.addEventListener('click', function(e) {
-                    // Only animate if not clicking the select button
-                    if (!e.target.closest('.select-btn')) {
-                        cards.forEach(c => c.classList.remove('selected'));
-                        this.classList.add('selected');
-                        
-                        // Add a subtle pulse animation
-                        this.style.animation = 'pulse 0.3s ease';
-                        setTimeout(() => {
-                            this.style.animation = '';
-                        }, 300);
-                    }
-                });
-            });
+      // Simple animation for card selection
+      document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll(".job-type-card");
 
-            // Add some CSS for the pulse animation
-            const style = document.createElement('style');
-            style.textContent = `
+        cards.forEach((card) => {
+          card.addEventListener("click", function (e) {
+            // Only animate if not clicking the select button
+            if (!e.target.closest(".select-btn")) {
+              cards.forEach((c) => c.classList.remove("selected"));
+              this.classList.add("selected");
+
+              // Add a subtle pulse animation
+              this.style.animation = "pulse 0.3s ease";
+              setTimeout(() => {
+                this.style.animation = "";
+              }, 300);
+            }
+          });
+        });
+
+        // Add some CSS for the pulse animation
+        const style = document.createElement("style");
+        style.textContent = `
                 @keyframes pulse {
                     0% { transform: scale(1); }
                     50% { transform: scale(1.02); }
@@ -568,8 +618,8 @@
                     box-shadow: 0 10px 30px rgba(248, 193, 46, 0.2);
                 }
             `;
-            document.head.appendChild(style);
-        });
+        document.head.appendChild(style);
+      });
     </script>
-</body>
+  </body>
 </html>

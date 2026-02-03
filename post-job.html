@@ -1,2033 +1,2263 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Post a Job | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
 
-        :root {
-            --primary: #0a2a66;
-            --primary-dark: #071e4d;
-            --primary-light: #1e3a8a;
-            --secondary: #f8c12e;
-            --secondary-dark: #e6af1a;
-            --danger: #ef4444;
-            --danger-dark: #dc2626;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gray: #64748b;
-            --gray-light: #e2e8f0;
-            --white: #ffffff;
-            --sidebar-width: 250px;
-            --sidebar-collapsed: 70px;
-            --navbar-height: 70px;
-            --transition: all 0.2s ease;
-        }
+      :root {
+        --primary: #0a2a66;
+        --primary-dark: #071e4d;
+        --primary-light: #1e3a8a;
+        --secondary: #f8c12e;
+        --secondary-dark: #e6af1a;
+        --danger: #ef4444;
+        --danger-dark: #dc2626;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --light: #f8fafc;
+        --dark: #1e293b;
+        --gray: #64748b;
+        --gray-light: #e2e8f0;
+        --white: #ffffff;
+        --sidebar-width: 250px;
+        --sidebar-collapsed: 70px;
+        --navbar-height: 70px;
+        --transition: all 0.2s ease;
+      }
 
-        body {
-            background-color: #f1f5f9;
-            color: var(--dark);
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
-            line-height: 1.4;
-        }
+      body {
+        background-color: #f1f5f9;
+        color: var(--dark);
+        display: flex;
+        min-height: 100vh;
+        overflow-x: hidden;
+        line-height: 1.4;
+      }
 
-        /* Sidebar Styles */
+      /* Sidebar Styles */
+      .sidebar {
+        width: var(--sidebar-width);
+        background: linear-gradient(
+          180deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        height: 100vh;
+        position: fixed;
+        transition: var(--transition);
+        z-index: 100;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .sidebar.collapsed {
+        width: var(--sidebar-collapsed);
+        overflow-y: hidden;
+      }
+
+      .sidebar-header {
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        height: var(--navbar-height);
+        min-height: var(--navbar-height);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo-img-placeholder {
+        width: 40px;
+        height: 40px;
+        background-color: var(--secondary);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+      }
+
+      .logo-main {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      .logo-sub {
+        font-size: 0.7rem;
+        font-weight: 500;
+        opacity: 0.8;
+        color: white;
+      }
+
+      .toggle-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+      }
+
+      .toggle-btn:hover {
+        transform: scale(1.1);
+        color: var(--secondary);
+      }
+
+      .sidebar-menu {
+        padding: 15px 0;
+        list-style: none;
+      }
+
+      .sidebar-menu li {
+        margin-bottom: 3px;
+      }
+
+      .sidebar-menu a {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+
+      .sidebar-menu a:hover,
+      .sidebar-menu a.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-left: 4px solid var(--secondary);
+      }
+
+      .sidebar-menu i {
+        margin-right: 15px;
+        font-size: 1rem;
+        width: 20px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .sidebar.collapsed .menu-text {
+        display: none;
+      }
+
+      .sidebar.collapsed .sidebar-header {
+        justify-content: center;
+        padding: 15px 5px;
+      }
+
+      .sidebar.collapsed .logo-text {
+        display: none;
+      }
+
+      .sidebar.collapsed .logo {
+        justify-content: center;
+      }
+
+      /* Main Content Area */
+      .main-content {
+        flex: 1;
+        margin-left: var(--sidebar-width);
+        transition: var(--transition);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - var(--sidebar-width));
+      }
+
+      .main-content.expanded {
+        margin-left: var(--sidebar-collapsed);
+        width: calc(100% - var(--sidebar-collapsed));
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        height: var(--navbar-height);
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        position: sticky;
+        top: 0;
+        z-index: 99;
+        flex-shrink: 0;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.1rem;
+        color: var(--primary);
+        cursor: pointer;
+      }
+
+      .page-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--dark);
+      }
+
+      .navbar-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .notification-icon {
+        position: relative;
+        cursor: pointer;
+        font-size: 1.1rem;
+        color: var(--gray);
+        transition: var(--transition);
+      }
+
+      .notification-icon:hover {
+        color: var(--primary);
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: var(--danger);
+        color: white;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        font-size: 0.7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Notification Dropdown */
+      .notification-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 300px;
+        max-height: 350px;
+        overflow-y: auto;
+        display: none;
+        z-index: 101;
+      }
+
+      .notification-dropdown.show {
+        display: block;
+      }
+
+      .notification-header {
+        padding: 12px 15px;
+        border-bottom: 1px solid var(--gray-light);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .notification-title {
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 0.95rem;
+      }
+
+      .mark-all-read {
+        background: none;
+        border: none;
+        color: var(--primary);
+        cursor: pointer;
+        font-size: 0.8rem;
+      }
+
+      .notification-list {
+        list-style: none;
+      }
+
+      .notification-item {
+        padding: 10px 15px;
+        border-bottom: 1px solid var(--gray-light);
+        transition: var(--transition);
+      }
+
+      .notification-item:hover {
+        background-color: rgba(248, 193, 46, 0.1);
+      }
+
+      .notification-item.unread {
+        background-color: rgba(10, 42, 102, 0.05);
+      }
+
+      .notification-item:last-child {
+        border-bottom: none;
+      }
+
+      .notification-content {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+      }
+
+      .notification-time {
+        font-size: 0.7rem;
+        color: var(--gray);
+      }
+
+      .notification-empty {
+        padding: 20px;
+        text-align: center;
+        color: var(--gray);
+        font-size: 0.9rem;
+      }
+
+      .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 50px;
+        transition: var(--transition);
+      }
+
+      .user-profile:hover {
+        background-color: var(--gray-light);
+      }
+
+      .user-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .user-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .user-name {
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 180px;
+        padding: 8px 0;
+        display: none;
+        z-index: 101;
+      }
+
+      .dropdown-menu.show {
+        display: block;
+      }
+
+      .dropdown-menu a {
+        display: block;
+        padding: 8px 16px;
+        text-decoration: none;
+        color: var(--dark);
+        transition: var(--transition);
+        font-size: 0.85rem;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: var(--gray-light);
+        color: var(--primary);
+      }
+
+      /* Page Content */
+      .page-content {
+        padding: 20px;
+        flex: 1;
+      }
+
+      .page-header {
+        margin-bottom: 15px;
+        padding: 0 5px;
+      }
+
+      .page-title-large {
+        font-size: 1.4rem;
+        margin-bottom: 4px;
+        color: var(--primary);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .page-subtitle {
+        color: var(--gray);
+        font-size: 0.9rem;
+      }
+
+      /* Job Type Badge */
+      .job-type-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-left: 10px;
+      }
+
+      .badge-standard {
+        background-color: rgba(16, 185, 129, 0.15);
+        color: var(--success);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .badge-premium {
+        background-color: rgba(248, 193, 46, 0.15);
+        color: var(--primary);
+        border: 1px solid rgba(248, 193, 46, 0.3);
+      }
+
+      /* Form Styles */
+      .form-container {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        border-top: 3px solid var(--secondary);
+      }
+
+      .form-section {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--gray-light);
+      }
+
+      .form-section:last-of-type {
+        border-bottom: none;
+      }
+
+      .section-title {
+        font-size: 1rem;
+        margin-bottom: 15px;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+      }
+
+      .section-title i {
+        color: var(--secondary);
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
+        color: var(--dark);
+        font-size: 0.9rem;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--gray-light);
+        border-radius: 5px;
+        font-size: 0.9rem;
+        transition: var(--transition);
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(10, 42, 102, 0.1);
+      }
+
+      textarea.form-control {
+        min-height: 100px;
+        resize: vertical;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      .form-row {
+        display: flex;
+        gap: 12px;
+      }
+
+      .form-row .form-group {
+        flex: 1;
+      }
+
+      .form-hint {
+        font-size: 0.75rem;
+        color: var(--gray);
+        margin-top: 4px;
+      }
+
+      .payment-notice {
+        background-color: rgba(248, 193, 46, 0.1);
+        border-left: 4px solid var(--secondary);
+        padding: 12px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+      }
+
+      .payment-notice h4 {
+        color: var(--primary);
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .payment-notice p {
+        color: var(--dark);
+        font-size: 0.85rem;
+        line-height: 1.4;
+      }
+
+      /* Premium Feature Notice */
+      .premium-feature-notice {
+        background-color: rgba(248, 193, 46, 0.1);
+        border: 1px solid rgba(248, 193, 46, 0.3);
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 15px;
+        font-size: 0.85rem;
+      }
+
+      .premium-feature-notice i {
+        color: var(--primary);
+        margin-right: 8px;
+      }
+
+      /* Required asterisk */
+      .required-asterisk {
+        color: var(--danger);
+        margin-left: 2px;
+      }
+
+      /* Premium deadline info */
+      .premium-deadline-info {
+        background-color: rgba(16, 185, 129, 0.05);
+        border-left: 3px solid var(--success);
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        color: var(--gray);
+      }
+
+      /* Optional field label */
+      .optional-label {
+        color: var(--gray);
+        font-weight: normal;
+      }
+
+      /* Button Styles */
+      .btn {
+        padding: 8px 16px;
+        border-radius: 5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        border: none;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 1px solid var(--gray-light);
+        color: var(--dark);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--gray-light);
+      }
+
+      .btn-accent {
+        background-color: var(--secondary);
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .btn-accent:hover {
+        background-color: var(--secondary-dark);
+      }
+
+      .btn-logout {
+        background-color: var(--danger);
+        color: white;
+      }
+
+      .btn-logout:hover {
+        background-color: var(--danger-dark);
+      }
+
+      .form-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+
+      /* Loading spinner */
+      .loading-spinner {
+        display: none;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--primary);
+        animation: spin 1s ease-in-out infinite;
+        margin-right: 8px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loading-spinner.active {
+        display: inline-block;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      .modal-content {
+        background-color: white;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 400px;
+        padding: 18px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        border-top: 5px solid var(--secondary);
+      }
+
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .modal-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .close-modal {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: var(--gray);
+      }
+
+      .modal-body {
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+        color: var(--dark);
+      }
+
+      .modal-footer {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+      }
+
+      /* Mobile Overlay */
+      .mobile-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+      }
+
+      .mobile-overlay.show {
+        display: block;
+      }
+
+      /* Loading overlay */
+      .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.95);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        z-index: 100;
+      }
+
+      .loading-overlay.active {
+        display: flex;
+      }
+
+      .loading-content {
+        text-align: center;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 5px 20px rgba(7, 22, 50, 0.1);
+        max-width: 300px;
+        width: 90%;
+      }
+
+      /* Error message styling */
+      .error-message {
+        background-color: rgba(239, 68, 68, 0.1);
+        border: 1px solid var(--danger);
+        color: var(--danger);
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        font-size: 0.85rem;
+        display: none;
+      }
+
+      .error-message.show {
+        display: block;
+      }
+
+      /* Read-only input for premium deadline */
+      .form-control[readonly] {
+        background-color: var(--light);
+        cursor: not-allowed;
+        color: var(--gray);
+      }
+
+      /* ====================== */
+      /* MOBILE OPTIMIZATIONS */
+      /* ====================== */
+
+      /* Tablet (992px and below) */
+      @media (max-width: 992px) {
         .sidebar {
-            width: var(--sidebar-width);
-            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-            color: white;
-            height: 100vh;
-            position: fixed;
-            transition: var(--transition);
-            z-index: 100;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-            overflow-x: hidden;
+          transform: translateX(-100%);
+          width: 250px;
         }
 
-        .sidebar.collapsed {
-            width: var(--sidebar-collapsed);
-            overflow-y: hidden;
+        .sidebar.mobile-open {
+          transform: translateX(0);
         }
 
-        .sidebar-header {
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            height: var(--navbar-height);
-            min-height: var(--navbar-height);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-img-placeholder {
-            width: 40px;
-            height: 40px;
-            background-color: var(--secondary);
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
-
-        .logo-main {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: white;
-        }
-
-        .logo-sub {
-            font-size: 0.7rem;
-            font-weight: 500;
-            opacity: 0.8;
-            color: white;
-        }
-
-        .toggle-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-        }
-
-        .toggle-btn:hover {
-            transform: scale(1.1);
-            color: var(--secondary);
-        }
-
-        .sidebar-menu {
-            padding: 15px 0;
-            list-style: none;
-        }
-
-        .sidebar-menu li {
-            margin-bottom: 3px;
-        }
-
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-left: 4px solid var(--secondary);
-        }
-
-        .sidebar-menu i {
-            margin-right: 15px;
-            font-size: 1rem;
-            width: 20px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        .sidebar.collapsed .menu-text {
-            display: none;
-        }
-
-        .sidebar.collapsed .sidebar-header {
-            justify-content: center;
-            padding: 15px 5px;
-        }
-
-        .sidebar.collapsed .logo-text {
-            display: none;
-        }
-
-        .sidebar.collapsed .logo {
-            justify-content: center;
-        }
-
-        /* Main Content Area */
         .main-content {
-            flex: 1;
-            margin-left: var(--sidebar-width);
-            transition: var(--transition);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            width: calc(100% - var(--sidebar-width));
+          margin-left: 0;
+          width: 100%;
         }
 
         .main-content.expanded {
-            margin-left: var(--sidebar-collapsed);
-            width: calc(100% - var(--sidebar-collapsed));
-        }
-
-        /* Navbar Styles */
-        .navbar {
-            height: var(--navbar-height);
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            position: sticky;
-            top: 0;
-            z-index: 99;
-            flex-shrink: 0;
+          margin-left: 0;
+          width: 100%;
         }
 
         .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.1rem;
-            color: var(--primary);
-            cursor: pointer;
+          display: block;
+        }
+
+        .notification-dropdown {
+          right: 15px;
+          width: 280px;
+        }
+      }
+
+      /* Mobile (768px and below) */
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 0 15px;
+          height: 60px;
         }
 
         .page-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--dark);
+          font-size: 1.1rem;
         }
 
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .logo-main {
+          font-size: 1rem;
         }
 
-        .notification-icon {
-            position: relative;
-            cursor: pointer;
-            font-size: 1.1rem;
-            color: var(--gray);
-            transition: var(--transition);
-        }
-
-        .notification-icon:hover {
-            color: var(--primary);
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: var(--danger);
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Notification Dropdown */
-        .notification-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 20px;
-            background-color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 300px;
-            max-height: 350px;
-            overflow-y: auto;
-            display: none;
-            z-index: 101;
-        }
-
-        .notification-dropdown.show {
-            display: block;
-        }
-
-        .notification-header {
-            padding: 12px 15px;
-            border-bottom: 1px solid var(--gray-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .notification-title {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 0.95rem;
-        }
-
-        .mark-all-read {
-            background: none;
-            border: none;
-            color: var(--primary);
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .notification-list {
-            list-style: none;
-        }
-
-        .notification-item {
-            padding: 10px 15px;
-            border-bottom: 1px solid var(--gray-light);
-            transition: var(--transition);
-        }
-
-        .notification-item:hover {
-            background-color: rgba(248, 193, 46, 0.1);
-        }
-
-        .notification-item.unread {
-            background-color: rgba(10, 42, 102, 0.05);
-        }
-
-        .notification-item:last-child {
-            border-bottom: none;
-        }
-
-        .notification-content {
-            font-size: 0.85rem;
-            margin-bottom: 4px;
-        }
-
-        .notification-time {
-            font-size: 0.7rem;
-            color: var(--gray);
-        }
-
-        .notification-empty {
-            padding: 20px;
-            text-align: center;
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 50px;
-            transition: var(--transition);
-        }
-
-        .user-profile:hover {
-            background-color: var(--gray-light);
-        }
-
-        .user-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background-color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .logo-img-placeholder {
+          width: 35px;
+          height: 35px;
+          font-size: 1rem;
         }
 
         .user-name {
-            font-weight: 500;
-            font-size: 0.9rem;
+          display: none;
+        }
+
+        .notification-icon {
+          font-size: 1rem;
+        }
+
+        .user-avatar {
+          width: 35px;
+          height: 35px;
         }
 
         .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: 20px;
-            background-color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 180px;
-            padding: 8px 0;
-            display: none;
-            z-index: 101;
+          right: 15px;
+          width: 160px;
         }
 
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-menu a {
-            display: block;
-            padding: 8px 16px;
-            text-decoration: none;
-            color: var(--dark);
-            transition: var(--transition);
-            font-size: 0.85rem;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: var(--gray-light);
-            color: var(--primary);
-        }
-
-        /* Page Content */
         .page-content {
-            padding: 20px;
-            flex: 1;
+          padding: 15px;
         }
 
         .page-header {
-            margin-bottom: 15px;
-            padding: 0 5px;
+          margin-bottom: 12px;
         }
 
         .page-title-large {
-            font-size: 1.4rem;
-            margin-bottom: 4px;
-            color: var(--primary);
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+          font-size: 1.2rem;
+          margin-bottom: 3px;
         }
 
         .page-subtitle {
-            color: var(--gray);
-            font-size: 0.9rem;
+          font-size: 0.85rem;
         }
 
-        /* Job Type Badge */
-        .job-type-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            margin-left: 10px;
-        }
-
-        .badge-standard {
-            background-color: rgba(16, 185, 129, 0.15);
-            color: var(--success);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .badge-premium {
-            background-color: rgba(248, 193, 46, 0.15);
-            color: var(--primary);
-            border: 1px solid rgba(248, 193, 46, 0.3);
-        }
-
-        /* Form Styles */
         .form-container {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            border-top: 3px solid var(--secondary);
-        }
-
-        .form-section {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--gray-light);
-        }
-
-        .form-section:last-of-type {
-            border-bottom: none;
+          padding: 16px;
         }
 
         .section-title {
-            font-size: 1rem;
-            margin-bottom: 15px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 700;
-        }
-
-        .section-title i {
-            color: var(--secondary);
+          font-size: 0.95rem;
+          margin-bottom: 12px;
         }
 
         .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 500;
-            color: var(--dark);
-            font-size: 0.9rem;
+          margin-bottom: 12px;
         }
 
         .form-control {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--gray-light);
-            border-radius: 5px;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(10, 42, 102, 0.1);
+          padding: 9px 11px;
+          font-size: 0.85rem;
         }
 
         textarea.form-control {
-            min-height: 100px;
-            resize: vertical;
-            font-size: 0.9rem;
-            line-height: 1.4;
+          min-height: 80px;
         }
 
         .form-row {
-            display: flex;
-            gap: 12px;
-        }
-
-        .form-row .form-group {
-            flex: 1;
-        }
-
-        .form-hint {
-            font-size: 0.75rem;
-            color: var(--gray);
-            margin-top: 4px;
+          flex-direction: column;
+          gap: 0;
         }
 
         .payment-notice {
-            background-color: rgba(248, 193, 46, 0.1);
-            border-left: 4px solid var(--secondary);
-            padding: 12px;
-            border-radius: 5px;
-            margin-bottom: 15px;
+          padding: 10px;
         }
 
         .payment-notice h4 {
-            color: var(--primary);
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+          font-size: 0.85rem;
         }
 
         .payment-notice p {
-            color: var(--dark);
-            font-size: 0.85rem;
-            line-height: 1.4;
+          font-size: 0.8rem;
         }
 
-        /* Premium Feature Notice */
         .premium-feature-notice {
-            background-color: rgba(248, 193, 46, 0.1);
-            border: 1px solid rgba(248, 193, 46, 0.3);
-            border-radius: 6px;
-            padding: 12px;
-            margin-bottom: 15px;
-            font-size: 0.85rem;
-        }
-        
-        .premium-feature-notice i {
-            color: var(--primary);
-            margin-right: 8px;
-        }
-
-        /* Required asterisk */
-        .required-asterisk {
-            color: var(--danger);
-            margin-left: 2px;
-        }
-
-        /* Premium deadline info */
-        .premium-deadline-info {
-            background-color: rgba(16, 185, 129, 0.05);
-            border-left: 3px solid var(--success);
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            color: var(--gray);
-        }
-
-        /* Optional field label */
-        .optional-label {
-            color: var(--gray);
-            font-weight: normal;
-        }
-
-        /* Button Styles */
-        .btn {
-            padding: 8px 16px;
-            border-radius: 5px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            font-size: 0.85rem;
-            white-space: nowrap;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--gray-light);
-            color: var(--dark);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--gray-light);
-        }
-
-        .btn-accent {
-            background-color: var(--secondary);
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .btn-accent:hover {
-            background-color: var(--secondary-dark);
-        }
-
-        .btn-logout {
-            background-color: var(--danger);
-            color: white;
-        }
-
-        .btn-logout:hover {
-            background-color: var(--danger-dark);
+          padding: 10px;
+          font-size: 0.8rem;
         }
 
         .form-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 20px;
-            flex-wrap: wrap;
+          flex-direction: column;
         }
 
-        /* Loading spinner */
-        .loading-spinner {
-            display: none;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 8px;
+        .form-actions .btn {
+          width: 100%;
+          text-align: center;
+          justify-content: center;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .loading-spinner.active {
-            display: inline-block;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-        }
-
-        .modal.show {
-            display: flex;
+        .notification-dropdown {
+          right: 10px;
+          width: 260px;
         }
 
         .modal-content {
-            background-color: white;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 400px;
-            padding: 18px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            border-top: 5px solid var(--secondary);
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
+          padding: 16px;
+          max-width: 350px;
         }
 
         .modal-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            color: var(--gray);
+          font-size: 1rem;
         }
 
         .modal-body {
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-            color: var(--dark);
+          font-size: 0.85rem;
         }
 
         .modal-footer {
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
-            flex-wrap: wrap;
+          flex-direction: column;
         }
 
-        /* Mobile Overlay */
-        .mobile-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 99;
+        .modal-footer .btn {
+          width: 100%;
+          text-align: center;
+          justify-content: center;
+        }
+      }
+
+      /* Small Mobile (576px and below) */
+      @media (max-width: 576px) {
+        .navbar {
+          padding: 0 12px;
         }
 
-        .mobile-overlay.show {
-            display: block;
+        .mobile-menu-btn {
+          font-size: 1rem;
         }
 
-        /* Loading overlay */
-        .loading-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(255, 255, 255, 0.95);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            border-radius: 8px;
-            z-index: 100;
+        .page-title {
+          font-size: 1rem;
         }
 
-        .loading-overlay.active {
-            display: flex;
+        .page-content {
+          padding: 12px;
         }
 
-        .loading-content {
-            text-align: center;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 5px 20px rgba(7, 22, 50, 0.1);
-            max-width: 300px;
-            width: 90%;
+        .page-title-large {
+          font-size: 1.1rem;
         }
 
-        /* Error message styling */
-        .error-message {
-            background-color: rgba(239, 68, 68, 0.1);
-            border: 1px solid var(--danger);
-            color: var(--danger);
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            font-size: 0.85rem;
-            display: none;
+        .page-subtitle {
+          font-size: 0.8rem;
         }
 
-        .error-message.show {
-            display: block;
+        .form-container {
+          padding: 14px;
         }
 
-        /* Read-only input for premium deadline */
-        .form-control[readonly] {
-            background-color: var(--light);
-            cursor: not-allowed;
-            color: var(--gray);
+        .section-title {
+          font-size: 0.9rem;
         }
 
-        /* ====================== */
-        /* MOBILE OPTIMIZATIONS */
-        /* ====================== */
-
-        /* Tablet (992px and below) */
-        @media (max-width: 992px) {
-            .sidebar {
-                transform: translateX(-100%);
-                width: 250px;
-            }
-
-            .sidebar.mobile-open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-                width: 100%;
-            }
-
-            .main-content.expanded {
-                margin-left: 0;
-                width: 100%;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .notification-dropdown {
-                right: 15px;
-                width: 280px;
-            }
+        .form-group label {
+          font-size: 0.85rem;
+          margin-bottom: 5px;
         }
 
-        /* Mobile (768px and below) */
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 0 15px;
-                height: 60px;
-            }
-            
-            .page-title {
-                font-size: 1.1rem;
-            }
-            
-            .logo-main {
-                font-size: 1rem;
-            }
-            
-            .logo-img-placeholder {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
-            }
-            
-            .user-name {
-                display: none;
-            }
-            
-            .notification-icon {
-                font-size: 1rem;
-            }
-            
-            .user-avatar {
-                width: 35px;
-                height: 35px;
-            }
-            
-            .dropdown-menu {
-                right: 15px;
-                width: 160px;
-            }
-            
-            .page-content {
-                padding: 15px;
-            }
-            
-            .page-header {
-                margin-bottom: 12px;
-            }
-            
-            .page-title-large {
-                font-size: 1.2rem;
-                margin-bottom: 3px;
-            }
-            
-            .page-subtitle {
-                font-size: 0.85rem;
-            }
-            
-            .form-container {
-                padding: 16px;
-            }
-            
-            .section-title {
-                font-size: 0.95rem;
-                margin-bottom: 12px;
-            }
-            
-            .form-group {
-                margin-bottom: 12px;
-            }
-            
-            .form-control {
-                padding: 9px 11px;
-                font-size: 0.85rem;
-            }
-            
-            textarea.form-control {
-                min-height: 80px;
-            }
-            
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-            
-            .payment-notice {
-                padding: 10px;
-            }
-            
-            .payment-notice h4 {
-                font-size: 0.85rem;
-            }
-            
-            .payment-notice p {
-                font-size: 0.8rem;
-            }
-            
-            .premium-feature-notice {
-                padding: 10px;
-                font-size: 0.8rem;
-            }
-            
-            .form-actions {
-                flex-direction: column;
-            }
-            
-            .form-actions .btn {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-            }
-            
-            .notification-dropdown {
-                right: 10px;
-                width: 260px;
-            }
-            
-            .modal-content {
-                padding: 16px;
-                max-width: 350px;
-            }
-            
-            .modal-title {
-                font-size: 1rem;
-            }
-            
-            .modal-body {
-                font-size: 0.85rem;
-            }
-            
-            .modal-footer {
-                flex-direction: column;
-            }
-            
-            .modal-footer .btn {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-            }
+        .form-control {
+          padding: 8px 10px;
+          font-size: 0.8rem;
         }
 
-        /* Small Mobile (576px and below) */
-        @media (max-width: 576px) {
-            .navbar {
-                padding: 0 12px;
-            }
-            
-            .mobile-menu-btn {
-                font-size: 1rem;
-            }
-            
-            .page-title {
-                font-size: 1rem;
-            }
-            
-            .page-content {
-                padding: 12px;
-            }
-            
-            .page-title-large {
-                font-size: 1.1rem;
-            }
-            
-            .page-subtitle {
-                font-size: 0.8rem;
-            }
-            
-            .form-container {
-                padding: 14px;
-            }
-            
-            .section-title {
-                font-size: 0.9rem;
-            }
-            
-            .form-group label {
-                font-size: 0.85rem;
-                margin-bottom: 5px;
-            }
-            
-            .form-control {
-                padding: 8px 10px;
-                font-size: 0.8rem;
-            }
-            
-            textarea.form-control {
-                min-height: 70px;
-            }
-            
-            .form-hint {
-                font-size: 0.7rem;
-            }
-            
-            .payment-notice {
-                padding: 8px;
-            }
-            
-            .premium-feature-notice {
-                padding: 8px;
-                font-size: 0.75rem;
-            }
-            
-            .btn {
-                padding: 7px 12px;
-                font-size: 0.8rem;
-            }
-            
-            .notification-dropdown {
-                width: 240px;
-                right: 8px;
-            }
+        textarea.form-control {
+          min-height: 70px;
         }
 
-        /* Extra Small Mobile (480px and below) */
-        @media (max-width: 480px) {
-            .navbar {
-                padding: 0 10px;
-                height: 55px;
-            }
-            
-            .logo-img-placeholder {
-                width: 30px;
-                height: 30px;
-                font-size: 0.9rem;
-            }
-            
-            .mobile-menu-btn {
-                font-size: 0.9rem;
-            }
-            
-            .page-title {
-                font-size: 0.9rem;
-            }
-            
-            .notification-icon {
-                font-size: 0.9rem;
-            }
-            
-            .notification-badge {
-                width: 16px;
-                height: 16px;
-                font-size: 0.65rem;
-            }
-            
-            .user-avatar {
-                width: 32px;
-                height: 32px;
-            }
-            
-            .page-content {
-                padding: 10px;
-            }
-            
-            .page-title-large {
-                font-size: 1rem;
-                gap: 6px;
-            }
-            
-            .page-subtitle {
-                font-size: 0.75rem;
-            }
-            
-            .form-container {
-                padding: 12px;
-            }
-            
-            .section-title {
-                font-size: 0.85rem;
-                gap: 6px;
-            }
-            
-            .dropdown-menu {
-                width: 140px;
-                padding: 6px 0;
-                right: 10px;
-            }
-            
-            .dropdown-menu a {
-                padding: 6px 12px;
-                font-size: 0.8rem;
-            }
-            
-            .modal-content {
-                padding: 14px;
-                max-width: 300px;
-            }
-            
-            .modal-title {
-                font-size: 0.95rem;
-            }
-            
-            .modal-body {
-                font-size: 0.8rem;
-            }
+        .form-hint {
+          font-size: 0.7rem;
         }
 
-        /* Very Small Mobile (360px and below) */
-        @media (max-width: 360px) {
-            .navbar {
-                padding: 0 8px;
-            }
-            
-            .logo-img-placeholder {
-                width: 28px;
-                height: 28px;
-                font-size: 0.8rem;
-            }
-            
-            .logo-main {
-                font-size: 0.9rem;
-            }
-            
-            .logo-sub {
-                font-size: 0.6rem;
-            }
-            
-            .page-content {
-                padding: 8px;
-            }
-            
-            .page-title-large {
-                font-size: 0.95rem;
-            }
-            
-            .form-container {
-                padding: 10px;
-            }
+        .payment-notice {
+          padding: 8px;
         }
+
+        .premium-feature-notice {
+          padding: 8px;
+          font-size: 0.75rem;
+        }
+
+        .btn {
+          padding: 7px 12px;
+          font-size: 0.8rem;
+        }
+
+        .notification-dropdown {
+          width: 240px;
+          right: 8px;
+        }
+      }
+
+      /* Extra Small Mobile (480px and below) */
+      @media (max-width: 480px) {
+        .navbar {
+          padding: 0 10px;
+          height: 55px;
+        }
+
+        .logo-img-placeholder {
+          width: 30px;
+          height: 30px;
+          font-size: 0.9rem;
+        }
+
+        .mobile-menu-btn {
+          font-size: 0.9rem;
+        }
+
+        .page-title {
+          font-size: 0.9rem;
+        }
+
+        .notification-icon {
+          font-size: 0.9rem;
+        }
+
+        .notification-badge {
+          width: 16px;
+          height: 16px;
+          font-size: 0.65rem;
+        }
+
+        .user-avatar {
+          width: 32px;
+          height: 32px;
+        }
+
+        .page-content {
+          padding: 10px;
+        }
+
+        .page-title-large {
+          font-size: 1rem;
+          gap: 6px;
+        }
+
+        .page-subtitle {
+          font-size: 0.75rem;
+        }
+
+        .form-container {
+          padding: 12px;
+        }
+
+        .section-title {
+          font-size: 0.85rem;
+          gap: 6px;
+        }
+
+        .dropdown-menu {
+          width: 140px;
+          padding: 6px 0;
+          right: 10px;
+        }
+
+        .dropdown-menu a {
+          padding: 6px 12px;
+          font-size: 0.8rem;
+        }
+
+        .modal-content {
+          padding: 14px;
+          max-width: 300px;
+        }
+
+        .modal-title {
+          font-size: 0.95rem;
+        }
+
+        .modal-body {
+          font-size: 0.8rem;
+        }
+      }
+
+      /* Very Small Mobile (360px and below) */
+      @media (max-width: 360px) {
+        .navbar {
+          padding: 0 8px;
+        }
+
+        .logo-img-placeholder {
+          width: 28px;
+          height: 28px;
+          font-size: 0.8rem;
+        }
+
+        .logo-main {
+          font-size: 0.9rem;
+        }
+
+        .logo-sub {
+          font-size: 0.6rem;
+        }
+
+        .page-content {
+          padding: 8px;
+        }
+
+        .page-title-large {
+          font-size: 0.95rem;
+        }
+
+        .form-container {
+          padding: 10px;
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
     <!-- Logout Confirmation Modal -->
     <div class="modal" id="logoutModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Confirm Logout</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to log out?</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-logout" id="confirmLogout">Log Out</button>
-                <button class="btn btn-outline" id="cancelLogout">Cancel</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Confirm Logout</h3>
+          <button class="close-modal">&times;</button>
         </div>
+        <div class="modal-body">
+          <p>Are you sure you want to log out?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-logout" id="confirmLogout">Log Out</button>
+          <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+        </div>
+      </div>
     </div>
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
-                <div class="logo-img-placeholder">JA</div>
-                <div class="logo-text">
-                    <div class="logo-main">JobAssist</div>
-                    <div class="logo-sub">GHANA</div>
-                </div>
-            </div>
-            <button class="toggle-btn" id="sidebarToggle">
-                <i class="fas fa-chevron-left"></i>
-            </button>
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-img-placeholder">JA</div>
+          <div class="logo-text">
+            <div class="logo-main">JobAssist</div>
+            <div class="logo-sub">GHANA</div>
+          </div>
         </div>
-        <ul class="sidebar-menu">
-            <li><a href="employer-dashboard.html"><i class="fas fa-home"></i> <span class="menu-text">Dashboard</span></a></li>
-            <li><a href="job-type.html" class="active"><i class="fas fa-plus-circle"></i> <span class="menu-text">Post Job</span></a></li>
-            <li><a href="my-job-post.html"><i class="fas fa-briefcase"></i> <span class="menu-text">My Job Posts</span></a></li>
-            <li><a href="boost-job.html"><i class="fas fa-rocket"></i> <span class="menu-text">Boost Job</span></a></li>
-            <li><a href="employer-payment.html"><i class="fas fa-credit-card"></i> <span class="menu-text">Payments</span></a></li>
-            <li><a href="esettings.html"><i class="fas fa-user-cog"></i> <span class="menu-text">Profile / Settings</span></a></li>
-            <li><a href="#" id="sidebarLogout"><i class="fas fa-sign-out-alt"></i> <span class="menu-text">Logout</span></a></li>
-        </ul>
+        <button class="toggle-btn" id="sidebarToggle">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+      <ul class="sidebar-menu">
+        <li>
+          <a href="employer-dashboard.html"
+            ><i class="fas fa-home"></i>
+            <span class="menu-text">Dashboard</span></a
+          >
+        </li>
+        <li>
+          <a href="job-type.html" class="active"
+            ><i class="fas fa-plus-circle"></i>
+            <span class="menu-text">Post Job</span></a
+          >
+        </li>
+        <li>
+          <a href="my-job-post.html"
+            ><i class="fas fa-briefcase"></i>
+            <span class="menu-text">My Job Posts</span></a
+          >
+        </li>
+        <li>
+          <a href="boost-job.html"
+            ><i class="fas fa-rocket"></i>
+            <span class="menu-text">Boost Job</span></a
+          >
+        </li>
+        <li>
+          <a href="employer-payment.html"
+            ><i class="fas fa-credit-card"></i>
+            <span class="menu-text">Payments</span></a
+          >
+        </li>
+        <li>
+          <a href="esettings.html"
+            ><i class="fas fa-user-cog"></i>
+            <span class="menu-text">Profile / Settings</span></a
+          >
+        </li>
+        <li>
+          <a href="#" id="sidebarLogout"
+            ><i class="fas fa-sign-out-alt"></i>
+            <span class="menu-text">Logout</span></a
+          >
+        </li>
+      </ul>
     </aside>
 
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
-        <!-- Navbar -->
-        <nav class="navbar">
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="page-title">Post a Job</div>
-            <div class="navbar-right">
-                <div class="notification-icon" id="notificationIcon">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge">3</span>
-                </div>
-                <div class="notification-dropdown" id="notificationDropdown">
-                    <div class="notification-header">
-                        <h3 class="notification-title">Notifications</h3>
-                        <button class="mark-all-read">Mark all as read</button>
-                    </div>
-                    <ul class="notification-list">
-                        <li class="notification-item unread">
-                            <div class="notification-content">Your job post for Marketing Manager has received 5 applications</div>
-                            <div class="notification-time">2 hours ago</div>
-                        </li>
-                        <li class="notification-item unread">
-                            <div class="notification-content">Payment for your last job post was successful</div>
-                            <div class="notification-time">5 hours ago</div>
-                        </li>
-                        <li class="notification-item unread">
-                            <div class="notification-content">New candidate applied for your Frontend Developer position</div>
-                            <div class="notification-time">1 day ago</div>
-                        </li>
-                        <li class="notification-item">
-                            <div class="notification-content">Your job post will expire in 3 days</div>
-                            <div class="notification-time">2 days ago</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="user-profile" id="userProfile">
-                    <div class="user-avatar">
-                        <img src="https://i.pravatar.cc/150?img=5" alt="User">
-                    </div>
-                    <div class="user-name">Nana Kwame</div>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-menu">
-                    <a href="esettings.html"><i class="fas fa-user"></i> View Profile</a>
-                    <a href="employer-payment.html"><i class="fas fa-history"></i> Payment History</a>
-                    <a href="esettings.html"><i class="fas fa-cog"></i> Settings</a>
-                    <a href="#" id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </div>
+      <!-- Navbar -->
+      <nav class="navbar">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="page-title">Post a Job</div>
+        <div class="navbar-right">
+          <div class="notification-icon" id="notificationIcon">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </div>
+          <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notification-header">
+              <h3 class="notification-title">Notifications</h3>
+              <button class="mark-all-read">Mark all as read</button>
             </div>
-        </nav>
-
-        <!-- Page Content -->
-        <div class="page-content">
-            <div class="page-header">
-                <h1 class="page-title-large"><i class="fas fa-plus-circle"></i> Post a New Job 
-                    <span id="jobTypeBadge" class="job-type-badge badge-standard">Standard</span>
-                </h1>
-                <p class="page-subtitle">Fill in the details below to create your job listing</p>
-            </div>
-
-            <div class="payment-notice" id="paymentNotice">
-                <!-- This will be populated by JavaScript based on job type -->
-            </div>
-
-            <div class="form-container">
-                <!-- Loading Overlay -->
-                <div class="loading-overlay" id="loadingOverlay">
-                    <div class="loading-content">
-                        <div class="loading-spinner active"></div>
-                        <h3>Processing your job post...</h3>
-                        <p>Please wait while we save your job details</p>
-                    </div>
+            <ul class="notification-list">
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  Your job post for Marketing Manager has received 5
+                  applications
                 </div>
-
-                <!-- Error Message -->
-                <div class="error-message" id="errorMessage">
-                    There was an issue with your job post. Please check all required fields and try again.
+                <div class="notification-time">2 hours ago</div>
+              </li>
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  Payment for your last job post was successful
                 </div>
-
-                <form id="jobPostForm">
-                    <!-- Hidden input to store job type -->
-                    <input type="hidden" id="selectedJobType" value="standard">
-                    
-                    <!-- Job Details Section -->
-                    <div class="form-section">
-                        <h2 class="section-title"><i class="fas fa-briefcase"></i> Job Details</h2>
-                        
-                        <div class="form-group">
-                            <label for="jobTitle">Job Title <span class="required-asterisk">*</span></label>
-                            <input type="text" id="jobTitle" class="form-control" placeholder="e.g., Marketing Officer" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="jobDescription">Job Description <span class="required-asterisk">*</span></label>
-                            <textarea id="jobDescription" class="form-control" placeholder="Describe the role, responsibilities, and what makes your company a great place to work..." required></textarea>
-                            <div class="form-hint">Be specific about duties, expectations, and company culture</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="jobCategory">Category / Industry <span class="required-asterisk">*</span></label>
-                            <select id="jobCategory" class="form-control" required>
-                                <option value="">Select Category</option>
-                                <option value="IT">IT & Technology</option>
-                                <option value="Marketing">Marketing & Sales</option>
-                                <option value="Administration">Administration</option>
-                                <option value="Finance">Finance & Accounting</option>
-                                <option value="Healthcare">Healthcare</option>
-                                <option value="Education">Education</option>
-                                <option value="Engineering">Engineering</option>
-                                <option value="Hospitality">Hospitality & Tourism</option>
-                                <option value="Manufacturing">Manufacturing</option>
-                                <option value="Retail">Retail</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <!-- Other Category Input -->
-                        <div class="form-group" id="otherCategoryGroup" style="display: none;">
-                            <label for="otherCategory">Please specify your industry <span class="required-asterisk">*</span></label>
-                            <input type="text" id="otherCategory" class="form-control" placeholder="Enter your specific industry">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="jobType">Job Type <span class="required-asterisk">*</span></label>
-                            <select id="jobType" class="form-control" required>
-                                <option value="">Select Type</option>
-                                <option value="Full-time">Full-time</option>
-                                <option value="Part-time">Part-time</option>
-                                <option value="Remote">Remote</option>
-                                <option value="Contract">Contract</option>
-                                <option value="Internship">Internship</option>
-                                <option value="Temporary">Temporary</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Location & Salary Section -->
-                    <div class="form-section">
-                        <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Location & Compensation</h2>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="city">City <span class="required-asterisk">*</span></label>
-                                <input type="text" id="city" class="form-control" placeholder="e.g., Accra" required>
-                                <div class="form-hint">Start typing your city name</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="region">Region <span class="required-asterisk">*</span></label>
-                                <select id="region" class="form-control" required disabled>
-                                    <option value="">Select Region</option>
-                                    <option value="Greater Accra">Greater Accra</option>
-                                    <option value="Ashanti">Ashanti</option>
-                                    <option value="Western">Western</option>
-                                    <option value="Western North">Western North</option>
-                                    <option value="Central">Central</option>
-                                    <option value="Eastern">Eastern</option>
-                                    <option value="Volta">Volta</option>
-                                    <option value="Oti">Oti</option>
-                                    <option value="Bono">Bono</option>
-                                    <option value="Bono East">Bono East</option>
-                                    <option value="Ahafo">Ahafo</option>
-                                    <option value="Northern">Northern</option>
-                                    <option value="Savannah">Savannah</option>
-                                    <option value="North East">North East</option>
-                                    <option value="Upper East">Upper East</option>
-                                    <option value="Upper West">Upper West</option>
-                                </select>
-                                <div class="form-hint">Region will be auto-selected based on city</div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="salaryRange">Salary Range <span class="required-asterisk">*</span></label>
-                            <select id="salaryRange" class="form-control" required>
-                                <option value="">Select Salary Range</option>
-                                <option value="₵1,000 - ₵1,500">₵1,000 - ₵1,500 per month</option>
-                                <option value="₵1,500 - ₵2,000">₵1,500 - ₵2,000 per month</option>
-                                <option value="₵2,000 - ₵2,500">₵2,000 - ₵2,500 per month</option>
-                                <option value="₵2,500 - ₵3,000">₵2,500 - ₵3,000 per month</option>
-                                <option value="₵3,000 - ₵3,500">₵3,000 - ₵3,500 per month</option>
-                                <option value="₵3,500 - ₵4,000">₵3,500 - ₵4,000 per month</option>
-                                <option value="₵4,000 - ₵4,500">₵4,000 - ₵4,500 per month</option>
-                                <option value="₵4,500 - ₵5,000">₵4,500 - ₵5,000 per month</option>
-                                <option value="₵5,000 - ₵6,000">₵5,000 - ₵6,000 per month</option>
-                                <option value="₵6,000 - ₵7,000">₵6,000 - ₵7,000 per month</option>
-                                <option value="₵7,000 - ₵8,000">₵7,000 - ₵8,000 per month</option>
-                                <option value="₵8,000 - ₵9,000">₵8,000 - ₵9,000 per month</option>
-                                <option value="₵9,000 - ₵10,000">₵9,000 - ₵10,000 per month</option>
-                                <option value="₵10,000+">₵10,000+ per month</option>
-                                <option value="Negotiable">Negotiable</option>
-                                <option value="Commission-based">Commission-based</option>
-                            </select>
-                            <div class="form-hint">Select the appropriate salary range for this position</div>
-                        </div>
-                    </div>
-
-                    <!-- Requirements Section -->
-                    <div class="form-section">
-                        <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Requirements & Qualifications</h2>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="experienceLevel">Experience Level <span class="required-asterisk">*</span></label>
-                                <select id="experienceLevel" class="form-control" required>
-                                    <option value="">Select Level</option>
-                                    <option value="Entry">Entry Level (0-2 years)</option>
-                                    <option value="Mid">Mid Level (2-5 years)</option>
-                                    <option value="Senior">Senior Level (5+ years)</option>
-                                    <option value="Executive">Executive Level</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="educationLevel">Education Level <span class="required-asterisk">*</span></label>
-                                <select id="educationLevel" class="form-control" required>
-                                    <option value="">Select Education</option>
-                                    <option value="High School">High School</option>
-                                    <option value="Diploma">Diploma</option>
-                                    <option value="Bachelor's Degree">Bachelor's Degree</option>
-                                    <option value="Master's Degree">Master's Degree</option>
-                                    <option value="PhD">PhD</option>
-                                    <option value="No Formal Education">No Formal Education Required</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="requirements">Specific Requirements & Skills</label>
-                            <textarea id="requirements" class="form-control" placeholder="List any specific skills, certifications, or qualifications required for this position..."></textarea>
-                            <div class="form-hint">Separate requirements with commas or bullet points</div>
-                        </div>
-                    </div>
-
-                    <!-- Application Details Section -->
-                    <div class="form-section">
-                        <h2 class="section-title"><i class="fas fa-clipboard-list"></i> Application Details</h2>
-                        
-                        <!-- Premium Deadline Notice -->
-                        <div class="premium-feature-notice" id="premiumDeadlineNotice" style="display: none;">
-                            <i class="fas fa-crown"></i>
-                            <strong>Premium Job Feature:</strong> Your job will remain active for 5 months. The application deadline is optional.
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="deadline">Application Deadline <span class="required-asterisk" id="deadlineRequired">*</span></label>
-                                <input type="date" id="deadline" class="form-control" required>
-                                <div class="premium-deadline-info" id="premiumDeadlineInfo" style="display: none;">
-                                    <i class="fas fa-calendar-check"></i> Your premium job will automatically expire after 5 months from the posting date.
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="vacancies">Number of Vacancies</label>
-                                <input type="number" id="vacancies" class="form-control" placeholder="e.g., 2" min="1">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="contactEmail">Contact Email</label>
-                            <input type="email" id="contactEmail" class="form-control" placeholder="For receiving applications and candidate info">
-                            <div class="form-hint">Optional - some small businesses don't use email</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="applicationInstructions">Application Instructions (Optional)</label>
-                            <textarea id="applicationInstructions" class="form-control" placeholder="Any specific instructions for applicants..."></textarea>
-                            <div class="form-hint">E.g., "Include portfolio links" or "Mention reference code in subject"</div>
-                        </div>
-                    </div>
-
-                    <!-- Form Actions -->
-                    <div class="form-actions">
-                        <a href="employer-dashboard.html" class="btn btn-outline">
-                            <i class="fas fa-arrow-left"></i> Back to Dashboard
-                        </a>
-                        <button type="submit" class="btn btn-accent" id="submitBtn">
-                            <div class="loading-spinner" id="buttonSpinner"></div>
-                            <span class="btn-text" id="submitButtonText">Proceed to Payment ₵100</span>
-                        </button>
-                    </div>
-                </form>
+                <div class="notification-time">5 hours ago</div>
+              </li>
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  New candidate applied for your Frontend Developer position
+                </div>
+                <div class="notification-time">1 day ago</div>
+              </li>
+              <li class="notification-item">
+                <div class="notification-content">
+                  Your job post will expire in 3 days
+                </div>
+                <div class="notification-time">2 days ago</div>
+              </li>
+            </ul>
+          </div>
+          <div class="user-profile" id="userProfile">
+            <div class="user-avatar">
+              <img src="https://i.pravatar.cc/150?img=5" alt="User" />
             </div>
+            <div class="user-name">Nana Kwame</div>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="dropdown-menu">
+            <a href="esettings.html"
+              ><i class="fas fa-user"></i> View Profile</a
+            >
+            <a href="employer-payment.html"
+              ><i class="fas fa-history"></i> Payment History</a
+            >
+            <a href="esettings.html"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#" id="dropdownLogout"
+              ><i class="fas fa-sign-out-alt"></i> Logout</a
+            >
+          </div>
         </div>
+      </nav>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <div class="page-header">
+          <h1 class="page-title-large">
+            <i class="fas fa-plus-circle"></i> Post a New Job
+            <span id="jobTypeBadge" class="job-type-badge badge-standard"
+              >Standard</span
+            >
+          </h1>
+          <p class="page-subtitle">
+            Fill in the details below to create your job listing
+          </p>
+        </div>
+
+        <div class="payment-notice" id="paymentNotice">
+          <!-- This will be populated by JavaScript based on job type -->
+        </div>
+
+        <div class="form-container">
+          <!-- Loading Overlay -->
+          <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-content">
+              <div class="loading-spinner active"></div>
+              <h3>Processing your job post...</h3>
+              <p>Please wait while we save your job details</p>
+            </div>
+          </div>
+
+          <!-- Error Message -->
+          <div class="error-message" id="errorMessage">
+            There was an issue with your job post. Please check all required
+            fields and try again.
+          </div>
+
+          <form id="jobPostForm">
+            <!-- Hidden input to store job type -->
+            <input type="hidden" id="selectedJobType" value="standard" />
+
+            <!-- Job Details Section -->
+            <div class="form-section">
+              <h2 class="section-title">
+                <i class="fas fa-briefcase"></i> Job Details
+              </h2>
+
+              <div class="form-group">
+                <label for="jobTitle"
+                  >Job Title <span class="required-asterisk">*</span></label
+                >
+                <input
+                  type="text"
+                  id="jobTitle"
+                  class="form-control"
+                  placeholder="e.g., Marketing Officer"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="jobDescription"
+                  >Job Description
+                  <span class="required-asterisk">*</span></label
+                >
+                <textarea
+                  id="jobDescription"
+                  class="form-control"
+                  placeholder="Describe the role, responsibilities, and what makes your company a great place to work..."
+                  required
+                ></textarea>
+                <div class="form-hint">
+                  Be specific about duties, expectations, and company culture
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="jobCategory"
+                  >Category / Industry
+                  <span class="required-asterisk">*</span></label
+                >
+                <select id="jobCategory" class="form-control" required>
+                  <option value="">Select Category</option>
+                  <option value="IT">IT & Technology</option>
+                  <option value="Marketing">Marketing & Sales</option>
+                  <option value="Administration">Administration</option>
+                  <option value="Finance">Finance & Accounting</option>
+                  <option value="Healthcare">Healthcare</option>
+                  <option value="Education">Education</option>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Hospitality">Hospitality & Tourism</option>
+                  <option value="Manufacturing">Manufacturing</option>
+                  <option value="Retail">Retail</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <!-- Other Category Input -->
+              <div
+                class="form-group"
+                id="otherCategoryGroup"
+                style="display: none"
+              >
+                <label for="otherCategory"
+                  >Please specify your industry
+                  <span class="required-asterisk">*</span></label
+                >
+                <input
+                  type="text"
+                  id="otherCategory"
+                  class="form-control"
+                  placeholder="Enter your specific industry"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="jobType"
+                  >Job Type <span class="required-asterisk">*</span></label
+                >
+                <select id="jobType" class="form-control" required>
+                  <option value="">Select Type</option>
+                  <option value="Full-time">Full-time</option>
+                  <option value="Part-time">Part-time</option>
+                  <option value="Remote">Remote</option>
+                  <option value="Contract">Contract</option>
+                  <option value="Internship">Internship</option>
+                  <option value="Temporary">Temporary</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Location & Salary Section -->
+            <div class="form-section">
+              <h2 class="section-title">
+                <i class="fas fa-map-marker-alt"></i> Location & Compensation
+              </h2>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="city"
+                    >City <span class="required-asterisk">*</span></label
+                  >
+                  <input
+                    type="text"
+                    id="city"
+                    class="form-control"
+                    placeholder="e.g., Accra"
+                    required
+                  />
+                  <div class="form-hint">Start typing your city name</div>
+                </div>
+                <div class="form-group">
+                  <label for="region"
+                    >Region <span class="required-asterisk">*</span></label
+                  >
+                  <select id="region" class="form-control" required disabled>
+                    <option value="">Select Region</option>
+                    <option value="Greater Accra">Greater Accra</option>
+                    <option value="Ashanti">Ashanti</option>
+                    <option value="Western">Western</option>
+                    <option value="Western North">Western North</option>
+                    <option value="Central">Central</option>
+                    <option value="Eastern">Eastern</option>
+                    <option value="Volta">Volta</option>
+                    <option value="Oti">Oti</option>
+                    <option value="Bono">Bono</option>
+                    <option value="Bono East">Bono East</option>
+                    <option value="Ahafo">Ahafo</option>
+                    <option value="Northern">Northern</option>
+                    <option value="Savannah">Savannah</option>
+                    <option value="North East">North East</option>
+                    <option value="Upper East">Upper East</option>
+                    <option value="Upper West">Upper West</option>
+                  </select>
+                  <div class="form-hint">
+                    Region will be auto-selected based on city
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="salaryRange"
+                  >Salary Range <span class="required-asterisk">*</span></label
+                >
+                <select id="salaryRange" class="form-control" required>
+                  <option value="">Select Salary Range</option>
+                  <option value="₵1,000 - ₵1,500">
+                    ₵1,000 - ₵1,500 per month
+                  </option>
+                  <option value="₵1,500 - ₵2,000">
+                    ₵1,500 - ₵2,000 per month
+                  </option>
+                  <option value="₵2,000 - ₵2,500">
+                    ₵2,000 - ₵2,500 per month
+                  </option>
+                  <option value="₵2,500 - ₵3,000">
+                    ₵2,500 - ₵3,000 per month
+                  </option>
+                  <option value="₵3,000 - ₵3,500">
+                    ₵3,000 - ₵3,500 per month
+                  </option>
+                  <option value="₵3,500 - ₵4,000">
+                    ₵3,500 - ₵4,000 per month
+                  </option>
+                  <option value="₵4,000 - ₵4,500">
+                    ₵4,000 - ₵4,500 per month
+                  </option>
+                  <option value="₵4,500 - ₵5,000">
+                    ₵4,500 - ₵5,000 per month
+                  </option>
+                  <option value="₵5,000 - ₵6,000">
+                    ₵5,000 - ₵6,000 per month
+                  </option>
+                  <option value="₵6,000 - ₵7,000">
+                    ₵6,000 - ₵7,000 per month
+                  </option>
+                  <option value="₵7,000 - ₵8,000">
+                    ₵7,000 - ₵8,000 per month
+                  </option>
+                  <option value="₵8,000 - ₵9,000">
+                    ₵8,000 - ₵9,000 per month
+                  </option>
+                  <option value="₵9,000 - ₵10,000">
+                    ₵9,000 - ₵10,000 per month
+                  </option>
+                  <option value="₵10,000+">₵10,000+ per month</option>
+                  <option value="Negotiable">Negotiable</option>
+                  <option value="Commission-based">Commission-based</option>
+                </select>
+                <div class="form-hint">
+                  Select the appropriate salary range for this position
+                </div>
+              </div>
+            </div>
+
+            <!-- Requirements Section -->
+            <div class="form-section">
+              <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i> Requirements &
+                Qualifications
+              </h2>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="experienceLevel"
+                    >Experience Level
+                    <span class="required-asterisk">*</span></label
+                  >
+                  <select id="experienceLevel" class="form-control" required>
+                    <option value="">Select Level</option>
+                    <option value="Entry">Entry Level (0-2 years)</option>
+                    <option value="Mid">Mid Level (2-5 years)</option>
+                    <option value="Senior">Senior Level (5+ years)</option>
+                    <option value="Executive">Executive Level</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="educationLevel"
+                    >Education Level
+                    <span class="required-asterisk">*</span></label
+                  >
+                  <select id="educationLevel" class="form-control" required>
+                    <option value="">Select Education</option>
+                    <option value="High School">High School</option>
+                    <option value="Diploma">Diploma</option>
+                    <option value="Bachelor's Degree">Bachelor's Degree</option>
+                    <option value="Master's Degree">Master's Degree</option>
+                    <option value="PhD">PhD</option>
+                    <option value="No Formal Education">
+                      No Formal Education Required
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="requirements">Specific Requirements & Skills</label>
+                <textarea
+                  id="requirements"
+                  class="form-control"
+                  placeholder="List any specific skills, certifications, or qualifications required for this position..."
+                ></textarea>
+                <div class="form-hint">
+                  Separate requirements with commas or bullet points
+                </div>
+              </div>
+            </div>
+
+            <!-- Application Details Section -->
+            <div class="form-section">
+              <h2 class="section-title">
+                <i class="fas fa-clipboard-list"></i> Application Details
+              </h2>
+
+              <!-- Premium Deadline Notice -->
+              <div
+                class="premium-feature-notice"
+                id="premiumDeadlineNotice"
+                style="display: none"
+              >
+                <i class="fas fa-crown"></i>
+                <strong>Premium Job Feature:</strong> Your job will remain
+                active for 5 months. The application deadline is optional.
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="deadline"
+                    >Application Deadline
+                    <span class="required-asterisk" id="deadlineRequired"
+                      >*</span
+                    ></label
+                  >
+                  <input
+                    type="date"
+                    id="deadline"
+                    class="form-control"
+                    required
+                  />
+                  <div
+                    class="premium-deadline-info"
+                    id="premiumDeadlineInfo"
+                    style="display: none"
+                  >
+                    <i class="fas fa-calendar-check"></i> Your premium job will
+                    automatically expire after 5 months from the posting date.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="vacancies">Number of Vacancies</label>
+                  <input
+                    type="number"
+                    id="vacancies"
+                    class="form-control"
+                    placeholder="e.g., 2"
+                    min="1"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contactEmail">Contact Email</label>
+                <input
+                  type="email"
+                  id="contactEmail"
+                  class="form-control"
+                  placeholder="For receiving applications and candidate info"
+                />
+                <div class="form-hint">
+                  Optional - some small businesses don't use email
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="applicationInstructions"
+                  >Application Instructions (Optional)</label
+                >
+                <textarea
+                  id="applicationInstructions"
+                  class="form-control"
+                  placeholder="Any specific instructions for applicants..."
+                ></textarea>
+                <div class="form-hint">
+                  E.g., "Include portfolio links" or "Mention reference code in
+                  subject"
+                </div>
+              </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+              <a href="employer-dashboard.html" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+              </a>
+              <button type="submit" class="btn btn-accent" id="submitBtn">
+                <div class="loading-spinner" id="buttonSpinner"></div>
+                <span class="btn-text" id="submitButtonText"
+                  >Proceed to Payment ₵100</span
+                >
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 
     <script>
-        // DOM Elements
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const mainContent = document.getElementById('mainContent');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileOverlay = document.getElementById('mobileOverlay');
-        const jobPostForm = document.getElementById('jobPostForm');
-        const cityInput = document.getElementById('city');
-        const regionSelect = document.getElementById('region');
-        const jobCategory = document.getElementById('jobCategory');
-        const otherCategoryGroup = document.getElementById('otherCategoryGroup');
-        const otherCategoryInput = document.getElementById('otherCategory');
-        const logoutModal = document.getElementById('logoutModal');
-        const confirmLogoutBtn = document.getElementById('confirmLogout');
-        const cancelLogoutBtn = document.getElementById('cancelLogout');
-        const submitBtn = document.getElementById('submitBtn');
-        const buttonSpinner = document.getElementById('buttonSpinner');
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        const errorMessage = document.getElementById('errorMessage');
-        const notificationIcon = document.getElementById('notificationIcon');
-        const notificationDropdown = document.getElementById('notificationDropdown');
-        const jobTypeBadge = document.getElementById('jobTypeBadge');
-        const paymentNotice = document.getElementById('paymentNotice');
-        const selectedJobTypeInput = document.getElementById('selectedJobType');
-        const submitButtonText = document.getElementById('submitButtonText');
-        
-        // NEW ELEMENTS for premium/standard differences
-        const deadlineInput = document.getElementById('deadline');
-        const deadlineRequired = document.getElementById('deadlineRequired');
-        const premiumDeadlineNotice = document.getElementById('premiumDeadlineNotice');
-        const premiumDeadlineInfo = document.getElementById('premiumDeadlineInfo');
-        const educationLevel = document.getElementById('educationLevel');
+      // DOM Elements
+      const sidebar = document.getElementById("sidebar");
+      const sidebarToggle = document.getElementById("sidebarToggle");
+      const mainContent = document.getElementById("mainContent");
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileOverlay = document.getElementById("mobileOverlay");
+      const jobPostForm = document.getElementById("jobPostForm");
+      const cityInput = document.getElementById("city");
+      const regionSelect = document.getElementById("region");
+      const jobCategory = document.getElementById("jobCategory");
+      const otherCategoryGroup = document.getElementById("otherCategoryGroup");
+      const otherCategoryInput = document.getElementById("otherCategory");
+      const logoutModal = document.getElementById("logoutModal");
+      const confirmLogoutBtn = document.getElementById("confirmLogout");
+      const cancelLogoutBtn = document.getElementById("cancelLogout");
+      const submitBtn = document.getElementById("submitBtn");
+      const buttonSpinner = document.getElementById("buttonSpinner");
+      const loadingOverlay = document.getElementById("loadingOverlay");
+      const errorMessage = document.getElementById("errorMessage");
+      const notificationIcon = document.getElementById("notificationIcon");
+      const notificationDropdown = document.getElementById(
+        "notificationDropdown",
+      );
+      const jobTypeBadge = document.getElementById("jobTypeBadge");
+      const paymentNotice = document.getElementById("paymentNotice");
+      const selectedJobTypeInput = document.getElementById("selectedJobType");
+      const submitButtonText = document.getElementById("submitButtonText");
 
-        // Get job type from URL parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const jobType = urlParams.get('type') || 'standard';
-        
-        // Initialize job type
-        document.addEventListener('DOMContentLoaded', function() {
-            updateJobType(jobType);
-            
-            // Set minimum date for deadline to today
-            const today = new Date().toISOString().split('T')[0];
-            deadlineInput.min = today;
-            
-            // Set default deadline to 30 days from now for standard jobs
-            const defaultDeadline = new Date();
-            defaultDeadline.setDate(defaultDeadline.getDate() + 30);
-            deadlineInput.value = defaultDeadline.toISOString().split('T')[0];
-        });
+      // NEW ELEMENTS for premium/standard differences
+      const deadlineInput = document.getElementById("deadline");
+      const deadlineRequired = document.getElementById("deadlineRequired");
+      const premiumDeadlineNotice = document.getElementById(
+        "premiumDeadlineNotice",
+      );
+      const premiumDeadlineInfo = document.getElementById(
+        "premiumDeadlineInfo",
+      );
+      const educationLevel = document.getElementById("educationLevel");
 
-        // Function to update job type display AND form requirements
-        function updateJobType(type) {
-            const isPremium = type === 'premium';
-            
-            // Update hidden input
-            selectedJobTypeInput.value = type;
-            
-            // Update badge
-            if (isPremium) {
-                jobTypeBadge.textContent = 'Premium';
-                jobTypeBadge.className = 'job-type-badge badge-premium';
-            } else {
-                jobTypeBadge.textContent = 'Standard';
-                jobTypeBadge.className = 'job-type-badge badge-standard';
-            }
-            
-            // Update payment notice
-            if (isPremium) {
-                paymentNotice.innerHTML = `
+      // Get job type from URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const jobType = urlParams.get("type") || "standard";
+
+      // Initialize job type
+      document.addEventListener("DOMContentLoaded", function () {
+        updateJobType(jobType);
+
+        // Set minimum date for deadline to today
+        const today = new Date().toISOString().split("T")[0];
+        deadlineInput.min = today;
+
+        // Set default deadline to 30 days from now for standard jobs
+        const defaultDeadline = new Date();
+        defaultDeadline.setDate(defaultDeadline.getDate() + 30);
+        deadlineInput.value = defaultDeadline.toISOString().split("T")[0];
+      });
+
+      // Function to update job type display AND form requirements
+      function updateJobType(type) {
+        const isPremium = type === "premium";
+
+        // Update hidden input
+        selectedJobTypeInput.value = type;
+
+        // Update badge
+        if (isPremium) {
+          jobTypeBadge.textContent = "Premium";
+          jobTypeBadge.className = "job-type-badge badge-premium";
+        } else {
+          jobTypeBadge.textContent = "Standard";
+          jobTypeBadge.className = "job-type-badge badge-standard";
+        }
+
+        // Update payment notice
+        if (isPremium) {
+          paymentNotice.innerHTML = `
                     <h4><i class="fas fa-crown"></i> Premium Job Posting</h4>
                     <p>There is a ₵300 fee for posting a Premium job that will be active for <strong>5 months</strong>. You'll be redirected to the payment page after submitting this form.</p>
                 `;
-                submitButtonText.textContent = 'Proceed to Payment ₵300';
-            } else {
-                paymentNotice.innerHTML = `
+          submitButtonText.textContent = "Proceed to Payment ₵300";
+        } else {
+          paymentNotice.innerHTML = `
                     <h4><i class="fas fa-info-circle"></i> Standard Job Posting</h4>
                     <p>There is a ₵100 fee for posting a Standard job that will be active for <strong>30 days</strong>. You'll be redirected to the payment page after submitting this form.</p>
                 `;
-                submitButtonText.textContent = 'Proceed to Payment ₵100';
-            }
-            
-            // Update form requirements based on job type
-            updateFormRequirements(isPremium);
+          submitButtonText.textContent = "Proceed to Payment ₵100";
         }
 
-        // Function to update form field requirements based on job type
-        function updateFormRequirements(isPremium) {
-            // EDUCATION LEVEL - Required for both Premium and Standard (as requested)
-            educationLevel.required = true;
-            
-            // DEADLINE - Required for Standard, optional for Premium
-            if (isPremium) {
-                // For Premium: Deadline is optional (not required)
-                deadlineInput.required = false;
-                deadlineRequired.style.display = 'none';
-                premiumDeadlineNotice.style.display = 'block';
-                premiumDeadlineInfo.style.display = 'block';
-                
-                // Calculate 5 months from now (approx 150 days)
-                const fiveMonthsFromNow = new Date();
-                fiveMonthsFromNow.setDate(fiveMonthsFromNow.getDate() + 150);
-                deadlineInput.value = fiveMonthsFromNow.toISOString().split('T')[0];
-                deadlineInput.readOnly = true;
-                deadlineInput.title = "Premium jobs are automatically active for 5 months";
-            } else {
-                // For Standard: Deadline is required
-                deadlineInput.required = true;
-                deadlineRequired.style.display = 'inline';
-                premiumDeadlineNotice.style.display = 'none';
-                premiumDeadlineInfo.style.display = 'none';
-                deadlineInput.readOnly = false;
-                deadlineInput.title = "";
-                
-                // Set deadline to 30 days from now
-                const thirtyDaysFromNow = new Date();
-                thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
-                deadlineInput.value = thirtyDaysFromNow.toISOString().split('T')[0];
-            }
+        // Update form requirements based on job type
+        updateFormRequirements(isPremium);
+      }
+
+      // Function to update form field requirements based on job type
+      function updateFormRequirements(isPremium) {
+        // EDUCATION LEVEL - Required for both Premium and Standard (as requested)
+        educationLevel.required = true;
+
+        // DEADLINE - Required for Standard, optional for Premium
+        if (isPremium) {
+          // For Premium: Deadline is optional (not required)
+          deadlineInput.required = false;
+          deadlineRequired.style.display = "none";
+          premiumDeadlineNotice.style.display = "block";
+          premiumDeadlineInfo.style.display = "block";
+
+          // Calculate 5 months from now (approx 150 days)
+          const fiveMonthsFromNow = new Date();
+          fiveMonthsFromNow.setDate(fiveMonthsFromNow.getDate() + 150);
+          deadlineInput.value = fiveMonthsFromNow.toISOString().split("T")[0];
+          deadlineInput.readOnly = true;
+          deadlineInput.title =
+            "Premium jobs are automatically active for 5 months";
+        } else {
+          // For Standard: Deadline is required
+          deadlineInput.required = true;
+          deadlineRequired.style.display = "inline";
+          premiumDeadlineNotice.style.display = "none";
+          premiumDeadlineInfo.style.display = "none";
+          deadlineInput.readOnly = false;
+          deadlineInput.title = "";
+
+          // Set deadline to 30 days from now
+          const thirtyDaysFromNow = new Date();
+          thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
+          deadlineInput.value = thirtyDaysFromNow.toISOString().split("T")[0];
+        }
+      }
+
+      // City to Region mapping
+      const cityRegionMap = {
+        // Greater Accra Region
+        accra: "Greater Accra",
+        tema: "Greater Accra",
+        madina: "Greater Accra",
+        teshie: "Greater Accra",
+        nungua: "Greater Accra",
+        ashaiman: "Greater Accra",
+        dansoman: "Greater Accra",
+        adenta: "Greater Accra",
+        "east legon": "Greater Accra",
+        weija: "Greater Accra",
+        amasaman: "Greater Accra",
+        dome: "Greater Accra",
+        oyibi: "Greater Accra",
+        pokuase: "Greater Accra",
+        achimota: "Greater Accra",
+        lapaz: "Greater Accra",
+        sakumono: "Greater Accra",
+
+        // Ashanti Region
+        kumasi: "Ashanti",
+        obuasi: "Ashanti",
+        konongo: "Ashanti",
+        ejisu: "Ashanti",
+        mampong: "Ashanti",
+        bekwai: "Ashanti",
+        "asante agona": "Ashanti",
+        tafo: "Ashanti",
+        atonsu: "Ashanti",
+        suame: "Ashanti",
+        asokwa: "Ashanti",
+        bantama: "Ashanti",
+        manhyia: "Ashanti",
+        ejura: "Ashanti",
+        nsuta: "Ashanti",
+        agogo: "Ashanti",
+        offinso: "Ashanti",
+        kwadaso: "Ashanti",
+        effiduase: "Ashanti",
+        "ahenema kokoben": "Ashanti",
+        tepa: "Ashanti",
+        nkawie: "Ashanti",
+
+        // Western Region
+        sekondi: "Western",
+        takoradi: "Western",
+        tarkwa: "Western",
+        prestea: "Western",
+        bogoso: "Western",
+        axim: "Western",
+        "wassa akropong": "Western",
+        nsuaem: "Western",
+        shama: "Western",
+        samreboi: "Western",
+
+        // Western North Region
+        wiawso: "Western North",
+        "sefwi wiawso": "Western North",
+        bibiani: "Western North",
+        juaboso: "Western North",
+        enchi: "Western North",
+        akontombra: "Western North",
+        "sefwi bekwai": "Western North",
+        "bonsu nkwanta": "Western North",
+
+        // Central Region
+        "cape coast": "Central",
+        elmina: "Central",
+        mankessim: "Central",
+        winneba: "Central",
+        "agona swedru": "Central",
+        kasoa: "Central",
+        "assin fosu": "Central",
+        "twifo praso": "Central",
+        saltpond: "Central",
+        "dunkwa-on-offin": "Central",
+
+        // Eastern Region
+        koforidua: "Eastern",
+        nkawkaw: "Eastern",
+        nsawam: "Eastern",
+        suhum: "Eastern",
+        akosombo: "Eastern",
+        aburi: "Eastern",
+        somanya: "Eastern",
+        oda: "Eastern",
+        asamankese: "Eastern",
+        begoro: "Eastern",
+        mpraeso: "Eastern",
+
+        // Volta Region
+        ho: "Volta",
+        hohoe: "Volta",
+        keta: "Volta",
+        kpando: "Volta",
+        sogakope: "Volta",
+        aflao: "Volta",
+        akatsi: "Volta",
+        anloga: "Volta",
+        jasikan: "Volta",
+        adidome: "Volta",
+
+        // Oti Region
+        dambai: "Oti",
+        nkwanta: "Oti",
+        kadjebi: "Oti",
+        "krachi east": "Oti",
+        "kete krachi": "Oti",
+        "krachi nchumuru": "Oti",
+        jasikan: "Oti",
+        biakoye: "Oti",
+
+        // Bono Region
+        sunyani: "Bono",
+        berekum: "Bono",
+        "dormaa ahenkro": "Bono",
+        wenchi: "Bono",
+        nsoatre: "Bono",
+        odumase: "Bono",
+
+        // Bono East Region
+        techiman: "Bono East",
+        kintampo: "Bono East",
+        nkoranza: "Bono East",
+        atebubu: "Bono East",
+        yeji: "Bono East",
+        prang: "Bono East",
+        busunya: "Bono East",
+
+        // Ahafo Region
+        goaso: "Ahafo",
+        bechem: "Ahafo",
+        "duayaw nkwanta": "Ahafo",
+        kenyasi: "Ahafo",
+        hwidiem: "Ahafo",
+        mim: "Ahafo",
+
+        // Northern Region
+        tamale: "Northern",
+        yendi: "Northern",
+        savelugu: "Northern",
+        tolon: "Northern",
+        kumbungu: "Northern",
+        saboba: "Northern",
+        gushegu: "Northern",
+        karaga: "Northern",
+        tatale: "Northern",
+
+        // Savannah Region
+        damongo: "Savannah",
+        bole: "Savannah",
+        salaga: "Savannah",
+        daboya: "Savannah",
+        sawla: "Savannah",
+        larabanga: "Savannah",
+
+        // North East Region
+        nalerigu: "North East",
+        walewale: "North East",
+        gambaga: "North East",
+        nakpanduri: "North East",
+        yunyoo: "North East",
+        langbinsi: "North East",
+
+        // Upper East Region
+        bolgatanga: "Upper East",
+        navrongo: "Upper East",
+        bawku: "Upper East",
+        zebilla: "Upper East",
+        sandema: "Upper East",
+        tongo: "Upper East",
+        paga: "Upper East",
+
+        // Upper West Region
+        wa: "Upper West",
+        nandom: "Upper West",
+        lawra: "Upper West",
+        jirapa: "Upper West",
+        tumu: "Upper West",
+        nadowli: "Upper West",
+      };
+
+      // Show/hide "Other" category input based on selection
+      jobCategory.addEventListener("change", function () {
+        if (this.value === "Other") {
+          otherCategoryGroup.style.display = "block";
+          otherCategoryInput.required = true;
+        } else {
+          otherCategoryGroup.style.display = "none";
+          otherCategoryInput.required = false;
+          otherCategoryInput.value = "";
+        }
+      });
+
+      // Auto-detect region based on city input
+      cityInput.addEventListener("input", function () {
+        const city = this.value.toLowerCase().trim();
+
+        if (city && cityRegionMap[city]) {
+          regionSelect.value = cityRegionMap[city];
+          regionSelect.disabled = true;
+        } else {
+          regionSelect.disabled = false;
+          regionSelect.value = "";
+        }
+      });
+
+      // Toggle Sidebar (Desktop)
+      sidebarToggle.addEventListener("click", function () {
+        sidebar.classList.toggle("collapsed");
+        mainContent.classList.toggle("expanded");
+
+        const icon = this.querySelector("i");
+        if (sidebar.classList.contains("collapsed")) {
+          icon.className = "fas fa-chevron-right";
+        } else {
+          icon.className = "fas fa-chevron-left";
+        }
+      });
+
+      // Mobile Menu Toggle
+      let isMobileMenuOpen = false;
+
+      mobileMenuBtn.addEventListener("click", function () {
+        if (isMobileMenuOpen) {
+          sidebar.classList.remove("mobile-open");
+          mobileOverlay.classList.remove("show");
+          isMobileMenuOpen = false;
+        } else {
+          sidebar.classList.add("mobile-open");
+          mobileOverlay.classList.add("show");
+          isMobileMenuOpen = true;
+        }
+      });
+
+      // Close mobile menu when clicking overlay
+      mobileOverlay.addEventListener("click", function () {
+        sidebar.classList.remove("mobile-open");
+        mobileOverlay.classList.remove("show");
+        isMobileMenuOpen = false;
+      });
+
+      // User Profile Dropdown
+      document
+        .querySelector(".user-profile")
+        .addEventListener("click", function () {
+          document.querySelector(".dropdown-menu").classList.toggle("show");
+        });
+
+      // Notification Dropdown
+      notificationIcon.addEventListener("click", function (e) {
+        e.stopPropagation();
+        notificationDropdown.classList.toggle("show");
+      });
+
+      // Close dropdowns when clicking outside
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".user-profile")) {
+          document.querySelector(".dropdown-menu").classList.remove("show");
         }
 
-        // City to Region mapping
-        const cityRegionMap = {
-            // Greater Accra Region
-            'accra': 'Greater Accra',
-            'tema': 'Greater Accra',
-            'madina': 'Greater Accra',
-            'teshie': 'Greater Accra',
-            'nungua': 'Greater Accra',
-            'ashaiman': 'Greater Accra',
-            'dansoman': 'Greater Accra',
-            'adenta': 'Greater Accra',
-            'east legon': 'Greater Accra',
-            'weija': 'Greater Accra',
-            'amasaman': 'Greater Accra',
-            'dome': 'Greater Accra',
-            'oyibi': 'Greater Accra',
-            'pokuase': 'Greater Accra',
-            'achimota': 'Greater Accra',
-            'lapaz': 'Greater Accra',
-            'sakumono': 'Greater Accra',
-
-            // Ashanti Region
-            'kumasi': 'Ashanti',
-            'obuasi': 'Ashanti',
-            'konongo': 'Ashanti',
-            'ejisu': 'Ashanti',
-            'mampong': 'Ashanti',
-            'bekwai': 'Ashanti',
-            'asante agona': 'Ashanti',
-            'tafo': 'Ashanti',
-            'atonsu': 'Ashanti',
-            'suame': 'Ashanti',
-            'asokwa': 'Ashanti',
-            'bantama': 'Ashanti',
-            'manhyia': 'Ashanti',
-            'ejura': 'Ashanti',
-            'nsuta': 'Ashanti',
-            'agogo': 'Ashanti',
-            'offinso': 'Ashanti',
-            'kwadaso': 'Ashanti',
-            'effiduase': 'Ashanti',
-            'ahenema kokoben': 'Ashanti',
-            'tepa': 'Ashanti',
-            'nkawie': 'Ashanti',
-
-            // Western Region
-            'sekondi': 'Western',
-            'takoradi': 'Western',
-            'tarkwa': 'Western',
-            'prestea': 'Western',
-            'bogoso': 'Western',
-            'axim': 'Western',
-            'wassa akropong': 'Western',
-            'nsuaem': 'Western',
-            'shama': 'Western',
-            'samreboi': 'Western',
-
-            // Western North Region
-            'wiawso': 'Western North',
-            'sefwi wiawso': 'Western North',
-            'bibiani': 'Western North',
-            'juaboso': 'Western North',
-            'enchi': 'Western North',
-            'akontombra': 'Western North',
-            'sefwi bekwai': 'Western North',
-            'bonsu nkwanta': 'Western North',
-
-            // Central Region
-            'cape coast': 'Central',
-            'elmina': 'Central',
-            'mankessim': 'Central',
-            'winneba': 'Central',
-            'agona swedru': 'Central',
-            'kasoa': 'Central',
-            'assin fosu': 'Central',
-            'twifo praso': 'Central',
-            'saltpond': 'Central',
-            'dunkwa-on-offin': 'Central',
-
-            // Eastern Region
-            'koforidua': 'Eastern',
-            'nkawkaw': 'Eastern',
-            'nsawam': 'Eastern',
-            'suhum': 'Eastern',
-            'akosombo': 'Eastern',
-            'aburi': 'Eastern',
-            'somanya': 'Eastern',
-            'oda': 'Eastern',
-            'asamankese': 'Eastern',
-            'begoro': 'Eastern',
-            'mpraeso': 'Eastern',
-
-            // Volta Region
-            'ho': 'Volta',
-            'hohoe': 'Volta',
-            'keta': 'Volta',
-            'kpando': 'Volta',
-            'sogakope': 'Volta',
-            'aflao': 'Volta',
-            'akatsi': 'Volta',
-            'anloga': 'Volta',
-            'jasikan': 'Volta',
-            'adidome': 'Volta',
-
-            // Oti Region
-            'dambai': 'Oti',
-            'nkwanta': 'Oti',
-            'kadjebi': 'Oti',
-            'krachi east': 'Oti',
-            'kete krachi': 'Oti',
-            'krachi nchumuru': 'Oti',
-            'jasikan': 'Oti',
-            'biakoye': 'Oti',
-
-            // Bono Region
-            'sunyani': 'Bono',
-            'berekum': 'Bono',
-            'dormaa ahenkro': 'Bono',
-            'wenchi': 'Bono',
-            'nsoatre': 'Bono',
-            'odumase': 'Bono',
-
-            // Bono East Region
-            'techiman': 'Bono East',
-            'kintampo': 'Bono East',
-            'nkoranza': 'Bono East',
-            'atebubu': 'Bono East',
-            'yeji': 'Bono East',
-            'prang': 'Bono East',
-            'busunya': 'Bono East',
-
-            // Ahafo Region
-            'goaso': 'Ahafo',
-            'bechem': 'Ahafo',
-            'duayaw nkwanta': 'Ahafo',
-            'kenyasi': 'Ahafo',
-            'hwidiem': 'Ahafo',
-            'mim': 'Ahafo',
-
-            // Northern Region
-            'tamale': 'Northern',
-            'yendi': 'Northern',
-            'savelugu': 'Northern',
-            'tolon': 'Northern',
-            'kumbungu': 'Northern',
-            'saboba': 'Northern',
-            'gushegu': 'Northern',
-            'karaga': 'Northern',
-            'tatale': 'Northern',
-
-            // Savannah Region
-            'damongo': 'Savannah',
-            'bole': 'Savannah',
-            'salaga': 'Savannah',
-            'daboya': 'Savannah',
-            'sawla': 'Savannah',
-            'larabanga': 'Savannah',
-
-            // North East Region
-            'nalerigu': 'North East',
-            'walewale': 'North East',
-            'gambaga': 'North East',
-            'nakpanduri': 'North East',
-            'yunyoo': 'North East',
-            'langbinsi': 'North East',
-
-            // Upper East Region
-            'bolgatanga': 'Upper East',
-            'navrongo': 'Upper East',
-            'bawku': 'Upper East',
-            'zebilla': 'Upper East',
-            'sandema': 'Upper East',
-            'tongo': 'Upper East',
-            'paga': 'Upper East',
-
-            // Upper West Region
-            'wa': 'Upper West',
-            'nandom': 'Upper West',
-            'lawra': 'Upper West',
-            'jirapa': 'Upper West',
-            'tumu': 'Upper West',
-            'nadowli': 'Upper West'
-        };
-
-        // Show/hide "Other" category input based on selection
-        jobCategory.addEventListener('change', function() {
-            if (this.value === 'Other') {
-                otherCategoryGroup.style.display = 'block';
-                otherCategoryInput.required = true;
-            } else {
-                otherCategoryGroup.style.display = 'none';
-                otherCategoryInput.required = false;
-                otherCategoryInput.value = '';
-            }
-        });
-
-        // Auto-detect region based on city input
-        cityInput.addEventListener('input', function() {
-            const city = this.value.toLowerCase().trim();
-            
-            if (city && cityRegionMap[city]) {
-                regionSelect.value = cityRegionMap[city];
-                regionSelect.disabled = true;
-            } else {
-                regionSelect.disabled = false;
-                regionSelect.value = '';
-            }
-        });
-
-        // Toggle Sidebar (Desktop)
-        sidebarToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('expanded');
-            
-            const icon = this.querySelector('i');
-            if (sidebar.classList.contains('collapsed')) {
-                icon.className = 'fas fa-chevron-right';
-            } else {
-                icon.className = 'fas fa-chevron-left';
-            }
-        });
-
-        // Mobile Menu Toggle
-        let isMobileMenuOpen = false;
-        
-        mobileMenuBtn.addEventListener('click', function() {
-            if (isMobileMenuOpen) {
-                sidebar.classList.remove('mobile-open');
-                mobileOverlay.classList.remove('show');
-                isMobileMenuOpen = false;
-            } else {
-                sidebar.classList.add('mobile-open');
-                mobileOverlay.classList.add('show');
-                isMobileMenuOpen = true;
-            }
-        });
-
-        // Close mobile menu when clicking overlay
-        mobileOverlay.addEventListener('click', function() {
-            sidebar.classList.remove('mobile-open');
-            mobileOverlay.classList.remove('show');
-            isMobileMenuOpen = false;
-        });
-
-        // User Profile Dropdown
-        document.querySelector('.user-profile').addEventListener('click', function() {
-            document.querySelector('.dropdown-menu').classList.toggle('show');
-        });
-
-        // Notification Dropdown
-        notificationIcon.addEventListener('click', function(e) {
-            e.stopPropagation();
-            notificationDropdown.classList.toggle('show');
-        });
-
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.user-profile')) {
-                document.querySelector('.dropdown-menu').classList.remove('show');
-            }
-            
-            if (!event.target.closest('.notification-icon')) {
-                notificationDropdown.classList.remove('show');
-            }
-        });
-
-        // Handle form submission
-        jobPostForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validate form
-            if (this.checkValidity()) {
-                // Hide any previous error message
-                errorMessage.classList.remove('show');
-                
-                // Show loading state
-                setLoadingState(true);
-
-                // Collect form data
-                const formData = {
-                    jobType: selectedJobTypeInput.value,
-                    jobTitle: document.getElementById('jobTitle').value,
-                    jobDescription: document.getElementById('jobDescription').value,
-                    jobCategory: document.getElementById('jobCategory').value,
-                    otherCategory: document.getElementById('otherCategory').value || null,
-                    jobTypeCategory: document.getElementById('jobType').value,
-                    city: document.getElementById('city').value,
-                    region: document.getElementById('region').value,
-                    salaryRange: document.getElementById('salaryRange').value,
-                    experienceLevel: document.getElementById('experienceLevel').value,
-                    educationLevel: document.getElementById('educationLevel').value,
-                    requirements: document.getElementById('requirements').value,
-                    deadline: document.getElementById('deadline').value,
-                    vacancies: document.getElementById('vacancies').value || 1,
-                    contactEmail: document.getElementById('contactEmail').value || null,
-                    applicationInstructions: document.getElementById('applicationInstructions').value || null
-                };
-
-                // Save form data to localStorage for payment page
-                localStorage.setItem('jobPostData', JSON.stringify(formData));
-
-                // Simulate API call delay (1-2 seconds)
-                const delay = Math.random() * 1000 + 1000;
-                
-                setTimeout(() => {
-                    setLoadingState(false);
-                    
-                    // Redirect to payment page with job type and amount
-                    const jobType = selectedJobTypeInput.value;
-                    const amount = jobType === 'premium' ? 300 : 100;
-                    window.location.href = `employer-payment.html?type=${jobType}&amount=${amount}`;
-                }, delay);
-            } else {
-                // Show validation errors
-                this.reportValidity();
-            }
-        });
-
-        function setLoadingState(isLoading) {
-            if (isLoading) {
-                submitBtn.disabled = true;
-                buttonSpinner.classList.add('active');
-                loadingOverlay.classList.add('active');
-            } else {
-                submitBtn.disabled = false;
-                buttonSpinner.classList.remove('active');
-                loadingOverlay.classList.remove('active');
-            }
+        if (!event.target.closest(".notification-icon")) {
+          notificationDropdown.classList.remove("show");
         }
+      });
 
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 992) {
-                sidebar.classList.remove('mobile-open');
-                mobileOverlay.classList.remove('show');
-                isMobileMenuOpen = false;
-            }
-        });
+      // Handle form submission
+      jobPostForm.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-        // Logout functionality
-        function openLogoutModal() {
-            // Close any open dropdowns
-            document.querySelector('.dropdown-menu').classList.remove('show');
-            notificationDropdown.classList.remove('show');
-            // Show logout modal
-            logoutModal.classList.add('show');
+        // Validate form
+        if (this.checkValidity()) {
+          // Hide any previous error message
+          errorMessage.classList.remove("show");
+
+          // Show loading state
+          setLoadingState(true);
+
+          // Collect form data
+          const formData = {
+            jobType: selectedJobTypeInput.value,
+            jobTitle: document.getElementById("jobTitle").value,
+            jobDescription: document.getElementById("jobDescription").value,
+            jobCategory: document.getElementById("jobCategory").value,
+            otherCategory:
+              document.getElementById("otherCategory").value || null,
+            jobTypeCategory: document.getElementById("jobType").value,
+            city: document.getElementById("city").value,
+            region: document.getElementById("region").value,
+            salaryRange: document.getElementById("salaryRange").value,
+            experienceLevel: document.getElementById("experienceLevel").value,
+            educationLevel: document.getElementById("educationLevel").value,
+            requirements: document.getElementById("requirements").value,
+            deadline: document.getElementById("deadline").value,
+            vacancies: document.getElementById("vacancies").value || 1,
+            contactEmail: document.getElementById("contactEmail").value || null,
+            applicationInstructions:
+              document.getElementById("applicationInstructions").value || null,
+          };
+
+          // Save form data to localStorage for payment page
+          localStorage.setItem("jobPostData", JSON.stringify(formData));
+
+          // Simulate API call delay (1-2 seconds)
+          const delay = Math.random() * 1000 + 1000;
+
+          setTimeout(() => {
+            setLoadingState(false);
+
+            // Redirect to payment page with job type and amount
+            const jobType = selectedJobTypeInput.value;
+            const amount = jobType === "premium" ? 300 : 100;
+            window.location.href = `employer-payment.html?type=${jobType}&amount=${amount}`;
+          }, delay);
+        } else {
+          // Show validation errors
+          this.reportValidity();
         }
+      });
 
-        document.getElementById('sidebarLogout').addEventListener('click', function(e) {
-            e.preventDefault();
-            openLogoutModal();
+      function setLoadingState(isLoading) {
+        if (isLoading) {
+          submitBtn.disabled = true;
+          buttonSpinner.classList.add("active");
+          loadingOverlay.classList.add("active");
+        } else {
+          submitBtn.disabled = false;
+          buttonSpinner.classList.remove("active");
+          loadingOverlay.classList.remove("active");
+        }
+      }
+
+      // Handle window resize
+      window.addEventListener("resize", function () {
+        if (window.innerWidth > 992) {
+          sidebar.classList.remove("mobile-open");
+          mobileOverlay.classList.remove("show");
+          isMobileMenuOpen = false;
+        }
+      });
+
+      // Logout functionality
+      function openLogoutModal() {
+        // Close any open dropdowns
+        document.querySelector(".dropdown-menu").classList.remove("show");
+        notificationDropdown.classList.remove("show");
+        // Show logout modal
+        logoutModal.classList.add("show");
+      }
+
+      document
+        .getElementById("sidebarLogout")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          openLogoutModal();
         });
 
-        document.getElementById('dropdownLogout').addEventListener('click', function(e) {
-            e.preventDefault();
-            openLogoutModal();
+      document
+        .getElementById("dropdownLogout")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          openLogoutModal();
         });
 
-        // Confirm logout
-        confirmLogoutBtn.addEventListener('click', function() {
-            logoutModal.classList.remove('show');
-            // In a real app, this would clear session and redirect to login
-            window.location.href = 'login.html';
-        });
+      // Confirm logout
+      confirmLogoutBtn.addEventListener("click", function () {
+        logoutModal.classList.remove("show");
+        // In a real app, this would clear session and redirect to login
+        window.location.href = "login.html";
+      });
 
-        // Cancel logout
-        cancelLogoutBtn.addEventListener('click', function() {
-            logoutModal.classList.remove('show');
-        });
+      // Cancel logout
+      cancelLogoutBtn.addEventListener("click", function () {
+        logoutModal.classList.remove("show");
+      });
 
-        // Close modal with X button
-        document.querySelectorAll('.close-modal').forEach(button => {
-            button.addEventListener('click', function() {
-                const modal = this.closest('.modal');
-                modal.classList.remove('show');
+      // Close modal with X button
+      document.querySelectorAll(".close-modal").forEach((button) => {
+        button.addEventListener("click", function () {
+          const modal = this.closest(".modal");
+          modal.classList.remove("show");
+        });
+      });
+
+      // Close modal when clicking outside
+      window.addEventListener("click", function (event) {
+        if (event.target === logoutModal) {
+          logoutModal.classList.remove("show");
+        }
+      });
+
+      // Mark all notifications as read
+      document
+        .querySelector(".mark-all-read")
+        .addEventListener("click", function () {
+          document
+            .querySelectorAll(".notification-item.unread")
+            .forEach((item) => {
+              item.classList.remove("unread");
             });
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-            if (event.target === logoutModal) {
-                logoutModal.classList.remove('show');
-            }
-        });
-
-        // Mark all notifications as read
-        document.querySelector('.mark-all-read').addEventListener('click', function() {
-            document.querySelectorAll('.notification-item.unread').forEach(item => {
-                item.classList.remove('unread');
-            });
-            document.querySelector('.notification-badge').style.display = 'none';
+          document.querySelector(".notification-badge").style.display = "none";
         });
     </script>
-</body>
+  </body>
 </html>

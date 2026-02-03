@@ -1,1709 +1,1872 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile Settings - Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+
+      :root {
+        --primary: #0a2a66;
+        --primary-dark: #071e4d;
+        --primary-light: #1e3a8a;
+        --secondary: #f8c12e;
+        --secondary-dark: #e6af1a;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --success: #10b981;
+        --light: #f8fafc;
+        --dark: #1e293b;
+        --gray: #64748b;
+        --gray-light: #e2e8f0;
+        --white: #ffffff;
+        --sidebar-width: 250px;
+        --sidebar-collapsed: 70px;
+        --navbar-height: 70px;
+        --transition: all 0.2s ease;
+      }
+
+      body {
+        background-color: #f1f5f9;
+        color: var(--dark);
+        display: flex;
+        min-height: 100vh;
+        overflow-x: hidden;
+        line-height: 1.4;
+      }
+
+      /* Sidebar Styles - Matching dashboard */
+      .sidebar {
+        width: var(--sidebar-width);
+        background: linear-gradient(
+          180deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        height: 100vh;
+        position: fixed;
+        transition: var(--transition);
+        z-index: 100;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .sidebar.collapsed {
+        width: var(--sidebar-collapsed);
+        overflow-y: hidden;
+      }
+
+      .sidebar-header {
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        height: var(--navbar-height);
+        min-height: var(--navbar-height);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px; /* Reduced gap for no space between logo and text */
+      }
+
+      .logo-img-placeholder {
+        width: 40px;
+        height: 40px;
+        background-color: var(--secondary);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-weight: bold;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+      }
+
+      .logo-main {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      .logo-sub {
+        font-size: 0.7rem;
+        font-weight: 500;
+        opacity: 0.8;
+        color: white;
+      }
+
+      .toggle-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        flex-shrink: 0;
+      }
+
+      .toggle-btn:hover {
+        transform: scale(1.1);
+        color: var(--secondary);
+      }
+
+      .sidebar-menu {
+        padding: 15px 0;
+        list-style: none;
+      }
+
+      .sidebar-menu li {
+        margin-bottom: 3px;
+      }
+
+      .sidebar-menu a {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+
+      .sidebar-menu a:hover,
+      .sidebar-menu a.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-left: 4px solid var(--secondary);
+      }
+
+      .sidebar-menu i {
+        margin-right: 15px;
+        font-size: 1rem;
+        width: 20px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .sidebar.collapsed .menu-text {
+        display: none;
+      }
+
+      .sidebar.collapsed .sidebar-header {
+        justify-content: center;
+        padding: 15px 5px;
+      }
+
+      .sidebar.collapsed .logo-text {
+        display: none;
+      }
+
+      .sidebar.collapsed .logo {
+        justify-content: center;
+      }
+
+      /* Main Content Area */
+      .main-content {
+        flex: 1;
+        margin-left: var(--sidebar-width);
+        transition: var(--transition);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - var(--sidebar-width));
+      }
+
+      .main-content.expanded {
+        margin-left: var(--sidebar-collapsed);
+        width: calc(100% - var(--sidebar-collapsed));
+      }
+
+      /* Navbar Styles - Matching dashboard */
+      .navbar {
+        height: var(--navbar-height);
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        position: sticky;
+        top: 0;
+        z-index: 99;
+        flex-shrink: 0;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.1rem;
+        color: var(--primary);
+        cursor: pointer;
+      }
+
+      .page-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--dark);
+      }
+
+      .navbar-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      /* Notification Dropdown - From reference page */
+      .notification-icon {
+        position: relative;
+        cursor: pointer;
+        font-size: 1.1rem;
+        color: var(--gray);
+        transition: var(--transition);
+      }
+
+      .notification-icon:hover {
+        color: var(--primary);
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: var(--danger);
+        color: white;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        font-size: 0.7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .notification-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 300px;
+        max-height: 350px;
+        overflow-y: auto;
+        display: none;
+        z-index: 101;
+      }
+
+      .notification-dropdown.show {
+        display: block;
+      }
+
+      .notification-header {
+        padding: 12px 15px;
+        border-bottom: 1px solid var(--gray-light);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .notification-title {
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 0.95rem;
+      }
+
+      .mark-all-read {
+        background: none;
+        border: none;
+        color: var(--primary);
+        cursor: pointer;
+        font-size: 0.8rem;
+      }
+
+      .notification-list {
+        list-style: none;
+      }
+
+      .notification-item {
+        padding: 10px 15px;
+        border-bottom: 1px solid var(--gray-light);
+        transition: var(--transition);
+      }
+
+      .notification-item:hover {
+        background-color: rgba(248, 193, 46, 0.1);
+      }
+
+      .notification-item.unread {
+        background-color: rgba(10, 42, 102, 0.05);
+      }
+
+      .notification-item:last-child {
+        border-bottom: none;
+      }
+
+      .notification-content {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+      }
+
+      .notification-time {
+        font-size: 0.7rem;
+        color: var(--gray);
+      }
+
+      .notification-empty {
+        padding: 20px;
+        text-align: center;
+        color: var(--gray);
+        font-size: 0.9rem;
+      }
+
+      .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 50px;
+        transition: var(--transition);
+      }
+
+      .user-profile:hover {
+        background-color: var(--gray-light);
+      }
+
+      .user-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .user-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .user-name {
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 180px;
+        padding: 8px 0;
+        display: none;
+        z-index: 101;
+      }
+
+      .dropdown-menu.show {
+        display: block;
+      }
+
+      .dropdown-menu a {
+        display: block;
+        padding: 8px 16px;
+        text-decoration: none;
+        color: var(--dark);
+        transition: var(--transition);
+        font-size: 0.85rem;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: var(--gray-light);
+        color: var(--primary);
+      }
+
+      /* Page Content */
+      .dashboard-content {
+        padding: 20px;
+        flex: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .welcome-section {
+        margin-bottom: 15px;
+        padding: 0 5px;
+      }
+
+      .welcome-title {
+        font-size: 1.4rem;
+        margin-bottom: 4px;
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .welcome-subtitle {
+        color: var(--gray);
+        font-size: 0.9rem;
+      }
+
+      /* Profile Header Card */
+      .profile-header-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 18px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        border-top: 3px solid var(--secondary);
+      }
+
+      .profile-avatar-lg {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        overflow: hidden;
+        flex-shrink: 0;
+        border: 3px solid var(--secondary);
+      }
+
+      .profile-avatar-lg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .profile-info {
+        flex: 1;
+      }
+
+      .profile-name {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 5px;
+      }
+
+      .profile-company {
+        color: var(--gray);
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+      }
+
+      .profile-stats {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .profile-stat {
+        text-align: center;
+        min-width: 60px;
+      }
+
+      .profile-stat-value {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary);
+        line-height: 1.2;
+      }
+
+      .profile-stat-label {
+        font-size: 0.7rem;
+        color: var(--gray);
+      }
+
+      /* Settings Cards - FULL HEIGHT and stretched */
+      .settings-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        height: calc(100vh - 300px);
+        min-height: 500px;
+      }
+
+      .settings-cards .card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 18px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+        border-top: 3px solid var(--primary);
+        overflow: hidden;
+      }
+
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      .card-header {
+        margin-bottom: 15px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--gray-light);
+        flex-shrink: 0;
+      }
+
+      .card-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .card-subtitle {
+        color: var(--gray);
+        font-size: 0.8rem;
+      }
+
+      /* Form Styles - Matching dashboard */
+      .form-group {
+        margin-bottom: 15px;
+        flex-shrink: 0;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--gray-light);
+        border-radius: 5px;
+        font-size: 0.9rem;
+        transition: var(--transition);
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--secondary);
+        box-shadow: 0 0 0 3px rgba(248, 193, 46, 0.2);
+      }
+
+      .form-text {
+        font-size: 0.75rem;
+        color: var(--gray);
+        margin-top: 4px;
+      }
+
+      .form-row {
+        display: flex;
+        gap: 12px;
+      }
+
+      .form-row .form-group {
+        flex: 1;
+      }
+
+      /* Buttons - Matching dashboard */
+      .btn {
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        border: none;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 1px solid var(--gray-light);
+        color: var(--dark);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--gray-light);
+      }
+
+      .btn-danger {
+        background-color: var(--danger);
+        color: white;
+      }
+
+      .btn-danger:hover {
+        background-color: #dc2626;
+      }
+
+      .btn-accent {
+        background-color: var(--secondary);
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .btn-accent:hover {
+        background-color: var(--secondary-dark);
+      }
+
+      /* Action Buttons Container */
+      .action-buttons {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: auto; /* Push buttons to bottom of card */
+        padding-top: 15px;
+        flex-shrink: 0;
+      }
+
+      /* Modal Styles - Matching dashboard */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      .modal-content {
+        background-color: white;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 450px;
+        padding: 20px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        border-top: 5px solid var(--secondary);
+      }
+
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .modal-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .close-modal {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: var(--gray);
+      }
+
+      .modal-body {
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+        color: var(--dark);
+      }
+
+      .modal-footer {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+      }
+
+      /* Toast Notification */
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: var(--success);
+        color: white;
+        padding: 10px 16px;
+        border-radius: 5px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 1001;
+        transform: translateY(100px);
+        opacity: 0;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        max-width: 300px;
+      }
+
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .toast-error {
+        background-color: var(--danger);
+      }
+
+      /* Mobile Overlay */
+      .mobile-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+      }
+
+      .mobile-overlay.show {
+        display: block;
+      }
+
+      /* Form content area */
+      .form-content {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 5px;
+        margin-bottom: 15px;
+      }
+
+      /* ====================== */
+      /* MOBILE OPTIMIZATIONS */
+      /* ====================== */
+
+      /* Tablet (992px and below) */
+      @media (max-width: 992px) {
+        .dashboard-content {
+          padding: 15px;
         }
 
-        :root {
-            --primary: #0a2a66;
-            --primary-dark: #071e4d;
-            --primary-light: #1e3a8a;
-            --secondary: #f8c12e;
-            --secondary-dark: #e6af1a;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --success: #10b981;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gray: #64748b;
-            --gray-light: #e2e8f0;
-            --white: #ffffff;
-            --sidebar-width: 250px;
-            --sidebar-collapsed: 70px;
-            --navbar-height: 70px;
-            --transition: all 0.2s ease;
-        }
-
-        body {
-            background-color: #f1f5f9;
-            color: var(--dark);
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
-            line-height: 1.4;
-        }
-
-        /* Sidebar Styles - Matching dashboard */
         .sidebar {
-            width: var(--sidebar-width);
-            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-            color: white;
-            height: 100vh;
-            position: fixed;
-            transition: var(--transition);
-            z-index: 100;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-            overflow-x: hidden;
+          transform: translateX(-100%);
+          width: 250px;
         }
 
-        .sidebar.collapsed {
-            width: var(--sidebar-collapsed);
-            overflow-y: hidden;
+        .sidebar.mobile-open {
+          transform: translateX(0);
         }
 
-        .sidebar-header {
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            height: var(--navbar-height);
-            min-height: var(--navbar-height);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px; /* Reduced gap for no space between logo and text */
-        }
-
-        .logo-img-placeholder {
-            width: 40px;
-            height: 40px;
-            background-color: var(--secondary);
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
-
-        .logo-main {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: white;
-        }
-
-        .logo-sub {
-            font-size: 0.7rem;
-            font-weight: 500;
-            opacity: 0.8;
-            color: white;
-        }
-
-        .toggle-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            flex-shrink: 0;
-        }
-
-        .toggle-btn:hover {
-            transform: scale(1.1);
-            color: var(--secondary);
-        }
-
-        .sidebar-menu {
-            padding: 15px 0;
-            list-style: none;
-        }
-
-        .sidebar-menu li {
-            margin-bottom: 3px;
-        }
-
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-left: 4px solid var(--secondary);
-        }
-
-        .sidebar-menu i {
-            margin-right: 15px;
-            font-size: 1rem;
-            width: 20px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        .sidebar.collapsed .menu-text {
-            display: none;
-        }
-
-        .sidebar.collapsed .sidebar-header {
-            justify-content: center;
-            padding: 15px 5px;
-        }
-
-        .sidebar.collapsed .logo-text {
-            display: none;
-        }
-
-        .sidebar.collapsed .logo {
-            justify-content: center;
-        }
-
-        /* Main Content Area */
         .main-content {
-            flex: 1;
-            margin-left: var(--sidebar-width);
-            transition: var(--transition);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            width: calc(100% - var(--sidebar-width));
+          margin-left: 0;
+          width: 100%;
         }
 
         .main-content.expanded {
-            margin-left: var(--sidebar-collapsed);
-            width: calc(100% - var(--sidebar-collapsed));
-        }
-
-        /* Navbar Styles - Matching dashboard */
-        .navbar {
-            height: var(--navbar-height);
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            position: sticky;
-            top: 0;
-            z-index: 99;
-            flex-shrink: 0;
+          margin-left: 0;
+          width: 100%;
         }
 
         .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.1rem;
-            color: var(--primary);
-            cursor: pointer;
+          display: block;
         }
 
-        .page-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        /* Notification Dropdown - From reference page */
-        .notification-icon {
-            position: relative;
-            cursor: pointer;
-            font-size: 1.1rem;
-            color: var(--gray);
-            transition: var(--transition);
-        }
-
-        .notification-icon:hover {
-            color: var(--primary);
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: var(--danger);
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .notification-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 20px;
-            background-color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 300px;
-            max-height: 350px;
-            overflow-y: auto;
-            display: none;
-            z-index: 101;
-        }
-
-        .notification-dropdown.show {
-            display: block;
-        }
-
-        .notification-header {
-            padding: 12px 15px;
-            border-bottom: 1px solid var(--gray-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .notification-title {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 0.95rem;
-        }
-
-        .mark-all-read {
-            background: none;
-            border: none;
-            color: var(--primary);
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .notification-list {
-            list-style: none;
-        }
-
-        .notification-item {
-            padding: 10px 15px;
-            border-bottom: 1px solid var(--gray-light);
-            transition: var(--transition);
-        }
-
-        .notification-item:hover {
-            background-color: rgba(248, 193, 46, 0.1);
-        }
-
-        .notification-item.unread {
-            background-color: rgba(10, 42, 102, 0.05);
-        }
-
-        .notification-item:last-child {
-            border-bottom: none;
-        }
-
-        .notification-content {
-            font-size: 0.85rem;
-            margin-bottom: 4px;
-        }
-
-        .notification-time {
-            font-size: 0.7rem;
-            color: var(--gray);
-        }
-
-        .notification-empty {
-            padding: 20px;
-            text-align: center;
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 50px;
-            transition: var(--transition);
-        }
-
-        .user-profile:hover {
-            background-color: var(--gray-light);
-        }
-
-        .user-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background-color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .user-name {
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: 20px;
-            background-color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 180px;
-            padding: 8px 0;
-            display: none;
-            z-index: 101;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-menu a {
-            display: block;
-            padding: 8px 16px;
-            text-decoration: none;
-            color: var(--dark);
-            transition: var(--transition);
-            font-size: 0.85rem;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: var(--gray-light);
-            color: var(--primary);
-        }
-
-        /* Page Content */
-        .dashboard-content {
-            padding: 20px;
-            flex: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .welcome-section {
-            margin-bottom: 15px;
-            padding: 0 5px;
-        }
-
-        .welcome-title {
-            font-size: 1.4rem;
-            margin-bottom: 4px;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .welcome-subtitle {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        /* Profile Header Card */
-        .profile-header-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 18px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-top: 3px solid var(--secondary);
-        }
-
-        .profile-avatar-lg {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            overflow: hidden;
-            flex-shrink: 0;
-            border: 3px solid var(--secondary);
-        }
-
-        .profile-avatar-lg img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .profile-info {
-            flex: 1;
-        }
-
-        .profile-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        .profile-company {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-        }
-
-        .profile-stats {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .profile-stat {
-            text-align: center;
-            min-width: 60px;
-        }
-
-        .profile-stat-value {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary);
-            line-height: 1.2;
-        }
-
-        .profile-stat-label {
-            font-size: 0.7rem;
-            color: var(--gray);
-        }
-
-        /* Settings Cards - FULL HEIGHT and stretched */
         .settings-cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            height: calc(100vh - 300px);
-            min-height: 500px;
+          grid-template-columns: 1fr;
+          gap: 12px;
+          height: auto;
+          min-height: auto;
         }
 
         .settings-cards .card {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+          height: auto;
+          min-height: 400px;
+        }
+
+        .navbar {
+          padding: 0 15px;
+        }
+
+        .page-title {
+          font-size: 1.1rem;
+        }
+
+        .profile-header-card {
+          padding: 15px;
+        }
+
+        .notification-dropdown {
+          right: 15px;
+          width: 280px;
+        }
+      }
+
+      /* Mobile (768px and below) */
+      @media (max-width: 768px) {
+        .dashboard-content {
+          padding: 12px;
+        }
+
+        .navbar {
+          padding: 0 12px;
+          height: 60px;
+        }
+
+        .logo-main {
+          font-size: 1rem;
+        }
+
+        .logo-img-placeholder {
+          width: 35px;
+          height: 35px;
+          font-size: 1rem;
+        }
+
+        .user-name {
+          display: none;
+        }
+
+        .notification-icon {
+          font-size: 1rem;
+        }
+
+        .user-avatar {
+          width: 35px;
+          height: 35px;
+        }
+
+        .dropdown-menu {
+          right: 12px;
+          width: 160px;
+        }
+
+        .welcome-section {
+          margin-bottom: 12px;
+        }
+
+        .welcome-title {
+          font-size: 1.2rem;
+          margin-bottom: 3px;
+        }
+
+        .welcome-subtitle {
+          font-size: 0.85rem;
+        }
+
+        .profile-header-card {
+          padding: 14px;
+          flex-direction: column;
+          text-align: center;
+          gap: 12px;
+        }
+
+        .profile-avatar-lg {
+          width: 60px;
+          height: 60px;
+        }
+
+        .profile-name {
+          font-size: 1.1rem;
+        }
+
+        .profile-company {
+          font-size: 0.85rem;
+        }
+
+        .profile-stats {
+          justify-content: center;
+          gap: 12px;
+        }
+
+        .profile-stat {
+          min-width: 55px;
+        }
+
+        .profile-stat-value {
+          font-size: 1rem;
         }
 
         .card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 18px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            transition: var(--transition);
-            border-top: 3px solid var(--primary);
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .card-header {
-            margin-bottom: 15px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--gray-light);
-            flex-shrink: 0;
+          padding: 14px;
         }
 
         .card-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+          font-size: 0.95rem;
         }
 
         .card-subtitle {
-            color: var(--gray);
-            font-size: 0.8rem;
-        }
-
-        /* Form Styles - Matching dashboard */
-        .form-group {
-            margin-bottom: 15px;
-            flex-shrink: 0;
+          font-size: 0.75rem;
         }
 
         .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
+          font-size: 0.85rem;
         }
 
         .form-control {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--gray-light);
-            border-radius: 5px;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(248, 193, 46, 0.2);
-        }
-
-        .form-text {
-            font-size: 0.75rem;
-            color: var(--gray);
-            margin-top: 4px;
+          padding: 9px;
+          font-size: 0.85rem;
         }
 
         .form-row {
-            display: flex;
-            gap: 12px;
+          flex-direction: column;
+          gap: 0;
         }
 
-        .form-row .form-group {
-            flex: 1;
-        }
-
-        /* Buttons - Matching dashboard */
         .btn {
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            font-size: 0.8rem;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
+          padding: 7px 10px;
+          font-size: 0.75rem;
         }
 
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--gray-light);
-            color: var(--dark);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--gray-light);
-        }
-
-        .btn-danger {
-            background-color: var(--danger);
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background-color: #dc2626;
-        }
-
-        .btn-accent {
-            background-color: var(--secondary);
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .btn-accent:hover {
-            background-color: var(--secondary-dark);
-        }
-
-        /* Action Buttons Container */
         .action-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: auto; /* Push buttons to bottom of card */
-            padding-top: 15px;
-            flex-shrink: 0;
+          flex-direction: column;
         }
 
-        /* Modal Styles - Matching dashboard */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
+        .notification-dropdown {
+          width: 260px;
+          right: 10px;
+        }
+      }
+
+      /* Small Mobile (576px and below) */
+      @media (max-width: 576px) {
+        .dashboard-content {
+          padding: 10px;
         }
 
-        .modal.show {
-            display: flex;
+        .navbar {
+          padding: 0 10px;
         }
 
-        .modal-content {
-            background-color: white;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 450px;
-            padding: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            border-top: 5px solid var(--secondary);
+        .mobile-menu-btn {
+          font-size: 1rem;
         }
 
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
+        .page-title {
+          font-size: 1rem;
         }
 
-        .modal-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary);
+        .welcome-title {
+          font-size: 1.1rem;
         }
 
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            color: var(--gray);
+        .welcome-subtitle {
+          font-size: 0.8rem;
         }
 
-        .modal-body {
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-            color: var(--dark);
+        .profile-header-card {
+          padding: 12px;
         }
 
-        .modal-footer {
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
-            flex-wrap: wrap;
+        .profile-avatar-lg {
+          width: 55px;
+          height: 55px;
         }
 
-        /* Toast Notification */
+        .profile-name {
+          font-size: 1rem;
+        }
+
+        .profile-stat-value {
+          font-size: 0.95rem;
+        }
+
+        .profile-stat-label {
+          font-size: 0.65rem;
+        }
+
+        .card {
+          padding: 12px;
+        }
+
+        .card-title {
+          font-size: 0.9rem;
+        }
+
+        .card-subtitle {
+          font-size: 0.7rem;
+        }
+
+        .btn {
+          padding: 6px 8px;
+          font-size: 0.7rem;
+        }
+
         .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--success);
-            color: white;
-            padding: 10px 16px;
-            border-radius: 5px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 1001;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: var(--transition);
-            font-size: 0.9rem;
-            max-width: 300px;
+          right: 10px;
+          left: 10px;
+          bottom: 10px;
+          max-width: none;
+          font-size: 0.8rem;
+        }
+      }
+
+      /* Extra Small Mobile (480px and below) */
+      @media (max-width: 480px) {
+        .dashboard-content {
+          padding: 8px;
         }
 
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
+        .navbar {
+          padding: 0 8px;
+          height: 55px;
         }
 
-        .toast-error {
-            background-color: var(--danger);
+        .logo-img-placeholder {
+          width: 30px;
+          height: 30px;
+          font-size: 0.9rem;
         }
 
-        /* Mobile Overlay */
-        .mobile-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 99;
+        .mobile-menu-btn {
+          font-size: 0.9rem;
         }
 
-        .mobile-overlay.show {
-            display: block;
+        .page-title {
+          font-size: 0.9rem;
         }
 
-        /* Form content area */
-        .form-content {
-            flex: 1;
-            overflow-y: auto;
-            padding-right: 5px;
-            margin-bottom: 15px;
+        .notification-icon {
+          font-size: 0.9rem;
         }
 
-        /* ====================== */
-        /* MOBILE OPTIMIZATIONS */
-        /* ====================== */
-
-        /* Tablet (992px and below) */
-        @media (max-width: 992px) {
-            .dashboard-content {
-                padding: 15px;
-            }
-            
-            .sidebar {
-                transform: translateX(-100%);
-                width: 250px;
-            }
-
-            .sidebar.mobile-open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-                width: 100%;
-            }
-
-            .main-content.expanded {
-                margin-left: 0;
-                width: 100%;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .settings-cards {
-                grid-template-columns: 1fr;
-                gap: 12px;
-                height: auto;
-                min-height: auto;
-            }
-            
-            .settings-cards .card {
-                height: auto;
-                min-height: 400px;
-            }
-            
-            .navbar {
-                padding: 0 15px;
-            }
-            
-            .page-title {
-                font-size: 1.1rem;
-            }
-            
-            .profile-header-card {
-                padding: 15px;
-            }
-            
-            .notification-dropdown {
-                right: 15px;
-                width: 280px;
-            }
+        .notification-badge {
+          width: 16px;
+          height: 16px;
+          font-size: 0.65rem;
         }
 
-        /* Mobile (768px and below) */
-        @media (max-width: 768px) {
-            .dashboard-content {
-                padding: 12px;
-            }
-            
-            .navbar {
-                padding: 0 12px;
-                height: 60px;
-            }
-            
-            .logo-main {
-                font-size: 1rem;
-            }
-            
-            .logo-img-placeholder {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
-            }
-            
-            .user-name {
-                display: none;
-            }
-            
-            .notification-icon {
-                font-size: 1rem;
-            }
-            
-            .user-avatar {
-                width: 35px;
-                height: 35px;
-            }
-            
-            .dropdown-menu {
-                right: 12px;
-                width: 160px;
-            }
-            
-            .welcome-section {
-                margin-bottom: 12px;
-            }
-            
-            .welcome-title {
-                font-size: 1.2rem;
-                margin-bottom: 3px;
-            }
-            
-            .welcome-subtitle {
-                font-size: 0.85rem;
-            }
-            
-            .profile-header-card {
-                padding: 14px;
-                flex-direction: column;
-                text-align: center;
-                gap: 12px;
-            }
-            
-            .profile-avatar-lg {
-                width: 60px;
-                height: 60px;
-            }
-            
-            .profile-name {
-                font-size: 1.1rem;
-            }
-            
-            .profile-company {
-                font-size: 0.85rem;
-            }
-            
-            .profile-stats {
-                justify-content: center;
-                gap: 12px;
-            }
-            
-            .profile-stat {
-                min-width: 55px;
-            }
-            
-            .profile-stat-value {
-                font-size: 1rem;
-            }
-            
-            .card {
-                padding: 14px;
-            }
-            
-            .card-title {
-                font-size: 0.95rem;
-            }
-            
-            .card-subtitle {
-                font-size: 0.75rem;
-            }
-            
-            .form-group label {
-                font-size: 0.85rem;
-            }
-            
-            .form-control {
-                padding: 9px;
-                font-size: 0.85rem;
-            }
-            
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-            
-            .btn {
-                padding: 7px 10px;
-                font-size: 0.75rem;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-            }
-            
-            .notification-dropdown {
-                width: 260px;
-                right: 10px;
-            }
+        .user-avatar {
+          width: 32px;
+          height: 32px;
         }
 
-        /* Small Mobile (576px and below) */
-        @media (max-width: 576px) {
-            .dashboard-content {
-                padding: 10px;
-            }
-            
-            .navbar {
-                padding: 0 10px;
-            }
-            
-            .mobile-menu-btn {
-                font-size: 1rem;
-            }
-            
-            .page-title {
-                font-size: 1rem;
-            }
-            
-            .welcome-title {
-                font-size: 1.1rem;
-            }
-            
-            .welcome-subtitle {
-                font-size: 0.8rem;
-            }
-            
-            .profile-header-card {
-                padding: 12px;
-            }
-            
-            .profile-avatar-lg {
-                width: 55px;
-                height: 55px;
-            }
-            
-            .profile-name {
-                font-size: 1rem;
-            }
-            
-            .profile-stat-value {
-                font-size: 0.95rem;
-            }
-            
-            .profile-stat-label {
-                font-size: 0.65rem;
-            }
-            
-            .card {
-                padding: 12px;
-            }
-            
-            .card-title {
-                font-size: 0.9rem;
-            }
-            
-            .card-subtitle {
-                font-size: 0.7rem;
-            }
-            
-            .btn {
-                padding: 6px 8px;
-                font-size: 0.7rem;
-            }
-            
-            .toast {
-                right: 10px;
-                left: 10px;
-                bottom: 10px;
-                max-width: none;
-                font-size: 0.8rem;
-            }
+        .welcome-title {
+          font-size: 1rem;
         }
 
-        /* Extra Small Mobile (480px and below) */
-        @media (max-width: 480px) {
-            .dashboard-content {
-                padding: 8px;
-            }
-            
-            .navbar {
-                padding: 0 8px;
-                height: 55px;
-            }
-            
-            .logo-img-placeholder {
-                width: 30px;
-                height: 30px;
-                font-size: 0.9rem;
-            }
-            
-            .mobile-menu-btn {
-                font-size: 0.9rem;
-            }
-            
-            .page-title {
-                font-size: 0.9rem;
-            }
-            
-            .notification-icon {
-                font-size: 0.9rem;
-            }
-            
-            .notification-badge {
-                width: 16px;
-                height: 16px;
-                font-size: 0.65rem;
-            }
-            
-            .user-avatar {
-                width: 32px;
-                height: 32px;
-            }
-            
-            .welcome-title {
-                font-size: 1rem;
-            }
-            
-            .welcome-subtitle {
-                font-size: 0.75rem;
-            }
-            
-            .profile-header-card {
-                padding: 10px;
-            }
-            
-            .profile-avatar-lg {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .profile-stat {
-                min-width: 50px;
-            }
-            
-            .profile-stat-value {
-                font-size: 0.9rem;
-            }
-            
-            .card {
-                padding: 10px;
-            }
-            
-            .btn {
-                padding: 5px 7px;
-                font-size: 0.65rem;
-            }
-            
-            .dropdown-menu {
-                width: 140px;
-                padding: 6px 0;
-            }
-            
-            .dropdown-menu a {
-                padding: 6px 12px;
-                font-size: 0.8rem;
-            }
-            
-            .notification-dropdown {
-                width: 240px;
-                right: 8px;
-            }
+        .welcome-subtitle {
+          font-size: 0.75rem;
         }
 
-        /* Very Small Mobile (360px and below) */
-        @media (max-width: 360px) {
-            .dashboard-content {
-                padding: 6px;
-            }
-            
-            .navbar {
-                padding: 0 6px;
-            }
-            
-            .logo-img-placeholder {
-                width: 28px;
-                height: 28px;
-                font-size: 0.8rem;
-            }
-            
-            .logo-main {
-                font-size: 0.9rem;
-            }
-            
-            .logo-sub {
-                font-size: 0.6rem;
-            }
-            
-            .welcome-title {
-                font-size: 0.95rem;
-            }
-            
-            .profile-header-card {
-                padding: 8px;
-            }
-            
-            .profile-avatar-lg {
-                width: 45px;
-                height: 45px;
-            }
-            
-            .profile-name {
-                font-size: 0.95rem;
-            }
-            
-            .card {
-                padding: 8px;
-            }
-            
-            .card-title {
-                font-size: 0.85rem;
-            }
-            
-            .form-group label {
-                font-size: 0.8rem;
-            }
-            
-            .form-control {
-                padding: 8px;
-                font-size: 0.8rem;
-            }
-            
-            .btn {
-                padding: 4px 6px;
-                font-size: 0.6rem;
-            }
+        .profile-header-card {
+          padding: 10px;
         }
+
+        .profile-avatar-lg {
+          width: 50px;
+          height: 50px;
+        }
+
+        .profile-stat {
+          min-width: 50px;
+        }
+
+        .profile-stat-value {
+          font-size: 0.9rem;
+        }
+
+        .card {
+          padding: 10px;
+        }
+
+        .btn {
+          padding: 5px 7px;
+          font-size: 0.65rem;
+        }
+
+        .dropdown-menu {
+          width: 140px;
+          padding: 6px 0;
+        }
+
+        .dropdown-menu a {
+          padding: 6px 12px;
+          font-size: 0.8rem;
+        }
+
+        .notification-dropdown {
+          width: 240px;
+          right: 8px;
+        }
+      }
+
+      /* Very Small Mobile (360px and below) */
+      @media (max-width: 360px) {
+        .dashboard-content {
+          padding: 6px;
+        }
+
+        .navbar {
+          padding: 0 6px;
+        }
+
+        .logo-img-placeholder {
+          width: 28px;
+          height: 28px;
+          font-size: 0.8rem;
+        }
+
+        .logo-main {
+          font-size: 0.9rem;
+        }
+
+        .logo-sub {
+          font-size: 0.6rem;
+        }
+
+        .welcome-title {
+          font-size: 0.95rem;
+        }
+
+        .profile-header-card {
+          padding: 8px;
+        }
+
+        .profile-avatar-lg {
+          width: 45px;
+          height: 45px;
+        }
+
+        .profile-name {
+          font-size: 0.95rem;
+        }
+
+        .card {
+          padding: 8px;
+        }
+
+        .card-title {
+          font-size: 0.85rem;
+        }
+
+        .form-group label {
+          font-size: 0.8rem;
+        }
+
+        .form-control {
+          padding: 8px;
+          font-size: 0.8rem;
+        }
+
+        .btn {
+          padding: 4px 6px;
+          font-size: 0.6rem;
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
     <!-- Logout Confirmation Modal -->
     <div class="modal" id="logoutModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Confirm Logout</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to log out of your account?</p>
-                <p><strong>You will need to log in again to access your dashboard.</strong></p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger" id="confirmLogout">Yes, Logout</button>
-                <button class="btn btn-outline" id="cancelLogout">Cancel</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Confirm Logout</h3>
+          <button class="close-modal">&times;</button>
         </div>
+        <div class="modal-body">
+          <p>Are you sure you want to log out of your account?</p>
+          <p>
+            <strong
+              >You will need to log in again to access your dashboard.</strong
+            >
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-danger" id="confirmLogout">Yes, Logout</button>
+          <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+        </div>
+      </div>
     </div>
 
     <!-- Toast Notification -->
     <div class="toast" id="toast">
-        <i class="fas fa-check-circle"></i>
-        <span id="toastMessage">Settings updated successfully!</span>
+      <i class="fas fa-check-circle"></i>
+      <span id="toastMessage">Settings updated successfully!</span>
     </div>
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
-                <div class="logo-img-placeholder">JA</div>
-                <div class="logo-text">
-                    <div class="logo-main">JobAssist</div>
-                    <div class="logo-sub">GHANA</div>
-                </div>
-            </div>
-            <button class="toggle-btn" id="sidebarToggle">
-                <i class="fas fa-chevron-left"></i>
-            </button>
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-img-placeholder">JA</div>
+          <div class="logo-text">
+            <div class="logo-main">JobAssist</div>
+            <div class="logo-sub">GHANA</div>
+          </div>
         </div>
-        <ul class="sidebar-menu">
-            <li><a href="employer-dashboard.html"><i class="fas fa-home"></i> <span class="menu-text">Dashboard</span></a></li>
-            <li><a href="job-type.html"><i class="fas fa-plus-circle"></i> <span class="menu-text">Post Job</span></a></li>
-            <li><a href="my-job-post.html"><i class="fas fa-briefcase"></i> <span class="menu-text">My Job Posts</span></a></li>
-            <li><a href="boost-job.html"><i class="fas fa-rocket"></i> <span class="menu-text">Boost Job</span></a></li>
-            <li><a href="employer-payment.html"><i class="fas fa-credit-card"></i> <span class="menu-text">Payments</span></a></li>
-            <li><a href="esettings.html" class="active"><i class="fas fa-user-cog"></i> <span class="menu-text">Profile / Settings</span></a></li>
-            <li><a href="#" id="sidebarLogout"><i class="fas fa-sign-out-alt"></i> <span class="menu-text">Logout</span></a></li>
-        </ul>
+        <button class="toggle-btn" id="sidebarToggle">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+      <ul class="sidebar-menu">
+        <li>
+          <a href="employer-dashboard.html"
+            ><i class="fas fa-home"></i>
+            <span class="menu-text">Dashboard</span></a
+          >
+        </li>
+        <li>
+          <a href="job-type.html"
+            ><i class="fas fa-plus-circle"></i>
+            <span class="menu-text">Post Job</span></a
+          >
+        </li>
+        <li>
+          <a href="my-job-post.html"
+            ><i class="fas fa-briefcase"></i>
+            <span class="menu-text">My Job Posts</span></a
+          >
+        </li>
+        <li>
+          <a href="boost-job.html"
+            ><i class="fas fa-rocket"></i>
+            <span class="menu-text">Boost Job</span></a
+          >
+        </li>
+        <li>
+          <a href="employer-payment.html"
+            ><i class="fas fa-credit-card"></i>
+            <span class="menu-text">Payments</span></a
+          >
+        </li>
+        <li>
+          <a href="esettings.html" class="active"
+            ><i class="fas fa-user-cog"></i>
+            <span class="menu-text">Profile / Settings</span></a
+          >
+        </li>
+        <li>
+          <a href="#" id="sidebarLogout"
+            ><i class="fas fa-sign-out-alt"></i>
+            <span class="menu-text">Logout</span></a
+          >
+        </li>
+      </ul>
     </aside>
 
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
-        <!-- Navbar -->
-        <nav class="navbar">
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="page-title">Profile Settings</div>
-            <div class="navbar-right">
-                <!-- Notification Area -->
-                <div class="notification-icon" id="notificationIcon">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge">3</span>
-                </div>
-                <div class="notification-dropdown" id="notificationDropdown">
-                    <div class="notification-header">
-                        <h3 class="notification-title">Notifications</h3>
-                        <button class="mark-all-read">Mark all as read</button>
-                    </div>
-                    <ul class="notification-list">
-                        <li class="notification-item unread">
-                            <div class="notification-content">5 new applicants for Frontend Developer position</div>
-                            <div class="notification-time">2 hours ago</div>
-                        </li>
-                        <li class="notification-item unread">
-                            <div class="notification-content">Your job listing for Marketing Manager is about to expire</div>
-                            <div class="notification-time">5 hours ago</div>
-                        </li>
-                        <li class="notification-item unread">
-                            <div class="notification-content">3 candidates have viewed your company profile this week</div>
-                            <div class="notification-time">1 day ago</div>
-                        </li>
-                        <li class="notification-item">
-                            <div class="notification-content">Boost campaign for UX Designer has ended</div>
-                            <div class="notification-time">2 days ago</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="user-profile" id="userProfile">
-                    <div class="user-avatar">
-                        <img src="https://i.pravatar.cc/150?img=5" alt="User">
-                    </div>
-                    <div class="user-name">Nana Kwame</div>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-menu">
-                    <a href="esettings.html"><i class="fas fa-user"></i> View Profile</a>
-                    <a href="employer-payment.html"><i class="fas fa-history"></i> Payment History</a>
-                    <a href="esettings.html"><i class="fas fa-cog"></i> Settings</a>
-                    <a href="#" id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </div>
+      <!-- Navbar -->
+      <nav class="navbar">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="page-title">Profile Settings</div>
+        <div class="navbar-right">
+          <!-- Notification Area -->
+          <div class="notification-icon" id="notificationIcon">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </div>
+          <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notification-header">
+              <h3 class="notification-title">Notifications</h3>
+              <button class="mark-all-read">Mark all as read</button>
             </div>
-        </nav>
-
-        <!-- Dashboard Content -->
-        <div class="dashboard-content">
-            <!-- Welcome Section -->
-            <div class="welcome-section">
-                <h1 class="welcome-title">Profile Settings</h1>
-                <p class="welcome-subtitle">Manage your company information and account settings</p>
+            <ul class="notification-list">
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  5 new applicants for Frontend Developer position
+                </div>
+                <div class="notification-time">2 hours ago</div>
+              </li>
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  Your job listing for Marketing Manager is about to expire
+                </div>
+                <div class="notification-time">5 hours ago</div>
+              </li>
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  3 candidates have viewed your company profile this week
+                </div>
+                <div class="notification-time">1 day ago</div>
+              </li>
+              <li class="notification-item">
+                <div class="notification-content">
+                  Boost campaign for UX Designer has ended
+                </div>
+                <div class="notification-time">2 days ago</div>
+              </li>
+            </ul>
+          </div>
+          <div class="user-profile" id="userProfile">
+            <div class="user-avatar">
+              <img src="https://i.pravatar.cc/150?img=5" alt="User" />
             </div>
-
-            <!-- Profile Header Card -->
-            <div class="profile-header-card">
-                <div class="profile-avatar-lg">
-                    <img src="https://i.pravatar.cc/150?img=5" alt="Nana Kwame">
-                </div>
-                <div class="profile-info">
-                    <h3 class="profile-name">Nana Kwame</h3>
-                    <p class="profile-company">Tech Solutions Inc. • Accra, Ghana</p>
-                    <div class="profile-stats">
-                        <div class="profile-stat">
-                            <div class="profile-stat-value">5</div>
-                            <div class="profile-stat-label">Active Jobs</div>
-                        </div>
-                        <div class="profile-stat">
-                            <div class="profile-stat-value">42</div>
-                            <div class="profile-stat-label">Applicants</div>
-                        </div>
-                        <div class="profile-stat">
-                            <div class="profile-stat-value">12</div>
-                            <div class="profile-stat-label">Unlocked</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Settings Cards -->
-            <div class="settings-cards">
-                <!-- Company Profile Card -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-building"></i> Company Profile</h3>
-                        <p class="card-subtitle">Update your company details and description</p>
-                    </div>
-                    <div class="form-content">
-                        <form id="companyProfileForm">
-                            <div class="form-group">
-                                <label for="companyName">Company Name</label>
-                                <input type="text" id="companyName" class="form-control" value="Tech Solutions Inc.">
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="companyIndustry">Industry</label>
-                                    <select id="companyIndustry" class="form-control">
-                                        <option value="technology" selected>Technology</option>
-                                        <option value="finance">Finance</option>
-                                        <option value="healthcare">Healthcare</option>
-                                        <option value="education">Education</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="companySize">Company Size</label>
-                                    <select id="companySize" class="form-control">
-                                        <option value="11-50" selected>11-50 employees</option>
-                                        <option value="1-10">1-10 employees</option>
-                                        <option value="51-200">51-200 employees</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="companyWebsite">Website</label>
-                                <input type="url" id="companyWebsite" class="form-control" value="https://techsolutions.example.com">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="companyLocation">Location</label>
-                                <input type="text" id="companyLocation" class="form-control" value="Accra, Ghana">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="companyDescription">Company Description</label>
-                                <textarea id="companyDescription" class="form-control" rows="5">Tech Solutions Inc. is a leading technology company based in Accra, Ghana. We specialize in developing innovative software solutions for businesses across various industries.</textarea>
-                                <div class="form-text">Describe your company, services, and values. This will be visible to job applicants.</div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="action-buttons">
-                        <button type="submit" form="companyProfileForm" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Save Changes
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Account Settings Card -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-user"></i> Account Settings</h3>
-                        <p class="card-subtitle">Update your contact details</p>
-                    </div>
-                    <div class="form-content">
-                        <form id="accountSettingsForm">
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" class="form-control" value="nana.kwame@techsolutions.example.com">
-                                <div class="form-text">This will be used for notifications and account recovery</div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" class="form-control" value="+233 24 123 4567">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="jobTitle">Job Title</label>
-                                <input type="text" id="jobTitle" class="form-control" value="HR Manager">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="department">Department</label>
-                                <input type="text" id="department" class="form-control" value="Human Resources">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="action-buttons">
-                        <button type="submit" form="accountSettingsForm" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Save Changes
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Security Settings Card -->
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-shield-alt"></i> Security Settings</h3>
-                        <p class="card-subtitle">Manage your password and security</p>
-                    </div>
-                    <div class="form-content">
-                        <form id="securitySettingsForm">
-                            <div class="form-group">
-                                <label for="currentPassword">Current Password</label>
-                                <input type="password" id="currentPassword" class="form-control">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="newPassword">New Password</label>
-                                <input type="password" id="newPassword" class="form-control">
-                                <div class="form-text">Password must be at least 8 characters long</div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="confirmPassword">Confirm New Password</label>
-                                <input type="password" id="confirmPassword" class="form-control">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="twoFactor">Two-Factor Authentication</label>
-                                <select id="twoFactor" class="form-control">
-                                    <option value="enabled">Enabled</option>
-                                    <option value="disabled" selected>Disabled</option>
-                                </select>
-                                <div class="form-text">Add an extra layer of security to your account</div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="sessionTimeout">Session Timeout</label>
-                                <select id="sessionTimeout" class="form-control">
-                                    <option value="15">15 minutes</option>
-                                    <option value="30" selected>30 minutes</option>
-                                    <option value="60">1 hour</option>
-                                    <option value="120">2 hours</option>
-                                </select>
-                                <div class="form-text">Automatically log out after inactivity</div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="action-buttons">
-                        <button type="submit" form="securitySettingsForm" class="btn btn-primary">
-                            <i class="fas fa-key"></i> Update Security
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <div class="user-name">Nana Kwame</div>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="dropdown-menu">
+            <a href="esettings.html"
+              ><i class="fas fa-user"></i> View Profile</a
+            >
+            <a href="employer-payment.html"
+              ><i class="fas fa-history"></i> Payment History</a
+            >
+            <a href="esettings.html"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#" id="dropdownLogout"
+              ><i class="fas fa-sign-out-alt"></i> Logout</a
+            >
+          </div>
         </div>
+      </nav>
+
+      <!-- Dashboard Content -->
+      <div class="dashboard-content">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+          <h1 class="welcome-title">Profile Settings</h1>
+          <p class="welcome-subtitle">
+            Manage your company information and account settings
+          </p>
+        </div>
+
+        <!-- Profile Header Card -->
+        <div class="profile-header-card">
+          <div class="profile-avatar-lg">
+            <img src="https://i.pravatar.cc/150?img=5" alt="Nana Kwame" />
+          </div>
+          <div class="profile-info">
+            <h3 class="profile-name">Nana Kwame</h3>
+            <p class="profile-company">Tech Solutions Inc. • Accra, Ghana</p>
+            <div class="profile-stats">
+              <div class="profile-stat">
+                <div class="profile-stat-value">5</div>
+                <div class="profile-stat-label">Active Jobs</div>
+              </div>
+              <div class="profile-stat">
+                <div class="profile-stat-value">42</div>
+                <div class="profile-stat-label">Applicants</div>
+              </div>
+              <div class="profile-stat">
+                <div class="profile-stat-value">12</div>
+                <div class="profile-stat-label">Unlocked</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Cards -->
+        <div class="settings-cards">
+          <!-- Company Profile Card -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fas fa-building"></i> Company Profile
+              </h3>
+              <p class="card-subtitle">
+                Update your company details and description
+              </p>
+            </div>
+            <div class="form-content">
+              <form id="companyProfileForm">
+                <div class="form-group">
+                  <label for="companyName">Company Name</label>
+                  <input
+                    type="text"
+                    id="companyName"
+                    class="form-control"
+                    value="Tech Solutions Inc."
+                  />
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="companyIndustry">Industry</label>
+                    <select id="companyIndustry" class="form-control">
+                      <option value="technology" selected>Technology</option>
+                      <option value="finance">Finance</option>
+                      <option value="healthcare">Healthcare</option>
+                      <option value="education">Education</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="companySize">Company Size</label>
+                    <select id="companySize" class="form-control">
+                      <option value="11-50" selected>11-50 employees</option>
+                      <option value="1-10">1-10 employees</option>
+                      <option value="51-200">51-200 employees</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="companyWebsite">Website</label>
+                  <input
+                    type="url"
+                    id="companyWebsite"
+                    class="form-control"
+                    value="https://techsolutions.example.com"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="companyLocation">Location</label>
+                  <input
+                    type="text"
+                    id="companyLocation"
+                    class="form-control"
+                    value="Accra, Ghana"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="companyDescription">Company Description</label>
+                  <textarea
+                    id="companyDescription"
+                    class="form-control"
+                    rows="5"
+                  >
+Tech Solutions Inc. is a leading technology company based in Accra, Ghana. We specialize in developing innovative software solutions for businesses across various industries.</textarea
+                  >
+                  <div class="form-text">
+                    Describe your company, services, and values. This will be
+                    visible to job applicants.
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="action-buttons">
+              <button
+                type="submit"
+                form="companyProfileForm"
+                class="btn btn-primary"
+              >
+                <i class="fas fa-save"></i> Save Changes
+              </button>
+            </div>
+          </div>
+
+          <!-- Account Settings Card -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fas fa-user"></i> Account Settings
+              </h3>
+              <p class="card-subtitle">Update your contact details</p>
+            </div>
+            <div class="form-content">
+              <form id="accountSettingsForm">
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <input
+                    type="email"
+                    id="email"
+                    class="form-control"
+                    value="nana.kwame@techsolutions.example.com"
+                  />
+                  <div class="form-text">
+                    This will be used for notifications and account recovery
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    class="form-control"
+                    value="+233 24 123 4567"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="jobTitle">Job Title</label>
+                  <input
+                    type="text"
+                    id="jobTitle"
+                    class="form-control"
+                    value="HR Manager"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="department">Department</label>
+                  <input
+                    type="text"
+                    id="department"
+                    class="form-control"
+                    value="Human Resources"
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="action-buttons">
+              <button
+                type="submit"
+                form="accountSettingsForm"
+                class="btn btn-primary"
+              >
+                <i class="fas fa-save"></i> Save Changes
+              </button>
+            </div>
+          </div>
+
+          <!-- Security Settings Card -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fas fa-shield-alt"></i> Security Settings
+              </h3>
+              <p class="card-subtitle">Manage your password and security</p>
+            </div>
+            <div class="form-content">
+              <form id="securitySettingsForm">
+                <div class="form-group">
+                  <label for="currentPassword">Current Password</label>
+                  <input
+                    type="password"
+                    id="currentPassword"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="newPassword">New Password</label>
+                  <input
+                    type="password"
+                    id="newPassword"
+                    class="form-control"
+                  />
+                  <div class="form-text">
+                    Password must be at least 8 characters long
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="confirmPassword">Confirm New Password</label>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="twoFactor">Two-Factor Authentication</label>
+                  <select id="twoFactor" class="form-control">
+                    <option value="enabled">Enabled</option>
+                    <option value="disabled" selected>Disabled</option>
+                  </select>
+                  <div class="form-text">
+                    Add an extra layer of security to your account
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="sessionTimeout">Session Timeout</label>
+                  <select id="sessionTimeout" class="form-control">
+                    <option value="15">15 minutes</option>
+                    <option value="30" selected>30 minutes</option>
+                    <option value="60">1 hour</option>
+                    <option value="120">2 hours</option>
+                  </select>
+                  <div class="form-text">
+                    Automatically log out after inactivity
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="action-buttons">
+              <button
+                type="submit"
+                form="securitySettingsForm"
+                class="btn btn-primary"
+              >
+                <i class="fas fa-key"></i> Update Security
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
-        // DOM Elements
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const mainContent = document.getElementById('mainContent');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileOverlay = document.getElementById('mobileOverlay');
-        const logoutModal = document.getElementById('logoutModal');
-        const confirmLogoutBtn = document.getElementById('confirmLogout');
-        const cancelLogoutBtn = document.getElementById('cancelLogout');
-        const sidebarLogout = document.getElementById('sidebarLogout');
-        const dropdownLogout = document.getElementById('dropdownLogout');
-        const toast = document.getElementById('toast');
-        const companyProfileForm = document.getElementById('companyProfileForm');
-        const accountSettingsForm = document.getElementById('accountSettingsForm');
-        const securitySettingsForm = document.getElementById('securitySettingsForm');
-        const notificationIcon = document.getElementById('notificationIcon');
-        const notificationDropdown = document.getElementById('notificationDropdown');
+      // DOM Elements
+      const sidebar = document.getElementById("sidebar");
+      const sidebarToggle = document.getElementById("sidebarToggle");
+      const mainContent = document.getElementById("mainContent");
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileOverlay = document.getElementById("mobileOverlay");
+      const logoutModal = document.getElementById("logoutModal");
+      const confirmLogoutBtn = document.getElementById("confirmLogout");
+      const cancelLogoutBtn = document.getElementById("cancelLogout");
+      const sidebarLogout = document.getElementById("sidebarLogout");
+      const dropdownLogout = document.getElementById("dropdownLogout");
+      const toast = document.getElementById("toast");
+      const companyProfileForm = document.getElementById("companyProfileForm");
+      const accountSettingsForm = document.getElementById(
+        "accountSettingsForm",
+      );
+      const securitySettingsForm = document.getElementById(
+        "securitySettingsForm",
+      );
+      const notificationIcon = document.getElementById("notificationIcon");
+      const notificationDropdown = document.getElementById(
+        "notificationDropdown",
+      );
 
-        // Toggle Sidebar (Desktop)
-        sidebarToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('expanded');
-            
-            // Change icon based on state
-            const icon = this.querySelector('i');
-            if (sidebar.classList.contains('collapsed')) {
-                icon.className = 'fas fa-chevron-right';
-            } else {
-                icon.className = 'fas fa-chevron-left';
-            }
+      // Toggle Sidebar (Desktop)
+      sidebarToggle.addEventListener("click", function () {
+        sidebar.classList.toggle("collapsed");
+        mainContent.classList.toggle("expanded");
+
+        // Change icon based on state
+        const icon = this.querySelector("i");
+        if (sidebar.classList.contains("collapsed")) {
+          icon.className = "fas fa-chevron-right";
+        } else {
+          icon.className = "fas fa-chevron-left";
+        }
+      });
+
+      // Mobile Menu Toggle
+      let isMobileMenuOpen = false;
+
+      mobileMenuBtn.addEventListener("click", function () {
+        if (isMobileMenuOpen) {
+          // Close mobile menu
+          sidebar.classList.remove("mobile-open");
+          mobileOverlay.classList.remove("show");
+          isMobileMenuOpen = false;
+        } else {
+          // Open mobile menu
+          sidebar.classList.add("mobile-open");
+          mobileOverlay.classList.add("show");
+          isMobileMenuOpen = true;
+        }
+      });
+
+      // Close mobile menu when clicking overlay
+      mobileOverlay.addEventListener("click", function () {
+        sidebar.classList.remove("mobile-open");
+        mobileOverlay.classList.remove("show");
+        isMobileMenuOpen = false;
+      });
+
+      // User Profile Dropdown
+      document
+        .querySelector(".user-profile")
+        .addEventListener("click", function () {
+          document.querySelector(".dropdown-menu").classList.toggle("show");
         });
 
-        // Mobile Menu Toggle
-        let isMobileMenuOpen = false;
-        
-        mobileMenuBtn.addEventListener('click', function() {
-            if (isMobileMenuOpen) {
-                // Close mobile menu
-                sidebar.classList.remove('mobile-open');
-                mobileOverlay.classList.remove('show');
-                isMobileMenuOpen = false;
-            } else {
-                // Open mobile menu
-                sidebar.classList.add('mobile-open');
-                mobileOverlay.classList.add('show');
-                isMobileMenuOpen = true;
-            }
-        });
+      // Notification Dropdown
+      notificationIcon.addEventListener("click", function (e) {
+        e.stopPropagation();
+        notificationDropdown.classList.toggle("show");
+      });
 
-        // Close mobile menu when clicking overlay
-        mobileOverlay.addEventListener('click', function() {
-            sidebar.classList.remove('mobile-open');
-            mobileOverlay.classList.remove('show');
-            isMobileMenuOpen = false;
-        });
+      // Close dropdowns when clicking outside
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".user-profile")) {
+          document.querySelector(".dropdown-menu").classList.remove("show");
+        }
 
-        // User Profile Dropdown
-        document.querySelector('.user-profile').addEventListener('click', function() {
-            document.querySelector('.dropdown-menu').classList.toggle('show');
-        });
+        if (!event.target.closest(".notification-icon")) {
+          notificationDropdown.classList.remove("show");
+        }
+      });
 
-        // Notification Dropdown
-        notificationIcon.addEventListener('click', function(e) {
-            e.stopPropagation();
-            notificationDropdown.classList.toggle('show');
-        });
-
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.user-profile')) {
-                document.querySelector('.dropdown-menu').classList.remove('show');
-            }
-            
-            if (!event.target.closest('.notification-icon')) {
-                notificationDropdown.classList.remove('show');
-            }
-        });
-
-        // Mark all notifications as read
-        document.querySelector('.mark-all-read').addEventListener('click', function() {
-            document.querySelectorAll('.notification-item.unread').forEach(item => {
-                item.classList.remove('unread');
+      // Mark all notifications as read
+      document
+        .querySelector(".mark-all-read")
+        .addEventListener("click", function () {
+          document
+            .querySelectorAll(".notification-item.unread")
+            .forEach((item) => {
+              item.classList.remove("unread");
             });
-            document.querySelector('.notification-badge').style.display = 'none';
+          document.querySelector(".notification-badge").style.display = "none";
         });
 
-        // Logout functionality
-        function showLogoutModal() {
-            logoutModal.classList.add('show');
+      // Logout functionality
+      function showLogoutModal() {
+        logoutModal.classList.add("show");
+      }
+
+      function hideLogoutModal() {
+        logoutModal.classList.remove("show");
+      }
+
+      function performLogout() {
+        // Add loading state
+        confirmLogoutBtn.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> Logging out...';
+        confirmLogoutBtn.disabled = true;
+
+        // Simulate logout process
+        setTimeout(function () {
+          window.location.href = "login.html";
+        }, 1000);
+      }
+
+      sidebarLogout.addEventListener("click", function (e) {
+        e.preventDefault();
+        showLogoutModal();
+      });
+
+      dropdownLogout.addEventListener("click", function (e) {
+        e.preventDefault();
+        document.querySelector(".dropdown-menu").classList.remove("show");
+        showLogoutModal();
+      });
+
+      confirmLogoutBtn.addEventListener("click", function () {
+        performLogout();
+      });
+
+      cancelLogoutBtn.addEventListener("click", function () {
+        hideLogoutModal();
+      });
+
+      // Close logout modal with X button
+      document.querySelectorAll(".close-modal").forEach((button) => {
+        button.addEventListener("click", function () {
+          const modal = this.closest(".modal");
+          modal.classList.remove("show");
+        });
+      });
+
+      // Close logout modal when clicking outside
+      window.addEventListener("click", function (event) {
+        if (event.target === logoutModal) {
+          hideLogoutModal();
+        }
+      });
+
+      // Close logout modal with Escape key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && logoutModal.classList.contains("show")) {
+          hideLogoutModal();
+        }
+      });
+
+      // Form Submission Handlers
+      companyProfileForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        showToast("Company profile updated successfully!");
+      });
+
+      accountSettingsForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        showToast("Account information updated successfully!");
+      });
+
+      securitySettingsForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const currentPassword =
+          document.getElementById("currentPassword").value;
+        const newPassword = document.getElementById("newPassword").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+
+        // Basic validation
+        if (!currentPassword) {
+          showToast("Please enter your current password", true);
+          return;
         }
 
-        function hideLogoutModal() {
-            logoutModal.classList.remove('show');
+        if (newPassword.length < 8) {
+          showToast("New password must be at least 8 characters long", true);
+          return;
         }
 
-        function performLogout() {
-            // Add loading state
-            confirmLogoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging out...';
-            confirmLogoutBtn.disabled = true;
-            
-            // Simulate logout process
-            setTimeout(function() {
-                window.location.href = 'login.html';
-            }, 1000);
+        if (newPassword !== confirmPassword) {
+          showToast("New passwords do not match", true);
+          return;
         }
 
-        sidebarLogout.addEventListener('click', function(e) {
-            e.preventDefault();
-            showLogoutModal();
-        });
+        showToast("Security settings updated successfully!");
 
-        dropdownLogout.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector('.dropdown-menu').classList.remove('show');
-            showLogoutModal();
-        });
+        // Clear form
+        document.getElementById("currentPassword").value = "";
+        document.getElementById("newPassword").value = "";
+        document.getElementById("confirmPassword").value = "";
+      });
 
-        confirmLogoutBtn.addEventListener('click', function() {
-            performLogout();
-        });
+      // Show toast notification
+      function showToast(message, isError = false) {
+        const toastMessage = document.getElementById("toastMessage");
+        toastMessage.textContent = message;
 
-        cancelLogoutBtn.addEventListener('click', function() {
-            hideLogoutModal();
-        });
-
-        // Close logout modal with X button
-        document.querySelectorAll('.close-modal').forEach(button => {
-            button.addEventListener('click', function() {
-                const modal = this.closest('.modal');
-                modal.classList.remove('show');
-            });
-        });
-
-        // Close logout modal when clicking outside
-        window.addEventListener('click', function(event) {
-            if (event.target === logoutModal) {
-                hideLogoutModal();
-            }
-        });
-
-        // Close logout modal with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && logoutModal.classList.contains('show')) {
-                hideLogoutModal();
-            }
-        });
-
-        // Form Submission Handlers
-        companyProfileForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            showToast('Company profile updated successfully!');
-        });
-
-        accountSettingsForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            showToast('Account information updated successfully!');
-        });
-
-        securitySettingsForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const currentPassword = document.getElementById('currentPassword').value;
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            // Basic validation
-            if (!currentPassword) {
-                showToast('Please enter your current password', true);
-                return;
-            }
-            
-            if (newPassword.length < 8) {
-                showToast('New password must be at least 8 characters long', true);
-                return;
-            }
-            
-            if (newPassword !== confirmPassword) {
-                showToast('New passwords do not match', true);
-                return;
-            }
-            
-            showToast('Security settings updated successfully!');
-            
-            // Clear form
-            document.getElementById('currentPassword').value = '';
-            document.getElementById('newPassword').value = '';
-            document.getElementById('confirmPassword').value = '';
-        });
-
-        // Show toast notification
-        function showToast(message, isError = false) {
-            const toastMessage = document.getElementById('toastMessage');
-            toastMessage.textContent = message;
-            
-            if (isError) {
-                toast.classList.add('toast-error');
-            } else {
-                toast.classList.remove('toast-error');
-            }
-            
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+        if (isError) {
+          toast.classList.add("toast-error");
+        } else {
+          toast.classList.remove("toast-error");
         }
 
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 992) {
-                sidebar.classList.remove('mobile-open');
-                mobileOverlay.classList.remove('show');
-                isMobileMenuOpen = false;
-            }
-        });
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
+      // Handle window resize
+      window.addEventListener("resize", function () {
+        if (window.innerWidth > 992) {
+          sidebar.classList.remove("mobile-open");
+          mobileOverlay.classList.remove("show");
+          isMobileMenuOpen = false;
+        }
+      });
     </script>
-</body>
+  </body>
 </html>

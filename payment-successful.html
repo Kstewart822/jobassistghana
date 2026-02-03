@@ -1,642 +1,679 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Payment Successful | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
 
-        :root {
-            --primary: #0a2a66;
-            --primary-dark: #071e4d;
-            --primary-light: #1e3a8a;
-            --secondary: #f8c12e;
-            --secondary-dark: #e6af1a;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gray: #64748b;
-            --gray-light: #e2e8f0;
-            --white: #ffffff;
-            --transition: all 0.2s ease;
-        }
+      :root {
+        --primary: #0a2a66;
+        --primary-dark: #071e4d;
+        --primary-light: #1e3a8a;
+        --secondary: #f8c12e;
+        --secondary-dark: #e6af1a;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --light: #f8fafc;
+        --dark: #1e293b;
+        --gray: #64748b;
+        --gray-light: #e2e8f0;
+        --white: #ffffff;
+        --transition: all 0.2s ease;
+      }
 
+      body {
+        background-color: var(--light);
+        color: var(--dark);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        line-height: 1.4;
+      }
+
+      .success-container {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        padding: 25px;
+        max-width: 450px;
+        width: 100%;
+        text-align: center;
+        border: 1px solid var(--gray-light);
+      }
+
+      .success-icon {
+        font-size: 2.5rem;
+        color: var(--success);
+        margin-bottom: 15px;
+      }
+
+      .success-title {
+        font-size: 1.4rem;
+        color: var(--primary);
+        margin-bottom: 12px;
+        font-weight: 700;
+      }
+
+      .success-message {
+        color: var(--gray);
+        margin-bottom: 20px;
+        font-size: 0.95rem;
+      }
+
+      .confirmation-details {
+        background: rgba(16, 185, 129, 0.05);
+        border: 1px solid rgba(16, 185, 129, 0.15);
+        border-radius: 6px;
+        padding: 15px;
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .confirmation-title {
+        color: var(--success);
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.95rem;
+      }
+
+      .confirmation-description {
+        color: var(--gray);
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
+
+      .next-steps {
+        background: var(--light);
+        border-radius: 6px;
+        padding: 15px;
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .next-steps-title {
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.95rem;
+      }
+
+      .next-steps-list {
+        color: var(--gray);
+        font-size: 0.85rem;
+        padding-left: 16px;
+      }
+
+      .next-steps-list li {
+        margin-bottom: 6px;
+      }
+
+      .btn {
+        padding: 12px 20px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        border: none;
+        font-size: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-decoration: none;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 1px solid var(--gray-light);
+        color: var(--dark);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--gray-light);
+      }
+
+      .support-contact {
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid var(--gray-light);
+      }
+
+      .support-contact p {
+        color: var(--gray);
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
+
+      .support-email {
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.85rem;
+      }
+
+      .support-email:hover {
+        text-decoration: underline;
+      }
+
+      /* Payment Details */
+      .payment-details {
+        background: rgba(10, 42, 102, 0.05);
+        border: 1px solid rgba(10, 42, 102, 0.1);
+        border-radius: 6px;
+        padding: 15px;
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .payment-title {
+        color: var(--primary);
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.95rem;
+      }
+
+      .payment-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 12px;
+        margin-top: 10px;
+      }
+
+      .payment-item {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .payment-label {
+        font-size: 0.75rem;
+        color: var(--gray);
+        margin-bottom: 4px;
+      }
+
+      .payment-value {
+        font-weight: 600;
+        color: var(--dark);
+        font-size: 0.9rem;
+      }
+
+      .payment-value.amount {
+        color: var(--success);
+        font-size: 1rem;
+      }
+
+      /* Loading Animation */
+      .loading-animation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+      }
+
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(0, 0, 0, 0.1);
+        border-left-color: var(--success);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loading-text {
+        color: var(--gray);
+        font-size: 0.9rem;
+        margin-top: 10px;
+      }
+
+      /* Auto-redirect countdown */
+      .auto-redirect {
+        margin-top: 15px;
+        padding: 10px;
+        background: rgba(248, 193, 46, 0.1);
+        border-radius: 6px;
+        font-size: 0.85rem;
+        color: var(--primary);
+      }
+
+      .countdown {
+        font-weight: 600;
+        color: var(--secondary);
+      }
+
+      /* ====================== */
+      /* MOBILE RESPONSIVENESS */
+      /* ====================== */
+
+      /* Tablet (768px and below) */
+      @media (max-width: 768px) {
         body {
-            background-color: var(--light);
-            color: var(--dark);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            line-height: 1.4;
+          padding: 15px;
         }
 
         .success-container {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            padding: 25px;
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
-            border: 1px solid var(--gray-light);
-        }
-
-        .success-icon {
-            font-size: 2.5rem;
-            color: var(--success);
-            margin-bottom: 15px;
+          padding: 20px;
         }
 
         .success-title {
-            font-size: 1.4rem;
-            color: var(--primary);
-            margin-bottom: 12px;
-            font-weight: 700;
+          font-size: 1.3rem;
+        }
+
+        .success-icon {
+          font-size: 2.2rem;
         }
 
         .success-message {
-            color: var(--gray);
-            margin-bottom: 20px;
-            font-size: 0.95rem;
+          font-size: 0.9rem;
         }
 
-        .confirmation-details {
-            background: rgba(16, 185, 129, 0.05);
-            border: 1px solid rgba(16, 185, 129, 0.15);
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .confirmation-title {
-            color: var(--success);
-            font-weight: 600;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.95rem;
-        }
-
-        .confirmation-description {
-            color: var(--gray);
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-
-        .next-steps {
-            background: var(--light);
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .next-steps-title {
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.95rem;
-        }
-
-        .next-steps-list {
-            color: var(--gray);
-            font-size: 0.85rem;
-            padding-left: 16px;
-        }
-
-        .next-steps-list li {
-            margin-bottom: 6px;
+        .confirmation-details,
+        .next-steps,
+        .payment-details {
+          padding: 12px;
         }
 
         .btn {
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            font-size: 0.95rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            text-decoration: none;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--gray-light);
-            color: var(--dark);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--gray-light);
-        }
-
-        .support-contact {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid var(--gray-light);
-        }
-
-        .support-contact p {
-            color: var(--gray);
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-
-        .support-email {
-            color: var(--primary);
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 0.85rem;
-        }
-
-        .support-email:hover {
-            text-decoration: underline;
-        }
-
-        /* Payment Details */
-        .payment-details {
-            background: rgba(10, 42, 102, 0.05);
-            border: 1px solid rgba(10, 42, 102, 0.1);
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .payment-title {
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.95rem;
+          padding: 10px 16px;
+          font-size: 0.9rem;
         }
 
         .payment-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 12px;
-            margin-top: 10px;
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Mobile (576px and below) */
+      @media (max-width: 576px) {
+        body {
+          padding: 12px;
+          align-items: flex-start;
+          padding-top: 40px;
         }
 
-        .payment-item {
-            display: flex;
-            flex-direction: column;
+        .success-container {
+          padding: 18px;
+        }
+
+        .success-title {
+          font-size: 1.2rem;
+        }
+
+        .success-icon {
+          font-size: 2rem;
+          margin-bottom: 12px;
+        }
+
+        .success-message {
+          font-size: 0.85rem;
+          margin-bottom: 18px;
+        }
+
+        .confirmation-title,
+        .next-steps-title,
+        .payment-title {
+          font-size: 0.9rem;
+        }
+
+        .confirmation-description,
+        .next-steps-list,
+        .support-contact p {
+          font-size: 0.8rem;
+        }
+
+        .btn {
+          padding: 9px 14px;
+          font-size: 0.85rem;
+        }
+
+        .support-email {
+          font-size: 0.8rem;
         }
 
         .payment-label {
-            font-size: 0.75rem;
-            color: var(--gray);
-            margin-bottom: 4px;
+          font-size: 0.7rem;
         }
 
         .payment-value {
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 0.9rem;
+          font-size: 0.85rem;
         }
 
         .payment-value.amount {
-            color: var(--success);
-            font-size: 1rem;
+          font-size: 0.9rem;
+        }
+      }
+
+      /* Small Mobile (480px and below) */
+      @media (max-width: 480px) {
+        body {
+          padding: 10px;
+          padding-top: 30px;
         }
 
-        /* Loading Animation */
-        .loading-animation {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px 0;
+        .success-container {
+          padding: 16px;
+        }
+
+        .success-title {
+          font-size: 1.1rem;
+        }
+
+        .success-icon {
+          font-size: 1.8rem;
+        }
+
+        .btn {
+          padding: 8px 12px;
+          font-size: 0.8rem;
+        }
+
+        .auto-redirect {
+          font-size: 0.8rem;
+          padding: 8px;
         }
 
         .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(0, 0, 0, 0.1);
-            border-left-color: var(--success);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+          width: 35px;
+          height: 35px;
+        }
+      }
+
+      /* Very Small Mobile (360px and below) */
+      @media (max-width: 360px) {
+        .success-container {
+          padding: 14px;
         }
 
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+        .success-title {
+          font-size: 1rem;
         }
 
-        .loading-text {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-top: 10px;
+        .success-icon {
+          font-size: 1.6rem;
         }
 
-        /* Auto-redirect countdown */
-        .auto-redirect {
-            margin-top: 15px;
-            padding: 10px;
-            background: rgba(248, 193, 46, 0.1);
-            border-radius: 6px;
-            font-size: 0.85rem;
-            color: var(--primary);
+        .btn {
+          padding: 7px 10px;
+          font-size: 0.75rem;
         }
 
-        .countdown {
-            font-weight: 600;
-            color: var(--secondary);
+        .support-contact p {
+          font-size: 0.75rem;
         }
-
-        /* ====================== */
-        /* MOBILE RESPONSIVENESS */
-        /* ====================== */
-
-        /* Tablet (768px and below) */
-        @media (max-width: 768px) {
-            body {
-                padding: 15px;
-            }
-            
-            .success-container {
-                padding: 20px;
-            }
-            
-            .success-title {
-                font-size: 1.3rem;
-            }
-            
-            .success-icon {
-                font-size: 2.2rem;
-            }
-            
-            .success-message {
-                font-size: 0.9rem;
-            }
-            
-            .confirmation-details,
-            .next-steps,
-            .payment-details {
-                padding: 12px;
-            }
-            
-            .btn {
-                padding: 10px 16px;
-                font-size: 0.9rem;
-            }
-            
-            .payment-info {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Mobile (576px and below) */
-        @media (max-width: 576px) {
-            body {
-                padding: 12px;
-                align-items: flex-start;
-                padding-top: 40px;
-            }
-            
-            .success-container {
-                padding: 18px;
-            }
-            
-            .success-title {
-                font-size: 1.2rem;
-            }
-            
-            .success-icon {
-                font-size: 2rem;
-                margin-bottom: 12px;
-            }
-            
-            .success-message {
-                font-size: 0.85rem;
-                margin-bottom: 18px;
-            }
-            
-            .confirmation-title,
-            .next-steps-title,
-            .payment-title {
-                font-size: 0.9rem;
-            }
-            
-            .confirmation-description,
-            .next-steps-list,
-            .support-contact p {
-                font-size: 0.8rem;
-            }
-            
-            .btn {
-                padding: 9px 14px;
-                font-size: 0.85rem;
-            }
-            
-            .support-email {
-                font-size: 0.8rem;
-            }
-            
-            .payment-label {
-                font-size: 0.7rem;
-            }
-            
-            .payment-value {
-                font-size: 0.85rem;
-            }
-            
-            .payment-value.amount {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Small Mobile (480px and below) */
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-                padding-top: 30px;
-            }
-            
-            .success-container {
-                padding: 16px;
-            }
-            
-            .success-title {
-                font-size: 1.1rem;
-            }
-            
-            .success-icon {
-                font-size: 1.8rem;
-            }
-            
-            .btn {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-            }
-            
-            .auto-redirect {
-                font-size: 0.8rem;
-                padding: 8px;
-            }
-            
-            .loading-spinner {
-                width: 35px;
-                height: 35px;
-            }
-        }
-
-        /* Very Small Mobile (360px and below) */
-        @media (max-width: 360px) {
-            .success-container {
-                padding: 14px;
-            }
-            
-            .success-title {
-                font-size: 1rem;
-            }
-            
-            .success-icon {
-                font-size: 1.6rem;
-            }
-            
-            .btn {
-                padding: 7px 10px;
-                font-size: 0.75rem;
-            }
-            
-            .support-contact p {
-                font-size: 0.75rem;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="success-container">
-        <div class="success-icon">
-            <i class="fas fa-check-circle"></i>
+      <div class="success-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+
+      <h1 class="success-title" id="successTitle">Payment Successful</h1>
+
+      <p class="success-message" id="successMessage">
+        Your payment has been processed successfully. Thank you for your
+        purchase!
+      </p>
+
+      <!-- Payment Details -->
+      <div class="payment-details" id="paymentDetails" style="display: none">
+        <div class="payment-title">
+          <i class="fas fa-receipt"></i>
+          <span>Payment Details</span>
         </div>
-        
-        <h1 class="success-title" id="successTitle">Payment Successful</h1>
-        
-        <p class="success-message" id="successMessage">
-            Your payment has been processed successfully. Thank you for your purchase!
+        <div class="payment-info" id="paymentInfo">
+          <!-- Payment details will be inserted here -->
+        </div>
+      </div>
+
+      <div class="confirmation-details">
+        <div class="confirmation-title">
+          <i class="fas fa-check"></i>
+          <span>Payment Confirmed</span>
+        </div>
+        <p class="confirmation-description" id="confirmationDescription">
+          Your transaction was completed successfully. A receipt has been sent
+          to your email.
         </p>
+      </div>
 
-        <!-- Payment Details -->
-        <div class="payment-details" id="paymentDetails" style="display: none;">
-            <div class="payment-title">
-                <i class="fas fa-receipt"></i>
-                <span>Payment Details</span>
-            </div>
-            <div class="payment-info" id="paymentInfo">
-                <!-- Payment details will be inserted here -->
-            </div>
+      <div class="next-steps">
+        <div class="next-steps-title">
+          <i class="fas fa-rocket"></i>
+          <span>What happens next</span>
         </div>
+        <ul class="next-steps-list" id="nextStepsList">
+          <!-- Next steps will be inserted here -->
+        </ul>
+      </div>
 
-        <div class="confirmation-details">
-            <div class="confirmation-title">
-                <i class="fas fa-check"></i>
-                <span>Payment Confirmed</span>
-            </div>
-            <p class="confirmation-description" id="confirmationDescription">
-                Your transaction was completed successfully. A receipt has been sent to your email.
-            </p>
+      <!-- Loading animation for processing -->
+      <div
+        class="loading-animation"
+        id="processingAnimation"
+        style="display: none"
+      >
+        <div class="loading-spinner"></div>
+        <div class="loading-text" id="loadingText">
+          Processing your payment...
         </div>
+      </div>
 
-        <div class="next-steps">
-            <div class="next-steps-title">
-                <i class="fas fa-rocket"></i>
-                <span>What happens next</span>
-            </div>
-            <ul class="next-steps-list" id="nextStepsList">
-                <!-- Next steps will be inserted here -->
-            </ul>
-        </div>
+      <!-- Auto-redirect notification -->
+      <div class="auto-redirect" id="autoRedirect" style="display: none">
+        Redirecting to dashboard in
+        <span class="countdown" id="countdown">5</span> seconds...
+      </div>
 
-        <!-- Loading animation for processing -->
-        <div class="loading-animation" id="processingAnimation" style="display: none;">
-            <div class="loading-spinner"></div>
-            <div class="loading-text" id="loadingText">Processing your payment...</div>
-        </div>
+      <a href="#" class="btn btn-primary" id="dashboardButton">
+        <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+      </a>
 
-        <!-- Auto-redirect notification -->
-        <div class="auto-redirect" id="autoRedirect" style="display: none;">
-            Redirecting to dashboard in <span class="countdown" id="countdown">5</span> seconds...
-        </div>
+      <a href="index.html" class="btn btn-outline">
+        <i class="fas fa-home"></i> Back to Home
+      </a>
 
-        <a href="#" class="btn btn-primary" id="dashboardButton">
-            <i class="fas fa-tachometer-alt"></i> Go to Dashboard
-        </a>
-        
-        <a href="index.html" class="btn btn-outline">
-            <i class="fas fa-home"></i> Back to Home
-        </a>
-
-        <div class="support-contact">
-            <p>
-                Need help? Contact our support team at 
-                <a href="mailto:support@jobassistgh.com" class="support-email">support@jobassistgh.com</a>
-            </p>
-        </div>
+      <div class="support-contact">
+        <p>
+          Need help? Contact our support team at
+          <a href="mailto:support@jobassistgh.com" class="support-email"
+            >support@jobassistgh.com</a
+          >
+        </p>
+      </div>
     </div>
 
     <script>
-        // Initialize success page based on URL parameters
-        function initializeSuccessPage() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const serviceType = urlParams.get('service') || 'profile-activation';
-            const amount = urlParams.get('amount') || '0';
-            const transactionId = urlParams.get('transactionId') || generateTransactionId();
-            const jobId = urlParams.get('jobId');
-            const name = urlParams.get('name') || 'Service';
+      // Initialize success page based on URL parameters
+      function initializeSuccessPage() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const serviceType = urlParams.get("service") || "profile-activation";
+        const amount = urlParams.get("amount") || "0";
+        const transactionId =
+          urlParams.get("transactionId") || generateTransactionId();
+        const jobId = urlParams.get("jobId");
+        const name = urlParams.get("name") || "Service";
 
-            // Service configurations
-            const services = {
-                'profile-activation': {
-                    name: "Profile Activation",
-                    message: "Your profile has been successfully activated and is now visible to employers.",
-                    description: "Your profile is now active and will appear in employer searches.",
-                    dashboardUrl: "candidate-dashboard.html",
-                    nextSteps: [
-                        "Your profile is now active and visible to employers",
-                        "You'll appear in employer search results",
-                        "Start applying to jobs immediately",
-                        "Complete your profile for better matches"
-                    ]
-                },
-                'boost-basic': {
-                    name: "Basic Profile Boost",
-                    message: "Your Basic Profile Boost has been activated! Your profile will get 3x more visibility for 7 days.",
-                    description: "Your profile boost is now active and will run for 7 days.",
-                    dashboardUrl: "candidate-dashboard.html",
-                    nextSteps: [
-                        "Profile visibility increased by 300%",
-                        "Boost active for 7 days",
-                        "You'll appear in featured sections",
-                        "Employers will see your profile first"
-                    ]
-                },
-                'boost-pro': {
-                    name: "Professional Profile Boost",
-                    message: "Your Professional Profile Boost has been activated! Enjoy 5x more visibility and priority placement for 30 days.",
-                    description: "Your professional boost is now active and will run for 30 days.",
-                    dashboardUrl: "candidate-dashboard.html",
-                    nextSteps: [
-                        "Profile visibility increased by 500%",
-                        "Boost active for 30 days",
-                        "Priority placement in search results",
-                        "Verified profile badge added"
-                    ]
-                },
-                'boost-enterprise': {
-                    name: "Enterprise Profile Boost",
-                    message: "Your Enterprise Profile Boost has been activated! Maximum visibility and premium features for 90 days.",
-                    description: "Your enterprise boost is now active and will run for 90 days.",
-                    dashboardUrl: "candidate-dashboard.html",
-                    nextSteps: [
-                        "Maximum profile visibility",
-                        "Boost active for 90 days",
-                        "Top placement in all searches",
-                        "Premium verification badge",
-                        "Priority customer support"
-                    ]
-                },
-                'job-posting': {
-                    name: "Job Posting",
-                    message: "Your job posting payment was successful! Your job is now live and visible to candidates.",
-                    description: "Your job posting is now active and visible to job seekers.",
-                    dashboardUrl: "employer-dashboard.html",
-                    nextSteps: [
-                        "Your job is now live and visible",
-                        "Start receiving applications immediately",
-                        "Manage applications from your dashboard",
-                        "Promote your job for more visibility"
-                    ]
-                },
-                'premium-listing': {
-                    name: "Premium Job Listing",
-                    message: "Your premium job listing has been activated! Your job will be featured prominently for maximum visibility.",
-                    description: "Your premium listing is now active and will be featured.",
-                    dashboardUrl: "employer-dashboard.html",
-                    nextSteps: [
-                        "Job featured in premium sections",
-                        "Priority placement in search results",
-                        "Increased candidate applications",
-                        "Featured employer badge"
-                    ]
-                },
-                'application-premium': {
-                    name: "Premium Application",
-                    message: "Your premium application payment was successful! Your application will get priority placement and verification.",
-                    description: "Your premium application is now being processed with priority verification.",
-                    dashboardUrl: jobId ? `view-details.html?id=${jobId}&payment_success=true` : "candidate-dashboard.html",
-                    nextSteps: [
-                        "Application marked as premium",
-                        "Priority verification in progress",
-                        "Employer will see your application first",
-                        "Verified applicant badge added"
-                    ]
-                },
-                'employer-premium': {
-                    name: "Employer Premium",
-                    message: "Your employer premium subscription is now active! Enjoy premium features and enhanced visibility.",
-                    description: "Your premium subscription is now active.",
-                    dashboardUrl: "employer-dashboard.html",
-                    nextSteps: [
-                        "Premium features unlocked",
-                        "Enhanced company profile",
-                        "Priority support access",
-                        "Advanced applicant filtering"
-                    ]
-                }
-            };
+        // Service configurations
+        const services = {
+          "profile-activation": {
+            name: "Profile Activation",
+            message:
+              "Your profile has been successfully activated and is now visible to employers.",
+            description:
+              "Your profile is now active and will appear in employer searches.",
+            dashboardUrl: "candidate-dashboard.html",
+            nextSteps: [
+              "Your profile is now active and visible to employers",
+              "You'll appear in employer search results",
+              "Start applying to jobs immediately",
+              "Complete your profile for better matches",
+            ],
+          },
+          "boost-basic": {
+            name: "Basic Profile Boost",
+            message:
+              "Your Basic Profile Boost has been activated! Your profile will get 3x more visibility for 7 days.",
+            description:
+              "Your profile boost is now active and will run for 7 days.",
+            dashboardUrl: "candidate-dashboard.html",
+            nextSteps: [
+              "Profile visibility increased by 300%",
+              "Boost active for 7 days",
+              "You'll appear in featured sections",
+              "Employers will see your profile first",
+            ],
+          },
+          "boost-pro": {
+            name: "Professional Profile Boost",
+            message:
+              "Your Professional Profile Boost has been activated! Enjoy 5x more visibility and priority placement for 30 days.",
+            description:
+              "Your professional boost is now active and will run for 30 days.",
+            dashboardUrl: "candidate-dashboard.html",
+            nextSteps: [
+              "Profile visibility increased by 500%",
+              "Boost active for 30 days",
+              "Priority placement in search results",
+              "Verified profile badge added",
+            ],
+          },
+          "boost-enterprise": {
+            name: "Enterprise Profile Boost",
+            message:
+              "Your Enterprise Profile Boost has been activated! Maximum visibility and premium features for 90 days.",
+            description:
+              "Your enterprise boost is now active and will run for 90 days.",
+            dashboardUrl: "candidate-dashboard.html",
+            nextSteps: [
+              "Maximum profile visibility",
+              "Boost active for 90 days",
+              "Top placement in all searches",
+              "Premium verification badge",
+              "Priority customer support",
+            ],
+          },
+          "job-posting": {
+            name: "Job Posting",
+            message:
+              "Your job posting payment was successful! Your job is now live and visible to candidates.",
+            description:
+              "Your job posting is now active and visible to job seekers.",
+            dashboardUrl: "employer-dashboard.html",
+            nextSteps: [
+              "Your job is now live and visible",
+              "Start receiving applications immediately",
+              "Manage applications from your dashboard",
+              "Promote your job for more visibility",
+            ],
+          },
+          "premium-listing": {
+            name: "Premium Job Listing",
+            message:
+              "Your premium job listing has been activated! Your job will be featured prominently for maximum visibility.",
+            description:
+              "Your premium listing is now active and will be featured.",
+            dashboardUrl: "employer-dashboard.html",
+            nextSteps: [
+              "Job featured in premium sections",
+              "Priority placement in search results",
+              "Increased candidate applications",
+              "Featured employer badge",
+            ],
+          },
+          "application-premium": {
+            name: "Premium Application",
+            message:
+              "Your premium application payment was successful! Your application will get priority placement and verification.",
+            description:
+              "Your premium application is now being processed with priority verification.",
+            dashboardUrl: jobId
+              ? `view-details.html?id=${jobId}&payment_success=true`
+              : "candidate-dashboard.html",
+            nextSteps: [
+              "Application marked as premium",
+              "Priority verification in progress",
+              "Employer will see your application first",
+              "Verified applicant badge added",
+            ],
+          },
+          "employer-premium": {
+            name: "Employer Premium",
+            message:
+              "Your employer premium subscription is now active! Enjoy premium features and enhanced visibility.",
+            description: "Your premium subscription is now active.",
+            dashboardUrl: "employer-dashboard.html",
+            nextSteps: [
+              "Premium features unlocked",
+              "Enhanced company profile",
+              "Priority support access",
+              "Advanced applicant filtering",
+            ],
+          },
+        };
 
-            const service = services[serviceType] || services['profile-activation'];
+        const service = services[serviceType] || services["profile-activation"];
 
-            // Update page content
-            document.getElementById('successTitle').textContent = `Payment Successful - ${service.name}`;
-            document.getElementById('successMessage').textContent = service.message;
-            document.getElementById('confirmationDescription').textContent = service.description;
-            document.getElementById('dashboardButton').href = service.dashboardUrl;
+        // Update page content
+        document.getElementById("successTitle").textContent =
+          `Payment Successful - ${service.name}`;
+        document.getElementById("successMessage").textContent = service.message;
+        document.getElementById("confirmationDescription").textContent =
+          service.description;
+        document.getElementById("dashboardButton").href = service.dashboardUrl;
 
-            // Update next steps
-            const nextStepsList = document.getElementById('nextStepsList');
-            nextStepsList.innerHTML = service.nextSteps.map(step => `<li>${step}</li>`).join('');
+        // Update next steps
+        const nextStepsList = document.getElementById("nextStepsList");
+        nextStepsList.innerHTML = service.nextSteps
+          .map((step) => `<li>${step}</li>`)
+          .join("");
 
-            // Show payment details if amount is provided
-            if (amount !== '0') {
-                document.getElementById('paymentDetails').style.display = 'block';
-                
-                const paymentInfo = document.getElementById('paymentInfo');
-                paymentInfo.innerHTML = `
+        // Show payment details if amount is provided
+        if (amount !== "0") {
+          document.getElementById("paymentDetails").style.display = "block";
+
+          const paymentInfo = document.getElementById("paymentInfo");
+          paymentInfo.innerHTML = `
                     <div class="payment-item">
                         <div class="payment-label">Service</div>
                         <div class="payment-value">${service.name}</div>
@@ -654,97 +691,103 @@
                         <div class="payment-value">${new Date().toLocaleDateString()}</div>
                     </div>
                 `;
-            }
-
-            // Update page title
-            document.title = `${service.name} - Payment Successful | JobAssist Ghana`;
-
-            // Handle special cases
-            if (serviceType === 'application-premium' && jobId) {
-                // Show processing animation for premium applications
-                showProcessingAnimation();
-                
-                // Process premium application after a delay
-                setTimeout(() => {
-                    processPremiumApplication(jobId);
-                }, 2000);
-            } else {
-                // Start auto-redirect countdown for other services
-                startAutoRedirect(service.dashboardUrl);
-            }
         }
 
-        // Generate a random transaction ID
-        function generateTransactionId() {
-            const prefix = 'JOBASSIST';
-            const timestamp = Date.now().toString().slice(-6);
-            const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-            return `${prefix}-${timestamp}-${random}`;
-        }
+        // Update page title
+        document.title = `${service.name} - Payment Successful | JobAssist Ghana`;
 
-        // Show processing animation
-        function showProcessingAnimation() {
-            const processingAnimation = document.getElementById('processingAnimation');
-            const loadingText = document.getElementById('loadingText');
-            
-            processingAnimation.style.display = 'block';
-            loadingText.textContent = 'Activating your premium application...';
-            
-            // Simulate processing
-            setTimeout(() => {
-                loadingText.textContent = 'Verifying your application details...';
-            }, 1000);
-            
-            setTimeout(() => {
-                loadingText.textContent = 'Applying priority placement...';
-            }, 2000);
-            
-            setTimeout(() => {
-                processingAnimation.style.display = 'none';
-                startAutoRedirect(document.getElementById('dashboardButton').href);
-            }, 3000);
-        }
+        // Handle special cases
+        if (serviceType === "application-premium" && jobId) {
+          // Show processing animation for premium applications
+          showProcessingAnimation();
 
-        // Process premium application
-        function processPremiumApplication(jobId) {
-            // Get applied jobs from localStorage
-            let appliedJobs = JSON.parse(localStorage.getItem('appliedJobs')) || [];
-            
-            // Find the application for this job
-            const applicationIndex = appliedJobs.findIndex(app => app.id === jobId);
-            
-            if (applicationIndex !== -1) {
-                // Update the application status to premium
-                appliedJobs[applicationIndex].tier = 'premium';
-                appliedJobs[applicationIndex].status = 'premium_verified';
-                appliedJobs[applicationIndex].paymentDate = new Date().toISOString();
-                
-                // Save back to localStorage
-                localStorage.setItem('appliedJobs', JSON.stringify(appliedJobs));
-            }
+          // Process premium application after a delay
+          setTimeout(() => {
+            processPremiumApplication(jobId);
+          }, 2000);
+        } else {
+          // Start auto-redirect countdown for other services
+          startAutoRedirect(service.dashboardUrl);
         }
+      }
 
-        // Start auto-redirect countdown
-        function startAutoRedirect(url) {
-            const autoRedirect = document.getElementById('autoRedirect');
-            const countdownElement = document.getElementById('countdown');
-            
-            autoRedirect.style.display = 'block';
-            let countdown = 5;
-            
-            const countdownInterval = setInterval(() => {
-                countdown--;
-                countdownElement.textContent = countdown;
-                
-                if (countdown <= 0) {
-                    clearInterval(countdownInterval);
-                    window.location.href = url;
-                }
-            }, 1000);
+      // Generate a random transaction ID
+      function generateTransactionId() {
+        const prefix = "JOBASSIST";
+        const timestamp = Date.now().toString().slice(-6);
+        const random = Math.floor(Math.random() * 10000)
+          .toString()
+          .padStart(4, "0");
+        return `${prefix}-${timestamp}-${random}`;
+      }
+
+      // Show processing animation
+      function showProcessingAnimation() {
+        const processingAnimation = document.getElementById(
+          "processingAnimation",
+        );
+        const loadingText = document.getElementById("loadingText");
+
+        processingAnimation.style.display = "block";
+        loadingText.textContent = "Activating your premium application...";
+
+        // Simulate processing
+        setTimeout(() => {
+          loadingText.textContent = "Verifying your application details...";
+        }, 1000);
+
+        setTimeout(() => {
+          loadingText.textContent = "Applying priority placement...";
+        }, 2000);
+
+        setTimeout(() => {
+          processingAnimation.style.display = "none";
+          startAutoRedirect(document.getElementById("dashboardButton").href);
+        }, 3000);
+      }
+
+      // Process premium application
+      function processPremiumApplication(jobId) {
+        // Get applied jobs from localStorage
+        let appliedJobs = JSON.parse(localStorage.getItem("appliedJobs")) || [];
+
+        // Find the application for this job
+        const applicationIndex = appliedJobs.findIndex(
+          (app) => app.id === jobId,
+        );
+
+        if (applicationIndex !== -1) {
+          // Update the application status to premium
+          appliedJobs[applicationIndex].tier = "premium";
+          appliedJobs[applicationIndex].status = "premium_verified";
+          appliedJobs[applicationIndex].paymentDate = new Date().toISOString();
+
+          // Save back to localStorage
+          localStorage.setItem("appliedJobs", JSON.stringify(appliedJobs));
         }
+      }
 
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', initializeSuccessPage);
+      // Start auto-redirect countdown
+      function startAutoRedirect(url) {
+        const autoRedirect = document.getElementById("autoRedirect");
+        const countdownElement = document.getElementById("countdown");
+
+        autoRedirect.style.display = "block";
+        let countdown = 5;
+
+        const countdownInterval = setInterval(() => {
+          countdown--;
+          countdownElement.textContent = countdown;
+
+          if (countdown <= 0) {
+            clearInterval(countdownInterval);
+            window.location.href = url;
+          }
+        }, 1000);
+      }
+
+      // Initialize when page loads
+      document.addEventListener("DOMContentLoaded", initializeSuccessPage);
     </script>
-</body>
+  </body>
 </html>

@@ -1,1976 +1,2124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Help & Support | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+
+      :root {
+        --primary: #0a2a66;
+        --primary-dark: #071e4d;
+        --secondary: #f8c12e;
+        --secondary-dark: #e6af1a;
+        --danger: #ef4444;
+        --danger-dark: #dc2626;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --light: #f8fafc;
+        --dark: #1e293b;
+        --gray: #64748b;
+        --gray-light: #e2e8f0;
+        --white: #ffffff;
+        --sidebar-width: 250px;
+        --sidebar-collapsed: 70px;
+        --navbar-height: 70px;
+        --transition: all 0.2s ease;
+      }
+
+      body {
+        background-color: #f1f5f9;
+        color: var(--dark);
+        display: flex;
+        min-height: 100vh;
+        overflow-x: hidden;
+        line-height: 1.4;
+      }
+
+      /* Sidebar Styles */
+      .sidebar {
+        width: var(--sidebar-width);
+        background: linear-gradient(
+          180deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        height: 100vh;
+        position: fixed;
+        transition: var(--transition);
+        z-index: 100;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .sidebar.collapsed {
+        width: var(--sidebar-collapsed);
+        overflow-y: hidden;
+      }
+
+      .sidebar-header {
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        height: var(--navbar-height);
+        min-height: var(--navbar-height);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo-img-placeholder {
+        width: 40px;
+        height: 40px;
+        background-color: var(--secondary);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-weight: bold;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+
+      .logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+      }
+
+      .logo-main {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      .logo-sub {
+        font-size: 0.7rem;
+        font-weight: 500;
+        opacity: 0.8;
+        color: white;
+      }
+
+      .toggle-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        flex-shrink: 0;
+      }
+
+      .toggle-btn:hover {
+        transform: scale(1.1);
+        color: var(--secondary);
+      }
+
+      .sidebar-menu {
+        padding: 15px 0;
+        list-style: none;
+      }
+
+      .sidebar-menu li {
+        margin-bottom: 3px;
+      }
+
+      .sidebar-menu a {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+
+      .sidebar-menu a:hover,
+      .sidebar-menu a.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-left: 4px solid var(--secondary);
+      }
+
+      .sidebar-menu i {
+        margin-right: 15px;
+        font-size: 1rem;
+        width: 20px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .sidebar.collapsed .menu-text {
+        display: none;
+      }
+
+      .sidebar.collapsed .sidebar-header {
+        justify-content: center;
+        padding: 15px 5px;
+      }
+
+      .sidebar.collapsed .logo-text {
+        display: none;
+      }
+
+      .sidebar.collapsed .logo {
+        justify-content: center;
+      }
+
+      .premium-indicator {
+        color: var(--secondary);
+        margin-left: auto;
+        font-size: 0.8rem;
+      }
+
+      /* Main Content Area */
+      .main-content {
+        flex: 1;
+        margin-left: var(--sidebar-width);
+        transition: var(--transition);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - var(--sidebar-width));
+      }
+
+      .main-content.expanded {
+        margin-left: var(--sidebar-collapsed);
+        width: calc(100% - var(--sidebar-collapsed));
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        height: var(--navbar-height);
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        position: sticky;
+        top: 0;
+        z-index: 99;
+        flex-shrink: 0;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.1rem;
+        color: var(--primary);
+        cursor: pointer;
+      }
+
+      .page-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--dark);
+      }
+
+      .navbar-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      /* Notification Dropdown */
+      .notification-icon {
+        position: relative;
+        cursor: pointer;
+        font-size: 1.1rem;
+        color: var(--gray);
+        transition: var(--transition);
+      }
+
+      .notification-icon:hover {
+        color: var(--primary);
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: var(--danger);
+        color: white;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        font-size: 0.7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .notification-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 300px;
+        max-height: 350px;
+        overflow-y: auto;
+        display: none;
+        z-index: 101;
+      }
+
+      .notification-dropdown.show {
+        display: block;
+      }
+
+      .notification-header {
+        padding: 12px 15px;
+        border-bottom: 1px solid var(--gray-light);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .notification-title {
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 0.95rem;
+      }
+
+      .mark-all-read {
+        background: none;
+        border: none;
+        color: var(--primary);
+        cursor: pointer;
+        font-size: 0.8rem;
+      }
+
+      .notification-list {
+        list-style: none;
+      }
+
+      .notification-item {
+        padding: 10px 15px;
+        border-bottom: 1px solid var(--gray-light);
+        transition: var(--transition);
+      }
+
+      .notification-item:hover {
+        background-color: rgba(248, 193, 46, 0.1);
+      }
+
+      .notification-item.unread {
+        background-color: rgba(10, 42, 102, 0.05);
+      }
+
+      .notification-item:last-child {
+        border-bottom: none;
+      }
+
+      .notification-content {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+      }
+
+      .notification-time {
+        font-size: 0.7rem;
+        color: var(--gray);
+      }
+
+      .notification-empty {
+        padding: 20px;
+        text-align: center;
+        color: var(--gray);
+        font-size: 0.9rem;
+      }
+
+      .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 50px;
+        transition: var(--transition);
+      }
+
+      .user-profile:hover {
+        background-color: var(--gray-light);
+      }
+
+      .user-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .user-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .user-name {
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 180px;
+        padding: 8px 0;
+        display: none;
+        z-index: 101;
+      }
+
+      .dropdown-menu.show {
+        display: block;
+      }
+
+      .dropdown-menu a {
+        display: block;
+        padding: 8px 16px;
+        text-decoration: none;
+        color: var(--dark);
+        transition: var(--transition);
+        font-size: 0.85rem;
+      }
+
+      .dropdown-menu a:hover {
+        background-color: var(--gray-light);
+        color: var(--primary);
+      }
+
+      /* Help Content - Compact like view-applicants */
+      .help-content {
+        padding: 20px;
+        flex: 1;
+      }
+
+      /* Welcome Section - Compact */
+      .welcome-section {
+        margin-bottom: 15px;
+        padding: 0 5px;
+      }
+
+      .welcome-title {
+        font-size: 1.4rem;
+        margin-bottom: 4px;
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .welcome-subtitle {
+        color: var(--gray);
+        font-size: 0.9rem;
+      }
+
+      /* Support Grid - Compact cards */
+      .support-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+
+      .support-card {
+        background: white;
+        border-radius: 8px;
+        padding: 18px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+        border-top: 4px solid var(--primary);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .support-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-color: var(--secondary);
+      }
+
+      .support-icon {
+        font-size: 2rem;
+        color: var(--primary);
+        margin-bottom: 12px;
+      }
+
+      .support-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: var(--primary);
+      }
+
+      .support-description {
+        color: var(--gray);
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      /* Buttons - Compact */
+      .btn {
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        border: none;
+        font-size: 0.8rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-accent {
+        background-color: var(--secondary);
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .btn-accent:hover {
+        background-color: var(--secondary-dark);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 1px solid var(--gray-light);
+        color: var(--dark);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--gray-light);
+      }
+
+      /* Logout button style - matching notification badge red */
+      .btn-logout {
+        background-color: var(--danger);
+        color: white;
+      }
+
+      .btn-logout:hover {
+        background-color: var(--danger-dark);
+      }
+
+      /* FAQ Section - Compact */
+      .faq-section {
+        margin-bottom: 25px;
+      }
+
+      .section-title {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .section-title i {
+        color: var(--secondary);
+      }
+
+      .faq-categories {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+      }
+
+      .faq-category {
+        padding: 6px 12px;
+        background: var(--light);
+        border: 1px solid var(--gray-light);
+        border-radius: 16px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+
+      .faq-category.active,
+      .faq-category:hover {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      .faq-grid {
+        display: grid;
+        gap: 10px;
+      }
+
+      .faq-item {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        transition: var(--transition);
+        border: 1px solid var(--gray-light);
+      }
+
+      .faq-item:hover {
+        border-color: var(--secondary);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      .faq-question {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 0.95rem;
+      }
+
+      .faq-answer {
+        margin-top: 10px;
+        color: var(--gray);
+        line-height: 1.5;
+        display: none;
+        font-size: 0.9rem;
+      }
+
+      .faq-item.active .faq-answer {
+        display: block;
+      }
+
+      .faq-item.active .faq-toggle {
+        transform: rotate(180deg);
+      }
+
+      .faq-toggle {
+        transition: var(--transition);
+        color: var(--primary);
+        font-size: 0.9rem;
+      }
+
+      /* Contact Section - Compact */
+      .contact-section {
+        background: white;
+        border-radius: 8px;
+        padding: 18px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        margin-bottom: 25px;
+        border: 1px solid var(--gray-light);
+      }
+
+      .contact-methods {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+        margin-top: 15px;
+      }
+
+      .contact-method {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px;
+        background: var(--light);
+        border-radius: 6px;
+        transition: var(--transition);
+        border: 1px solid var(--gray-light);
+      }
+
+      .contact-method:hover {
+        background: var(--gray-light);
+        border-color: var(--secondary);
+      }
+
+      .contact-icon {
+        font-size: 1.3rem;
+        color: var(--primary);
+        width: 30px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .contact-info h4 {
+        margin-bottom: 3px;
+        color: var(--primary);
+        font-size: 0.9rem;
+      }
+
+      .contact-info p {
+        color: var(--gray);
+        font-size: 0.8rem;
+        line-height: 1.3;
+      }
+
+      /* Resources Section - Compact */
+      .resources-section {
+        margin-bottom: 25px;
+      }
+
+      .resources-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 12px;
+      }
+
+      .resource-card {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+        border-left: 3px solid var(--secondary);
+        border: 1px solid var(--gray-light);
+      }
+
+      .resource-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border-color: var(--secondary);
+      }
+
+      .resource-icon {
+        font-size: 1.5rem;
+        color: var(--primary);
+        margin-bottom: 8px;
+      }
+
+      .resource-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: var(--primary);
+      }
+
+      .resource-description {
+        color: var(--gray);
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+        line-height: 1.4;
+      }
+
+      /* Footer - Compact */
+      .footer {
+        background-color: var(--primary);
+        color: white;
+        padding: 15px 20px 10px;
+        margin-top: 25px;
+        flex-shrink: 0;
+        text-align: center;
+      }
+
+      .footer-links {
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 0.85rem;
+      }
+
+      .footer-links a:hover {
+        color: var(--secondary);
+      }
+
+      .footer-bottom {
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.8rem;
+      }
+
+      /* Mobile Overlay */
+      .mobile-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+      }
+
+      .mobile-overlay.show {
+        display: block;
+      }
+
+      /* Modal Styles - MATCHING DASHBOARD PAGE */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      .modal-content {
+        background-color: white;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 450px;
+        padding: 18px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        border-top: 5px solid var(--secondary);
+      }
+
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .modal-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .close-modal {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: var(--gray);
+      }
+
+      .modal-body {
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+        color: var(--dark);
+      }
+
+      .modal-footer {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+      }
+
+      /* Coming Soon Popup - Compact */
+      .coming-soon-popup {
+        background-color: white;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 350px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        animation: popupIn 0.3s ease-out;
+      }
+
+      .coming-soon-header {
+        background-color: var(--secondary);
+        color: var(--primary);
+        padding: 12px 15px;
+        font-weight: 600;
+        font-size: 1rem;
+        text-align: center;
+      }
+
+      .coming-soon-content {
+        padding: 20px 15px;
+        text-align: center;
+      }
+
+      .coming-soon-icon {
+        font-size: 2.5rem;
+        color: var(--secondary);
+        margin-bottom: 12px;
+      }
+
+      .coming-soon-message {
+        color: var(--dark);
+        margin-bottom: 15px;
+        line-height: 1.5;
+        font-size: 0.9rem;
+      }
+
+      .btn-got-it {
+        background-color: var(--primary);
+        color: white;
+        padding: 8px 24px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+        font-size: 0.9rem;
+      }
+
+      .btn-got-it:hover {
+        background-color: var(--primary-dark);
+      }
+
+      @keyframes popupIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* ========================================== */
+      /* MOBILE RESPONSIVENESS - view-applicants style */
+      /* ========================================== */
+
+      /* Tablet (992px and below) */
+      @media (max-width: 992px) {
+        .help-content {
+          padding: 15px;
         }
 
-        :root {
-            --primary: #0a2a66;
-            --primary-dark: #071e4d;
-            --secondary: #f8c12e;
-            --secondary-dark: #e6af1a;
-            --danger: #ef4444;
-            --danger-dark: #dc2626;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gray: #64748b;
-            --gray-light: #e2e8f0;
-            --white: #ffffff;
-            --sidebar-width: 250px;
-            --sidebar-collapsed: 70px;
-            --navbar-height: 70px;
-            --transition: all 0.2s ease;
-        }
-
-        body {
-            background-color: #f1f5f9;
-            color: var(--dark);
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
-            line-height: 1.4;
-        }
-
-        /* Sidebar Styles */
         .sidebar {
-            width: var(--sidebar-width);
-            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-            color: white;
-            height: 100vh;
-            position: fixed;
-            transition: var(--transition);
-            z-index: 100;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-            overflow-x: hidden;
+          transform: translateX(-100%);
+          width: 250px;
         }
 
-        .sidebar.collapsed {
-            width: var(--sidebar-collapsed);
-            overflow-y: hidden;
+        .sidebar.mobile-open {
+          transform: translateX(0);
         }
 
-        .sidebar-header {
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            height: var(--navbar-height);
-            min-height: var(--navbar-height);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-img-placeholder {
-            width: 40px;
-            height: 40px;
-            background-color: var(--secondary);
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
-
-        .logo-main {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: white;
-        }
-
-        .logo-sub {
-            font-size: 0.7rem;
-            font-weight: 500;
-            opacity: 0.8;
-            color: white;
-        }
-
-        .toggle-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            flex-shrink: 0;
-        }
-
-        .toggle-btn:hover {
-            transform: scale(1.1);
-            color: var(--secondary);
-        }
-
-        .sidebar-menu {
-            padding: 15px 0;
-            list-style: none;
-        }
-
-        .sidebar-menu li {
-            margin-bottom: 3px;
-        }
-
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-left: 4px solid var(--secondary);
-        }
-
-        .sidebar-menu i {
-            margin-right: 15px;
-            font-size: 1rem;
-            width: 20px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        .sidebar.collapsed .menu-text {
-            display: none;
-        }
-
-        .sidebar.collapsed .sidebar-header {
-            justify-content: center;
-            padding: 15px 5px;
-        }
-
-        .sidebar.collapsed .logo-text {
-            display: none;
-        }
-
-        .sidebar.collapsed .logo {
-            justify-content: center;
-        }
-
-        .premium-indicator {
-            color: var(--secondary);
-            margin-left: auto;
-            font-size: 0.8rem;
-        }
-
-        /* Main Content Area */
         .main-content {
-            flex: 1;
-            margin-left: var(--sidebar-width);
-            transition: var(--transition);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            width: calc(100% - var(--sidebar-width));
+          margin-left: 0;
+          width: 100%;
         }
 
         .main-content.expanded {
-            margin-left: var(--sidebar-collapsed);
-            width: calc(100% - var(--sidebar-collapsed));
-        }
-
-        /* Navbar Styles */
-        .navbar {
-            height: var(--navbar-height);
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            position: sticky;
-            top: 0;
-            z-index: 99;
-            flex-shrink: 0;
+          margin-left: 0;
+          width: 100%;
         }
 
         .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.1rem;
-            color: var(--primary);
-            cursor: pointer;
+          display: block;
         }
 
-        .page-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        /* Notification Dropdown */
-        .notification-icon {
-            position: relative;
-            cursor: pointer;
-            font-size: 1.1rem;
-            color: var(--gray);
-            transition: var(--transition);
-        }
-
-        .notification-icon:hover {
-            color: var(--primary);
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: var(--danger);
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .notification-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 20px;
-            background-color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 300px;
-            max-height: 350px;
-            overflow-y: auto;
-            display: none;
-            z-index: 101;
-        }
-
-        .notification-dropdown.show {
-            display: block;
-        }
-
-        .notification-header {
-            padding: 12px 15px;
-            border-bottom: 1px solid var(--gray-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .notification-title {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 0.95rem;
-        }
-
-        .mark-all-read {
-            background: none;
-            border: none;
-            color: var(--primary);
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .notification-list {
-            list-style: none;
-        }
-
-        .notification-item {
-            padding: 10px 15px;
-            border-bottom: 1px solid var(--gray-light);
-            transition: var(--transition);
-        }
-
-        .notification-item:hover {
-            background-color: rgba(248, 193, 46, 0.1);
-        }
-
-        .notification-item.unread {
-            background-color: rgba(10, 42, 102, 0.05);
-        }
-
-        .notification-item:last-child {
-            border-bottom: none;
-        }
-
-        .notification-content {
-            font-size: 0.85rem;
-            margin-bottom: 4px;
-        }
-
-        .notification-time {
-            font-size: 0.7rem;
-            color: var(--gray);
-        }
-
-        .notification-empty {
-            padding: 20px;
-            text-align: center;
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 50px;
-            transition: var(--transition);
-        }
-
-        .user-profile:hover {
-            background-color: var(--gray-light);
-        }
-
-        .user-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background-color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .user-name {
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            right: 20px;
-            background-color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 180px;
-            padding: 8px 0;
-            display: none;
-            z-index: 101;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-menu a {
-            display: block;
-            padding: 8px 16px;
-            text-decoration: none;
-            color: var(--dark);
-            transition: var(--transition);
-            font-size: 0.85rem;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: var(--gray-light);
-            color: var(--primary);
-        }
-
-        /* Help Content - Compact like view-applicants */
-        .help-content {
-            padding: 20px;
-            flex: 1;
-        }
-
-        /* Welcome Section - Compact */
-        .welcome-section {
-            margin-bottom: 15px;
-            padding: 0 5px;
-        }
-
-        .welcome-title {
-            font-size: 1.4rem;
-            margin-bottom: 4px;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .welcome-subtitle {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        /* Support Grid - Compact cards */
         .support-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .support-card {
-            background: white;
-            border-radius: 8px;
-            padding: 18px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            transition: var(--transition);
-            border-top: 4px solid var(--primary);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .support-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border-color: var(--secondary);
-        }
-
-        .support-icon {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 12px;
-        }
-
-        .support-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--primary);
-        }
-
-        .support-description {
-            color: var(--gray);
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        /* Buttons - Compact */
-        .btn {
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            font-size: 0.8rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-        }
-
-        .btn-accent {
-            background-color: var(--secondary);
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .btn-accent:hover {
-            background-color: var(--secondary-dark);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--gray-light);
-            color: var(--dark);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--gray-light);
-        }
-
-        /* Logout button style - matching notification badge red */
-        .btn-logout {
-            background-color: var(--danger);
-            color: white;
-        }
-
-        .btn-logout:hover {
-            background-color: var(--danger-dark);
-        }
-
-        /* FAQ Section - Compact */
-        .faq-section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .section-title i {
-            color: var(--secondary);
-        }
-
-        .faq-categories {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .faq-category {
-            padding: 6px 12px;
-            background: var(--light);
-            border: 1px solid var(--gray-light);
-            border-radius: 16px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .faq-category.active, .faq-category:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .faq-grid {
-            display: grid;
-            gap: 10px;
-        }
-
-        .faq-item {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-            cursor: pointer;
-            transition: var(--transition);
-            border: 1px solid var(--gray-light);
-        }
-
-        .faq-item:hover {
-            border-color: var(--secondary);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .faq-question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 0.95rem;
-        }
-
-        .faq-answer {
-            margin-top: 10px;
-            color: var(--gray);
-            line-height: 1.5;
-            display: none;
-            font-size: 0.9rem;
-        }
-
-        .faq-item.active .faq-answer {
-            display: block;
-        }
-
-        .faq-item.active .faq-toggle {
-            transform: rotate(180deg);
-        }
-
-        .faq-toggle {
-            transition: var(--transition);
-            color: var(--primary);
-            font-size: 0.9rem;
-        }
-
-        /* Contact Section - Compact */
-        .contact-section {
-            background: white;
-            border-radius: 8px;
-            padding: 18px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            margin-bottom: 25px;
-            border: 1px solid var(--gray-light);
+          grid-template-columns: 1fr;
         }
 
         .contact-methods {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .contact-method {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px;
-            background: var(--light);
-            border-radius: 6px;
-            transition: var(--transition);
-            border: 1px solid var(--gray-light);
-        }
-
-        .contact-method:hover {
-            background: var(--gray-light);
-            border-color: var(--secondary);
-        }
-
-        .contact-icon {
-            font-size: 1.3rem;
-            color: var(--primary);
-            width: 30px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        .contact-info h4 {
-            margin-bottom: 3px;
-            color: var(--primary);
-            font-size: 0.9rem;
-        }
-
-        .contact-info p {
-            color: var(--gray);
-            font-size: 0.8rem;
-            line-height: 1.3;
-        }
-
-        /* Resources Section - Compact */
-        .resources-section {
-            margin-bottom: 25px;
+          grid-template-columns: 1fr;
         }
 
         .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 12px;
+          grid-template-columns: 1fr;
+        }
+
+        .navbar {
+          padding: 0 15px;
+        }
+
+        .page-title {
+          font-size: 1.1rem;
+        }
+
+        .notification-dropdown {
+          right: 15px;
+          width: 280px;
+        }
+
+        .welcome-section {
+          margin-bottom: 12px;
+        }
+
+        .welcome-title {
+          font-size: 1.2rem;
+          margin-bottom: 3px;
+        }
+
+        .welcome-subtitle {
+          font-size: 0.85rem;
+        }
+
+        .support-card {
+          padding: 15px;
+        }
+
+        .section-title {
+          font-size: 1.1rem;
+          margin-bottom: 12px;
+        }
+
+        .faq-categories {
+          justify-content: center;
+        }
+
+        .faq-item {
+          padding: 12px;
+        }
+
+        .faq-question {
+          font-size: 0.9rem;
+        }
+
+        .contact-section {
+          padding: 15px;
         }
 
         .resource-card {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-            transition: var(--transition);
-            border-left: 3px solid var(--secondary);
-            border: 1px solid var(--gray-light);
+          padding: 12px;
+        }
+      }
+
+      /* Mobile (768px and below) */
+      @media (max-width: 768px) {
+        .help-content {
+          padding: 12px;
         }
 
-        .resource-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            border-color: var(--secondary);
+        .navbar {
+          padding: 0 12px;
+          height: 60px;
         }
 
-        .resource-icon {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 8px;
+        .logo-img-placeholder {
+          width: 35px;
+          height: 35px;
+          font-size: 1rem;
+        }
+
+        .user-name {
+          display: none;
+        }
+
+        .notification-icon {
+          font-size: 1rem;
+        }
+
+        .user-avatar {
+          width: 35px;
+          height: 35px;
+        }
+
+        .dropdown-menu {
+          right: 12px;
+          width: 160px;
+        }
+
+        .welcome-section {
+          margin-bottom: 10px;
+        }
+
+        .welcome-title {
+          font-size: 1.1rem;
+        }
+
+        .welcome-subtitle {
+          font-size: 0.8rem;
+        }
+
+        .support-grid {
+          gap: 12px;
+        }
+
+        .support-card {
+          padding: 14px;
+        }
+
+        .support-icon {
+          font-size: 1.8rem;
+          margin-bottom: 10px;
+        }
+
+        .support-title {
+          font-size: 1rem;
+        }
+
+        .support-description {
+          font-size: 0.85rem;
+          margin-bottom: 12px;
+        }
+
+        .btn {
+          padding: 7px 10px;
+          font-size: 0.75rem;
+        }
+
+        .section-title {
+          font-size: 1rem;
+          margin-bottom: 10px;
+        }
+
+        .faq-categories {
+          gap: 6px;
+          margin-bottom: 12px;
+        }
+
+        .faq-category {
+          padding: 5px 10px;
+          font-size: 0.8rem;
+        }
+
+        .faq-grid {
+          gap: 8px;
+        }
+
+        .faq-item {
+          padding: 10px;
+        }
+
+        .faq-question {
+          font-size: 0.85rem;
+        }
+
+        .faq-answer {
+          font-size: 0.85rem;
+        }
+
+        .contact-section {
+          padding: 12px;
+        }
+
+        .contact-method {
+          padding: 10px;
+          gap: 8px;
+        }
+
+        .contact-icon {
+          font-size: 1.2rem;
+        }
+
+        .resources-grid {
+          gap: 10px;
+        }
+
+        .resource-card {
+          padding: 10px;
         }
 
         .resource-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--primary);
+          font-size: 0.95rem;
         }
 
         .resource-description {
-            color: var(--gray);
-            font-size: 0.85rem;
-            margin-bottom: 10px;
-            line-height: 1.4;
+          font-size: 0.8rem;
         }
 
-        /* Footer - Compact */
+        .notification-dropdown {
+          right: 10px;
+          width: 260px;
+        }
+      }
+
+      /* Small Mobile (576px and below) */
+      @media (max-width: 576px) {
+        .help-content {
+          padding: 10px;
+        }
+
+        .navbar {
+          padding: 0 10px;
+        }
+
+        .mobile-menu-btn {
+          font-size: 1rem;
+        }
+
+        .page-title {
+          font-size: 1rem;
+        }
+
+        .welcome-title {
+          font-size: 1rem;
+        }
+
+        .welcome-subtitle {
+          font-size: 0.75rem;
+        }
+
+        .support-card {
+          padding: 12px;
+        }
+
+        .support-icon {
+          font-size: 1.6rem;
+        }
+
+        .btn {
+          padding: 6px 8px;
+          font-size: 0.7rem;
+        }
+
+        .section-title {
+          font-size: 0.95rem;
+        }
+
+        .faq-categories {
+          justify-content: flex-start;
+        }
+
+        .contact-method {
+          padding: 8px;
+        }
+
+        .contact-info h4 {
+          font-size: 0.85rem;
+        }
+
+        .contact-info p {
+          font-size: 0.75rem;
+        }
+
+        .resource-card {
+          padding: 8px;
+        }
+
         .footer {
-            background-color: var(--primary);
-            color: white;
-            padding: 15px 20px 10px;
-            margin-top: 25px;
-            flex-shrink: 0;
-            text-align: center;
-        }
-
-        .footer-links {
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
+          padding: 12px 15px 8px;
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.85rem;
-        }
-
-        .footer-links a:hover {
-            color: var(--secondary);
+          font-size: 0.8rem;
         }
 
         .footer-bottom {
-            padding-top: 8px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.8rem;
-        }
-
-        /* Mobile Overlay */
-        .mobile-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 99;
-        }
-
-        .mobile-overlay.show {
-            display: block;
-        }
-
-        /* Modal Styles - MATCHING DASHBOARD PAGE */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-        }
-
-        .modal.show {
-            display: flex;
+          font-size: 0.75rem;
         }
 
         .modal-content {
-            background-color: white;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 450px;
-            padding: 18px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            border-top: 5px solid var(--secondary);
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
+          padding: 16px;
         }
 
         .modal-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary);
+          font-size: 1rem;
+        }
+      }
+
+      /* Extra Small Mobile (480px and below) */
+      @media (max-width: 480px) {
+        .help-content {
+          padding: 8px;
         }
 
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            color: var(--gray);
+        .navbar {
+          padding: 0 8px;
+          height: 55px;
         }
 
-        .modal-body {
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-            color: var(--dark);
+        .logo-img-placeholder {
+          width: 30px;
+          height: 30px;
+          font-size: 0.9rem;
         }
 
-        .modal-footer {
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
-            flex-wrap: wrap;
+        .mobile-menu-btn {
+          font-size: 0.9rem;
         }
 
-        /* Coming Soon Popup - Compact */
-        .coming-soon-popup {
-            background-color: white;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 350px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            animation: popupIn 0.3s ease-out;
+        .page-title {
+          font-size: 0.9rem;
         }
 
-        .coming-soon-header {
-            background-color: var(--secondary);
-            color: var(--primary);
-            padding: 12px 15px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-align: center;
+        .notification-icon {
+          font-size: 0.9rem;
         }
 
-        .coming-soon-content {
-            padding: 20px 15px;
-            text-align: center;
+        .notification-badge {
+          width: 16px;
+          height: 16px;
+          font-size: 0.65rem;
         }
 
-        .coming-soon-icon {
-            font-size: 2.5rem;
-            color: var(--secondary);
-            margin-bottom: 12px;
+        .user-avatar {
+          width: 32px;
+          height: 32px;
         }
 
-        .coming-soon-message {
-            color: var(--dark);
-            margin-bottom: 15px;
-            line-height: 1.5;
-            font-size: 0.9rem;
+        .welcome-title {
+          font-size: 0.95rem;
         }
 
-        .btn-got-it {
-            background-color: var(--primary);
-            color: white;
-            padding: 8px 24px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-            font-size: 0.9rem;
+        .welcome-subtitle {
+          font-size: 0.7rem;
         }
 
-        .btn-got-it:hover {
-            background-color: var(--primary-dark);
+        .support-card {
+          padding: 10px;
         }
 
-        @keyframes popupIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .support-title {
+          font-size: 0.95rem;
         }
 
-        /* ========================================== */
-        /* MOBILE RESPONSIVENESS - view-applicants style */
-        /* ========================================== */
-
-        /* Tablet (992px and below) */
-        @media (max-width: 992px) {
-            .help-content {
-                padding: 15px;
-            }
-            
-            .sidebar {
-                transform: translateX(-100%);
-                width: 250px;
-            }
-
-            .sidebar.mobile-open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-                width: 100%;
-            }
-
-            .main-content.expanded {
-                margin-left: 0;
-                width: 100%;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .support-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-methods {
-                grid-template-columns: 1fr;
-            }
-            
-            .resources-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .navbar {
-                padding: 0 15px;
-            }
-            
-            .page-title {
-                font-size: 1.1rem;
-            }
-            
-            .notification-dropdown {
-                right: 15px;
-                width: 280px;
-            }
-            
-            .welcome-section {
-                margin-bottom: 12px;
-            }
-            
-            .welcome-title {
-                font-size: 1.2rem;
-                margin-bottom: 3px;
-            }
-            
-            .welcome-subtitle {
-                font-size: 0.85rem;
-            }
-            
-            .support-card {
-                padding: 15px;
-            }
-            
-            .section-title {
-                font-size: 1.1rem;
-                margin-bottom: 12px;
-            }
-            
-            .faq-categories {
-                justify-content: center;
-            }
-            
-            .faq-item {
-                padding: 12px;
-            }
-            
-            .faq-question {
-                font-size: 0.9rem;
-            }
-            
-            .contact-section {
-                padding: 15px;
-            }
-            
-            .resource-card {
-                padding: 12px;
-            }
+        .support-description {
+          font-size: 0.8rem;
         }
 
-        /* Mobile (768px and below) */
-        @media (max-width: 768px) {
-            .help-content {
-                padding: 12px;
-            }
-            
-            .navbar {
-                padding: 0 12px;
-                height: 60px;
-            }
-            
-            .logo-img-placeholder {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
-            }
-            
-            .user-name {
-                display: none;
-            }
-            
-            .notification-icon {
-                font-size: 1rem;
-            }
-            
-            .user-avatar {
-                width: 35px;
-                height: 35px;
-            }
-            
-            .dropdown-menu {
-                right: 12px;
-                width: 160px;
-            }
-            
-            .welcome-section {
-                margin-bottom: 10px;
-            }
-            
-            .welcome-title {
-                font-size: 1.1rem;
-            }
-            
-            .welcome-subtitle {
-                font-size: 0.8rem;
-            }
-            
-            .support-grid {
-                gap: 12px;
-            }
-            
-            .support-card {
-                padding: 14px;
-            }
-            
-            .support-icon {
-                font-size: 1.8rem;
-                margin-bottom: 10px;
-            }
-            
-            .support-title {
-                font-size: 1rem;
-            }
-            
-            .support-description {
-                font-size: 0.85rem;
-                margin-bottom: 12px;
-            }
-            
-            .btn {
-                padding: 7px 10px;
-                font-size: 0.75rem;
-            }
-            
-            .section-title {
-                font-size: 1rem;
-                margin-bottom: 10px;
-            }
-            
-            .faq-categories {
-                gap: 6px;
-                margin-bottom: 12px;
-            }
-            
-            .faq-category {
-                padding: 5px 10px;
-                font-size: 0.8rem;
-            }
-            
-            .faq-grid {
-                gap: 8px;
-            }
-            
-            .faq-item {
-                padding: 10px;
-            }
-            
-            .faq-question {
-                font-size: 0.85rem;
-            }
-            
-            .faq-answer {
-                font-size: 0.85rem;
-            }
-            
-            .contact-section {
-                padding: 12px;
-            }
-            
-            .contact-method {
-                padding: 10px;
-                gap: 8px;
-            }
-            
-            .contact-icon {
-                font-size: 1.2rem;
-            }
-            
-            .resources-grid {
-                gap: 10px;
-            }
-            
-            .resource-card {
-                padding: 10px;
-            }
-            
-            .resource-title {
-                font-size: 0.95rem;
-            }
-            
-            .resource-description {
-                font-size: 0.8rem;
-            }
-            
-            .notification-dropdown {
-                right: 10px;
-                width: 260px;
-            }
+        .dropdown-menu {
+          width: 140px;
+          padding: 6px 0;
+          right: 8px;
         }
 
-        /* Small Mobile (576px and below) */
-        @media (max-width: 576px) {
-            .help-content {
-                padding: 10px;
-            }
-            
-            .navbar {
-                padding: 0 10px;
-            }
-            
-            .mobile-menu-btn {
-                font-size: 1rem;
-            }
-            
-            .page-title {
-                font-size: 1rem;
-            }
-            
-            .welcome-title {
-                font-size: 1rem;
-            }
-            
-            .welcome-subtitle {
-                font-size: 0.75rem;
-            }
-            
-            .support-card {
-                padding: 12px;
-            }
-            
-            .support-icon {
-                font-size: 1.6rem;
-            }
-            
-            .btn {
-                padding: 6px 8px;
-                font-size: 0.7rem;
-            }
-            
-            .section-title {
-                font-size: 0.95rem;
-            }
-            
-            .faq-categories {
-                justify-content: flex-start;
-            }
-            
-            .contact-method {
-                padding: 8px;
-            }
-            
-            .contact-info h4 {
-                font-size: 0.85rem;
-            }
-            
-            .contact-info p {
-                font-size: 0.75rem;
-            }
-            
-            .resource-card {
-                padding: 8px;
-            }
-            
-            .footer {
-                padding: 12px 15px 8px;
-            }
-            
-            .footer-links a {
-                font-size: 0.8rem;
-            }
-            
-            .footer-bottom {
-                font-size: 0.75rem;
-            }
-            
-            .modal-content {
-                padding: 16px;
-            }
-            
-            .modal-title {
-                font-size: 1rem;
-            }
+        .dropdown-menu a {
+          padding: 6px 12px;
+          font-size: 0.8rem;
         }
 
-        /* Extra Small Mobile (480px and below) */
-        @media (max-width: 480px) {
-            .help-content {
-                padding: 8px;
-            }
-            
-            .navbar {
-                padding: 0 8px;
-                height: 55px;
-            }
-            
-            .logo-img-placeholder {
-                width: 30px;
-                height: 30px;
-                font-size: 0.9rem;
-            }
-            
-            .mobile-menu-btn {
-                font-size: 0.9rem;
-            }
-            
-            .page-title {
-                font-size: 0.9rem;
-            }
-            
-            .notification-icon {
-                font-size: 0.9rem;
-            }
-            
-            .notification-badge {
-                width: 16px;
-                height: 16px;
-                font-size: 0.65rem;
-            }
-            
-            .user-avatar {
-                width: 32px;
-                height: 32px;
-            }
-            
-            .welcome-title {
-                font-size: 0.95rem;
-            }
-            
-            .welcome-subtitle {
-                font-size: 0.7rem;
-            }
-            
-            .support-card {
-                padding: 10px;
-            }
-            
-            .support-title {
-                font-size: 0.95rem;
-            }
-            
-            .support-description {
-                font-size: 0.8rem;
-            }
-            
-            .dropdown-menu {
-                width: 140px;
-                padding: 6px 0;
-                right: 8px;
-            }
-            
-            .dropdown-menu a {
-                padding: 6px 12px;
-                font-size: 0.8rem;
-            }
-            
-            .notification-dropdown {
-                width: 220px;
-            }
-            
-            .notification-header {
-                padding: 10px 12px;
-            }
-            
-            .notification-title {
-                font-size: 0.9rem;
-            }
-            
-            .notification-item {
-                padding: 8px 12px;
-            }
-            
-            .notification-content {
-                font-size: 0.8rem;
-            }
-            
-            .notification-time {
-                font-size: 0.65rem;
-            }
+        .notification-dropdown {
+          width: 220px;
         }
 
-        /* Very Small Mobile (360px and below) */
-        @media (max-width: 360px) {
-            .help-content {
-                padding: 6px;
-            }
-            
-            .navbar {
-                padding: 0 6px;
-            }
-            
-            .logo-img-placeholder {
-                width: 28px;
-                height: 28px;
-                font-size: 0.8rem;
-            }
-            
-            .logo-main {
-                font-size: 0.9rem;
-            }
-            
-            .logo-sub {
-                font-size: 0.6rem;
-            }
-            
-            .welcome-title {
-                font-size: 0.9rem;
-            }
-            
-            .support-card {
-                padding: 8px;
-            }
-            
-            .btn {
-                padding: 5px 7px;
-                font-size: 0.65rem;
-            }
-            
-            .footer {
-                padding: 10px 12px 6px;
-            }
-            
-            .footer-links a {
-                font-size: 0.75rem;
-            }
-            
-            .footer-bottom {
-                font-size: 0.7rem;
-            }
+        .notification-header {
+          padding: 10px 12px;
         }
+
+        .notification-title {
+          font-size: 0.9rem;
+        }
+
+        .notification-item {
+          padding: 8px 12px;
+        }
+
+        .notification-content {
+          font-size: 0.8rem;
+        }
+
+        .notification-time {
+          font-size: 0.65rem;
+        }
+      }
+
+      /* Very Small Mobile (360px and below) */
+      @media (max-width: 360px) {
+        .help-content {
+          padding: 6px;
+        }
+
+        .navbar {
+          padding: 0 6px;
+        }
+
+        .logo-img-placeholder {
+          width: 28px;
+          height: 28px;
+          font-size: 0.8rem;
+        }
+
+        .logo-main {
+          font-size: 0.9rem;
+        }
+
+        .logo-sub {
+          font-size: 0.6rem;
+        }
+
+        .welcome-title {
+          font-size: 0.9rem;
+        }
+
+        .support-card {
+          padding: 8px;
+        }
+
+        .btn {
+          padding: 5px 7px;
+          font-size: 0.65rem;
+        }
+
+        .footer {
+          padding: 10px 12px 6px;
+        }
+
+        .footer-links a {
+          font-size: 0.75rem;
+        }
+
+        .footer-bottom {
+          font-size: 0.7rem;
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
     <!-- Logout Confirmation Modal - SAME AS DASHBOARD PAGE -->
     <div class="modal" id="logoutModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Confirm Logout</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to log out?</p>
-            </div>
-            <div class="modal-footer">
-                <!-- LOGOUT BUTTON IS RED (btn-logout) - SAME AS NOTIFICATION BADGE COLOR AND DASHBOARD PAGE -->
-                <button class="btn btn-logout" id="confirmLogout">Log Out</button>
-                <button class="btn btn-outline" id="cancelLogout">Cancel</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Confirm Logout</h3>
+          <button class="close-modal">&times;</button>
         </div>
+        <div class="modal-body">
+          <p>Are you sure you want to log out?</p>
+        </div>
+        <div class="modal-footer">
+          <!-- LOGOUT BUTTON IS RED (btn-logout) - SAME AS NOTIFICATION BADGE COLOR AND DASHBOARD PAGE -->
+          <button class="btn btn-logout" id="confirmLogout">Log Out</button>
+          <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+        </div>
+      </div>
     </div>
 
     <!-- Coming Soon Popup -->
     <div class="modal" id="comingSoonPopup">
-        <div class="coming-soon-popup">
-            <div class="coming-soon-header">Coming Soon!</div>
-            <div class="coming-soon-content">
-                <div class="coming-soon-icon">
-                    <i class="fas fa-tools"></i>
-                </div>
-                <p class="coming-soon-message">We're working hard to bring you this amazing feature. Stay tuned for updates!</p>
-                <button class="btn-got-it" id="closeComingSoon">Got It!</button>
-            </div>
+      <div class="coming-soon-popup">
+        <div class="coming-soon-header">Coming Soon!</div>
+        <div class="coming-soon-content">
+          <div class="coming-soon-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <p class="coming-soon-message">
+            We're working hard to bring you this amazing feature. Stay tuned for
+            updates!
+          </p>
+          <button class="btn-got-it" id="closeComingSoon">Got It!</button>
         </div>
+      </div>
     </div>
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
-                <div class="logo-img-placeholder">JA</div>
-                <div class="logo-text">
-                    <div class="logo-main">JobAssist</div>
-                    <div class="logo-sub">GHANA</div>
-                </div>
-            </div>
-            <button class="toggle-btn" id="sidebarToggle">
-                <i class="fas fa-chevron-left"></i>
-            </button>
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-img-placeholder">JA</div>
+          <div class="logo-text">
+            <div class="logo-main">JobAssist</div>
+            <div class="logo-sub">GHANA</div>
+          </div>
         </div>
-        <ul class="sidebar-menu">
-            <li><a href="candidate-dashboard.html"><i class="fas fa-home"></i> <span class="menu-text">Dashboard</span></a></li>
-            <li><a href="your-applications.html"><i class="fas fa-list-alt"></i> <span class="menu-text">My Applications</span></a></li>
-            <li><a href="accepted-offers.html"><i class="fas fa-check-circle"></i> <span class="menu-text">Accepted Offers</span></a></li>
-            <li><a href="candidate-profile.html"><i class="fas fa-user"></i> <span class="menu-text">My Profile</span></a></li>
-            <li><a href="boost-profile.html"><i class="fas fa-rocket"></i> <span class="menu-text">Boost Application</span> <i class="fas fa-crown premium-indicator"></i></a></li>
-            <li><a href="browse-jobs.html"><i class="fas fa-search"></i> <span class="menu-text">Browse Jobs</span></a></li>
-            <li><a href="settings.html"><i class="fas fa-cog"></i> <span class="menu-text">Settings</span></a></li>
-            <li><a href="help.html" class="active"><i class="fas fa-question-circle"></i> <span class="menu-text">Help & Support</span></a></li>
-            <li><a href="#" id="sidebarLogout"><i class="fas fa-sign-out-alt"></i> <span class="menu-text">Logout</span></a></li>
-        </ul>
+        <button class="toggle-btn" id="sidebarToggle">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+      <ul class="sidebar-menu">
+        <li>
+          <a href="candidate-dashboard.html"
+            ><i class="fas fa-home"></i>
+            <span class="menu-text">Dashboard</span></a
+          >
+        </li>
+        <li>
+          <a href="your-applications.html"
+            ><i class="fas fa-list-alt"></i>
+            <span class="menu-text">My Applications</span></a
+          >
+        </li>
+        <li>
+          <a href="accepted-offers.html"
+            ><i class="fas fa-check-circle"></i>
+            <span class="menu-text">Accepted Offers</span></a
+          >
+        </li>
+        <li>
+          <a href="candidate-profile.html"
+            ><i class="fas fa-user"></i>
+            <span class="menu-text">My Profile</span></a
+          >
+        </li>
+        <li>
+          <a href="boost-profile.html"
+            ><i class="fas fa-rocket"></i>
+            <span class="menu-text">Boost Application</span>
+            <i class="fas fa-crown premium-indicator"></i
+          ></a>
+        </li>
+        <li>
+          <a href="browse-jobs.html"
+            ><i class="fas fa-search"></i>
+            <span class="menu-text">Browse Jobs</span></a
+          >
+        </li>
+        <li>
+          <a href="settings.html"
+            ><i class="fas fa-cog"></i>
+            <span class="menu-text">Settings</span></a
+          >
+        </li>
+        <li>
+          <a href="help.html" class="active"
+            ><i class="fas fa-question-circle"></i>
+            <span class="menu-text">Help & Support</span></a
+          >
+        </li>
+        <li>
+          <a href="#" id="sidebarLogout"
+            ><i class="fas fa-sign-out-alt"></i>
+            <span class="menu-text">Logout</span></a
+          >
+        </li>
+      </ul>
     </aside>
 
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
-        <!-- Navbar -->
-        <nav class="navbar">
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="page-title">Help & Support</div>
-            <div class="navbar-right">
-                <!-- Notification Area from candidate-dashboard -->
-                <div class="notification-icon" id="notificationIcon">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge">3</span>
-                </div>
-                <div class="notification-dropdown" id="notificationDropdown">
-                    <div class="notification-header">
-                        <h3 class="notification-title">Notifications</h3>
-                        <button class="mark-all-read">Mark all as read</button>
-                    </div>
-                    <ul class="notification-list">
-                        <li class="notification-item unread">
-                            <div class="notification-content">Your application for Frontend Developer has been submitted</div>
-                            <div class="notification-time">2 hours ago</div>
-                        </li>
-                        <li class="notification-item unread">
-                            <div class="notification-content">New job matches your profile: Data Analyst at Tech Solutions</div>
-                            <div class="notification-time">5 hours ago</div>
-                        </li>
-                        <li class="notification-item unread">
-                            <div class="notification-content">Your profile has been viewed by 5 employers this week</div>
-                            <div class="notification-time">1 day ago</div>
-                        </li>
-                        <li class="notification-item">
-                            <div class="notification-content">Your application for UX Designer is being reviewed</div>
-                            <div class="notification-time">2 days ago</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="user-profile" id="userProfile">
-                    <div class="user-avatar">
-                        <img src="https://i.pravatar.cc/150?img=12" alt="User">
-                    </div>
-                    <div class="user-name">Nana</div>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="dropdown-menu">
-                    <a href="candidate-profile.html"><i class="fas fa-user"></i> View Profile</a>
-                    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
-                    <a href="#" id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </div>
+      <!-- Navbar -->
+      <nav class="navbar">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="page-title">Help & Support</div>
+        <div class="navbar-right">
+          <!-- Notification Area from candidate-dashboard -->
+          <div class="notification-icon" id="notificationIcon">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </div>
+          <div class="notification-dropdown" id="notificationDropdown">
+            <div class="notification-header">
+              <h3 class="notification-title">Notifications</h3>
+              <button class="mark-all-read">Mark all as read</button>
             </div>
-        </nav>
-
-        <!-- Help Content -->
-        <div class="help-content">
-            <!-- Welcome Section -->
-            <div class="welcome-section">
-                <h1 class="welcome-title">Help & Support Center 🆘</h1>
-                <p class="welcome-subtitle">Find answers to common questions, contact support, and access helpful resources</p>
+            <ul class="notification-list">
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  Your application for Frontend Developer has been submitted
+                </div>
+                <div class="notification-time">2 hours ago</div>
+              </li>
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  New job matches your profile: Data Analyst at Tech Solutions
+                </div>
+                <div class="notification-time">5 hours ago</div>
+              </li>
+              <li class="notification-item unread">
+                <div class="notification-content">
+                  Your profile has been viewed by 5 employers this week
+                </div>
+                <div class="notification-time">1 day ago</div>
+              </li>
+              <li class="notification-item">
+                <div class="notification-content">
+                  Your application for UX Designer is being reviewed
+                </div>
+                <div class="notification-time">2 days ago</div>
+              </li>
+            </ul>
+          </div>
+          <div class="user-profile" id="userProfile">
+            <div class="user-avatar">
+              <img src="https://i.pravatar.cc/150?img=12" alt="User" />
             </div>
+            <div class="user-name">Nana</div>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="dropdown-menu">
+            <a href="candidate-profile.html"
+              ><i class="fas fa-user"></i> View Profile</a
+            >
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#" id="dropdownLogout"
+              ><i class="fas fa-sign-out-alt"></i> Logout</a
+            >
+          </div>
+        </div>
+      </nav>
 
-            <!-- Support Options Grid -->
-            <div class="support-grid">
-                <div class="support-card">
-                    <div class="support-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3 class="support-title">Knowledge Base</h3>
-                    <p class="support-description">Browse our comprehensive documentation and find answers to frequently asked questions about using JobAssist Ghana.</p>
-                    <a href="articles.html" class="btn btn-primary">
-                        <i class="fas fa-book-open"></i> Browse Articles
-                    </a>
-                </div>
-
-                <div class="support-card">
-                    <div class="support-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h3 class="support-title">Email Support</h3>
-                    <p class="support-description">Send us a detailed message and we'll get back to you within 24 hours with a comprehensive solution.</p>
-                    <a href="mailto:support@jobassistgh.com" class="btn btn-accent">
-                        <i class="fas fa-paper-plane"></i> Send Email
-                    </a>
-                </div>
-
-                <div class="support-card">
-                    <div class="support-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <h3 class="support-title">Phone Support</h3>
-                    <p class="support-description">Call our support team directly for immediate assistance with urgent issues during business hours.</p>
-                    <a href="tel:+233123456799" class="btn btn-outline">
-                        <i class="fas fa-phone-alt"></i> Call Now
-                    </a>
-                </div>
-            </div>
-
-            <!-- FAQ Section -->
-            <div class="faq-section">
-                <h2 class="section-title">
-                    <i class="fas fa-question-circle"></i> Frequently Asked Questions
-                </h2>
-
-                <!-- FAQ Categories -->
-                <div class="faq-categories">
-                    <div class="faq-category active" data-category="general">General</div>
-                    <div class="faq-category" data-category="profile">Profile & Account</div>
-                    <div class="faq-category" data-category="applications">Applications</div>
-                    <div class="faq-category" data-category="premium">Premium Features</div>
-                    <div class="faq-category" data-category="technical">Technical Issues</div>
-                </div>
-
-                <!-- FAQ Items -->
-                <div class="faq-grid">
-                    <!-- General FAQs -->
-                    <div class="faq-item active" data-category="general">
-                        <div class="faq-question">
-                            How do I create an account on JobAssist Ghana?
-                            <i class="fas fa-chevron-down faq-toggle"></i>
-                        </div>
-                        <div class="faq-answer">
-                            To create an account, click on the "Sign Up" button on the homepage. You'll need to provide your email address, create a password, and fill in your basic personal information. After verification, you can complete your profile and start applying for jobs.
-                        </div>
-                    </div>
-
-                    <div class="faq-item active" data-category="general">
-                        <div class="faq-question">
-                            Is JobAssist Ghana free to use?
-                            <i class="fas fa-chevron-down faq-toggle"></i>
-                        </div>
-                        <div class="faq-answer">
-                            Yes, our basic services are completely free! You can create a profile, browse jobs, and apply for positions without any cost. We offer premium features like profile boosting for enhanced visibility, but these are optional.
-                        </div>
-                    </div>
-
-                    <!-- Profile & Account FAQs -->
-                    <div class="faq-item" data-category="profile">
-                        <div class="faq-question">
-                            How can I update my personal information?
-                            <i class="fas fa-chevron-down faq-toggle"></i>
-                        </div>
-                        <div class="faq-answer">
-                            Go to "My Profile" in your dashboard. You can edit most of your information there. Note that some sensitive details like Ghana Card number and digital address cannot be changed for security reasons after initial submission.
-                        </div>
-                    </div>
-
-                    <!-- Applications FAQs -->
-                    <div class="faq-item" data-category="applications">
-                        <div class="faq-question">
-                            How do I track my job applications?
-                            <i class="fas fa-chevron-down faq-toggle"></i>
-                        </div>
-                        <div class="faq-answer">
-                            All your applications are tracked in the "Your Applications" section. You can see the status of each application (Pending, Shortlisted, Accepted, Rejected) and take appropriate actions.
-                        </div>
-                    </div>
-
-                    <div class="faq-item" data-category="applications">
-                        <div class="faq-question">
-                            Can I withdraw a job application?
-                            <i class="fas fa-chevron-down faq-toggle"></i>
-                        </div>
-                        <div class="faq-answer">
-                            Yes, you can withdraw applications that are still under review. Go to "Your Applications", find the application you want to withdraw, and click the "Withdraw" button. This action cannot be undone.
-                        </div>
-                    </div>
-
-                    <!-- Premium Features FAQs -->
-                    <div class="faq-item" data-category="premium">
-                        <div class="faq-question">
-                            What are the benefits of boosting my profile?
-                            <i class="fas fa-chevron-down faq-toggle"></i>
-                        </div>
-                        <div class="faq-answer">
-                            Profile boosting enhances your visibility further, putting you at the top of search results and giving you priority access to new job postings. Boosted profiles get 3x more views from employers.
-                        </div>
-                    </div>
-
-                    <div class="faq-item" data-category="premium">
-                        <div class="faq-question">
-                            How long do premium features last?
-                            <i class="fas fa-chevron-down faq-toggle"></i>
-                        </div>
-                        <div class="faq-answer">
-                            Profile boosting packages vary: Basic (7 days), Professional (30 days), and Enterprise (90 days). You can renew anytime.
-                        </div>
-                    </div>
-
-                    <!-- Technical Issues FAQs -->
-                    <div class="faq-item" data-category="technical">
-                        <div class="faq-question">
-                            The website is loading slowly. What should I do?
-                            <i class="fas fa-chevron-down faq-toggle"></i>
-                        </div>
-                        <div class="faq-answer">
-                            Try refreshing the page, clearing your browser cache, or using a different browser. If the problem persists, contact our technical support team with details about your device and browser.
-                        </div>
-                    </div>
-
-                    <div class="faq-item" data-category="technical">
-                        <div class="faq-question">
-                            I forgot my password. How can I reset it?
-                            <i class="fas fa-chevron-down faq-toggle"></i>
-                        </div>
-                        <div class="faq-answer">
-                            Click on "Forgot Password" on the login page. Enter your email address, and we'll send you a password reset link. The link will expire in 1 hour for security reasons.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Contact Section -->
-            <div class="contact-section">
-                <h2 class="section-title">
-                    <i class="fas fa-headset"></i> Contact Our Support Team
-                </h2>
-                <p style="font-size: 0.9rem; color: var(--gray); margin-bottom: 5px;">Can't find what you're looking for? Our support team is here to help you.</p>
-
-                <div class="contact-methods">
-                    <div class="contact-method">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-info">
-                            <h4>Phone Support</h4>
-                            <p>+233 123 456 799</p>
-                            <p>Mon-Fri, 8:00 AM - 6:00 PM</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-method">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-info">
-                            <h4>Email Support</h4>
-                            <p>support@jobassistgh.com</p>
-                            <p>Response within 24 hours</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-method">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-info">
-                            <h4>Office Address</h4>
-                            <p>123 Independence Avenue</p>
-                            <p>Accra, Ghana</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-method">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="contact-info">
-                            <h4>Support Hours</h4>
-                            <p>Monday - Friday</p>
-                            <p>8:00 AM - 6:00 PM GMT</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Resources Section -->
-            <div class="resources-section">
-                <h2 class="section-title">
-                    <i class="fas fa-tools"></i> Helpful Resources
-                </h2>
-
-                <div class="resources-grid">
-                    <div class="resource-card">
-                        <div class="resource-icon">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
-                        <h3 class="resource-title">CV Builder Guide</h3>
-                        <p class="resource-description">Learn how to create a professional CV that stands out to employers with our comprehensive guide.</p>
-                        <a href="build-cv.html" class="btn btn-outline">View Guide</a>
-                    </div>
-
-                    <div class="resource-card">
-                        <div class="resource-icon">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <h3 class="resource-title">Video Tutorials</h3>
-                        <p class="resource-description">Watch step-by-step tutorials on how to make the most of JobAssist Ghana's features.</p>
-                        <a href="#" class="btn btn-outline coming-soon-btn">Watch Videos</a>
-                    </div>
-
-                    <div class="resource-card">
-                        <div class="resource-icon">
-                            <i class="fas fa-download"></i>
-                        </div>
-                        <h3 class="resource-title">Mobile App</h3>
-                        <p class="resource-description">Download our mobile app to search for jobs and manage applications on the go.</p>
-                        <a href="#" class="btn btn-outline coming-soon-btn">Download App</a>
-                    </div>
-
-                    <div class="resource-card">
-                        <div class="resource-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h3 class="resource-title">Community Forum</h3>
-                        <p class="resource-description">Connect with other job seekers, share experiences, and get advice from the community.</p>
-                        <a href="#" class="btn btn-outline coming-soon-btn">Join Forum</a>
-                    </div>
-                </div>
-            </div>
+      <!-- Help Content -->
+      <div class="help-content">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+          <h1 class="welcome-title">Help & Support Center 🆘</h1>
+          <p class="welcome-subtitle">
+            Find answers to common questions, contact support, and access
+            helpful resources
+          </p>
         </div>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-links">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="contact.html">Contact Us</a>
+        <!-- Support Options Grid -->
+        <div class="support-grid">
+          <div class="support-card">
+            <div class="support-icon">
+              <i class="fas fa-search"></i>
             </div>
-            <div class="footer-bottom">
-                <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+            <h3 class="support-title">Knowledge Base</h3>
+            <p class="support-description">
+              Browse our comprehensive documentation and find answers to
+              frequently asked questions about using JobAssist Ghana.
+            </p>
+            <a href="articles.html" class="btn btn-primary">
+              <i class="fas fa-book-open"></i> Browse Articles
+            </a>
+          </div>
+
+          <div class="support-card">
+            <div class="support-icon">
+              <i class="fas fa-envelope"></i>
             </div>
-        </footer>
+            <h3 class="support-title">Email Support</h3>
+            <p class="support-description">
+              Send us a detailed message and we'll get back to you within 24
+              hours with a comprehensive solution.
+            </p>
+            <a href="mailto:support@jobassistgh.com" class="btn btn-accent">
+              <i class="fas fa-paper-plane"></i> Send Email
+            </a>
+          </div>
+
+          <div class="support-card">
+            <div class="support-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <h3 class="support-title">Phone Support</h3>
+            <p class="support-description">
+              Call our support team directly for immediate assistance with
+              urgent issues during business hours.
+            </p>
+            <a href="tel:+233123456799" class="btn btn-outline">
+              <i class="fas fa-phone-alt"></i> Call Now
+            </a>
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+          <h2 class="section-title">
+            <i class="fas fa-question-circle"></i> Frequently Asked Questions
+          </h2>
+
+          <!-- FAQ Categories -->
+          <div class="faq-categories">
+            <div class="faq-category active" data-category="general">
+              General
+            </div>
+            <div class="faq-category" data-category="profile">
+              Profile & Account
+            </div>
+            <div class="faq-category" data-category="applications">
+              Applications
+            </div>
+            <div class="faq-category" data-category="premium">
+              Premium Features
+            </div>
+            <div class="faq-category" data-category="technical">
+              Technical Issues
+            </div>
+          </div>
+
+          <!-- FAQ Items -->
+          <div class="faq-grid">
+            <!-- General FAQs -->
+            <div class="faq-item active" data-category="general">
+              <div class="faq-question">
+                How do I create an account on JobAssist Ghana?
+                <i class="fas fa-chevron-down faq-toggle"></i>
+              </div>
+              <div class="faq-answer">
+                To create an account, click on the "Sign Up" button on the
+                homepage. You'll need to provide your email address, create a
+                password, and fill in your basic personal information. After
+                verification, you can complete your profile and start applying
+                for jobs.
+              </div>
+            </div>
+
+            <div class="faq-item active" data-category="general">
+              <div class="faq-question">
+                Is JobAssist Ghana free to use?
+                <i class="fas fa-chevron-down faq-toggle"></i>
+              </div>
+              <div class="faq-answer">
+                Yes, our basic services are completely free! You can create a
+                profile, browse jobs, and apply for positions without any cost.
+                We offer premium features like profile boosting for enhanced
+                visibility, but these are optional.
+              </div>
+            </div>
+
+            <!-- Profile & Account FAQs -->
+            <div class="faq-item" data-category="profile">
+              <div class="faq-question">
+                How can I update my personal information?
+                <i class="fas fa-chevron-down faq-toggle"></i>
+              </div>
+              <div class="faq-answer">
+                Go to "My Profile" in your dashboard. You can edit most of your
+                information there. Note that some sensitive details like Ghana
+                Card number and digital address cannot be changed for security
+                reasons after initial submission.
+              </div>
+            </div>
+
+            <!-- Applications FAQs -->
+            <div class="faq-item" data-category="applications">
+              <div class="faq-question">
+                How do I track my job applications?
+                <i class="fas fa-chevron-down faq-toggle"></i>
+              </div>
+              <div class="faq-answer">
+                All your applications are tracked in the "Your Applications"
+                section. You can see the status of each application (Pending,
+                Shortlisted, Accepted, Rejected) and take appropriate actions.
+              </div>
+            </div>
+
+            <div class="faq-item" data-category="applications">
+              <div class="faq-question">
+                Can I withdraw a job application?
+                <i class="fas fa-chevron-down faq-toggle"></i>
+              </div>
+              <div class="faq-answer">
+                Yes, you can withdraw applications that are still under review.
+                Go to "Your Applications", find the application you want to
+                withdraw, and click the "Withdraw" button. This action cannot be
+                undone.
+              </div>
+            </div>
+
+            <!-- Premium Features FAQs -->
+            <div class="faq-item" data-category="premium">
+              <div class="faq-question">
+                What are the benefits of boosting my profile?
+                <i class="fas fa-chevron-down faq-toggle"></i>
+              </div>
+              <div class="faq-answer">
+                Profile boosting enhances your visibility further, putting you
+                at the top of search results and giving you priority access to
+                new job postings. Boosted profiles get 3x more views from
+                employers.
+              </div>
+            </div>
+
+            <div class="faq-item" data-category="premium">
+              <div class="faq-question">
+                How long do premium features last?
+                <i class="fas fa-chevron-down faq-toggle"></i>
+              </div>
+              <div class="faq-answer">
+                Profile boosting packages vary: Basic (7 days), Professional (30
+                days), and Enterprise (90 days). You can renew anytime.
+              </div>
+            </div>
+
+            <!-- Technical Issues FAQs -->
+            <div class="faq-item" data-category="technical">
+              <div class="faq-question">
+                The website is loading slowly. What should I do?
+                <i class="fas fa-chevron-down faq-toggle"></i>
+              </div>
+              <div class="faq-answer">
+                Try refreshing the page, clearing your browser cache, or using a
+                different browser. If the problem persists, contact our
+                technical support team with details about your device and
+                browser.
+              </div>
+            </div>
+
+            <div class="faq-item" data-category="technical">
+              <div class="faq-question">
+                I forgot my password. How can I reset it?
+                <i class="fas fa-chevron-down faq-toggle"></i>
+              </div>
+              <div class="faq-answer">
+                Click on "Forgot Password" on the login page. Enter your email
+                address, and we'll send you a password reset link. The link will
+                expire in 1 hour for security reasons.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+          <h2 class="section-title">
+            <i class="fas fa-headset"></i> Contact Our Support Team
+          </h2>
+          <p style="font-size: 0.9rem; color: var(--gray); margin-bottom: 5px">
+            Can't find what you're looking for? Our support team is here to help
+            you.
+          </p>
+
+          <div class="contact-methods">
+            <div class="contact-method">
+              <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="contact-info">
+                <h4>Phone Support</h4>
+                <p>+233 123 456 799</p>
+                <p>Mon-Fri, 8:00 AM - 6:00 PM</p>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-info">
+                <h4>Email Support</h4>
+                <p>support@jobassistgh.com</p>
+                <p>Response within 24 hours</p>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="contact-info">
+                <h4>Office Address</h4>
+                <p>123 Independence Avenue</p>
+                <p>Accra, Ghana</p>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="contact-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="contact-info">
+                <h4>Support Hours</h4>
+                <p>Monday - Friday</p>
+                <p>8:00 AM - 6:00 PM GMT</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resources Section -->
+        <div class="resources-section">
+          <h2 class="section-title">
+            <i class="fas fa-tools"></i> Helpful Resources
+          </h2>
+
+          <div class="resources-grid">
+            <div class="resource-card">
+              <div class="resource-icon">
+                <i class="fas fa-file-alt"></i>
+              </div>
+              <h3 class="resource-title">CV Builder Guide</h3>
+              <p class="resource-description">
+                Learn how to create a professional CV that stands out to
+                employers with our comprehensive guide.
+              </p>
+              <a href="build-cv.html" class="btn btn-outline">View Guide</a>
+            </div>
+
+            <div class="resource-card">
+              <div class="resource-icon">
+                <i class="fas fa-video"></i>
+              </div>
+              <h3 class="resource-title">Video Tutorials</h3>
+              <p class="resource-description">
+                Watch step-by-step tutorials on how to make the most of
+                JobAssist Ghana's features.
+              </p>
+              <a href="#" class="btn btn-outline coming-soon-btn"
+                >Watch Videos</a
+              >
+            </div>
+
+            <div class="resource-card">
+              <div class="resource-icon">
+                <i class="fas fa-download"></i>
+              </div>
+              <h3 class="resource-title">Mobile App</h3>
+              <p class="resource-description">
+                Download our mobile app to search for jobs and manage
+                applications on the go.
+              </p>
+              <a href="#" class="btn btn-outline coming-soon-btn"
+                >Download App</a
+              >
+            </div>
+
+            <div class="resource-card">
+              <div class="resource-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <h3 class="resource-title">Community Forum</h3>
+              <p class="resource-description">
+                Connect with other job seekers, share experiences, and get
+                advice from the community.
+              </p>
+              <a href="#" class="btn btn-outline coming-soon-btn">Join Forum</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
 
     <script>
-        // DOM Elements
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const mainContent = document.getElementById('mainContent');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileOverlay = document.getElementById('mobileOverlay');
-        const logoutModal = document.getElementById('logoutModal');
-        const sidebarLogout = document.getElementById('sidebarLogout');
-        const dropdownLogout = document.getElementById('dropdownLogout');
-        const confirmLogout = document.getElementById('confirmLogout');
-        const cancelLogout = document.getElementById('cancelLogout');
-        const faqCategories = document.querySelectorAll('.faq-category');
-        const faqItems = document.querySelectorAll('.faq-item');
-        const comingSoonPopup = document.getElementById('comingSoonPopup');
-        const closeComingSoon = document.getElementById('closeComingSoon');
-        const notificationIcon = document.getElementById('notificationIcon');
-        const notificationDropdown = document.getElementById('notificationDropdown');
+      // DOM Elements
+      const sidebar = document.getElementById("sidebar");
+      const sidebarToggle = document.getElementById("sidebarToggle");
+      const mainContent = document.getElementById("mainContent");
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileOverlay = document.getElementById("mobileOverlay");
+      const logoutModal = document.getElementById("logoutModal");
+      const sidebarLogout = document.getElementById("sidebarLogout");
+      const dropdownLogout = document.getElementById("dropdownLogout");
+      const confirmLogout = document.getElementById("confirmLogout");
+      const cancelLogout = document.getElementById("cancelLogout");
+      const faqCategories = document.querySelectorAll(".faq-category");
+      const faqItems = document.querySelectorAll(".faq-item");
+      const comingSoonPopup = document.getElementById("comingSoonPopup");
+      const closeComingSoon = document.getElementById("closeComingSoon");
+      const notificationIcon = document.getElementById("notificationIcon");
+      const notificationDropdown = document.getElementById(
+        "notificationDropdown",
+      );
 
-        // Toggle Sidebar (Desktop)
-        sidebarToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('expanded');
-            
-            const icon = this.querySelector('i');
-            if (sidebar.classList.contains('collapsed')) {
-                icon.className = 'fas fa-chevron-right';
-            } else {
-                icon.className = 'fas fa-chevron-left';
-            }
-        });
+      // Toggle Sidebar (Desktop)
+      sidebarToggle.addEventListener("click", function () {
+        sidebar.classList.toggle("collapsed");
+        mainContent.classList.toggle("expanded");
 
-        // Mobile Menu Toggle
-        let isMobileMenuOpen = false;
-        
-        mobileMenuBtn.addEventListener('click', function() {
-            if (isMobileMenuOpen) {
-                sidebar.classList.remove('mobile-open');
-                mobileOverlay.classList.remove('show');
-                isMobileMenuOpen = false;
-            } else {
-                sidebar.classList.add('mobile-open');
-                mobileOverlay.classList.add('show');
-                isMobileMenuOpen = true;
-            }
-        });
-
-        // Close mobile menu when clicking overlay
-        mobileOverlay.addEventListener('click', function() {
-            sidebar.classList.remove('mobile-open');
-            mobileOverlay.classList.remove('show');
-            isMobileMenuOpen = false;
-        });
-
-        // User Profile Dropdown
-        document.querySelector('.user-profile').addEventListener('click', function() {
-            document.querySelector('.dropdown-menu').classList.toggle('show');
-        });
-
-        // Notification Dropdown
-        notificationIcon.addEventListener('click', function(e) {
-            e.stopPropagation();
-            notificationDropdown.classList.toggle('show');
-        });
-
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.user-profile')) {
-                document.querySelector('.dropdown-menu').classList.remove('show');
-            }
-            
-            if (!event.target.closest('.notification-icon')) {
-                notificationDropdown.classList.remove('show');
-            }
-        });
-
-        // Close modals
-        closeComingSoon.addEventListener('click', function() {
-            comingSoonPopup.classList.remove('show');
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-            if (event.target === logoutModal) {
-                logoutModal.classList.remove('show');
-            }
-            if (event.target === comingSoonPopup) {
-                comingSoonPopup.classList.remove('show');
-            }
-        });
-
-        // Close modals with X button
-        document.querySelectorAll('.close-modal').forEach(button => {
-            button.addEventListener('click', function() {
-                const modal = this.closest('.modal');
-                modal.classList.remove('show');
-            });
-        });
-
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            setupEventListeners();
-        });
-
-        // Set up event listeners
-        function setupEventListeners() {
-            // FAQ Category Filtering
-            faqCategories.forEach(category => {
-                category.addEventListener('click', function() {
-                    // Remove active class from all categories
-                    faqCategories.forEach(cat => cat.classList.remove('active'));
-                    // Add active class to clicked category
-                    this.classList.add('active');
-                    
-                    const selectedCategory = this.getAttribute('data-category');
-                    
-                    // Show/hide FAQ items based on category
-                    faqItems.forEach(item => {
-                        if (selectedCategory === 'general' || item.getAttribute('data-category') === selectedCategory) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                });
-            });
-
-            // FAQ Toggle
-            faqItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    // Toggle current item
-                    this.classList.toggle('active');
-                });
-            });
-
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 992) {
-                    sidebar.classList.remove('mobile-open');
-                    mobileOverlay.classList.remove('show');
-                    isMobileMenuOpen = false;
-                }
-            });
-
-            // Logout functionality with confirmation modal
-            sidebarLogout.addEventListener('click', function(e) {
-                e.preventDefault();
-                logoutModal.classList.add('show');
-            });
-
-            dropdownLogout.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector('.dropdown-menu').classList.remove('show');
-                logoutModal.classList.add('show');
-            });
-
-            // Logout modal buttons
-            confirmLogout.addEventListener('click', function() {
-                // Redirect to login.html after successful logout
-                logoutModal.classList.remove('show');
-                window.location.href = 'login.html';
-            });
-
-            cancelLogout.addEventListener('click', function() {
-                logoutModal.classList.remove('show');
-            });
-
-            // Mark all notifications as read
-            document.querySelector('.mark-all-read').addEventListener('click', function() {
-                document.querySelectorAll('.notification-item.unread').forEach(item => {
-                    item.classList.remove('unread');
-                });
-                document.querySelector('.notification-badge').style.display = 'none';
-            });
-
-            // Coming Soon Popup functionality
-            function showComingSoon() {
-                comingSoonPopup.classList.add('show');
-            }
-            
-            function hideComingSoon() {
-                comingSoonPopup.classList.remove('show');
-            }
-            
-            // Add event listeners to all Coming Soon buttons
-            document.querySelectorAll('.coming-soon-btn').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    showComingSoon();
-                });
-            });
-
-            // Close coming soon popup
-            closeComingSoon.addEventListener('click', hideComingSoon);
+        const icon = this.querySelector("i");
+        if (sidebar.classList.contains("collapsed")) {
+          icon.className = "fas fa-chevron-right";
+        } else {
+          icon.className = "fas fa-chevron-left";
         }
+      });
+
+      // Mobile Menu Toggle
+      let isMobileMenuOpen = false;
+
+      mobileMenuBtn.addEventListener("click", function () {
+        if (isMobileMenuOpen) {
+          sidebar.classList.remove("mobile-open");
+          mobileOverlay.classList.remove("show");
+          isMobileMenuOpen = false;
+        } else {
+          sidebar.classList.add("mobile-open");
+          mobileOverlay.classList.add("show");
+          isMobileMenuOpen = true;
+        }
+      });
+
+      // Close mobile menu when clicking overlay
+      mobileOverlay.addEventListener("click", function () {
+        sidebar.classList.remove("mobile-open");
+        mobileOverlay.classList.remove("show");
+        isMobileMenuOpen = false;
+      });
+
+      // User Profile Dropdown
+      document
+        .querySelector(".user-profile")
+        .addEventListener("click", function () {
+          document.querySelector(".dropdown-menu").classList.toggle("show");
+        });
+
+      // Notification Dropdown
+      notificationIcon.addEventListener("click", function (e) {
+        e.stopPropagation();
+        notificationDropdown.classList.toggle("show");
+      });
+
+      // Close dropdowns when clicking outside
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".user-profile")) {
+          document.querySelector(".dropdown-menu").classList.remove("show");
+        }
+
+        if (!event.target.closest(".notification-icon")) {
+          notificationDropdown.classList.remove("show");
+        }
+      });
+
+      // Close modals
+      closeComingSoon.addEventListener("click", function () {
+        comingSoonPopup.classList.remove("show");
+      });
+
+      // Close modal when clicking outside
+      window.addEventListener("click", function (event) {
+        if (event.target === logoutModal) {
+          logoutModal.classList.remove("show");
+        }
+        if (event.target === comingSoonPopup) {
+          comingSoonPopup.classList.remove("show");
+        }
+      });
+
+      // Close modals with X button
+      document.querySelectorAll(".close-modal").forEach((button) => {
+        button.addEventListener("click", function () {
+          const modal = this.closest(".modal");
+          modal.classList.remove("show");
+        });
+      });
+
+      // Initialize page
+      document.addEventListener("DOMContentLoaded", function () {
+        setupEventListeners();
+      });
+
+      // Set up event listeners
+      function setupEventListeners() {
+        // FAQ Category Filtering
+        faqCategories.forEach((category) => {
+          category.addEventListener("click", function () {
+            // Remove active class from all categories
+            faqCategories.forEach((cat) => cat.classList.remove("active"));
+            // Add active class to clicked category
+            this.classList.add("active");
+
+            const selectedCategory = this.getAttribute("data-category");
+
+            // Show/hide FAQ items based on category
+            faqItems.forEach((item) => {
+              if (
+                selectedCategory === "general" ||
+                item.getAttribute("data-category") === selectedCategory
+              ) {
+                item.style.display = "block";
+              } else {
+                item.style.display = "none";
+              }
+            });
+          });
+        });
+
+        // FAQ Toggle
+        faqItems.forEach((item) => {
+          item.addEventListener("click", function () {
+            // Toggle current item
+            this.classList.toggle("active");
+          });
+        });
+
+        // Handle window resize
+        window.addEventListener("resize", function () {
+          if (window.innerWidth > 992) {
+            sidebar.classList.remove("mobile-open");
+            mobileOverlay.classList.remove("show");
+            isMobileMenuOpen = false;
+          }
+        });
+
+        // Logout functionality with confirmation modal
+        sidebarLogout.addEventListener("click", function (e) {
+          e.preventDefault();
+          logoutModal.classList.add("show");
+        });
+
+        dropdownLogout.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(".dropdown-menu").classList.remove("show");
+          logoutModal.classList.add("show");
+        });
+
+        // Logout modal buttons
+        confirmLogout.addEventListener("click", function () {
+          // Redirect to login.html after successful logout
+          logoutModal.classList.remove("show");
+          window.location.href = "login.html";
+        });
+
+        cancelLogout.addEventListener("click", function () {
+          logoutModal.classList.remove("show");
+        });
+
+        // Mark all notifications as read
+        document
+          .querySelector(".mark-all-read")
+          .addEventListener("click", function () {
+            document
+              .querySelectorAll(".notification-item.unread")
+              .forEach((item) => {
+                item.classList.remove("unread");
+              });
+            document.querySelector(".notification-badge").style.display =
+              "none";
+          });
+
+        // Coming Soon Popup functionality
+        function showComingSoon() {
+          comingSoonPopup.classList.add("show");
+        }
+
+        function hideComingSoon() {
+          comingSoonPopup.classList.remove("show");
+        }
+
+        // Add event listeners to all Coming Soon buttons
+        document.querySelectorAll(".coming-soon-btn").forEach((button) => {
+          button.addEventListener("click", function (e) {
+            e.preventDefault();
+            showComingSoon();
+          });
+        });
+
+        // Close coming soon popup
+        closeComingSoon.addEventListener("click", hideComingSoon);
+      }
     </script>
-</body>
+  </body>
 </html>
