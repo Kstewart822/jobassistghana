@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Verify Information | Job Assist Ghana — Step 2 of 2</title>
   <!-- Favicon - using your existing logo -->
-  <link rel="icon" type="image/png" href="tab-logo.png">
+  <link rel="icon" type="image/png" href="logo.png">
 
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
@@ -625,16 +625,21 @@
       const pageTitle = document.getElementById('pageTitle');
       const pageSubtext = document.getElementById('pageSubtext');
       const createAccountText = document.getElementById('createAccountText');
+      // Determine signup type (candidate vs employer)
+      const params = new URLSearchParams(window.location.search);
+      let userType = (params.get('type') || localStorage.getItem('signupType') || '').toLowerCase();
 
-      // Determine user type (candidate or employer) based on referrer
-      const referrer = document.referrer;
-      let userType = 'candidate'; // Default to candidate
-      
-      if (referrer.includes('employer-signup.html')) {
-        userType = 'employer';
+      // Fallback to referrer (if available)
+      if (!userType) {
+        const referrer = document.referrer || '';
+        userType = referrer.includes('employer-signup.html') ? 'employer' : 'candidate';
       }
 
-      // Update UI based on user type
+      if (userType !== 'employer' && userType !== 'candidate') userType = 'candidate';
+
+      // Persist so buttons keep working even if referrer is empty
+      localStorage.setItem('signupType', userType);
+// Update UI based on user type
       if (userType === 'employer') {
         candidateInfo.style.display = 'none';
         employerInfo.style.display = 'block';
