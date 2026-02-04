@@ -1294,7 +1294,8 @@
             setLoadingState(false);
 
             // Redirect to verification page
-            window.location.href = "verify-info.html";
+            sessionStorage.setItem("signupType","candidate");
+            window.location.href = "verify-info.html?type=candidate";
           }, delay);
         });
 
