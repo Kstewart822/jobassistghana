@@ -1,148 +1,391 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Verify Information | Job Assist Ghana — Step 2 of 2</title>
-    <!-- Favicon - using your existing logo -->
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Verify Information | Job Assist Ghana — Step 2 of 2</title>
+  <!-- Favicon - using your existing logo -->
+  <link rel="icon" type="image/png" href="tab-logo.png">
 
-    <!-- Font -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <style>
-      :root {
-        --deep-blue: #002147;
-        --accent-gold: #f8c12e;
-        --cream: #f9f8f4;
-        --muted: #6b7280;
-        --card-bg: #ffffff;
-        --radius: 12px;
-        --max-width: 1100px;
-        --error-red: #e74c3c;
-        --success-green: #2ecc71;
-      }
+  <style>
+    :root{
+      --deep-blue: #002147;
+      --accent-gold: #f8c12e;
+      --cream: #f9f8f4;
+      --muted: #6b7280;
+      --card-bg: #ffffff;
+      --radius: 12px;
+      --max-width: 1100px;
+      --error-red: #e74c3c;
+      --success-green: #2ecc71;
+    }
 
-      /* Reset + base */
-      * {
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        height: 100%;
-      }
-      body {
-        margin: 0;
-        font-family:
-          "Segoe UI",
-          -apple-system,
-          BlinkMacSystemFont,
-          "San Francisco",
-          sans-serif;
-        background: var(--cream);
-        color: #1f2937;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        line-height: 1.4;
-      }
+    /* Reset + base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'San Francisco', sans-serif;
+      background:var(--cream);
+      color:#1f2937;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+    }
 
-      /* ---------- NAVBAR (same structure as homepage) ---------- */
-      .site-navbar {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        background: var(--deep-blue);
-        color: #fff;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        width: 100%;
-      }
-      .nav-inner {
-        max-width: var(--max-width);
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 14px 24px;
-      }
-      .brand img {
-        height: 48px;
-        filter: brightness(0) invert(1);
-      }
-      nav.desktop-nav ul {
-        display: flex;
-        gap: 22px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        align-items: center;
-      }
-      nav.desktop-nav a {
-        color: #fff;
-        text-decoration: none;
-        font-weight: 600;
-      }
-      nav.desktop-nav a:hover {
-        color: var(--accent-gold);
-      }
+    /* ---------- NAVBAR (same structure as homepage) ---------- */
+    .site-navbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:var(--deep-blue);
+      color:#fff;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+      width: 100%;
+    }
+    .nav-inner{
+      max-width:var(--max-width);
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 24px;
+    }
+    .brand img{height:42px;width:auto;max-width:180px;object-fit:contain;filter:brightness(0) invert(1);display:block;}
 
-      /* Login button styles */
-      .login-btn {
-        background: var(--accent-gold);
-        color: var(--deep-blue);
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-weight: 700;
-        text-decoration: none;
-        transition: all 0.2s ease;
-      }
-      .login-btn:hover {
-        background: #ffda6a;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(248, 193, 46, 0.3);
-        color: var(--deep-blue);
-      }
+    nav.desktop-nav ul{display:flex; gap:22px; margin:0; padding:0; list-style:none; align-items:center;}
+    nav.desktop-nav a{color:#fff; text-decoration:none; font-weight:600;}
+    nav.desktop-nav a:hover{color:var(--accent-gold);}
 
-      /* Hamburger (mobile) */
-      .menu-icon {
-        display: none;
-        font-size: 28px;
-        cursor: pointer;
-        color: #fff;
-        z-index: 1000;
-      }
+    /* Login button styles */
+    .login-btn {
+      background: var(--accent-gold);
+      color: var(--deep-blue);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .login-btn:hover {
+      background: #ffda6a;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(248, 193, 46, 0.3);
+      color: var(--deep-blue);
+    }
 
-      /* Mobile Menu - Fixed to match homepage */
-      #mobile-menu {
-        display: none;
-        position: fixed;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background-color: var(--deep-blue);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        z-index: 999;
-      }
+    /* Hamburger (mobile) */
+    .menu-icon{
+      display:none; 
+      font-size:28px;
+      cursor:pointer; 
+      color:#fff;
+      z-index: 1000;
+    }
 
-      #mobile-menu.active {
-        display: block;
-      }
+    /* Mobile Menu - Fixed to match homepage */
+    #mobile-menu{
+      display:none;
+      position: fixed;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      background-color: var(--deep-blue);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+    }
 
-      #mobile-menu ul {
-        list-style: none;
-        padding: 20px 0;
-        width: 100%;
-      }
+    #mobile-menu.active {
+      display: block;
+    }
 
+    #mobile-menu ul {
+      list-style: none;
+      padding: 20px 0;
+      width: 100%;
+    }
+
+    #mobile-menu ul li {
+      padding: 12px 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+    }
+
+    #mobile-menu ul li:last-child {
+      border-bottom: none;
+    }
+
+    #mobile-menu ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      display: block;
+      transition: color 0.3s ease;
+      width: 100%;
+    }
+
+    #mobile-menu ul li a:hover,
+    #mobile-menu ul li a.active {
+      color: var(--accent-gold);
+    }
+
+    #mobile-menu .login-btn {
+      display: inline-block;
+      margin: 10px 30px;
+      text-align: center;
+      width: calc(100% - 60px);
+    }
+
+    /* ---------- PAGE LAYOUT ---------- */
+    .page {
+      max-width: var(--max-width);
+      margin: 40px auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 480px; /* main form left, empty right (or future info) */
+      gap: 36px;
+      align-items:start;
+      position: relative;
+    }
+
+    /* Progress / heading area */
+    .step-bar {
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin-bottom:18px;
+    }
+    .step-pill{
+      background:#e9eef7;
+      color:var(--deep-blue);
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+    }
+    .progress-line {
+      flex:1;
+      height:8px;
+      background:#e6e8eb;
+      border-radius:999px;
+      overflow:hidden;
+    }
+    .progress-line .fill{
+      width:100%; /* Step 2 of 2 - COMPLETELY FILLED */
+      height:100%;
+      background:linear-gradient(90deg,var(--accent-gold), #ffda6a);
+    }
+
+    .page-heading{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:18px;
+    }
+    .page-heading h1{
+      margin:0;
+      color:var(--deep-blue);
+      font-size:28px;
+    }
+
+    .employer-cta {
+      padding:8px 12px;
+      border-radius:8px;
+      border:1px solid var(--deep-blue);
+      background:transparent;
+      color:var(--deep-blue);
+      text-decoration:none;
+      font-weight:700;
+      font-size:14px;
+      white-space:nowrap;
+    }
+    .employer-cta:hover{background:rgba(0,33,71,0.05)}
+
+    .subtext {
+      color:var(--muted);
+      margin-bottom:22px;
+      max-width:720px;
+      font-size:15px;
+    }
+
+    /* Continue button */
+    .btn-primary {
+      width:100%;
+      padding:12px 16px;
+      border-radius:10px;
+      background:linear-gradient(90deg,var(--accent-gold), #ffd86e);
+      color:var(--deep-blue);
+      border:none;
+      font-weight:800;
+      font-size:16px;
+      cursor:pointer;
+      box-shadow:0 8px 20px rgba(248,193,46,0.15);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:disabled {
+      opacity:0.5;
+      cursor:not-allowed;
+      transform:none;
+      box-shadow:none;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(248, 193, 46, 0.3);
+    }
+
+    /* Right column placeholder (space for future info / images) */
+    .right-column {
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      align-items:center;
+      justify-content:center;
+      padding: 12px;
+    }
+    .placeholder-card {
+      width:100%;
+      height:200px;
+      border-radius:12px;
+      background:linear-gradient(180deg,#f7fafc,#eef2f7);
+      border:1px solid #e6eef8;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    /* Loading spinner */
+    .loading-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--deep-blue);
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 10px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-spinner.active {
+      display: inline-block;
+    }
+
+    .btn-text {
+      transition: opacity 0.3s ease;
+    }
+
+    .btn-primary.loading .btn-text {
+      opacity: 0.7;
+    }
+
+    /* Verification page styles */
+    .verification-card {
+      background: var(--card-bg);
+      padding: 28px;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 36px rgba(7,22,50,0.06);
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .verification-card h2 {
+      color: var(--deep-blue);
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .info-item {
+      margin-bottom: 12px;
+    }
+
+    .info-label {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .info-value {
+      font-size: 16px;
+      color: #111827;
+    }
+
+    .passport-preview-verification {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .preview-image-verification {
+      max-width: 200px;
+      max-height: 200px;
+      border-radius: 8px;
+      border: 2px solid var(--accent-gold);
+      object-fit: cover;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn-secondary {
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: #f3f4f6;
+      color: #374151;
+      border: 1px solid #d1d5db;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      flex: 1;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #e5e7eb;
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px){
+      .page { grid-template-columns: 1fr; padding: 18px; }
+      .right-column{order:2; width:100%; display: none;}
+      nav.desktop-nav{display:none}
+      .menu-icon{display:block}
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px){
+      .nav-inner{padding:12px 20px;}
+      .page-heading h1{font-size:22px}
+      .page{margin:18px auto}
+      
       #mobile-menu ul li {
-        padding: 12px 30px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        width: 100%;
+        padding: 12px 20px;
       }
-<<<<<<< HEAD
-=======
       
       #mobile-menu .login-btn {
         margin: 10px 20px;
@@ -153,645 +396,287 @@
         flex-direction: column;
       }
     }
-  </style>
+  
+@media (max-width: 520px){
+  .brand img{height:34px;max-width:150px;}
+}
+</style>
 </head>
 <body>
   <!-- NAVBAR -->
   <header class="site-navbar">
     <div class="nav-inner">
-      <a class="brand" href="../index.html"><img src="logo.png" alt="Job Assist Ghana logo"></a>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
+      <a class="brand" href="index.html"><img src="logo.png" alt="Job Assist Ghana logo"></a>
 
-      #mobile-menu ul li:last-child {
-        border-bottom: none;
-      }
-
-      #mobile-menu ul li a {
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        display: block;
-        transition: color 0.3s ease;
-        width: 100%;
-      }
-
-      #mobile-menu ul li a:hover,
-      #mobile-menu ul li a.active {
-        color: var(--accent-gold);
-      }
-
-      #mobile-menu .login-btn {
-        display: inline-block;
-        margin: 10px 30px;
-        text-align: center;
-        width: calc(100% - 60px);
-      }
-
-      /* ---------- PAGE LAYOUT ---------- */
-      .page {
-        max-width: var(--max-width);
-        margin: 40px auto;
-        padding: 20px;
-        display: grid;
-        grid-template-columns: 1fr 480px; /* main form left, empty right (or future info) */
-        gap: 36px;
-        align-items: start;
-        position: relative;
-      }
-
-      /* Progress / heading area */
-      .step-bar {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 18px;
-      }
-      .step-pill {
-        background: #e9eef7;
-        color: var(--deep-blue);
-        padding: 6px 10px;
-        border-radius: 999px;
-        font-weight: 700;
-        font-size: 14px;
-      }
-      .progress-line {
-        flex: 1;
-        height: 8px;
-        background: #e6e8eb;
-        border-radius: 999px;
-        overflow: hidden;
-      }
-      .progress-line .fill {
-        width: 100%; /* Step 2 of 2 - COMPLETELY FILLED */
-        height: 100%;
-        background: linear-gradient(90deg, var(--accent-gold), #ffda6a);
-      }
-
-      .page-heading {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        margin-bottom: 18px;
-      }
-      .page-heading h1 {
-        margin: 0;
-        color: var(--deep-blue);
-        font-size: 28px;
-      }
-
-      .employer-cta {
-        padding: 8px 12px;
-        border-radius: 8px;
-        border: 1px solid var(--deep-blue);
-        background: transparent;
-        color: var(--deep-blue);
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 14px;
-        white-space: nowrap;
-      }
-      .employer-cta:hover {
-        background: rgba(0, 33, 71, 0.05);
-      }
-
-      .subtext {
-        color: var(--muted);
-        margin-bottom: 22px;
-        max-width: 720px;
-        font-size: 15px;
-      }
-
-      /* Continue button */
-      .btn-primary {
-        width: 100%;
-        padding: 12px 16px;
-        border-radius: 10px;
-        background: linear-gradient(90deg, var(--accent-gold), #ffd86e);
-        color: var(--deep-blue);
-        border: none;
-        font-weight: 800;
-        font-size: 16px;
-        cursor: pointer;
-        box-shadow: 0 8px 20px rgba(248, 193, 46, 0.15);
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: all 0.3s ease;
-      }
-      .btn-primary:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        transform: none;
-        box-shadow: none;
-      }
-
-      .btn-primary:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(248, 193, 46, 0.3);
-      }
-
-      /* Right column placeholder (space for future info / images) */
-      .right-column {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-      }
-      .placeholder-card {
-        width: 100%;
-        height: 200px;
-        border-radius: 12px;
-        background: linear-gradient(180deg, #f7fafc, #eef2f7);
-        border: 1px solid #e6eef8;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--muted);
-        font-weight: 600;
-      }
-
-      /* Loading spinner */
-      .loading-spinner {
-        display: none;
-        width: 20px;
-        height: 20px;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        border-radius: 50%;
-        border-top-color: var(--deep-blue);
-        animation: spin 1s ease-in-out infinite;
-        margin-right: 10px;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      .loading-spinner.active {
-        display: inline-block;
-      }
-
-      .btn-text {
-        transition: opacity 0.3s ease;
-      }
-
-      .btn-primary.loading .btn-text {
-        opacity: 0.7;
-      }
-
-      /* Verification page styles */
-      .verification-card {
-        background: var(--card-bg);
-        padding: 28px;
-        border-radius: var(--radius);
-        box-shadow: 0 10px 36px rgba(7, 22, 50, 0.06);
-        width: 100%;
-        margin-bottom: 24px;
-      }
-
-      .verification-card h2 {
-        color: var(--deep-blue);
-        margin-top: 0;
-        margin-bottom: 20px;
-        font-size: 22px;
-      }
-
-      .info-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-      }
-
-      .info-item {
-        margin-bottom: 12px;
-      }
-
-      .info-label {
-        font-weight: 600;
-        font-size: 14px;
-        color: var(--muted);
-        margin-bottom: 4px;
-      }
-
-      .info-value {
-        font-size: 16px;
-        color: #111827;
-      }
-
-      .passport-preview-verification {
-        text-align: center;
-        margin-top: 20px;
-      }
-
-      .preview-image-verification {
-        max-width: 200px;
-        max-height: 200px;
-        border-radius: 8px;
-        border: 2px solid var(--accent-gold);
-        object-fit: cover;
-      }
-
-      .btn-group {
-        display: flex;
-        gap: 12px;
-        margin-top: 24px;
-      }
-
-      .btn-secondary {
-        padding: 12px 16px;
-        border-radius: 10px;
-        background: #f3f4f6;
-        color: #374151;
-        border: 1px solid #d1d5db;
-        font-weight: 700;
-        font-size: 16px;
-        cursor: pointer;
-        flex: 1;
-        transition: all 0.3s ease;
-      }
-
-      .btn-secondary:hover {
-        background: #e5e7eb;
-      }
-
-      /* MOBILE */
-      @media (max-width: 900px) {
-        .page {
-          grid-template-columns: 1fr;
-          padding: 18px;
-        }
-        .right-column {
-          order: 2;
-          width: 100%;
-          display: none;
-        }
-        nav.desktop-nav {
-          display: none;
-        }
-        .menu-icon {
-          display: block;
-        }
-        .info-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .nav-inner {
-          padding: 12px 20px;
-        }
-        .page-heading h1 {
-          font-size: 22px;
-        }
-        .page {
-          margin: 18px auto;
-        }
-
-        #mobile-menu ul li {
-          padding: 12px 20px;
-        }
-
-        #mobile-menu .login-btn {
-          margin: 10px 20px;
-          width: calc(100% - 40px);
-        }
-
-        .btn-group {
-          flex-direction: column;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- NAVBAR -->
-    <header class="site-navbar">
-      <div class="nav-inner">
-        <a class="brand" href="index.html"
-          ><img src="logo.png" alt="Job Assist Ghana logo"
-        /></a>
-
-        <nav class="desktop-nav" aria-label="Main navigation">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="login.html" class="login-btn">Login</a></li>
-          </ul>
-        </nav>
-
-        <div class="menu-icon" id="menuBtn">☰</div>
-      </div>
-
-      <!-- mobile menu (hidden by default) -->
-      <div id="mobile-menu">
+      <nav class="desktop-nav" aria-label="Main navigation">
         <ul>
-          <li><a href="../index.html">Home</a></li>
+          <li><a href="job_assist.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="login.html" class="login-btn">Login</a></li>
         </ul>
-      </div>
-    </header>
+      </nav>
 
-    <!-- MAIN PAGE -->
-    <main class="page" role="main">
-      <!-- Step 2: Verification Page -->
-      <div id="step2">
-        <div class="step-bar" aria-hidden="true">
-          <div class="step-pill">Step 2 of 2</div>
-          <div class="progress-line" aria-hidden="true">
-            <div
-              class="fill"
-              role="progressbar"
-              aria-valuenow="100"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-          </div>
-        </div>
+      <div class="menu-icon" id="menuBtn">☰</div>
+    </div>
 
-<<<<<<< HEAD
-        <div class="page-heading">
-          <h1 id="pageTitle">Verify Your Information</h1>
-          <a
-            href="employer-signup.html"
-            class="employer-cta"
-            id="switchAccountType"
-            >Sign up as Employer →</a
-          >
-        </div>
-=======
     <!-- mobile menu (hidden by default) -->
     <div id="mobile-menu">
       <ul>
-        <li><a href="../index.html">Home</a></li>
+        <li><a href="job_assist.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="login.html" class="login-btn">Login</a></li>
       </ul>
     </div>
   </header>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
 
-        <p class="subtext" id="pageSubtext">
-          Please review all your information carefully before creating your
-          account. If anything is incorrect, click "Back" to make changes.
-        </p>
-
-        <!-- Candidate Information Section -->
-        <div class="verification-card" id="candidateInfo">
-          <h2>Your Personal Details</h2>
-          <div class="info-grid">
-            <div class="info-item">
-              <div class="info-label">Full Name</div>
-              <div class="info-value" id="verifyFullName">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">NSS Number</div>
-              <div class="info-value" id="verifyNss">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Email Address</div>
-              <div class="info-value" id="verifyEmail">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Phone Number</div>
-              <div class="info-value" id="verifyPhone">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Gender</div>
-              <div class="info-value" id="verifyGender">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Ghana Card Number</div>
-              <div class="info-value" id="verifyGhanaCard">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Digital Address</div>
-              <div class="info-value" id="verifyDigitalAddress">
-                Not provided
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Region</div>
-              <div class="info-value" id="verifyRegion">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Willing to Work Outside Region</div>
-              <div class="info-value" id="verifyOutside">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Field of Study</div>
-              <div class="info-value" id="verifyStudy">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Experience Level</div>
-              <div class="info-value" id="verifyExperience">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Preferred Industry</div>
-              <div class="info-value" id="verifyIndustry">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Are you disabled?</div>
-              <div class="info-value" id="verifyDisabled">Not provided</div>
-            </div>
-          </div>
-
-          <div class="passport-preview-verification" id="passportSection">
-            <div class="info-label">Passport Picture</div>
-            <img
-              class="preview-image-verification"
-              id="verifyPassportImage"
-              src=""
-              alt="Passport preview"
-            />
-          </div>
-        </div>
-
-        <!-- Employer Information Section -->
-        <div class="verification-card" id="employerInfo" style="display: none">
-          <h2>Company Information</h2>
-          <div class="info-grid">
-            <div class="info-item">
-              <div class="info-label">Company Name</div>
-              <div class="info-value" id="verifyCompanyName">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Industry/Field</div>
-              <div class="info-value" id="verifyCompanyIndustry">
-                Not provided
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Business Type</div>
-              <div class="info-value" id="verifyBusinessType">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Company Size</div>
-              <div class="info-value" id="verifyCompanySize">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Registration Number</div>
-              <div class="info-value" id="verifyRegistrationNumber">
-                Not provided
-              </div>
-            </div>
-          </div>
-
-          <h2 style="margin-top: 30px">Contact Person Details</h2>
-          <div class="info-grid">
-            <div class="info-item">
-              <div class="info-label">Full Name</div>
-              <div class="info-value" id="verifyContactName">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Position/Job Title</div>
-              <div class="info-value" id="verifyContactPosition">
-                Not provided
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Work Email</div>
-              <div class="info-value" id="verifyWorkEmail">Not provided</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Phone Number</div>
-              <div class="info-value" id="verifyContactPhone">Not provided</div>
-            </div>
-          </div>
-
-          <h2 style="margin-top: 30px">Location & Contact</h2>
-          <div class="info-grid">
-            <div class="info-item">
-              <div class="info-label">Company Address</div>
-              <div class="info-value" id="verifyCompanyAddress">
-                Not provided
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">City/Region</div>
-              <div class="info-value" id="verifyCompanyRegion">
-                Not provided
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Social Media Links</div>
-              <div class="info-value" id="verifySocialMedia">Not provided</div>
-            </div>
-          </div>
-
-          <h2 style="margin-top: 30px">Account Details</h2>
-          <div class="info-grid">
-            <div class="info-item">
-              <div class="info-label">Email</div>
-              <div class="info-value" id="verifyAccountEmail">Not provided</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="btn-group">
-          <button type="button" class="btn-secondary" id="backBtn">Back</button>
-          <button type="button" class="btn-primary" id="createAccountBtn">
-            <div class="loading-spinner" id="createAccountSpinner"></div>
-            <span class="btn-text" id="createAccountText">Create Account</span>
-          </button>
+  <!-- MAIN PAGE -->
+  <main class="page" role="main">
+    <!-- Step 2: Verification Page -->
+    <div id="step2">
+      <div class="step-bar" aria-hidden="true">
+        <div class="step-pill">Step 2 of 2</div>
+        <div class="progress-line" aria-hidden="true">
+          <div class="fill" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
 
-      <!-- RIGHT: placeholder for images/content later -->
-      <aside class="right-column" aria-hidden="true">
-        <div class="placeholder-card">Image / Illustration slot 1</div>
-        <div class="placeholder-card">Image / Illustration slot 2</div>
-        <div class="placeholder-card">Image / Illustration slot 3</div>
-      </aside>
-    </main>
-
-    <footer
-      style="
-        max-width: var(--max-width);
-        margin: 30px auto;
-        padding: 20px;
-        text-align: center;
-        color: var(--muted);
-      "
-    >
-      <div>© 2025 Job Assist Ghana. All rights reserved.</div>
-      <div style="margin-top: 6px; font-size: 13px">
-        Privacy | Terms | Contact
+      <div class="page-heading">
+        <h1 id="pageTitle">Verify Your Information</h1>
+        <a href="employer-signup.html" class="employer-cta" id="switchAccountType">Sign up as Employer →</a>
       </div>
-    </footer>
 
-    <!-- ---------- SCRIPTS: tooltips, mobile menu, validation ---------- -->
-    <script>
-      // Mobile menu functionality - matches homepage
-      function toggleMenu() {
-        const mobileNav = document.getElementById("mobile-menu");
-        mobileNav.classList.toggle("active");
+      <p class="subtext" id="pageSubtext">Please review all your information carefully before creating your account. If anything is incorrect, click "Back" to make changes.</p>
+
+      <!-- Candidate Information Section -->
+      <div class="verification-card" id="candidateInfo">
+        <h2>Your Personal Details</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">Full Name</div>
+            <div class="info-value" id="verifyFullName">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">NSS Number</div>
+            <div class="info-value" id="verifyNss">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Email Address</div>
+            <div class="info-value" id="verifyEmail">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Phone Number</div>
+            <div class="info-value" id="verifyPhone">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Gender</div>
+            <div class="info-value" id="verifyGender">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Ghana Card Number</div>
+            <div class="info-value" id="verifyGhanaCard">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Digital Address</div>
+            <div class="info-value" id="verifyDigitalAddress">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Region</div>
+            <div class="info-value" id="verifyRegion">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Willing to Work Outside Region</div>
+            <div class="info-value" id="verifyOutside">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Field of Study</div>
+            <div class="info-value" id="verifyStudy">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Experience Level</div>
+            <div class="info-value" id="verifyExperience">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Preferred Industry</div>
+            <div class="info-value" id="verifyIndustry">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Are you disabled?</div>
+            <div class="info-value" id="verifyDisabled">Not provided</div>
+          </div>
+        </div>
+        
+        <div class="passport-preview-verification" id="passportSection">
+          <div class="info-label">Passport Picture</div>
+          <img class="preview-image-verification" id="verifyPassportImage" src="" alt="Passport preview">
+        </div>
+      </div>
+
+      <!-- Employer Information Section -->
+      <div class="verification-card" id="employerInfo" style="display: none;">
+        <h2>Company Information</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">Company Name</div>
+            <div class="info-value" id="verifyCompanyName">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Industry/Field</div>
+            <div class="info-value" id="verifyCompanyIndustry">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Business Type</div>
+            <div class="info-value" id="verifyBusinessType">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Company Size</div>
+            <div class="info-value" id="verifyCompanySize">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Registration Number</div>
+            <div class="info-value" id="verifyRegistrationNumber">Not provided</div>
+          </div>
+        </div>
+
+        <h2 style="margin-top: 30px;">Contact Person Details</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">Full Name</div>
+            <div class="info-value" id="verifyContactName">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Position/Job Title</div>
+            <div class="info-value" id="verifyContactPosition">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Work Email</div>
+            <div class="info-value" id="verifyWorkEmail">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Phone Number</div>
+            <div class="info-value" id="verifyContactPhone">Not provided</div>
+          </div>
+        </div>
+
+        <h2 style="margin-top: 30px;">Location & Contact</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">Company Address</div>
+            <div class="info-value" id="verifyCompanyAddress">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">City/Region</div>
+            <div class="info-value" id="verifyCompanyRegion">Not provided</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Social Media Links</div>
+            <div class="info-value" id="verifySocialMedia">Not provided</div>
+          </div>
+        </div>
+
+        <h2 style="margin-top: 30px;">Account Details</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">Email</div>
+            <div class="info-value" id="verifyAccountEmail">Not provided</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="btn-group">
+        <button type="button" class="btn-secondary" id="backBtn">Back</button>
+        <button type="button" class="btn-primary" id="createAccountBtn">
+          <div class="loading-spinner" id="createAccountSpinner"></div>
+          <span class="btn-text" id="createAccountText">Create Account</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT: placeholder for images/content later -->
+    <aside class="right-column" aria-hidden="true">
+      <div class="placeholder-card">Image / Illustration slot 1</div>
+      <div class="placeholder-card">Image / Illustration slot 2</div>
+      <div class="placeholder-card">Image / Illustration slot 3</div>
+    </aside>
+  </main>
+
+  <footer style="max-width:var(--max-width);margin:30px auto;padding:20px;text-align:center;color:var(--muted);">
+    <div>© 2025 Job Assist Ghana. All rights reserved.</div>
+    <div style="margin-top:6px;font-size:13px">Privacy | Terms | Contact</div>
+  </footer>
+
+  <!-- ---------- SCRIPTS: tooltips, mobile menu, validation ---------- -->
+  <script>
+    // Mobile menu functionality - matches homepage
+    function toggleMenu() {
+      const mobileNav = document.getElementById('mobile-menu');
+      mobileNav.classList.toggle('active');
+    }
+
+    // Update the menu icon event listener
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const backBtn = document.getElementById('backBtn');
+      const createAccountBtn = document.getElementById('createAccountBtn');
+      const createAccountSpinner = document.getElementById('createAccountSpinner');
+      const candidateInfo = document.getElementById('candidateInfo');
+      const employerInfo = document.getElementById('employerInfo');
+      const switchAccountType = document.getElementById('switchAccountType');
+      const pageTitle = document.getElementById('pageTitle');
+      const pageSubtext = document.getElementById('pageSubtext');
+      const createAccountText = document.getElementById('createAccountText');
+
+      // Determine user type (candidate or employer) based on referrer
+      const referrer = document.referrer;
+      let userType = 'candidate'; // Default to candidate
+      
+      if (referrer.includes('employer-signup.html')) {
+        userType = 'employer';
       }
 
-      // Update the menu icon event listener
-      document.addEventListener("DOMContentLoaded", function () {
-        const menuBtn = document.getElementById("menuBtn");
-        const mobileMenu = document.getElementById("mobile-menu");
-        const backBtn = document.getElementById("backBtn");
-        const createAccountBtn = document.getElementById("createAccountBtn");
-        const createAccountSpinner = document.getElementById(
-          "createAccountSpinner",
-        );
-        const candidateInfo = document.getElementById("candidateInfo");
-        const employerInfo = document.getElementById("employerInfo");
-        const switchAccountType = document.getElementById("switchAccountType");
-        const pageTitle = document.getElementById("pageTitle");
-        const pageSubtext = document.getElementById("pageSubtext");
-        const createAccountText = document.getElementById("createAccountText");
+      // Update UI based on user type
+      if (userType === 'employer') {
+        candidateInfo.style.display = 'none';
+        employerInfo.style.display = 'block';
+        pageTitle.textContent = 'Verify Company Information';
+        pageSubtext.textContent = 'Please review all your company information carefully before creating your employer account. If anything is incorrect, click "Back" to make changes.';
+        switchAccountType.textContent = 'Sign up as Candidate →';
+        switchAccountType.href = 'signup.html';
+        createAccountText.textContent = 'Complete Registration';
+      } else {
+        candidateInfo.style.display = 'block';
+        employerInfo.style.display = 'none';
+        pageTitle.textContent = 'Verify Your Information';
+        pageSubtext.textContent = 'Please review all your information carefully before creating your account. If anything is incorrect, click "Back" to make changes.';
+        switchAccountType.textContent = 'Sign up as Employer →';
+        switchAccountType.href = 'employer-signup.html';
+        createAccountText.textContent = 'Create Account';
+      }
 
-        // Determine user type (candidate or employer) based on referrer
-        const referrer = document.referrer;
-        let userType = "candidate"; // Default to candidate
+      // Load form data from localStorage
+      loadFormData(userType);
 
-        if (referrer.includes("employer-signup.html")) {
-          userType = "employer";
-        }
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          mobileMenu.classList.toggle('active');
+        });
 
-        // Update UI based on user type
-        if (userType === "employer") {
-          candidateInfo.style.display = "none";
-          employerInfo.style.display = "block";
-          pageTitle.textContent = "Verify Company Information";
-          pageSubtext.textContent =
-            'Please review all your company information carefully before creating your employer account. If anything is incorrect, click "Back" to make changes.';
-          switchAccountType.textContent = "Sign up as Candidate →";
-          switchAccountType.href = "signup.html";
-          createAccountText.textContent = "Complete Registration";
-        } else {
-          candidateInfo.style.display = "block";
-          employerInfo.style.display = "none";
-          pageTitle.textContent = "Verify Your Information";
-          pageSubtext.textContent =
-            'Please review all your information carefully before creating your account. If anything is incorrect, click "Back" to make changes.';
-          switchAccountType.textContent = "Sign up as Employer →";
-          switchAccountType.href = "employer-signup.html";
-          createAccountText.textContent = "Create Account";
-        }
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+            mobileMenu.classList.remove('active');
+          }
+        });
 
-        // Load form data from localStorage
-        loadFormData(userType);
-
-        if (menuBtn && mobileMenu) {
-          menuBtn.addEventListener("click", function (e) {
-            e.stopPropagation();
-            mobileMenu.classList.toggle("active");
+        // Close menu when clicking on links
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
           });
+        });
+      }
 
-<<<<<<< HEAD
-          // Close menu when clicking outside
-          document.addEventListener("click", function (e) {
-            if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-              mobileMenu.classList.remove("active");
-=======
       // Handle Back button click
       backBtn.addEventListener('click', function() {
         // Go back to appropriate signup page
@@ -817,163 +702,88 @@
           if (accountCreated) {
             // Redirect to appropriate dashboard
             if (userType === 'employer') {
-              window.location.href = 'employer/employer/employer/employer-dashboard.html';
+              window.location.href = 'employer-dashboard.html';
             } else {
-              window.location.href = 'candidate/candidate-dashboard.html';
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
+              window.location.href = 'candidate-dashboard.html';
             }
-          });
-
-          // Close menu when clicking on links
-          mobileMenu.querySelectorAll("a").forEach((link) => {
-            link.addEventListener("click", () => {
-              mobileMenu.classList.remove("active");
-            });
-          });
-        }
-
-        // Handle Back button click
-        backBtn.addEventListener("click", function () {
-          // Go back to appropriate signup page
-          if (userType === "employer") {
-            window.location.href = "employer-signup.html";
           } else {
-            window.location.href = "signup.html";
+            // Account creation failed
+            setCreateAccountLoadingState(false);
+            alert('There was an issue creating your account. Please try again.');
           }
-        });
-
-        // Handle Create Account button click
-        createAccountBtn.addEventListener("click", function () {
-          setCreateAccountLoadingState(true);
-
-          // Simulate API call delay (1-2 seconds)
-          const delay = Math.random() * 1000 + 1000;
-
-          setTimeout(() => {
-            // In a real application, this would be an actual API call
-            // For now, we'll simulate a successful account creation
-            const accountCreated = true; // Simulate successful account creation
-
-            if (accountCreated) {
-              // Redirect to appropriate dashboard
-              if (userType === "employer") {
-                window.location.href = "employer-dashboard.html";
-              } else {
-                window.location.href = "candidate-dashboard.html";
-              }
-            } else {
-              // Account creation failed
-              setCreateAccountLoadingState(false);
-              alert(
-                "There was an issue creating your account. Please try again.",
-              );
-            }
-          }, delay);
-        });
-
-        function setCreateAccountLoadingState(isLoading) {
-          if (isLoading) {
-            createAccountBtn.disabled = true;
-            createAccountBtn.classList.add("loading");
-            createAccountSpinner.classList.add("active");
-          } else {
-            createAccountBtn.disabled = false;
-            createAccountBtn.classList.remove("loading");
-            createAccountSpinner.classList.remove("active");
-          }
-        }
-
-        function loadFormData(userType) {
-          // In a real implementation, this would retrieve data from the server
-          // For now, we'll use localStorage to simulate data persistence
-          if (userType === "employer") {
-            // Load employer data
-            document.getElementById("verifyCompanyName").textContent =
-              localStorage.getItem("companyName") || "Not provided";
-            document.getElementById("verifyCompanyIndustry").textContent =
-              localStorage.getItem("industry") || "Not provided";
-            document.getElementById("verifyBusinessType").textContent =
-              localStorage.getItem("businessType") || "Not provided";
-            document.getElementById("verifyCompanySize").textContent =
-              localStorage.getItem("companySize") || "Not provided";
-            document.getElementById("verifyRegistrationNumber").textContent =
-              localStorage.getItem("registrationNumber") || "Not provided";
-            document.getElementById("verifyContactName").textContent =
-              localStorage.getItem("fullName") || "Not provided";
-            document.getElementById("verifyContactPosition").textContent =
-              localStorage.getItem("position") || "Not provided";
-            document.getElementById("verifyWorkEmail").textContent =
-              localStorage.getItem("workEmail") || "Not provided";
-            document.getElementById("verifyContactPhone").textContent =
-              localStorage.getItem("phone") || "Not provided";
-            document.getElementById("verifyCompanyAddress").textContent =
-              localStorage.getItem("companyAddress") || "Not provided";
-            document.getElementById("verifyCompanyRegion").textContent =
-              localStorage.getItem("cityRegion") || "Not provided";
-            document.getElementById("verifySocialMedia").textContent =
-              localStorage.getItem("socialMedia") || "Not provided";
-            document.getElementById("verifyAccountEmail").textContent =
-              localStorage.getItem("email") || "Not provided";
-          } else {
-            // Load candidate data
-            document.getElementById("verifyFullName").textContent =
-              localStorage.getItem("fullName") || "Not provided";
-            document.getElementById("verifyNss").textContent =
-              localStorage.getItem("nssNumber") || "Not provided";
-            document.getElementById("verifyEmail").textContent =
-              localStorage.getItem("email") || "Not provided";
-            document.getElementById("verifyPhone").textContent =
-              localStorage.getItem("phone") || "Not provided";
-            document.getElementById("verifyGender").textContent =
-              localStorage.getItem("gender") || "Not provided";
-            document.getElementById("verifyGhanaCard").textContent =
-              localStorage.getItem("ghanaCard") || "Not provided";
-            document.getElementById("verifyDigitalAddress").textContent =
-              localStorage.getItem("digitalAddress") || "Not provided";
-            document.getElementById("verifyRegion").textContent =
-              localStorage.getItem("region") || "Not provided";
-            document.getElementById("verifyOutside").textContent =
-              localStorage.getItem("workOutside") || "Not provided";
-            document.getElementById("verifyStudy").textContent =
-              localStorage.getItem("fieldOfStudy") || "Not provided";
-            document.getElementById("verifyExperience").textContent =
-              localStorage.getItem("experience") || "Not provided";
-            document.getElementById("verifyIndustry").textContent =
-              localStorage.getItem("preferredIndustry") || "Not provided";
-            document.getElementById("verifyDisabled").textContent =
-              localStorage.getItem("disabled") || "Not provided";
-
-            // Load passport image if available
-            const passportImage = localStorage.getItem("passportImage");
-            if (passportImage) {
-              document.getElementById("verifyPassportImage").src =
-                passportImage;
-            } else {
-              document.getElementById("passportSection").style.display = "none";
-            }
-          }
-        }
+        }, delay);
       });
 
-      // Simple tooltip behavior (hover and focus)
-      document.querySelectorAll(".tooltip").forEach(function (el) {
-        let tipText = el.getAttribute("data-tip");
-        const tipBox = document.createElement("div");
-        tipBox.className = "tip-box";
-        tipBox.innerText = tipText;
-        el.parentElement.appendChild(tipBox);
+      function setCreateAccountLoadingState(isLoading) {
+        if (isLoading) {
+          createAccountBtn.disabled = true;
+          createAccountBtn.classList.add('loading');
+          createAccountSpinner.classList.add('active');
+        } else {
+          createAccountBtn.disabled = false;
+          createAccountBtn.classList.remove('loading');
+          createAccountSpinner.classList.remove('active');
+        }
+      }
 
-        el.addEventListener(
-          "mouseenter",
-          () => (tipBox.style.display = "block"),
-        );
-        el.addEventListener(
-          "mouseleave",
-          () => (tipBox.style.display = "none"),
-        );
-        el.addEventListener("focus", () => (tipBox.style.display = "block"));
-        el.addEventListener("blur", () => (tipBox.style.display = "none"));
-      });
-    </script>
-  </body>
+      function loadFormData(userType) {
+        // In a real implementation, this would retrieve data from the server
+        // For now, we'll use localStorage to simulate data persistence
+        if (userType === 'employer') {
+          // Load employer data
+          document.getElementById('verifyCompanyName').textContent = localStorage.getItem('companyName') || 'Not provided';
+          document.getElementById('verifyCompanyIndustry').textContent = localStorage.getItem('industry') || 'Not provided';
+          document.getElementById('verifyBusinessType').textContent = localStorage.getItem('businessType') || 'Not provided';
+          document.getElementById('verifyCompanySize').textContent = localStorage.getItem('companySize') || 'Not provided';
+          document.getElementById('verifyRegistrationNumber').textContent = localStorage.getItem('registrationNumber') || 'Not provided';
+          document.getElementById('verifyContactName').textContent = localStorage.getItem('fullName') || 'Not provided';
+          document.getElementById('verifyContactPosition').textContent = localStorage.getItem('position') || 'Not provided';
+          document.getElementById('verifyWorkEmail').textContent = localStorage.getItem('workEmail') || 'Not provided';
+          document.getElementById('verifyContactPhone').textContent = localStorage.getItem('phone') || 'Not provided';
+          document.getElementById('verifyCompanyAddress').textContent = localStorage.getItem('companyAddress') || 'Not provided';
+          document.getElementById('verifyCompanyRegion').textContent = localStorage.getItem('cityRegion') || 'Not provided';
+          document.getElementById('verifySocialMedia').textContent = localStorage.getItem('socialMedia') || 'Not provided';
+          document.getElementById('verifyAccountEmail').textContent = localStorage.getItem('email') || 'Not provided';
+        } else {
+          // Load candidate data
+          document.getElementById('verifyFullName').textContent = localStorage.getItem('fullName') || 'Not provided';
+          document.getElementById('verifyNss').textContent = localStorage.getItem('nssNumber') || 'Not provided';
+          document.getElementById('verifyEmail').textContent = localStorage.getItem('email') || 'Not provided';
+          document.getElementById('verifyPhone').textContent = localStorage.getItem('phone') || 'Not provided';
+          document.getElementById('verifyGender').textContent = localStorage.getItem('gender') || 'Not provided';
+          document.getElementById('verifyGhanaCard').textContent = localStorage.getItem('ghanaCard') || 'Not provided';
+          document.getElementById('verifyDigitalAddress').textContent = localStorage.getItem('digitalAddress') || 'Not provided';
+          document.getElementById('verifyRegion').textContent = localStorage.getItem('region') || 'Not provided';
+          document.getElementById('verifyOutside').textContent = localStorage.getItem('workOutside') || 'Not provided';
+          document.getElementById('verifyStudy').textContent = localStorage.getItem('fieldOfStudy') || 'Not provided';
+          document.getElementById('verifyExperience').textContent = localStorage.getItem('experience') || 'Not provided';
+          document.getElementById('verifyIndustry').textContent = localStorage.getItem('preferredIndustry') || 'Not provided';
+          document.getElementById('verifyDisabled').textContent = localStorage.getItem('disabled') || 'Not provided';
+          
+          // Load passport image if available
+          const passportImage = localStorage.getItem('passportImage');
+          if (passportImage) {
+            document.getElementById('verifyPassportImage').src = passportImage;
+          } else {
+            document.getElementById('passportSection').style.display = 'none';
+          }
+        }
+      }
+    });
+
+    // Simple tooltip behavior (hover and focus)
+    document.querySelectorAll('.tooltip').forEach(function(el){
+      let tipText = el.getAttribute('data-tip');
+      const tipBox = document.createElement('div');
+      tipBox.className = 'tip-box';
+      tipBox.innerText = tipText;
+      el.parentElement.appendChild(tipBox);
+
+      el.addEventListener('mouseenter', ()=> tipBox.style.display = 'block');
+      el.addEventListener('mouseleave', ()=> tipBox.style.display = 'none');
+      el.addEventListener('focus', ()=> tipBox.style.display = 'block');
+      el.addEventListener('blur', ()=> tipBox.style.display = 'none');
+    });
+  </script>
+</body>
 </html>
