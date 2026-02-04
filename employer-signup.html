@@ -1198,7 +1198,8 @@
               // Redirect after showing success for a moment
               setTimeout(() => {
                 // Redirect to verify-info page
-                window.location.href = "verify-info.html";
+                sessionStorage.setItem("signupType","employer");
+            window.location.href = "verify-info.html?type=employer";
               }, 1000);
             } else {
               // Account creation failed
