@@ -2,742 +2,951 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>Terms & Conditions | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+
+    <link rel="icon" type="image/png" href="assets/images/tab-logo.png" />
+
+    <!-- Fonts (match your main site) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Bootstrap (optional, but helps consistent spacing) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
     <style>
       :root {
-        --primary: #0a2a66;
-        --primary-dark: #071e4d;
-        --secondary: #f8c12e;
-        --secondary-dark: #e6af1a;
-        --light: #f8fafc;
-        --dark: #1e293b;
-        --gray: #64748b;
-        --gray-light: #e2e8f0;
-        --success: #10b981;
+        --navy: #0a2a66;
+        --navy2: #0a4a9c;
+        --gold: #f8c12e;
+        --gold2: #ffda6a;
+        --muted: #6b7280;
+        --bg: #ffffff;
+        --soft: #f5f7fb;
+        --soft2: #eef3ff;
+        --border: rgba(10, 42, 102, 0.12);
+
         --danger: #ef4444;
-        --login-color: #0a2a66; /* Dark blue for login button */
+        --info: #3b82f6;
+
+        --nav-h: 68px; /* LOCKED navbar height across ALL pages */
       }
 
       * {
-        margin: 0;
-        padding: 0;
         box-sizing: border-box;
       }
-
+      html {
+        scroll-behavior: smooth;
+      }
       body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-        color: var(--dark);
-        background-color: var(--light);
+        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        background: var(--bg);
+        color: #111827;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
 
-      .container {
+      /* =======================
+       NAVBAR (SHARED) - matches your homepage
+       ================*/
+      .site-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 2000;
+        height: var(--nav-h);
+        background: rgba(10, 42, 102, 0.97);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .nav-inner {
+        height: var(--nav-h);
         max-width: 1200px;
         margin: 0 auto;
-        padding: 20px;
-      }
-
-      /* Header Styles */
-      .site-header {
-        background: linear-gradient(
-          135deg,
-          var(--primary),
-          var(--primary-dark)
-        );
-        color: white;
-        padding: 1rem 0;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .header-content {
-        max-width: 1200px;
-        margin: 0 auto;
+        padding: 0 16px;
         display: flex;
+        align-items: center;
         justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
+        gap: 14px;
       }
-
-      .logo {
+      .brand {
         display: flex;
         align-items: center;
-        gap: 10px;
         text-decoration: none;
-        color: white;
+        gap: 10px;
+        min-width: 140px;
       }
-
-      .logo-img {
-        height: 40px;
-        display: flex;
-        align-items: center;
-      }
-
-      .logo-img img {
-        height: 100%;
+      .brand img {
+        height: 36px;
         width: auto;
-      }
-
-      .logo-text {
-        display: flex;
-        flex-direction: column;
-        line-height: 1.2;
-      }
-
-      .logo-main {
-        font-size: 1.3rem;
-        font-weight: 700;
-      }
-
-      .logo-sub {
-        font-size: 0.7rem;
-        font-weight: 500;
-        opacity: 0.9;
+        display: block;
+        filter: brightness(0) invert(1);
       }
 
       .nav-links {
-        display: flex;
-        gap: 2rem;
+        display: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
         align-items: center;
+        gap: 18px;
       }
-
       .nav-links a {
-        color: white;
+        color: rgba(255, 255, 255, 0.92);
         text-decoration: none;
-        font-weight: 500;
-        transition: all 0.3s ease;
+        font-weight: 700;
+        font-size: 14px;
+        padding: 10px 10px;
+        transition: color 0.2s ease, background 0.2s ease;
+        border-radius: 8px;
+        white-space: nowrap;
       }
-
       .nav-links a:hover {
-        color: var(--secondary);
+        color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .nav-links a.active {
+        color: var(--gold);
+        background: rgba(248, 193, 46, 0.14);
       }
 
-      .login-btn {
-        background: var(--secondary);
-        color: var(--login-color);
-        padding: 8px 20px;
-        border-radius: 6px;
-        font-weight: 600;
+      .nav-cta {
+        display: none;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-solid {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         text-decoration: none;
-        transition: all 0.3s ease;
+        font-weight: 800;
+        font-size: 14px;
+        padding: 12px 16px;
+        border-radius: 6px;
+        border: 1px solid transparent;
+        transition: transform 0.12s ease, filter 0.2s ease, box-shadow 0.2s ease,
+          background 0.2s ease;
+        white-space: nowrap;
+        line-height: 1;
+      }
+      .btn-solid-primary {
+        background: var(--gold);
+        color: var(--navy);
+        box-shadow: 0 14px 26px rgba(248, 193, 46, 0.24);
+      }
+      .btn-solid-primary:hover {
+        background: var(--gold2);
+        color: var(--navy);
+        transform: translateY(-1px);
+        box-shadow: 0 18px 30px rgba(248, 193, 46, 0.28);
+      }
+      .btn-solid-ghost {
+        background: transparent;
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.55);
+      }
+      .btn-solid-ghost:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        transform: translateY(-1px);
       }
 
-      .login-btn:hover {
-        background: var(--secondary-dark);
-        transform: translateY(-2px);
+      .menu-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        cursor: pointer;
+      }
+      .menu-btn i {
+        font-size: 18px;
       }
 
-      /* Page Header */
-      .page-header {
-        text-align: center;
-        margin: 3rem 0 2rem;
+      .mobile-drawer {
+        position: fixed;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        z-index: 1999;
+        display: none;
+        background: rgba(10, 42, 102, 0.985);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        max-height: calc(100vh - var(--nav-h));
+        overflow: auto;
+      }
+      .mobile-drawer.active {
+        display: block;
       }
 
-      .page-header h1 {
-        color: var(--primary);
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
+      .mobile-drawer a {
+        display: block;
+        padding: 14px 18px;
+        color: rgba(255, 255, 255, 0.92);
+        text-decoration: none;
+        font-weight: 700;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .mobile-drawer a:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
+      }
+      .mobile-drawer a.active {
+        color: var(--gold);
+        background: rgba(248, 193, 46, 0.14);
+      }
+      .mobile-drawer .mobile-cta {
+        padding: 14px 18px;
+        border-bottom: none;
       }
 
-      .page-header p {
-        color: var(--gray);
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto;
+      @media (min-width: 992px) {
+        .nav-links {
+          display: flex;
+          margin-left: auto;
+        }
+        .nav-cta {
+          display: flex;
+        }
+        .menu-btn {
+          display: none;
+        }
+        .mobile-drawer {
+          display: none !important;
+        }
+        .nav-inner {
+          padding: 0 20px;
+        }
+      }
+
+      .page-offset {
+        padding-top: var(--nav-h);
+      }
+
+      /* =======================
+       PAGE
+       ================*/
+      .hero-lite {
+        background: linear-gradient(135deg, var(--soft) 0%, var(--soft2) 100%);
+        border-bottom: 1px solid var(--border);
+        padding: 46px 0 30px;
+      }
+      .page-title {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        color: var(--navy);
+        font-size: clamp(1.9rem, 3vw, 2.6rem);
+        line-height: 1.15;
+        margin: 0 0 10px;
+      }
+      .page-subtitle {
+        color: var(--muted);
+        margin: 0;
+        line-height: 1.7;
+        max-width: 80ch;
+      }
+
+      .wrap {
+        padding: 26px 0 60px;
+      }
+
+      .terms-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: 0 10px 28px rgba(10, 42, 102, 0.08);
+        padding: 22px 16px;
+      }
+      @media (min-width: 768px) {
+        .terms-card {
+          padding: 28px 26px;
+        }
       }
 
       .effective-date {
-        text-align: center;
-        color: var(--gray);
-        font-style: italic;
-        margin-bottom: 2rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(10, 42, 102, 0.05);
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        color: var(--navy);
+        padding: 10px 12px;
+        border-radius: 999px;
+        font-weight: 800;
+        margin-bottom: 14px;
       }
 
-      /* Terms Content */
-      .terms-content {
-        background: white;
-        border-radius: 12px;
-        padding: 2.5rem;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        margin-bottom: 2rem;
+      .notice {
+        border-radius: 14px;
+        padding: 16px;
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        margin: 14px 0 18px;
       }
-
-      .legal-notice {
-        background: rgba(239, 68, 68, 0.1);
+      .notice.danger {
+        background: rgba(239, 68, 68, 0.10);
         border-left: 4px solid var(--danger);
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-        border-radius: 0 8px 8px 0;
+      }
+      .notice.gold {
+        background: rgba(248, 193, 46, 0.14);
+        border-left: 4px solid var(--gold);
+      }
+      .notice.info {
+        background: rgba(59, 130, 246, 0.10);
+        border-left: 4px solid var(--info);
       }
 
-      .legal-notice h3 {
-        color: var(--danger);
-        margin-bottom: 0.5rem;
+      .notice h3 {
+        margin: 0 0 6px;
+        font-weight: 900;
+        color: var(--navy);
+        font-size: 1.05rem;
+      }
+      .notice p {
+        margin: 0;
+        color: #0f172a;
+        line-height: 1.7;
       }
 
       .section {
-        margin-bottom: 2.5rem;
+        margin-top: 22px;
       }
-
       .section-title {
-        color: var(--primary);
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid var(--secondary);
+        color: var(--navy);
+        font-weight: 900;
+        font-size: 1.15rem;
+        margin: 0 0 10px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid rgba(248, 193, 46, 0.65);
+      }
+      .sub-title {
+        color: var(--navy);
+        font-weight: 900;
+        font-size: 1.02rem;
+        margin: 14px 0 8px;
       }
 
-      .subsection {
-        margin-bottom: 1.5rem;
-      }
-
-      .subsection-title {
-        color: var(--primary);
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-      }
-
-      .highlight-box {
-        background: rgba(248, 193, 46, 0.1);
-        border-left: 4px solid var(--secondary);
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        border-radius: 0 8px 8px 0;
+      .terms-card p {
+        color: #0f172a;
+        line-height: 1.8;
+        margin: 0 0 10px;
       }
 
       .terms-list {
-        padding-left: 1.5rem;
-        margin-bottom: 1rem;
+        margin: 8px 0 12px;
+        padding-left: 18px;
+        color: #0f172a;
+        line-height: 1.8;
       }
-
       .terms-list li {
-        margin-bottom: 0.5rem;
-        position: relative;
+        margin-bottom: 6px;
+      }
+      .terms-list strong {
+        color: var(--navy);
       }
 
+      .back-row {
+        margin-top: 18px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
       .back-home {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        background: var(--primary);
+        gap: 10px;
+        background: var(--navy);
         color: white;
-        padding: 12px 24px;
-        border-radius: 8px;
+        padding: 12px 18px;
+        border-radius: 12px;
         text-decoration: none;
-        font-weight: 600;
-        margin-top: 1rem;
-        transition: all 0.3s ease;
+        font-weight: 900;
+        transition: transform 0.14s ease, filter 0.2s ease;
       }
-
       .back-home:hover {
-        background: var(--primary-dark);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(10, 42, 102, 0.2);
+        filter: brightness(1.03);
+        transform: translateY(-1px);
+      }
+      .btn-outline {
+        background: #fff;
+        color: var(--navy);
+        border: 1px solid rgba(10, 42, 102, 0.18);
+      }
+      .btn-outline:hover {
+        background: rgba(10, 42, 102, 0.04);
       }
 
-      /* Footer */
-      .site-footer {
-        background: var(--primary);
-        color: white;
-        padding: 2rem 0;
-        margin-top: 3rem;
+      /* =======================
+       FOOTER (match your shared footer style)
+       ================*/
+      footer {
+        background: #001a3d;
+        color: #fff;
+        padding: 54px 0 28px;
+        margin-top: 30px;
       }
-
-      .footer-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-        text-align: center;
+      .footer-title {
+        color: #f5c542;
+        font-weight: 900;
+        margin-bottom: 12px;
+        font-size: 16px;
       }
-
-      .footer-links {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        margin-top: 1rem;
-      }
-
-      .footer-links a {
-        color: rgba(255, 255, 255, 0.8);
+      .footer-text,
+      .footer-link {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 14px;
+        line-height: 1.7;
         text-decoration: none;
-        transition: color 0.3s ease;
       }
-
-      .footer-links a:hover {
-        color: var(--secondary);
+      .footer-link:hover {
+        color: #f5c542;
       }
-
-      @media (max-width: 768px) {
-        .header-content {
-          flex-direction: column;
-          gap: 1rem;
-          text-align: center;
-        }
-
-        .nav-links {
-          gap: 1rem;
-        }
-
-        .page-header h1 {
-          font-size: 2rem;
-        }
-
-        .terms-content {
-          padding: 1.5rem;
-        }
-
-        .footer-links {
-          flex-direction: column;
-          gap: 1rem;
-        }
+      .footer-social {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+        flex-wrap: wrap;
+      }
+      .footer-social a {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        transition: transform 0.16s ease, background 0.18s ease, color 0.18s ease;
+      }
+      .footer-social a:hover {
+        background: #f5c542;
+        color: var(--navy);
+        transform: translateY(-2px);
+      }
+      .footer-divider {
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        margin-top: 18px;
+        padding-top: 16px;
+      }
+      .section-cta {
+        padding: 10px 0 0;
+      }
+      .section-cta-card {
+        padding: 26px 18px;
+        background: linear-gradient(135deg, var(--navy) 0%, #0a3d62 100%);
+        border: none;
+        color: #fff;
+        border-radius: 14px;
+        box-shadow: 0 18px 38px rgba(10, 42, 102, 0.18);
+      }
+      .section-cta-title {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: 1.8rem;
+        line-height: 1.2;
+        margin-bottom: 8px;
+      }
+      .section-cta-copy {
+        opacity: 0.92;
+        line-height: 1.7;
       }
     </style>
+  
+    <link rel='stylesheet' href='assets/css/product-polish.css' />
   </head>
+
   <body>
-    <header class="site-header">
-<<<<<<< HEAD
-      <div class="header-content">
-        <a href="index.html" class="logo">
-          <div class="logo-img">
-            <img src="logo.png" alt="Job Assist Ghana" />
-          </div>
+    <!-- NAVBAR (fixed + not duplicated) -->
+    <header class="site-nav">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <img src="assets/images/logo.png" alt="Job Assist Ghana Logo" />
         </a>
 
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="login.html" class="login-btn">Login</a>
-=======
-        <div class="header-content">
-            <a href="../index.html" class="logo">
-                <div class="logo-img">
-                    <img src="logo.png" alt="Job Assist Ghana">
-                </div>
-            </a>
-            
-            <div class="nav-links">
-                <a href="../index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="login.html" class="login-btn">Login</a>
-            </div>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
-        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="build-cv.html">Build a CV</a></li>
+        </ul>
+
+        <button
+          class="menu-btn"
+          type="button"
+          onclick="toggleMenu()"
+          aria-label="Open menu"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
+
+      <nav class="mobile-drawer" id="mobile-nav" aria-label="Mobile navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="build-cv.html">Build a CV</a>
+      </nav>
     </header>
 
-    <div class="container">
-      <div class="page-header">
-        <h1>Terms and Conditions</h1>
-        <p>Please read these terms carefully before using our services</p>
-      </div>
-
-      <div class="effective-date">
-        <p>Effective Date: January 2026</p>
-      </div>
-
-      <div class="terms-content">
-        <!-- Legal Compliance Notice -->
-        <div class="legal-notice">
-          <h3>Important Legal Notice</h3>
-          <p>
-            This Platform operates in compliance with Ghanaian laws including
-            the <strong>Labour Act, 2003 (Act 651)</strong>,
-            <strong>Data Protection Act, 2012 (Act 843)</strong>, and
-            <strong>Electronic Transactions Act, 2008 (Act 772)</strong>. All
-            fees represent optional service enhancements, not mandatory
-            employment access fees.
+    <main class="page-offset">
+      <!-- Page header -->
+      <section class="hero-lite">
+        <div class="container">
+          <h1 class="page-title">Terms & Conditions</h1>
+          <p class="page-subtitle">
+            Please read these terms carefully before using our services.
           </p>
         </div>
+      </section>
 
-        <!-- Section 1: Introduction -->
-        <div class="section">
-          <h2 class="section-title">1. Introduction</h2>
-          <p>
-            Welcome to JobAssist Ghana ("Platform", "we", "us", "our"). These
-            Terms and Conditions govern your use of our job search and
-            recruitment platform.
-          </p>
-          <p>
-            By accessing or using our Platform, you agree to be bound by these
-            Terms. If you disagree with any part, you may not access our
-            services.
-          </p>
-        </div>
-
-        <!-- Section 2: Service Model -->
-        <div class="section">
-          <h2 class="section-title">2. Service Model</h2>
-
-          <div class="subsection">
-            <h3 class="subsection-title">2.1 Two-Tier Application System</h3>
-            <p>
-              We operate a dual-approach system to ensure legal compliance while
-              providing enhanced services:
-            </p>
-
-            <div class="highlight-box">
-              <h4 class="subsection-title">Free Applications</h4>
-              <p>
-                All candidates can apply to jobs without any payment
-                requirement:
-              </p>
-              <ul class="terms-list">
-                <li>Basic application submission</li>
-                <li>Standard placement in applicant pool</li>
-                <li>Equal consideration by employers</li>
-                <li>Full Labour Act compliance</li>
-              </ul>
+      <section class="wrap">
+        <div class="container">
+          <div class="terms-card">
+            <div class="effective-date">
+              <i class="fa-solid fa-file-signature"></i>
+              <span><strong>Effective Date:</strong> May 2026</span>
             </div>
 
-            <div class="highlight-box">
-              <h4 class="subsection-title">
-                Premium Verified Applications (GHS 50)
-              </h4>
-              <p>Optional enhanced services for serious applicants:</p>
-              <ul class="terms-list">
-                <li>
-                  <strong>Quality Verification Badge:</strong> Employers see
-                  you're a verified serious applicant
-                </li>
-                <li>
-                  <strong>Priority Placement:</strong> Your application moves to
-                  the top of employer review lists
-                </li>
-                <li>
-                  <strong>Enhanced Visibility:</strong> Highlighted in applicant
-                  listings
-                </li>
-                <li>
-                  <strong>Human Review:</strong> Manual verification of
-                  application completeness
-                </li>
-              </ul>
+            <div class="notice danger">
+              <h3>Important Legal Notice</h3>
               <p>
-                <em
-                  >This GHS 50 fee is for premium verification services only,
-                  not job access.</em
-                >
+                This Platform operates in compliance with Ghanaian laws including the
+                <strong>Labour Act, 2003 (Act 651)</strong>, the
+                <strong>Data Protection Act, 2012 (Act 843)</strong>, and the
+                <strong>Electronic Transactions Act, 2008 (Act 772)</strong>.
+                Any fees on the Platform are for optional service enhancements and not a requirement
+                to access job listings or submit basic applications.
               </p>
             </div>
-<<<<<<< HEAD
-          </div>
-=======
 
-            <!-- Section 2: Service Model -->
+            <!-- 1 -->
             <div class="section">
-                <h2 class="section-title">2. Service Model</h2>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">2.1 Two-Tier Application System</h3>
-                    <p>We operate a dual-approach system to ensure legal compliance while providing enhanced services:</p>
-                    
-                    <div class="highlight-box">
-                        <h4 class="subsection-title">Free Applications</h4>
-                        <p>All candidates can apply to jobs without any payment requirement:</p>
-                        <ul class="terms-list">
-                            <li>Basic application submission</li>
-                            <li>Standard placement in applicant pool</li>
-                            <li>Equal consideration by employers</li>
-                            <li>Full Labour Act compliance</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="highlight-box">
-                        <h4 class="subsection-title">Premium Verified Applications (GHS 50)</h4>
-                        <p>Optional enhanced services for serious applicants:</p>
-                        <ul class="terms-list">
-                            <li><strong>Quality Verification Badge:</strong> Employers see you're a verified serious applicant</li>
-                            <li><strong>Priority Placement:</strong> Your application moves to the top of employer review lists</li>
-                            <li><strong>Enhanced Visibility:</strong> Highlighted in applicant listings</li>
-                            <li><strong>Human Review:</strong> Manual verification of application completeness</li>
-                        </ul>
-                        <p><em>This GHS 50 fee is for premium verification services only, not job access.</em></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 3: Candidate Services -->
-            <div class="section">
-                <h2 class="section-title">3. Candidate Services</h2>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">3.1 Free Access Guarantee</h3>
-                    <p>In compliance with Labour Act Section 74, all candidates can:</p>
-                    <ul class="terms-list">
-                        <li>Create accounts and profiles free of charge</li>
-                        <li>Browse and search all job listings</li>
-                        <li>Submit applications to any job posting</li>
-                        <li>Receive basic job recommendations</li>
-                    </ul>
-                </div>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">3.2 Premium Services</h3>
-                    <p>Optional paid services to enhance your job search:</p>
-                    
-                    <div class="highlight-box">
-                        <h4 class="subsection-title">Application Boosting</h4>
-                        <ul class="terms-list">
-                            <li><strong>Professional Boost (GHS 120):</strong> 30-day priority placement</li>
-                            <li><strong>Enterprise Boost (GHS 200):</strong> 90-day maximum visibility</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 4: Employer Services -->
-            <div class="section">
-                <h2 class="section-title">4. Employer Services</h2>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">4.1 Job Posting</h3>
-                    <p>Employers pay GHS 100 per job listing, which remains active until manually removed.</p>
-                </div>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">4.2 Candidate Access</h3>
-                    <p>Employers pay GHS 25 per candidate profile unlock to view full contact details.</p>
-                </div>
-            </div>
-
-            <!-- Section 5: Payment & Refunds -->
-            <div class="section">
-                <h2 class="section-title">5. Payment & Refunds</h2>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">5.1 Payment Processing</h3>
-                    <p>All payments are securely processed through Paystack Ghana in compliance with Bank of Ghana regulations.</p>
-                </div>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">5.2 Refund Policy</h3>
-                    <div class="highlight-box">
-                        <p><strong>Refunds are available for:</strong></p>
-                        <ul class="terms-list">
-                            <li>Technical failures preventing service delivery</li>
-                            <li>Duplicate or erroneous payments</li>
-                            <li>Services not rendered as described</li>
-                            <li>Failed transactions per Electronic Transactions Act</li>
-                        </ul>
-                        <p>Refund requests must be submitted within 14 days with supporting evidence.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 6: Data Protection -->
-            <div class="section">
-                <h2 class="section-title">6. Data Protection</h2>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">6.1 Compliance</h3>
-                    <p>We fully comply with Data Protection Act, 2012 (Act 843) requirements.</p>
-                </div>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">6.2 Your Rights</h3>
-                    <p>You have the right to access, correct, and request deletion of your personal data.</p>
-                </div>
-            </div>
-
-            <!-- Section 7: Legal Compliance -->
-            <div class="section">
-                <h2 class="section-title">7. Legal Compliance</h2>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">7.1 Labour Act Adherence</h3>
-                    <p>Our model operates within Labour Act boundaries:</p>
-                    <ul class="terms-list">
-                        <li>Free job application access for all candidates</li>
-                        <li>Premium fees for optional enhanced services only</li>
-                        <li>No employment placement fees charged to candidates</li>
-                    </ul>
-                </div>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">7.2 Governing Law</h3>
-                    <p>These Terms are governed by Ghanaian law. Disputes shall be resolved in Ghanaian courts.</p>
-                </div>
-            </div>
-
-            <!-- Section 8: Contact -->
-            <div class="section">
-                <h2 class="section-title">8. Contact Information</h2>
-                
-                <div class="highlight-box">
-                    <p><strong>Job Assist Ghana</strong></p>
-                    <p>Email: info@jobassistgh.com</p>
-                    <p>Phone: +233 (0) 59-477-2550</p>
-                    <p>Address: Osu, Accra, Ghana</p>
-                    <p>For legal inquiries: legal@jobassistgh.com</p>
-                </div>
-            </div>
-
-            <a href="../index.html" class="back-home">
-                Back to Home
-            </a>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
-        </div>
-
-        <!-- Section 3: Candidate Services -->
-        <div class="section">
-          <h2 class="section-title">3. Candidate Services</h2>
-
-          <div class="subsection">
-            <h3 class="subsection-title">3.1 Free Access Guarantee</h3>
-            <p>In compliance with Labour Act Section 74, all candidates can:</p>
-            <ul class="terms-list">
-              <li>Create accounts and profiles free of charge</li>
-              <li>Browse and search all job listings</li>
-              <li>Submit applications to any job posting</li>
-              <li>Receive basic job recommendations</li>
-            </ul>
-          </div>
-
-          <div class="subsection">
-            <h3 class="subsection-title">3.2 Premium Services</h3>
-            <p>Optional paid services to enhance your job search:</p>
-
-            <div class="highlight-box">
-              <h4 class="subsection-title">Application Boosting</h4>
-              <ul class="terms-list">
-                <li>
-                  <strong>Professional Boost (GHS 120):</strong> 30-day priority
-                  placement
-                </li>
-                <li>
-                  <strong>Enterprise Boost (GHS 200):</strong> 90-day maximum
-                  visibility
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Section 4: Employer Services -->
-        <div class="section">
-          <h2 class="section-title">4. Employer Services</h2>
-
-          <div class="subsection">
-            <h3 class="subsection-title">4.1 Job Posting</h3>
-            <p>
-              Employers pay GHS 100 per job listing, which remains active until
-              manually removed.
-            </p>
-          </div>
-
-          <div class="subsection">
-            <h3 class="subsection-title">4.2 Candidate Access</h3>
-            <p>
-              Employers pay GHS 25 per candidate profile unlock to view full
-              contact details.
-            </p>
-          </div>
-        </div>
-
-        <!-- Section 5: Payment & Refunds -->
-        <div class="section">
-          <h2 class="section-title">5. Payment & Refunds</h2>
-
-          <div class="subsection">
-            <h3 class="subsection-title">5.1 Payment Processing</h3>
-            <p>
-              All payments are securely processed through Paystack Ghana in
-              compliance with Bank of Ghana regulations.
-            </p>
-          </div>
-
-          <div class="subsection">
-            <h3 class="subsection-title">5.2 Refund Policy</h3>
-            <div class="highlight-box">
-              <p><strong>Refunds are available for:</strong></p>
-              <ul class="terms-list">
-                <li>Technical failures preventing service delivery</li>
-                <li>Duplicate or erroneous payments</li>
-                <li>Services not rendered as described</li>
-                <li>Failed transactions per Electronic Transactions Act</li>
-              </ul>
+              <h2 class="section-title">1. Introduction</h2>
               <p>
-                Refund requests must be submitted within 14 days with supporting
-                evidence.
+                Welcome to Job Assist Ghana ("Platform", "we", "us", "our"). These Terms and
+                Conditions govern your access to and use of our job and recruitment facilitation
+                platform.
+              </p>
+              <p>
+                By accessing or using the Platform, you agree to be bound by these Terms. If you
+                do not agree, you should not use the Platform.
               </p>
             </div>
+
+            <!-- 2 -->
+            <div class="section">
+              <h2 class="section-title">2. Eligibility and Account Responsibility</h2>
+              <p>
+                You must provide accurate information when creating or using an account. You are
+                responsible for keeping your login credentials secure and for activity carried out
+                through your account.
+              </p>
+              <ul class="terms-list">
+                <li>Candidates and employers must provide truthful and current account information.</li>
+                <li>You must not impersonate another person, company, or organisation.</li>
+                <li>You are responsible for safeguarding your password and device access.</li>
+                <li>We may restrict or suspend accounts that appear misleading, abusive, fraudulent, or unlawful.</li>
+              </ul>
+            </div>
+
+            <!-- 3 -->
+            <div class="section">
+              <h2 class="section-title">3. Candidate Services</h2>
+
+              <h3 class="sub-title">3.1 Core Candidate Access</h3>
+              <p>Candidates may use the Platform to:</p>
+              <ul class="terms-list">
+                <li>Create an account and candidate profile</li>
+                <li>Browse and search available jobs</li>
+                <li>Submit basic job applications free of charge</li>
+                <li>Upload documents per specific job application</li>
+                <li>Track applications through the platform where available</li>
+              </ul>
+
+              <div class="notice gold">
+                <h3 style="margin-bottom: 8px">Free Application Service</h3>
+                <p style="margin-bottom: 8px">
+                  Basic job applications remain free for candidates.
+                </p>
+                <ul class="terms-list" style="margin-bottom: 0">
+                  <li>GHS 0 basic application submission</li>
+                  <li>Standard placement in applicant list</li>
+                  <li>Application confirmation</li>
+                </ul>
+              </div>
+
+              <div class="notice gold">
+                <h3 style="margin-bottom: 8px">Optional Premium Application (GHS 50)</h3>
+                <ul class="terms-list" style="margin-bottom: 8px">
+                  <li>Priority placement in applicant list</li>
+                  <li>Verified application badge</li>
+                  <li>Enhanced employer visibility</li>
+                  <li>Quality verification check</li>
+                </ul>
+                <p style="margin: 0">
+                  Premium applications are optional. They do not guarantee employment,
+                  interviews, selection, or employer response.
+                </p>
+              </div>
+
+              <div class="notice gold">
+                <h3 style="margin-bottom: 8px">Optional Candidate Boost Services</h3>
+                <ul class="terms-list" style="margin-bottom: 0">
+                  <li><strong>Professional Boost:</strong> GHS 120 for 30 days</li>
+                  <li><strong>Enterprise Boost:</strong> GHS 200 for 90 days</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- 4 -->
+            <div class="section">
+              <h2 class="section-title">4. Employer Services</h2>
+
+              <h3 class="sub-title">4.1 Employer Account and Job Posting Services</h3>
+              <p>
+                Employers may create company or recruiter accounts and, after payment, post jobs on the Platform.
+              </p>
+              <ul class="terms-list">
+                <li><strong>Standard Job Posting:</strong> GHS 300 for 30 days</li>
+                <li><strong>Premium Job Posting:</strong> GHS 500 for 3 months</li>
+              </ul>
+
+              <h3 class="sub-title">4.2 Applicant Review and Unlock Services</h3>
+              <p>
+                Employers may review applicants for jobs they posted. Basic applicant information may be visible first.
+                Where available, employers may pay to unlock selected applicant contact details.
+              </p>
+              <ul class="terms-list">
+                <li><strong>Unlock Applicant:</strong> GHS 100 per applicant</li>
+                <li>Unlocking may provide access to selected candidate contact details and attached application documents where available.</li>
+                <li>Unlocking does not guarantee the candidate will respond, accept an offer, or accept a job.</li>
+              </ul>
+            </div>
+
+            <!-- 5 -->
+            <div class="section">
+              <h2 class="section-title">5. Payments and Refunds</h2>
+
+              <h3 class="sub-title">5.1 Payment Processing</h3>
+              <p>
+                Payments may be processed through secure third-party providers such as Paystack,
+                where applicable. We do not claim to store credit or debit card details.
+              </p>
+
+              <h3 class="sub-title">5.2 Refund Policy</h3>
+              <div class="notice gold">
+                <p style="margin-bottom: 8px"><strong>Paid digital services are generally non-refundable once successfully activated or delivered.</strong></p>
+                <p style="margin-bottom: 8px">Refunds may be considered for:</p>
+                <ul class="terms-list" style="margin-bottom: 8px">
+                  <li>Duplicate payments</li>
+                  <li>Failed transactions</li>
+                  <li>Erroneous payments</li>
+                  <li>Technical failures where the service was not delivered</li>
+                </ul>
+                <p style="margin: 0">
+                  Refund requests should be submitted with supporting evidence within a reasonable
+                  period, preferably within 14 days.
+                </p>
+              </div>
+            </div>
+
+            <!-- 6 -->
+            <div class="section">
+              <h2 class="section-title">6. User Responsibilities</h2>
+              <ul class="terms-list">
+                <li>Candidates must provide truthful information and genuine application documents.</li>
+                <li>Employers must provide truthful company details and lawful, accurate job information.</li>
+                <li>Users must not engage in scams, impersonation, fake jobs, harassment, or abusive conduct.</li>
+                <li>Discriminatory, misleading, fraudulent, or unlawful content is prohibited.</li>
+                <li>Employers must not use candidate data outside legitimate recruitment purposes.</li>
+              </ul>
+            </div>
+
+            <!-- 7 -->
+            <div class="section">
+              <h2 class="section-title">7. Job Applications and Hiring Outcomes</h2>
+              <p>
+                Job Assist Ghana facilitates job discovery, applications, and recruitment workflow.
+                We are not an employer unless expressly stated for our own vacancies.
+              </p>
+              <div class="notice info">
+                <p style="margin: 0">
+                  We do not guarantee employment, interviews, employer response, candidate quality,
+                  suitability, shortlisting, selection, or final hiring outcomes.
+                </p>
+              </div>
+            </div>
+
+            <!-- 8 -->
+            <div class="section">
+              <h2 class="section-title">8. Application Documents</h2>
+              <p>
+                Candidates are responsible for selecting and attaching the correct documents to each
+                job application. Documents are submitted per application rather than as a general signup requirement.
+              </p>
+              <p>
+                Employers must treat application documents confidentially and use them only for legitimate
+                recruitment review and hiring decisions.
+              </p>
+            </div>
+
+            <!-- 9 -->
+            <div class="section">
+              <h2 class="section-title">9. Reports, Abuse, and Platform Safety</h2>
+              <p>
+                Reports about jobs, employers, candidates, or platform misuse must be genuine and made in good faith.
+              </p>
+              <ul class="terms-list">
+                <li>False, malicious, abusive, or retaliatory reports are prohibited.</li>
+                <li>Reports should relate to genuine concerns about safety, fraud, misconduct, or policy breaches.</li>
+                <li>False or malicious reporting may lead to account restrictions or suspension.</li>
+              </ul>
+            </div>
+
+            <!-- 10 -->
+            <div class="section">
+              <h2 class="section-title">10. Data Protection</h2>
+              <p>
+                We process personal information in accordance with the Ghana Data Protection Act, 2012 (Act 843),
+                and related laws. Please also review our Privacy Policy for more detail on how data is handled.
+              </p>
+            </div>
+
+            <!-- 11 -->
+            <div class="section">
+              <h2 class="section-title">11. Intellectual Property</h2>
+              <p>
+                The Platform, its branding, content structure, software elements, and related materials remain
+                the property of Job Assist Ghana or its licensors, except for user-submitted content owned by users
+                or other rightful owners.
+              </p>
+            </div>
+
+            <!-- 12 -->
+            <div class="section">
+              <h2 class="section-title">12. Limitation of Liability</h2>
+              <p>
+                To the extent permitted by law, Job Assist Ghana is not liable for hiring decisions,
+                candidate conduct, employer conduct, failed negotiations, missed opportunities, indirect losses,
+                or outcomes arising from information supplied by users.
+              </p>
+            </div>
+
+            <!-- 13 -->
+            <div class="section">
+              <h2 class="section-title">13. Account Suspension or Termination</h2>
+              <p>
+                We may suspend, restrict, or terminate access where we reasonably believe a user has breached
+                these Terms, engaged in fraud, uploaded unlawful content, abused reporting tools, or otherwise
+                created risk for other users or the Platform.
+              </p>
+            </div>
+
+            <!-- 14 -->
+            <div class="section">
+              <h2 class="section-title">14. Changes to Terms</h2>
+              <p>
+                We may update these Terms from time to time to reflect platform changes, legal requirements,
+                or service updates. Continued use of the Platform after changes are posted may amount to acceptance
+                of the updated Terms.
+              </p>
+            </div>
+
+            <!-- 15 -->
+            <div class="section">
+              <h2 class="section-title">15. Governing Law</h2>
+              <p>
+                These Terms are governed by the laws of Ghana, including the Labour Act, 2003 (Act 651),
+                the Data Protection Act, 2012 (Act 843), and the Electronic Transactions Act, 2008 (Act 772),
+                where applicable.
+              </p>
+            </div>
+
+            <!-- 16 -->
+            <div class="section">
+              <h2 class="section-title">16. Contact Information</h2>
+
+              <div class="notice info">
+                <h3>Job Assist Ghana</h3>
+                <p style="margin: 0 0 8px"><strong>Email:</strong> info@jobassistgh.com</p>
+                <p style="margin: 0 0 8px"><strong>Phone:</strong> +233 (0) 59-477-2550</p>
+                <p style="margin: 0 0 8px"><strong>Address:</strong> Osu, Accra, Ghana</p>
+                <p style="margin: 0"><strong>Legal inquiries:</strong> legal@jobassistgh.com</p>
+              </div>
+            </div>
+
+            <div class="back-row">
+              <a href="index.html" class="back-home">
+                <i class="fas fa-home"></i> Back to Home
+              </a>
+              <a href="privacy.html" class="back-home btn-outline">
+                <i class="fa-solid fa-shield-halved"></i> Privacy Policy
+              </a>
+              <a href="contact.html" class="back-home btn-outline">
+                <i class="fa-solid fa-phone"></i> Contact Page
+              </a>
+            </div>
           </div>
         </div>
+      </section>
 
-        <!-- Section 6: Data Protection -->
-        <div class="section">
-          <h2 class="section-title">6. Data Protection</h2>
-
-          <div class="subsection">
-            <h3 class="subsection-title">6.1 Compliance</h3>
-            <p>
-              We fully comply with Data Protection Act, 2012 (Act 843)
-              requirements.
-            </p>
-          </div>
-
-          <div class="subsection">
-            <h3 class="subsection-title">6.2 Your Rights</h3>
-            <p>
-              You have the right to access, correct, and request deletion of
-              your personal data.
-            </p>
-          </div>
-        </div>
-
-        <!-- Section 7: Legal Compliance -->
-        <div class="section">
-          <h2 class="section-title">7. Legal Compliance</h2>
-
-          <div class="subsection">
-            <h3 class="subsection-title">7.1 Labour Act Adherence</h3>
-            <p>Our model operates within Labour Act boundaries:</p>
-            <ul class="terms-list">
-              <li>Free job application access for all candidates</li>
-              <li>Premium fees for optional enhanced services only</li>
-              <li>No employment placement fees charged to candidates</li>
-            </ul>
-          </div>
-
-          <div class="subsection">
-            <h3 class="subsection-title">7.2 Governing Law</h3>
-            <p>
-              These Terms are governed by Ghanaian law. Disputes shall be
-              resolved in Ghanaian courts.
-            </p>
+      <section class="section-cta">
+        <div class="container">
+          <div class="section-cta-card">
+            <div class="row align-items-center g-3">
+              <div class="col-lg-8">
+                <div class="section-cta-title">Ready to hire or get hired?</div>
+                <div class="section-cta-copy">
+                  Employers can post roles and move faster through applicants, while
+                  candidates can create a stronger profile and begin applying with confidence.
+                </div>
+              </div>
+              <div class="col-lg-4 d-flex flex-column flex-sm-row justify-content-lg-end gap-2">
+                <a class="btn-solid btn-solid-primary" href="employer-login.html">Start Hiring</a>
+                <a class="btn-solid btn-solid-ghost" href="login.html">Find a Job</a>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <!-- Section 8: Contact -->
-        <div class="section">
-          <h2 class="section-title">8. Contact Information</h2>
+      <!-- FOOTER -->
+      <footer>
+        <div class="container">
+          <div class="row g-4">
+            <div class="col-lg-4">
+              <div class="footer-title">Job Assist Ghana</div>
+              <div class="footer-text">
+                Connecting talented Ghanaians with credible employers. Built for
+                mobile, built for speed, built for real outcomes.
+              </div>
+              <div class="footer-social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              </div>
+            </div>
 
-          <div class="highlight-box">
-            <p><strong>Job Assist Ghana</strong></p>
-            <p>Email: info@jobassistgh.com</p>
-            <p>Phone: +233 (0) 59-477-2550</p>
-            <p>Address: Osu, Accra, Ghana</p>
-            <p>For legal inquiries: legal@jobassistgh.com</p>
+            <div class="col-lg-4">
+              <div class="footer-title">Quick Links</div>
+              <div class="d-flex flex-column gap-2">
+                <a class="footer-link" href="index.html">Home</a>
+                <a class="footer-link" href="about.html">About</a>
+                <a class="footer-link" href="build-cv.html">Build a CV</a>
+                <a class="footer-link" href="employer-login.html">Get Started</a>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="footer-title">Contact</div>
+              <div class="footer-text">
+                <i class="fas fa-map-marker-alt me-2"></i>Osu, Accra, Ghana
+              </div>
+              <div class="footer-text">
+                <i class="fas fa-phone me-2"></i>+233 (0) 59-477-2550
+              </div>
+              <div class="footer-text">
+                <i class="fas fa-envelope me-2"></i>info@jobassistgh.com
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-divider mt-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+              <div class="footer-text mb-0">
+                Copyright <span id="year"></span> Job Assist Ghana. All rights reserved.
+              </div>
+              <div class="d-flex gap-3 flex-wrap">
+                <a class="footer-link" href="privacy.html">Privacy</a>
+                <a class="footer-link" href="terms.html">Terms</a>
+                <a class="footer-link" href="contact.html">Contact</a>
+              </div>
+            </div>
           </div>
         </div>
+      </footer>
+    </main>
 
-        <a href="index.html" class="back-home"> Back to Home </a>
-      </div>
-    </div>
+    <script>
+      // Footer year
+      document.getElementById("year").textContent = new Date().getFullYear();
 
-    <footer class="site-footer">
-      <div class="footer-content">
-        <p>© 2025 Job Assist Ghana. All rights reserved.</p>
-        <div class="footer-links">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="terms.html">Terms & Conditions</a>
-          <a href="contact.html">Contact Us</a>
-        </div>
-        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8">
-          Compliant with Ghanaian legislation
-        </p>
-      </div>
-    </footer>
+      // Mobile menu
+      function toggleMenu() {
+        const drawer = document.getElementById("mobile-nav");
+        const icon = document.querySelector(".menu-btn i");
+
+        drawer.classList.toggle("active");
+
+        if (drawer.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-xmark");
+        } else {
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        }
+      }
+
+      // Close menu when clicking outside
+      document.addEventListener("click", function (event) {
+        const drawer = document.getElementById("mobile-nav");
+        const menuBtn = document.querySelector(".menu-btn");
+        const nav = document.querySelector(".site-nav");
+
+        if (!drawer || !menuBtn || !nav) return;
+
+        const clickedInsideNav = nav.contains(event.target);
+        if (!clickedInsideNav && drawer.classList.contains("active")) {
+          drawer.classList.remove("active");
+          const icon = document.querySelector(".menu-btn i");
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Close menu when clicking a link
+      document.querySelectorAll("#mobile-nav a").forEach((a) => {
+        a.addEventListener("click", () => {
+          const drawer = document.getElementById("mobile-nav");
+          drawer.classList.remove("active");
+          const icon = document.querySelector(".menu-btn i");
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        });
+      });
+
+      // Mobile tap highlight off
+      document.querySelectorAll("a, button").forEach((el) => {
+        el.style.webkitTapHighlightColor = "transparent";
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+    <script src='assets/js/product-polish.js'></script>
   </body>
 </html>

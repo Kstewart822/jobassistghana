@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>View Applicants | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -14,8 +14,8 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
       }
 
       :root {
@@ -23,6 +23,7 @@
         --primary-light: #1e3a8a;
         --primary-dark: #071e4d;
         --secondary: #f8c12e;
+        --secondary-dark: #e6af1a;
         --light: #f8fafc;
         --dark: #1e293b;
         --gray: #64748b;
@@ -30,30 +31,60 @@
         --white: #ffffff;
         --success: #10b981;
         --danger: #ef4444;
+        --danger-dark: #dc2626;
+      }
+
+      html,
+      body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden !important;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
       }
 
       body {
-        background-color: var(--light);
+        background:
+          radial-gradient(circle at top right, rgba(248, 193, 46, 0.14), transparent 24%),
+          linear-gradient(180deg, #f7f9fc 0%, #eef3fb 100%);
         color: var(--dark);
         line-height: 1.4;
+      }
+
+      .header-section,
+      .applicants-grid,
+      .applicant-card,
+      .unlocked-card,
+      .applicant-main-block,
+      .applicant-card-side,
+      .attachment-summary,
+      .attachment-tray,
+      .contact-lock-panel,
+      .contact-info,
+      .applicant-actions {
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
       }
 
       .container {
         max-width: 1400px;
         margin: 0 auto;
         padding: 0 30px;
+        width: 100%;
+        max-width: 100%;
       }
 
-      /* Dark Blue Header Section */
       .header-section {
-        background: linear-gradient(
-          135deg,
-          var(--primary-dark),
-          var(--primary)
-        );
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
         color: white;
-        padding: 25px 0;
-        margin-bottom: 30px;
+        padding: 30px 0;
+        margin-bottom: 32px;
+        box-shadow: 0 24px 55px rgba(10, 42, 102, 0.2);
       }
 
       .header {
@@ -65,7 +96,6 @@
         gap: 20px;
       }
 
-      /* Logo Section - Desktop */
       .logo-section {
         display: flex;
         align-items: flex-start;
@@ -90,12 +120,13 @@
       }
 
       .header-info h1 {
-        font-size: 1.6rem;
+        font-size: 1.95rem;
         color: white;
-        font-weight: 700;
-        margin-bottom: 8px;
+        font-weight: 800;
+        margin-bottom: 10px;
         word-wrap: break-word;
         line-height: 1.3;
+        letter-spacing: -0.03em;
       }
 
       .job-meta {
@@ -114,27 +145,28 @@
       }
 
       .btn {
-        padding: 10px 22px;
-        border-radius: 6px;
+        padding: 11px 18px;
+        border-radius: 12px;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.2s ease;
         border: none;
-        font-size: 0.95rem;
-        display: flex;
+        font-size: 0.92rem;
+        display: inline-flex;
         align-items: center;
         gap: 8px;
         white-space: nowrap;
+        text-decoration: none;
+        box-shadow: 0 12px 24px rgba(10, 42, 102, 0.12);
       }
 
       .btn-back {
         background-color: var(--secondary);
         color: var(--primary);
-        text-decoration: none;
       }
 
       .btn-back:hover {
-        background-color: #e6af1a;
+        background-color: var(--secondary-dark);
       }
 
       .btn-danger {
@@ -143,15 +175,15 @@
       }
 
       .btn-danger:hover {
-        background-color: #dc2626;
+        background-color: var(--danger-dark);
       }
 
-      /* Search in Dark Blue Section */
       .search-container {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
-        padding: 20px;
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 20px;
+        padding: 22px;
         backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.16);
       }
 
       .search-box {
@@ -162,7 +194,7 @@
         width: 100%;
         padding: 14px 18px 14px 50px;
         border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 6px;
+        border-radius: 14px;
         font-size: 1rem;
         transition: all 0.2s ease;
         background-color: rgba(255, 255, 255, 0.95);
@@ -184,22 +216,22 @@
         color: var(--gray);
       }
 
-      /* Tabs */
       .tabs {
         display: flex;
         background: white;
-        border-radius: 8px;
+        border-radius: 20px;
         overflow: hidden;
         margin-bottom: 30px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 18px 36px rgba(17, 38, 85, 0.1);
+        border: 1px solid rgba(10, 42, 102, 0.08);
       }
 
       .tab {
         flex: 1;
-        padding: 20px 25px;
+        padding: 18px 22px;
         text-align: center;
         cursor: pointer;
-        font-weight: 600;
+        font-weight: 700;
         color: var(--gray);
         border-bottom: 3px solid transparent;
         transition: all 0.2s ease;
@@ -215,7 +247,6 @@
         background-color: rgba(10, 42, 102, 0.02);
       }
 
-      /* Tab Content */
       .tab-content {
         display: none;
       }
@@ -224,7 +255,6 @@
         display: block;
       }
 
-      /* Section Header */
       .section-header {
         display: flex;
         justify-content: space-between;
@@ -235,9 +265,9 @@
       }
 
       .section-title {
-        font-size: 1.4rem;
+        font-size: 1.28rem;
         color: var(--primary);
-        font-weight: 700;
+        font-weight: 800;
       }
 
       .applicant-count {
@@ -245,18 +275,14 @@
         font-size: 1rem;
       }
 
-      /* Checkout Summary */
       .checkout-summary {
-        background: linear-gradient(
-          135deg,
-          var(--primary),
-          var(--primary-light)
-        );
-        border-radius: 8px;
-        padding: 25px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        border-radius: 22px;
+        padding: 26px;
         margin-bottom: 30px;
         display: none;
         color: white;
+        box-shadow: 0 20px 42px rgba(10, 42, 102, 0.16);
       }
 
       .checkout-summary.show {
@@ -311,33 +337,31 @@
       }
 
       .btn-accent:hover {
-        background-color: #e6af1a;
+        background-color: var(--secondary-dark);
       }
 
-      /* Applicants Grid - 3 Columns */
       .applicants-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+        gap: 18px;
         margin-bottom: 40px;
       }
 
-      /* Applicant Card - All Applicants */
       .applicant-card {
-        background: white;
-        border: 1px solid var(--gray-light);
-        border-radius: 8px;
-        padding: 20px;
+        background: rgba(255, 255, 255, 0.98);
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        border-radius: 22px;
+        padding: 22px;
         transition: all 0.2s ease;
         cursor: pointer;
         display: flex;
         flex-direction: column;
-        gap: 8px; /* Reduced from 10px */
+        gap: 8px;
       }
 
       .applicant-card:hover {
-        border-color: var(--secondary);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-color: rgba(248, 193, 46, 0.45);
+        box-shadow: 0 24px 40px rgba(17, 38, 85, 0.12);
         transform: translateY(-2px);
       }
 
@@ -350,13 +374,13 @@
         display: flex;
         align-items: center;
         gap: 15px;
-        margin-bottom: 3px; /* Reduced from 5px */
+        margin-bottom: 3px;
       }
 
       .card-avatar {
         width: 70px;
         height: 70px;
-        border-radius: 6px;
+        border-radius: 18px;
         overflow: hidden;
         flex-shrink: 0;
       }
@@ -375,13 +399,13 @@
         font-size: 1.1rem;
         font-weight: 700;
         color: var(--primary);
-        margin-bottom: 2px; /* Reduced from 3px */
+        margin-bottom: 2px;
       }
 
       .applicant-details {
         display: flex;
         flex-direction: column;
-        gap: 4px; /* Reduced from 6px */
+        gap: 4px;
         font-size: 0.9rem;
       }
 
@@ -389,8 +413,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 2px 0; /* Reduced from 3px 0 */
-        min-height: 22px; /* Added for consistent height */
+        padding: 2px 0;
+        min-height: 22px;
       }
 
       .detail-label {
@@ -408,8 +432,8 @@
       .card-select {
         width: 22px;
         height: 22px;
-        border: 2px solid var(--gray-light);
-        border-radius: 4px;
+        border: 2px solid rgba(10, 42, 102, 0.14);
+        border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -424,34 +448,34 @@
       }
 
       .applicant-card.selected .card-select::after {
-        content: "✓";
+        content: "";
         color: white;
         font-size: 0.8rem;
         font-weight: bold;
       }
 
-      /* Unlocked Applicant Card */
       .unlocked-card {
-        background: white;
-        border: 1px solid var(--gray-light);
-        border-radius: 8px;
-        padding: 20px;
+        background: rgba(255, 255, 255, 0.98);
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        border-radius: 22px;
+        padding: 22px;
         display: flex;
         flex-direction: column;
-        gap: 8px; /* Reduced from 10px */
+        gap: 8px;
+        box-shadow: 0 18px 36px rgba(17, 38, 85, 0.1);
       }
 
       .unlocked-header {
         display: flex;
         align-items: center;
         gap: 15px;
-        margin-bottom: 3px; /* Reduced from 5px */
+        margin-bottom: 3px;
       }
 
       .unlocked-avatar {
         width: 70px;
         height: 70px;
-        border-radius: 6px;
+        border-radius: 18px;
         overflow: hidden;
         flex-shrink: 0;
       }
@@ -470,13 +494,13 @@
         font-size: 1.1rem;
         font-weight: 700;
         color: var(--primary);
-        margin-bottom: 3px; /* Reduced from 5px */
+        margin-bottom: 3px;
       }
 
       .contact-info {
         display: flex;
         flex-direction: column;
-        gap: 2px; /* Reduced from 3px */
+        gap: 2px;
         font-size: 0.85rem;
         color: var(--gray);
       }
@@ -485,7 +509,8 @@
         display: flex;
         align-items: center;
         gap: 6px;
-        min-height: 18px; /* Added for consistent height */
+        min-height: 18px;
+        word-break: break-word;
       }
 
       .contact-item i {
@@ -496,11 +521,10 @@
       .unlocked-details {
         display: flex;
         flex-direction: column;
-        gap: 4px; /* Reduced from 6px */
+        gap: 4px;
         font-size: 0.9rem;
       }
 
-      /* Pagination */
       .pagination {
         display: flex;
         justify-content: center;
@@ -512,9 +536,9 @@
 
       .pagination-btn {
         padding: 10px 16px;
-        border: 1px solid var(--gray-light);
+        border: 1px solid rgba(10, 42, 102, 0.12);
         background-color: white;
-        border-radius: 6px;
+        border-radius: 12px;
         cursor: pointer;
         transition: all 0.2s ease;
         font-size: 0.9rem;
@@ -549,12 +573,15 @@
         font-weight: 500;
       }
 
-      /* Empty State */
       .empty-state {
         text-align: center;
-        padding: 60px 20px;
+        padding: 60px 24px;
         color: var(--gray);
         grid-column: 1 / -1;
+        background: rgba(255, 255, 255, 0.94);
+        border-radius: 24px;
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        box-shadow: 0 18px 36px rgba(17, 38, 85, 0.08);
       }
 
       .empty-icon {
@@ -575,13 +602,9 @@
         margin: 0 auto;
       }
 
-      /* Modal */
       .modal-overlay {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset: 0;
         background-color: rgba(0, 0, 0, 0.5);
         display: none;
         align-items: center;
@@ -666,6 +689,7 @@
         display: flex;
         justify-content: flex-end;
         gap: 12px;
+        flex-wrap: wrap;
       }
 
       .btn-secondary {
@@ -677,7 +701,6 @@
         background-color: #d1d5db;
       }
 
-      /* Mobile Responsiveness */
       @media (max-width: 1200px) {
         .applicants-grid {
           grid-template-columns: repeat(2, 1fr);
@@ -688,13 +711,163 @@
         .container {
           padding: 0 20px;
         }
-
         .header-section {
           padding: 20px 0;
         }
-
         .applicants-grid {
           grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .search-filter-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        grid-column: 1 / -1;
+      }
+
+      .search-filter-row .search-container {
+        flex: 1;
+        min-width: 0;
+        margin-bottom: 0;
+      }
+
+      .filter-panel {
+        position: relative;
+        flex: 0 0 auto;
+        margin-bottom: 0;
+        overflow: visible;
+      }
+
+      .filter-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        min-height: 56px;
+        min-width: 280px;
+        max-width: 340px;
+        padding: 0 18px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 18px;
+        box-shadow: 0 18px 36px rgba(17, 38, 85, 0.08);
+        font-weight: 700;
+        color: #0a2a66;
+      }
+
+      .filter-toggle-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .filter-toggle i:last-child {
+        transition: transform 0.2s ease;
+      }
+
+      .filter-panel.is-open .filter-toggle i:last-child {
+        transform: rotate(180deg);
+      }
+
+      .filter-content {
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0;
+        width: min(760px, calc(100vw - 32px));
+        max-width: calc(100vw - 32px);
+        padding: 20px;
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        border-radius: 20px;
+        background: #ffffff;
+        box-shadow: 0 24px 48px rgba(17, 38, 85, 0.16);
+        display: none;
+        z-index: 30;
+      }
+
+      .filter-panel.is-open .filter-content {
+        display: block;
+      }
+
+      .filter-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(140px, 1fr));
+        gap: 14px 16px;
+      }
+
+      .filter-group label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #334155;
+      }
+
+      .filter-group select {
+        width: 100%;
+        height: 44px;
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        border-radius: 12px;
+        padding: 0 12px;
+        background: #fff;
+      }
+
+      .filter-actions {
+        margin-top: 18px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+
+      @media (max-width: 1100px) {
+        .filter-content {
+          width: min(720px, calc(100vw - 32px));
+          max-width: calc(100vw - 32px);
+        }
+
+        .filter-grid {
+          grid-template-columns: repeat(2, minmax(180px, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        .header-section,
+        .header-section > .container,
+        .search-filter-row,
+        .filter-panel {
+          overflow: visible;
+        }
+
+        .filter-content {
+          position: static;
+          top: auto;
+          left: auto;
+          width: 100%;
+          max-width: 100%;
+          margin-top: 10px;
+          box-shadow: 0 18px 36px rgba(17, 38, 85, 0.12);
+          z-index: auto;
+        }
+
+        .filter-panel.is-open .filter-content {
+          display: block;
+        }
+
+        .filter-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .filter-actions {
+          flex-direction: column;
+        }
+
+        .filter-actions .btn {
+          width: 100%;
+          justify-content: center;
         }
       }
 
@@ -703,33 +876,24 @@
           padding: 0 15px;
         }
 
-        /* FIX 1: TOP SECTION LAYOUT - Improved spacing and flow */
         .header-section {
           padding: 20px 0;
           margin-bottom: 25px;
         }
 
-        /* Ensure proper stacking order and spacing */
         .header {
-          display: flex;
           flex-direction: column;
           align-items: stretch;
           margin-bottom: 20px;
           gap: 20px;
         }
 
-        /* Logo section - Page title + job info */
         .logo-section {
-          display: flex;
           flex-direction: column;
           align-items: flex-start;
           gap: 15px;
           width: 100%;
           order: 1;
-        }
-
-        .logo-container {
-          align-self: flex-start;
         }
 
         .logo {
@@ -744,21 +908,15 @@
         .header-info h1 {
           font-size: 1.3rem;
           margin-bottom: 10px;
-          color: white;
         }
 
         .job-meta {
-          display: flex;
           flex-direction: column;
           gap: 8px;
-          margin-top: 5px;
           font-size: 0.9rem;
-          color: rgba(255, 255, 255, 0.9);
         }
 
-        /* FIX: Header actions - Buttons with better spacing */
         .header-actions {
-          display: flex;
           flex-direction: column;
           width: 100%;
           gap: 12px;
@@ -771,13 +929,31 @@
           justify-content: center;
           padding: 14px 16px;
           font-size: 0.95rem;
-          margin: 0;
         }
 
-        /* Search container - Proper spacing */
+        .search-filter-row {
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .filter-panel,
+        .search-container {
+          width: 100%;
+        }
+
+        .filter-toggle {
+          width: 100%;
+          min-width: 0;
+          max-width: none;
+        }
+
+        .filter-content {
+          width: 100%;
+          max-width: 100%;
+        }
+
         .search-container {
           padding: 20px;
-          margin-top: 5px;
           order: 3;
         }
 
@@ -790,7 +966,6 @@
           left: 15px;
         }
 
-        /* Tabs - Stack vertically */
         .tabs {
           flex-direction: column;
           margin-bottom: 25px;
@@ -801,33 +976,18 @@
           padding: 18px 20px;
         }
 
-        /* Applicants Grid - Single column */
         .applicants-grid {
           grid-template-columns: 1fr;
           gap: 18px;
           margin-bottom: 35px;
         }
 
-        /* Cards - Keep current design */
         .applicant-card,
         .unlocked-card {
           padding: 18px;
           width: 100%;
-          box-sizing: border-box;
         }
 
-        .card-header,
-        .unlocked-header {
-          gap: 15px;
-        }
-
-        .card-avatar,
-        .unlocked-avatar {
-          width: 65px;
-          height: 65px;
-        }
-
-        /* Section header */
         .section-header {
           flex-direction: column;
           align-items: flex-start;
@@ -835,7 +995,6 @@
           margin-bottom: 20px;
         }
 
-        /* Checkout summary */
         .checkout-summary {
           padding: 20px;
           margin-bottom: 25px;
@@ -865,17 +1024,6 @@
           padding: 14px 16px;
         }
 
-        /* Pagination */
-        .pagination {
-          margin: 30px 0 40px;
-          gap: 8px;
-        }
-
-        /* Modal adjustments */
-        .modal-overlay {
-          padding: 15px;
-        }
-
         .modal-content {
           padding: 25px;
         }
@@ -896,7 +1044,6 @@
           padding: 0 12px;
         }
 
-        /* Adjust top section for very small screens */
         .header-section {
           padding: 18px 0;
         }
@@ -930,69 +1077,1459 @@
         }
       }
 
-      /* Very small screens */
-      @media (max-width: 360px) {
-        .header-info h1 {
-          font-size: 1.1rem;
+        @media (max-width: 360px) {
+          .header-info h1 {
+            font-size: 1.1rem;
+          }
+          .header-actions .btn {
+            padding: 12px 14px;
+          }
         }
 
-        .header-actions .btn {
-          padding: 12px 14px;
+        .application-meta {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin: 14px 0 10px;
         }
-      }
+
+        .application-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 12px;
+          border-radius: 999px;
+          font-size: 0.82rem;
+          font-weight: 700;
+          background: rgba(10, 27, 74, 0.08);
+          color: #0a1b4a;
+        }
+
+        .application-badge.status-accepted {
+          background: rgba(16, 185, 129, 0.14);
+          color: #047857;
+        }
+
+        .application-badge.status-rejected {
+          background: rgba(239, 68, 68, 0.12);
+          color: #b91c1c;
+        }
+
+        .card-select {
+          display: none;
+        }
+
+        .contact-lock-panel {
+          margin-top: 16px;
+          padding: 16px;
+          border-radius: 18px;
+          border: 1px solid rgba(10, 27, 74, 0.1);
+          background: linear-gradient(180deg, rgba(248, 250, 255, 0.98), rgba(238, 244, 255, 0.96));
+        }
+
+        .contact-lock-panel.locked {
+          border-color: rgba(217, 119, 6, 0.2);
+          background: linear-gradient(180deg, rgba(255, 251, 235, 0.98), rgba(255, 247, 214, 0.96));
+        }
+
+        .contact-lock-panel.unlocked {
+          border-color: rgba(5, 150, 105, 0.18);
+          background: linear-gradient(180deg, rgba(236, 253, 245, 0.96), rgba(220, 252, 231, 0.94));
+        }
+
+        .contact-lock-title {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-weight: 800;
+          color: #0a1b4a;
+          margin-bottom: 10px;
+        }
+
+        .contact-lock-copy {
+          margin-top: 10px;
+          color: #475569;
+          font-size: 0.92rem;
+          line-height: 1.5;
+        }
+
+        .contact-item.locked {
+          filter: blur(0.2px);
+          color: #7c2d12;
+        }
+
+        .unlock-contact-btn {
+          margin-top: 14px;
+          width: 100%;
+          justify-content: center;
+          font-weight: 800;
+        }
+
+        .applicant-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: 16px;
+        }
+
+        .applicant-actions .btn {
+          padding: 10px 14px;
+          font-size: 0.88rem;
+        }
+
+        @media (min-width: 768px) {
+          .contact-lock-panel {
+            padding: 18px;
+          }
+
+          .unlock-contact-btn {
+            width: auto;
+          }
+        }
+
+        /* Dense horizontal applicant cards for high-volume review */
+        .applicants-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
+        .applicant-card,
+        .unlocked-card {
+          display: grid;
+          grid-template-columns: 86px minmax(170px, 0.9fr) minmax(280px, 1.7fr) minmax(190px, 0.75fr);
+          align-items: start;
+          gap: 16px;
+          padding: 16px;
+          cursor: default;
+        }
+
+        .card-header,
+        .unlocked-header {
+          display: contents;
+        }
+
+        .card-avatar,
+        .unlocked-avatar {
+          width: 76px;
+          height: 76px;
+          border-radius: 18px;
+        }
+
+        .card-name,
+        .unlocked-name-section {
+          min-width: 0;
+        }
+
+        .application-meta {
+          margin: 8px 0 0;
+          gap: 6px;
+        }
+
+        .applicant-summary-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(120px, 1fr));
+          gap: 8px;
+        }
+
+        .summary-item {
+          min-width: 0;
+          padding: 8px 10px;
+          border-radius: 12px;
+          background: #f8fbff;
+          border: 1px solid rgba(10, 42, 102, 0.07);
+        }
+
+        .summary-label {
+          display: block;
+          color: var(--gray);
+          font-size: 0.72rem;
+          font-weight: 700;
+          margin-bottom: 2px;
+        }
+
+        .summary-value {
+          display: block;
+          color: var(--dark);
+          font-size: 0.84rem;
+          font-weight: 800;
+          overflow-wrap: anywhere;
+        }
+
+        .applicant-card-side {
+          display: grid;
+          gap: 10px;
+        }
+
+        .attachment-summary {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          padding: 10px;
+          border-radius: 14px;
+          background: #f8fafc;
+          border: 1px solid rgba(10, 42, 102, 0.08);
+          font-weight: 800;
+          color: var(--primary);
+        }
+
+        .attachment-summary-copy {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .attachment-summary-title {
+          font-size: 0.88rem;
+          font-weight: 800;
+          color: var(--primary);
+        }
+
+        .attachment-summary-help {
+          margin-top: 4px;
+          font-size: 0.76rem;
+          font-weight: 500;
+          line-height: 1.45;
+          color: var(--gray);
+          overflow-wrap: anywhere;
+          word-break: break-word;
+        }
+
+        .attachment-btn.locked {
+          opacity: 0.58;
+          cursor: not-allowed;
+        }
+
+        .attachment-tray {
+          display: none;
+          flex-wrap: wrap;
+          gap: 8px;
+          padding: 10px;
+          border-radius: 14px;
+          background: #ffffff;
+          border: 1px solid rgba(10, 42, 102, 0.08);
+        }
+
+        .attachment-tray.open {
+          display: flex;
+        }
+
+        .attachment-tray {
+          flex-wrap: wrap;
+          align-items: center;
+        }
+
+        .attachment-empty {
+          font-size: 0.8rem;
+          color: var(--gray);
+          line-height: 1.5;
+        }
+
+        .attachment-chip {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 64px;
+          border: 1px solid rgba(10, 42, 102, 0.1);
+          background: #f8fbff;
+          border-radius: 999px;
+          padding: 7px 12px;
+          font-size: 0.78rem;
+          font-weight: 800;
+          color: var(--primary);
+          cursor: pointer;
+          max-width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .attachment-chip:hover {
+          background: rgba(248, 193, 46, 0.12);
+          border-color: rgba(248, 193, 46, 0.48);
+        }
+
+        .details-toggle {
+          background-color: var(--gray-light);
+          color: var(--dark);
+          border: none;
+          box-shadow: none;
+          justify-content: center;
+          font-weight: 600;
+          text-align: center;
+        }
+
+        .details-toggle:hover {
+          background-color: #d1d5db;
+        }
+
+        .applicant-extra-details {
+          display: none;
+          grid-column: 2 / -1;
+          padding: 12px;
+          border-radius: 14px;
+          background: #f8fafc;
+          border: 1px solid rgba(10, 42, 102, 0.08);
+        }
+
+        .applicant-extra-details.open {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(180px, 1fr));
+          gap: 8px 14px;
+        }
+
+        .attachment-modal-content {
+          max-width: min(940px, 96vw);
+          max-height: 92vh;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          padding: 0;
+          border-radius: 18px;
+        }
+
+        .attachment-modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 12px;
+          padding: 18px 20px;
+          border-bottom: 1px solid var(--gray-light);
+        }
+
+        .attachment-modal-title {
+          color: var(--primary);
+          font-weight: 800;
+          overflow-wrap: anywhere;
+        }
+
+        .attachment-close {
+          border: 0;
+          background: #f1f5f9;
+          color: var(--primary);
+          border-radius: 10px;
+          width: 38px;
+          height: 38px;
+          cursor: pointer;
+          font-size: 1.2rem;
+          font-weight: 800;
+        }
+
+        .attachment-preview {
+          padding: 18px;
+          overflow: auto;
+          min-height: 320px;
+          background: #f8fafc;
+        }
+
+        .attachment-preview iframe,
+        .attachment-preview img {
+          width: 100%;
+          max-height: 65vh;
+          border: 0;
+          border-radius: 12px;
+          background: #fff;
+          object-fit: contain;
+        }
+
+        .attachment-preview iframe {
+          min-height: 62vh;
+        }
+
+        .attachment-fallback {
+          text-align: center;
+          padding: 50px 20px;
+          color: var(--gray);
+        }
+
+        .attachment-modal-actions {
+          padding: 16px 20px;
+          border-top: 1px solid var(--gray-light);
+          display: flex;
+          justify-content: flex-end;
+          gap: 10px;
+        }
+
+        @media (max-width: 1100px) {
+          .applicant-card,
+          .unlocked-card {
+            grid-template-columns: 76px 1fr;
+          }
+
+          .applicant-summary-grid,
+          .applicant-card-side,
+          .applicant-extra-details {
+            grid-column: 1 / -1;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .applicant-card,
+          .unlocked-card {
+            grid-template-columns: 64px 1fr;
+            gap: 12px;
+            padding: 14px;
+          }
+
+          .card-avatar,
+          .unlocked-avatar {
+            width: 60px;
+            height: 60px;
+          }
+
+          .applicant-summary-grid,
+          .applicant-extra-details.open {
+            grid-template-columns: 1fr;
+          }
+
+          .applicant-actions {
+            flex-direction: column;
+          }
+
+          .applicant-actions .btn,
+          .attachment-btn,
+          .details-toggle {
+            width: 100%;
+            justify-content: center;
+          }
+
+          .attachment-modal-actions {
+            flex-direction: column;
+          }
+        }
+
+        /* Final compact density pass for high-volume applicant review */
+        .header-section {
+          padding: 18px 0;
+          margin-bottom: 18px;
+        }
+
+        .header {
+          margin-bottom: 14px;
+          gap: 14px;
+        }
+
+        .header-info h1 {
+          font-size: 1.55rem;
+          margin-bottom: 6px;
+        }
+
+        .job-meta {
+          gap: 14px;
+          font-size: 0.85rem;
+        }
+
+        .header-section > .container {
+          display: grid;
+          grid-template-columns: minmax(280px, 0.9fr) minmax(360px, 1.15fr);
+          gap: 12px;
+          align-items: start;
+        }
+
+        .header {
+          grid-column: 1 / -1;
+        }
+
+        .filter-panel,
+        .search-container {
+          margin-bottom: 0;
+          padding: 0;
+        }
+
+        .filter-panel {
+          order: 1;
+        }
+
+        .search-container {
+          order: 2;
+          padding: 0;
+          background: transparent;
+          border: 0;
+          box-shadow: none;
+          backdrop-filter: none;
+        }
+
+        .filter-toggle {
+          padding: 12px 14px;
+          min-height: 48px;
+        }
+
+        .filter-content {
+          padding: 12px;
+        }
+
+        .filter-grid {
+          grid-template-columns: repeat(2, minmax(130px, 1fr));
+          gap: 10px;
+        }
+
+        .filter-group select {
+          height: 38px;
+          border-radius: 10px;
+          font-size: 0.84rem;
+        }
+
+        .filter-actions {
+          margin-top: 12px;
+        }
+
+        .search-input {
+          min-height: 48px;
+          padding-top: 12px;
+          padding-bottom: 12px;
+          border-radius: 14px;
+        }
+
+        .tabs {
+          margin-bottom: 16px;
+          border-radius: 16px;
+        }
+
+        .tab {
+          padding: 13px 16px;
+        }
+
+        .section-header {
+          margin-bottom: 12px;
+          gap: 10px;
+        }
+
+        .section-title {
+          font-size: 1.08rem;
+        }
+
+        .applicants-grid {
+          gap: 10px;
+          margin-bottom: 22px;
+        }
+
+        .applicant-card,
+        .unlocked-card {
+          grid-template-columns: minmax(220px, 0.34fr) minmax(420px, 1fr);
+          gap: 9px 12px;
+          padding: 10px 12px;
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
+          min-width: 0;
+          border-radius: 16px;
+          min-height: 0;
+          align-items: start;
+          box-shadow: 0 10px 24px rgba(17, 38, 85, 0.07);
+        }
+
+        .applicant-card:hover,
+        .unlocked-card:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 14px 28px rgba(17, 38, 85, 0.1);
+        }
+
+        .applicant-identity-block {
+          display: grid;
+          grid-template-columns: 52px minmax(0, 1fr);
+          gap: 10px;
+          align-items: start;
+          min-width: 0;
+        }
+
+        .card-avatar,
+        .unlocked-avatar {
+          width: 52px;
+          height: 52px;
+          border-radius: 12px;
+        }
+
+        .applicant-name,
+        .unlocked-name {
+          font-size: 1.06rem;
+          font-weight: 800;
+          line-height: 1.15;
+          margin-bottom: 4px;
+          white-space: normal;
+          overflow-wrap: anywhere;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .application-meta {
+          margin: 0;
+          gap: 5px;
+          display: flex;
+          flex-wrap: wrap;
+          min-width: 0;
+        }
+
+        .application-badge {
+          padding: 3px 7px;
+          font-size: 0.68rem;
+          line-height: 1.1;
+        }
+
+        .applicant-main-block {
+          display: grid;
+          gap: 5px;
+          min-width: 0;
+          align-self: start;
+        }
+
+        .compact-info-grid {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(118px, 1fr));
+          gap: 6px;
+          align-content: start;
+          min-width: 0;
+        }
+
+        .compact-info {
+          min-width: 0;
+          display: grid;
+          gap: 2px;
+          padding: 6px 8px;
+          border: 1px solid rgba(10, 42, 102, 0.08);
+          border-radius: 10px;
+          background: #f8fbff;
+          line-height: 1.16;
+        }
+
+        .compact-label {
+          color: var(--gray);
+          font-size: 0.68rem;
+          font-weight: 700;
+          opacity: 0.65;
+          white-space: normal;
+          overflow-wrap: anywhere;
+          word-break: normal;
+          text-transform: uppercase;
+          letter-spacing: 0.02em;
+        }
+
+        .compact-value {
+          min-width: 0;
+          color: var(--dark);
+          font-size: 0.82rem;
+          font-weight: 600;
+          line-height: 1.2;
+          overflow-wrap: anywhere;
+          word-break: break-word;
+        }
+
+        .compact-value a {
+          color: var(--primary);
+        }
+
+        .compact-info--skills {
+          border-color: rgba(248, 193, 46, 0.65);
+          background: rgba(248, 193, 46, 0.08);
+        }
+
+        .compact-info--skills .compact-value {
+          font-weight: 700;
+        }
+
+        .compact-skill-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          max-width: 100%;
+          overflow: hidden;
+        }
+
+        .compact-skill-chip {
+          display: inline-flex;
+          align-items: center;
+          max-width: 100%;
+          padding: 4px 8px;
+          border-radius: 999px;
+          background: rgba(248, 193, 46, 0.16);
+          border: 1px solid rgba(248, 193, 46, 0.38);
+          color: var(--primary);
+          font-size: 0.76rem;
+          font-weight: 700;
+          line-height: 1.15;
+        }
+
+        .applicant-card-side {
+          grid-column: 1 / -1;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: stretch;
+          gap: 7px;
+          align-content: start;
+          padding-top: 2px;
+          min-width: 0;
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .attachment-summary {
+          flex: 1 1 230px;
+          padding: 6px 7px;
+          border-radius: 10px;
+          font-size: 0.74rem;
+          gap: 5px;
+          min-height: 42px;
+          min-width: 0;
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
+        }
+
+        .attachment-summary span {
+          min-width: 0;
+          overflow-wrap: anywhere;
+          word-break: break-word;
+        }
+
+        .attachment-summary .btn {
+          padding: 6px 8px;
+          min-height: 30px;
+          font-size: 0.7rem;
+          border-radius: 9px;
+          box-shadow: none;
+        }
+
+        .attachment-tray {
+          order: 10;
+          flex: 1 0 100%;
+          padding: 7px;
+          border-radius: 10px;
+          gap: 6px;
+          min-width: 0;
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
+        }
+
+        .applicant-footer-actions .attachment-tray {
+          order: 1;
+          flex: 0 0 auto;
+          width: auto;
+          max-width: none;
+          min-width: 0;
+          align-self: center;
+          padding: 4px 0;
+          border: 0;
+          background: transparent;
+        }
+
+        .attachment-chip {
+          padding: 5px 8px;
+          font-size: 0.7rem;
+        }
+
+        .contact-lock-panel {
+          flex: 1.25 1 270px;
+          margin-top: 0;
+          padding: 7px 8px;
+          border-radius: 10px;
+          min-height: 42px;
+          min-width: 0;
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
+        }
+
+        .contact-lock-title {
+          margin-bottom: 3px;
+          font-size: 0.75rem;
+          gap: 5px;
+        }
+
+        .contact-lock-copy {
+          margin-top: 2px;
+          font-size: 0.72rem;
+          line-height: 1.25;
+          display: none;
+        }
+
+        .contact-info {
+          gap: 8px;
+          font-size: 0.74rem;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          flex-wrap: wrap;
+          min-width: 0;
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .contact-lock-panel.unlocked .contact-item {
+          font-weight: 700;
+        }
+
+        .unlock-contact-btn {
+          margin-top: 6px;
+          width: auto;
+          min-width: unset;
+          padding: 7px 9px;
+          min-height: 32px;
+          font-size: 0.72rem;
+          box-shadow: none;
+        }
+
+        .details-toggle {
+          order: 3;
+          flex: 0 0 auto;
+          width: auto;
+          min-width: unset;
+          padding: 6px 9px;
+          min-height: 34px;
+          font-size: 0.72rem;
+          border-radius: 8px;
+          margin-left: auto;
+        }
+
+        .applicant-button-row {
+          order: 3;
+          margin-left: auto;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          min-width: 0;
+          flex: 0 0 auto;
+        }
+
+        .applicant-footer-actions {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 10px;
+          margin-top: 8px;
+          flex-wrap: nowrap;
+          width: 100%;
+          min-width: 0;
+        }
+
+        .applicant-actions {
+          order: 2;
+          flex: 0 0 auto;
+          display: flex;
+          flex-wrap: nowrap;
+          gap: 6px;
+          margin-top: 0;
+          align-items: stretch;
+          min-width: 0;
+        }
+
+        .applicant-actions .btn {
+          flex: 1;
+          width: auto;
+          min-width: unset;
+          justify-content: center;
+          padding: 6px 8px;
+          min-height: 34px;
+          font-size: 0.72rem;
+          border-radius: 8px;
+          box-shadow: none;
+        }
+
+        .applicant-extra-details {
+          grid-column: 1 / -1;
+          padding: 8px 10px;
+          border-radius: 10px;
+          margin-top: 0;
+        }
+
+        .applicant-extra-details.open {
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+          gap: 6px;
+        }
+
+        .applicant-footer-actions .applicant-extra-details {
+          display: none;
+          margin: 0;
+          padding: 0;
+          border: 0;
+          background: transparent;
+          min-width: 0;
+          width: auto;
+          max-width: 100%;
+        }
+
+        .applicant-footer-actions .applicant-extra-details.open {
+          order: 2;
+          flex: 1 1 auto;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: stretch;
+          gap: 6px;
+        }
+
+        .applicant-footer-actions .applicant-extra-details.open .compact-info {
+          flex: 0 1 148px;
+          padding: 5px 7px;
+          border-radius: 9px;
+        }
+
+        .pagination {
+          margin: 22px 0 34px;
+        }
+
+        @media (max-width: 1180px) {
+          .applicant-card,
+          .unlocked-card {
+            grid-template-columns: minmax(210px, 0.36fr) minmax(320px, 1fr);
+          }
+
+          .compact-info-grid,
+          .applicant-extra-details.open {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+          }
+        }
+
+        @media (max-width: 900px) {
+          .header-section > .container {
+            grid-template-columns: 1fr;
+          }
+
+          .filter-panel,
+          .search-container {
+            order: initial;
+          }
+
+          .applicant-card,
+          .unlocked-card {
+            grid-template-columns: 1fr;
+            gap: 10px;
+          }
+
+          .applicant-identity-block {
+            grid-template-columns: 52px 1fr;
+          }
+
+          .applicant-extra-details {
+            grid-column: 1 / -1;
+          }
+
+          .applicant-footer-actions .applicant-extra-details.open {
+            order: 2;
+            flex: 1 0 100%;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 6px;
+            padding-top: 4px;
+          }
+
+          .applicant-card-side {
+            grid-template-columns: 1fr 1fr;
+            align-items: start;
+          }
+
+          .attachment-summary,
+          .contact-lock-panel,
+          .attachment-tray {
+            grid-column: 1 / -1;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .container,
+          .page-container,
+          .applicants-container,
+          .applicants-section,
+          .applicants-list,
+          .applicants-grid,
+          .applicant-card,
+          .unlocked-card,
+          .applicant-main-block,
+          .applicant-card-side,
+          .compact-info-grid,
+          .application-meta,
+          .attachment-summary,
+          .attachment-tray,
+          .contact-lock-panel,
+          .contact-info,
+          .applicant-actions,
+          .tabs,
+          .search-filter-row,
+          .search-box,
+          .filter-toggle {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            box-sizing: border-box !important;
+            overflow-x: hidden !important;
+          }
+
+          .container {
+            padding-left: 14px;
+            padding-right: 14px;
+          }
+
+          .header-section {
+            padding: 14px 0;
+            margin-bottom: 14px;
+          }
+
+          .header {
+            margin-bottom: 10px;
+          }
+
+          .job-meta {
+            gap: 8px;
+          }
+
+        .filter-toggle,
+        .search-input {
+          min-height: 44px;
+        }
+
+        .header-actions,
+        .filter-actions {
+          display: flex;
+          flex-direction: row;
+          gap: 10px;
+          width: 100%;
+        }
+
+        .header-actions .btn,
+        .filter-actions .btn,
+        .filter-actions button {
+          flex: 1 1 0;
+          min-width: 0;
+          width: auto;
+          justify-content: center;
+          white-space: nowrap;
+          padding: 12px 10px;
+          font-size: 0.82rem;
+        }
+
+        .tabs {
+          margin-bottom: 12px;
+        }
+
+          .tab {
+            padding: 11px 10px;
+            font-size: 0.86rem;
+          }
+
+          .section-header {
+            margin-bottom: 9px;
+          }
+
+          .applicant-card,
+          .unlocked-card {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 11px;
+            border-radius: 14px;
+            gap: 8px;
+            padding-bottom: 10px !important;
+            overflow: hidden;
+          }
+
+          .compact-info-grid,
+          .applicant-extra-details.open {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 5px 8px;
+          }
+
+          .applicant-footer-actions .applicant-extra-details.open {
+            order: 2;
+            flex: 1 0 100%;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 5px 8px;
+            padding-top: 2px;
+          }
+
+          .applicant-main-block {
+            width: 100%;
+          }
+
+          .applicant-card-side {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 6px;
+            padding-top: 0;
+          }
+
+          .attachment-summary,
+          .contact-lock-panel,
+          .contact-info {
+            min-height: 0 !important;
+            height: auto !important;
+            padding: 8px 10px !important;
+            margin: 0 !important;
+            align-items: center;
+          }
+
+          .attachment-summary,
+          .contact-info {
+            margin-bottom: 6px !important;
+          }
+
+          .attachment-summary {
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+            gap: 6px;
+            flex: 0 0 auto;
+          }
+
+          .attachment-tray,
+          .contact-lock-panel {
+            flex: 0 0 auto;
+          }
+
+          .applicant-footer-actions .attachment-tray {
+            order: 1;
+            flex: 1 0 100%;
+            width: 100%;
+            max-width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            margin: 0;
+            min-height: 0 !important;
+            height: auto !important;
+          }
+
+          .contact-info {
+            gap: 6px;
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+          .attachment-summary .btn,
+          .attachment-btn {
+            width: 100%;
+            max-width: 100%;
+            min-height: 38px !important;
+            height: 38px !important;
+            padding: 0 14px !important;
+            justify-content: center;
+          }
+
+          .applicant-footer-actions {
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 6px;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 6px;
+            min-width: 0;
+          }
+
+          .applicant-button-row {
+            order: 3;
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            gap: 6px !important;
+            width: 100% !important;
+            min-width: 0 !important;
+            margin-left: 0 !important;
+            align-items: stretch !important;
+          }
+
+          .applicant-footer-actions .attachment-tray {
+            display: none;
+          }
+
+          .applicant-footer-actions .attachment-tray.open {
+            display: flex !important;
+            align-items: flex-start;
+            align-content: flex-start;
+            justify-content: flex-start;
+          }
+
+          .attachment-chip {
+            width: auto !important;
+            max-width: 100%;
+            min-height: unset !important;
+            height: auto !important;
+            padding: 5px 9px !important;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            line-height: 1.1;
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-start;
+            white-space: nowrap;
+          }
+
+          .applicant-footer-actions .applicant-extra-details.open .compact-info {
+            padding: 6px 8px;
+            border-radius: 10px;
+            min-height: 0 !important;
+            height: auto !important;
+            gap: 2px;
+            border: 1px solid rgba(10, 42, 102, 0.08);
+            background: #f8fbff;
+            line-height: 1.16;
+            box-shadow: none;
+          }
+
+          .compact-skill-list {
+            gap: 5px;
+            max-width: 100%;
+          }
+
+          .compact-skill-chip {
+            max-width: 110px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .applicant-card,
+          .unlocked-card {
+            height: auto;
+          }
+
+          .applicant-actions {
+            order: 2;
+            display: contents !important;
+            gap: 0 !important;
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+            align-items: stretch;
+            justify-content: stretch;
+            flex: 0 0 auto !important;
+            width: auto !important;
+            min-width: 0 !important;
+            box-sizing: border-box !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            position: static !important;
+          }
+
+          .details-toggle,
+          .applicant-actions .btn,
+          .applicant-actions button {
+            width: 100% !important;
+            min-width: 0 !important;
+            height: 34px !important;
+            min-height: 34px !important;
+            padding: 0 6px !important;
+            flex: 1 1 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 11px !important;
+            font-weight: 700 !important;
+            border-radius: 9px !important;
+            white-space: nowrap !important;
+            box-sizing: border-box !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .applicant-name,
+          .unlocked-name {
+            font-size: 0.95rem;
+          }
+
+          .compact-value,
+          .application-meta,
+          .contact-info,
+          .attachment-summary,
+          .applicant-card,
+          .attachment-tray,
+          .contact-lock-copy,
+          .contact-item {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+          }
+        }
+
+        @media (max-width: 420px) {
+          .container {
+            padding-left: 12px;
+            padding-right: 12px;
+          }
+
+          .compact-info-grid,
+          .applicant-extra-details.open {
+            grid-template-columns: 1fr;
+          }
+
+          .applicant-footer-actions .applicant-extra-details.open {
+            grid-template-columns: 1fr;
+          }
+
+          .attachment-chip {
+            font-size: 0.66rem;
+            padding: 5px 8px !important;
+            min-height: unset !important;
+          }
+
+          .applicant-footer-actions {
+            width: 100%;
+            gap: 5px;
+          }
+
+          .details-toggle,
+          .applicant-actions .btn,
+          .applicant-actions button {
+            width: 100% !important;
+            min-width: 0 !important;
+            height: 30px !important;
+            min-height: 30px !important;
+            padding: 0 6px !important;
+            font-size: 0.66rem !important;
+            font-weight: 600 !important;
+            border-radius: 8px !important;
+          }
+
+          .applicant-button-row {
+            gap: 5px !important;
+          }
+        }
     </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
   </head>
+
   <body>
-    <!-- Dark Blue Header Section -->
     <div class="header-section">
       <div class="container">
-        <!-- Header -->
         <header class="header">
           <div class="logo-section">
             <div class="logo-container">
-              <img src="logo.png" alt="JobAssist Ghana" class="logo" />
+              <img
+                src="../assets/images/logo.png"
+                alt="JobAssist Ghana"
+                class="logo"
+              />
             </div>
+
             <div class="header-info">
-              <h1>
-                Applicants for <span id="jobTitle">Frontend Developer</span>
-              </h1>
+              <h1>Applicants for <span id="jobTitle">All Jobs</span></h1>
               <div class="job-meta">
                 <span class="post-date"
-                  >Posted on <span id="postDate">15 May 2023</span></span
+                  >Posted on <span id="postDate">-</span></span
                 >
+                <span class="job-id">
+                  Job ID: <span id="jobIdDisplay">-</span>
+                </span>
                 <span class="applicant-total"
-                  ><span id="applicantCount">12</span> Applicants</span
+                  ><span id="applicantCount">0</span> Applicants</span
                 >
               </div>
             </div>
           </div>
+
           <div class="header-actions">
             <a href="my-job-post.html" class="btn btn-back">
               <i class="fas fa-arrow-left"></i> Back
             </a>
-            <button class="btn btn-danger" id="closeJobBtn">
+            <button class="btn btn-danger" id="closeJobBtn" type="button">
               <i class="fas fa-times-circle"></i> Close Job
             </button>
           </div>
         </header>
 
-        <!-- Search -->
-        <div class="search-container">
-          <div class="search-box">
-            <i class="fas fa-search search-icon"></i>
-            <input
-              type="text"
-              class="search-input"
-              placeholder="Search by name, field, or region..."
-              id="searchInput"
-            />
+        <div class="search-filter-row">
+          <div class="filter-panel" id="filterPanel">
+            <div class="filter-toggle" id="filterToggle">
+              <div class="filter-toggle-left">
+                <i class="fas fa-filter"></i>
+                <span>Search & Filter Applicants</span>
+              </div>
+              <i class="fas fa-chevron-down" id="filterChevron"></i>
+            </div>
+
+            <div class="filter-content" id="filterContent">
+              <div class="filter-grid">
+                <div class="filter-group">
+                  <label for="filterRegion">Region</label>
+                  <select id="filterRegion">
+                    <option value="">All Regions</option>
+                  </select>
+                </div>
+
+                <div class="filter-group">
+                  <label for="filterFieldOfStudy">Field of Study</label>
+                  <select id="filterFieldOfStudy">
+                    <option value="">All Fields</option>
+                  </select>
+                </div>
+
+                <div class="filter-group">
+                  <label for="filterExperience">Experience Level</label>
+                  <select id="filterExperience">
+                    <option value="">All Levels</option>
+                  </select>
+                </div>
+
+                <div class="filter-group">
+                  <label for="filterIndustry">Preferred Industry</label>
+                  <select id="filterIndustry">
+                    <option value="">All Industries</option>
+                  </select>
+                </div>
+
+                <div class="filter-group">
+                  <label for="filterGender">Gender</label>
+                  <select id="filterGender">
+                    <option value="">All</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                </div>
+
+                <div class="filter-group">
+                  <label for="filterWorkOutsideRegion">Willing to Work Outside Region</label>
+                  <select id="filterWorkOutsideRegion">
+                    <option value="">All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+
+                <div class="filter-group">
+                  <label for="filterHighestEducationLevel">Highest Education</label>
+                  <select id="filterHighestEducationLevel">
+                    <option value="">All Levels</option>
+                  </select>
+                </div>
+
+                <div class="filter-group">
+                  <label for="filterDisability">Disability Status</label>
+                  <select id="filterDisability">
+                    <option value="">All</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="filter-actions">
+                <button class="btn btn-outline" id="resetApplicantFilters" type="button">
+                  <i class="fas fa-rotate-left"></i> Reset
+                </button>
+                <button class="btn btn-primary" id="applyApplicantFilters" type="button">
+                  <i class="fas fa-check"></i> Apply Filters
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="search-container">
+            <div class="search-box">
+              <i class="fas fa-search search-icon"></i>
+              <input
+                type="text"
+                class="search-input"
+                placeholder="Search by name, field, or region..."
+                id="searchInput"
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="container">
-      <!-- Checkout Summary -->
       <div class="checkout-summary" id="checkoutSummary">
         <div class="checkout-content">
           <div class="checkout-info">
@@ -1000,230 +2537,48 @@
               <span id="selectedCount">0</span> applicants selected
             </div>
             <div class="total-amount">
-              Total: <span id="totalAmount">₵0.00</span>
+              Total: <span id="totalAmount">GHS 0.00</span>
             </div>
           </div>
           <div class="checkout-actions">
-            <button class="btn btn-clear" id="clearSelectionBtn">
+            <button class="btn btn-clear" id="clearSelectionBtn" type="button">
               <i class="fas fa-times"></i> Clear
             </button>
-            <button class="btn btn-accent" id="proceedToPaymentBtn">
+            <button class="btn btn-accent" id="proceedToPaymentBtn" type="button">
               <i class="fas fa-unlock"></i> Unlock Selected
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Tabs -->
       <div class="tabs">
         <div class="tab active" data-tab="all-applicants">All Applicants</div>
-        <div class="tab" data-tab="unlocked-applicants">
-          Unlocked Applicants
-        </div>
+        <div class="tab" data-tab="unlocked-applicants">Unlocked Applicants</div>
       </div>
 
-      <!-- All Applicants Tab -->
       <div class="tab-content active" id="all-applicants-tab">
         <div class="section-header">
           <h2 class="section-title">All Applicants</h2>
           <div class="applicant-count">
-            <span id="applicantCountHeader">12</span> applicants
+            <span id="applicantCountHeader">0</span> applicants
           </div>
         </div>
 
-        <div class="applicants-grid" id="applicantsGrid">
-          <!-- Applicant cards will be loaded here -->
-        </div>
-
-        <div class="pagination" id="pagination">
-          <!-- Pagination will be loaded here -->
-        </div>
+        <div class="applicants-grid" id="applicantsGrid"></div>
+        <div class="pagination" id="pagination"></div>
       </div>
 
-      <!-- Unlocked Applicants Tab -->
       <div class="tab-content" id="unlocked-applicants-tab">
         <div class="section-header">
           <h2 class="section-title">Unlocked Applicants</h2>
-          <div class="applicant-count">
-            <span id="unlockedCount">3</span> unlocked
-          </div>
+          <div class="applicant-count"><span id="unlockedCount">0</span> unlocked</div>
         </div>
 
-        <div class="applicants-grid" id="unlockedApplicantsGrid">
-          <!-- Example unlocked cards (will be replaced by dynamic data) -->
-          <div class="unlocked-card">
-            <div class="unlocked-header">
-              <div class="unlocked-avatar">
-                <img
-                  src="https://i.pravatar.cc/150?img=1"
-                  alt="Kwame Appiah 1"
-                />
-              </div>
-              <div class="unlocked-name-section">
-                <div class="unlocked-name">Kwame Appiah 1</div>
-                <div class="contact-info">
-                  <div class="contact-item">
-                    <i class="fas fa-envelope"></i> applicant1@email.com
-                  </div>
-                  <div class="contact-item">
-                    <i class="fas fa-phone"></i> +233 51 1000001
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="unlocked-details">
-              <div class="detail-row">
-                <span class="detail-label">Gender:</span>
-                <span class="detail-value">Male</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Experience:</span>
-                <span class="detail-value">1-2 years</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Field of Study:</span>
-                <span class="detail-value">Computer Science</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Region:</span>
-                <span class="detail-value">Ashanti</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Willing to Relocate:</span>
-                <span class="detail-value">Yes</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Are you disabled?:</span>
-                <span class="detail-value">No</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Digital Address:</span>
-                <span class="detail-value">GA-101-2001</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Ghana Card:</span>
-                <span class="detail-value">GHA-1000000001-1</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="unlocked-card">
-            <div class="unlocked-header">
-              <div class="unlocked-avatar">
-                <img
-                  src="https://i.pravatar.cc/150?img=2"
-                  alt="Kwame Appiah 2"
-                />
-              </div>
-              <div class="unlocked-name-section">
-                <div class="unlocked-name">Kwame Appiah 2</div>
-                <div class="contact-info">
-                  <div class="contact-item">
-                    <i class="fas fa-envelope"></i> applicant2@email.com
-                  </div>
-                  <div class="contact-item">
-                    <i class="fas fa-phone"></i> +233 52 1000002
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="unlocked-details">
-              <div class="detail-row">
-                <span class="detail-label">Gender:</span>
-                <span class="detail-value">Female</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Experience:</span>
-                <span class="detail-value">3-4 years</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Field of Study:</span>
-                <span class="detail-value">Software Engineering</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Region:</span>
-                <span class="detail-value">Western</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Willing to Relocate:</span>
-                <span class="detail-value">Yes</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Are you disabled?:</span>
-                <span class="detail-value">No</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Digital Address:</span>
-                <span class="detail-value">GA-102-2002</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Ghana Card:</span>
-                <span class="detail-value">GHA-1000000002-2</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="unlocked-card">
-            <div class="unlocked-header">
-              <div class="unlocked-avatar">
-                <img
-                  src="https://i.pravatar.cc/150?img=3"
-                  alt="Kwame Appiah 3"
-                />
-              </div>
-              <div class="unlocked-name-section">
-                <div class="unlocked-name">Kwame Appiah 3</div>
-                <div class="contact-info">
-                  <div class="contact-item">
-                    <i class="fas fa-phone"></i> +233 53 1000003
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="unlocked-details">
-              <div class="detail-row">
-                <span class="detail-label">Gender:</span>
-                <span class="detail-value">Male</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Experience:</span>
-                <span class="detail-value">5+ years</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Field of Study:</span>
-                <span class="detail-value">Computer Engineering</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Region:</span>
-                <span class="detail-value">Central</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Willing to Relocate:</span>
-                <span class="detail-value">No</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Are you disabled?:</span>
-                <span class="detail-value">No</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Digital Address:</span>
-                <span class="detail-value">GA-103-2003</span>
-              </div>
-              <div class="detail-row">
-                <span class="detail-label">Ghana Card:</span>
-                <span class="detail-value">GHA-1000000003-3</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pagination" id="unlockedPagination">
-          <!-- Pagination will be loaded here -->
-        </div>
+        <div class="applicants-grid" id="unlockedApplicantsGrid"></div>
+        <div class="pagination" id="unlockedPagination"></div>
       </div>
     </div>
 
-    <!-- Modal for Closing Job -->
     <div class="modal-overlay" id="closeJobModal">
       <div class="modal-content">
         <div class="modal-header">
@@ -1244,47 +2599,996 @@
           </p>
         </div>
         <div class="modal-actions">
-          <button class="btn btn-secondary" id="cancelCloseBtn">Cancel</button>
-          <button class="btn btn-danger" id="confirmCloseBtn">
+          <button class="btn btn-secondary" id="cancelCloseBtn" type="button">
+            Cancel
+          </button>
+          <button class="btn btn-danger" id="confirmCloseBtn" type="button">
             Close Job Listing
           </button>
         </div>
       </div>
     </div>
 
+    <div class="modal-overlay" id="attachmentPreviewModal">
+      <div class="modal-content attachment-modal-content">
+        <div class="attachment-modal-header">
+          <div>
+            <div class="attachment-modal-title" id="attachmentModalTitle">Application document preview</div>
+            <div class="applicant-count" id="attachmentModalMeta">-</div>
+          </div>
+          <button class="attachment-close" id="closeAttachmentModal" type="button" aria-label="Close document preview">x</button>
+        </div>
+        <div class="attachment-preview" id="attachmentPreviewBody"></div>
+        <div class="attachment-modal-actions">
+          <a class="btn btn-accent" id="downloadAttachmentBtn" href="#" download>
+            <i class="fas fa-download"></i> Download
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="../assets/js/application-store.js"></script>
     <script>
-      // DOM Elements
+      const APPLICATIONS_KEY = "jobassist_applications";
+      function safeJSONParse(value) {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return null;
+        }
+      }
+
+      function getJobIdFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("jobId");
+      }
+
+      function getPaymentSuccessFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("payment_success");
+      }
+
+      function cleanUrlPreserveJobId(jobIdKey) {
+        const base = window.location.pathname;
+        const next = jobIdKey ? `${base}?jobId=${encodeURIComponent(jobIdKey)}` : base;
+        window.history.replaceState({}, document.title, next);
+      }
+
+      const UNLOCKED_APPLICATIONS_KEY = "jobassist_unlocked_applications";
+      const SIMPLE_UNLOCKED_APPLICATIONS_KEY = "unlockedApplicants";
+
+      function getSimpleUnlockedApplicants() {
+        const parsed = safeJSONParse(localStorage.getItem(SIMPLE_UNLOCKED_APPLICATIONS_KEY));
+        return Array.isArray(parsed) ? parsed.map(String) : [];
+      }
+
+      function saveSimpleUnlockedApplicants(ids) {
+        localStorage.setItem(
+          SIMPLE_UNLOCKED_APPLICATIONS_KEY,
+          JSON.stringify([...new Set((Array.isArray(ids) ? ids : []).map(String))])
+        );
+      }
+
+      function getCurrentEmployerProfile() {
+        return (
+          safeJSONParse(localStorage.getItem("jobassist_current_employer")) ||
+          safeJSONParse(localStorage.getItem("employer")) ||
+          {}
+        );
+      }
+
+      function getCurrentEmployerId() {
+        const employer = getCurrentEmployerProfile();
+        return String(
+          employer?.id ||
+            employer?.employerId ||
+            employer?.userId ||
+            employer?.email ||
+            "employer_guest"
+        ).trim();
+      }
+
+      function getUnlockedApplicationsStore() {
+        const parsed = safeJSONParse(localStorage.getItem(UNLOCKED_APPLICATIONS_KEY));
+        return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+      }
+
+      function saveUnlockedApplicationsStore(store) {
+        localStorage.setItem(UNLOCKED_APPLICATIONS_KEY, JSON.stringify(store || {}));
+      }
+
+      function getStoredUnlockedApplicantIds() {
+        const store = getUnlockedApplicationsStore();
+        const employerId = getCurrentEmployerId();
+        const unlocked = store[employerId];
+        return [...new Set([
+          ...(Array.isArray(unlocked) ? unlocked.map(String) : []),
+          ...getSimpleUnlockedApplicants(),
+        ])];
+      }
+
+      function saveUnlockedApplicantIds(ids) {
+        const normalizedIds = [...new Set((Array.isArray(ids) ? ids : []).map(String))];
+        const store = getUnlockedApplicationsStore();
+        const employerId = getCurrentEmployerId();
+        store[employerId] = normalizedIds;
+        saveUnlockedApplicationsStore(store);
+        saveSimpleUnlockedApplicants(normalizedIds);
+      }
+
+      function isApplicationUnlocked(applicationId) {
+        return getStoredUnlockedApplicantIds().includes(String(applicationId || ""));
+      }
+
+      function syncApplicantsForJob(jobId) {
+        if (!findJobById(jobId)) {
+          unlockedApplicants = [];
+          allApplicants = [];
+          return;
+        }
+
+        const applications = window.JobAssistApplications
+          ? window.JobAssistApplications.getApplicationsForJob(jobId)
+          : (() => {
+              const allApplications = safeJSONParse(localStorage.getItem(APPLICATIONS_KEY));
+              return Array.isArray(allApplications) ? allApplications : [];
+            })();
+        const jobKey = String(jobId || "");
+        const storedUnlockedIds = getStoredUnlockedApplicantIds();
+
+        const jobApplicants = applications.filter(
+          (app) => String(app.jobId || app.id || "") === jobKey
+        );
+
+        if (window.JobAssistApplications?.compareApplicationsByPriority) {
+          jobApplicants.sort(window.JobAssistApplications.compareApplicationsByPriority);
+        } else {
+          jobApplicants.sort((a, b) => {
+            const rank = (user) => {
+              if (user?.boostType === "enterprise") return 4;
+              if (user?.boostType === "professional") return 3;
+              if (user?.isPremium) return 2;
+              return 1;
+            };
+
+            const rankDifference = rank(b) - rank(a);
+            if (rankDifference !== 0) return rankDifference;
+            return new Date(b?.appliedAt || 0) - new Date(a?.appliedAt || 0);
+          });
+        }
+
+        unlockedApplicants = jobApplicants.filter((app) =>
+          storedUnlockedIds.includes(String(app.applicationId || app.id || ""))
+        );
+
+        allApplicants = jobApplicants;
+      }
+
+      function getStoredCandidates() {
+        const storedCandidates = safeJSONParse(localStorage.getItem("jobassist_candidates"));
+        return Array.isArray(storedCandidates) ? storedCandidates : [];
+      }
+
+      function getCandidateImageStore() {
+        const parsed = safeJSONParse(localStorage.getItem("jobassist_candidate_images"));
+        return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+      }
+
+      function createInitialAvatarDataUri(label) {
+        const initial = String(label || "A").trim().charAt(0).toUpperCase() || "A";
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="${initial}">
+            <rect width="160" height="160" rx="80" fill="#0a2a66"></rect>
+            <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" fill="#ffffff" font-family="Poppins, Arial, sans-serif" font-size="72" font-weight="700">${initial}</text>
+          </svg>
+        `;
+
+        return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg.replace(/\s+/g, " ").trim());
+      }
+
+      function getApplicantAvatar(applicant, candidateRecord) {
+        const imageStore = getCandidateImageStore();
+        const applicantId = String(applicant?.candidateId || "").trim();
+        const storedAvatar = applicantId ? imageStore[applicantId] || "" : "";
+        const directAvatar = storedAvatar || applicant?.passportImage || applicant?.avatar || "";
+
+        if (
+          directAvatar &&
+          !/default-avatar|placeholder|pravatar/i.test(String(directAvatar))
+        ) {
+          return directAvatar;
+        }
+
+        const displayName =
+          applicant?.name ||
+          applicant?.fullName ||
+          candidateRecord?.fullName ||
+          candidateRecord?.name ||
+          applicant?.email ||
+          "Applicant";
+
+        return createInitialAvatarDataUri(displayName);
+      }
+
+      function getEmployerJobs() {
+        const jobs = JSON.parse(localStorage.getItem("jobassist_employer_jobs") || "[]");
+        const allJobs = Array.isArray(jobs) ? jobs : [];
+        const employer = getCurrentEmployerProfile();
+        const employerId = String(
+          employer?.id || employer?.employerId || employer?.userId || ""
+        ).trim();
+        const employerCompany = String(
+          employer?.companyName || employer?.businessName || employer?.company || localStorage.getItem("companyName") || ""
+        ).replace(/\s+/g, " ").trim().toLowerCase();
+
+        return allJobs.filter((job) => {
+          const jobEmployerId = String(
+            job?.employerId || job?.ownerId || job?.employerUserId || ""
+          ).trim();
+          if (employerId && jobEmployerId && employerId === jobEmployerId) {
+            return true;
+          }
+
+          const jobCompany = String(
+            job?.companyName || job?.businessName || job?.company || ""
+          ).replace(/\s+/g, " ").trim().toLowerCase();
+          return Boolean(employerCompany && jobCompany && employerCompany === jobCompany);
+        });
+      }
+
+      function getApplicantCandidateRecord(applicant) {
+        const applicantId = String(applicant?.candidateId || applicant?.id || "").trim();
+        const applicantPhone = String(applicant?.phone || "").replace(/\D/g, "");
+        const applicantEmail = String(applicant?.email || "").trim().toLowerCase();
+
+        return getStoredCandidates().find((candidate) => {
+          const candidateId = String(candidate?.id || candidate?.candidateId || "").trim();
+          const candidatePhone = String(candidate?.phone || "").replace(/\D/g, "");
+          const candidateEmail = String(candidate?.email || "").trim().toLowerCase();
+
+          return (
+            Boolean(applicantId && candidateId && applicantId === candidateId) ||
+            Boolean(applicantPhone && candidatePhone && applicantPhone === candidatePhone) ||
+            Boolean(applicantEmail && candidateEmail && applicantEmail === candidateEmail)
+          );
+        }) || {};
+      }
+
+      function getApplicantFieldValue(applicant, candidate, keys, fallback = "Not provided") {
+        const keyList = Array.isArray(keys) ? keys : [keys];
+
+        for (const key of keyList) {
+          const value = applicant?.[key];
+          if (Array.isArray(value) && value.length) return value.join(", ");
+          if (typeof value === "string" && value.trim()) return value.trim();
+        }
+
+        for (const key of keyList) {
+          const value = candidate?.[key];
+          if (Array.isArray(value) && value.length) return value.join(", ");
+          if (typeof value === "string" && value.trim()) return value.trim();
+        }
+
+        return fallback;
+      }
+
+      function escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function getApplicantSkillsData(applicant, candidateRecord) {
+        const rawSkills = applicant?.skills || applicant?.skillSet || candidateRecord?.skills || candidateRecord?.skillSet || [];
+        const skills = Array.isArray(rawSkills)
+          ? rawSkills
+          : String(rawSkills || "")
+              .split(",");
+
+        const normalizedSkills = skills
+          .map((skill) => String(skill || "").trim())
+          .filter(Boolean)
+          .slice(0, 3);
+
+        return {
+          items: normalizedSkills,
+          fullText: normalizedSkills.length
+            ? normalizedSkills.join(", ")
+            : "Not provided",
+        };
+      }
+
+      function getApplicantRelocationValue(applicant, candidateRecord) {
+        const rawValue = getApplicantFieldValue(
+          applicant,
+          candidateRecord,
+          ["willingToRelocate", "workOutside", "willingToWorkOutsideRegion"],
+          ""
+        );
+
+        if (!rawValue) return "Not provided";
+
+        const normalized = String(rawValue).trim().toLowerCase();
+        if (["yes", "true", "y"].includes(normalized)) return "Yes";
+        if (["no", "false", "n"].includes(normalized)) return "No";
+        return rawValue;
+      }
+
+      function getApplicantCvPreview(documents) {
+        const documentCount = Array.isArray(documents) ? documents.length : 0;
+        return documentCount
+          ? `<span class="detail-value">${documentCount} file${documentCount === 1 ? "" : "s"} attached</span>`
+          : '<span class="detail-value">No documents attached</span>';
+      }
+
+      function getCandidateNotificationsStore() {
+        const parsed = safeJSONParse(localStorage.getItem("jobassist_candidate_notifications"));
+        return Array.isArray(parsed) ? parsed : [];
+      }
+
+      function saveCandidateNotificationsStore(notifications) {
+        localStorage.setItem(
+          "jobassist_candidate_notifications",
+          JSON.stringify(Array.isArray(notifications) ? notifications : [])
+        );
+      }
+
+      function createCandidateStatusNotification(application, status) {
+        if (!application || typeof application !== "object") return;
+
+        const candidateId = String(application.candidateId || "").trim();
+        const candidateEmail = String(application.email || "").trim().toLowerCase();
+        if (!candidateId && !candidateEmail) return;
+
+        const normalizedStatus = String(status || application.status || "").trim().toLowerCase();
+        const jobId = String(application.jobId || currentJobId || "").trim();
+        const applicationId = String(application.applicationId || application.id || "").trim();
+        const linkedJob = findJobById(jobId) || {};
+        const jobTitle =
+          application.title ||
+          application.jobTitle ||
+          linkedJob.jobTitle ||
+          linkedJob.title ||
+          "this job";
+        const statusKey = normalizedStatus === "accepted" ? "accepted" : "rejected";
+        const message =
+          statusKey === "accepted"
+            ? `Your application for ${jobTitle} has been accepted.`
+            : `Your application for ${jobTitle} was not selected.`;
+
+        const notifications = getCandidateNotificationsStore();
+        const notificationId = [
+          "application-status",
+          candidateId || candidateEmail,
+          applicationId || jobId,
+          statusKey,
+        ]
+          .join("-")
+          .replace(/[^a-zA-Z0-9_-]/g, "-");
+
+        const nextNotification = {
+          id: notificationId,
+          candidateId,
+          candidateEmail,
+          jobId,
+          applicationId,
+          type: "application-status",
+          status: statusKey,
+          title: "Application Update",
+          message,
+          createdAt: new Date().toISOString(),
+          read: false,
+        };
+
+        const nextNotifications = notifications.filter((notification) => {
+          const sameApplication =
+            String(notification?.type || "") === "application-status" &&
+            String(notification?.applicationId || "").trim() === applicationId &&
+            (candidateId
+              ? String(notification?.candidateId || "").trim() === candidateId
+              : String(notification?.candidateEmail || notification?.email || "").trim().toLowerCase() === candidateEmail);
+
+          return !sameApplication && String(notification?.id || "") !== notificationId;
+        });
+        nextNotifications.unshift(nextNotification);
+        saveCandidateNotificationsStore(nextNotifications);
+      }
+
+      function normalizeApplicantAttachments(value) {
+        if (window.JobAssistApplications?.normalizeApplicationDocuments) {
+          return window.JobAssistApplications.normalizeApplicationDocuments(value)
+            .map((attachment, index) => ({
+              id: String(attachment?.id || `att-${index + 1}`).trim(),
+              name: String(attachment?.name || `Document ${index + 1}`).trim(),
+              type: String(attachment?.type || "").trim(),
+              url: String(attachment?.dataUrl || attachment?.url || attachment?.href || "").trim(),
+              size: Number(attachment?.size || 0),
+            }))
+            .filter((attachment) => attachment.name && attachment.url)
+            .slice(0, 3);
+        }
+
+        return (Array.isArray(value) ? value : [])
+          .map((attachment, index) => ({
+            id: String(attachment?.id || `att-${index + 1}`).trim(),
+            name: String(attachment?.name || `Document ${index + 1}`).trim(),
+            type: String(attachment?.type || "").trim(),
+            url: String(attachment?.dataUrl || attachment?.url || attachment?.href || "").trim(),
+            size: Number(attachment?.size || 0),
+          }))
+          .filter((attachment) => attachment.name && attachment.url)
+          .slice(0, 3);
+      }
+
+      function getApplicantAttachments(applicant) {
+        return normalizeApplicantAttachments(
+          applicant?.applicationDocuments || applicant?.documents || applicant?.attachments
+        );
+      }
+
+      function formatFileSize(size) {
+        const bytes = Number(size || 0);
+        if (!bytes) return "";
+        if (bytes < 1024) return `${bytes} B`;
+        if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
+        return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+      }
+
+      function getAttachmentIcon(type, name) {
+        const descriptor = `${type || ""} ${name || ""}`.toLowerCase();
+        if (descriptor.includes("pdf")) return "fa-file-pdf";
+        if (descriptor.includes("word") || descriptor.includes(".doc")) return "fa-file-word";
+        if (descriptor.includes("image") || /\.(png|jpe?g)$/i.test(name || "")) return "fa-file-image";
+        return "fa-file";
+      }
+
+      function getAttachmentDisplayName(file, counters) {
+        const name = String(file?.name || file?.filename || "").toLowerCase();
+        const mimeType = String(file?.type || "").toLowerCase();
+        let type = "file";
+
+        if (name.endsWith(".pdf") || mimeType === "application/pdf") {
+          type = "pdf";
+        } else if (
+          name.endsWith(".docx") ||
+          mimeType.includes("wordprocessingml")
+        ) {
+          type = "docx";
+        } else if (
+          name.endsWith(".doc") ||
+          mimeType.includes("msword")
+        ) {
+          type = "doc";
+        } else if (name.endsWith(".png") || mimeType === "image/png") {
+          type = "png";
+        } else if (
+          name.endsWith(".jpg") ||
+          name.endsWith(".jpeg") ||
+          mimeType === "image/jpeg"
+        ) {
+          type = "jpg";
+        }
+
+        counters[type] = (counters[type] || 0) + 1;
+        return `${type}${counters[type]}`;
+      }
+
+      function getAttachmentTypeLabel(file) {
+        const fileName = String(file?.name || "").toLowerCase();
+        const mimeType = String(file?.type || "").toLowerCase();
+
+        if (fileName.endsWith(".pdf") || mimeType === "application/pdf") return "PDF";
+        if (
+          fileName.endsWith(".doc") ||
+          fileName.endsWith(".docx") ||
+          mimeType.includes("wordprocessingml") ||
+          mimeType.includes("msword")
+        ) {
+          return fileName.endsWith(".docx") ? "DOCX" : "DOC";
+        }
+        if (fileName.endsWith(".png") || mimeType === "image/png") return "PNG";
+        if (
+          fileName.endsWith(".jpg") ||
+          fileName.endsWith(".jpeg") ||
+          mimeType === "image/jpeg"
+        ) {
+          return "JPG";
+        }
+
+        const extension = fileName.includes(".") ? fileName.split(".").pop() : "";
+        return extension ? extension.toUpperCase() : "FILE";
+      }
+
+      function createAttachmentSummary(applicant, attachments, isUnlocked) {
+        const applicationId = escapeHtml(applicant.applicationId || applicant.id);
+        const attachmentCount = attachments.length;
+        const countLabel = `${attachmentCount} attachment${attachmentCount === 1 ? "" : "s"}`;
+        const attachmentButtonLabel = isUnlocked ? "View Attachments" : "View Attachments";
+
+        return `
+          <div class="attachment-summary">
+            <div class="attachment-summary-copy">
+              <div class="attachment-summary-title"><i class="fas fa-paperclip"></i> Application Documents</div>
+              <div class="attachment-summary-help">
+                ${
+                  isUnlocked
+                    ? `Documents submitted for this specific job application. ${countLabel}.`
+                    : "Unlock this applicant to view submitted documents."
+                }
+              </div>
+            </div>
+            <button
+              class="btn btn-secondary attachment-btn ${isUnlocked ? "" : "locked"}"
+              data-application-id="${applicationId}"
+              type="button"
+              ${isUnlocked && attachmentCount ? "" : "disabled"}
+              title="${isUnlocked ? "View application documents" : "Unlock applicant to view submitted documents"}"
+            >
+              ${isUnlocked ? attachmentButtonLabel : '<i class="fas fa-lock"></i> View Attachments'}
+            </button>
+          </div>
+        `;
+      }
+
+      function createAttachmentTray(applicant, attachments) {
+        const applicationId = escapeHtml(applicant.applicationId || applicant.id);
+        const attachmentCount = attachments.length;
+        const documentRows = attachments
+          .map((attachment) => `
+            <div class="attachment-item">
+              <div class="attachment-item-copy">
+                <div class="attachment-item-name">${escapeHtml(attachment.name || "Document")}</div>
+                <div class="attachment-item-meta">
+                  ${escapeHtml(getAttachmentTypeLabel(attachment))}
+                  ${attachment.size ? ` · ${escapeHtml(formatFileSize(attachment.size))}` : ""}
+                </div>
+              </div>
+              <div class="attachment-item-actions">
+                <a
+                  class="btn btn-secondary attachment-link"
+                  href="${escapeHtml(attachment.url)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fas fa-eye"></i> View
+                </a>
+                <a
+                  class="btn btn-accent attachment-link"
+                  href="${escapeHtml(attachment.url)}"
+                  download="${escapeHtml(attachment.name || "document")}"
+                >
+                  <i class="fas fa-download"></i> Download
+                </a>
+              </div>
+            </div>
+          `)
+          .join("");
+
+        return `
+          <div class="attachment-tray" data-attachment-tray="${applicationId}">
+            ${
+              attachmentCount
+                ? `<div class="attachment-list">${documentRows}</div>`
+                : '<div class="attachment-empty">No documents attached to this application.</div>'
+            }
+          </div>
+        `;
+      }
+
+      function createAttachmentTray(applicant, attachments) {
+        const applicationId = escapeHtml(applicant.applicationId || applicant.id);
+        const attachmentCount = attachments.length;
+        const attachmentTypeCounters = {};
+        const chips = attachments
+          .map((attachment, index) => `
+            <button
+              class="attachment-chip"
+              type="button"
+              data-application-id="${applicationId}"
+              data-attachment-index="${index}"
+              title="${escapeHtml(attachment.name || "Document")}"
+              aria-label="${escapeHtml(attachment.name || "Document")}"
+            >
+              ${escapeHtml(getAttachmentDisplayName(attachment, attachmentTypeCounters))}
+            </button>
+          `)
+          .join("");
+
+        return `
+          <div class="attachment-tray" data-attachment-tray="${applicationId}">
+            ${
+              attachmentCount
+                ? chips
+                : '<div class="attachment-empty">No documents attached to this application.</div>'
+            }
+          </div>
+        `;
+      }
+
+      function createSummaryItem(label, value) {
+        const labelText = String(label || "").trim().toLowerCase();
+        const cardClass = labelText === "skills" ? "compact-info compact-info--skills" : "compact-info";
+        return `
+          <div class="${cardClass}">
+            <span class="compact-label">${escapeHtml(label)}:</span>
+            <span class="compact-value">${value || "Not provided"}</span>
+          </div>
+        `;
+      }
+
+      function createSkillsSummaryItem(skillsData) {
+        const safeSkills = Array.isArray(skillsData?.items) ? skillsData.items : [];
+        const chips = safeSkills.length
+          ? safeSkills
+              .map((skill) => {
+                const safeSkill = escapeHtml(skill);
+                return `<span class="compact-skill-chip" title="${safeSkill}">${safeSkill}</span>`;
+              })
+              .join("")
+          : '<span class="compact-value">Not provided</span>';
+
+        return `
+          <div class="compact-info compact-info--skills">
+            <span class="compact-label">Skills:</span>
+            <span class="compact-value compact-skill-list">${chips}</span>
+          </div>
+        `;
+      }
+
+      function createApplicantCardMarkup(applicant, candidateRecord, isUnlocked) {
+        const status = getApplicantStatusLabel(applicant);
+        const preferredIndustry = escapeHtml(getApplicantFieldValue(applicant, candidateRecord, ["preferredIndustry", "industry", "preferredField"]));
+        const courseProgramme = escapeHtml(getApplicantFieldValue(applicant, candidateRecord, ["courseProgramme", "course", "programme", "program", "fieldOfStudy"]));
+        const skillsData = getApplicantSkillsData(applicant, candidateRecord);
+        const experience = escapeHtml(getApplicantFieldValue(applicant, candidateRecord, ["experience", "experienceLevel", "workExperience"]));
+        const highestEducation = escapeHtml(
+          String(
+            applicant?.highestEducationLevel ||
+            candidateRecord?.highestEducationLevel ||
+            applicant?.educationLevel ||
+            candidateRecord?.educationLevel ||
+            ""
+          ).trim() || "Not provided"
+        );
+        const relocation = escapeHtml(getApplicantRelocationValue(applicant, candidateRecord));
+        const region = escapeHtml(applicant.region || candidateRecord.region || "Not provided");
+        const attachments = getApplicantAttachments(applicant);
+        const cvPreview = getApplicantCvPreview(attachments);
+        const avatarSrc = getApplicantAvatar(applicant, candidateRecord);
+        const displayName = applicant.name || applicant.fullName || applicant.title || "Applicant";
+        const applicationId = applicant.applicationId || applicant.id;
+
+        return `
+          <div class="applicant-identity-block">
+            <div class="${isUnlocked ? "unlocked-avatar" : "card-avatar"}">
+              <img src="${escapeHtml(avatarSrc)}" alt="${escapeHtml(displayName)}">
+            </div>
+            <div class="${isUnlocked ? "unlocked-name-section" : "card-name"}">
+              <div class="${isUnlocked ? "unlocked-name" : "applicant-name"}">${escapeHtml(displayName)}</div>
+              <div class="application-meta">
+                <span class="application-badge">${escapeHtml(applicationId)}</span>
+                <span class="application-badge ${status.className}">${escapeHtml(status.label)}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="applicant-main-block">
+            <div class="compact-info-grid">
+              ${createSummaryItem("Region", region)}
+              ${createSummaryItem("Willing to work outside region", relocation)}
+              ${createSummaryItem("Highest Education", highestEducation)}
+              ${createSummaryItem("Course", courseProgramme)}
+              ${createSkillsSummaryItem(skillsData)}
+              ${createSummaryItem("Experience", experience)}
+              ${createSummaryItem("Documents", cvPreview)}
+            </div>
+          </div>
+
+          <div class="applicant-card-side">
+            ${createAttachmentSummary(applicant, attachments, isUnlocked)}
+            ${createContactPanel(applicant, candidateRecord, isUnlocked)}
+            <div class="applicant-footer-actions">
+              ${createAttachmentTray(applicant, attachments)}
+              <div class="applicant-extra-details">
+                ${createSummaryItem("Digital Address", escapeHtml(applicant.digitalAddress || candidateRecord.digitalAddress || "Not provided"))}
+                ${createSummaryItem("Ghana Card", escapeHtml(applicant.ghanaCardNumber || candidateRecord.ghanaCardNumber || "Not provided"))}
+                ${createSummaryItem("Gender", escapeHtml(applicant.gender || candidateRecord.gender || "Not provided"))}
+                ${createSummaryItem("Disability Status", escapeHtml(applicant.disabilityStatus || candidateRecord.disabilityStatus || "Not provided"))}
+                ${createSummaryItem("Full Skills", escapeHtml(skillsData.fullText))}
+                ${createSummaryItem("Industry", preferredIndustry)}
+              </div>
+              <div class="applicant-button-row">
+                <button class="btn btn-secondary details-toggle" type="button">Show details</button>
+                <div class="applicant-actions">
+                  <button class="btn btn-secondary status-action" data-action="accept" data-id="${escapeHtml(applicationId)}" type="button">Accept</button>
+                  <button class="btn btn-danger status-action" data-action="reject" data-id="${escapeHtml(applicationId)}" type="button">Reject</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      function wireApplicantCard(card, applicant) {
+        const unlockButton = card.querySelector(".unlock-contact-btn");
+        if (unlockButton) {
+          unlockButton.addEventListener("click", function (event) {
+            event.stopPropagation();
+            startUnlockPayment(applicant, this);
+          });
+        }
+
+        card.querySelector(".details-toggle")?.addEventListener("click", function () {
+          const details = card.querySelector(".applicant-extra-details");
+          const isOpen = details?.classList.toggle("open");
+          this.textContent = isOpen ? "Hide details" : "Show details";
+        });
+
+        card.querySelectorAll(".attachment-chip").forEach((button) => {
+          button.addEventListener("click", function () {
+            const attachments = getApplicantAttachments(applicant);
+            const attachment = attachments[Number(this.dataset.attachmentIndex)];
+            if (attachment) openAttachmentPreview(attachment);
+          });
+        });
+
+        card.querySelectorAll(".status-action").forEach((button) => {
+          button.addEventListener("click", function (event) {
+            event.stopPropagation();
+            const nextStatus = this.getAttribute("data-action") === "accept" ? "Accepted" : "Rejected";
+            const feedbackMessage =
+              nextStatus === "Accepted"
+                ? "Accepted. Candidate has been notified."
+                : "Rejected. Candidate has been notified.";
+
+            console.log(nextStatus === "Accepted" ? "ACCEPT CLICK TOAST FIRED" : "REJECT CLICK TOAST FIRED");
+            forceStatusToast(feedbackMessage);
+            updateApplicantStatus(
+              this.getAttribute("data-id"),
+              nextStatus
+            );
+          });
+        });
+      }
+
+      function openAttachmentPreview(attachment) {
+        const modal = document.getElementById("attachmentPreviewModal");
+        const title = document.getElementById("attachmentModalTitle");
+        const meta = document.getElementById("attachmentModalMeta");
+        const body = document.getElementById("attachmentPreviewBody");
+        const download = document.getElementById("downloadAttachmentBtn");
+        if (!modal || !title || !meta || !body || !download) return;
+
+        title.textContent = attachment.name;
+        meta.textContent = [attachment.type || "Unknown type", formatFileSize(attachment.size)].filter(Boolean).join(" - ");
+        download.href = attachment.url;
+        download.download = attachment.name;
+
+        const isImage = /^image\//i.test(attachment.type) || /\.(png|jpe?g)$/i.test(attachment.name);
+        const isPdf = /pdf/i.test(attachment.type) || /\.pdf$/i.test(attachment.name);
+
+        if (isImage) {
+          body.innerHTML = `<img src="${escapeHtml(attachment.url)}" alt="${escapeHtml(attachment.name)}">`;
+        } else if (isPdf) {
+          body.innerHTML = `<iframe src="${escapeHtml(attachment.url)}" title="${escapeHtml(attachment.name)}"></iframe>`;
+        } else {
+          body.innerHTML = `
+            <div class="attachment-fallback">
+              <i class="fas ${getAttachmentIcon(attachment.type, attachment.name)}" style="font-size: 3rem; color: var(--primary); margin-bottom: 14px;"></i>
+              <h3>Preview not available for this file type</h3>
+              <p>Download the file to review it on your device.</p>
+            </div>
+          `;
+        }
+
+        modal.classList.add("active");
+      }
+
+      function closeAttachmentPreview() {
+        document.getElementById("attachmentPreviewModal")?.classList.remove("active");
+      }
+
+      function createContactPanel(applicant, candidateRecord, isUnlocked) {
+        const contactEmail = String(
+          applicant?.email ||
+          candidateRecord?.email ||
+          ""
+        ).trim();
+        const contactPhone = String(
+          applicant?.phone ||
+          candidateRecord?.phone ||
+          ""
+        ).trim();
+
+        if (isUnlocked) {
+          const contactRows = [];
+          if (contactEmail) {
+            contactRows.push(`<div class="contact-item"><i class="fas fa-envelope"></i> ${escapeHtml(contactEmail)}</div>`);
+          }
+          if (contactPhone) {
+            contactRows.push(`<div class="contact-item"><i class="fas fa-phone"></i> ${escapeHtml(contactPhone)}</div>`);
+          }
+          if (!contactRows.length) {
+            contactRows.push(`<div class="contact-item"><i class="fas fa-info-circle"></i> No contact info provided</div>`);
+          }
+
+          return `
+            <div class="contact-lock-panel unlocked">
+              <div class="contact-lock-title"><i class="fas fa-unlock-alt"></i> Contact details unlocked</div>
+              <div class="contact-info">${contactRows.join("")}</div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="contact-lock-panel locked">
+            <div class="contact-lock-title"><i class="fas fa-lock"></i> Contact Locked</div>
+            <div class="contact-lock-copy">Pay GHS 100 to unlock this applicant's contact details.</div>
+            <button class="btn btn-accent unlock-contact-btn" data-id="${applicant.applicationId || applicant.id}" type="button">
+              <i class="fas fa-unlock"></i> Unlock Applicant - GHS 100
+            </button>
+          </div>
+        `;
+      }
+
+      function startUnlockPayment(applicant, triggerButton) {
+        if (startUnlockPayment._isRedirecting) return;
+
+        const applicationId = String(applicant?.applicationId || applicant?.id || "").trim();
+        if (!applicationId) {
+          showToast("Unable to start unlock for this applicant.");
+          return;
+        }
+
+        const paymentData = {
+          serviceType: "unlock_applicants",
+          serviceName: "unlock_applicants",
+          type: "unlock",
+          employerId: getCurrentEmployerId(),
+          applicationId: applicationId,
+          selectedApplicants: [applicationId],
+          selectedCount: 1,
+          applicantCount: 1,
+          applicantPrice: APPLICANT_PRICE,
+          amount: Number(APPLICANT_PRICE),
+          displayAmount: `GHS ${Number(APPLICANT_PRICE).toFixed(2)}`,
+          jobId: String(currentJobId),
+          jobTitle: jobTitleElement.textContent,
+          timestamp: new Date().toISOString(),
+        };
+
+        try {
+          startUnlockPayment._isRedirecting = true;
+          if (triggerButton) {
+            triggerButton.dataset.loading = "true";
+            triggerButton.disabled = true;
+            triggerButton.innerHTML = 'Processing...';
+          }
+          showToast("Redirecting to secure payment...");
+          const pendingAction =
+            window.JobAssistPaymentGate?.registerPendingPaymentAction({
+              role: "employer",
+              flow: "employer",
+              serviceType: "unlock_applicants",
+              serviceName: "Unlock Applicants",
+              referenceCode: paymentData.referenceCode || "",
+              employerId: paymentData.employerId,
+              jobId: paymentData.jobId,
+              applicationId: paymentData.applicationId,
+              amount: paymentData.amount,
+              displayAmount: paymentData.displayAmount,
+              payload: paymentData,
+            }) || null;
+
+          if (pendingAction?.actionId) {
+            paymentData.actionId = pendingAction.actionId;
+          }
+
+          localStorage.setItem("unlockApplicantId", applicationId);
+          localStorage.setItem("paymentType", "unlock_applicant");
+          localStorage.setItem("amount", String(APPLICANT_PRICE));
+          sessionStorage.setItem("jobassist_payment_data", JSON.stringify(paymentData));
+          sessionStorage.setItem("paymentData", JSON.stringify(paymentData));
+
+          window.location.href = `employer-payment.html?jobId=${encodeURIComponent(
+            currentJobId
+          )}&applicationId=${encodeURIComponent(applicationId)}&type=unlock&amount=${encodeURIComponent(
+            APPLICANT_PRICE
+          )}&count=1&service=unlock_applicants${pendingAction?.actionId ? `&actionId=${encodeURIComponent(pendingAction.actionId)}` : ""}`;
+        } catch (error) {
+          startUnlockPayment._isRedirecting = false;
+          if (triggerButton) {
+            delete triggerButton.dataset.loading;
+            triggerButton.disabled = false;
+            triggerButton.innerHTML = '<i class="fas fa-unlock"></i> Unlock Applicant - GHS 100';
+          }
+          console.error("Unlock payment initialization failed.", error);
+          showToast("Payment initialization failed. Please try again.");
+        }
+      }
+
+      function getApplicantStatusLabel(applicant) {
+        const normalizedStatus = String(applicant?.status || "").toLowerCase();
+        if (normalizedStatus === "accepted") {
+          return { label: "Accepted", className: "status-accepted" };
+        }
+
+        if (normalizedStatus === "rejected") {
+          return { label: "Rejected", className: "status-rejected" };
+        }
+
+        return { label: "In Review", className: "" };
+      }
+
+      function updateApplicantStatus(applicationId, status) {
+        const feedbackMessage =
+          status === "Accepted"
+            ? "Accepted. Candidate has been notified."
+            : "Rejected. Candidate has been notified.";
+
+        if (!window.JobAssistApplications) {
+          showToast("Application store unavailable. Please refresh the page.");
+          return;
+        }
+
+        const updatedApplication = window.JobAssistApplications.setApplicationStatus(applicationId, status);
+        if (!updatedApplication) {
+          showToast(feedbackMessage, "success");
+          return;
+        }
+
+        createCandidateStatusNotification(updatedApplication, status);
+        syncApplicantsForJob(currentJobId);
+        applyApplicantFiltersToList();
+        renderApplicants();
+        renderUnlockedApplicants();
+        setupPagination();
+        setupUnlockedPagination();
+      }
+
+      function findJobById(jobId) {
+        return getEmployerJobs().find(
+          (job) => String(job.jobId || job.id) === String(jobId)
+) || null;
+      }
+
       const tabs = document.querySelectorAll(".tab");
       const tabContents = document.querySelectorAll(".tab-content");
+
       const checkoutSummary = document.getElementById("checkoutSummary");
-      const selectedCount = document.getElementById("selectedCount");
-      const totalAmount = document.getElementById("totalAmount");
+      const selectedCountEl = document.getElementById("selectedCount");
+      const totalAmountEl = document.getElementById("totalAmount");
       const clearSelectionBtn = document.getElementById("clearSelectionBtn");
-      const proceedToPaymentBtn = document.getElementById(
-        "proceedToPaymentBtn",
-      );
+      const proceedToPaymentBtn = document.getElementById("proceedToPaymentBtn");
+
       const applicantsGrid = document.getElementById("applicantsGrid");
-      const unlockedApplicantsGrid = document.getElementById(
-        "unlockedApplicantsGrid",
-      );
+      const unlockedApplicantsGrid = document.getElementById("unlockedApplicantsGrid");
+
       const pagination = document.getElementById("pagination");
       const unlockedPagination = document.getElementById("unlockedPagination");
+
       const jobTitleElement = document.getElementById("jobTitle");
-      const postDate = document.getElementById("postDate");
-      const applicantCount = document.getElementById("applicantCount");
-      const applicantCountHeader = document.getElementById(
-        "applicantCountHeader",
-      );
-      const unlockedCount = document.getElementById("unlockedCount");
+      const postDateEl = document.getElementById("postDate");
+      const applicantCountEl = document.getElementById("applicantCount");
+      const jobIdDisplay = document.getElementById("jobIdDisplay");
+      const applicantCountHeaderEl = document.getElementById("applicantCountHeader");
+      const unlockedCountEl = document.getElementById("unlockedCount");
+
       const searchInput = document.getElementById("searchInput");
+
       const closeJobBtn = document.getElementById("closeJobBtn");
       const closeJobModal = document.getElementById("closeJobModal");
       const cancelCloseBtn = document.getElementById("cancelCloseBtn");
       const confirmCloseBtn = document.getElementById("confirmCloseBtn");
+      const attachmentPreviewModal = document.getElementById("attachmentPreviewModal");
+      const closeAttachmentModal = document.getElementById("closeAttachmentModal");
 
-      // Constants - UPDATED PRICE TO 50 CEDIS
-      const APPLICANT_PRICE = 50;
+      const APPLICANT_PRICE = 100;
       const APPLICANTS_PER_PAGE = 12;
+
       let allApplicants = [];
       let unlockedApplicants = [];
       let filteredApplicants = [];
@@ -1294,8 +3598,29 @@
       let currentUnlockedPage = 1;
       let currentJobId = 1;
 
-      // Generate sample data
-      function generateApplicants(count) {
+      function setFilterPanelOpen(isOpen) {
+        if (!filterPanel) return;
+        filterPanel.classList.toggle("is-open", Boolean(isOpen));
+        if (filterToggle) {
+          filterToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        }
+        if (filterContent) {
+          filterContent.setAttribute("aria-hidden", isOpen ? "false" : "true");
+        }
+        if (filterChevron) {
+          filterChevron.setAttribute("aria-hidden", "true");
+        }
+      }
+
+      function toggleFilterPanel(forceState) {
+        const nextState =
+          typeof forceState === "boolean"
+            ? forceState
+            : !filterPanel?.classList.contains("is-open");
+        setFilterPanelOpen(nextState);
+      }
+
+      function generateApplicantsForJob(jobId, count) {
         const regions = [
           "Greater Accra",
           "Ashanti",
@@ -1307,32 +3632,71 @@
           "Upper East",
           "Upper West",
         ];
-        const fields = [
-          "Computer Science",
-          "Software Engineering",
-          "Information Technology",
-          "Computer Engineering",
-          "Web Development",
-          "UX/UI Design",
-        ];
+
+        const jobSpecificFields = {
+          1: [
+            "Computer Science",
+            "Software Engineering",
+            "Information Technology",
+            "Computer Engineering",
+            "Web Development",
+            "UX/UI Design",
+          ],
+          2: [
+            "Marketing",
+            "Digital Marketing",
+            "Business Administration",
+            "Communications",
+            "Brand Strategy",
+            "Public Relations",
+          ],
+          3: [
+            "Information Technology",
+            "Network Engineering",
+            "Computer Science",
+            "Cyber Security",
+            "Systems Administration",
+            "Technical Support",
+          ],
+        };
+
+        const fields =
+          jobSpecificFields[jobId] || [
+            "General Studies",
+            "Business",
+            "Administration",
+            "Technology",
+            "Communications",
+            "Management",
+          ];
+
         const experienceLevels = ["1-2 years", "3-4 years", "5+ years"];
+        const namePrefixes = ["Kwame", "Ama", "Kojo", "Akosua", "Yaw", "Abena"];
+        const surnames = ["Appiah", "Mensah", "Owusu", "Asare", "Boateng", "Frimpong"];
 
         const applicants = [];
+        const numericJobId = Number(jobId) || 1;
+        const baseOffset = numericJobId * 1000;
 
         for (let i = 1; i <= count; i++) {
+          const applicantId = baseOffset + i;
           const hasEmail = i % 3 !== 0;
           const hasPhone = i % 5 !== 0;
           const hasDigitalAddress = i % 4 !== 0;
 
+          const firstName = namePrefixes[i % namePrefixes.length];
+          const surname = surnames[i % surnames.length];
+          const fullName = `${firstName} ${surname}`;
+
           applicants.push({
-            id: i,
-            name: `Applicant ${i}`,
-            fullName: `Kwame Appiah ${i}`,
-            email: hasEmail ? `applicant${i}@email.com` : "",
-            phone: hasPhone ? `+233 ${50 + (i % 50)} ${1000000 + i}` : "",
-            avatar: `https://i.pravatar.cc/150?img=${(i % 70) + 1}`,
+            id: applicantId,
+            name: `${fullName}`,
+            fullName: `${fullName}`,
+            email: hasEmail ? `applicant${applicantId}@email.com` : "",
+            phone: hasPhone ? `+233 ${50 + (i % 10)} ${1000000 + i}` : "",
+            avatar: `https://i.pravatar.cc/150?img=${((applicantId % 70) || 1)}`,
             gender: i % 2 === 0 ? "Female" : "Male",
-            ghanaCardNumber: `GHA-${1000000000 + i}-${i % 10}`,
+            ghanaCardNumber: `GHA-${1000000000 + applicantId}-${i % 10}`,
             digitalAddress: hasDigitalAddress
               ? `GA-${100 + (i % 900)}-${2000 + i}`
               : "Not provided",
@@ -1341,135 +3705,209 @@
             fieldOfStudy: fields[i % fields.length],
             experienceLevel: experienceLevels[i % experienceLevels.length],
             disabilityStatus: i % 10 === 0 ? "Yes" : "No",
-            unlocked: i <= 3, // First 3 are unlocked for demo
           });
         }
 
         return applicants;
       }
 
-      // Initialize page
-      document.addEventListener("DOMContentLoaded", function () {
-        // Check URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        const jobId = urlParams.get("jobId") || "1";
-        currentJobId = parseInt(jobId);
+      document.addEventListener("DOMContentLoaded", () => {
+        const jobIdKey = getJobIdFromUrl();
+        currentJobId = jobIdKey;
+        syncApplicantsForJob(currentJobId);
+        setFilterPanelOpen(false);
 
-        // Generate sample data
-        const allGenerated = generateApplicants(35);
-        allApplicants = allGenerated.filter((app) => !app.unlocked);
-        unlockedApplicants = allGenerated.filter((app) => app.unlocked);
-
-        // Initialize filtered arrays
         filteredApplicants = [...allApplicants];
         filteredUnlockedApplicants = [...unlockedApplicants];
 
-        // Load initial data
-        loadJobData();
+        populateApplicantFilters(allApplicants);
+
+        function applyApplicantFiltersToList() {
+          const region = filterRegion?.value || "";
+          const fieldOfStudy = filterFieldOfStudy?.value || "";
+          const experienceLevel = filterExperience?.value || "";
+          const preferredIndustry = filterIndustry?.value || "";
+          const gender = filterGender?.value || "";
+          const workOutsideRegion = filterWorkOutsideRegion?.value || "";
+          const highestEducationLevel = filterHighestEducationLevel?.value || "";
+          const disabilityStatus = filterDisability?.value || "";
+          const term = searchInput.value.toLowerCase().trim();
+
+          filteredApplicants = allApplicants.filter((app) => {
+            const matchesFilters =
+              (!region || app.region === region) &&
+              (!fieldOfStudy || app.fieldOfStudy === fieldOfStudy) &&
+              (!experienceLevel || app.experienceLevel === experienceLevel) &&
+              (!preferredIndustry || app.preferredIndustry === preferredIndustry) &&
+              (!gender || app.gender === gender) &&
+              (!workOutsideRegion || app.willingToRelocate === workOutsideRegion) &&
+              (!highestEducationLevel || (app.highestEducationLevel || app.educationLevel) === highestEducationLevel) &&
+              (!disabilityStatus || app.disabilityStatus === disabilityStatus);
+
+            return matchesFilters && matchesSearch(app, term);
+          });
+
+          filteredUnlockedApplicants = unlockedApplicants.filter((app) => {
+            const matchesFilters =
+              (!region || app.region === region) &&
+              (!fieldOfStudy || app.fieldOfStudy === fieldOfStudy) &&
+              (!experienceLevel || app.experienceLevel === experienceLevel) &&
+              (!preferredIndustry || app.preferredIndustry === preferredIndustry) &&
+              (!gender || app.gender === gender) &&
+              (!workOutsideRegion || app.willingToRelocate === workOutsideRegion) &&
+              (!highestEducationLevel || (app.highestEducationLevel || app.educationLevel) === highestEducationLevel) &&
+              (!disabilityStatus || app.disabilityStatus === disabilityStatus);
+
+            return matchesFilters && matchesSearch(app, term);
+          });
+
+          currentPage = 1;
+          currentUnlockedPage = 1;
+
+          renderApplicants();
+          renderUnlockedApplicants();
+          setupPagination();
+          setupUnlockedPagination();
+        }
+
+        loadJobData(currentJobId);
+        setupEventListeners();
+        handlePaymentReturn(currentJobId);
+
         renderApplicants();
         renderUnlockedApplicants();
         setupPagination();
         setupUnlockedPagination();
-
-        // Setup event listeners
-        setupEventListeners();
-
-        // Check for payment success
-        const paymentSuccess = urlParams.get("payment_success");
-        if (paymentSuccess === "true") {
-          moveApplicantsToUnlocked();
-          switchTab("unlocked-applicants");
-          const newUrl = window.location.pathname + "?jobId=" + jobId;
-          window.history.replaceState({}, document.title, newUrl);
-        }
       });
 
-      function loadJobData() {
-        // Update counts
-        const totalApplicants =
-          allApplicants.length + unlockedApplicants.length;
-        applicantCount.textContent = totalApplicants;
-        applicantCountHeader.textContent = allApplicants.length;
-        unlockedCount.textContent = unlockedApplicants.length;
-        postDate.textContent = "15 May 2023";
-        jobTitleElement.textContent = "Frontend Developer";
+      function handlePaymentReturn(safeJobIdKey) {
+        const paymentSuccess = getPaymentSuccessFromUrl();
+        if (paymentSuccess !== "true") return;
+
+        const paymentData =
+          safeJSONParse(sessionStorage.getItem("jobassist_payment_data")) ||
+          safeJSONParse(sessionStorage.getItem("paymentData"));
+
+        syncApplicantsForJob(currentJobId);
+        filteredApplicants = [...allApplicants];
+        filteredUnlockedApplicants = [...unlockedApplicants];
+        currentPage = 1;
+        currentUnlockedPage = 1;
+        loadJobData(currentJobId);
+        renderApplicants();
+        renderUnlockedApplicants();
+        setupPagination();
+        setupUnlockedPagination();
+        updateCheckoutSummary();
+
+        const paidForCurrentJob =
+          paymentData &&
+          String(paymentData.jobId || "") === String(currentJobId) &&
+          (String(paymentData.applicationId || "").trim() ||
+            (Array.isArray(paymentData.selectedApplicants) &&
+              paymentData.selectedApplicants.length > 0));
+
+        if (paidForCurrentJob && unlockedApplicants.length > 0) {
+          switchTab("unlocked-applicants");
+          showToast("Contact details unlocked successfully!");
+        } else if (unlockedApplicants.length > 0) {
+          switchTab("unlocked-applicants");
+          showToast("Unlocked applicants are ready to view.");
+        } else {
+          showToast("Invalid payment session. No applicants were unlocked.");
+        }
+
+        sessionStorage.removeItem("jobassist_payment_data");
+        sessionStorage.removeItem("paymentData");
+
+        cleanUrlPreserveJobId(safeJobIdKey);
+      }
+
+      function loadJobData(jobIdKey) {
+        const totalApplicants = allApplicants.length;
+
+        applicantCountEl.textContent = totalApplicants;
+        applicantCountHeaderEl.textContent = allApplicants.length;
+        unlockedCountEl.textContent = unlockedApplicants.length;
+
+        const currentJob = findJobById(jobIdKey);
+
+        if (!currentJob) {
+          applicantCountEl.textContent = "0";
+          applicantCountHeaderEl.textContent = "0";
+          unlockedCountEl.textContent = "0";
+          jobTitleElement.textContent = "All Jobs";
+          postDateEl.textContent = "-";
+          if (jobIdDisplay) {
+            jobIdDisplay.textContent = "-";
+          }
+          return;
+        }
+
+        const jobTitle = currentJob.jobTitle || currentJob.title || "Job";
+        if (jobIdDisplay) {
+          jobIdDisplay.textContent = currentJob.jobId || currentJob.id || "-";
+        }
+
+        const postedDate = currentJob.createdAt
+          ? new Date(currentJob.createdAt).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })
+          : "Not specified";
+
+        jobTitleElement.textContent = jobTitle;
+        postDateEl.textContent = postedDate;
+      }
+
+      function matchesSearch(applicant, searchTerm) {
+        if (!searchTerm) return true;
+        const s = searchTerm.toLowerCase();
+
+        return (
+          applicant.name.toLowerCase().includes(s) ||
+          applicant.fullName.toLowerCase().includes(s) ||
+          applicant.fieldOfStudy.toLowerCase().includes(s) ||
+          applicant.region.toLowerCase().includes(s) ||
+          (applicant.email && applicant.email.toLowerCase().includes(s)) ||
+          (applicant.phone && applicant.phone.toLowerCase().includes(s))
+);
       }
 
       function renderApplicants() {
         applicantsGrid.innerHTML = "";
 
-        // Calculate pagination
         const startIndex = (currentPage - 1) * APPLICANTS_PER_PAGE;
-        const endIndex = Math.min(
-          startIndex + APPLICANTS_PER_PAGE,
-          filteredApplicants.length,
-        );
+        const endIndex = Math.min(startIndex + APPLICANTS_PER_PAGE, filteredApplicants.length);
         const pageApplicants = filteredApplicants.slice(startIndex, endIndex);
 
         if (pageApplicants.length === 0) {
           applicantsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h3>No applicants found</h3>
-                        <p>${
-                          filteredApplicants.length === 0 &&
-                          allApplicants.length > 0
-                            ? "No applicants match your search"
-                            : "No applicants have applied to this job yet"
-                        }</p>
-                    </div>
-                `;
+            <div class="empty-state">
+              <div class="empty-icon"><i class="fas fa-users"></i></div>
+              <h3>No applicants found</h3>
+              <p>${
+                filteredApplicants.length === 0 && allApplicants.length > 0
+                  ? "No applicants match your search"
+                  : "No applicants have applied to this job yet"
+              }</p>
+            </div>
+          `;
           return;
         }
 
         pageApplicants.forEach((applicant) => {
           const card = document.createElement("div");
-          card.className = `applicant-card ${selectedApplicants.has(applicant.id) ? "selected" : ""}`;
-          card.dataset.id = applicant.id;
-
-          card.innerHTML = `
-                    <div class="card-header">
-                        <div class="card-avatar">
-                            <img src="${applicant.avatar}" alt="${applicant.name}">
-                        </div>
-                        <div class="card-name">
-                            <div class="applicant-name">${applicant.name}</div>
-                        </div>
-                        <div class="card-select"></div>
-                    </div>
-                    <div class="applicant-details">
-                        <div class="detail-row">
-                            <span class="detail-label">Gender:</span>
-                            <span class="detail-value">${applicant.gender}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Experience:</span>
-                            <span class="detail-value">${applicant.experienceLevel}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Field of Study:</span>
-                            <span class="detail-value">${applicant.fieldOfStudy}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Region:</span>
-                            <span class="detail-value">${applicant.region}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Willing to Relocate:</span>
-                            <span class="detail-value">${applicant.willingToRelocate}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Are you disabled?:</span>
-                            <span class="detail-value">${applicant.disabilityStatus}</span>
-                        </div>
-                    </div>
-                `;
-
-          card.addEventListener("click", () =>
-            toggleApplicantSelection(applicant.id),
+          const candidateRecord = getApplicantCandidateRecord(applicant);
+          card.className = "applicant-card";
+          card.dataset.id = String(applicant.applicationId || applicant.id);
+          card.innerHTML = createApplicantCardMarkup(
+            applicant,
+            candidateRecord,
+            isApplicationUnlocked(applicant.applicationId || applicant.id)
           );
+          wireApplicantCard(card, applicant);
           applicantsGrid.appendChild(card);
         });
       }
@@ -1477,108 +3915,44 @@
       function renderUnlockedApplicants() {
         unlockedApplicantsGrid.innerHTML = "";
 
-        // Calculate pagination for unlocked
         const startIndex = (currentUnlockedPage - 1) * APPLICANTS_PER_PAGE;
         const endIndex = Math.min(
           startIndex + APPLICANTS_PER_PAGE,
-          filteredUnlockedApplicants.length,
-        );
-        const pageApplicants = filteredUnlockedApplicants.slice(
-          startIndex,
-          endIndex,
-        );
+          filteredUnlockedApplicants.length
+);
+        const pageApplicants = filteredUnlockedApplicants.slice(startIndex, endIndex);
 
         if (pageApplicants.length === 0) {
           unlockedApplicantsGrid.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">
-                            <i class="fas fa-unlock"></i>
-                        </div>
-                        <h3>No unlocked applicants</h3>
-                        <p>${
-                          filteredUnlockedApplicants.length === 0 &&
-                          unlockedApplicants.length > 0
-                            ? "No unlocked applicants match your search"
-                            : 'Unlock applicants from the "All Applicants" tab to view their details here'
-                        }</p>
-                    </div>
-                `;
+            <div class="empty-state">
+              <div class="empty-icon"><i class="fas fa-unlock"></i></div>
+              <h3>No unlocked applicants</h3>
+              <p>${
+                filteredUnlockedApplicants.length === 0 && unlockedApplicants.length > 0
+                  ? "No unlocked applicants match your search"
+                  : 'Unlock applicants from the "All Applicants" tab to view their details here'
+              }</p>
+            </div>
+          `;
           return;
         }
 
         pageApplicants.forEach((applicant) => {
           const card = document.createElement("div");
           card.className = "unlocked-card";
-
-          // Build contact info
-          let contactInfo = "";
-          if (applicant.email) {
-            contactInfo += `<div class="contact-item"><i class="fas fa-envelope"></i> ${applicant.email}</div>`;
-          }
-          if (applicant.phone) {
-            contactInfo += `<div class="contact-item"><i class="fas fa-phone"></i> ${applicant.phone}</div>`;
-          }
-
-          card.innerHTML = `
-                    <div class="unlocked-header">
-                        <div class="unlocked-avatar">
-                            <img src="${applicant.avatar}" alt="${applicant.fullName}">
-                        </div>
-                        <div class="unlocked-name-section">
-                            <div class="unlocked-name">${applicant.fullName}</div>
-                            <div class="contact-info">${contactInfo}</div>
-                        </div>
-                    </div>
-                    <div class="unlocked-details">
-                        <div class="detail-row">
-                            <span class="detail-label">Gender:</span>
-                            <span class="detail-value">${applicant.gender}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Experience:</span>
-                            <span class="detail-value">${applicant.experienceLevel}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Field of Study:</span>
-                            <span class="detail-value">${applicant.fieldOfStudy}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Region:</span>
-                            <span class="detail-value">${applicant.region}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Willing to Relocate:</span>
-                            <span class="detail-value">${applicant.willingToRelocate}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Are you disabled?:</span>
-                            <span class="detail-value">${applicant.disabilityStatus}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Digital Address:</span>
-                            <span class="detail-value">${applicant.digitalAddress}</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label">Ghana Card:</span>
-                            <span class="detail-value">${applicant.ghanaCardNumber}</span>
-                        </div>
-                    </div>
-                `;
-
+          const candidateRecord = getApplicantCandidateRecord(applicant);
+          card.dataset.id = String(applicant.applicationId || applicant.id);
+          card.innerHTML = createApplicantCardMarkup(applicant, candidateRecord, true);
+          wireApplicantCard(card, applicant);
           unlockedApplicantsGrid.appendChild(card);
         });
       }
 
       function setupPagination() {
         pagination.innerHTML = "";
-
-        const totalPages = Math.ceil(
-          filteredApplicants.length / APPLICANTS_PER_PAGE,
-        );
-
+        const totalPages = Math.ceil(filteredApplicants.length / APPLICANTS_PER_PAGE);
         if (totalPages <= 1) return;
 
-        // Previous button
         const prevButton = document.createElement("button");
         prevButton.className = `pagination-btn ${currentPage === 1 ? "disabled" : ""}`;
         prevButton.innerHTML = '<i class="fas fa-chevron-left"></i> Previous';
@@ -1591,12 +3965,8 @@
         });
         pagination.appendChild(prevButton);
 
-        // Page numbers
         const maxVisiblePages = 5;
-        let startPage = Math.max(
-          1,
-          currentPage - Math.floor(maxVisiblePages / 2),
-        );
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
         let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
         if (endPage - startPage + 1 < maxVisiblePages) {
@@ -1615,9 +3985,10 @@
           pagination.appendChild(pageButton);
         }
 
-        // Next button
         const nextButton = document.createElement("button");
-        nextButton.className = `pagination-btn ${currentPage === totalPages ? "disabled" : ""}`;
+        nextButton.className = `pagination-btn ${
+          currentPage === totalPages ? "disabled" : ""
+        }`;
         nextButton.innerHTML = 'Next <i class="fas fa-chevron-right"></i>';
         nextButton.addEventListener("click", () => {
           if (currentPage < totalPages) {
@@ -1628,7 +3999,6 @@
         });
         pagination.appendChild(nextButton);
 
-        // Page info
         const pageInfo = document.createElement("div");
         pageInfo.className = "pagination-info";
         pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
@@ -1637,16 +4007,15 @@
 
       function setupUnlockedPagination() {
         unlockedPagination.innerHTML = "";
-
         const totalPages = Math.ceil(
-          filteredUnlockedApplicants.length / APPLICANTS_PER_PAGE,
-        );
-
+          filteredUnlockedApplicants.length / APPLICANTS_PER_PAGE
+);
         if (totalPages <= 1) return;
 
-        // Previous button
         const prevButton = document.createElement("button");
-        prevButton.className = `pagination-btn ${currentUnlockedPage === 1 ? "disabled" : ""}`;
+        prevButton.className = `pagination-btn ${
+          currentUnlockedPage === 1 ? "disabled" : ""
+        }`;
         prevButton.innerHTML = '<i class="fas fa-chevron-left"></i> Previous';
         prevButton.addEventListener("click", () => {
           if (currentUnlockedPage > 1) {
@@ -1657,12 +4026,11 @@
         });
         unlockedPagination.appendChild(prevButton);
 
-        // Page numbers
         const maxVisiblePages = 5;
         let startPage = Math.max(
           1,
-          currentUnlockedPage - Math.floor(maxVisiblePages / 2),
-        );
+          currentUnlockedPage - Math.floor(maxVisiblePages / 2)
+);
         let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
         if (endPage - startPage + 1 < maxVisiblePages) {
@@ -1671,7 +4039,9 @@
 
         for (let i = startPage; i <= endPage; i++) {
           const pageButton = document.createElement("button");
-          pageButton.className = `pagination-btn ${i === currentUnlockedPage ? "active" : ""}`;
+          pageButton.className = `pagination-btn ${
+            i === currentUnlockedPage ? "active" : ""
+          }`;
           pageButton.textContent = i;
           pageButton.addEventListener("click", () => {
             currentUnlockedPage = i;
@@ -1681,10 +4051,10 @@
           unlockedPagination.appendChild(pageButton);
         }
 
-<<<<<<< HEAD:view-applicants.html
-        // Next button
         const nextButton = document.createElement("button");
-        nextButton.className = `pagination-btn ${currentUnlockedPage === totalPages ? "disabled" : ""}`;
+        nextButton.className = `pagination-btn ${
+          currentUnlockedPage === totalPages ? "disabled" : ""
+        }`;
         nextButton.innerHTML = 'Next <i class="fas fa-chevron-right"></i>';
         nextButton.addEventListener("click", () => {
           if (currentUnlockedPage < totalPages) {
@@ -1695,7 +4065,6 @@
         });
         unlockedPagination.appendChild(nextButton);
 
-        // Page info
         const pageInfo = document.createElement("div");
         pageInfo.className = "pagination-info";
         pageInfo.textContent = `Page ${currentUnlockedPage} of ${totalPages}`;
@@ -1703,339 +4072,342 @@
       }
 
       function toggleApplicantSelection(applicantId) {
-        if (selectedApplicants.has(applicantId)) {
-          selectedApplicants.delete(applicantId);
+        const key = String(applicantId);
+
+        if (selectedApplicants.has(key)) {
+          selectedApplicants.delete(key);
         } else {
-          selectedApplicants.add(applicantId);
-=======
-        function setupEventListeners() {
-            // Tab switching
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const tabId = tab.dataset.tab;
-                    switchTab(tabId);
-                });
-            });
-            
-            // Clear selection
-            clearSelectionBtn.addEventListener('click', () => {
-                selectedApplicants.clear();
-                document.querySelectorAll('.applicant-card').forEach(card => {
-                    card.classList.remove('selected');
-                });
-                updateCheckoutSummary();
-            });
-            
-            // Proceed to payment - FIXED PAYMENT DATA PASSING
-            proceedToPaymentBtn.addEventListener('click', () => {
-                if (selectedApplicants.size === 0) {
-                    showToast('Please select at least one applicant to unlock');
-                    return;
-                }
-                
-                // Calculate total amount
-                const totalAmount = selectedApplicants.size * APPLICANT_PRICE;
-                
-                // Store payment data in sessionStorage
-                const paymentData = {
-                    jobId: currentJobId,
-                    jobTitle: jobTitleElement.textContent,
-                    amount: totalAmount,
-                    selectedCount: selectedApplicants.size,
-                    applicantPrice: APPLICANT_PRICE,
-                    selectedApplicants: Array.from(selectedApplicants),
-                    timestamp: new Date().toISOString()
-                };
-                
-                // Store in sessionStorage for payment page
-                sessionStorage.setItem('jobassist_payment_data', JSON.stringify(paymentData));
-                
-                // Redirect to payment page
-                window.location.href = `employer-payment.html?jobId=${currentJobId}&amount=${totalAmount}&count=${selectedApplicants.size}`;
-            });
-            
-            // Search
-            searchInput.addEventListener('input', () => {
-                const searchTerm = searchInput.value.toLowerCase().trim();
-                
-                // Filter all applicants
-                filteredApplicants = allApplicants.filter(applicant => 
-                    matchesSearch(applicant, searchTerm)
-                );
-                
-                // Filter unlocked applicants
-                filteredUnlockedApplicants = unlockedApplicants.filter(applicant => 
-                    matchesSearch(applicant, searchTerm)
-                );
-                
-                // Reset to first page
-                currentPage = 1;
-                currentUnlockedPage = 1;
-                
-                // Re-render
-                renderApplicants();
-                renderUnlockedApplicants();
-                setupPagination();
-                setupUnlockedPagination();
-            });
-            
-            // Close job modal
-            closeJobBtn.addEventListener('click', () => {
-                closeJobModal.classList.add('active');
-            });
-            
-            cancelCloseBtn.addEventListener('click', () => {
-                closeJobModal.classList.remove('active');
-            });
-            
-            // FIXED: Close job and redirect to dashboard
-            confirmCloseBtn.addEventListener('click', () => {
-                closeJobModal.classList.remove('active');
-                
-                // Show success message
-                showToast('Job listing closed successfully. Redirecting to dashboard...');
-                
-                // Redirect to employer dashboard after a delay
-                setTimeout(() => {
-                    window.location.href = 'employer/employer/employer/employer-dashboard.html';
-                }, 1500);
-            });
-            
-            closeJobModal.addEventListener('click', (e) => {
-                if (e.target === closeJobModal) {
-                    closeJobModal.classList.remove('active');
-                }
-            });
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:employer/view-applicants.html
+          selectedApplicants.add(key);
         }
 
-        // Update UI
-        const card = document.querySelector(
-          `.applicant-card[data-id="${applicantId}"]`,
-        );
-        if (card) {
-          card.classList.toggle("selected");
-        }
+        const card = document.querySelector(`.applicant-card[data-id="${key}"]`);
+        if (card) card.classList.toggle("selected");
 
         updateCheckoutSummary();
       }
 
       function updateCheckoutSummary() {
+        if (checkoutSummary) {
+          checkoutSummary.style.display = "none";
+        }
+
         const count = selectedApplicants.size;
         const total = count * APPLICANT_PRICE;
 
-        selectedCount.textContent = count;
-        totalAmount.textContent = `₵${total}.00`;
+        selectedCountEl.textContent = count;
+        totalAmountEl.textContent = `GHS ${total}.00`;
 
-        if (count > 0) {
-          checkoutSummary.classList.add("show");
-        } else {
-          checkoutSummary.classList.remove("show");
-        }
+        if (count > 0) checkoutSummary.classList.add("show");
+        else checkoutSummary.classList.remove("show");
       }
 
       function moveApplicantsToUnlocked() {
-        const selectedIds = Array.from(selectedApplicants);
-
-        selectedIds.forEach((applicantId) => {
-          const index = allApplicants.findIndex(
-            (app) => app.id === applicantId,
-          );
-          if (index !== -1) {
-            const applicant = allApplicants[index];
-            applicant.unlocked = true;
-            unlockedApplicants.push(applicant);
-            allApplicants.splice(index, 1);
-          }
-        });
-
-        // Update filtered arrays
-        filteredApplicants = allApplicants.filter((applicant) =>
-          matchesSearch(applicant, searchInput.value.toLowerCase().trim()),
-        );
-        filteredUnlockedApplicants = unlockedApplicants.filter((applicant) =>
-          matchesSearch(applicant, searchInput.value.toLowerCase().trim()),
-        );
-
-        // Clear selection
         selectedApplicants.clear();
-
-        // Update UI
-        loadJobData();
-        renderApplicants();
-        renderUnlockedApplicants();
-        setupPagination();
-        setupUnlockedPagination();
         updateCheckoutSummary();
-
-        // Show success message
-        showToast(`${selectedIds.length} applicant(s) unlocked successfully!`);
-      }
-
-      function matchesSearch(applicant, searchTerm) {
-        if (!searchTerm) return true;
-
-        return (
-          applicant.name.toLowerCase().includes(searchTerm) ||
-          applicant.fullName.toLowerCase().includes(searchTerm) ||
-          applicant.fieldOfStudy.toLowerCase().includes(searchTerm) ||
-          applicant.region.toLowerCase().includes(searchTerm) ||
-          (applicant.email &&
-            applicant.email.toLowerCase().includes(searchTerm))
-        );
       }
 
       function setupEventListeners() {
-        // Tab switching
         tabs.forEach((tab) => {
-          tab.addEventListener("click", () => {
-            const tabId = tab.dataset.tab;
-            switchTab(tabId);
-          });
+          tab.addEventListener("click", () => switchTab(tab.dataset.tab));
         });
 
-        // Clear selection
         clearSelectionBtn.addEventListener("click", () => {
           selectedApplicants.clear();
-          document.querySelectorAll(".applicant-card").forEach((card) => {
-            card.classList.remove("selected");
-          });
           updateCheckoutSummary();
         });
 
-        // Proceed to payment - FIXED PAYMENT DATA PASSING
         proceedToPaymentBtn.addEventListener("click", () => {
-          if (selectedApplicants.size === 0) {
-            showToast("Please select at least one applicant to unlock");
-            return;
-          }
-
-          // Calculate total amount
-          const totalAmount = selectedApplicants.size * APPLICANT_PRICE;
-
-          // Store payment data in sessionStorage
-          const paymentData = {
-            jobId: currentJobId,
-            jobTitle: jobTitleElement.textContent,
-            amount: totalAmount,
-            selectedCount: selectedApplicants.size,
-            applicantPrice: APPLICANT_PRICE,
-            selectedApplicants: Array.from(selectedApplicants),
-            timestamp: new Date().toISOString(),
-          };
-
-          // Store in sessionStorage for payment page
-          sessionStorage.setItem(
-            "jobassist_payment_data",
-            JSON.stringify(paymentData),
-          );
-
-          // Redirect to payment page
-          window.location.href = `employer-payment.html?jobId=${currentJobId}&amount=${totalAmount}&count=${selectedApplicants.size}`;
+          showToast("Use the Unlock Contact button on an applicant card to unlock contact details.");
         });
 
-        // Search
         searchInput.addEventListener("input", () => {
-          const searchTerm = searchInput.value.toLowerCase().trim();
-
-          // Filter all applicants
-          filteredApplicants = allApplicants.filter((applicant) =>
-            matchesSearch(applicant, searchTerm),
-          );
-
-          // Filter unlocked applicants
-          filteredUnlockedApplicants = unlockedApplicants.filter((applicant) =>
-            matchesSearch(applicant, searchTerm),
-          );
-
-          // Reset to first page
-          currentPage = 1;
-          currentUnlockedPage = 1;
-
-          // Re-render
-          renderApplicants();
-          renderUnlockedApplicants();
-          setupPagination();
-          setupUnlockedPagination();
+          applyApplicantFiltersToList();
         });
 
-        // Close job modal
-        closeJobBtn.addEventListener("click", () => {
-          closeJobModal.classList.add("active");
+        filterToggle?.addEventListener("click", (event) => {
+          event.stopPropagation();
+          toggleFilterPanel();
         });
 
-        cancelCloseBtn.addEventListener("click", () => {
-          closeJobModal.classList.remove("active");
-        });
+        closeJobBtn.addEventListener("click", () =>
+          closeJobModal.classList.add("active")
+);
+        cancelCloseBtn.addEventListener("click", () =>
+          closeJobModal.classList.remove("active")
+);
 
-        // FIXED: Close job and redirect to dashboard
         confirmCloseBtn.addEventListener("click", () => {
           closeJobModal.classList.remove("active");
-
-          // Show success message
-          showToast(
-            "Job listing closed successfully. Redirecting to dashboard...",
-          );
-
-          // Redirect to employer dashboard after a delay
+          showToast("Job listing closed successfully. Redirecting to dashboard...");
           setTimeout(() => {
             window.location.href = "employer-dashboard.html";
-          }, 1500);
+          }, 1200);
         });
 
         closeJobModal.addEventListener("click", (e) => {
-          if (e.target === closeJobModal) {
-            closeJobModal.classList.remove("active");
+          if (e.target === closeJobModal) closeJobModal.classList.remove("active");
+        });
+
+        closeAttachmentModal?.addEventListener("click", closeAttachmentPreview);
+        attachmentPreviewModal?.addEventListener("click", (e) => {
+          if (e.target === attachmentPreviewModal) closeAttachmentPreview();
+        });
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && attachmentPreviewModal?.classList.contains("active")) {
+            closeAttachmentPreview();
           }
         });
+
+        document.addEventListener("click", (event) => {
+          if (
+            filterPanel?.classList.contains("is-open") &&
+            !event.target.closest("#filterPanel")
+          ) {
+            setFilterPanelOpen(false);
+          }
+
+          const attachmentButton = event.target.closest(".attachment-btn");
+          if (attachmentButton && !attachmentButton.classList.contains("locked") && !attachmentButton.disabled) {
+            event.preventDefault();
+            const applicationId = attachmentButton.dataset.applicationId;
+            const card = attachmentButton.closest(".applicant-card, .unlocked-card");
+            const tray = card?.querySelector(`[data-attachment-tray="${applicationId}"]`);
+            const isOpen = tray?.classList.toggle("open");
+            if (attachmentButton) {
+              attachmentButton.textContent = isOpen ? "Hide Attachments" : "View Attachments";
+            }
+            return;
+          }
+        });
+
+        if (applyApplicantFilters) {
+          applyApplicantFilters.addEventListener("click", () => {
+            applyApplicantFiltersToList();
+            setFilterPanelOpen(false);
+          });
+        }
+
+        if (resetApplicantFilters) {
+          resetApplicantFilters.addEventListener("click", () => {
+            if (filterRegion) filterRegion.value = "";
+            if (filterFieldOfStudy) filterFieldOfStudy.value = "";
+            if (filterExperience) filterExperience.value = "";
+            if (filterIndustry) filterIndustry.value = "";
+            if (filterGender) filterGender.value = "";
+            if (filterWorkOutsideRegion) filterWorkOutsideRegion.value = "";
+            if (filterHighestEducationLevel) filterHighestEducationLevel.value = "";
+            if (filterDisability) filterDisability.value = "";
+            searchInput.value = "";
+
+            filteredApplicants = [...allApplicants];
+            filteredUnlockedApplicants = [...unlockedApplicants];
+            currentPage = 1;
+            currentUnlockedPage = 1;
+
+            renderApplicants();
+            renderUnlockedApplicants();
+            setupPagination();
+            setupUnlockedPagination();
+          });
+        }
       }
 
       function switchTab(tabId) {
-        // Update tabs
-        tabs.forEach((tab) => tab.classList.remove("active"));
-        tabContents.forEach((content) => content.classList.remove("active"));
+        tabs.forEach((t) => t.classList.remove("active"));
+        tabContents.forEach((c) => c.classList.remove("active"));
 
-        // Activate selected tab
-        document
-          .querySelector(`.tab[data-tab="${tabId}"]`)
-          .classList.add("active");
-        document.getElementById(`${tabId}-tab`).classList.add("active");
+        const activeTab = document.querySelector(`.tab[data-tab="${tabId}"]`);
+        const activeContent = document.getElementById(`${tabId}-tab`);
+
+        if (activeTab) activeTab.classList.add("active");
+        if (activeContent) activeContent.classList.add("active");
+
+        if (tabId !== "all-applicants") {
+          checkoutSummary.classList.remove("show");
+        } else {
+          updateCheckoutSummary();
+        }
       }
 
-      function showToast(message) {
-        // Create toast
-        const toast = document.createElement("div");
-        toast.style.cssText = `
-                position: fixed;
-                bottom: 25px;
-                right: 30px;
-                background: var(--primary);
-                color: white;
-                padding: 12px 20px;
-                border-radius: 6px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                z-index: 1001;
-                font-weight: 600;
-                transform: translateY(20px);
-                opacity: 0;
-                transition: all 0.3s ease;
-            `;
-        toast.textContent = message;
-        document.body.appendChild(toast);
+      let fallbackToastEl = null;
+      let fallbackToastTimer = null;
+      let fallbackToastCleanupTimer = null;
 
-        // Animate in
-        setTimeout(() => {
-          toast.style.transform = "translateY(0)";
-          toast.style.opacity = "1";
-        }, 10);
+      function retriggerFallbackToastFeedback(toast) {
+        if (!toast || typeof toast.animate !== "function") return;
+        try {
+          toast.animate(
+            [
+              { transform: "translateY(0) scale(1)", filter: "brightness(1)" },
+              { transform: "translateY(0) scale(1.03)", filter: "brightness(1.07)" },
+              { transform: "translateY(0) scale(1)", filter: "brightness(1)" }
+            ],
+            {
+              duration: 220,
+              easing: "ease"
+            }
+          );
+        } catch (error) {
+          console.warn("Toast refresh animation unavailable:", error);
+        }
+      }
 
-        // Remove after 3 seconds
-        setTimeout(() => {
-          toast.style.transform = "translateY(20px)";
-          toast.style.opacity = "0";
-          setTimeout(() => toast.remove(), 300);
+      function showToast(message, typeOverride) {
+        const normalizedMessage = String(message || "").trim();
+        const loweredMessage = normalizedMessage.toLowerCase();
+
+        if (window.JobAssistUI?.showToast) {
+          const type = typeOverride ||
+            (/invalid|unable|failed|no applicants were unlocked|refresh the page/.test(loweredMessage)
+              ? "error"
+              : /successfully|ready to view|redirecting|candidate has been notified/.test(loweredMessage)
+                ? "success"
+                : "info");
+
+          window.JobAssistUI.showToast(normalizedMessage, type);
+          return;
+        }
+
+        const fallbackType = typeOverride ||
+          (/invalid|unable|failed|no applicants were unlocked|refresh the page/.test(loweredMessage)
+            ? "error"
+            : /successfully|ready to view|redirecting|candidate has been notified/.test(loweredMessage)
+              ? "success"
+              : "info");
+
+        if (!fallbackToastEl || !document.body.contains(fallbackToastEl)) {
+          fallbackToastEl = document.createElement("div");
+          fallbackToastEl.style.cssText = `
+            position: fixed;
+            bottom: 25px;
+            right: 30px;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1001;
+            font-weight: 600;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+          `;
+          document.body.appendChild(fallbackToastEl);
+        }
+
+        fallbackToastEl.style.background =
+          fallbackType === "error"
+            ? "#dc2626"
+            : fallbackType === "success"
+              ? "#16a34a"
+              : "var(--primary)";
+        fallbackToastEl.textContent = normalizedMessage;
+
+        clearTimeout(fallbackToastTimer);
+        clearTimeout(fallbackToastCleanupTimer);
+        fallbackToastEl.style.transform = "translateY(20px)";
+        fallbackToastEl.style.opacity = "0";
+
+        requestAnimationFrame(() => {
+          if (!fallbackToastEl) return;
+          fallbackToastEl.style.transform = "translateY(0)";
+          fallbackToastEl.style.opacity = "1";
+          retriggerFallbackToastFeedback(fallbackToastEl);
+        });
+
+        fallbackToastTimer = setTimeout(() => {
+          if (!fallbackToastEl) return;
+          fallbackToastEl.style.transform = "translateY(20px)";
+          fallbackToastEl.style.opacity = "0";
+          fallbackToastCleanupTimer = setTimeout(() => {
+            if (fallbackToastEl?.parentNode) {
+              fallbackToastEl.parentNode.removeChild(fallbackToastEl);
+            }
+            fallbackToastEl = null;
+          }, 300);
         }, 3000);
       }
+
+      function forceStatusToast(message) {
+        const normalizedMessage = String(message || "").trim();
+        if (!normalizedMessage) return;
+        showToast(normalizedMessage, "success");
+      }
+
+      function populateSelectOptions(selectEl, values, defaultLabel) {
+        if (!selectEl) return;
+
+        const uniqueValues = [...new Set(values.filter(Boolean).map((v) => String(v).trim()))];
+
+        selectEl.innerHTML = `<option value="">${defaultLabel}</option>`;
+
+        uniqueValues.forEach((value) => {
+          const option = document.createElement("option");
+          option.value = value;
+          option.textContent = value;
+          selectEl.appendChild(option);
+        });
+      }
+
+      function populateApplicantFilters(applicants) {
+        populateSelectOptions(
+          filterRegion,
+          applicants.map((app) => app.region),
+          "All Regions"
+);
+
+        populateSelectOptions(
+          filterFieldOfStudy,
+          applicants.map((app) => app.fieldOfStudy),
+          "All Fields"
+);
+
+        populateSelectOptions(
+          filterExperience,
+          applicants.map((app) => app.experienceLevel),
+          "All Levels"
+);
+
+        populateSelectOptions(
+          filterIndustry,
+          applicants.map((app) => app.preferredIndustry),
+          "All Industries"
+);
+
+        populateSelectOptions(
+          filterHighestEducationLevel,
+          applicants.map((app) => app.highestEducationLevel || app.educationLevel),
+          "All Levels"
+);
+      }
+
+      const filterPanel = document.getElementById("filterPanel");
+      const filterToggle = document.getElementById("filterToggle");
+      const filterContent = document.getElementById("filterContent");
+      const filterChevron = document.getElementById("filterChevron");
+      const filterRegion = document.getElementById("filterRegion");
+      const filterFieldOfStudy = document.getElementById("filterFieldOfStudy");
+      const filterExperience = document.getElementById("filterExperience");
+      const filterIndustry = document.getElementById("filterIndustry");
+      const filterGender = document.getElementById("filterGender");
+      const filterWorkOutsideRegion = document.getElementById("filterWorkOutsideRegion");
+      const filterHighestEducationLevel = document.getElementById("filterHighestEducationLevel");
+      const filterDisability = document.getElementById("filterDisability");
+      const applyApplicantFilters = document.getElementById("applyApplicantFilters");
+      const resetApplicantFilters = document.getElementById("resetApplicantFilters");
+
+      if (filterToggle && filterContent && filterChevron) {
+        filterToggle.addEventListener("click", function () {
+          const isHidden = filterContent.style.display === "none";
+          filterContent.style.display = isHidden ? "block" : "none";
+          filterChevron.className = isHidden
+            ? "fas fa-chevron-up"
+            : "fas fa-chevron-down";
+        });
+      }
     </script>
+  
+    <script src="../assets/js/payment-gating.js"></script>
+    <script src='../assets/js/product-polish.js'></script>
   </body>
 </html>
+

@@ -3,14 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Candidate Sign Up | Job Assist Ghana — Step 1 of 2</title>
+    <title>Candidate Sign Up | Job Assist Ghana - Step 1 of 2</title>
     <!-- Favicon - using your existing logo -->
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="assets/images/tab-logo.png" />
 
     <!-- Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
 
     <style>
@@ -24,6 +28,10 @@
         --max-width: 1100px;
         --error-red: #e74c3c;
         --success-green: #2ecc71;
+        --navy: #0a2a66;
+        --gold: #f8c12e;
+        --gold2: #ffda6a;
+        --nav-h: 68px;
       }
 
       /* Reset + base */
@@ -49,128 +57,179 @@
         line-height: 1.4;
       }
 
-      /* ---------- NAVBAR (same structure as homepage) ---------- */
-      .site-navbar {
-        position: sticky;
+      /* ---------- NAVBAR (copied from homepage) ---------- */
+      .site-nav {
+        position: fixed;
         top: 0;
-        z-index: 1000;
-        background: var(--deep-blue);
-        color: #fff;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        width: 100%;
+        left: 0;
+        right: 0;
+        z-index: 2000;
+        height: var(--nav-h);
+        background: rgba(10, 42, 102, 0.97);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       }
       .nav-inner {
-        max-width: var(--max-width);
+        height: var(--nav-h);
+        max-width: 1200px;
         margin: 0 auto;
+        padding: 0 16px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 14px 24px;
+        gap: 14px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        gap: 10px;
+        min-width: 140px;
       }
       .brand img {
-        height: 48px;
+        height: 36px;
+        width: auto;
+        display: block;
         filter: brightness(0) invert(1);
       }
-      nav.desktop-nav ul {
-        display: flex;
-        gap: 22px;
+      .nav-links {
+        display: none;
+        list-style: none;
         margin: 0;
         padding: 0;
-        list-style: none;
         align-items: center;
+        gap: 18px;
       }
-      nav.desktop-nav a {
-        color: #fff;
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.92);
         text-decoration: none;
-        font-weight: 600;
-      }
-      nav.desktop-nav a:hover {
-        color: var(--accent-gold);
-      }
-
-      /* Login button styles */
-      .login-btn {
-        background: var(--accent-gold);
-        color: var(--deep-blue);
-        padding: 10px 20px;
-        border-radius: 8px;
         font-weight: 700;
-        text-decoration: none;
-        transition: all 0.2s ease;
+        font-size: 14px;
+        padding: 10px 10px;
+        transition: color 0.2s ease, background 0.2s ease;
+        border-radius: 8px;
+        white-space: nowrap;
       }
-      .login-btn:hover {
-        background: #ffda6a;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(248, 193, 46, 0.3);
-        color: var(--deep-blue);
-      }
-
-      /* Hamburger (mobile) */
-      .menu-icon {
-        display: none;
-        font-size: 28px;
-        cursor: pointer;
+      .nav-links a:hover {
         color: #fff;
-        z-index: 1000;
+        background: rgba(255, 255, 255, 0.08);
       }
-
-      /* Mobile Menu - Fixed to match homepage */
-      #mobile-menu {
+      .nav-links a.active {
+        color: var(--gold);
+        background: rgba(248, 193, 46, 0.14);
+      }
+      .nav-cta {
         display: none;
-        position: fixed;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background-color: var(--deep-blue);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        z-index: 999;
+        align-items: center;
+        gap: 10px;
       }
-
-      #mobile-menu.active {
+      .btn-solid {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 14px;
+        padding: 12px 16px;
+        border-radius: 6px;
+        border: 1px solid transparent;
+        transition:
+          transform 0.12s ease,
+          filter 0.2s ease,
+          box-shadow 0.2s ease,
+          background 0.2s ease;
+        white-space: nowrap;
+        line-height: 1;
+      }
+      .btn-solid-primary {
+        background: var(--gold);
+        color: var(--navy);
+        box-shadow: 0 14px 26px rgba(248, 193, 46, 0.24);
+      }
+      .btn-solid-primary:hover {
+        background: var(--gold2);
+        color: var(--navy);
+        transform: translateY(-1px);
+        box-shadow: 0 18px 30px rgba(248, 193, 46, 0.28);
+      }
+      .menu-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        cursor: pointer;
+      }
+      .menu-btn i {
+        font-size: 18px;
+      }
+      .mobile-drawer {
+        position: fixed;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        z-index: 1999;
+        display: none;
+        background: rgba(10, 42, 102, 0.985);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        max-height: calc(100vh - var(--nav-h));
+        overflow: auto;
+      }
+      .mobile-drawer.active {
         display: block;
       }
-
-      #mobile-menu ul {
-        list-style: none;
-        padding: 20px 0;
-        width: 100%;
-      }
-
-      #mobile-menu ul li {
-        padding: 12px 30px;
+      .mobile-drawer a {
+        display: block;
+        padding: 14px 18px;
+        color: rgba(255, 255, 255, 0.92);
+        text-decoration: none;
+        font-weight: 700;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        width: 100%;
       }
-
-      #mobile-menu ul li:last-child {
+      .mobile-drawer a:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
+      }
+      .mobile-drawer a.active {
+        color: var(--gold);
+        background: rgba(248, 193, 46, 0.14);
+      }
+      .mobile-drawer .mobile-cta {
+        padding: 14px 18px;
         border-bottom: none;
       }
-
-      #mobile-menu ul li a {
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        display: block;
-        transition: color 0.3s ease;
-        width: 100%;
+      @media (min-width: 992px) {
+        .nav-links {
+          display: flex;
+          margin-left: auto;
+        }
+        .nav-cta {
+          display: flex;
+        }
+        .menu-btn {
+          display: none;
+        }
+        .mobile-drawer {
+          display: none !important;
+        }
+        .nav-inner {
+          padding: 0 20px;
+        }
       }
-
-      #mobile-menu ul li a:hover,
-      #mobile-menu ul li a.active {
-        color: var(--accent-gold);
-      }
-
-      #mobile-menu .login-btn {
-        display: inline-block;
-        margin: 10px 30px;
-        text-align: center;
-        width: calc(100% - 60px);
+      .page-offset {
+        padding-top: calc(var(--nav-h) + 44px);
       }
 
       /* ---------- PAGE LAYOUT ---------- */
       .page {
         max-width: var(--max-width);
-        margin: 40px auto;
+        margin: 0 auto 40px;
         padding: 20px;
         display: grid;
         grid-template-columns: 1fr 480px; /* main form left, empty right (or future info) */
@@ -180,11 +239,13 @@
       }
 
       /* Progress / heading area */
+      .signup-step-row,
       .step-bar {
         display: flex;
         align-items: center;
         gap: 16px;
         margin-bottom: 18px;
+        width: 100%;
       }
       .step-pill {
         background: #e9eef7;
@@ -194,17 +255,21 @@
         font-weight: 700;
         font-size: 14px;
       }
+      .step-track,
       .progress-line {
         flex: 1;
         height: 8px;
         background: #e6e8eb;
         border-radius: 999px;
         overflow: hidden;
+        min-width: 0;
       }
+      .step-track .step-fill,
       .progress-line .fill {
         width: 50%; /* Step 1 of 2 */
         height: 100%;
         background: linear-gradient(90deg, var(--accent-gold), #ffda6a);
+        border-radius: 999px;
       }
 
       .page-heading {
@@ -290,6 +355,7 @@
       input[type="text"],
       input[type="email"],
       input[type="tel"],
+      input[type="date"],
       input[type="password"],
       select,
       textarea {
@@ -304,6 +370,74 @@
       textarea {
         min-height: 96px;
         resize: vertical;
+      }
+
+      .signup-form input[type="date"] {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 8px;
+        border: 1px solid #d8dee9;
+        background: #fff;
+        color: #101828;
+        font-size: 14px;
+        line-height: 1.4;
+        box-sizing: border-box;
+        appearance: none;
+        -webkit-appearance: none;
+      }
+
+      .skills-input-wrap {
+        position: relative;
+      }
+
+      .skills-helper {
+        color: var(--muted);
+        font-size: 12px;
+        margin-top: 4px;
+      }
+
+      .skills-chip-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+        min-height: 0;
+      }
+
+      .skill-chip {
+        align-items: center;
+        background: rgba(10, 42, 102, 0.08);
+        border: 1px solid rgba(10, 42, 102, 0.14);
+        border-radius: 999px;
+        color: var(--primary);
+        display: inline-flex;
+        font-size: 13px;
+        font-weight: 700;
+        gap: 7px;
+        line-height: 1;
+        padding: 8px 10px 8px 12px;
+      }
+
+      .skill-chip button {
+        align-items: center;
+        background: rgba(10, 42, 102, 0.12);
+        border: 0;
+        border-radius: 50%;
+        color: var(--primary);
+        cursor: pointer;
+        display: inline-flex;
+        font-size: 14px;
+        font-weight: 800;
+        height: 18px;
+        justify-content: center;
+        line-height: 1;
+        padding: 0;
+        width: 18px;
+      }
+
+      .skill-chip button:hover {
+        background: var(--primary);
+        color: #fff;
       }
 
       .row-2 {
@@ -423,6 +557,45 @@
         display: none;
       }
 
+      .attachment-upload {
+        border: 2px dashed #d1d5db;
+        border-radius: 8px;
+        padding: 16px;
+        background: #fafafa;
+      }
+
+      .attachment-upload input[type="file"] {
+        width: 100%;
+      }
+
+      .attachment-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .attachment-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: rgba(10, 42, 102, 0.06);
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        color: var(--deep-blue);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .remove-attachment {
+        border: 0;
+        background: transparent;
+        color: #ef4444;
+        cursor: pointer;
+        font-weight: 800;
+      }
+
       /* reCAPTCHA placeholder */
       .recaptcha {
         border: 1px dashed #d1d5db;
@@ -460,8 +633,8 @@
         transition: all 0.3s ease;
       }
       .btn-primary:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
+        opacity: 0.82;
+        cursor: progress;
         transform: none;
         box-shadow: none;
       }
@@ -526,6 +699,19 @@
         border-top-color: var(--deep-blue);
         animation: spin 1s ease-in-out infinite;
         margin-right: 10px;
+      }
+
+      #loadingOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
       }
 
       @keyframes spin {
@@ -613,17 +799,13 @@
 
       /* Loading overlay */
       .loading-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        position: fixed;
+        inset: 0;
         background-color: rgba(255, 255, 255, 0.95);
         display: none;
         justify-content: center;
         align-items: center;
-        border-radius: 12px;
-        z-index: 100;
+        z-index: 9999;
       }
 
       .loading-overlay.active {
@@ -689,6 +871,98 @@
         display: block;
       }
 
+      .field.has-error input,
+      .field.has-error select,
+      .field.has-error textarea,
+      .input-error {
+        border-color: #ef4444 !important;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+      }
+
+      .field-error-text {
+        color: #dc2626;
+        font-size: 12px;
+        margin-top: 6px;
+        line-height: 1.35;
+        font-weight: 500;
+        background: transparent;
+        border: 0;
+      }
+
+      .password-field {
+        position: relative;
+        width: 100%;
+      }
+
+      .password-field input {
+        width: 100%;
+        padding-right: 48px !important;
+      }
+
+      .password-toggle {
+        position: absolute !important;
+        top: 50% !important;
+        right: 12px !important;
+        transform: translateY(-50%) !important;
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        min-height: 32px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        background: transparent !important;
+        color: #64748b;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        line-height: 1 !important;
+        cursor: pointer;
+        z-index: 2;
+      }
+
+      .password-toggle:hover,
+      .password-toggle:active,
+      .password-toggle:focus {
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        color: var(--deep-blue);
+      }
+
+      .password-toggle svg {
+        display: block;
+        width: 18px;
+        height: 18px;
+        pointer-events: none;
+      }
+
+      .password-toggle:focus-visible {
+        outline: 2px solid rgba(248, 193, 46, 0.8);
+        outline-offset: 2px;
+        border-radius: 8px;
+      }
+
+      .password-toggle .icon-hide {
+        display: none;
+      }
+
+      .password-toggle.is-visible .icon-show {
+        display: none;
+      }
+
+      .password-toggle.is-visible .icon-hide {
+        display: inline-flex;
+      }
+
+      .checkbox-error {
+        outline: 2px solid rgba(239, 68, 68, 0.65);
+        outline-offset: 2px;
+      }
+
       /* NSS format info */
       .nss-format {
         font-size: 12px;
@@ -706,11 +980,41 @@
         display: block;
       }
 
+      @media (min-width: 901px) and (max-width: 1100px) {
+        .page {
+          grid-template-columns: minmax(420px, 1.35fr) minmax(240px, 0.65fr);
+          gap: 24px;
+          padding: 20px 18px;
+          align-items: start;
+        }
+
+        .page > div:first-of-type,
+        .signup-form {
+          width: 100%;
+          max-width: none;
+          min-width: 0;
+        }
+
+        .right-column {
+          width: 100%;
+          max-width: 300px;
+          justify-self: end;
+          gap: 14px;
+          padding: 4px 0 0;
+        }
+
+        .placeholder-card {
+          height: 160px;
+          min-height: 160px;
+          padding: 18px;
+        }
+      }
+
       /* MOBILE */
       @media (max-width: 900px) {
-        .page {
+        .page.page-offset {
           grid-template-columns: 1fr;
-          padding: 18px;
+          padding: calc(var(--nav-h) + 18px) 18px 18px;
         }
         .right-column {
           order: 2;
@@ -720,74 +1024,123 @@
         .signup-form {
           order: 1;
         }
-        nav.desktop-nav {
-          display: none;
-        }
-        .menu-icon {
-          display: block;
-        }
       }
 
       @media (max-width: 480px) {
+        .signup-step-row,
+        .step-bar {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          width: 100%;
+          margin-bottom: 18px;
+        }
+        .step-pill {
+          flex: 0 0 auto;
+          font-size: 13px;
+          padding: 6px 10px;
+          white-space: nowrap;
+        }
+        .step-track,
+        .progress-line {
+          flex: 1 1 auto;
+          min-width: 0;
+          display: block;
+        }
         .nav-inner {
           padding: 12px 20px;
         }
         .page-heading h1 {
           font-size: 22px;
         }
-        .page {
+        .page.page-offset {
           margin: 18px auto;
         }
         .row-2 {
           grid-template-columns: 1fr;
         }
+      }
 
-        #mobile-menu ul li {
-          padding: 12px 20px;
+      @media (min-width: 769px) {
+        .page-offset {
+          padding-top: calc(var(--nav-h) + 56px);
         }
+      }
 
-        #mobile-menu .login-btn {
-          margin: 10px 20px;
-          width: calc(100% - 40px);
+      @media (max-width: 768px) {
+        #step,
+        .signup-step-row,
+        .step-bar {
+          display: flex !important;
+          align-items: center;
+          gap: 10px;
+          width: 100%;
+          margin: 16px 0 18px;
+        }
+        #step .step-pill,
+        .signup-step-row .step-pill {
+          font-size: 0.78rem;
+          padding: 7px 11px;
+          white-space: nowrap;
+          flex: 0 0 auto;
+        }
+        #step .step-track,
+        #step .progress-line,
+        .signup-step-row .step-track,
+        .signup-step-row .progress-line {
+          flex: 1 1 auto;
+          min-width: 0;
+          height: 5px;
+          display: block !important;
         }
       }
     </style>
+  
+    <link rel='stylesheet' href='assets/css/product-polish.css' />
   </head>
   <body>
     <!-- NAVBAR -->
-    <header class="site-navbar">
+    <header class="site-nav">
       <div class="nav-inner">
-        <a class="brand" href="index.html"
-          ><img src="logo.png" alt="Job Assist Ghana logo"
-        /></a>
+        <a class="brand" href="index.html">
+          <img src="assets/images/logo.png" alt="Job Assist Ghana Logo" />
+        </a>
 
-        <nav class="desktop-nav" aria-label="Main navigation">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="login.html" class="login-btn">Login</a></li>
-          </ul>
-        </nav>
-
-        <div class="menu-icon" id="menuBtn">☰</div>
-      </div>
-
-      <!-- mobile menu (hidden by default) -->
-      <div id="mobile-menu">
-        <ul>
-          <li><a href="../index.html">Home</a></li>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="login.html" class="login-btn">Login</a></li>
+          <li><a href="build-cv.html">Build a CV</a></li>
         </ul>
+
+        <div class="nav-cta">
+          <a class="btn-solid btn-solid-primary" href="login.html">Login</a>
+        </div>
+
+        <button
+          class="menu-btn"
+          id="menuBtn"
+          type="button"
+          onclick="toggleMenu()"
+          aria-label="Open menu"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
+
+      <nav class="mobile-drawer" id="mobile-nav" aria-label="Mobile navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="build-cv.html">Build a CV</a>
+        <a class="mobile-cta active" href="login.html">Login</a>
+      </nav>
     </header>
 
     <!-- MAIN PAGE -->
-    <main class="page" role="main">
+    <main class="page page-offset" role="main">
       <!-- Loading Overlay -->
-      <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-overlay" id="loadingOverlay" style="display: none">
         <div class="loading-content">
-          <div class="loading-spinner active"></div>
+          <div class="loading-spinner" id="overlaySpinner"></div>
           <h3>Processing your information...</h3>
           <p>Please wait while we validate your details</p>
           <div class="loading-dots">
@@ -800,11 +1153,11 @@
 
       <!-- Step 1: Signup Form -->
       <div id="step1">
-        <div class="step-bar" aria-hidden="true">
+        <div class="signup-step-row step-bar" id="step" aria-hidden="true">
           <div class="step-pill">Step 1 of 2</div>
-          <div class="progress-line" aria-hidden="true">
+          <div class="step-track progress-line" aria-hidden="true">
             <div
-              class="fill"
+              class="step-fill fill"
               role="progressbar"
               aria-valuenow="50"
               aria-valuemin="0"
@@ -816,7 +1169,7 @@
         <div class="page-heading">
           <h1>Create Candidate Account</h1>
           <a href="employer-signup.html" class="employer-cta"
-            >Sign up as Employer →</a
+            >Sign up as Employer -></a
           >
         </div>
 
@@ -851,19 +1204,17 @@
                 <span
                   class="tooltip"
                   data-tip="We use your NSS number to verify your graduate status. It is kept private and only used for verification."
-                  >🛈</span
+                  ></span
                 >
               </label>
               <input
                 id="nss"
                 name="nss"
                 type="text"
-                placeholder="e.g. NSS123456789 or GHS1234567"
-                maxlength="13"
+                placeholder="Enter your NSS Number"
               />
               <div class="nss-format">
-                Format: 3 capital letters followed by numbers (e.g.,
-                NSS123456789)
+                Eg. NSS############
               </div>
               <div class="checkbox-group">
                 <input type="checkbox" id="isShsGraduate" />
@@ -878,6 +1229,7 @@
                 name="email"
                 type="email"
                 placeholder="Email address"
+                autocomplete="email"
               />
             </div>
           </div>
@@ -890,6 +1242,9 @@
                 id="phone"
                 name="phone"
                 type="tel"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                autocomplete="tel"
                 placeholder="e.g. 0244123456"
                 required
               />
@@ -903,6 +1258,15 @@
                 <option>Female</option>
               </select>
             </div>
+            <div class="field">
+              <label for="dob">Date of Birth (Optional)</label>
+              <input
+                id="dob"
+                name="dob"
+                type="date"
+                class="input"
+              />
+            </div>
           </div>
 
           <!-- Ghana Card -->
@@ -912,7 +1276,7 @@
               <span
                 class="tooltip"
                 data-tip="Your Ghana Card number helps confirm your national identity; it will be used only for verification."
-                >🛈</span
+                ></span
               >
             </label>
             <input
@@ -926,14 +1290,13 @@
 
           <!-- Digital Address -->
           <div class="field">
-            <label for="digitalAddress" class="required">Digital address</label>
+            <label for="digitalAddress">Digital address</label>
             <input
               id="digitalAddress"
               name="digitalAddress"
               type="text"
               placeholder="e.g. XX-0000-0000"
               aria-describedby="digitalFormat"
-              required
             />
             <div
               id="digitalFormat"
@@ -1015,11 +1378,26 @@
               <select id="experience" name="experience" required>
                 <option value="">Select</option>
                 <option>No experience</option>
-                <option>1–2 years</option>
-                <option>3–5 years</option>
+                <option>1-2 years</option>
+                <option>3-5 years</option>
                 <option>5+ years</option>
               </select>
             </div>
+          </div>
+
+          <div class="field">
+            <label for="highestEducationLevel" class="required">Highest Level of Education</label>
+            <select id="highestEducationLevel" name="highestEducationLevel" required>
+              <option value="">Select Education Level</option>
+              <option>High School</option>
+              <option>Diploma</option>
+              <option>Bachelor’s Degree</option>
+              <option>Master’s Degree</option>
+              <option>PhD</option>
+              <option>Professional Certification</option>
+              <option>Vocational / Technical</option>
+              <option>No Formal Education</option>
+            </select>
           </div>
 
           <!-- Preferred Industry -->
@@ -1049,6 +1427,21 @@
             </div>
           </div>
 
+          <div class="field" id="skillsField">
+            <label for="skillsInput" class="required">Skills</label>
+            <div class="skills-input-wrap">
+              <input
+                id="skillsInput"
+                name="skillsInput"
+                type="text"
+                placeholder="e.g. Microsoft Excel"
+                autocomplete="off"
+              />
+              <div class="skills-helper">Add up to 3 skills. Press Enter after each skill.</div>
+              <div class="skills-chip-list" id="skillsChipList" aria-live="polite"></div>
+            </div>
+          </div>
+
           <!-- Disabled field with spacing -->
           <div class="field" style="margin-bottom: 24px">
             <label for="disabled" class="required">Are you disabled?</label>
@@ -1063,35 +1456,83 @@
           <div class="row-2">
             <div class="field">
               <label for="password" class="required">Password</label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Password"
-                required
-              />
+              <div class="password-field">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  minlength="8"
+                  required
+                />
+                <button
+                  type="button"
+                  class="password-toggle"
+                  data-target="password"
+                  aria-label="Show password"
+                  aria-pressed="false"
+                >
+                  <span class="icon-show" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </span>
+                  <span class="icon-hide" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 3l18 18"></path>
+                      <path d="M10.6 10.7a3 3 0 0 0 4.2 4.2"></path>
+                      <path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a18.7 18.7 0 0 1-3 3.8"></path>
+                      <path d="M6.6 6.7C4 8.6 2 12 2 12s3.5 7 10 7a10.5 10.5 0 0 0 4.1-.8"></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
             </div>
             <div class="field">
               <label for="confirmPassword" class="required"
                 >Confirm password</label
               >
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                placeholder="Confirm password"
-                required
-              />
+              <div class="password-field">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="Confirm password"
+                  minlength="8"
+                  required
+                />
+                <button
+                  type="button"
+                  class="password-toggle"
+                  data-target="confirmPassword"
+                  aria-label="Show password"
+                  aria-pressed="false"
+                >
+                  <span class="icon-show" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </span>
+                  <span class="icon-hide" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 3l18 18"></path>
+                      <path d="M10.6 10.7a3 3 0 0 0 4.2 4.2"></path>
+                      <path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a18.7 18.7 0 0 1-3 3.8"></path>
+                      <path d="M6.6 6.7C4 8.6 2 12 2 12s3.5 7 10 7a10.5 10.5 0 0 0 4.1-.8"></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
 
           <!-- Passport Picture Upload -->
           <div class="field">
-            <label for="passportPicture" class="required"
-              >Upload Passport Picture</label
-            >
+            <label for="passportPicture">Profile Picture (Optional)</label>
             <div class="passport-upload" id="passportUpload">
-              <div class="upload-icon">📷</div>
+              <div class="upload-icon"></div>
               <div class="upload-text">Click to upload or drag and drop</div>
               <div class="file-info">PNG, JPG up to 2MB</div>
               <input
@@ -1116,6 +1557,9 @@
               <button type="button" class="remove-image" id="removeImage">
                 Remove image
               </button>
+            </div>
+            <div class="helper-note">
+              Adding a clear profile photo can help employers recognize your profile and build more confidence in your application.
             </div>
           </div>
 
@@ -1157,7 +1601,7 @@
           </div>
 
           <div class="actions">
-            <button id="nextBtn" type="button" class="btn-primary">
+            <button id="nextBtn" type="submit" class="btn-primary">
               <div class="loading-spinner" id="buttonSpinner"></div>
               <span class="btn-text">Next</span>
             </button>
@@ -1170,7 +1614,7 @@
               >
             </div>
             <div class="security-note">
-              🔒
+              
               <span
                 >We encrypt and store your data securely. Only verified
                 employers can view profiles.</span
@@ -1197,7 +1641,7 @@
         color: var(--muted);
       "
     >
-      <div>© 2025 Job Assist Ghana. All rights reserved.</div>
+      <div>Copyright 2025 Job Assist Ghana. All rights reserved.</div>
       <div style="margin-top: 6px; font-size: 13px">
         <a href="privacy.html" style="color: inherit; text-decoration: none"
           >Privacy</a
@@ -1214,57 +1658,186 @@
     </footer>
 
     <!-- ---------- SCRIPTS: tooltips, mobile menu, validation ---------- -->
+    <script src="assets/js/input-hardening.js"></script>
+    <script src="assets/js/password-toggle.js"></script>
     <script>
-      // Mobile menu functionality - matches homepage
-      function toggleMenu() {
-        const mobileNav = document.getElementById("mobile-menu");
-        mobileNav.classList.toggle("active");
+      const candidateSkills = [];
+
+      function getCandidateSkills() {
+        return candidateSkills.slice();
       }
 
-      // Update the menu icon event listener
+      function escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      // Mobile menu functionality - matches homepage
+      function toggleMenu() {
+        const drawer = document.getElementById("mobile-nav");
+        const icon = document.querySelector(".menu-btn i");
+        if (!drawer || !icon) return;
+        drawer.classList.toggle("active");
+        if (drawer.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-xmark");
+        } else {
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        }
+      }
+
+      document.addEventListener("click", function (event) {
+        const drawer = document.getElementById("mobile-nav");
+        const menuBtn = document.querySelector(".menu-btn");
+        const nav = document.querySelector(".site-nav");
+        if (!drawer || !menuBtn || !nav) return;
+        if (!nav.contains(event.target) && drawer.classList.contains("active")) {
+          drawer.classList.remove("active");
+          const icon = document.querySelector(".menu-btn i");
+          if (icon) {
+            icon.classList.remove("fa-xmark");
+            icon.classList.add("fa-bars");
+          }
+        }
+      });
+
+      document.querySelectorAll("#mobile-nav a").forEach((a) => {
+        a.addEventListener("click", () => {
+          const drawer = document.getElementById("mobile-nav");
+          const icon = document.querySelector(".menu-btn i");
+          if (drawer) drawer.classList.remove("active");
+          if (icon) {
+            icon.classList.remove("fa-xmark");
+            icon.classList.add("fa-bars");
+          }
+        });
+      });
+
       document.addEventListener("DOMContentLoaded", function () {
-        const menuBtn = document.getElementById("menuBtn");
-        const mobileMenu = document.getElementById("mobile-menu");
         const nextBtn = document.getElementById("nextBtn");
         const buttonSpinner = document.getElementById("buttonSpinner");
         const errorMessage = document.getElementById("errorMessage");
         const loadingOverlay = document.getElementById("loadingOverlay");
+        const overlaySpinner = document.getElementById("overlaySpinner");
+        const signupForm = document.getElementById("signupForm");
+        let isSubmitting = false;
+        const skillsInput = document.getElementById("skillsInput");
+        const skillsChipList = document.getElementById("skillsChipList");
+        const phoneField = document.getElementById("phone");
+
+        loadingOverlay.classList.remove("active");
+        loadingOverlay.style.display = "none";
+
+        if (overlaySpinner) {
+          overlaySpinner.classList.remove("active");
+        }
         const nssField = document.getElementById("nss");
 
-        if (menuBtn && mobileMenu) {
-          menuBtn.addEventListener("click", function (e) {
-            e.stopPropagation();
-            mobileMenu.classList.toggle("active");
-          });
+        function sanitizePhoneDigits(value) {
+          return String(value || "").replace(/\D/g, "");
+        }
 
-          // Close menu when clicking outside
-          document.addEventListener("click", function (e) {
-            if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-              mobileMenu.classList.remove("active");
+        if (phoneField) {
+          phoneField.addEventListener("input", function () {
+            this.value = sanitizePhoneDigits(this.value);
+          });
+        }
+
+        function renderSkillChips() {
+          if (!skillsChipList) return;
+          skillsChipList.innerHTML = "";
+          candidateSkills.forEach((skill, index) => {
+            const chip = document.createElement("span");
+            chip.className = "skill-chip";
+            const label = document.createElement("span");
+            label.textContent = skill;
+            const removeButton = document.createElement("button");
+            removeButton.type = "button";
+            removeButton.setAttribute("aria-label", `Remove ${skill}`);
+            removeButton.dataset.index = String(index);
+            removeButton.innerHTML = "&times;";
+            chip.appendChild(label);
+            chip.appendChild(removeButton);
+            skillsChipList.appendChild(chip);
+          });
+        }
+
+        function addCandidateSkill(rawSkill) {
+          const skill = formatSkillValue(
+            String(rawSkill || "").trim().replace(/\s+/g, " "),
+            60,
+          );
+          if (!skill) return false;
+
+          const duplicate = candidateSkills.some(
+            (existingSkill) => existingSkill.toLowerCase() === skill.toLowerCase()
+          );
+          if (duplicate) {
+            if (skillsInput) setFieldError(skillsInput, "This skill has already been added.");
+            return false;
+          }
+
+          if (candidateSkills.length >= 3) {
+            if (skillsInput) setFieldError(skillsInput, "You can add up to 3 skills only.");
+            return false;
+          }
+
+          candidateSkills.push(skill);
+          if (skillsInput) {
+            skillsInput.value = "";
+            clearFieldError(skillsInput);
+          }
+          renderSkillChips();
+          checkFormValidity();
+          return true;
+        }
+
+        if (skillsInput) {
+          skillsInput.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === ",") {
+              event.preventDefault();
+              addCandidateSkill(skillsInput.value);
             }
           });
 
-          // Close menu when clicking on links
-          mobileMenu.querySelectorAll("a").forEach((link) => {
-            link.addEventListener("click", () => {
-              mobileMenu.classList.remove("active");
-            });
+          skillsInput.addEventListener("input", function () {
+            if (candidateSkills.length > 0) clearFieldError(skillsInput);
+            checkFormValidity();
+          });
+        }
+
+        if (skillsChipList) {
+          skillsChipList.addEventListener("click", function (event) {
+            const removeButton = event.target.closest("button[data-index]");
+            if (!removeButton) return;
+            const index = Number(removeButton.dataset.index);
+            if (!Number.isNaN(index)) {
+              candidateSkills.splice(index, 1);
+              renderSkillChips();
+              checkFormValidity();
+            }
           });
         }
 
         // NSS Number validation - first 3 characters must be capital letters
         nssField.addEventListener("input", function () {
-          const value = this.value.trim();
+          const rawValue = this.value;
+          const trimmedValue = rawValue.trim();
 
           // Auto-uppercase the first 3 characters
-          if (value.length >= 3) {
-            const prefix = value.substring(0, 3).toUpperCase();
-            const suffix = value.substring(3);
+          if (rawValue.length >= 1) {
+            const prefix = rawValue.substring(0, 3).toUpperCase();
+            const suffix = rawValue.substring(3).replace(/[^\d]/g, "");
             this.value = prefix + suffix;
           }
 
           // Validate format only if field has content
-          if (value && !validNssFormat(value)) {
+          if (trimmedValue && !validNssFormat(this.value)) {
             this.style.borderColor = "#fca5a5";
           } else {
             this.style.borderColor = "";
@@ -1274,42 +1847,198 @@
           checkFormValidity();
         });
 
-        // Handle Next button click
-        nextBtn.addEventListener("click", function () {
-          if (!allValid()) {
-            showError("Please fill all required fields correctly.");
+        const hardener = window.JobAssistInputHardening;
+        const formatDisplayText = (value, maxLength = 0) => {
+          const sanitized = hardener?.sanitizeText
+            ? hardener.sanitizeText(value, { maxLength })
+            : String(value || "").trim();
+          return hardener?.formatDisplayText
+            ? hardener.formatDisplayText(sanitized, { maxLength })
+            : sanitized;
+        };
+        const formatSkillValue = (value, maxLength = 0) => {
+          const sanitized = hardener?.sanitizeText
+            ? hardener.sanitizeText(value, { maxLength })
+            : String(value || "").trim();
+          return hardener?.formatSkillDisplay
+            ? hardener.formatSkillDisplay(sanitized, { maxLength })
+            : sanitized;
+        };
+
+        function persistCandidateSignupStep() {
+          const sanitizeText = (value, maxLength = 0) =>
+            hardener?.sanitizeText
+              ? hardener.sanitizeText(value, { maxLength })
+              : String(value || "").trim();
+          const sanitizeMultiline = (value, maxLength = 0) =>
+            hardener?.sanitizeMultilineText
+              ? hardener.sanitizeMultilineText(value, { maxLength })
+              : String(value || "").trim();
+          const normalizedEmail = hardener?.sanitizeEmail
+            ? hardener.sanitizeEmail(document.getElementById("email").value)
+            : document.getElementById("email").value.trim().toLowerCase();
+          const normalizedPhone = hardener?.normalizeGhanaPhone
+            ? hardener.normalizeGhanaPhone(document.getElementById("phone").value)
+            : document.getElementById("phone").value.trim();
+
+          if (
+            normalizedEmail &&
+            !(hardener?.isValidEmail
+              ? hardener.isValidEmail(normalizedEmail)
+              : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(normalizedEmail))
+          ) {
+            throw new Error("Please enter a valid email address.");
+          }
+
+          if (!normalizedPhone) {
+            throw new Error("Please enter a valid Ghana phone number.");
+          }
+
+          const studyValue = document.getElementById("study").value;
+          const studyOther = sanitizeText(document.getElementById("studyOther").value, 120);
+          const industryValue = document.getElementById("industry").value;
+          const industryOther = sanitizeText(document.getElementById("industryOther").value, 120);
+          const passportPreview = document.getElementById("previewImage");
+          const passportSource =
+            passportPreview &&
+            passportPreview.src &&
+            /^data:image\//i.test(passportPreview.src)
+              ? passportPreview.src
+              : "";
+
+          const signupData = {
+            fullName: formatDisplayText(document.getElementById("fullName").value, 120),
+            nssNumber: sanitizeText(document.getElementById("nss").value, 20),
+            isShsGraduate: document.getElementById("isShsGraduate")?.checked || false,
+            email: normalizedEmail,
+            phone: normalizedPhone,
+            gender: sanitizeText(document.getElementById("gender").value, 40),
+            dateOfBirth: sanitizeText(document.getElementById("dob")?.value || "", 20),
+            ghanaCard: sanitizeText(document.getElementById("ghanacard").value, 30),
+            digitalAddress: sanitizeText(document.getElementById("digitalAddress").value, 40),
+            region: formatDisplayText(document.getElementById("region").value, 60),
+            workOutside: formatDisplayText(document.getElementById("outside").value, 60),
+            fieldOfStudy: formatDisplayText(studyValue === "other" ? studyOther : studyValue, 120),
+            experience: formatDisplayText(document.getElementById("experience").value, 80),
+            highestEducationLevel: formatDisplayText(
+              document.getElementById("highestEducationLevel").value,
+              80,
+            ),
+            preferredIndustry: formatDisplayText(
+              industryValue === "Other" ? industryOther : industryValue,
+              120,
+            ),
+            skills: getCandidateSkills()
+              .map((skill) => formatSkillValue(skill, 60))
+              .filter(Boolean),
+            disabled: sanitizeText(document.getElementById("disabled").value, 40),
+            password: document.getElementById("password").value,
+          };
+
+          const candidateSignupTemp = {
+            fullName: signupData.fullName,
+            email: signupData.email,
+            phone: signupData.phone,
+            gender: signupData.gender,
+            dateOfBirth: signupData.dateOfBirth,
+            isShsGraduate: signupData.isShsGraduate,
+            region: signupData.region,
+            willingToRelocate: signupData.workOutside,
+            course: signupData.fieldOfStudy,
+            fieldOfStudy: signupData.fieldOfStudy,
+            highestEducationLevel: signupData.highestEducationLevel,
+            educationLevel: signupData.highestEducationLevel,
+            preferredIndustry: signupData.preferredIndustry,
+            nssNumber: signupData.nssNumber,
+            ghanaCard: signupData.ghanaCard,
+            digitalAddress: signupData.digitalAddress,
+            experience: signupData.experience,
+            skills: signupData.skills,
+            disabled: signupData.disabled,
+            password: signupData.password,
+          };
+
+          try {
+            sessionStorage.setItem("jobassist_candidate_signup_temp", JSON.stringify(candidateSignupTemp));
+          } catch (error) {
+            console.warn("Temporary candidate signup data could not be written to sessionStorage:", error);
+          }
+
+          try {
+            sessionStorage.removeItem("jobassist_candidate_signup_image");
+            sessionStorage.removeItem("jobassist_passport_temp");
+            sessionStorage.removeItem("jobassist_candidate_signup_data");
+            sessionStorage.removeItem("jobassist_candidate_signup");
+            sessionStorage.removeItem("jobassist_temp_candidate");
+          } catch {}
+          if (passportSource) {
+            try {
+              sessionStorage.setItem("jobassist_passport_temp", passportSource);
+            } catch (error) {
+              console.warn("Temporary passport image could not be written to sessionStorage:", error);
+            }
+          }
+
+          try {
+            localStorage.setItem("signupType", "candidate");
+          } catch {}
+          try {
+            sessionStorage.setItem("signupType", "candidate");
+          } catch {}
+        }
+
+        function handleCandidateSignupStep() {
+          if (isSubmitting) return;
+
+          clearFieldErrors();
+          errorMessage.classList.remove("show");
+          if (skillsInput && skillsInput.value.trim()) {
+            addCandidateSkill(skillsInput.value);
+          }
+
+          const validation = validateCandidateForm(true);
+
+          if (!validation.valid) {
+            focusFirstError();
+            setLoadingState(false);
             return;
           }
 
-          // Hide any previous error message
-          errorMessage.classList.remove("show");
-
-          // Show loading state
+          isSubmitting = true;
           setLoadingState(true);
 
-          // Simulate API call delay (1-2 seconds)
-          const delay = Math.random() * 1000 + 1000;
-
-          setTimeout(() => {
-            setLoadingState(false);
-
-            // Redirect to verification page
-            sessionStorage.setItem("signupType","candidate");
+          try {
+            persistCandidateSignupStep();
             window.location.href = "verify-info.html?type=candidate";
-          }, delay);
+          } catch (error) {
+            console.error("Candidate signup step failed:", error);
+            showError("We could not continue to verification. Please review your details and try again.");
+            setLoadingState(false);
+            isSubmitting = false;
+          }
+        }
+
+        signupForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+          handleCandidateSignupStep();
         });
 
         function setLoadingState(isLoading) {
           if (isLoading) {
+            window.scrollTo({ top: 0, behavior: "smooth" });
             nextBtn.disabled = true;
             nextBtn.classList.add("loading");
             buttonSpinner.classList.add("active");
+            loadingOverlay.style.display = "flex";
             loadingOverlay.classList.add("active");
+            if (overlaySpinner) overlaySpinner.classList.add("active");
           } else {
-            nextBtn.disabled = !allValid();
+            nextBtn.disabled = false;
             nextBtn.classList.remove("loading");
             buttonSpinner.classList.remove("active");
             loadingOverlay.classList.remove("active");
+            loadingOverlay.style.display = "none";
+            if (overlaySpinner) overlaySpinner.classList.remove("active");
           }
         }
 
@@ -1323,22 +2052,56 @@
           errorMessage.scrollIntoView({ behavior: "smooth", block: "center" });
         }
 
-        // NSS validation function - first 3 characters must be capital letters
-        function validNssFormat(value) {
-          // If field is empty, it's valid (optional field)
-          if (!value || value.trim() === "") return true;
+      // NSS validation function - 3 letters followed by numbers only
+      function validNssFormat(value) {
+        if (!value || value.trim() === "") return true;
+        return /^[A-Za-z]{3}\d+$/.test(value.trim());
+      }
 
-          // Must have at least 3 characters
-          if (value.length < 3) return false;
+      function initializePasswordToggles() {
+        window.JobAssistPasswordToggle?.initPasswordToggles?.();
+      }
 
-          // First 3 characters must be capital letters
-          const prefix = value.substring(0, 3);
-          if (!/^[A-Z]{3}$/.test(prefix)) return false;
+      function syncCandidatePasswordFeedback() {
+        const passwordField = document.getElementById("password");
+        const confirmPasswordField = document.getElementById("confirmPassword");
+        const pwd = String(passwordField?.value || "");
+        const cpwd = String(confirmPasswordField?.value || "");
 
-          // The rest can be any characters (letters, numbers, symbols)
-          // No further restrictions on the format
-          return true;
+        if (pwd.length >= 8) {
+          clearFieldError(passwordField);
         }
+
+        if (!cpwd) return;
+
+        if (cpwd.length >= 8 && pwd.length >= 8 && pwd === cpwd) {
+          clearFieldError(confirmPasswordField);
+        } else if (
+          cpwd.length >= 8 &&
+          pwd.length >= 8 &&
+          pwd !== cpwd &&
+          getFieldWrapper(confirmPasswordField)?.classList.contains("has-error")
+        ) {
+          setFieldError(confirmPasswordField, "Passwords do not match.");
+        } else if (
+          cpwd.length >= 8 &&
+          pwd.length < 8 &&
+          getFieldWrapper(confirmPasswordField)?.classList.contains("has-error")
+        ) {
+          clearFieldError(confirmPasswordField);
+        }
+      }
+      });
+
+      document.querySelectorAll("input, select, textarea").forEach((el) => {
+        el.addEventListener("input", () => {
+          clearFieldError(el);
+          errorMessage.classList.remove("show");
+        });
+        el.addEventListener("change", () => {
+          clearFieldError(el);
+          errorMessage.classList.remove("show");
+        });
       });
 
       // SHS Graduate Field of Study Logic
@@ -1402,6 +2165,7 @@
 
           // Update form validation
           checkFormValidity();
+
         }
 
         // Initial setup
@@ -1511,11 +2275,11 @@
         el.addEventListener(
           "mouseenter",
           () => (tipBox.style.display = "block"),
-        );
+);
         el.addEventListener(
           "mouseleave",
           () => (tipBox.style.display = "none"),
-        );
+);
         el.addEventListener("focus", () => (tipBox.style.display = "block"));
         el.addEventListener("blur", () => (tipBox.style.display = "none"));
       });
@@ -1590,103 +2354,305 @@
         });
       });
 
+      function getFieldWrapper(target) {
+        if (!target) return null;
+        return target.closest(".field") || target.parentElement || null;
+      }
+
+      function clearFieldError(target) {
+        if (!target) return;
+
+        const fieldWrapper = getFieldWrapper(target);
+        if (fieldWrapper) {
+          fieldWrapper.classList.remove("has-error");
+          const errorText = fieldWrapper.querySelector(".field-error-text");
+          if (errorText) errorText.remove();
+        }
+
+        target.classList.remove("input-error", "checkbox-error");
+        if (target.style?.borderColor) {
+          target.style.borderColor = "";
+        }
+      }
+
+      function clearFieldErrors() {
+        document.querySelectorAll(".has-error").forEach((el) => {
+          el.classList.remove("has-error");
+        });
+
+        document.querySelectorAll(".input-error, .checkbox-error").forEach((el) => {
+          el.classList.remove("input-error", "checkbox-error");
+          if (el.style?.borderColor) {
+            el.style.borderColor = "";
+          }
+        });
+
+        document.querySelectorAll(".field-error-text").forEach((el) => {
+          el.remove();
+        });
+      }
+
+      function setFieldError(target, message) {
+        if (!target) return;
+
+        const fieldWrapper = getFieldWrapper(target);
+
+        if (fieldWrapper) {
+          fieldWrapper.classList.add("has-error");
+        }
+
+        const isCheckbox =
+          target.type === "checkbox" || target.classList.contains("recaptcha");
+        target.classList.add(isCheckbox ? "checkbox-error" : "input-error");
+        if (!isCheckbox) {
+          target.style.borderColor = "#ef4444";
+        }
+
+        const existing = fieldWrapper?.querySelector(".field-error-text");
+        if (existing) existing.remove();
+
+        if (message && fieldWrapper) {
+          const error = document.createElement("div");
+          error.className = "field-error-text";
+          error.textContent = message;
+          fieldWrapper.appendChild(error);
+        }
+      }
+
+      function focusFirstError() {
+        const firstError =
+          document.querySelector(".input-error") ||
+          document.querySelector(".checkbox-error") ||
+          document.querySelector(".has-error");
+
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+          if (typeof firstError.focus === "function" && firstError.type !== "checkbox") {
+            firstError.focus({ preventScroll: true });
+          }
+        }
+      }
+
       // digital address pattern: two uppercase letters, dash, 1-10 numbers and dashes (relaxed)
       function validDigital(val) {
         // Accept formats like AE-0196-6661 or GA-1234 or AE-1234567890
         return /^[A-Z]{2}[-][0-9\-]{1,20}$/.test(val);
       }
 
-      // NSS validation function - first 3 characters must be capital letters
+      // NSS validation function - 3 letters followed by numbers only
       function validNssFormat(value) {
-        // If field is empty, it's valid (optional field)
         if (!value || value.trim() === "") return true;
+        return /^[A-Za-z]{3}\d+$/.test(value.trim());
+      }
 
-        // Must have at least 3 characters
-        if (value.length < 3) return false;
+      function validateCandidateForm(showErrors = false) {
+        const fullNameField = document.getElementById("fullName");
+        const nssFieldEl = document.getElementById("nss");
+        const shsGraduateField = document.getElementById("isShsGraduate");
+        const emailField = document.getElementById("email");
+        const phoneField = document.getElementById("phone");
+        const genderField = document.getElementById("gender");
+        const ghanaCardField = document.getElementById("ghanacard");
+        const digitalAddressField = document.getElementById("digitalAddress");
+        const regionField = document.getElementById("region");
+        const outsideField = document.getElementById("outside");
+        const studyField = document.getElementById("study");
+        const studyOtherField = document.getElementById("studyOther");
+        const experienceField = document.getElementById("experience");
+        const highestEducationLevelField = document.getElementById("highestEducationLevel");
+        const industryField = document.getElementById("industry");
+        const industryOtherField = document.getElementById("industryOther");
+        const disabledField = document.getElementById("disabled");
+        const passwordField = document.getElementById("password");
+        const confirmPasswordField = document.getElementById("confirmPassword");
+        const agreeField = document.getElementById("agree");
+        const recapField = document.getElementById("fakeRecap");
+        const passportField = document.getElementById("passportPicture");
+        const previewImage = document.getElementById("previewImage");
+        const skillsField = document.getElementById("skillsInput");
 
-        // First 3 characters must be capital letters
-        const prefix = value.substring(0, 3);
-        if (!/^[A-Z]{3}$/.test(prefix)) return false;
+        const errors = [];
+        const isShsGraduate = shsGraduateField?.checked;
+        const full = fullNameField.value.trim();
+        const nss = nssFieldEl.value.trim();
+        const email = String(emailField?.value || "").trim().toLowerCase();
+        const phone = String(phoneField.value || "").replace(/\D/g, "");
+        const gender = genderField.value;
+        const ghanacard = ghanaCardField.value.trim();
+        const digital = digitalAddressField.value.trim();
+        const region = regionField.value;
+        const outside = outsideField.value;
+        const study = studyField.value;
+        const studyOther = studyOtherField.value.trim();
+        const experience = experienceField.value;
+        const highestEducationLevel = highestEducationLevelField.value;
+        const industry = industryField.value;
+        const industryOther = industryOtherField.value.trim();
+        const disabilityValue = disabledField.value;
+        const pwd = passwordField.value;
+        const cpwd = confirmPasswordField.value;
+        const agree = agreeField.checked;
+        const rec = recapField.checked;
+        const skills = getCandidateSkills();
+        const passport =
+          passportField.files.length > 0 ||
+          /^data:image\//i.test(String(previewImage?.src || ""));
+        const normalizedPhone = window.JobAssistInputHardening?.normalizeGhanaPhone
+          ? window.JobAssistInputHardening.normalizeGhanaPhone(phone)
+          : phone;
+        const validEmail = window.JobAssistInputHardening?.isValidEmail
+          ? window.JobAssistInputHardening.isValidEmail(email)
+          : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(email);
 
-        // The rest can be any characters (letters, numbers, symbols)
-        // No further restrictions on the format
-        return true;
+        if (!full) errors.push([fullNameField, "This field is required."]);
+        if (email && !validEmail) {
+          errors.push([emailField, "Enter a valid email address."]);
+        }
+        if (!phone) errors.push([phoneField, "This field is required."]);
+        if (phone && !normalizedPhone) {
+          errors.push([phoneField, "Enter a valid Ghana phone number."]);
+        }
+        if (!gender) errors.push([genderField, "This field is required."]);
+        if (!ghanaCardField.value.trim()) {
+          errors.push([ghanaCardField, "This field is required."]);
+        }
+        if (digital && !validDigital(digital)) {
+          errors.push([digitalAddressField, "Please enter a valid digital address."]);
+        }
+        if (!region) errors.push([regionField, "This field is required."]);
+        if (!outside) errors.push([outsideField, "This field is required."]);
+        if (!study) errors.push([studyField, "This field is required."]);
+        if (study === "other" && !studyOther) {
+          errors.push([studyOtherField, "This field is required."]);
+        }
+        if (!experience) {
+          errors.push([experienceField, "This field is required."]);
+        }
+        if (!highestEducationLevel) {
+          errors.push([highestEducationLevelField, "This field is required."]);
+        }
+        if (!industry) {
+          errors.push([industryField, "This field is required."]);
+        }
+        if (industry === "Other" && !industryOther) {
+          errors.push([industryOtherField, "This field is required."]);
+        }
+        if (skills.length < 1) {
+          errors.push([skillsField, "This field is required."]);
+        }
+        if (!disabilityValue) {
+          errors.push([disabledField, "This field is required."]);
+        }
+        if (!isShsGraduate && nss && !validNssFormat(nss)) {
+          errors.push([nssFieldEl, "Use 3 letters followed by numbers only."]);
+        }
+        if (!pwd) {
+          errors.push([passwordField, "This field is required."]);
+        } else if (pwd.length < 8) {
+          errors.push([passwordField, "Password must be at least 8 characters."]);
+        }
+        if (!cpwd) {
+          errors.push([confirmPasswordField, "This field is required."]);
+        } else if (cpwd.length < 8) {
+          errors.push([confirmPasswordField, "Password must be at least 8 characters."]);
+        } else if (pwd.length >= 8 && pwd !== cpwd) {
+          errors.push([confirmPasswordField, "Passwords do not match."]);
+        }
+        if (!agree) {
+          errors.push([agreeField, "This field is required."]);
+        }
+        if (!rec) {
+          errors.push([recapField, "This field is required."]);
+        }
+        if (showErrors) {
+          clearFieldErrors();
+          errors.forEach(([target, message]) => setFieldError(target, message));
+        }
+
+        return {
+          valid: errors.length === 0,
+          errors,
+        };
       }
 
       function allValid() {
-        // basic checks: non-empty required, passwords match, digital address pattern, terms checked, fakeRecap checked
-        const form = document.getElementById("signupForm");
+        return validateCandidateForm(false).valid;
+      }
 
-        try {
-          const full = document.getElementById("fullName").value.trim();
-          const nss = document.getElementById("nss").value.trim();
-          const email = document.getElementById("email").value.trim();
-          const phone = document.getElementById("phone").value.trim();
-          const gender = document.getElementById("gender").value;
-          const ghanacard = document.getElementById("ghanacard").value.trim();
-          const digital = document
-            .getElementById("digitalAddress")
-            .value.trim();
-          const region = document.getElementById("region").value;
-          const outside = document.getElementById("outside").value;
-          const study = document.getElementById("study").value;
-          const studyOther = document.getElementById("studyOther").value.trim();
-          const experience = document.getElementById("experience").value;
-          const industry = document.getElementById("industry").value;
-          const industryOther = document
-            .getElementById("industryOther")
-            .value.trim();
-          const disabled = document.getElementById("disabled").value;
-          const pwd = document.getElementById("password").value;
-          const cpwd = document.getElementById("confirmPassword").value;
-          const agree = document.getElementById("agree").checked;
-          const rec = document.getElementById("fakeRecap").checked;
-          const passport =
-            document.getElementById("passportPicture").files.length > 0;
+      function getValidationDebug() {
 
-          // Check all required fields (excluding NSS and email)
-          if (
-            !full ||
-            !phone ||
-            !gender ||
-            !ghanacard ||
-            !digital ||
-            !region ||
-            !outside ||
-            !study ||
-            !experience ||
-            !industry ||
-            !disabled ||
-            !pwd ||
-            !cpwd
-          )
-            return false;
+        const full = document.getElementById("fullName").value.trim();
+        const nss = document.getElementById("nss").value.trim();
+        const isShsGraduate = document.getElementById("isShsGraduate").checked;
+        const email = String(document.getElementById("email").value || "").trim().toLowerCase();
+        const phone = String(document.getElementById("phone").value || "").replace(/\D/g, "");
+        const gender = document.getElementById("gender").value;
+        const ghanacard = document.getElementById("ghanacard").value.trim();
+        const digital = document.getElementById("digitalAddress").value.trim();
+        const region = document.getElementById("region").value;
+        const outside = document.getElementById("outside").value;
+        const study = document.getElementById("study").value;
+        const studyOther = document.getElementById("studyOther").value.trim();
+        const experience = document.getElementById("experience").value;
+        const highestEducationLevel = document.getElementById("highestEducationLevel").value;
+        const industry = document.getElementById("industry").value;
+        const industryOther = document.getElementById("industryOther").value.trim();
+        const skills = getCandidateSkills();
+        const disabled = document.getElementById("disabled").value;
+        const pwd = document.getElementById("password").value;
+        const cpwd = document.getElementById("confirmPassword").value;
+        const agree = document.getElementById("agree").checked;
+        const rec = document.getElementById("fakeRecap").checked;
 
-          // NSS validation - if provided, must have valid format
-          if (nss && !validNssFormat(nss)) return false;
+        const passport =
+          document.getElementById("passportPicture").files.length > 0 ||
+          /^data:image\//i.test(String(document.getElementById("previewImage").src || ""));
+        const validEmail = window.JobAssistInputHardening?.isValidEmail
+          ? window.JobAssistInputHardening.isValidEmail(email)
+          : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(email);
+        const validPhone = window.JobAssistInputHardening?.normalizeGhanaPhone
+          ? window.JobAssistInputHardening.normalizeGhanaPhone(phone)
+          : phone;
 
-          // If study is "other", studyOther must be filled
-          if (study === "other" && !studyOther) return false;
+        const checks = {
+          fullName: !!full,
+          nss: isShsGraduate ? true : !nss || validNssFormat(nss),
+          email: !email || !!validEmail,
+          phone: !!phone && !!validPhone,
+          gender: !!gender,
+          ghanaCard: !!ghanacard,
+          digitalAddress: !digital || validDigital(digital),
+          region: !!region,
+          outside: !!outside,
+          study: !!study,
+          studyOther: study !== "other" || !!studyOther,
+          experience: !!experience,
+          highestEducationLevel: !!highestEducationLevel,
+          industry: !!industry,
+          industryOther: industry !== "Other" || !!industryOther,
+          skills: skills.length >= 1 && skills.length <= 3,
+          disabled: !!disabled,
+          password: !!pwd,
+          confirmPassword: !!cpwd,
+          passwordsMatch: pwd === cpwd,
+          agree,
+          recaptcha: rec,
+          passport: true
+        };
 
-          // If industry is "Other", industryOther must be filled
-          if (industry === "Other" && !industryOther) return false;
-
-          if (pwd !== cpwd) return false;
-          if (!validDigital(digital)) return false;
-          if (!agree) return false;
-          if (!rec) return false;
-          if (!passport) return false;
-
-          return true;
-        } catch (e) {
-          return false;
-        }
+        return {
+          valid: Object.values(checks).every(Boolean),
+          checks
+        };
       }
 
       // Check form validity and update button state
       function checkFormValidity() {
         const nextBtn = document.getElementById("nextBtn");
-        nextBtn.disabled = !allValid();
+        if (nextBtn) {
+          nextBtn.disabled = false;
+        }
+        return getValidationDebug();
       }
 
       // attach change listeners to toggle button
@@ -1695,12 +2661,13 @@
         "phone",
         "gender",
         "ghanacard",
-        "digitalAddress",
         "region",
         "outside",
         "study",
         "experience",
+        "highestEducationLevel",
         "industry",
+        "skillsInput",
         "disabled",
         "password",
         "confirmPassword",
@@ -1724,24 +2691,62 @@
         .getElementById("industryOther")
         ?.addEventListener("input", checkFormValidity);
 
-      // also listen to password confirm for immediate feedback
+      document.getElementById("password")?.addEventListener("input", function () {
+        if (this.value.length >= 8) {
+          clearFieldError(this);
+        }
+        syncCandidatePasswordFeedback();
+        checkFormValidity();
+      });
+
       document
         .getElementById("confirmPassword")
-        .addEventListener("input", function () {
-          const pw = document.getElementById("password").value;
-          const cp = this.value;
-          if (pw && cp && pw !== cp) {
-            this.style.borderColor = "#fca5a5";
-          } else {
-            this.style.borderColor = "";
+        ?.addEventListener("input", function () {
+          if (this.value.length >= 8) {
+            clearFieldError(this);
           }
+          syncCandidatePasswordFeedback();
           checkFormValidity();
         });
 
       // Initial check on page load
       document.addEventListener("DOMContentLoaded", function () {
+        if (typeof initializePasswordToggles === "function") {
+          initializePasswordToggles();
+        } else {
+          window.JobAssistPasswordToggle?.initPasswordToggles?.();
+        }
+        checkFormValidity();
+      });
+
+      window.addEventListener("pageshow", function () {
+        const nextBtn = document.getElementById("nextBtn");
+        const buttonSpinner = document.getElementById("buttonSpinner");
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        const overlaySpinner = document.getElementById("overlaySpinner");
+
+        if (nextBtn) {
+          nextBtn.classList.remove("loading");
+        }
+
+        if (buttonSpinner) {
+          buttonSpinner.classList.remove("active");
+        }
+
+        if (loadingOverlay) {
+          loadingOverlay.classList.remove("active");
+          loadingOverlay.style.display = "none";
+        }
+
+        if (overlaySpinner) {
+          overlaySpinner.classList.remove("active");
+        }
+
         checkFormValidity();
       });
     </script>
+  
+    <script src='assets/js/product-polish.js'></script>
   </body>
 </html>
+

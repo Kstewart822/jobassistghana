@@ -2,491 +2,696 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>Contact Us | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
-    <style>
-      :root {
-        --primary: #0a2a66;
-        --primary-dark: #071e4d;
-        --secondary: #f8c12e;
-        --secondary-dark: #e6af1a;
-        --light: #f8fafc;
-        --dark: #1e293b;
-        --gray: #64748b;
-        --gray-light: #e2e8f0;
-        --success: #10b981;
-        --danger: #ef4444;
-        --info: #3b82f6;
-        --login-color: #0a2a66;
-      }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+    <link rel="icon" type="image/png" href="assets/images/tab-logo.png" />
 
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-        color: var(--dark);
-        background-color: var(--light);
-      }
+    <!-- Fonts (match your main site) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-
-      /* Header Styles - EXACT SAME */
-      .site-header {
-        background: linear-gradient(
-          135deg,
-          var(--primary),
-          var(--primary-dark)
-        );
-        color: white;
-        padding: 1rem 0;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .header-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
-      }
-
-      .logo {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        text-decoration: none;
-        color: white;
-      }
-
-      .logo-img {
-        height: 40px;
-        display: flex;
-        align-items: center;
-      }
-
-      .logo-img img {
-        height: 100%;
-        width: auto;
-      }
-
-      .logo-text {
-        display: flex;
-        flex-direction: column;
-        line-height: 1.2;
-      }
-
-      .logo-main {
-        font-size: 1.3rem;
-        font-weight: 700;
-      }
-
-      .logo-sub {
-        font-size: 0.7rem;
-        font-weight: 500;
-        opacity: 0.9;
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 2rem;
-        align-items: center;
-      }
-
-      .nav-links a {
-        color: white;
-        text-decoration: none;
-        font-weight: 500;
-        transition: all 0.3s ease;
-      }
-
-      .nav-links a:hover {
-        color: var(--secondary);
-      }
-
-      .login-btn {
-        background: var(--secondary);
-        color: var(--login-color);
-        padding: 8px 20px;
-        border-radius: 6px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: all 0.3s ease;
-      }
-
-      .login-btn:hover {
-        background: var(--secondary-dark);
-        transform: translateY(-2px);
-      }
-
-      /* Page Header */
-      .page-header {
-        text-align: center;
-        margin: 3rem 0 2rem;
-      }
-
-      .page-header h1 {
-        color: var(--primary);
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-      }
-
-      .page-header p {
-        color: var(--gray);
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
-      /* Contact Content */
-      .contact-content {
-        background: white;
-        border-radius: 12px;
-        padding: 2.5rem;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        margin-bottom: 2rem;
-        max-width: 1000px;
-        margin: 0 auto;
-      }
-
-      /* Contact Grid */
-      .contact-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        margin-top: 2rem;
-      }
-
-      .contact-card {
-        background: var(--light);
-        border-radius: 10px;
-        padding: 2rem;
-        transition:
-          transform 0.3s ease,
-          box-shadow 0.3s ease;
-        border: 1px solid var(--gray-light);
-      }
-
-      .contact-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      }
-
-      .card-icon {
-        width: 60px;
-        height: 60px;
-        background: rgba(10, 42, 102, 0.1);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1.5rem;
-      }
-
-      .card-icon i {
-        font-size: 1.8rem;
-        color: var(--primary);
-      }
-
-      .contact-card h3 {
-        color: var(--primary);
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-      }
-
-      .contact-info {
-        margin-top: 1.5rem;
-      }
-
-      .contact-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        margin-bottom: 1rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid rgba(100, 116, 139, 0.1);
-      }
-
-      .contact-item:last-child {
-        border-bottom: none;
-        margin-bottom: 0;
-        padding-bottom: 0;
-      }
-
-      .contact-item i {
-        color: var(--secondary);
-        font-size: 1.2rem;
-        margin-top: 2px;
-      }
-
-      .contact-details h4 {
-        color: var(--primary);
-        font-size: 1rem;
-        margin-bottom: 4px;
-      }
-
-      .contact-details p {
-        color: var(--gray);
-        font-size: 0.95rem;
-        line-height: 1.5;
-      }
-
-      .contact-details a {
-        color: var(--primary);
-        text-decoration: none;
-        transition: color 0.3s ease;
-      }
-
-      .contact-details a:hover {
-        color: var(--secondary);
-        text-decoration: underline;
-      }
-
-      /* Hours Section */
-      .hours-section {
-        background: rgba(248, 193, 46, 0.1);
-        border-left: 4px solid var(--secondary);
-        padding: 1.5rem;
-        margin: 2rem 0;
-        border-radius: 0 8px 8px 0;
-      }
-
-      .hours-section h3 {
-        color: var(--primary);
-        margin-bottom: 1rem;
-      }
-
-      .hours-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-        margin-top: 1rem;
-      }
-
-      .hour-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.5rem 0;
-        border-bottom: 1px dashed rgba(100, 116, 139, 0.2);
-      }
-
-      .hour-item:last-child {
-        border-bottom: none;
-      }
-
-      .day {
-        color: var(--primary);
-        font-weight: 600;
-      }
-
-      .time {
-        color: var(--gray);
-      }
-
-      /* Location Card */
-      .location-card {
-        background: rgba(16, 185, 129, 0.1);
-        border-left: 4px solid var(--success);
-        padding: 1.5rem;
-        margin: 2rem 0;
-        border-radius: 0 8px 8px 0;
-      }
-
-      .location-card h3 {
-        color: var(--primary);
-        margin-bottom: 1rem;
-      }
-
-      .back-home {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: var(--primary);
-        color: white;
-        padding: 12px 24px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 600;
-        margin-top: 2rem;
-        transition: all 0.3s ease;
-      }
-
-      .back-home:hover {
-        background: var(--primary-dark);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(10, 42, 102, 0.2);
-      }
-
-      /* Footer */
-      .site-footer {
-        background: var(--primary);
-        color: white;
-        padding: 2rem 0;
-        margin-top: 3rem;
-      }
-
-      .footer-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-        text-align: center;
-      }
-
-      .footer-links {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        margin-top: 1rem;
-      }
-
-      .footer-links a {
-        color: rgba(255, 255, 255, 0.8);
-        text-decoration: none;
-        transition: color 0.3s ease;
-      }
-
-      .footer-links a:hover {
-        color: var(--secondary);
-      }
-
-      @media (max-width: 768px) {
-        .header-content {
-          flex-direction: column;
-          gap: 1rem;
-          text-align: center;
-        }
-
-        .nav-links {
-          gap: 1rem;
-        }
-
-        .page-header h1 {
-          font-size: 2rem;
-        }
-
-        .contact-content {
-          padding: 1.5rem;
-        }
-
-        .contact-grid {
-          grid-template-columns: 1fr;
-          gap: 1.5rem;
-        }
-
-        .contact-card {
-          padding: 1.5rem;
-        }
-
-        .footer-links {
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .hours-list {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .page-header h1 {
-          font-size: 1.8rem;
-        }
-
-        .contact-content {
-          padding: 1rem;
-        }
-
-        .card-icon {
-          width: 50px;
-          height: 50px;
-        }
-
-        .card-icon i {
-          font-size: 1.5rem;
-        }
-      }
-    </style>
-    <!-- Font Awesome for icons -->
+    <!-- Icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+
+    <!-- Bootstrap (optional but safe to keep consistent with other pages) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --navy: #0a2a66;
+        --navy2: #0a4a9c;
+        --gold: #f8c12e;
+        --gold2: #ffda6a;
+        --ink: #0b1220;
+        --muted: #6b7280;
+        --bg: #ffffff;
+        --soft: #f5f7fb;
+        --soft2: #eef3ff;
+        --border: rgba(10, 42, 102, 0.12);
+
+        --nav-h: 68px; /* LOCKED navbar height across ALL pages */
+        --radius: 14px;
+        --shadow: 0 14px 34px rgba(10, 42, 102, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        background: var(--bg);
+        color: #111827;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* =======================
+       NAVBAR (SHARED) - matches your homepage
+       ================*/
+      .site-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 2000;
+        height: var(--nav-h);
+        background: rgba(10, 42, 102, 0.97);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .nav-inner {
+        height: var(--nav-h);
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        gap: 10px;
+        min-width: 140px;
+      }
+      .brand img {
+        height: 36px;
+        width: auto;
+        display: block;
+        filter: brightness(0) invert(1);
+      }
+
+      .nav-links {
+        display: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        gap: 18px;
+      }
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.92);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+        padding: 10px 10px;
+        transition: color 0.2s ease, background 0.2s ease;
+        border-radius: 8px;
+        white-space: nowrap;
+      }
+      .nav-links a:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .nav-links a.active {
+        color: var(--gold);
+        background: rgba(248, 193, 46, 0.14);
+      }
+
+      .nav-cta {
+        display: none;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-solid {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 14px;
+        padding: 12px 16px;
+        border-radius: 6px;
+        border: 1px solid transparent;
+        transition: transform 0.12s ease, filter 0.2s ease, box-shadow 0.2s ease,
+          background 0.2s ease;
+        white-space: nowrap;
+        line-height: 1;
+      }
+      .btn-solid-primary {
+        background: var(--gold);
+        color: var(--navy);
+        box-shadow: 0 14px 26px rgba(248, 193, 46, 0.24);
+      }
+      .btn-solid-primary:hover {
+        background: var(--gold2);
+        color: var(--navy);
+        transform: translateY(-1px);
+        box-shadow: 0 18px 30px rgba(248, 193, 46, 0.28);
+      }
+      .btn-solid-ghost {
+        background: transparent;
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.55);
+      }
+      .btn-solid-ghost:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        transform: translateY(-1px);
+      }
+
+      .menu-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        cursor: pointer;
+      }
+      .menu-btn i {
+        font-size: 18px;
+      }
+
+      .mobile-drawer {
+        position: fixed;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        z-index: 1999;
+        display: none;
+        background: rgba(10, 42, 102, 0.985);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        max-height: calc(100vh - var(--nav-h));
+        overflow: auto;
+      }
+      .mobile-drawer.active {
+        display: block;
+      }
+
+      .mobile-drawer a {
+        display: block;
+        padding: 14px 18px;
+        color: rgba(255, 255, 255, 0.92);
+        text-decoration: none;
+        font-weight: 700;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .mobile-drawer a:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
+      }
+      .mobile-drawer a.active {
+        color: var(--gold);
+        background: rgba(248, 193, 46, 0.14);
+      }
+      .mobile-drawer .mobile-cta {
+        padding: 14px 18px;
+        border-bottom: none;
+      }
+
+      @media (min-width: 992px) {
+        .nav-links {
+          display: flex;
+          margin-left: auto;
+        }
+        .nav-cta {
+          display: flex;
+        }
+        .menu-btn {
+          display: none;
+        }
+        .mobile-drawer {
+          display: none !important;
+        }
+        .nav-inner {
+          padding: 0 20px;
+        }
+      }
+
+      .page-offset {
+        padding-top: var(--nav-h);
+      }
+
+      /* =======================
+       PAGE
+       ================*/
+      .hero-lite {
+        background: linear-gradient(135deg, var(--soft) 0%, var(--soft2) 100%);
+        border-bottom: 1px solid var(--border);
+        padding: 46px 0 30px;
+      }
+      .page-title {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        color: var(--navy);
+        font-size: clamp(1.9rem, 3vw, 2.6rem);
+        line-height: 1.15;
+        margin: 0 0 10px;
+      }
+      .page-subtitle {
+        color: var(--muted);
+        margin: 0;
+        line-height: 1.7;
+        max-width: 75ch;
+      }
+
+      .wrap {
+        padding: 26px 0 60px;
+      }
+
+      .card-pro {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: 0 10px 28px rgba(10, 42, 102, 0.08);
+        padding: 18px 16px;
+        height: 100%;
+      }
+
+      /* TOP callout (make numbers very visible) */
+      .callout {
+        background: linear-gradient(135deg, rgba(10, 42, 102, 0.06), rgba(248, 193, 46, 0.12));
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        border-radius: 18px;
+        padding: 18px;
+        box-shadow: 0 18px 44px rgba(10, 42, 102, 0.10);
+      }
+      .callout-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .callout-title {
+        font-weight: 900;
+        color: var(--navy);
+        font-size: 1.05rem;
+        margin: 0;
+      }
+      .callout-note {
+        color: var(--muted);
+        margin: 6px 0 0;
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      .phone-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .phone-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: var(--gold);
+        color: var(--navy);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        font-weight: 900;
+        box-shadow: 0 18px 34px rgba(248, 193, 46, 0.22);
+      }
+      .phone-pill:hover {
+        background: var(--gold2);
+        transform: translateY(-1px);
+        color: var(--navy);
+      }
+      .phone-pill small {
+        display: block;
+        font-weight: 800;
+        opacity: 0.9;
+      }
+
+      .phone-alt {
+        background: #fff;
+        color: var(--navy);
+        border: 1px solid rgba(10, 42, 102, 0.18);
+        box-shadow: none;
+      }
+      .phone-alt:hover {
+        background: rgba(10, 42, 102, 0.04);
+      }
+
+      /* CONTACT GRID */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 14px;
+        margin-top: 16px;
+      }
+
+      .contact-card {
+        background: var(--soft);
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        border-radius: 16px;
+        padding: 18px;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+        height: 100%;
+      }
+      .contact-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 18px 38px rgba(10, 42, 102, 0.12);
+      }
+
+      .card-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(10, 42, 102, 0.1);
+        color: var(--navy);
+        margin-bottom: 12px;
+        font-size: 20px;
+      }
+
+      .contact-card h3 {
+        color: var(--navy);
+        font-weight: 900;
+        font-size: 1.05rem;
+        margin: 0 0 8px;
+      }
+      .contact-card p {
+        color: var(--muted);
+        margin: 0 0 12px;
+        line-height: 1.7;
+        font-size: 0.95rem;
+      }
+
+      .contact-item {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        padding-top: 10px;
+        border-top: 1px solid rgba(10, 42, 102, 0.12);
+      }
+      .contact-item:first-of-type {
+        border-top: none;
+        padding-top: 0;
+      }
+      .contact-item i {
+        color: var(--gold);
+        margin-top: 3px;
+      }
+      .contact-details h4 {
+        color: var(--navy);
+        font-size: 0.95rem;
+        font-weight: 900;
+        margin: 0 0 2px;
+      }
+      .contact-details a,
+      .contact-details span {
+        color: #0f172a;
+        text-decoration: none;
+        font-weight: 700;
+      }
+      .contact-details a:hover {
+        color: var(--navy2);
+        text-decoration: underline;
+      }
+
+      /* Hours + Location */
+      .info-band {
+        margin-top: 16px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      @media (min-width: 992px) {
+        .info-band {
+          grid-template-columns: 1.1fr 0.9fr;
+        }
+      }
+
+      .band-card {
+        border-radius: 16px;
+        padding: 16px;
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        background: #fff;
+        box-shadow: 0 10px 28px rgba(10, 42, 102, 0.08);
+      }
+
+      .hours-card {
+        background: rgba(248, 193, 46, 0.12);
+        border-left: 4px solid var(--gold);
+      }
+      .loc-card {
+        background: rgba(16, 185, 129, 0.10);
+        border-left: 4px solid #10b981;
+      }
+
+      .band-card h3 {
+        color: var(--navy);
+        font-weight: 900;
+        margin: 0 0 8px;
+        font-size: 1.05rem;
+      }
+      .band-card .muted {
+        color: var(--muted);
+        margin: 0 0 10px;
+        line-height: 1.65;
+        font-size: 0.95rem;
+      }
+
+      .hours-list {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .hour-item {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed rgba(10, 42, 102, 0.2);
+      }
+      .hour-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .day {
+        color: var(--navy);
+        font-weight: 900;
+      }
+      .time {
+        color: #334155;
+        font-weight: 700;
+      }
+
+      .back-row {
+        margin-top: 18px;
+        display: flex;
+        justify-content: center;
+      }
+      .back-home {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--navy);
+        color: white;
+        padding: 12px 18px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 900;
+        transition: transform 0.14s ease, filter 0.2s ease;
+      }
+      .back-home:hover {
+        filter: brightness(1.03);
+        transform: translateY(-1px);
+      }
+
+      /* =======================
+       FOOTER (kept simple)
+       ================*/
+      footer {
+        background: #001a3d;
+        color: #fff;
+        padding: 54px 0 28px;
+        margin-top: 30px;
+      }
+      .footer-title {
+        color: #f5c542;
+        font-weight: 900;
+        margin-bottom: 12px;
+        font-size: 16px;
+      }
+      .footer-text,
+      .footer-link {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 14px;
+        line-height: 1.7;
+        text-decoration: none;
+      }
+      .footer-link:hover {
+        color: #f5c542;
+      }
+      .footer-social {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+        flex-wrap: wrap;
+      }
+      .footer-social a {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        transition: transform 0.16s ease, background 0.18s ease, color 0.18s ease;
+      }
+      .footer-social a:hover {
+        background: #f5c542;
+        color: var(--navy);
+        transform: translateY(-2px);
+      }
+      .footer-divider {
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        margin-top: 18px;
+        padding-top: 16px;
+      }
+      .section-cta {
+        padding: 10px 0 0;
+      }
+      .section-cta-card {
+        padding: 26px 18px;
+        background: linear-gradient(135deg, var(--navy) 0%, #0a3d62 100%);
+        border: none;
+        color: #fff;
+        border-radius: 14px;
+        box-shadow: 0 18px 38px rgba(10, 42, 102, 0.18);
+      }
+      .section-cta-title {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: 1.8rem;
+        line-height: 1.2;
+        margin-bottom: 8px;
+      }
+      .section-cta-copy {
+        opacity: 0.92;
+        line-height: 1.7;
+      }
+    </style>
+  
+    <link rel='stylesheet' href='assets/css/product-polish.css' />
   </head>
+
   <body>
-    <header class="site-header">
-<<<<<<< HEAD
-      <div class="header-content">
-        <a href="index.html" class="logo">
-          <div class="logo-img">
-            <img src="logo.png" alt="Job Assist Ghana" />
-          </div>
+    <!-- NAVBAR (fixed + not duplicated) -->
+    <header class="site-nav">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <img src="assets/images/logo.png" alt="Job Assist Ghana Logo" />
         </a>
 
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="login.html" class="login-btn">Login</a>
-=======
-        <div class="header-content">
-            <a href="../index.html" class="logo">
-                <div class="logo-img">
-                    <img src="logo.png" alt="Job Assist Ghana">
-                </div>
-            </a>
-            
-            <div class="nav-links">
-                <a href="../index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="login.html" class="login-btn">Login</a>
-            </div>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
-        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="build-cv.html">Build a CV</a></li>
+        </ul>
+
+        <button
+          class="menu-btn"
+          type="button"
+          onclick="toggleMenu()"
+          aria-label="Open menu"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
+
+      <nav class="mobile-drawer" id="mobile-nav" aria-label="Mobile navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="build-cv.html">Build a CV</a>
+      </nav>
     </header>
 
-    <div class="container">
-      <div class="page-header">
-        <h1>Contact Us</h1>
-        <p>
-          Get in touch with Job Assist Ghana. We're here to help you with your
-          job search and recruitment needs.
-        </p>
-      </div>
+    <main class="page-offset">
+      <!-- Page header -->
+      <section class="hero-lite">
+        <div class="container">
+          <h1 class="page-title">Contact Us</h1>
+          <p class="page-subtitle">
+            Get in touch with Job Assist Ghana. We're here to help with hiring, job postings,
+            and general support.
+          </p>
+        </div>
+      </section>
 
-      <div class="contact-content">
-        <!-- Contact Grid -->
-        <div class="contact-grid">
-          <!-- General Inquiries Card -->
-          <div class="contact-card">
-            <div class="card-icon">
-              <i class="fas fa-envelope"></i>
+      <section class="wrap">
+        <div class="container">
+          <!-- BIG phone callout -->
+          <div class="callout">
+            <div class="callout-head">
+              <div>
+                <p class="callout-title">
+                  Need assistance now? Call us and we'll help you.
+                </p>
+                <p class="callout-note">
+                  For employers: we can help you post a job quickly. For job seekers: we can guide you to get started.
+                </p>
+              </div>
             </div>
-            <h3>General Inquiries</h3>
-            <p>
-              For general questions about our platform, services, or partnership
-              opportunities.
-            </p>
 
-            <div class="contact-info">
+            <div class="phone-pills">
+              <a class="phone-pill" href="tel:+233594772550" aria-label="Call +233 59 477 2550">
+                <i class="fa-solid fa-phone-volume"></i>
+                <div>
+                  <small>Call</small>
+                  +233 (0) 59-477-2550
+                </div>
+              </a>
+
+              <a class="phone-pill phone-alt" href="tel:+233504245117" aria-label="Call +233 50 424 5117">
+                <i class="fa-solid fa-phone-volume"></i>
+                <div>
+                  <small>Call</small>
+                  +233 (0) 50-424-5117
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Contact cards -->
+          <div class="contact-grid">
+            <!-- General -->
+            <div class="contact-card">
+              <div class="card-icon"><i class="fas fa-envelope"></i></div>
+              <h3>General Inquiries</h3>
+              <p>Questions about our platform, services, or partnerships.</p>
+
               <div class="contact-item">
                 <i class="fas fa-envelope"></i>
                 <div class="contact-details">
                   <h4>Email</h4>
-                  <p>
-                    <a href="mailto:info@jobassistgh.com"
-                      >info@jobassistgh.com</a
-                    >
-                  </p>
+                  <a href="mailto:info@jobassistgh.com">info@jobassistgh.com</a>
                 </div>
               </div>
 
@@ -494,33 +699,25 @@
                 <i class="fas fa-phone"></i>
                 <div class="contact-details">
                   <h4>Phone</h4>
-                  <p><a href="tel:+233594772550">+233 (0) 59-477-2550</a></p>
+                  <div style="display: grid; gap: 6px">
+                    <a href="tel:+233594772550">+233 (0) 59-477-2550</a>
+                    <a href="tel:+233504245117">+233 (0) 50-424-5117</a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Technical Support Card -->
-          <div class="contact-card">
-            <div class="card-icon">
-              <i class="fas fa-headset"></i>
-            </div>
-            <h3>Technical Support</h3>
-            <p>
-              Need help with your account, technical issues, or platform
-              features?
-            </p>
+            <!-- Support -->
+            <div class="contact-card">
+              <div class="card-icon"><i class="fas fa-headset"></i></div>
+              <h3>Technical Support</h3>
+              <p>Help with your account, technical issues, or platform features.</p>
 
-            <div class="contact-info">
               <div class="contact-item">
                 <i class="fas fa-envelope"></i>
                 <div class="contact-details">
                   <h4>Support Email</h4>
-                  <p>
-                    <a href="mailto:support@jobassistgh.com"
-                      >support@jobassistgh.com</a
-                    >
-                  </p>
+                  <a href="mailto:support@jobassistgh.com">support@jobassistgh.com</a>
                 </div>
               </div>
 
@@ -528,33 +725,22 @@
                 <i class="fas fa-clock"></i>
                 <div class="contact-details">
                   <h4>Response Time</h4>
-                  <p>Within 24-48 hours</p>
+                  <span>Within 24-48 hours</span>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Legal & Compliance Card -->
-          <div class="contact-card">
-            <div class="card-icon">
-              <i class="fas fa-balance-scale"></i>
-            </div>
-            <h3>Legal & Compliance</h3>
-            <p>
-              For privacy policy, terms of service, data protection, and legal
-              inquiries.
-            </p>
+            <!-- Legal -->
+            <div class="contact-card">
+              <div class="card-icon"><i class="fas fa-balance-scale"></i></div>
+              <h3>Legal & Compliance</h3>
+              <p>Privacy policy, terms of service, data protection, and legal inquiries.</p>
 
-            <div class="contact-info">
               <div class="contact-item">
                 <i class="fas fa-envelope"></i>
                 <div class="contact-details">
                   <h4>Legal Email</h4>
-                  <p>
-                    <a href="mailto:legal@jobassistgh.com"
-                      >legal@jobassistgh.com</a
-                    >
-                  </p>
+                  <a href="mailto:legal@jobassistgh.com">legal@jobassistgh.com</a>
                 </div>
               </div>
 
@@ -562,93 +748,205 @@
                 <i class="fas fa-user-tie"></i>
                 <div class="contact-details">
                   <h4>Data Protection Officer</h4>
-                  <p>Available upon request</p>
+                  <span>Available upon request</span>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Operating Hours -->
-        <div class="hours-section">
-          <h3>Operating Hours</h3>
-          <p>Our team is available during the following hours (GMT):</p>
+          <!-- Hours + Location -->
+          <div class="info-band">
+            <div class="band-card hours-card">
+              <h3>Operating Hours</h3>
+              <p class="muted">Our team is available during the following hours (GMT):</p>
 
-          <div class="hours-list">
-            <div class="hour-item">
-              <span class="day">Monday - Friday</span>
-              <span class="time">8:00 AM - 6:00 PM</span>
+              <ul class="hours-list">
+                <li class="hour-item">
+                  <span class="day">Monday - Friday</span>
+                  <span class="time">8:00 AM - 6:00 PM</span>
+                </li>
+                <li class="hour-item">
+                  <span class="day">Saturday</span>
+                  <span class="time">9:00 AM - 2:00 PM</span>
+                </li>
+                <li class="hour-item">
+                  <span class="day">Sunday</span>
+                  <span class="time">Closed</span>
+                </li>
+                <li class="hour-item">
+                  <span class="day">Public Holidays</span>
+                  <span class="time">Closed</span>
+                </li>
+              </ul>
+
+              <p class="muted" style="margin-top: 10px; font-size: 0.9rem">
+                <i class="fas fa-info-circle"></i>
+                Emergency support available for premium users 24/7
+              </p>
             </div>
-            <div class="hour-item">
-              <span class="day">Saturday</span>
-              <span class="time">9:00 AM - 2:00 PM</span>
-            </div>
-            <div class="hour-item">
-              <span class="day">Sunday</span>
-              <span class="time">Closed</span>
-            </div>
-<<<<<<< HEAD
-            <div class="hour-item">
-              <span class="day">Public Holidays</span>
-              <span class="time">Closed</span>
-=======
-            
-            <!-- Back to Home Button -->
-            <div style="text-align: center;">
-                <a href="../index.html" class="back-home">
-                    <i class="fas fa-home"></i> Back to Home
+
+            <div class="band-card loc-card">
+              <h3>Our Location</h3>
+              <p class="muted">
+                <i class="fas fa-map-marker-alt"></i>
+                Osu, Accra, Ghana (Near Osu Oxford Street)
+              </p>
+              <p class="muted" style="margin: 0">
+                <i class="fas fa-map-signs"></i> <em>Visits by appointment only</em>
+              </p>
+
+              <div class="back-row" style="justify-content: flex-start; margin-top: 14px">
+                <a class="back-home" href="index.html">
+                  <i class="fas fa-home"></i> Back to Home
                 </a>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
+              </div>
             </div>
           </div>
 
-          <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray)">
-            <i class="fas fa-info-circle"></i> Emergency support available for
-            premium users 24/7
-          </p>
+          <div class="back-row">
+            <a class="back-home" href="index.html">
+              <i class="fas fa-home"></i> Back to Home
+            </a>
+          </div>
         </div>
+      </section>
 
-        <!-- Physical Location -->
-        <div class="location-card">
-          <h3>Our Location</h3>
-          <div class="contact-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <div class="contact-details">
-              <h4>Office Address</h4>
-              <p>
-                Job Assist Ghana<br />
-                Osu, Accra, Ghana<br />
-                (Near Osu Oxford Street)
-              </p>
-              <p style="margin-top: 0.5rem; color: var(--gray)">
-                <i class="fas fa-map-signs"></i>
-                <em>Visits by appointment only</em>
-              </p>
+      <section class="section-cta">
+        <div class="container">
+          <div class="section-cta-card">
+            <div class="row align-items-center g-3">
+              <div class="col-lg-8">
+                <div class="section-cta-title">Ready to hire or get hired?</div>
+                <div class="section-cta-copy">
+                  Whether you are growing a team or searching for your next role,
+                  Job Assist Ghana helps you move forward with a clearer process.
+                </div>
+              </div>
+              <div class="col-lg-4 d-flex flex-column flex-sm-row justify-content-lg-end gap-2">
+                <a class="btn-solid btn-solid-primary" href="employer-login.html">Start Hiring</a>
+                <a class="btn-solid btn-solid-ghost" href="login.html">Find a Job</a>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- Back to Home Button -->
-        <div style="text-align: center">
-          <a href="index.html" class="back-home">
-            <i class="fas fa-home"></i> Back to Home
-          </a>
-        </div>
-      </div>
-    </div>
+      <!-- FOOTER -->
+      <footer>
+        <div class="container">
+          <div class="row g-4">
+            <div class="col-lg-4">
+              <div class="footer-title">Job Assist Ghana</div>
+              <div class="footer-text">
+                Connecting talented Ghanaians with credible employers. Built for
+                mobile, built for speed, built for real outcomes.
+              </div>
+              <div class="footer-social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              </div>
+            </div>
 
-    <footer class="site-footer">
-      <div class="footer-content">
-        <p>© 2025 Job Assist Ghana. All rights reserved.</p>
-        <div class="footer-links">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="terms.html">Terms & Conditions</a>
-          <a href="contact.html">Contact Us</a>
+            <div class="col-lg-4">
+              <div class="footer-title">Quick Links</div>
+              <div class="d-flex flex-column gap-2">
+                <a class="footer-link" href="index.html">Home</a>
+                <a class="footer-link" href="about.html">About</a>
+                <a class="footer-link" href="build-cv.html">Build a CV</a>
+                <a class="footer-link" href="employer-login.html">Get Started</a>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="footer-title">Contact</div>
+              <div class="footer-text">
+                <i class="fas fa-map-marker-alt me-2"></i>Osu, Accra, Ghana
+              </div>
+              <div class="footer-text">
+                <i class="fas fa-phone me-2"></i>+233 (0) 59-477-2550
+              </div>
+              <div class="footer-text">
+                <i class="fas fa-envelope me-2"></i>info@jobassistgh.com
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-divider mt-4">
+            <div
+              class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2"
+            >
+              <div class="footer-text mb-0">
+                Copyright <span id="year"></span> Job Assist Ghana. All rights reserved.
+              </div>
+              <div class="d-flex gap-3 flex-wrap">
+                <a class="footer-link" href="privacy.html">Privacy</a>
+                <a class="footer-link" href="terms.html">Terms</a>
+                <a class="footer-link" href="contact.html">Contact</a>
+              </div>
+            </div>
+          </div>
         </div>
-        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8">
-          Connecting talent with opportunity across Ghana
-        </p>
-      </div>
-    </footer>
+      </footer>
+    </main>
+
+    <script>
+      // Footer year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Mobile menu
+      function toggleMenu() {
+        const drawer = document.getElementById("mobile-nav");
+        const icon = document.querySelector(".menu-btn i");
+
+        drawer.classList.toggle("active");
+
+        if (drawer.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-xmark");
+        } else {
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        }
+      }
+
+      // Close menu when clicking outside
+      document.addEventListener("click", function (event) {
+        const drawer = document.getElementById("mobile-nav");
+        const menuBtn = document.querySelector(".menu-btn");
+        const nav = document.querySelector(".site-nav");
+
+        if (!drawer || !menuBtn || !nav) return;
+
+        const clickedInsideNav = nav.contains(event.target);
+        if (!clickedInsideNav && drawer.classList.contains("active")) {
+          drawer.classList.remove("active");
+          const icon = document.querySelector(".menu-btn i");
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Close menu when clicking a link
+      document.querySelectorAll("#mobile-nav a").forEach((a) => {
+        a.addEventListener("click", () => {
+          const drawer = document.getElementById("mobile-nav");
+          drawer.classList.remove("active");
+          const icon = document.querySelector(".menu-btn i");
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        });
+      });
+
+      // Mobile tap highlight off
+      document.querySelectorAll("a, button").forEach((el) => {
+        el.style.webkitTapHighlightColor = "transparent";
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+    <script src='assets/js/product-polish.js'></script>
   </body>
 </html>

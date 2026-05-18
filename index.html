@@ -6,9 +6,9 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>Job Assist Ghana | Connect With Your Future Employer</title>
+    <title>Job Assist Ghana | Hire Faster - Work Smarter</title>
 
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="assets/images/tab-logo.png" />
 
     <!-- Fonts -->
     <link
@@ -56,13 +56,7 @@
         scroll-behavior: smooth;
       }
       body {
-        font-family:
-          "Poppins",
-          system-ui,
-          -apple-system,
-          Segoe UI,
-          Roboto,
-          Arial,
+        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial,
           sans-serif;
         background: var(--bg);
         color: #111827;
@@ -72,8 +66,8 @@
       }
 
       /* =======================
-       NAVBAR (SHARED)
-       ======================= */
+       NAVBAR (SHARED) - DO NOT CHANGE
+       ================*/
       .site-nav {
         position: fixed;
         top: 0;
@@ -125,9 +119,7 @@
         font-weight: 700;
         font-size: 14px;
         padding: 10px 10px;
-        transition:
-          color 0.2s ease,
-          background 0.2s ease;
+        transition: color 0.2s ease, background 0.2s ease;
         border-radius: 8px;
         white-space: nowrap;
       }
@@ -156,10 +148,7 @@
         padding: 12px 16px;
         border-radius: 6px;
         border: 1px solid transparent;
-        transition:
-          transform 0.12s ease,
-          filter 0.2s ease,
-          box-shadow 0.2s ease,
+        transition: transform 0.12s ease, filter 0.2s ease, box-shadow 0.2s ease,
           background 0.2s ease;
         white-space: nowrap;
         line-height: 1;
@@ -243,6 +232,7 @@
       @media (min-width: 992px) {
         .nav-links {
           display: flex;
+          margin-left: auto;
         }
         .nav-cta {
           display: flex;
@@ -262,202 +252,177 @@
         padding-top: var(--nav-h);
       }
 
-      /* =======================
-       HERO (UPDATED POSITIONING)
-       ======================= */
-      .hero {
-        position: relative;
+      .split-landing {
         min-height: calc(100vh - var(--nav-h));
         display: flex;
-        align-items: flex-start; /* stop vertical-centering so we can push the card DOWN */
-        background: #0b1f4a;
+        background: #fff;
+      }
+
+      .split-wrap {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+        min-height: calc(100vh - var(--nav-h));
+      }
+
+      .split-panel {
+        position: relative;
+        min-height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         overflow: hidden;
       }
-      .hero .slides {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-      }
-      .hero .slide {
-        position: absolute;
-        inset: 0;
-        background-size: cover;
-        background-position: center;
-        opacity: 0;
-        transition: opacity 900ms ease;
-        transform: scale(1.02);
-      }
-      .hero .slide.active {
-        opacity: 1;
+
+      .split-candidate {
+        background:
+          linear-gradient(rgba(10, 42, 102, 0.78), rgba(10, 42, 102, 0.78)),
+          url("assets/images/bg1.png") center/cover no-repeat;
       }
 
-      .hero::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          90deg,
-          rgba(10, 42, 102, 0.92) 0%,
-          rgba(10, 42, 102, 0.7) 45%,
-          rgba(10, 42, 102, 0.32) 100%
-        );
-        z-index: 1;
+      .split-employer {
+        background:
+          linear-gradient(rgba(248, 193, 46, 0.78), rgba(248, 193, 46, 0.78)),
+          url("assets/images/bg2.png") center/cover no-repeat;
       }
 
-      .hero-inner {
+      .split-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .split-content {
         position: relative;
         z-index: 2;
-        width: 100%;
-        /* PUSH THE CARD DOWN (mobile + desktop) */
-        padding: clamp(150px, 18vh, 210px) 16px 70px;
+        max-width: 520px;
+        text-align: center;
+        padding: 40px 24px;
       }
 
-      /* Wider but not overly tall */
-      .hero-card {
-        width: min(980px, 92vw);
-        max-width: 980px;
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
-        border-radius: 14px;
-        padding: 22px 16px;
-        margin-top: clamp(140px, 20vh, 260px);
-      }
-
-      @media (min-width: 768px) {
-        .hero-inner {
-          padding: clamp(140px, 20vh, 240px) 0 64px;
-        }
-        .hero-card {
-          padding: 30px 28px;
-        }
-      }
-
-      @media (max-width: 576px) {
-        .hero-card {
-          padding: 18px 14px;
-          border-radius: 12px;
-        }
-        .hero p {
-          font-size: 0.95rem;
-          line-height: 1.65;
-        }
-        .hero-actions {
-          gap: 10px;
-          margin-top: 8px;
-        }
-        .btn-hero {
-          max-width: 100%;
-          padding: 13px 16px;
-        }
-      }
-
-      .hero-kicker {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 700;
-        color: rgba(255, 255, 255, 0.92);
-        font-size: 13px;
-        letter-spacing: 0.2px;
-        margin-bottom: 10px;
-      }
-      .hero-kicker .line {
-        width: 34px;
-        height: 2px;
-        background: var(--gold);
-        display: inline-block;
-      }
-
-      .hero h1 {
+      .split-kicker {
         font-family: "Playfair Display", serif;
+        font-size: 1.35rem;
+        font-style: italic;
+        margin-bottom: 16px;
+      }
+
+      .split-candidate .split-kicker,
+      .split-candidate p,
+      .split-candidate h1,
+      .split-candidate .split-link {
         color: #fff;
-        font-weight: 700;
-        line-height: 1.1;
-        font-size: 2.05rem;
-        margin-bottom: 12px;
-      }
-      @media (min-width: 768px) {
-        .hero h1 {
-          font-size: 3rem;
-        }
       }
 
-      .hero p {
-        color: rgba(255, 255, 255, 0.92);
+      .split-employer .split-kicker,
+      .split-employer p,
+      .split-employer h1 {
+        color: #ffffff;
+      }
+
+      .split-content h1 {
+        font-size: clamp(2.3rem, 5vw, 4.4rem);
+        line-height: 0.95;
+        font-weight: 800;
         margin: 0 0 18px;
-        line-height: 1.7;
-        font-size: 1rem;
-        max-width: 70ch;
+        letter-spacing: -1px;
       }
 
-      .hero-actions {
+      .split-content p {
+        font-size: 1rem;
+        line-height: 1.7;
+        max-width: 460px;
+        margin: 0 auto 24px;
+        font-weight: 500;
+      }
+
+      .split-actions {
         display: flex;
         flex-direction: column;
         gap: 12px;
-        margin-top: 10px;
-      }
-      @media (min-width: 576px) {
-        .hero-actions {
-          flex-direction: row;
-          align-items: center;
-        }
+        align-items: center;
       }
 
-      .btn-hero {
-        width: 100%;
-        max-width: 360px;
-        padding: 14px 18px;
-        border-radius: 6px;
-        font-weight: 900;
-        text-align: center;
-      }
-      @media (min-width: 576px) {
-        .btn-hero {
-          width: auto;
-        }
-      }
-
-      .hero-dots {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 18px;
-        z-index: 3;
-        display: flex;
+      .split-btn {
+        display: inline-flex;
+        align-items: center;
         justify-content: center;
-        gap: 8px;
+        min-width: 210px;
+        padding: 14px 22px;
+        border-radius: 8px;
+        font-weight: 800;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border: 2px solid transparent;
       }
-      .hero-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.55);
-        background: rgba(255, 255, 255, 0.18);
-        cursor: pointer;
-        transition:
-          transform 0.2s ease,
-          background 0.2s ease,
-          border-color 0.2s ease;
-      }
-      .hero-dot.active {
+
+      .split-btn-gold {
         background: var(--gold);
-        border-color: var(--gold);
-        transform: scale(1.15);
+        color: var(--navy);
+      }
+
+      .split-btn-gold:hover {
+        background: var(--gold2);
+        color: var(--navy);
+        transform: translateY(-2px);
+      }
+
+      .split-btn-navy {
+        background: var(--navy);
+        color: #fff;
+      }
+
+      .split-btn-navy:hover {
+        background: #08306f;
+        color: #fff;
+        transform: translateY(-2px);
+      }
+
+      .split-link {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+        border-bottom: 1px solid rgba(255,255,255,0.45);
+        padding-bottom: 2px;
+      }
+
+      .split-link:hover {
+        color: var(--gold2);
+        border-color: var(--gold2);
+      }
+
+      .split-link-dark {
+        color: var(--navy);
+        border-bottom: 1px solid rgba(10, 42, 102, 0.35);
+      }
+
+      .split-link-dark:hover {
+        color: #08306f;
+        border-color: #08306f;
+      }
+
+      @media (min-width: 992px) {
+        .split-wrap {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .split-panel {
+          min-height: calc(100vh - var(--nav-h));
+        }
+
+        .split-actions {
+          flex-direction: row;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
       }
 
       /* =======================
        SECTIONS
-       ======================= */
-      .section {
-        padding: 54px 0;
-      }
+       ================*/
+      .section { padding: 54px 0; }
       @media (min-width: 992px) {
-        .section {
-          padding: 80px 0;
-        }
+        .section { padding: 80px 0; }
       }
 
       .section-title {
@@ -482,9 +447,9 @@
         box-shadow: 0 10px 28px rgba(10, 42, 102, 0.08);
         padding: 18px 16px;
         height: 100%;
-        transition:
-          transform 0.18s ease,
-          box-shadow 0.18s ease;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+        position: relative;
+        overflow: hidden;
       }
       .card-pro:hover {
         transform: translateY(-3px);
@@ -523,17 +488,272 @@
         font-weight: 800;
         font-size: 14px;
       }
-      .card-link:hover {
-        color: var(--navy2);
-      }
+      .card-link:hover { color: var(--navy2); }
 
       .bg-soft {
         background: linear-gradient(135deg, var(--soft) 0%, var(--soft2) 100%);
       }
 
+      .why-jag-section {
+        position: relative;
+        overflow: hidden;
+      }
+      .why-jag-section::before {
+        content: "";
+        position: absolute;
+        inset: 40px auto auto -120px;
+        width: 260px;
+        height: 260px;
+        border-radius: 999px;
+        background: radial-gradient(circle, rgba(248, 193, 46, 0.16) 0%, rgba(248, 193, 46, 0) 72%);
+        pointer-events: none;
+      }
+      .why-jag-shell {
+        position: relative;
+        display: grid;
+        gap: 24px;
+        align-items: stretch;
+      }
+      .why-jag-copy {
+        position: relative;
+        padding: 32px 24px;
+        border-radius: 24px;
+        background:
+          radial-gradient(circle at top right, rgba(248, 193, 46, 0.16) 0%, rgba(248, 193, 46, 0) 30%),
+          radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 34%),
+          linear-gradient(150deg, #08224f 0%, #0a2a66 48%, #0d4d92 100%);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 30px 60px rgba(10, 42, 102, 0.2);
+        overflow: hidden;
+      }
+      .why-jag-copy::after {
+        content: "";
+        position: absolute;
+        right: -48px;
+        bottom: -56px;
+        width: 180px;
+        height: 180px;
+        border-radius: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transform: rotate(20deg);
+        opacity: 0.6;
+      }
+      .why-jag-copy-inner {
+        position: relative;
+        z-index: 1;
+      }
+      .why-jag-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff3c4;
+        font-weight: 700;
+        font-size: 0.82rem;
+        letter-spacing: 0.02em;
+        margin-bottom: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+      .why-jag-kicker i {
+        width: 24px;
+        height: 24px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: rgba(248, 193, 46, 0.18);
+        color: var(--gold);
+      }
+      .why-jag-copy h3 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 3vw, 2.85rem);
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        margin-bottom: 16px;
+        max-width: 11ch;
+      }
+      .why-jag-copy p {
+        margin: 0 0 22px;
+        color: rgba(255, 255, 255, 0.82);
+        line-height: 1.85;
+        max-width: 34rem;
+        font-size: 0.98rem;
+      }
+      .why-jag-points {
+        display: grid;
+        gap: 12px;
+      }
+      .why-jag-point {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 12px;
+        align-items: start;
+        padding: 14px 15px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      }
+      .why-jag-point i {
+        width: 26px;
+        height: 26px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: rgba(248, 193, 46, 0.18);
+        color: var(--gold);
+        margin-top: 1px;
+      }
+      .why-jag-point span {
+        color: rgba(255, 255, 255, 0.95);
+        font-weight: 600;
+        line-height: 1.65;
+      }
+      .why-jag-grid {
+        display: grid;
+        gap: 16px;
+        align-content: stretch;
+      }
+      .why-jag-card {
+        position: relative;
+        height: 100%;
+        padding: 24px 22px 22px;
+        border-radius: 22px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #ffffff 100%);
+        border: 1px solid rgba(10, 42, 102, 0.09);
+        box-shadow: 0 20px 42px rgba(10, 42, 102, 0.1);
+        transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+        overflow: hidden;
+      }
+      .why-jag-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 22px;
+        right: 22px;
+        height: 3px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, rgba(248, 193, 46, 0.85), rgba(10, 42, 102, 0.2));
+      }
+      .why-jag-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(10, 42, 102, 0.16);
+        box-shadow: 0 26px 48px rgba(10, 42, 102, 0.14);
+      }
+      .why-jag-card .icon-box {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        margin-bottom: 18px;
+        background: linear-gradient(135deg, rgba(10, 42, 102, 0.12), rgba(248, 193, 46, 0.18));
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      }
+      .why-jag-card h3 {
+        font-size: 1.08rem;
+        font-weight: 800;
+        color: var(--navy);
+        margin-bottom: 10px;
+        letter-spacing: -0.01em;
+      }
+      .why-jag-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.78;
+        font-size: 0.96rem;
+      }
+      @media (min-width: 992px) {
+        .why-jag-shell {
+          grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+          gap: 30px;
+        }
+        .why-jag-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          padding-block: 10px;
+        }
+      }
+      @media (max-width: 767.98px) {
+        .why-jag-copy {
+          padding: 28px 20px;
+          border-radius: 22px;
+        }
+        .why-jag-copy h3 {
+          max-width: none;
+        }
+        .why-jag-card {
+          padding: 22px 18px 20px;
+          border-radius: 20px;
+        }
+      }
+
+      /* Employer CTA bar */
+      .employer-cta {
+        margin-top: -26px;
+        position: relative;
+        z-index: 5;
+      }
+      .cta-card {
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: 0 18px 44px rgba(10, 42, 102, 0.12);
+        padding: 16px;
+      }
+      .cta-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        align-items: center;
+      }
+      @media (min-width: 992px) {
+        .cta-row { grid-template-columns: 1.2fr 0.8fr; }
+      }
+      .cta-row strong { color: var(--navy); font-weight: 900; }
+      .cta-row .small {
+        color: var(--muted);
+        line-height: 1.7;
+        margin-top: 4px;
+      }
+      .cta-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+      @media (min-width: 576px) {
+        .cta-actions {
+          flex-direction: row;
+          align-items: center;
+          flex-wrap: wrap;
+        }
+      }
+      .btn-cta {
+        width: 100%;
+        text-align: center;
+        padding: 13px 16px;
+        border-radius: 10px;
+        font-weight: 900;
+      }
+      @media (min-width: 576px) {
+        .btn-cta { width: auto; }
+      }
+      .btn-outline-navy {
+        background: #fff;
+        color: var(--navy);
+        border: 1px solid rgba(10, 42, 102, 0.25);
+      }
+      .btn-outline-navy:hover {
+        background: rgba(10, 42, 102, 0.04);
+        transform: translateY(-1px);
+      }
+
       /* =======================
-       FOOTER (SHARED)
-       ======================= */
+       FOOTER (SHARED) - DO NOT CHANGE
+       ================*/
       footer {
         background: #001a3d;
         color: #fff;
@@ -552,9 +772,7 @@
         line-height: 1.7;
         text-decoration: none;
       }
-      .footer-link:hover {
-        color: #f5c542;
-      }
+      .footer-link:hover { color: #f5c542; }
       .footer-social {
         display: flex;
         gap: 10px;
@@ -584,6 +802,8 @@
         padding-top: 16px;
       }
     </style>
+  
+    <link rel='stylesheet' href='assets/css/product-polish.css' />
   </head>
 
   <body>
@@ -591,7 +811,7 @@
     <header class="site-nav">
       <div class="nav-inner">
         <a class="brand" href="index.html">
-          <img src="logo.png" alt="Job Assist Ghana Logo" />
+          <img src="assets/images/logo.png" alt="Job Assist Ghana Logo" />
         </a>
 
         <ul class="nav-links">
@@ -601,9 +821,7 @@
         </ul>
 
         <div class="nav-cta">
-          <a class="btn-solid btn-solid-primary" href="login.html"
-            >Get Started</a
-          >
+          <a class="btn-solid btn-solid-primary" href="login.html">Login</a>
         </div>
 
         <button
@@ -620,67 +838,47 @@
         <a class="active" href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="build-cv.html">Build a CV</a>
-        <div class="mobile-cta">
-          <a class="btn-solid btn-solid-primary w-100" href="login.html"
-            >Get Started</a
-          >
-        </div>
+        <a class="mobile-cta" href="login.html">Login</a>
       </nav>
     </header>
 
     <main class="page-offset">
       <!-- HERO -->
-      <section class="hero">
-        <div class="slides">
-          <div
-            class="slide active"
-            style="background-image: url(&quot;background.png&quot;)"
-          ></div>
-          <div
-            class="slide"
-            style="background-image: url(&quot;background1.png&quot;)"
-          ></div>
-          <div
-            class="slide"
-            style="background-image: url(&quot;background2.png&quot;)"
-          ></div>
-          <div
-            class="slide"
-            style="background-image: url(&quot;background3.png&quot;)"
-          ></div>
-        </div>
+      <section class="split-landing">
+        <div class="split-wrap">
+          <div class="split-panel split-candidate">
+            <div class="split-overlay"></div>
+            <div class="split-content">
+              <div class="split-kicker">I'm a candidate</div>
+              <h1>LOOKING<br />FOR A JOB</h1>
+              <p>
+                Build your CV, discover opportunities, and apply for jobs that match
+                your skills and goals.
+              </p>
 
-        <div class="container hero-inner">
-          <div class="hero-card" data-aos="fade-up">
-            <div class="hero-kicker">
-              <span class="line"></span>
-              <span>Job matching • CV builder • Verified connections</span>
-            </div>
-
-            <h1>Connect Ghana’s Talent With The Right Employers</h1>
-
-            <p>
-              Job Assist Ghana helps SHS, technical, and university graduates
-              get discovered by employers. Employers get faster access to
-              job-ready candidates—without stress.
-            </p>
-
-            <div class="hero-actions">
-              <a class="btn-solid btn-solid-primary btn-hero" href="login.html"
-                >Get Started</a
-              >
-              <a class="btn-solid btn-solid-ghost btn-hero" href="build-cv.html"
-                >Build Your CV</a
-              >
+              <div class="split-actions">
+                <a href="login.html" class="split-btn split-btn-gold">Find a Job</a>
+                <a href="build-cv.html" class="split-link">Build My CV</a>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="hero-dots" aria-label="Hero slider dots">
-          <span class="hero-dot active" data-index="0"></span>
-          <span class="hero-dot" data-index="1"></span>
-          <span class="hero-dot" data-index="2"></span>
-          <span class="hero-dot" data-index="3"></span>
+          <div class="split-panel split-employer">
+            <div class="split-overlay"></div>
+            <div class="split-content">
+              <div class="split-kicker">I'm an employer</div>
+              <h1>HIRING<br />FOR YOUR BUSINESS</h1>
+              <p>
+                Post jobs, manage applicants, and find serious candidates faster with
+                Job Assist Ghana.
+              </p>
+
+              <div class="split-actions">
+                <a href="employer-login.html" class="split-btn split-btn-navy">Start Hiring</a>
+                <a href="login.html" class="split-link split-link-dark">Post a Job</a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -690,8 +888,7 @@
           <div class="text-center mb-4 mb-lg-5" data-aos="fade-up">
             <h2 class="section-title">How It Works</h2>
             <p class="section-subtitle mx-auto">
-              A simple flow for job seekers and employers — built for speed,
-              trust, and real outcomes.
+              Simple steps for employers and job seekers - designed for speed, trust, and real hiring outcomes.
             </p>
           </div>
 
@@ -699,16 +896,15 @@
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
               <div class="card-pro">
                 <div class="icon-box">
-                  <i class="fa-solid fa-user-check"></i>
+                  <i class="fa-solid fa-rectangle-ad"></i>
                 </div>
-                <h3>Create your profile</h3>
+                <h3>Post a role (or contact us)</h3>
                 <p>
-                  Job seekers and employers create verified accounts to unlock
-                  the full platform.
+                  Employers can post directly - or contact us and we'll create and publish your job ad for you.
                 </p>
-                <a class="card-link" href="login.html"
-                  >Get Started <i class="fa-solid fa-arrow-right"></i
-                ></a>
+                <a class="card-link" href="employer-login.html">
+                  Post a Job <i class="fa-solid fa-arrow-right"></i>
+                </a>
               </div>
             </div>
 
@@ -717,30 +913,28 @@
                 <div class="icon-box">
                   <i class="fa-solid fa-file-lines"></i>
                 </div>
-                <h3>Build a professional CV</h3>
+                <h3>Job seekers build a clean CV</h3>
                 <p>
-                  Create a clean CV that looks credible and increases your
-                  chances of getting shortlisted.
+                  Candidates create structured profiles and professional CVs that make screening easier for employers.
                 </p>
-                <a class="card-link" href="build-cv.html"
-                  >Build CV <i class="fa-solid fa-arrow-right"></i
-                ></a>
+                <a class="card-link" href="build-cv.html">
+                  Build CV <i class="fa-solid fa-arrow-right"></i>
+                </a>
               </div>
             </div>
 
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
               <div class="card-pro">
                 <div class="icon-box">
-                  <i class="fa-solid fa-briefcase"></i>
+                  <i class="fa-solid fa-handshake"></i>
                 </div>
-                <h3>Get matched & hired</h3>
+                <h3>Connect & hire faster</h3>
                 <p>
-                  Employers find talent faster. Candidates get discovered and
-                  contacted for opportunities.
+                  Employers shortlist and contact faster. Candidates get discovered and called for opportunities.
                 </p>
-                <a class="card-link" href="login.html"
-                  >Find Talent <i class="fa-solid fa-arrow-right"></i
-                ></a>
+                <a class="card-link" href="employer-login.html">
+                  Start Hiring <i class="fa-solid fa-arrow-right"></i>
+                </a>
               </div>
             </div>
           </div>
@@ -752,227 +946,98 @@
         <div class="container">
           <div class="row align-items-center g-4 g-lg-5">
             <div class="col-lg-6" data-aos="fade-right">
-              <h2 class="section-title">
-                Built For Trust, Speed & Serious Hiring
-              </h2>
+              <h2 class="section-title">Built for SMEs and Big Organizations</h2>
               <p class="section-subtitle">
-                We focus on real outcomes: credible profiles, cleaner CVs, and
-                better employer-candidate connections. Everything is designed to
-                look professional and work smoothly on mobile.
+                Whether you're hiring shop attendants, front-desk staff, drivers, customer service, or office roles,
+                Job Assist Ghana helps you reach serious candidates and reduce costly staff turnover.
               </p>
 
               <div class="mt-4 d-flex flex-column gap-2">
                 <div class="d-flex gap-2 align-items-start">
-                  <div
-                    class="icon-box"
-                    style="width: 40px; height: 40px; border-radius: 8px"
-                  >
+                  <div class="icon-box" style="width: 40px; height: 40px; border-radius: 8px">
                     <i class="fa-solid fa-shield"></i>
                   </div>
                   <div>
-                    <div style="font-weight: 900; color: var(--navy)">
-                      Verified ecosystem
-                    </div>
+                    <div style="font-weight: 900; color: var(--navy)">Trust-first ecosystem</div>
                     <div style="color: var(--muted); line-height: 1.7">
-                      Reduce scams and low-quality recruitment interactions.
+                      Cleaner profiles + clearer job ads = less confusion and better hires.
                     </div>
                   </div>
                 </div>
 
                 <div class="d-flex gap-2 align-items-start">
-                  <div
-                    class="icon-box"
-                    style="width: 40px; height: 40px; border-radius: 8px"
-                  >
+                  <div class="icon-box" style="width: 40px; height: 40px; border-radius: 8px">
                     <i class="fa-solid fa-bolt"></i>
                   </div>
                   <div>
-                    <div style="font-weight: 900; color: var(--navy)">
-                      Fast onboarding
-                    </div>
+                    <div style="font-weight: 900; color: var(--navy)">Fast job ad publishing</div>
                     <div style="color: var(--muted); line-height: 1.7">
-                      Get started quickly and begin connecting in minutes.
+                      Post yourself or contact us - we'll create your ad and push it live.
                     </div>
                   </div>
                 </div>
 
                 <div class="d-flex gap-2 align-items-start">
-                  <div
-                    class="icon-box"
-                    style="width: 40px; height: 40px; border-radius: 8px"
-                  >
-                    <i class="fa-solid fa-mobile-screen"></i>
+                  <div class="icon-box" style="width: 40px; height: 40px; border-radius: 8px">
+                    <i class="fa-solid fa-users"></i>
                   </div>
                   <div>
-                    <div style="font-weight: 900; color: var(--navy)">
-                      Mobile-first design
-                    </div>
+                    <div style="font-weight: 900; color: var(--navy)">Better matching</div>
                     <div style="color: var(--muted); line-height: 1.7">
-                      Optimized spacing, buttons, and performance for small
-                      screens.
+                      Reduce "trial-and-error hiring" and find people who are more likely to stay.
                     </div>
                   </div>
                 </div>
               </div>
 
               <div class="mt-4 d-flex gap-2 flex-wrap">
-                <a class="btn-solid btn-solid-primary" href="login.html"
-                  >Get Started</a
-                >
-                <a
-                  class="btn-solid btn-solid-ghost"
-                  href="about.html"
-                  style="
-                    color: var(--navy);
-                    border-color: var(--border);
-                    background: #fff;
-                  "
-                  >Learn More</a
-                >
+                <a class="btn-solid btn-solid-primary" href="login.html">Get Started</a>
+                <a class="btn-solid btn-outline-navy" href="contact.html" style="border-radius: 6px">
+                  Contact Us
+                </a>
               </div>
             </div>
 
+            <!-- COUNTERS -->
             <div class="col-lg-6" data-aos="fade-left">
               <div class="card-pro" style="padding: 22px 18px">
-                <div
-                  class="d-flex justify-content-between align-items-center mb-3"
-                >
-                  <div style="font-weight: 900; color: var(--navy)">
-                    Quick Snapshot
-                  </div>
-                  <div style="font-size: 12px; color: var(--muted)">
-                    Platform overview
-                  </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div style="font-weight: 900; color: var(--navy)">Platform Snapshot</div>
+                  <div style="font-size: 12px; color: var(--muted)">Our growing platform at a glance</div>
                 </div>
 
                 <div class="row g-3">
                   <div class="col-6">
-                    <div
-                      class="p-3 rounded-3"
-                      style="
-                        background: var(--soft);
-                        border: 1px solid var(--border);
-                      "
-                    >
-                      <div
-                        style="
-                          font-size: 12px;
-                          color: var(--muted);
-                          font-weight: 700;
-                        "
-                      >
-                        Job seekers
-                      </div>
-                      <div
-                        style="
-                          font-size: 22px;
-                          font-weight: 900;
-                          color: var(--navy);
-                        "
-                        id="count1"
-                      >
-                        0
-                      </div>
+                    <div class="p-3 rounded-3" style="background: var(--soft); border: 1px solid var(--border)">
+                      <div style="font-size: 12px; color: var(--muted); font-weight: 800">Profiles Created</div>
+                      <div style="font-size: 22px; font-weight: 900; color: var(--navy)" id="count1">0</div>
                     </div>
                   </div>
 
                   <div class="col-6">
-                    <div
-                      class="p-3 rounded-3"
-                      style="
-                        background: var(--soft);
-                        border: 1px solid var(--border);
-                      "
-                    >
-                      <div
-                        style="
-                          font-size: 12px;
-                          color: var(--muted);
-                          font-weight: 700;
-                        "
-                      >
-                        Employers
-                      </div>
-                      <div
-                        style="
-                          font-size: 22px;
-                          font-weight: 900;
-                          color: var(--navy);
-                        "
-                        id="count2"
-                      >
-                        0
-                      </div>
+                    <div class="p-3 rounded-3" style="background: var(--soft); border: 1px solid var(--border)">
+                      <div style="font-size: 12px; color: var(--muted); font-weight: 800">Employers Joined</div>
+                      <div style="font-size: 22px; font-weight: 900; color: var(--navy)" id="count2">0</div>
                     </div>
                   </div>
 
                   <div class="col-6">
-                    <div
-                      class="p-3 rounded-3"
-                      style="
-                        background: var(--soft);
-                        border: 1px solid var(--border);
-                      "
-                    >
-                      <div
-                        style="
-                          font-size: 12px;
-                          color: var(--muted);
-                          font-weight: 700;
-                        "
-                      >
-                        CVs created
-                      </div>
-                      <div
-                        style="
-                          font-size: 22px;
-                          font-weight: 900;
-                          color: var(--navy);
-                        "
-                        id="count3"
-                      >
-                        0
-                      </div>
+                    <div class="p-3 rounded-3" style="background: var(--soft); border: 1px solid var(--border)">
+                      <div style="font-size: 12px; color: var(--muted); font-weight: 800">CVs Built</div>
+                      <div style="font-size: 22px; font-weight: 900; color: var(--navy)" id="count3">0</div>
                     </div>
                   </div>
 
                   <div class="col-6">
-                    <div
-                      class="p-3 rounded-3"
-                      style="
-                        background: var(--soft);
-                        border: 1px solid var(--border);
-                      "
-                    >
-                      <div
-                        style="
-                          font-size: 12px;
-                          color: var(--muted);
-                          font-weight: 700;
-                        "
-                      >
-                        Matches
-                      </div>
-                      <div
-                        style="
-                          font-size: 22px;
-                          font-weight: 900;
-                          color: var(--navy);
-                        "
-                        id="count4"
-                      >
-                        0
-                      </div>
+                    <div class="p-3 rounded-3" style="background: var(--soft); border: 1px solid var(--border)">
+                      <div style="font-size: 12px; color: var(--muted); font-weight: 800">Matches Made</div>
+                      <div style="font-size: 22px; font-weight: 900; color: var(--navy)" id="count4">0</div>
                     </div>
                   </div>
                 </div>
 
-                <div
-                  class="mt-3"
-                  style="color: var(--muted); font-size: 13px; line-height: 1.6"
-                >
-                  Numbers are sample values for UI demonstration. You can
-                  replace them with real stats later.
+                <div class="mt-3" style="color: var(--muted); font-size: 13px; line-height: 1.6">
+                  Our growing platform at a glance.
                 </div>
               </div>
             </div>
@@ -980,125 +1045,75 @@
         </div>
       </section>
 
-      <!-- TESTIMONIALS -->
-      <section class="section">
+      <section class="section why-jag-section">
         <div class="container">
-          <div class="text-center mb-4 mb-lg-5" data-aos="fade-up">
-            <h2 class="section-title">Trusted By Graduates & Employers</h2>
-            <p class="section-subtitle mx-auto">
-              Real feedback from people using the platform to get results.
-            </p>
-          </div>
-
-          <div class="row g-3 g-lg-4">
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-              <div class="card-pro">
-                <div class="d-flex align-items-center gap-3 mb-3">
-                  <img
-                    src="client1.png"
-                    alt="Client"
-                    style="
-                      width: 48px;
-                      height: 48px;
-                      border-radius: 8px;
-                      object-fit: cover;
-                      border: 1px solid var(--border);
-                    "
-                  />
-                  <div>
-                    <div
-                      style="
-                        font-weight: 900;
-                        color: var(--navy);
-                        line-height: 1.1;
-                      "
-                    >
-                      Kwame Mensah
-                    </div>
-                    <div style="font-size: 13px; color: var(--muted)">
-                      Graduate
-                    </div>
+          <div class="why-jag-shell">
+            <div class="why-jag-copy" data-aos="fade-right">
+              <div class="why-jag-copy-inner">
+                <div class="why-jag-kicker">
+                  <i class="fa-solid fa-compass"></i>
+                  Why Job Assist Ghana
+                </div>
+                <h3>A more focused path from opportunity to hiring.</h3>
+                <p>
+                  Job Assist Ghana helps serious job seekers present themselves
+                  clearly and helps employers move from interest to decision
+                  with better context, less friction, and a more organized
+                  experience.
+                </p>
+                <div class="why-jag-points">
+                  <div class="why-jag-point">
+                    <i class="fa-solid fa-check"></i>
+                    <span>Job seekers move from profile to application with less back and forth.</span>
+                  </div>
+                  <div class="why-jag-point">
+                    <i class="fa-solid fa-check"></i>
+                    <span>Employers review stronger applicant information before taking the next step.</span>
                   </div>
                 </div>
-                <p style="margin-bottom: 12px">
-                  Job Assist Ghana helped me present myself professionally. The
-                  process was clear and easy to use on my phone.
-                </p>
-                <div style="color: #f5c542; font-size: 14px">★★★★★</div>
               </div>
             </div>
 
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-              <div class="card-pro">
-                <div class="d-flex align-items-center gap-3 mb-3">
-                  <img
-                    src="client2.png"
-                    alt="Client"
-                    style="
-                      width: 48px;
-                      height: 48px;
-                      border-radius: 8px;
-                      object-fit: cover;
-                      border: 1px solid var(--border);
-                    "
-                  />
-                  <div>
-                    <div
-                      style="
-                        font-weight: 900;
-                        color: var(--navy);
-                        line-height: 1.1;
-                      "
-                    >
-                      Adjoa Owusu
-                    </div>
-                    <div style="font-size: 13px; color: var(--muted)">
-                      Job Seeker
-                    </div>
-                  </div>
+            <div class="why-jag-grid" data-aos="fade-left">
+              <div class="why-jag-card">
+                <div class="icon-box">
+                  <i class="fa-solid fa-bolt"></i>
                 </div>
-                <p style="margin-bottom: 12px">
-                  The CV builder saved me time and made my CV look clean. I
-                  started getting more serious responses.
+                <h3>Faster applications</h3>
+                <p>
+                  Candidates can act quickly when they find a good role without
+                  losing the clarity employers need to make decisions.
                 </p>
-                <div style="color: #f5c542; font-size: 14px">★★★★★</div>
               </div>
-            </div>
-
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-              <div class="card-pro">
-                <div class="d-flex align-items-center gap-3 mb-3">
-                  <img
-                    src="client3.png"
-                    alt="Client"
-                    style="
-                      width: 48px;
-                      height: 48px;
-                      border-radius: 8px;
-                      object-fit: cover;
-                      border: 1px solid var(--border);
-                    "
-                  />
-                  <div>
-                    <div
-                      style="
-                        font-weight: 900;
-                        color: var(--navy);
-                        line-height: 1.1;
-                      "
-                    >
-                      Michael Tetteh
-                    </div>
-                    <div style="font-size: 13px; color: var(--muted)">
-                      Employer
-                    </div>
-                  </div>
+              <div class="why-jag-card">
+                <div class="icon-box">
+                  <i class="fa-solid fa-id-card"></i>
                 </div>
-                <p style="margin-bottom: 12px">
-                  We found candidates faster and the profiles were better
-                  organized. It works well for quick screening.
+                <h3>Stronger presentation</h3>
+                <p>
+                  Cleaner profiles and CV-building support help job seekers show
+                  up more confidently and more professionally.
                 </p>
-                <div style="color: #f5c542; font-size: 14px">★★★★★</div>
+              </div>
+              <div class="why-jag-card">
+                <div class="icon-box">
+                  <i class="fa-solid fa-briefcase"></i>
+                </div>
+                <h3>Less hiring friction</h3>
+                <p>
+                  Employers get a simpler way to post roles, review applicants,
+                  and focus on the people most worth following up with.
+                </p>
+              </div>
+              <div class="why-jag-card">
+                <div class="icon-box">
+                  <i class="fa-solid fa-arrow-trend-up"></i>
+                </div>
+                <h3>Better visibility for serious applicants</h3>
+                <p>
+                  Candidates who want to stand out have a clearer route to do so
+                  without making the experience noisy or confusing.
+                </p>
               </div>
             </div>
           </div>
@@ -1122,33 +1137,22 @@
               <div class="col-lg-8">
                 <div
                   style="
-                    font-family: &quot;Playfair Display&quot;, serif;
+                    font-family: 'Playfair Display', serif;
                     font-weight: 700;
                     font-size: 1.8rem;
                     line-height: 1.2;
                     margin-bottom: 8px;
                   "
                 >
-                  Ready to connect with your future?
+                  Ready to hire or get hired?
                 </div>
                 <div style="opacity: 0.92; line-height: 1.7">
-                  Get started as a candidate or employer — and use the CV
-                  builder to look professional from day one.
+                  Employers: post a role in minutes (or contact us). Job seekers: build a clean CV and get discovered.
                 </div>
               </div>
-              <div
-                class="col-lg-4 d-flex flex-column flex-sm-row justify-content-lg-end gap-2"
-              >
-                <a
-                  class="btn-solid btn-solid-primary btn-hero"
-                  href="login.html"
-                  >Get Started</a
-                >
-                <a
-                  class="btn-solid btn-solid-ghost btn-hero"
-                  href="build-cv.html"
-                  >Build CV</a
-                >
+              <div class="col-lg-4 d-flex flex-column flex-sm-row justify-content-lg-end gap-2">
+                <a class="btn-solid btn-solid-primary btn-hero" href="employer-login.html">Start Hiring</a>
+                <a class="btn-solid btn-solid-ghost btn-hero" href="login.html">Find a Job</a>
               </div>
             </div>
           </div>
@@ -1167,18 +1171,10 @@
               </div>
 
               <div class="footer-social">
-                <a href="#" aria-label="Facebook"
-                  ><i class="fab fa-facebook-f"></i
-                ></a>
-                <a href="#" aria-label="Twitter"
-                  ><i class="fab fa-twitter"></i
-                ></a>
-                <a href="#" aria-label="LinkedIn"
-                  ><i class="fab fa-linkedin-in"></i
-                ></a>
-                <a href="#" aria-label="Instagram"
-                  ><i class="fab fa-instagram"></i
-                ></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
               </div>
             </div>
 
@@ -1188,7 +1184,7 @@
                 <a class="footer-link" href="index.html">Home</a>
                 <a class="footer-link" href="about.html">About</a>
                 <a class="footer-link" href="build-cv.html">Build a CV</a>
-                <a class="footer-link" href="login.html">Get Started</a>
+                <a class="footer-link" href="employer-login.html">Get Started</a>
               </div>
             </div>
 
@@ -1207,11 +1203,9 @@
           </div>
 
           <div class="footer-divider mt-4">
-            <div
-              class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2"
-            >
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
               <div class="footer-text mb-0">
-                © <span id="year"></span> Job Assist Ghana. All rights reserved.
+                Copyright <span id="year"></span> Job Assist Ghana. All rights reserved.
               </div>
               <div class="d-flex gap-3 flex-wrap">
                 <a class="footer-link" href="privacy.html">Privacy</a>
@@ -1284,47 +1278,17 @@
         });
       });
 
-      // HERO SLIDER
-      let currentSlide = 0;
-      const slides = document.querySelectorAll(".hero .slide");
-      const dots = document.querySelectorAll(".hero-dot");
-      const totalSlides = slides.length;
-
-      function showSlide(index) {
-        slides.forEach((s) => s.classList.remove("active"));
-        dots.forEach((d) => d.classList.remove("active"));
-
-        slides[index].classList.add("active");
-        dots[index].classList.add("active");
-        currentSlide = index;
-      }
-
-      function nextSlide() {
-        const next = (currentSlide + 1) % totalSlides;
-        showSlide(next);
-      }
-
-      let sliderTimer = setInterval(nextSlide, 6000);
-
-      dots.forEach((dot, idx) => {
-        dot.addEventListener("click", () => {
-          showSlide(idx);
-          clearInterval(sliderTimer);
-          sliderTimer = setInterval(nextSlide, 6000);
-        });
-      });
-
       // COUNTERS
       let countersDone = false;
 
-      function animateCounter(el, target, duration = 1400) {
+      function animateCounter(el, target, duration = 1400, suffix = "") {
         const startTime = performance.now();
 
         function update(now) {
           const progress = Math.min((now - startTime) / duration, 1);
           const eased = 1 - Math.pow(1 - progress, 3);
           const value = Math.floor(target * eased);
-          el.textContent = value.toLocaleString();
+          el.textContent = `${value.toLocaleString()}${suffix}`;
 
           if (progress < 1) requestAnimationFrame(update);
         }
@@ -1335,10 +1299,10 @@
         if (countersDone) return;
         countersDone = true;
 
-        animateCounter(document.getElementById("count1"), 1250);
-        animateCounter(document.getElementById("count2"), 350);
-        animateCounter(document.getElementById("count3"), 890);
-        animateCounter(document.getElementById("count4"), 540);
+        animateCounter(document.getElementById("count1"), 5000, 1400, "+");
+        animateCounter(document.getElementById("count2"), 100, 1400, "+");
+        animateCounter(document.getElementById("count3"), 1000, 1400, "+");
+        animateCounter(document.getElementById("count4"), 1000, 1400, "+");
       }
 
       const counterSection = document.querySelector(".bg-soft");
@@ -1352,8 +1316,8 @@
               }
             });
           },
-          { threshold: 0.35 },
-        );
+          { threshold: 0.35 }
+);
 
         obs.observe(counterSection);
       }
@@ -1363,5 +1327,7 @@
         el.style.webkitTapHighlightColor = "transparent";
       });
     </script>
+  
+    <script src='assets/js/product-polish.js'></script>
   </body>
 </html>

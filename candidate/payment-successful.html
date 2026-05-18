@@ -1,10 +1,10 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Payment Successful | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -14,8 +14,8 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
       }
 
       :root {
@@ -26,6 +26,8 @@
         --secondary-dark: #e6af1a;
         --success: #10b981;
         --warning: #f59e0b;
+        --danger: #ef4444;
+        --danger-dark: #dc2626;
         --light: #f8fafc;
         --dark: #1e293b;
         --gray: #64748b;
@@ -35,7 +37,10 @@
       }
 
       body {
-        background-color: var(--light);
+        background:
+          radial-gradient(circle at top right, rgba(16, 185, 129, 0.14), transparent 22%),
+          radial-gradient(circle at top left, rgba(248, 193, 46, 0.12), transparent 24%),
+          linear-gradient(180deg, #f7f9fc 0%, #eef3fb 100%);
         color: var(--dark);
         min-height: 100vh;
         display: flex;
@@ -46,165 +51,91 @@
       }
 
       .success-container {
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        padding: 25px;
-        max-width: 450px;
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 28px;
+        box-shadow: 0 28px 55px rgba(17, 38, 85, 0.14);
+        padding: 42px 30px 30px;
+        max-width: 520px;
         width: 100%;
         text-align: center;
-        border: 1px solid var(--gray-light);
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .success-container::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 140px;
+        background: linear-gradient(135deg, #0a2a66 0%, #123a87 58%, #1b4ca9 100%);
+      }
+
+      .success-container::after {
+        content: "";
+        position: absolute;
+        right: -58px;
+        top: 40px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(248, 193, 46, 0.18);
       }
 
       .success-icon {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
         color: var(--success);
-        margin-bottom: 15px;
+        margin: 18px auto 16px;
+        position: relative;
+        z-index: 1;
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 16px 32px rgba(16, 185, 129, 0.18);
       }
 
       .success-title {
-        font-size: 1.4rem;
+        font-size: 1.7rem;
         color: var(--primary);
         margin-bottom: 12px;
-        font-weight: 700;
+        font-weight: 800;
+        position: relative;
+        z-index: 1;
       }
 
       .success-message {
-        color: var(--gray);
-        margin-bottom: 20px;
-        font-size: 0.95rem;
+        color: #61708e;
+        margin-bottom: 24px;
+        font-size: 0.98rem;
+        line-height: 1.7;
+        position: relative;
+        z-index: 1;
       }
 
-      .confirmation-details {
-        background: rgba(16, 185, 129, 0.05);
-        border: 1px solid rgba(16, 185, 129, 0.15);
-        border-radius: 6px;
-        padding: 15px;
-        margin-bottom: 20px;
-        text-align: left;
-      }
-
-      .confirmation-title {
-        color: var(--success);
-        font-weight: 600;
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 0.95rem;
-      }
-
-      .confirmation-description {
-        color: var(--gray);
-        font-size: 0.85rem;
-        line-height: 1.5;
-      }
-
-      .next-steps {
-        background: var(--light);
-        border-radius: 6px;
-        padding: 15px;
-        margin-bottom: 20px;
-        text-align: left;
-      }
-
-      .next-steps-title {
-        color: var(--primary);
-        font-weight: 600;
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 0.95rem;
-      }
-
-      .next-steps-list {
-        color: var(--gray);
-        font-size: 0.85rem;
-        padding-left: 16px;
-      }
-
-      .next-steps-list li {
-        margin-bottom: 6px;
-      }
-
-      .btn {
-        padding: 12px 20px;
-        border-radius: 6px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: var(--transition);
-        border: none;
-        font-size: 0.95rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        text-decoration: none;
-        width: 100%;
-        margin-bottom: 10px;
-      }
-
-      .btn-primary {
-        background-color: var(--primary);
-        color: white;
-      }
-
-      .btn-primary:hover {
-        background-color: var(--primary-dark);
-      }
-
-      .btn-outline {
-        background-color: transparent;
-        border: 1px solid var(--gray-light);
-        color: var(--dark);
-      }
-
-      .btn-outline:hover {
-        background-color: var(--gray-light);
-      }
-
-      .support-contact {
-        margin-top: 20px;
-        padding-top: 15px;
-        border-top: 1px solid var(--gray-light);
-      }
-
-      .support-contact p {
-        color: var(--gray);
-        font-size: 0.85rem;
-        line-height: 1.5;
-      }
-
-      .support-email {
-        color: var(--primary);
-        font-weight: 600;
-        text-decoration: none;
-        font-size: 0.85rem;
-      }
-
-      .support-email:hover {
-        text-decoration: underline;
-      }
-
-      /* Payment Details */
       .payment-details {
-        background: rgba(10, 42, 102, 0.05);
-        border: 1px solid rgba(10, 42, 102, 0.1);
-        border-radius: 6px;
-        padding: 15px;
-        margin-bottom: 20px;
+        background: rgba(248, 250, 255, 0.95);
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        border-radius: 20px;
+        padding: 18px;
+        margin-bottom: 18px;
         text-align: left;
+        box-shadow: 0 14px 28px rgba(17, 38, 85, 0.08);
       }
 
       .payment-title {
         color: var(--primary);
-        font-weight: 600;
-        margin-bottom: 8px;
+        font-weight: 700;
+        margin-bottom: 10px;
         display: flex;
         align-items: center;
-        gap: 6px;
-        font-size: 0.95rem;
+        gap: 8px;
+        font-size: 1rem;
       }
 
       .payment-info {
@@ -229,6 +160,12 @@
         font-weight: 600;
         color: var(--dark);
         font-size: 0.9rem;
+        word-break: break-word;
+      }
+
+      .reference-text {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        letter-spacing: 0.04em;
       }
 
       .payment-value.amount {
@@ -236,12 +173,70 @@
         font-size: 1rem;
       }
 
-      /* Loading Animation */
-      .loading-animation {
+      .confirmation-details {
+        background: linear-gradient(180deg, rgba(236, 253, 245, 0.98), rgba(240, 253, 250, 0.95));
+        border: 1px solid rgba(16, 185, 129, 0.14);
+        border-radius: 20px;
+        padding: 18px;
+        margin-bottom: 18px;
+        text-align: left;
+        box-shadow: 0 14px 28px rgba(16, 185, 129, 0.08);
+      }
+
+      .confirmation-title {
+        color: var(--success);
+        font-weight: 700;
+        margin-bottom: 8px;
         display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1rem;
+      }
+
+      .confirmation-description {
+        color: #5f6f8e;
+        font-size: 0.9rem;
+        line-height: 1.65;
+      }
+
+      .next-steps {
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 20px;
+        padding: 18px;
+        margin-bottom: 22px;
+        text-align: left;
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        box-shadow: 0 14px 28px rgba(17, 38, 85, 0.08);
+      }
+
+      .next-steps-title {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1rem;
+      }
+
+      .next-steps-list {
+        color: #61708e;
+        font-size: 0.88rem;
+        padding-left: 18px;
+        line-height: 1.65;
+      }
+
+      .next-steps-list li {
+        margin-bottom: 6px;
+      }
+
+      .loading-animation {
+        display: none;
         justify-content: center;
         align-items: center;
         margin: 20px 0;
+        flex-direction: column;
+        gap: 10px;
       }
 
       .loading-spinner {
@@ -262,40 +257,102 @@
       .loading-text {
         color: var(--gray);
         font-size: 0.9rem;
-        margin-top: 10px;
       }
 
-      /* Auto-redirect countdown */
       .auto-redirect {
         margin-top: 15px;
-        padding: 10px;
-        background: rgba(248, 193, 46, 0.1);
-        border-radius: 6px;
+        padding: 12px;
+        background: rgba(248, 193, 46, 0.12);
+        border-radius: 14px;
         font-size: 0.85rem;
         color: var(--primary);
+        display: none;
+        border: 1px solid rgba(248, 193, 46, 0.22);
       }
 
       .countdown {
-        font-weight: 600;
-        color: var(--secondary);
+        font-weight: 700;
+        color: var(--secondary-dark);
       }
 
-      /* ====================== */
-      /* MOBILE RESPONSIVENESS */
-      /* ====================== */
+      .btn {
+        padding: 13px 18px;
+        border-radius: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        border: none;
+        font-size: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-decoration: none;
+        width: 100%;
+        margin-bottom: 10px;
+        box-shadow: 0 14px 24px rgba(10, 42, 102, 0.1);
+      }
 
-      /* Tablet (768px and below) */
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-1px);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        color: var(--dark);
+      }
+
+      .btn-outline:hover {
+        background-color: rgba(10, 42, 102, 0.05);
+        transform: translateY(-1px);
+      }
+
+      .btn[disabled] {
+        opacity: 0.7;
+        pointer-events: none;
+      }
+
+      .support-contact {
+        margin-top: 22px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(10, 42, 102, 0.08);
+      }
+
+      .support-contact p {
+        color: var(--gray);
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
+
+      .support-email {
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.85rem;
+      }
+
+      .support-email:hover {
+        text-decoration: underline;
+      }
+
       @media (max-width: 768px) {
         body {
           padding: 15px;
         }
 
         .success-container {
-          padding: 20px;
+          padding: 34px 24px 24px;
         }
 
         .success-title {
-          font-size: 1.3rem;
+          font-size: 1.45rem;
         }
 
         .success-icon {
@@ -309,7 +366,7 @@
         .confirmation-details,
         .next-steps,
         .payment-details {
-          padding: 12px;
+          padding: 16px;
         }
 
         .btn {
@@ -322,7 +379,6 @@
         }
       }
 
-      /* Mobile (576px and below) */
       @media (max-width: 576px) {
         body {
           padding: 12px;
@@ -331,7 +387,7 @@
         }
 
         .success-container {
-          padding: 18px;
+          padding: 30px 18px 20px;
         }
 
         .success-title {
@@ -340,7 +396,7 @@
 
         .success-icon {
           font-size: 2rem;
-          margin-bottom: 12px;
+          margin: 12px auto 12px;
         }
 
         .success-message {
@@ -382,7 +438,6 @@
         }
       }
 
-      /* Small Mobile (480px and below) */
       @media (max-width: 480px) {
         body {
           padding: 10px;
@@ -390,7 +445,7 @@
         }
 
         .success-container {
-          padding: 16px;
+          padding: 26px 16px 16px;
         }
 
         .success-title {
@@ -417,10 +472,9 @@
         }
       }
 
-      /* Very Small Mobile (360px and below) */
       @media (max-width: 360px) {
         .success-container {
-          padding: 14px;
+          padding: 24px 14px 14px;
         }
 
         .success-title {
@@ -440,10 +494,291 @@
           font-size: 0.75rem;
         }
       }
+
+      .success-container {
+        max-width: 500px;
+        padding: 26px 22px 18px;
+        border-radius: 24px;
+      }
+
+      .success-container::before {
+        height: 6px;
+      }
+
+      .success-container::after {
+        display: none;
+      }
+
+      .success-icon {
+        width: 72px;
+        height: 72px;
+        font-size: 2.2rem;
+        margin: 0 auto 14px;
+        box-shadow: 0 12px 24px rgba(16, 185, 129, 0.16);
+      }
+
+      .success-title {
+        font-size: 1.55rem;
+        margin-bottom: 10px;
+      }
+
+      .success-message {
+        margin-bottom: 16px;
+        font-size: 0.94rem;
+        line-height: 1.55;
+      }
+
+      .payment-details,
+      .confirmation-details,
+      .next-steps {
+        padding: 14px;
+        margin-bottom: 12px;
+        border-radius: 16px;
+        box-shadow: none;
+      }
+
+      .payment-title,
+      .confirmation-title,
+      .next-steps-title {
+        margin-bottom: 6px;
+        font-size: 0.95rem;
+      }
+
+      .payment-info {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px 12px;
+        margin-top: 8px;
+      }
+
+      .payment-value.amount {
+        font-size: 0.96rem;
+      }
+
+      .confirmation-description {
+        font-size: 0.86rem;
+        line-height: 1.5;
+      }
+
+      .next-steps-list {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+        display: grid;
+        gap: 4px;
+        font-size: 0.82rem;
+        line-height: 1.45;
+      }
+
+      .next-steps-list li {
+        position: relative;
+        padding-left: 14px;
+        margin-bottom: 0;
+      }
+
+      .next-steps-list li::before {
+        content: "\2022";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--secondary-dark);
+        font-weight: 700;
+      }
+
+      .loading-animation {
+        margin: 10px 0;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: rgba(248, 250, 255, 0.9);
+      }
+
+      .auto-redirect {
+        margin-top: 6px;
+        padding: 10px 12px;
+        font-size: 0.82rem;
+      }
+
+      .action-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 4px;
+      }
+
+      .btn {
+        min-height: 44px;
+        margin-bottom: 0;
+        padding: 12px 14px;
+        box-shadow: none;
+      }
+
+      .support-contact {
+        margin-top: 12px;
+        padding-top: 12px;
+      }
+
+      .support-contact p,
+      .support-email {
+        font-size: 0.8rem;
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 14px;
+          align-items: center;
+        }
+
+        .success-container {
+          padding: 22px 18px 16px;
+        }
+
+        .success-title {
+          font-size: 1.32rem;
+        }
+
+        .payment-info,
+        .action-buttons {
+          grid-template-columns: 1fr;
+        }
+
+        .payment-details,
+        .confirmation-details,
+        .next-steps {
+          padding: 12px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 10px;
+          align-items: center;
+        }
+
+        .success-container {
+          padding: 16px;
+          border-radius: 20px;
+        }
+
+        .success-icon {
+          width: 46px;
+          height: 46px;
+          font-size: 1.45rem;
+          margin-bottom: 10px;
+        }
+
+        .success-title {
+          font-size: 1.18rem;
+          margin-bottom: 4px;
+        }
+
+        .success-message {
+          margin-bottom: 10px;
+          font-size: 0.84rem;
+          line-height: 1.4;
+        }
+
+        .payment-details,
+        .confirmation-details,
+        .next-steps {
+          padding: 10px 11px;
+          margin-bottom: 8px;
+          border-radius: 14px;
+        }
+
+        .payment-title,
+        .confirmation-title,
+        .next-steps-title {
+          font-size: 0.86rem;
+          margin-bottom: 5px;
+        }
+
+        .payment-info {
+          grid-template-columns: 1fr;
+          gap: 7px;
+          margin-top: 6px;
+        }
+
+        .payment-label {
+          font-size: 0.68rem;
+        }
+
+        .payment-value,
+        .payment-value.amount {
+          font-size: 0.82rem;
+        }
+
+        .confirmation-description {
+          font-size: 0.8rem;
+          line-height: 1.4;
+        }
+
+        .next-steps-list {
+          display: none;
+        }
+
+        .next-steps::after {
+          content: "Your service is active. Continue to the next page to proceed.";
+          display: block;
+          font-size: 0.8rem;
+          color: #475569;
+          line-height: 1.4;
+        }
+
+        .loading-animation {
+          margin: 8px 0;
+          padding: 8px 10px;
+          gap: 8px;
+        }
+
+        .loading-spinner {
+          width: 30px;
+          height: 30px;
+        }
+
+        .loading-text,
+        .auto-redirect {
+          font-size: 0.76rem;
+        }
+
+        .auto-redirect {
+          margin-top: 4px;
+          padding: 8px 10px;
+          margin-bottom: 8px;
+        }
+
+        .action-buttons {
+          gap: 8px;
+        }
+
+        .btn {
+          min-height: 40px;
+          padding: 10px 12px;
+          font-size: 0.8rem;
+        }
+
+        .support-contact {
+          margin-top: 8px;
+          padding-top: 8px;
+        }
+
+        .support-contact p,
+        .support-email {
+          font-size: 0.72rem;
+          line-height: 1.35;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .action-buttons {
+          grid-template-columns: 1fr;
+        }
+      }
     </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
   </head>
+
   <body>
-    <div class="success-container">
+    <div class="success-container ja-section-header-card">
       <div class="success-icon">
         <i class="fas fa-check-circle"></i>
       </div>
@@ -451,19 +786,15 @@
       <h1 class="success-title" id="successTitle">Payment Successful</h1>
 
       <p class="success-message" id="successMessage">
-        Your payment has been processed successfully. Thank you for your
-        purchase!
+        Your payment has been processed successfully.
       </p>
 
-      <!-- Payment Details -->
       <div class="payment-details" id="paymentDetails" style="display: none">
         <div class="payment-title">
           <i class="fas fa-receipt"></i>
           <span>Payment Details</span>
         </div>
-        <div class="payment-info" id="paymentInfo">
-          <!-- Payment details will be inserted here -->
-        </div>
+        <div class="payment-info" id="paymentInfo"></div>
       </div>
 
       <div class="confirmation-details">
@@ -472,8 +803,7 @@
           <span>Payment Confirmed</span>
         </div>
         <p class="confirmation-description" id="confirmationDescription">
-          Your transaction was completed successfully. A receipt has been sent
-          to your email.
+          Your transaction was completed successfully.
         </p>
       </div>
 
@@ -482,432 +812,712 @@
           <i class="fas fa-rocket"></i>
           <span>What happens next</span>
         </div>
-        <ul class="next-steps-list" id="nextStepsList">
-          <!-- Next steps will be inserted here -->
-        </ul>
+        <ul class="next-steps-list" id="nextStepsList"></ul>
       </div>
 
-      <!-- Loading animation for processing -->
-      <div
-        class="loading-animation"
-        id="processingAnimation"
-        style="display: none"
-      >
+      <div class="loading-animation" id="processingAnimation">
         <div class="loading-spinner"></div>
-        <div class="loading-text" id="loadingText">
-          Processing your payment...
-        </div>
+        <div class="loading-text" id="loadingText">Processing your payment...</div>
       </div>
 
-      <!-- Auto-redirect notification -->
-      <div class="auto-redirect" id="autoRedirect" style="display: none">
-        Redirecting to dashboard in
-        <span class="countdown" id="countdown">5</span> seconds...
+      <div class="auto-redirect" id="autoRedirect">
+        Redirecting in <span class="countdown" id="countdown">5</span> seconds...
       </div>
 
-      <a href="#" class="btn btn-primary" id="dashboardButton">
-        <i class="fas fa-tachometer-alt"></i> Go to Dashboard
-      </a>
+      <div class="action-buttons">
+        <a href="#" class="btn btn-primary" id="dashboardButton">
+          <i class="fas fa-arrow-right"></i> Continue
+        </a>
 
-      <a href="index.html" class="btn btn-outline">
-        <i class="fas fa-home"></i> Back to Home
-      </a>
+        <a href="../index.html" class="btn btn-outline" id="homeButton">
+          <i class="fas fa-home"></i> Back to Home
+        </a>
+      </div>
 
-<<<<<<< HEAD:payment-successful.html
       <div class="support-contact">
         <p>
           Need help? Contact our support team at
-          <a href="mailto:support@jobassistgh.com" class="support-email"
-            >support@jobassistgh.com</a
-          >
+          <a href="mailto:support@jobassistgh.com" class="support-email">
+            support@jobassistgh.com
+          </a>
         </p>
       </div>
-=======
-        <a href="#" class="btn btn-primary" id="dashboardButton">
-            <i class="fas fa-tachometer-alt"></i> Go to Dashboard
-        </a>
-        
-        <a href="../index.html" class="btn btn-outline">
-            <i class="fas fa-home"></i> Back to Home
-        </a>
-
-        <div class="support-contact">
-            <p>
-                Need help? Contact our support team at 
-                <a href="mailto:support@jobassistgh.com" class="support-email">support@jobassistgh.com</a>
-            </p>
-        </div>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/payment-successful.html
     </div>
 
+    <script src="../assets/js/application-store.js"></script>
+    <script src="../assets/js/id-generator.js"></script>
     <script>
-      // Initialize success page based on URL parameters
-      function initializeSuccessPage() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const serviceType = urlParams.get("service") || "profile-activation";
-        const amount = urlParams.get("amount") || "0";
-        const transactionId =
-          urlParams.get("transactionId") || generateTransactionId();
-        const jobId = urlParams.get("jobId");
-        const name = urlParams.get("name") || "Service";
+      function getQueryParam(name) {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(name) || "";
+      }
 
-<<<<<<< HEAD:payment-successful.html
-        // Service configurations
-        const services = {
+      function safeDecode(value) {
+        try {
+          return decodeURIComponent(value);
+        } catch {
+          return value;
+        }
+      }
+
+      function safeJSONParse(value) {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return null;
+        }
+      }
+
+      function formatCurrencyValue(amount) {
+        if (!amount) return "GHS 0.00";
+
+        const raw = String(amount).trim();
+        if (raw.includes("GHS ")) return raw;
+
+        const numeric = Number(raw);
+        if (Number.isFinite(numeric)) {
+          return `GHS ${numeric.toFixed(2)}`;
+        }
+
+        return raw;
+      }
+
+      function formatServiceName(service) {
+        const serviceMap = {
+          job_posting: "Job Posting",
+          job_posting_premium: "Premium Job Posting",
+          job_posting_standard: "Standard Job Posting",
+          unlock_applicants: "Unlock Applicants",
+          job_boost: "Job Boost",
+          job_boost_standard: "Standard Job Boost",
+          job_boost_premium: "Premium Job Boost",
+          "profile-activation": "Profile Activation",
+          "boost-basic": "Basic Profile Boost",
+          "boost-pro": "Professional Profile Boost",
+          "boost-enterprise": "Enterprise Profile Boost",
+          "application-premium": "Premium Application",
+        };
+
+        return (
+          serviceMap[service] ||
+          service.replace(/_/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase())
+);
+      }
+
+      function buildRootRelativePath(path) {
+        if (!path) return "candidate-dashboard.html";
+        return path.startsWith("/") ? path.slice(1) : path;
+      }
+
+      function buildSuccessReference(serviceType, existingRef) {
+        if (existingRef) return existingRef;
+        if (!window.JobAssistIdGenerator?.generatePaymentReference) {
+          return "JAG-0001";
+        }
+        return window.JobAssistIdGenerator.generatePaymentReference(serviceType || "payment");
+      }
+
+      function getFormattedReference(ref) {
+        return window.JobAssistPaymentGate?.formatReference?.(ref) || ref || "N/A";
+      }
+
+      function isEmployerService(service) {
+        return (
+          service.includes("job_posting") ||
+          service.includes("unlock_applicants") ||
+          service.includes("job_boost") ||
+          service === "job_posting" ||
+          service === "job_boost"
+);
+      }
+
+      function inferFlow(service, nextParam) {
+        const nextValue = safeDecode(nextParam || "").toLowerCase();
+
+        if (
+          nextValue.includes("candidate/") ||
+          nextValue.includes("candidate-dashboard") ||
+          nextValue.includes("view-details") ||
+          nextValue.includes("your-applications") ||
+          nextValue.includes("boost-profile")
+) {
+          return "candidate";
+        }
+
+        if (
+          nextValue.includes("employer/") ||
+          nextValue.includes("employer-dashboard") ||
+          nextValue.includes("view-applicants") ||
+          nextValue.includes("my-job-post") ||
+          nextValue.includes("employer-payment")
+) {
+          return "employer";
+        }
+
+        return isEmployerService(service) ? "employer" : "candidate";
+      }
+
+      function getDefaultContinueUrl(flow) {
+        return flow === "employer"
+          ? "employer/employer-dashboard.html"
+          : "candidate/candidate-dashboard.html";
+      }
+
+      function getServiceConfig(serviceType, flow, nextParam) {
+        const decodedNext = safeDecode(nextParam || "");
+        const defaultContinue = decodedNext || getDefaultContinueUrl(flow);
+
+        const configs = {
           "profile-activation": {
             name: "Profile Activation",
             message:
               "Your profile has been successfully activated and is now visible to employers.",
             description:
-              "Your profile is now active and will appear in employer searches.",
-            dashboardUrl: "candidate-dashboard.html",
+              "Your profile is now active and ready to appear in employer searches.",
+            continueUrl: defaultContinue,
+            buttonText: "Go to Dashboard",
             nextSteps: [
               "Your profile is now active and visible to employers",
-              "You'll appear in employer search results",
-              "Start applying to jobs immediately",
-              "Complete your profile for better matches",
+              "You can start applying for jobs immediately",
+              "Complete any missing profile details for better matches",
+              "Watch for employer interest and updates",
             ],
           },
           "boost-basic": {
             name: "Basic Profile Boost",
             message:
-              "Your Basic Profile Boost has been activated! Your profile will get 3x more visibility for 7 days.",
+              "Your Basic Profile Boost has been activated successfully.",
             description:
-              "Your profile boost is now active and will run for 7 days.",
-            dashboardUrl: "candidate-dashboard.html",
+              "Your boost is now live and your profile visibility has increased.",
+            continueUrl: defaultContinue,
+            buttonText: "Go to Dashboard",
             nextSteps: [
-              "Profile visibility increased by 300%",
-              "Boost active for 7 days",
-              "You'll appear in featured sections",
-              "Employers will see your profile first",
+              "Your profile visibility has increased",
+              "Your boost is now active",
+              "Employers will see your profile sooner",
+              "Monitor profile activity from your dashboard",
             ],
           },
           "boost-pro": {
             name: "Professional Profile Boost",
             message:
-              "Your Professional Profile Boost has been activated! Enjoy 5x more visibility and priority placement for 30 days.",
+              "Your Professional Profile Boost has been activated successfully.",
             description:
-              "Your professional boost is now active and will run for 30 days.",
-            dashboardUrl: "candidate-dashboard.html",
+              "Your professional boost is now live with stronger visibility and priority placement.",
+            continueUrl: defaultContinue,
+            buttonText: "Go to Dashboard",
             nextSteps: [
-              "Profile visibility increased by 500%",
-              "Boost active for 30 days",
-              "Priority placement in search results",
-              "Verified profile badge added",
+              "Your profile boost is now active",
+              "You now have stronger search visibility",
+              "Your profile gets priority placement",
+              "Track your progress from your dashboard",
             ],
           },
           "boost-enterprise": {
             name: "Enterprise Profile Boost",
             message:
-              "Your Enterprise Profile Boost has been activated! Maximum visibility and premium features for 90 days.",
+              "Your Enterprise Profile Boost has been activated successfully.",
             description:
-              "Your enterprise boost is now active and will run for 90 days.",
-            dashboardUrl: "candidate-dashboard.html",
+              "Your enterprise boost is now live with maximum visibility.",
+            continueUrl: defaultContinue,
+            buttonText: "Go to Dashboard",
             nextSteps: [
-              "Maximum profile visibility",
-              "Boost active for 90 days",
-              "Top placement in all searches",
-              "Premium verification badge",
-              "Priority customer support",
-            ],
-          },
-          "job-posting": {
-            name: "Job Posting",
-            message:
-              "Your job posting payment was successful! Your job is now live and visible to candidates.",
-            description:
-              "Your job posting is now active and visible to job seekers.",
-            dashboardUrl: "employer-dashboard.html",
-            nextSteps: [
-              "Your job is now live and visible",
-              "Start receiving applications immediately",
-              "Manage applications from your dashboard",
-              "Promote your job for more visibility",
-            ],
-          },
-          "premium-listing": {
-            name: "Premium Job Listing",
-            message:
-              "Your premium job listing has been activated! Your job will be featured prominently for maximum visibility.",
-            description:
-              "Your premium listing is now active and will be featured.",
-            dashboardUrl: "employer-dashboard.html",
-            nextSteps: [
-              "Job featured in premium sections",
-              "Priority placement in search results",
-              "Increased candidate applications",
-              "Featured employer badge",
+              "Your maximum boost is now active",
+              "You now have top visibility placement",
+              "Your profile stands out more to employers",
+              "Track boost results from your dashboard",
             ],
           },
           "application-premium": {
             name: "Premium Application",
             message:
-              "Your premium application payment was successful! Your application will get priority placement and verification.",
+              "Your premium application payment was successful.",
             description:
-              "Your premium application is now being processed with priority verification.",
-            dashboardUrl: jobId
-              ? `view-details.html?id=${jobId}&payment_success=true`
-              : "candidate-dashboard.html",
+              "Your application has been upgraded for stronger visibility and priority attention.",
+            continueUrl: defaultContinue,
+            buttonText: decodedNext ? "Continue" : "Go to Dashboard",
             nextSteps: [
-              "Application marked as premium",
-              "Priority verification in progress",
-              "Employer will see your application first",
-              "Verified applicant badge added",
+              "Your application has premium status",
+              "Your application receives stronger visibility",
+              "The employer can notice your application faster",
+              "You can track it from your applications page",
             ],
           },
-          "employer-premium": {
-            name: "Employer Premium",
+          job_posting: {
+            name: "Job Posting",
             message:
-              "Your employer premium subscription is now active! Enjoy premium features and enhanced visibility.",
-            description: "Your premium subscription is now active.",
-            dashboardUrl: "employer-dashboard.html",
+              "Your payment was successful and your job posting is ready.",
+            description:
+              "Your job post can now go live and start receiving applications.",
+            continueUrl: defaultContinue,
+            buttonText: decodedNext ? "Continue" : "Go to Dashboard",
             nextSteps: [
-              "Premium features unlocked",
-              "Enhanced company profile",
-              "Priority support access",
-              "Advanced applicant filtering",
+              "Your job posting has been paid for successfully",
+              "Your listing can now go live",
+              "Candidates can begin applying",
+              "You can manage applicants from your employer dashboard",
+            ],
+          },
+          job_posting_standard: {
+            name: "Standard Job Posting",
+            message:
+              "Your standard job posting payment was successful.",
+            description:
+              "Your standard job is now ready to be active.",
+            continueUrl: defaultContinue,
+            buttonText: decodedNext ? "Continue" : "Go to Dashboard",
+            nextSteps: [
+              "Your standard job post has been activated",
+              "Candidates can now view the listing",
+              "Applications can start coming in",
+              "Manage your post from your employer dashboard",
+            ],
+          },
+          job_posting_premium: {
+            name: "Premium Job Posting",
+            message:
+              "Your premium job posting payment was successful.",
+            description:
+              "Your premium job listing is now ready with stronger visibility.",
+            continueUrl: defaultContinue,
+            buttonText: decodedNext ? "Continue" : "Go to Dashboard",
+            nextSteps: [
+              "Your premium listing has been activated",
+              "Your job gets stronger visibility",
+              "Candidates can begin applying",
+              "Manage applicants from your employer dashboard",
+            ],
+          },
+          unlock_applicants: {
+            name: "Unlock Applicants",
+            message:
+              "Your applicant unlock payment was successful.",
+            description:
+              "The selected applicants can now be viewed in full.",
+            continueUrl: defaultContinue,
+            buttonText: decodedNext ? "View Unlocked Applicants" : "Go to Dashboard",
+            nextSteps: [
+              "Your selected applicants have been unlocked",
+              "You can now view full applicant details",
+              "Contact information is now accessible",
+              "Continue managing candidates from your employer dashboard",
+            ],
+          },
+          job_boost: {
+            name: "Job Boost",
+            message:
+              "Your job boost payment was successful.",
+            description:
+              "Your job listing now has stronger visibility.",
+            continueUrl: defaultContinue,
+            buttonText: decodedNext ? "Continue" : "Go to Dashboard",
+            nextSteps: [
+              "Your job boost is now active",
+              "Your listing gets stronger visibility",
+              "More candidates can discover your job",
+              "Track results from your employer dashboard",
+            ],
+          },
+          job_boost_standard: {
+            name: "Standard Job Boost",
+            message:
+              "Your standard job boost payment was successful.",
+            description:
+              "Your job listing boost is now active.",
+            continueUrl: defaultContinue,
+            buttonText: decodedNext ? "Continue" : "Go to Dashboard",
+            nextSteps: [
+              "Your standard boost is now active",
+              "Your job gets better placement",
+              "More candidates can find your listing",
+              "Track performance from your employer dashboard",
+            ],
+          },
+          job_boost_premium: {
+            name: "Premium Job Boost",
+            message:
+              "Your premium job boost payment was successful.",
+            description:
+              "Your job listing now has premium visibility.",
+            continueUrl: defaultContinue,
+            buttonText: decodedNext ? "Continue" : "Go to Dashboard",
+            nextSteps: [
+              "Your premium boost is now active",
+              "Your job has stronger featured placement",
+              "Your visibility to candidates has increased",
+              "Track performance from your employer dashboard",
             ],
           },
         };
-=======
-            // Service configurations
-            const services = {
-                'profile-activation': {
-                    name: "Profile Activation",
-                    message: "Your profile has been successfully activated and is now visible to employers.",
-                    description: "Your profile is now active and will appear in employer searches.",
-                    dashboardUrl: "candidate/candidate-dashboard.html",
-                    nextSteps: [
-                        "Your profile is now active and visible to employers",
-                        "You'll appear in employer search results",
-                        "Start applying to jobs immediately",
-                        "Complete your profile for better matches"
-                    ]
-                },
-                'boost-basic': {
-                    name: "Basic Profile Boost",
-                    message: "Your Basic Profile Boost has been activated! Your profile will get 3x more visibility for 7 days.",
-                    description: "Your profile boost is now active and will run for 7 days.",
-                    dashboardUrl: "candidate/candidate-dashboard.html",
-                    nextSteps: [
-                        "Profile visibility increased by 300%",
-                        "Boost active for 7 days",
-                        "You'll appear in featured sections",
-                        "Employers will see your profile first"
-                    ]
-                },
-                'boost-pro': {
-                    name: "Professional Profile Boost",
-                    message: "Your Professional Profile Boost has been activated! Enjoy 5x more visibility and priority placement for 30 days.",
-                    description: "Your professional boost is now active and will run for 30 days.",
-                    dashboardUrl: "candidate/candidate-dashboard.html",
-                    nextSteps: [
-                        "Profile visibility increased by 500%",
-                        "Boost active for 30 days",
-                        "Priority placement in search results",
-                        "Verified profile badge added"
-                    ]
-                },
-                'boost-enterprise': {
-                    name: "Enterprise Profile Boost",
-                    message: "Your Enterprise Profile Boost has been activated! Maximum visibility and premium features for 90 days.",
-                    description: "Your enterprise boost is now active and will run for 90 days.",
-                    dashboardUrl: "candidate/candidate-dashboard.html",
-                    nextSteps: [
-                        "Maximum profile visibility",
-                        "Boost active for 90 days",
-                        "Top placement in all searches",
-                        "Premium verification badge",
-                        "Priority customer support"
-                    ]
-                },
-                'job-posting': {
-                    name: "Job Posting",
-                    message: "Your job posting payment was successful! Your job is now live and visible to candidates.",
-                    description: "Your job posting is now active and visible to job seekers.",
-                    dashboardUrl: "employer/employer/employer/employer-dashboard.html",
-                    nextSteps: [
-                        "Your job is now live and visible",
-                        "Start receiving applications immediately",
-                        "Manage applications from your dashboard",
-                        "Promote your job for more visibility"
-                    ]
-                },
-                'premium-listing': {
-                    name: "Premium Job Listing",
-                    message: "Your premium job listing has been activated! Your job will be featured prominently for maximum visibility.",
-                    description: "Your premium listing is now active and will be featured.",
-                    dashboardUrl: "employer/employer/employer/employer-dashboard.html",
-                    nextSteps: [
-                        "Job featured in premium sections",
-                        "Priority placement in search results",
-                        "Increased candidate applications",
-                        "Featured employer badge"
-                    ]
-                },
-                'application-premium': {
-                    name: "Premium Application",
-                    message: "Your premium application payment was successful! Your application will get priority placement and verification.",
-                    description: "Your premium application is now being processed with priority verification.",
-                    dashboardUrl: jobId ? `view-details.html?id=${jobId}&payment_success=true` : "candidate/candidate-dashboard.html",
-                    nextSteps: [
-                        "Application marked as premium",
-                        "Priority verification in progress",
-                        "Employer will see your application first",
-                        "Verified applicant badge added"
-                    ]
-                },
-                'employer-premium': {
-                    name: "Employer Premium",
-                    message: "Your employer premium subscription is now active! Enjoy premium features and enhanced visibility.",
-                    description: "Your premium subscription is now active.",
-                    dashboardUrl: "employer/employer/employer/employer-dashboard.html",
-                    nextSteps: [
-                        "Premium features unlocked",
-                        "Enhanced company profile",
-                        "Priority support access",
-                        "Advanced applicant filtering"
-                    ]
-                }
-            };
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/payment-successful.html
 
-        const service = services[serviceType] || services["profile-activation"];
+        return configs[serviceType] || {
+          name: formatServiceName(serviceType || "payment"),
+          message: "Your payment has been processed successfully.",
+          description: "Your payment was completed successfully.",
+          continueUrl: defaultContinue,
+          buttonText: decodedNext ? "Continue" : "Go to Dashboard",
+          nextSteps: [
+            "Your payment has been recorded successfully",
+            "Your service is now being activated",
+            "You can continue using the platform",
+            "Check your dashboard for the latest update",
+          ],
+        };
+      }
 
-        // Update page content
-        document.getElementById("successTitle").textContent =
-          `Payment Successful - ${service.name}`;
-        document.getElementById("successMessage").textContent = service.message;
-        document.getElementById("confirmationDescription").textContent =
-          service.description;
-        document.getElementById("dashboardButton").href = service.dashboardUrl;
-
-        // Update next steps
-        const nextStepsList = document.getElementById("nextStepsList");
-        nextStepsList.innerHTML = service.nextSteps
-          .map((step) => `<li>${step}</li>`)
-          .join("");
-
-        // Show payment details if amount is provided
-        if (amount !== "0") {
-          document.getElementById("paymentDetails").style.display = "block";
-
-          const paymentInfo = document.getElementById("paymentInfo");
-          paymentInfo.innerHTML = `
-                    <div class="payment-item">
-                        <div class="payment-label">Service</div>
-                        <div class="payment-value">${service.name}</div>
-                    </div>
-                    <div class="payment-item">
-                        <div class="payment-label">Amount</div>
-                        <div class="payment-value amount">₵${amount}</div>
-                    </div>
-                    <div class="payment-item">
-                        <div class="payment-label">Transaction ID</div>
-                        <div class="payment-value">${transactionId}</div>
-                    </div>
-                    <div class="payment-item">
-                        <div class="payment-label">Date</div>
-                        <div class="payment-value">${new Date().toLocaleDateString()}</div>
-                    </div>
-                `;
+      function processCandidateApplicationSuccess(serviceType, jobId, action) {
+        if (
+          serviceType !== "application-premium" &&
+          serviceType !== "boost-basic" &&
+          serviceType !== "boost-pro" &&
+          serviceType !== "boost-enterprise"
+        ) {
+          return;
         }
 
-        // Update page title
-        document.title = `${service.name} - Payment Successful | JobAssist Ghana`;
+        const applicationId =
+          String(action?.applicationId || action?.payload?.applicationId || getQueryParam("applicationId") || "").trim();
+        const paymentDate = new Date().toISOString();
+        const applicationPayload =
+          action?.payload && typeof action.payload.applicationData === "object"
+            ? action.payload.applicationData
+            : null;
+        const priorityUpdates = {
+          "application-premium": {
+            tier: "premium",
+            isPremium: true,
+            applicationPriority: "premium",
+            boostType: "premium",
+          },
+          "boost-basic": {
+            applicationPriority: "premium",
+            boostType: "premium",
+            boosted: true,
+            boostTier: "boost-basic",
+          },
+          "boost-pro": {
+            applicationPriority: "professional",
+            boostType: "professional",
+            boosted: true,
+            boostTier: "boost-pro",
+          },
+          "boost-enterprise": {
+            applicationPriority: "enterprise",
+            boostType: "enterprise",
+            boosted: true,
+            boostTier: "boost-enterprise",
+          },
+        };
+        const updates = {
+          ...(priorityUpdates[serviceType] || {}),
+          status: "In Review",
+          paymentDate: paymentDate,
+          paymentStatus: "successful",
+          paymentReference: String(action?.referenceCode || action?.reference || ""),
+          paymentActionId: String(action?.actionId || ""),
+          paymentServiceType: String(serviceType || ""),
+        };
 
-        // Handle special cases
-        if (serviceType === "application-premium" && jobId) {
-          // Show processing animation for premium applications
-          showProcessingAnimation();
+        if (serviceType === "application-premium" && applicationPayload && window.JobAssistApplications) {
+          const existingApplication = applicationId
+            ? window.JobAssistApplications.findApplicationById(applicationId)
+            : null;
 
-          // Process premium application after a delay
-          setTimeout(() => {
-            processPremiumApplication(jobId);
-          }, 2000);
-        } else {
-          // Start auto-redirect countdown for other services
-          startAutoRedirect(service.dashboardUrl);
+          if (!existingApplication) {
+            const createdApplication = window.JobAssistApplications.createApplication({
+              ...applicationPayload,
+              applicationId: applicationId || applicationPayload.applicationId || applicationPayload.id,
+              id: applicationId || applicationPayload.applicationId || applicationPayload.id,
+              status: "in-review",
+              accepted: false,
+              rejected: false,
+              ...updates,
+            });
+
+            localStorage.setItem(
+              "current_application_id",
+              String(createdApplication?.applicationId || createdApplication?.id || "")
+            );
+
+            const employerNotifications = safeJSONParse(
+              localStorage.getItem("jobassist_employer_notifications")
+            ) || [];
+
+            employerNotifications.unshift({
+              id: `empnotif-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+              message:
+                createdApplication.jobTitle || createdApplication.title
+                  ? `${createdApplication.jobTitle || createdApplication.title} has a new applicant.`
+                  : "You have a new applicant.",
+              type: "application",
+              isRead: false,
+              createdAt: paymentDate,
+              meta: {
+                jobId: String(createdApplication.jobId || jobId || ""),
+                jobTitle: String(
+                  createdApplication.jobTitle || createdApplication.title || ""
+                ).trim(),
+              },
+            });
+
+            localStorage.setItem(
+              "jobassist_employer_notifications",
+              JSON.stringify(employerNotifications.slice(0, 50))
+            );
+            return;
+          }
         }
-      }
 
-      // Generate a random transaction ID
-      function generateTransactionId() {
-        const prefix = "JOBASSIST";
-        const timestamp = Date.now().toString().slice(-6);
-        const random = Math.floor(Math.random() * 10000)
-          .toString()
-          .padStart(4, "0");
-        return `${prefix}-${timestamp}-${random}`;
-      }
+        if (window.JobAssistApplications && applicationId) {
+          window.JobAssistApplications.updateApplication(applicationId, updates);
+          return;
+        }
 
-      // Show processing animation
-      function showProcessingAnimation() {
-        const processingAnimation = document.getElementById(
-          "processingAnimation",
-        );
-        const loadingText = document.getElementById("loadingText");
-
-        processingAnimation.style.display = "block";
-        loadingText.textContent = "Activating your premium application...";
-
-        // Simulate processing
-        setTimeout(() => {
-          loadingText.textContent = "Verifying your application details...";
-        }, 1000);
-
-        setTimeout(() => {
-          loadingText.textContent = "Applying priority placement...";
-        }, 2000);
-
-        setTimeout(() => {
-          processingAnimation.style.display = "none";
-          startAutoRedirect(document.getElementById("dashboardButton").href);
-        }, 3000);
-      }
-
-      // Process premium application
-      function processPremiumApplication(jobId) {
-        // Get applied jobs from localStorage
-        let appliedJobs = JSON.parse(localStorage.getItem("appliedJobs")) || [];
-
-        // Find the application for this job
-        const applicationIndex = appliedJobs.findIndex(
-          (app) => app.id === jobId,
+        const APPLICATIONS_KEY = "jobassist_applications";
+        const appliedJobs = safeJSONParse(localStorage.getItem(APPLICATIONS_KEY)) || [];
+        const idx = appliedJobs.findIndex(
+          (app) =>
+            (applicationId &&
+              String(app.applicationId || app.id) === String(applicationId)) ||
+            String(app.jobId) === String(jobId)
         );
 
-        if (applicationIndex !== -1) {
-          // Update the application status to premium
-          appliedJobs[applicationIndex].tier = "premium";
-          appliedJobs[applicationIndex].status = "premium_verified";
-          appliedJobs[applicationIndex].paymentDate = new Date().toISOString();
-
-          // Save back to localStorage
-          localStorage.setItem("appliedJobs", JSON.stringify(appliedJobs));
+        if (idx !== -1) {
+          Object.assign(appliedJobs[idx], updates);
+          localStorage.setItem(APPLICATIONS_KEY, JSON.stringify(appliedJobs));
         }
       }
 
-      // Start auto-redirect countdown
       function startAutoRedirect(url) {
         const autoRedirect = document.getElementById("autoRedirect");
         const countdownElement = document.getElementById("countdown");
 
         autoRedirect.style.display = "block";
-        let countdown = 5;
 
-        const countdownInterval = setInterval(() => {
-          countdown--;
+        let countdown = 5;
+        countdownElement.textContent = countdown;
+
+        const timer = setInterval(() => {
+          countdown -= 1;
           countdownElement.textContent = countdown;
 
           if (countdown <= 0) {
-            clearInterval(countdownInterval);
+            clearInterval(timer);
             window.location.href = url;
           }
         }, 1000);
       }
 
-      // Initialize when page loads
+      function showProcessingAnimation(serviceType, onComplete) {
+        const processingAnimation = document.getElementById("processingAnimation");
+        const loadingText = document.getElementById("loadingText");
+
+        processingAnimation.style.display = "flex";
+
+        if (serviceType === "application-premium") {
+          loadingText.textContent = "Activating your premium application...";
+          setTimeout(() => {
+            loadingText.textContent = "Applying priority visibility...";
+          }, 900);
+          setTimeout(() => {
+            loadingText.textContent = "Finalizing your application update...";
+          }, 1800);
+        } else {
+          loadingText.textContent = "Finalizing your payment...";
+        }
+
+        setTimeout(() => {
+          processingAnimation.style.display = "none";
+          onComplete();
+        }, serviceType === "application-premium" ? 2800 : 1200);
+      }
+
+      function setSuccessPageProcessingState(isProcessing, message) {
+        const dashboardButton = document.getElementById("dashboardButton");
+        const homeButton = document.getElementById("homeButton");
+        const successMessage = document.getElementById("successMessage");
+
+        if (dashboardButton) dashboardButton.disabled = !!isProcessing;
+        if (homeButton) homeButton.disabled = !!isProcessing;
+        if (isProcessing && successMessage && message) {
+          successMessage.textContent = message;
+        }
+      }
+
+      function showVerificationFailure() {
+        document.getElementById("successTitle").textContent = "Payment Verification Required";
+        document.getElementById("successMessage").textContent =
+          "Payment could not be verified. No service has been activated.";
+        document.getElementById("confirmationDescription").textContent =
+          "Please contact support or retry the payment if the charge did not complete.";
+        document.getElementById("paymentInfo").innerHTML = "";
+        document.getElementById("paymentDetails").style.display = "none";
+        document.getElementById("nextStepsList").innerHTML = `
+          <li>No premium or boost service has been activated.</li>
+          <li>Please return to your applications and retry if needed.</li>
+        `;
+        document.getElementById("dashboardButton").href = "your-applications.html";
+        document.getElementById("dashboardButton").innerHTML =
+          '<i class="fas fa-arrow-left"></i> Return to Applications';
+      }
+
+      async function initializeSuccessPage() {
+        const serviceType = getQueryParam("service") || "payment";
+        const amount = getQueryParam("amount");
+        const referenceCode = getQueryParam("ref");
+        const displayReference = buildSuccessReference(serviceType, referenceCode);
+        const nextParam = getQueryParam("next");
+        const jobId = getQueryParam("jobId");
+        const actionId = getQueryParam("actionId");
+        const applicantCount = getQueryParam("applicantCount");
+        const jobTitle = safeDecode(getQueryParam("jobTitle"));
+        const company = safeDecode(getQueryParam("company"));
+
+        const flow = inferFlow(serviceType, nextParam);
+        const config = getServiceConfig(serviceType, flow, nextParam);
+        const continueUrl = buildRootRelativePath(config.continueUrl);
+
+        document.getElementById("successTitle").textContent = `${config.name} Successful`;
+        document.getElementById("successMessage").textContent = config.message;
+        document.getElementById("confirmationDescription").textContent = config.description;
+        document.getElementById("dashboardButton").href = continueUrl;
+        document.getElementById("dashboardButton").innerHTML = `<i class="fas fa-arrow-right"></i> ${config.buttonText}`;
+
+        const nextStepsList = document.getElementById("nextStepsList");
+        nextStepsList.innerHTML = config.nextSteps.map((step) => `<li>${step}</li>`).join("");
+
+        const paymentInfo = [];
+        paymentInfo.push(`
+          <div class="payment-item">
+            <div class="payment-label">Service</div>
+            <div class="payment-value">${config.name}</div>
+          </div>
+        `);
+
+        if (amount) {
+          paymentInfo.push(`
+            <div class="payment-item">
+              <div class="payment-label">Amount</div>
+              <div class="payment-value amount">${formatCurrencyValue(amount)}</div>
+            </div>
+          `);
+        }
+
+        paymentInfo.push(`
+          <div class="payment-item">
+            <div class="payment-label">Reference</div>
+            <div class="payment-value reference-text" title="${displayReference || "N/A"}">${getFormattedReference(displayReference)}</div>
+          </div>
+        `);
+
+        if (jobId) {
+          paymentInfo.push(`
+            <div class="payment-item">
+              <div class="payment-label">Job ID</div>
+              <div class="payment-value">${jobId}</div>
+            </div>
+          `);
+        }
+
+        paymentInfo.push(`
+          <div class="payment-item">
+            <div class="payment-label">Date</div>
+            <div class="payment-value">${new Date().toLocaleDateString("en-GB")}</div>
+          </div>
+        `);
+
+        if (jobTitle) {
+          paymentInfo.push(`
+            <div class="payment-item">
+              <div class="payment-label">Job Title</div>
+              <div class="payment-value">${jobTitle}</div>
+            </div>
+          `);
+        }
+
+        if (company) {
+          paymentInfo.push(`
+            <div class="payment-item">
+              <div class="payment-label">Company</div>
+              <div class="payment-value">${company}</div>
+            </div>
+          `);
+        }
+
+        if (applicantCount) {
+          paymentInfo.push(`
+            <div class="payment-item">
+              <div class="payment-label">Applicants</div>
+              <div class="payment-value">${applicantCount}</div>
+            </div>
+          `);
+        }
+
+        document.getElementById("paymentInfo").innerHTML = paymentInfo.join("");
+        document.getElementById("paymentDetails").style.display = "block";
+
+        document.title = `${config.name} Successful | Job Assist Ghana`;
+
+        setSuccessPageProcessingState(true, "Payment successful. Activating service...");
+        await new Promise((resolve) => setTimeout(resolve, 600));
+
+        const verificationResult = await window.JobAssistPaymentGate?.verifyPaystackPayment(
+          referenceCode,
+          {
+            actionId: actionId,
+            referenceCode: referenceCode,
+            serviceType: serviceType,
+            role: "candidate",
+            jobId: jobId,
+            applicationId: getQueryParam("applicationId"),
+          }
+        );
+
+        if (!verificationResult?.ok) {
+          console.warn("Candidate payment could not be verified.", verificationResult);
+          setSuccessPageProcessingState(false);
+          showVerificationFailure();
+          return;
+        }
+
+        const finalizeResult = window.JobAssistPaymentGate?.finalizePendingPaymentAction(
+          {
+            actionId: actionId,
+            referenceCode: referenceCode,
+            serviceType: serviceType,
+            role: "candidate",
+            jobId: jobId,
+            applicationId: getQueryParam("applicationId"),
+          },
+          (pendingAction) => {
+            processCandidateApplicationSuccess(
+              serviceType,
+              jobId || pendingAction?.jobId || "",
+              pendingAction
+            );
+            return true;
+          }
+        );
+
+        if (!finalizeResult?.ok && !finalizeResult?.alreadyFinalized) {
+          console.warn("Candidate payment success page could not finalize a pending action.", finalizeResult);
+          setSuccessPageProcessingState(false);
+          showVerificationFailure();
+          return;
+        }
+
+        showProcessingAnimation(serviceType, () => {
+          setSuccessPageProcessingState(false);
+          startAutoRedirect(continueUrl);
+        });
+      }
+
       document.addEventListener("DOMContentLoaded", initializeSuccessPage);
     </script>
+  
+    <script src="../assets/js/payment-gating.js"></script>
+    <script src='../assets/js/product-polish.js'></script>
   </body>
 </html>
+
+

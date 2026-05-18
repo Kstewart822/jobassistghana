@@ -4,18 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile Settings - Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+
     <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
       }
 
       :root {
@@ -47,14 +48,10 @@
         line-height: 1.4;
       }
 
-      /* Sidebar Styles - Matching dashboard */
+      /* Sidebar */
       .sidebar {
         width: var(--sidebar-width);
-        background: linear-gradient(
-          180deg,
-          var(--primary),
-          var(--primary-dark)
-        );
+        background: linear-gradient(180deg, var(--primary), var(--primary-dark));
         color: white;
         height: 100vh;
         position: fixed;
@@ -83,7 +80,8 @@
       .logo {
         display: flex;
         align-items: center;
-        gap: 8px; /* Reduced gap for no space between logo and text */
+        gap: 8px;
+        text-decoration: none;
       }
 
       .logo-img-placeholder {
@@ -191,7 +189,7 @@
         justify-content: center;
       }
 
-      /* Main Content Area */
+      /* Main Content */
       .main-content {
         flex: 1;
         margin-left: var(--sidebar-width);
@@ -207,7 +205,7 @@
         width: calc(100% - var(--sidebar-collapsed));
       }
 
-      /* Navbar Styles - Matching dashboard */
+      /* Navbar */
       .navbar {
         height: var(--navbar-height);
         background-color: white;
@@ -241,9 +239,10 @@
         display: flex;
         align-items: center;
         gap: 12px;
+        position: relative;
       }
 
-      /* Notification Dropdown - From reference page */
+      /* Notifications */
       .notification-icon {
         position: relative;
         cursor: pointer;
@@ -273,8 +272,8 @@
 
       .notification-dropdown {
         position: absolute;
-        top: 100%;
-        right: 20px;
+        top: calc(100% + 10px);
+        right: 0;
         background-color: white;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
@@ -343,13 +342,7 @@
         color: var(--gray);
       }
 
-      .notification-empty {
-        padding: 20px;
-        text-align: center;
-        color: var(--gray);
-        font-size: 0.9rem;
-      }
-
+      /* User profile dropdown */
       .user-profile {
         display: flex;
         align-items: center;
@@ -391,8 +384,8 @@
 
       .dropdown-menu {
         position: absolute;
-        top: 100%;
-        right: 20px;
+        top: calc(100% + 10px);
+        right: 0;
         background-color: white;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
@@ -514,7 +507,7 @@
         color: var(--gray);
       }
 
-      /* Settings Cards - FULL HEIGHT and stretched */
+      /* Settings Cards */
       .settings-cards {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -566,7 +559,6 @@
         font-size: 0.8rem;
       }
 
-      /* Form Styles - Matching dashboard */
       .form-group {
         margin-bottom: 15px;
         flex-shrink: 0;
@@ -609,7 +601,41 @@
         flex: 1;
       }
 
-      /* Buttons - Matching dashboard */
+      .social-media-links {
+        display: grid;
+        gap: 10px;
+      }
+
+      .social-media-row,
+      .social-row {
+        display: grid;
+        grid-template-columns: minmax(120px, 0.34fr) 1fr auto;
+        gap: 10px;
+        align-items: start;
+      }
+
+      .social-media-remove,
+      .remove-social {
+        min-height: 38px;
+        min-width: 38px;
+        border: 1px solid #fee2e2;
+        border-radius: 5px;
+        background: #fff5f5;
+        color: #b91c1c;
+        cursor: pointer;
+        font-weight: 700;
+        transition: var(--transition);
+      }
+
+      .social-media-remove:hover,
+      .remove-social:hover {
+        background: #fee2e2;
+      }
+
+      .social-media-add {
+        margin-top: 10px;
+      }
+
       .btn {
         padding: 8px 12px;
         border-radius: 5px;
@@ -653,27 +679,74 @@
         background-color: #dc2626;
       }
 
-      .btn-accent {
-        background-color: var(--secondary);
-        color: var(--primary);
-        font-weight: 700;
-      }
-
-      .btn-accent:hover {
-        background-color: var(--secondary-dark);
-      }
-
-      /* Action Buttons Container */
+      /* Buttons bottom of card */
       .action-buttons {
         display: flex;
         gap: 8px;
         flex-wrap: wrap;
-        margin-top: auto; /* Push buttons to bottom of card */
+        margin-top: auto;
         padding-top: 15px;
         flex-shrink: 0;
       }
 
-      /* Modal Styles - Matching dashboard */
+      /* Form content scroll in cards */
+      .form-content {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 5px;
+        margin-bottom: 15px;
+      }
+
+      @media (min-width: 1024px) {
+        .settings-cards {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+          height: auto;
+          min-height: 0;
+        }
+
+        .settings-cards .card,
+        .settings-card {
+          width: 100%;
+          height: auto;
+          min-height: 0;
+        }
+
+        .settings-card .form-content {
+          overflow: visible;
+          padding-right: 0;
+        }
+
+        .settings-form {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 18px 24px;
+        }
+
+        .settings-form .form-row {
+          display: contents;
+        }
+
+        .settings-form .form-group {
+          margin-bottom: 0;
+          min-width: 0;
+        }
+
+        .settings-form .full-width {
+          grid-column: 1 / -1;
+        }
+
+        .settings-card-security .settings-form {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .settings-card .action-buttons {
+          justify-content: flex-end;
+        }
+      }
+
+      /* Modal */
       .modal {
         display: none;
         position: fixed;
@@ -736,7 +809,7 @@
         flex-wrap: wrap;
       }
 
-      /* Toast Notification */
+      /* Toast */
       .toast {
         position: fixed;
         bottom: 20px;
@@ -766,7 +839,7 @@
         background-color: var(--danger);
       }
 
-      /* Mobile Overlay */
+      /* Mobile overlay */
       .mobile-overlay {
         display: none;
         position: fixed;
@@ -782,19 +855,7 @@
         display: block;
       }
 
-      /* Form content area */
-      .form-content {
-        flex: 1;
-        overflow-y: auto;
-        padding-right: 5px;
-        margin-bottom: 15px;
-      }
-
-      /* ====================== */
-      /* MOBILE OPTIMIZATIONS */
-      /* ====================== */
-
-      /* Tablet (992px and below) */
+      /* Tablet */
       @media (max-width: 992px) {
         .dashboard-content {
           padding: 15px;
@@ -848,12 +909,11 @@
         }
 
         .notification-dropdown {
-          right: 15px;
           width: 280px;
         }
       }
 
-      /* Mobile (768px and below) */
+      /* Mobile */
       @media (max-width: 768px) {
         .dashboard-content {
           padding: 12px;
@@ -888,7 +948,6 @@
         }
 
         .dropdown-menu {
-          right: 12px;
           width: 160px;
         }
 
@@ -964,6 +1023,16 @@
           gap: 0;
         }
 
+        .social-media-row,
+        .social-row {
+          grid-template-columns: 1fr;
+        }
+
+        .social-media-remove,
+        .remove-social {
+          width: 100%;
+        }
+
         .btn {
           padding: 7px 10px;
           font-size: 0.75rem;
@@ -975,11 +1044,9 @@
 
         .notification-dropdown {
           width: 260px;
-          right: 10px;
         }
       }
 
-      /* Small Mobile (576px and below) */
       @media (max-width: 576px) {
         .dashboard-content {
           padding: 10px;
@@ -987,10 +1054,6 @@
 
         .navbar {
           padding: 0 10px;
-        }
-
-        .mobile-menu-btn {
-          font-size: 1rem;
         }
 
         .page-title {
@@ -1005,37 +1068,8 @@
           font-size: 0.8rem;
         }
 
-        .profile-header-card {
-          padding: 12px;
-        }
-
-        .profile-avatar-lg {
-          width: 55px;
-          height: 55px;
-        }
-
-        .profile-name {
-          font-size: 1rem;
-        }
-
-        .profile-stat-value {
-          font-size: 0.95rem;
-        }
-
-        .profile-stat-label {
-          font-size: 0.65rem;
-        }
-
         .card {
           padding: 12px;
-        }
-
-        .card-title {
-          font-size: 0.9rem;
-        }
-
-        .card-subtitle {
-          font-size: 0.7rem;
         }
 
         .btn {
@@ -1051,162 +1085,11 @@
           font-size: 0.8rem;
         }
       }
-
-      /* Extra Small Mobile (480px and below) */
-      @media (max-width: 480px) {
-        .dashboard-content {
-          padding: 8px;
-        }
-
-        .navbar {
-          padding: 0 8px;
-          height: 55px;
-        }
-
-        .logo-img-placeholder {
-          width: 30px;
-          height: 30px;
-          font-size: 0.9rem;
-        }
-
-        .mobile-menu-btn {
-          font-size: 0.9rem;
-        }
-
-        .page-title {
-          font-size: 0.9rem;
-        }
-
-        .notification-icon {
-          font-size: 0.9rem;
-        }
-
-        .notification-badge {
-          width: 16px;
-          height: 16px;
-          font-size: 0.65rem;
-        }
-
-        .user-avatar {
-          width: 32px;
-          height: 32px;
-        }
-
-        .welcome-title {
-          font-size: 1rem;
-        }
-
-        .welcome-subtitle {
-          font-size: 0.75rem;
-        }
-
-        .profile-header-card {
-          padding: 10px;
-        }
-
-        .profile-avatar-lg {
-          width: 50px;
-          height: 50px;
-        }
-
-        .profile-stat {
-          min-width: 50px;
-        }
-
-        .profile-stat-value {
-          font-size: 0.9rem;
-        }
-
-        .card {
-          padding: 10px;
-        }
-
-        .btn {
-          padding: 5px 7px;
-          font-size: 0.65rem;
-        }
-
-        .dropdown-menu {
-          width: 140px;
-          padding: 6px 0;
-        }
-
-        .dropdown-menu a {
-          padding: 6px 12px;
-          font-size: 0.8rem;
-        }
-
-        .notification-dropdown {
-          width: 240px;
-          right: 8px;
-        }
-      }
-
-      /* Very Small Mobile (360px and below) */
-      @media (max-width: 360px) {
-        .dashboard-content {
-          padding: 6px;
-        }
-
-        .navbar {
-          padding: 0 6px;
-        }
-
-        .logo-img-placeholder {
-          width: 28px;
-          height: 28px;
-          font-size: 0.8rem;
-        }
-
-        .logo-main {
-          font-size: 0.9rem;
-        }
-
-        .logo-sub {
-          font-size: 0.6rem;
-        }
-
-        .welcome-title {
-          font-size: 0.95rem;
-        }
-
-        .profile-header-card {
-          padding: 8px;
-        }
-
-        .profile-avatar-lg {
-          width: 45px;
-          height: 45px;
-        }
-
-        .profile-name {
-          font-size: 0.95rem;
-        }
-
-        .card {
-          padding: 8px;
-        }
-
-        .card-title {
-          font-size: 0.85rem;
-        }
-
-        .form-group label {
-          font-size: 0.8rem;
-        }
-
-        .form-control {
-          padding: 8px;
-          font-size: 0.8rem;
-        }
-
-        .btn {
-          padding: 4px 6px;
-          font-size: 0.6rem;
-        }
-      }
     </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
   </head>
+
   <body>
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
@@ -1216,19 +1099,19 @@
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title">Confirm Logout</h3>
-          <button class="close-modal">&times;</button>
+          <button class="close-modal" type="button">&times;</button>
         </div>
         <div class="modal-body">
           <p>Are you sure you want to log out of your account?</p>
-          <p>
-            <strong
-              >You will need to log in again to access your dashboard.</strong
-            >
-          </p>
+          <p><strong>You will need to log in again to access your dashboard.</strong></p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-danger" id="confirmLogout">Yes, Logout</button>
-          <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+          <button class="btn btn-danger" id="confirmLogout" type="button">
+            Yes, Logout
+          </button>
+          <button class="btn btn-outline" id="cancelLogout" type="button">
+            Cancel
+          </button>
         </div>
       </div>
     </div>
@@ -1239,76 +1122,63 @@
       <span id="toastMessage">Settings updated successfully!</span>
     </div>
 
-    <!-- Sidebar -->
+    <!-- Sidebar (FIXED: no duplicates) -->
     <aside class="sidebar" id="sidebar">
-<<<<<<< HEAD:esettings.html
       <div class="sidebar-header">
-        <div class="logo">
+        <a href="../index.html" class="logo">
           <div class="logo-img-placeholder">JA</div>
           <div class="logo-text">
             <div class="logo-main">JobAssist</div>
             <div class="logo-sub">GHANA</div>
           </div>
-=======
-        <div class="sidebar-header">
-            <a href="../index.html" class="logo">
-                <div class="logo-img-placeholder">JA</div>
-                <div class="logo-text">
-                    <div class="logo-main">JobAssist</div>
-                    <div class="logo-sub">GHANA</div>
-                </div>
-            </a>
-            <button class="toggle-btn" id="sidebarToggle">
-                <i class="fas fa-chevron-left"></i>
-            </button>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:employer/esettings.html
-        </div>
-        <button class="toggle-btn" id="sidebarToggle">
+        </a>
+        <button class="toggle-btn" id="sidebarToggle" type="button" aria-label="Toggle sidebar">
           <i class="fas fa-chevron-left"></i>
         </button>
       </div>
+
       <ul class="sidebar-menu">
         <li>
-          <a href="employer-dashboard.html"
-            ><i class="fas fa-home"></i>
-            <span class="menu-text">Dashboard</span></a
-          >
+          <a href="employer-dashboard.html">
+            <i class="fas fa-home"></i>
+            <span class="menu-text">Dashboard</span>
+          </a>
         </li>
         <li>
-          <a href="job-type.html"
-            ><i class="fas fa-plus-circle"></i>
-            <span class="menu-text">Post Job</span></a
-          >
+          <a href="job-type.html">
+            <i class="fas fa-plus-circle"></i>
+            <span class="menu-text">Post Job</span>
+          </a>
         </li>
         <li>
-          <a href="my-job-post.html"
-            ><i class="fas fa-briefcase"></i>
-            <span class="menu-text">My Job Posts</span></a
-          >
+          <a href="my-job-post.html">
+            <i class="fas fa-briefcase"></i>
+            <span class="menu-text">My Job Posts</span>
+          </a>
         </li>
         <li>
-          <a href="boost-job.html"
-            ><i class="fas fa-rocket"></i>
-            <span class="menu-text">Boost Job</span></a
-          >
+          <a href="boost-job.html">
+            <i class="fas fa-rocket"></i>
+            <span class="menu-text">Boost Job</span>
+          </a>
         </li>
         <li>
-          <a href="employer-payment.html"
-            ><i class="fas fa-credit-card"></i>
-            <span class="menu-text">Payments</span></a
-          >
+          <a href="employer-payment.html">
+            <i class="fas fa-credit-card"></i>
+            <span class="menu-text">Payments</span>
+          </a>
         </li>
         <li>
-          <a href="esettings.html" class="active"
-            ><i class="fas fa-user-cog"></i>
-            <span class="menu-text">Profile / Settings</span></a
-          >
+          <a href="esettings.html" class="active">
+            <i class="fas fa-user-cog"></i>
+            <span class="menu-text">Profile / Settings</span>
+          </a>
         </li>
         <li>
-          <a href="#" id="sidebarLogout"
-            ><i class="fas fa-sign-out-alt"></i>
-            <span class="menu-text">Logout</span></a
-          >
+          <a href="#" id="sidebarLogout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="menu-text">Logout</span>
+          </a>
         </li>
       </ul>
     </aside>
@@ -1317,73 +1187,43 @@
     <div class="main-content" id="mainContent">
       <!-- Navbar -->
       <nav class="navbar">
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu">
           <i class="fas fa-bars"></i>
         </button>
+
         <div class="page-title">Profile Settings</div>
+
         <div class="navbar-right">
-          <!-- Notification Area -->
-          <div class="notification-icon" id="notificationIcon">
+          <div class="notification-icon" id="notificationIcon" title="Notifications">
             <i class="fas fa-bell"></i>
-            <span class="notification-badge">3</span>
+            <span class="notification-badge" id="notificationBadge">0</span>
           </div>
+
           <div class="notification-dropdown" id="notificationDropdown">
             <div class="notification-header">
               <h3 class="notification-title">Notifications</h3>
-              <button class="mark-all-read">Mark all as read</button>
+              <button class="mark-all-read" id="markAllRead" type="button">Mark all as read</button>
             </div>
-            <ul class="notification-list">
-              <li class="notification-item unread">
-                <div class="notification-content">
-                  5 new applicants for Frontend Developer position
-                </div>
-                <div class="notification-time">2 hours ago</div>
-              </li>
-              <li class="notification-item unread">
-                <div class="notification-content">
-                  Your job listing for Marketing Manager is about to expire
-                </div>
-                <div class="notification-time">5 hours ago</div>
-              </li>
-              <li class="notification-item unread">
-                <div class="notification-content">
-                  3 candidates have viewed your company profile this week
-                </div>
-                <div class="notification-time">1 day ago</div>
-              </li>
-              <li class="notification-item">
-                <div class="notification-content">
-                  Boost campaign for UX Designer has ended
-                </div>
-                <div class="notification-time">2 days ago</div>
-              </li>
-            </ul>
+            <ul class="notification-list" id="employerNotificationList"></ul>
           </div>
-          <div class="user-profile" id="userProfile">
-            <div class="user-avatar">
-              <img src="https://i.pravatar.cc/150?img=5" alt="User" />
-            </div>
-            <div class="user-name">Nana Kwame</div>
+
+          <div class="user-profile" id="userProfile" title="Account">
+            <div class="user-avatar" id="employerBusinessAvatar">B</div>
+            <div class="user-name" id="employerBusinessShortName">Business</div>
             <i class="fas fa-chevron-down"></i>
           </div>
-          <div class="dropdown-menu">
-            <a href="esettings.html"
-              ><i class="fas fa-user"></i> View Profile</a
-            >
-            <a href="employer-payment.html"
-              ><i class="fas fa-history"></i> Payment History</a
-            >
+
+          <div class="dropdown-menu" id="profileDropdown">
+            <a href="esettings.html"><i class="fas fa-user"></i> View Profile</a>
+            <a href="employer-payment.html"><i class="fas fa-history"></i> Payment History</a>
             <a href="esettings.html"><i class="fas fa-cog"></i> Settings</a>
-            <a href="#" id="dropdownLogout"
-              ><i class="fas fa-sign-out-alt"></i> Logout</a
-            >
+            <a href="#" id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
           </div>
         </div>
       </nav>
 
-      <!-- Dashboard Content -->
+      <!-- Content -->
       <div class="dashboard-content">
-        <!-- Welcome Section -->
         <div class="welcome-section">
           <h1 class="welcome-title">Profile Settings</h1>
           <p class="welcome-subtitle">
@@ -1391,259 +1231,192 @@
           </p>
         </div>
 
-        <!-- Profile Header Card -->
         <div class="profile-header-card">
-          <div class="profile-avatar-lg">
-            <img src="https://i.pravatar.cc/150?img=5" alt="Nana Kwame" />
+          <div
+            class="profile-avatar-lg"
+            id="profileBusinessAvatar"
+            style="display:flex;align-items:center;justify-content:center;background:var(--primary);color:white;font-size:1.8rem;font-weight:700;"
+          >
+            B
           </div>
           <div class="profile-info">
-            <h3 class="profile-name">Nana Kwame</h3>
-            <p class="profile-company">Tech Solutions Inc. • Accra, Ghana</p>
+            <h3 class="profile-name" id="profileBusinessName">Business Name</h3>
+            <p class="profile-company" id="profileBusinessMeta">Region</p>
             <div class="profile-stats">
               <div class="profile-stat">
-                <div class="profile-stat-value">5</div>
+                <div class="profile-stat-value" id="profileActiveJobs">0</div>
                 <div class="profile-stat-label">Active Jobs</div>
               </div>
               <div class="profile-stat">
-                <div class="profile-stat-value">42</div>
+                <div class="profile-stat-value" id="profileApplicants">0</div>
                 <div class="profile-stat-label">Applicants</div>
               </div>
               <div class="profile-stat">
-                <div class="profile-stat-value">12</div>
+                <div class="profile-stat-value" id="profileUnlocked">0</div>
                 <div class="profile-stat-label">Unlocked</div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Settings Cards -->
         <div class="settings-cards">
-          <!-- Company Profile Card -->
-          <div class="card">
+          <!-- Company Profile -->
+          <div class="card settings-card settings-card-company">
             <div class="card-header">
               <h3 class="card-title">
-                <i class="fas fa-building"></i> Company Profile
+                <i class="fas fa-building"></i> Company Information
               </h3>
-              <p class="card-subtitle">
-                Update your company details and description
-              </p>
+              <p class="card-subtitle">Update the company details you provided during sign up</p>
             </div>
+
             <div class="form-content">
-              <form id="companyProfileForm">
-                <div class="form-group">
+              <form id="companyProfileForm" class="settings-form">
+                <div class="form-group full-width">
                   <label for="companyName">Company Name</label>
-                  <input
-                    type="text"
-                    id="companyName"
-                    class="form-control"
-                    value="Tech Solutions Inc."
-                  />
+                  <input type="text" id="companyName" class="form-control" />
                 </div>
 
                 <div class="form-row">
                   <div class="form-group">
                     <label for="companyIndustry">Industry</label>
-                    <select id="companyIndustry" class="form-control">
-                      <option value="technology" selected>Technology</option>
-                      <option value="finance">Finance</option>
-                      <option value="healthcare">Healthcare</option>
-                      <option value="education">Education</option>
-                    </select>
+                    <input type="text" id="companyIndustry" class="form-control" />
                   </div>
+
+                  <div class="form-group">
+                    <label for="businessType">Business Type</label>
+                    <input type="text" id="businessType" class="form-control" />
+                  </div>
+                </div>
+
+                <div class="form-row">
                   <div class="form-group">
                     <label for="companySize">Company Size</label>
-                    <select id="companySize" class="form-control">
-                      <option value="11-50" selected>11-50 employees</option>
-                      <option value="1-10">1-10 employees</option>
-                      <option value="51-200">51-200 employees</option>
-                    </select>
+                    <input type="text" id="companySize" class="form-control" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="registrationNumber">Business Registration Number</label>
+                    <input type="text" id="registrationNumber" class="form-control" />
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label for="companyWebsite">Website</label>
-                  <input
-                    type="url"
-                    id="companyWebsite"
-                    class="form-control"
-                    value="https://techsolutions.example.com"
-                  />
+                <div class="form-group full-width">
+                  <label for="companyAddress">Company Address</label>
+                  <input type="text" id="companyAddress" class="form-control" />
                 </div>
 
-                <div class="form-group">
-                  <label for="companyLocation">Location</label>
-                  <input
-                    type="text"
-                    id="companyLocation"
-                    class="form-control"
-                    value="Accra, Ghana"
-                  />
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" class="form-control" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="region">Region</label>
+                    <input type="text" id="region" class="form-control" />
+                  </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group full-width">
                   <label for="companyDescription">Company Description</label>
-                  <textarea
-                    id="companyDescription"
-                    class="form-control"
-                    rows="5"
-                  >
-Tech Solutions Inc. is a leading technology company based in Accra, Ghana. We specialize in developing innovative software solutions for businesses across various industries.</textarea
-                  >
+                  <textarea id="companyDescription" class="form-control" rows="5"></textarea>
                   <div class="form-text">
-                    Describe your company, services, and values. This will be
-                    visible to job applicants.
+                    Keep this short and clear for applicants.
                   </div>
+                </div>
+
+                <div class="form-group full-width">
+                  <label>Social Media Links</label>
+                  <div id="socialMediaContainer" class="social-media-links"></div>
+                  <button type="button" id="addSocialBtn" class="btn btn-outline">+ Add Social</button>
+                  <div class="form-text">Optional. Add up to 3 links. WhatsApp accepts numbers starting with 0, 233, or +233.</div>
                 </div>
               </form>
             </div>
+
             <div class="action-buttons">
-              <button
-                type="submit"
-                form="companyProfileForm"
-                class="btn btn-primary"
-              >
+              <button type="submit" form="companyProfileForm" class="btn btn-primary">
                 <i class="fas fa-save"></i> Save Changes
               </button>
             </div>
           </div>
 
-          <!-- Account Settings Card -->
-          <div class="card">
+          <!-- Recruiter Details -->
+          <div class="card settings-card settings-card-recruiter">
             <div class="card-header">
-              <h3 class="card-title">
-                <i class="fas fa-user"></i> Account Settings
-              </h3>
-              <p class="card-subtitle">Update your contact details</p>
+              <h3 class="card-title"><i class="fas fa-user"></i> Employer / Recruiter Details</h3>
+              <p class="card-subtitle">Update the employer contact details used for hiring</p>
             </div>
+
             <div class="form-content">
-              <form id="accountSettingsForm">
+              <form id="accountSettingsForm" class="settings-form">
                 <div class="form-group">
-                  <label for="email">Email Address</label>
-                  <input
-                    type="email"
-                    id="email"
-                    class="form-control"
-                    value="nana.kwame@techsolutions.example.com"
-                  />
-                  <div class="form-text">
-                    This will be used for notifications and account recovery
-                  </div>
+                  <label for="fullName">Full Name</label>
+                  <input type="text" id="fullName" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                  <label for="position">Position / Job Title</label>
+                  <input type="text" id="position" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                  <label for="workEmail">Work Email Address</label>
+                  <input type="email" id="workEmail" class="form-control" />
+                  <div class="form-text">Used for communication with candidates and account notices</div>
                 </div>
 
                 <div class="form-group">
                   <label for="phone">Phone Number</label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    class="form-control"
-                    value="+233 24 123 4567"
-                  />
+                  <input type="tel" id="phone" class="form-control" />
+                  <div class="form-text">Used as the employer login phone number</div>
                 </div>
 
-                <div class="form-group">
-                  <label for="jobTitle">Job Title</label>
-                  <input
-                    type="text"
-                    id="jobTitle"
-                    class="form-control"
-                    value="HR Manager"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="department">Department</label>
-                  <input
-                    type="text"
-                    id="department"
-                    class="form-control"
-                    value="Human Resources"
-                  />
+                <div class="form-group full-width">
+                  <label for="email">Legacy Email (Optional)</label>
+                  <input type="email" id="email" class="form-control" />
+                  <div class="form-text">Kept for older records; new employer login uses phone number.</div>
                 </div>
               </form>
             </div>
+
             <div class="action-buttons">
-              <button
-                type="submit"
-                form="accountSettingsForm"
-                class="btn btn-primary"
-              >
+              <button type="submit" form="accountSettingsForm" class="btn btn-primary">
                 <i class="fas fa-save"></i> Save Changes
               </button>
             </div>
           </div>
 
-          <!-- Security Settings Card -->
-          <div class="card">
+          <!-- Security Settings -->
+          <div class="card settings-card settings-card-security">
             <div class="card-header">
-              <h3 class="card-title">
-                <i class="fas fa-shield-alt"></i> Security Settings
-              </h3>
-              <p class="card-subtitle">Manage your password and security</p>
+              <h3 class="card-title"><i class="fas fa-shield-alt"></i> Security Settings</h3>
+              <p class="card-subtitle">Manage your password only</p>
             </div>
+
             <div class="form-content">
-              <form id="securitySettingsForm">
+              <form id="securitySettingsForm" class="settings-form">
                 <div class="form-group">
                   <label for="currentPassword">Current Password</label>
-                  <input
-                    type="password"
-                    id="currentPassword"
-                    class="form-control"
-                  />
+                  <input type="password" id="currentPassword" class="form-control" />
                 </div>
 
                 <div class="form-group">
                   <label for="newPassword">New Password</label>
-                  <input
-                    type="password"
-                    id="newPassword"
-                    class="form-control"
-                  />
-                  <div class="form-text">
-                    Password must be at least 8 characters long
-                  </div>
+                  <input type="password" id="newPassword" class="form-control" />
+                  <div class="form-text">Password must be at least 8 characters long</div>
                 </div>
 
                 <div class="form-group">
                   <label for="confirmPassword">Confirm New Password</label>
-                  <input
-                    type="password"
-                    id="confirmPassword"
-                    class="form-control"
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="twoFactor">Two-Factor Authentication</label>
-                  <select id="twoFactor" class="form-control">
-                    <option value="enabled">Enabled</option>
-                    <option value="disabled" selected>Disabled</option>
-                  </select>
-                  <div class="form-text">
-                    Add an extra layer of security to your account
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="sessionTimeout">Session Timeout</label>
-                  <select id="sessionTimeout" class="form-control">
-                    <option value="15">15 minutes</option>
-                    <option value="30" selected>30 minutes</option>
-                    <option value="60">1 hour</option>
-                    <option value="120">2 hours</option>
-                  </select>
-                  <div class="form-text">
-                    Automatically log out after inactivity
-                  </div>
+                  <input type="password" id="confirmPassword" class="form-control" />
                 </div>
               </form>
             </div>
+
             <div class="action-buttons">
-              <button
-                type="submit"
-                form="securitySettingsForm"
-                class="btn btn-primary"
-              >
-                <i class="fas fa-key"></i> Update Security
+              <button type="submit" form="securitySettingsForm" class="btn btn-primary">
+                <i class="fas fa-key"></i> Update Password
               </button>
             </div>
           </div>
@@ -1651,6 +1424,8 @@ Tech Solutions Inc. is a leading technology company based in Accra, Ghana. We sp
       </div>
     </div>
 
+    <script src="../assets/js/input-hardening.js"></script>
+    <script src="../assets/js/toast.js"></script>
     <script>
       // DOM Elements
       const sidebar = document.getElementById("sidebar");
@@ -1658,36 +1433,619 @@ Tech Solutions Inc. is a leading technology company based in Accra, Ghana. We sp
       const mainContent = document.getElementById("mainContent");
       const mobileMenuBtn = document.getElementById("mobileMenuBtn");
       const mobileOverlay = document.getElementById("mobileOverlay");
+
       const logoutModal = document.getElementById("logoutModal");
       const confirmLogoutBtn = document.getElementById("confirmLogout");
       const cancelLogoutBtn = document.getElementById("cancelLogout");
       const sidebarLogout = document.getElementById("sidebarLogout");
       const dropdownLogout = document.getElementById("dropdownLogout");
+
       const toast = document.getElementById("toast");
       const companyProfileForm = document.getElementById("companyProfileForm");
-      const accountSettingsForm = document.getElementById(
-        "accountSettingsForm",
-      );
-      const securitySettingsForm = document.getElementById(
-        "securitySettingsForm",
-      );
+      const accountSettingsForm = document.getElementById("accountSettingsForm");
+      const securitySettingsForm = document.getElementById("securitySettingsForm");
+
       const notificationIcon = document.getElementById("notificationIcon");
-      const notificationDropdown = document.getElementById(
-        "notificationDropdown",
+      const notificationDropdown = document.getElementById("notificationDropdown");
+
+      const userProfile = document.getElementById("userProfile");
+      const EMPLOYER_PROFILE_KEY = "jobassist_employer_profile";
+      const CURRENT_EMPLOYER_KEY = "jobassist_current_employer";
+      const profileDropdown = document.getElementById("profileDropdown");
+      const notificationBadge = document.getElementById("notificationBadge");
+      const markAllReadBtn = document.getElementById("markAllRead");
+      const editableProfileFields = Array.from(
+        document.querySelectorAll(
+          "#companyProfileForm input:not([type='password']), #companyProfileForm textarea, #accountSettingsForm input:not([type='password'])",
+        ),
       );
+      const EMPLOYER_SOCIAL_PLATFORMS = [
+        "LinkedIn",
+        "Facebook",
+        "TikTok",
+        "Snapchat",
+        "Instagram",
+        "YouTube",
+        "Discord",
+        "WhatsApp",
+      ];
+
+      function safeJSONParse(value) {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return null;
+        }
+      }
+
+      function isMeaningfulValue(value) {
+        const normalized = String(value ?? "").trim();
+        return normalized !== "" && normalized !== "N/A";
+      }
+
+      function normalizeGhanaPhone(value) {
+        const rawValue = String(value || "").trim();
+        const digitsOnly = rawValue.replace(/\D/g, "");
+
+        if (/^0\d{9}$/.test(digitsOnly)) return digitsOnly;
+        if (/^233\d{9}$/.test(digitsOnly)) return digitsOnly;
+        if (/^\+233\d{9}$/.test(rawValue.replace(/\s+/g, ""))) return `+${digitsOnly}`;
+
+        return "";
+      }
+
+      function formatDisplayText(value, maxLength = 0) {
+        const hardener = window.JobAssistInputHardening;
+        const clean = String(value || "").trim();
+        if (!clean) return "";
+        return hardener?.formatDisplayText
+          ? hardener.formatDisplayText(clean, { maxLength })
+          : clean;
+      }
+
+      function getEmployerLocationParts(source = {}) {
+        const city = formatDisplayText(
+          source.city || localStorage.getItem("city") || "",
+          80,
+        );
+        let region = formatDisplayText(
+          source.region || localStorage.getItem("region") || "",
+          80,
+        );
+        const legacyLocation = formatDisplayText(
+          source.cityRegion ||
+            source.location ||
+            localStorage.getItem("cityRegion") ||
+            localStorage.getItem("location") ||
+            "",
+          120,
+        );
+
+        if (!region && legacyLocation) {
+          region = legacyLocation;
+        }
+
+        const cityRegion = [city, region]
+          .filter(Boolean)
+          .filter((value, index, all) => all.findIndex((item) => item.toLowerCase() === value.toLowerCase()) === index)
+          .join(", ");
+
+        return { city, region, cityRegion };
+      }
+
+      function formatSocialMediaLinks(links) {
+        return (Array.isArray(links) ? links : [])
+          .map((link) => {
+            const platform = formatDisplayText(link?.platform || "", 40);
+            const value = String(link?.value || link?.handle || "").trim();
+            return platform && value ? `${platform}: ${value}` : "";
+          })
+          .filter(Boolean)
+          .join("\n");
+      }
+
+      function escapeAttribute(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+
+      function normalizeSocialMediaLinks(value, legacyDisplay = "", legacyPlatform = "", legacyHandle = "") {
+        let rawValue = value;
+        if (typeof rawValue === "string") {
+          const parsed = safeJSONParse(rawValue);
+          rawValue = parsed || rawValue;
+        }
+
+        if (Array.isArray(rawValue)) {
+          return rawValue
+            .map((link) => ({
+              platform: formatDisplayText(link?.platform || "", 40),
+              value: String(link?.value || link?.handle || "").trim(),
+            }))
+            .filter((link) => link.platform && link.value)
+            .slice(0, 3);
+        }
+
+        const platform = String(legacyPlatform || "").trim();
+        const handle = String(legacyHandle || "").trim();
+        if (platform && handle) return [{ platform: formatDisplayText(platform, 40), value: handle }];
+
+        return String(rawValue || legacyDisplay || "")
+          .split(/\n|,/)
+          .map((entry) => {
+            const parts = entry.split(":");
+            if (parts.length < 2) return null;
+            return {
+              platform: formatDisplayText(parts.shift().trim(), 40),
+              value: parts.join(":").trim(),
+            };
+          })
+          .filter((link) => link?.platform && link?.value)
+          .slice(0, 3);
+      }
+
+      function createSocialPlatformOptions(selectedPlatform = "") {
+        return [
+          '<option value="">Select platform</option>',
+          ...EMPLOYER_SOCIAL_PLATFORMS.map((platform) => {
+            const selected = platform === selectedPlatform ? " selected" : "";
+            return `<option value="${platform}"${selected}>${platform}</option>`;
+          }),
+        ].join("");
+      }
+
+      function updateSocialRowPlaceholder(row) {
+        const platform = row?.querySelector(".social-platform")?.value || "";
+        const input = row?.querySelector(".social-input");
+        if (!input) return;
+
+        input.placeholder =
+          platform === "WhatsApp"
+            ? "e.g. 0591234567, 233591234567, or +233591234567"
+            : "Username, handle, or profile link";
+      }
+
+      function getSettingsSocialDraftRows() {
+        return Array.from(document.querySelectorAll("#socialMediaContainer .social-row")).map((row) => ({
+          platform: String(row.querySelector(".social-platform")?.value || "").trim(),
+          value: String(row.querySelector(".social-input")?.value || "").trim(),
+        }));
+      }
+
+      function renderSettingsSocialMediaRows(links = [{ platform: "", value: "" }]) {
+        const container = document.getElementById("socialMediaContainer");
+        const addButton = document.getElementById("addSocialBtn");
+        if (!container) return;
+
+        const safeLinks = (Array.isArray(links) && links.length ? links : [{ platform: "", value: "" }])
+          .slice(0, 3)
+          .map((link) => ({
+            platform: String(link?.platform || "").trim(),
+            value: String(link?.value || "").trim(),
+          }));
+
+        container.innerHTML = "";
+
+        safeLinks.forEach((link, index) => {
+          const row = document.createElement("div");
+          row.className = "social-row";
+          row.innerHTML = `
+            <select class="form-control social-platform" aria-label="Social media platform ${index + 1}">
+              ${createSocialPlatformOptions(link.platform)}
+            </select>
+            <input
+              type="text"
+              class="form-control social-input"
+              value="${escapeAttribute(link.value)}"
+              aria-label="Social media handle or link ${index + 1}"
+            />
+            <button type="button" class="remove-social" aria-label="Remove social media link">x</button>
+          `;
+
+          const removeButton = row.querySelector(".remove-social");
+          removeButton.style.display = safeLinks.length > 1 ? "" : "none";
+          removeButton.addEventListener("click", function () {
+            const nextRows = getSettingsSocialDraftRows().filter((_, rowIndex) => rowIndex !== index);
+            renderSettingsSocialMediaRows(nextRows.length ? nextRows : [{ platform: "", value: "" }]);
+          });
+
+          row.querySelector(".social-platform").addEventListener("change", function () {
+            updateSocialRowPlaceholder(row);
+          });
+
+          container.appendChild(row);
+          updateSocialRowPlaceholder(row);
+        });
+
+        if (addButton) addButton.disabled = false;
+      }
+
+      function collectSettingsSocialMediaLinks() {
+        const links = [];
+
+        for (const [index, row] of getSettingsSocialDraftRows().entries()) {
+          const platform = row.platform;
+          const rawValue = row.value;
+
+          if (!platform && !rawValue) continue;
+
+          if (!platform || !rawValue) {
+            return {
+              links,
+              error: "Complete both platform and value for each social media link.",
+            };
+          }
+
+          if (platform === "WhatsApp") {
+            const normalizedWhatsApp = normalizeGhanaPhone(rawValue);
+            if (!normalizedWhatsApp) {
+              return {
+                links,
+                error: `Enter a valid WhatsApp number for social media link ${index + 1}.`,
+              };
+            }
+
+            links.push({ platform, value: normalizedWhatsApp });
+          } else {
+            links.push({ platform, value: rawValue });
+          }
+        }
+
+        return {
+          links: links.slice(0, 3),
+          error: "",
+        };
+      }
+
+      function setDisplayInputValue(field, value) {
+        if (!field) return;
+        if (isMeaningfulValue(value)) {
+          field.value = String(value).trim();
+          field.dataset.naDisplayed = "false";
+        } else {
+          field.value = "N/A";
+          field.dataset.naDisplayed = "true";
+        }
+      }
+
+      function getDisplayInputValue(field) {
+        if (!field) return "";
+        if (field.dataset.naDisplayed === "true") return "";
+        const value = String(field.value || "").trim();
+        return value === "N/A" ? "" : value;
+      }
+
+      function attachNaBehavior(field) {
+        if (!field) return;
+
+        field.addEventListener("focus", function () {
+          if (field.dataset.naDisplayed === "true") {
+            field.value = "";
+            field.dataset.naDisplayed = "false";
+          }
+        });
+
+        field.addEventListener("blur", function () {
+          if (!String(field.value || "").trim()) {
+            field.value = "N/A";
+            field.dataset.naDisplayed = "true";
+          }
+        });
+      }
+
+      function getCurrentEmployerProfile() {
+        return (
+          safeJSONParse(localStorage.getItem(CURRENT_EMPLOYER_KEY)) ||
+          safeJSONParse(localStorage.getItem(EMPLOYER_PROFILE_KEY)) ||
+          {}
+        );
+      }
+
+      function saveEmployerProfile(profile) {
+        if (!profile || typeof profile !== "object") return profile;
+
+        localStorage.setItem(CURRENT_EMPLOYER_KEY, JSON.stringify(profile));
+        localStorage.setItem(EMPLOYER_PROFILE_KEY, JSON.stringify(profile));
+
+        const employers = safeJSONParse(localStorage.getItem("jobassist_employers"));
+        if (Array.isArray(employers)) {
+          const nextEmployers = employers.slice();
+          const employerId = String(profile.id || profile.employerId || "").trim();
+          const workEmail = String(profile.workEmail || "").trim().toLowerCase();
+          const phone = String(profile.phone || "").trim();
+          const loginPhone = String(profile.loginPhone || "").trim();
+          const companyName = String(profile.companyName || "").trim().toLowerCase();
+
+          const index = nextEmployers.findIndex((entry) => {
+            const entryId = String(entry?.id || entry?.employerId || "").trim();
+            const entryEmail = String(entry?.workEmail || "").trim().toLowerCase();
+            const entryPhone = String(entry?.phone || "").trim();
+            const entryLoginPhone = String(entry?.loginPhone || "").trim();
+            const entryCompany = String(entry?.companyName || "").trim().toLowerCase();
+
+            return (
+              (employerId && entryId === employerId) ||
+              (phone && entryPhone === phone) ||
+              (loginPhone && entryLoginPhone === loginPhone) ||
+              (workEmail && entryEmail === workEmail) ||
+              (companyName && entryCompany === companyName)
+            );
+          });
+
+          if (index >= 0) {
+            nextEmployers[index] = { ...nextEmployers[index], ...profile };
+          } else {
+            nextEmployers.push(profile);
+          }
+
+          localStorage.setItem("jobassist_employers", JSON.stringify(nextEmployers));
+        }
+
+        return profile;
+      }
+
+      function persistEmployerProfileUpdates(updates) {
+        const currentProfile = getCurrentEmployerProfile();
+        const nextProfile = { ...currentProfile, ...updates };
+        saveEmployerProfile(nextProfile);
+
+        const compatibilityMap = {
+          companyName: nextProfile.companyName,
+          industry: nextProfile.industry,
+          businessType: nextProfile.businessType,
+          companySize: nextProfile.companySize,
+          registrationNumber: nextProfile.registrationNumber,
+          companyAddress: nextProfile.companyAddress,
+          city: nextProfile.city,
+          region: nextProfile.region,
+          cityRegion: nextProfile.cityRegion,
+          companyDescription: nextProfile.companyDescription,
+          fullName: nextProfile.fullName,
+          position: nextProfile.position,
+          workEmail: nextProfile.workEmail,
+          phone: nextProfile.phone,
+          loginPhone: nextProfile.loginPhone,
+          email: nextProfile.email,
+          socialMediaLinks: JSON.stringify(nextProfile.socialMediaLinks || []),
+          socialMedia: nextProfile.socialMedia,
+          socialPlatform: nextProfile.socialPlatform,
+          socialHandle: nextProfile.socialHandle,
+        };
+
+        Object.entries(compatibilityMap).forEach(([key, value]) => {
+          localStorage.setItem(key, String(value || "").trim());
+        });
+
+        return nextProfile;
+      }
+
+      function getBusinessName() {
+        const rawBusinessName =
+          getCurrentEmployerProfile().companyName?.trim() ||
+          localStorage.getItem("companyName")?.trim() ||
+          "N/A";
+        return formatDisplayText(rawBusinessName, 120) || "N/A";
+      }
+
+      function getShortBusinessName(name) {
+        const clean = String(name || "").trim();
+        if (!clean) return "Business";
+        return clean.split(/\s+/)[0];
+      }
+
+      function getEmployerNotifications() {
+        const items = JSON.parse(localStorage.getItem("jobassist_employer_notifications") || "[]");
+        return Array.isArray(items) ? items : [];
+      }
+
+      function saveEmployerNotifications(items) {
+        localStorage.setItem("jobassist_employer_notifications", JSON.stringify(items));
+      }
+
+      function formatTimeAgo(dateString) {
+        const now = new Date();
+        const then = new Date(dateString);
+        const diffMs = now - then;
+
+        const minutes = Math.floor(diffMs / 60000);
+        const hours = Math.floor(diffMs / 3600000);
+        const days = Math.floor(diffMs / 86400000);
+
+        if (minutes < 1) return "Just now";
+        if (minutes < 60) return `${minutes} min ago`;
+        if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+        return `${days} day${days === 1 ? "" : "s"} ago`;
+      }
+
+      function renderEmployerNotifications() {
+        const notificationList = document.getElementById("employerNotificationList");
+        if (!notificationList) return;
+
+        const notifications = getEmployerNotifications();
+        notificationList.innerHTML = "";
+
+        if (!notifications.length) {
+          notificationList.innerHTML = `
+            <li class="notification-item">
+              <div class="notification-content">No notifications yet</div>
+              <div class="notification-time">-</div>
+            </li>
+          `;
+          if (notificationBadge) notificationBadge.style.display = "none";
+          return;
+        }
+
+        notifications.forEach((item) => {
+          const li = document.createElement("li");
+          li.className = `notification-item ${item.isRead ? "" : "unread"}`;
+          li.innerHTML = `
+            <div class="notification-content">${item.message}</div>
+            <div class="notification-time">${formatTimeAgo(item.createdAt)}</div>
+          `;
+          notificationList.appendChild(li);
+        });
+
+        const unreadCount = notifications.filter((item) => !item.isRead).length;
+        if (notificationBadge) {
+          if (unreadCount > 0) {
+            notificationBadge.style.display = "flex";
+            notificationBadge.textContent = unreadCount > 99 ? "99+" : String(unreadCount);
+          } else {
+            notificationBadge.style.display = "none";
+          }
+        }
+      }
+
+      function markAllEmployerNotificationsRead() {
+        const notifications = getEmployerNotifications().map((item) => ({
+          ...item,
+          isRead: true
+        }));
+        saveEmployerNotifications(notifications);
+        renderEmployerNotifications();
+      }
+
+      function getEmployerJobs() {
+        const jobs = JSON.parse(localStorage.getItem("jobassist_employer_jobs") || "[]");
+        const allJobs = Array.isArray(jobs) ? jobs : [];
+        const employerProfile = getCurrentEmployerProfile();
+        const employerId = String(
+          employerProfile.id || employerProfile.employerId || employerProfile.userId || ""
+        ).trim();
+        const employerCompany = String(
+          employerProfile.companyName || employerProfile.businessName || employerProfile.company || localStorage.getItem("companyName") || ""
+        ).replace(/\s+/g, " ").trim().toLowerCase();
+
+        return allJobs.filter((job) => {
+          const jobEmployerId = String(
+            job?.employerId || job?.ownerId || job?.employerUserId || ""
+          ).trim();
+          if (employerId && jobEmployerId && employerId === jobEmployerId) {
+            return true;
+          }
+
+          const jobCompany = String(
+            job?.companyName || job?.businessName || job?.company || ""
+          ).replace(/\s+/g, " ").trim().toLowerCase();
+          return Boolean(employerCompany && jobCompany && employerCompany === jobCompany);
+        });
+      }
+
+      function getApplications() {
+        const applications = JSON.parse(localStorage.getItem("jobassist_applications") || "[]");
+        return Array.isArray(applications) ? applications : [];
+      }
+
+      function getUnlockedCount() {
+        const jobs = getEmployerJobs();
+        return jobs.reduce((total, job) => {
+          const jobId = String(job.jobId || job.id || "");
+          const ids = JSON.parse(localStorage.getItem(`jobassist_unlocked_applicants_${jobId}`) || "[]");
+          return total + (Array.isArray(ids) ? ids.length : 0);
+        }, 0);
+      }
+
+      function setEmployerIdentity() {
+        const employerProfile = getCurrentEmployerProfile();
+        const businessName = getBusinessName();
+        const shortName = getShortBusinessName(businessName);
+        const firstLetter = shortName ? shortName.charAt(0).toUpperCase() : "B";
+
+        const navName = document.getElementById("employerBusinessShortName");
+        const navAvatar = document.getElementById("employerBusinessAvatar");
+        const profileAvatar = document.getElementById("profileBusinessAvatar");
+        const profileName = document.getElementById("profileBusinessName");
+        const profileMeta = document.getElementById("profileBusinessMeta");
+
+        if (navName) navName.textContent = shortName;
+        if (navAvatar) navAvatar.textContent = firstLetter;
+        if (profileAvatar) profileAvatar.textContent = firstLetter;
+        if (profileName) profileName.textContent = businessName;
+        if (profileMeta) {
+          const industry = formatDisplayText(
+            employerProfile.industry || localStorage.getItem("industry") || "",
+            120,
+          );
+          const locationParts = getEmployerLocationParts(employerProfile);
+          const cityRegion = locationParts.cityRegion;
+          profileMeta.textContent = [industry, cityRegion].filter(Boolean).join(" - ") || "N/A";
+        }
+
+        const jobs = getEmployerJobs();
+        const applications = getApplications();
+        const employerJobIds = new Set(
+          jobs.map((job) => String(job.jobId || job.id || "").trim()).filter(Boolean)
+        );
+        const unlockedCount = getUnlockedCount();
+
+        const activeJobs = jobs.filter(
+          (job) =>
+            window.JobPostingExpiry?.getJobLifecycle?.(job)?.isActive ??
+            (!job.isClosed && String(job.status || "").toLowerCase() !== "closed")
+        ).length;
+        const employerApplicantCount = applications.filter((application) =>
+          employerJobIds.has(String(application?.jobId || application?.id || "").trim())
+        ).length;
+
+        const activeJobsEl = document.getElementById("profileActiveJobs");
+        const applicantsEl = document.getElementById("profileApplicants");
+        const unlockedEl = document.getElementById("profileUnlocked");
+
+        if (activeJobsEl) activeJobsEl.textContent = String(activeJobs);
+        if (applicantsEl) applicantsEl.textContent = String(employerApplicantCount);
+        if (unlockedEl) unlockedEl.textContent = String(unlockedCount);
+      }
+
+      function loadEmployerSettingsData() {
+        const employerProfile = getCurrentEmployerProfile();
+        const locationParts = getEmployerLocationParts(employerProfile);
+        const fields = {
+          companyName: formatDisplayText(employerProfile.companyName || localStorage.getItem("companyName") || "", 120),
+          companyIndustry: formatDisplayText(employerProfile.industry || localStorage.getItem("industry") || "", 120),
+          businessType: formatDisplayText(employerProfile.businessType || localStorage.getItem("businessType") || "", 80),
+          companySize: formatDisplayText(employerProfile.companySize || localStorage.getItem("companySize") || "", 80),
+          registrationNumber:
+            employerProfile.registrationNumber || localStorage.getItem("registrationNumber") || "",
+          companyDescription:
+            employerProfile.companyDescription || localStorage.getItem("companyDescription") || "",
+          fullName: formatDisplayText(employerProfile.fullName || localStorage.getItem("fullName") || "", 120),
+          position: formatDisplayText(employerProfile.position || localStorage.getItem("position") || "", 120),
+          workEmail: employerProfile.workEmail || localStorage.getItem("workEmail") || "",
+          phone: employerProfile.phone || employerProfile.loginPhone || localStorage.getItem("phone") || localStorage.getItem("loginPhone") || "",
+          companyAddress:
+            formatDisplayText(employerProfile.companyAddress || localStorage.getItem("companyAddress") || "", 180),
+          city: locationParts.city,
+          region: locationParts.region,
+          email: employerProfile.email || localStorage.getItem("email") || "",
+        };
+
+        Object.entries(fields).forEach(([id, value]) => {
+          const field = document.getElementById(id);
+          if (field) setDisplayInputValue(field, value);
+        });
+
+        renderSettingsSocialMediaRows(
+          normalizeSocialMediaLinks(
+            employerProfile.socialMediaLinks || localStorage.getItem("socialMediaLinks"),
+            employerProfile.socialMedia || localStorage.getItem("socialMedia") || "",
+            employerProfile.socialPlatform || localStorage.getItem("socialPlatform") || "",
+            employerProfile.socialHandle || localStorage.getItem("socialHandle") || "",
+          ),
+        );
+      }
 
       // Toggle Sidebar (Desktop)
       sidebarToggle.addEventListener("click", function () {
         sidebar.classList.toggle("collapsed");
         mainContent.classList.toggle("expanded");
 
-        // Change icon based on state
         const icon = this.querySelector("i");
-        if (sidebar.classList.contains("collapsed")) {
-          icon.className = "fas fa-chevron-right";
-        } else {
-          icon.className = "fas fa-chevron-left";
-        }
+        icon.className = sidebar.classList.contains("collapsed")
+          ? "fas fa-chevron-right"
+          : "fas fa-chevron-left";
       });
 
       // Mobile Menu Toggle
@@ -1695,19 +2053,16 @@ Tech Solutions Inc. is a leading technology company based in Accra, Ghana. We sp
 
       mobileMenuBtn.addEventListener("click", function () {
         if (isMobileMenuOpen) {
-          // Close mobile menu
           sidebar.classList.remove("mobile-open");
           mobileOverlay.classList.remove("show");
           isMobileMenuOpen = false;
         } else {
-          // Open mobile menu
           sidebar.classList.add("mobile-open");
           mobileOverlay.classList.add("show");
           isMobileMenuOpen = true;
         }
       });
 
-      // Close mobile menu when clicking overlay
       mobileOverlay.addEventListener("click", function () {
         sidebar.classList.remove("mobile-open");
         mobileOverlay.classList.remove("show");
@@ -1715,11 +2070,10 @@ Tech Solutions Inc. is a leading technology company based in Accra, Ghana. We sp
       });
 
       // User Profile Dropdown
-      document
-        .querySelector(".user-profile")
-        .addEventListener("click", function () {
-          document.querySelector(".dropdown-menu").classList.toggle("show");
-        });
+      userProfile.addEventListener("click", function (e) {
+        e.stopPropagation();
+        profileDropdown.classList.toggle("show");
+      });
 
       // Notification Dropdown
       notificationIcon.addEventListener("click", function (e) {
@@ -1729,46 +2083,34 @@ Tech Solutions Inc. is a leading technology company based in Accra, Ghana. We sp
 
       // Close dropdowns when clicking outside
       document.addEventListener("click", function (event) {
-        if (!event.target.closest(".user-profile")) {
-          document.querySelector(".dropdown-menu").classList.remove("show");
+        if (!event.target.closest("#userProfile")) {
+          profileDropdown.classList.remove("show");
         }
-
-        if (!event.target.closest(".notification-icon")) {
+        if (!event.target.closest("#notificationIcon")) {
           notificationDropdown.classList.remove("show");
         }
       });
 
       // Mark all notifications as read
-      document
-        .querySelector(".mark-all-read")
-        .addEventListener("click", function () {
-          document
-            .querySelectorAll(".notification-item.unread")
-            .forEach((item) => {
-              item.classList.remove("unread");
-            });
-          document.querySelector(".notification-badge").style.display = "none";
-        });
+      markAllReadBtn.addEventListener("click", function () {
+        markAllEmployerNotificationsRead();
+      });
 
-      // Logout functionality
+      // Logout modal helpers
       function showLogoutModal() {
         logoutModal.classList.add("show");
       }
-
       function hideLogoutModal() {
         logoutModal.classList.remove("show");
       }
 
       function performLogout() {
-        // Add loading state
-        confirmLogoutBtn.innerHTML =
-          '<i class="fas fa-spinner fa-spin"></i> Logging out...';
+        confirmLogoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging out...';
         confirmLogoutBtn.disabled = true;
 
-        // Simulate logout process
         setTimeout(function () {
-          window.location.href = "login.html";
-        }, 1000);
+          window.location.href = "../employer-login.html";
+        }, 900);
       }
 
       sidebarLogout.addEventListener("click", function (e) {
@@ -1778,100 +2120,169 @@ Tech Solutions Inc. is a leading technology company based in Accra, Ghana. We sp
 
       dropdownLogout.addEventListener("click", function (e) {
         e.preventDefault();
-        document.querySelector(".dropdown-menu").classList.remove("show");
+        profileDropdown.classList.remove("show");
         showLogoutModal();
       });
 
-      confirmLogoutBtn.addEventListener("click", function () {
-        performLogout();
-      });
+      confirmLogoutBtn.addEventListener("click", performLogout);
+      cancelLogoutBtn.addEventListener("click", hideLogoutModal);
 
-      cancelLogoutBtn.addEventListener("click", function () {
-        hideLogoutModal();
-      });
-
-      // Close logout modal with X button
-      document.querySelectorAll(".close-modal").forEach((button) => {
-        button.addEventListener("click", function () {
-          const modal = this.closest(".modal");
-          modal.classList.remove("show");
+      document.querySelectorAll(".close-modal").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          hideLogoutModal();
         });
       });
 
-      // Close logout modal when clicking outside
       window.addEventListener("click", function (event) {
-        if (event.target === logoutModal) {
-          hideLogoutModal();
-        }
+        if (event.target === logoutModal) hideLogoutModal();
       });
 
-      // Close logout modal with Escape key
       document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && logoutModal.classList.contains("show")) {
-          hideLogoutModal();
-        }
+        if (e.key === "Escape" && logoutModal.classList.contains("show")) hideLogoutModal();
       });
 
-      // Form Submission Handlers
+      // Toast
+      function showToast(message, isError = false) {
+        if (isError && window.JobAssistUI?.showErrorToast) {
+          window.JobAssistUI.showErrorToast(message);
+          return;
+        }
+
+        if (!isError && window.JobAssistUI?.showSuccessToast) {
+          window.JobAssistUI.showSuccessToast(message);
+          return;
+        }
+
+        document.getElementById("toastMessage").textContent = message;
+        toast.classList.toggle("toast-error", isError);
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3000);
+      }
+
+      function showWarningToast(message) {
+        if (window.JobAssistUI?.showWarningToast) {
+          window.JobAssistUI.showWarningToast(message);
+          return;
+        }
+
+        if (window.JobAssistToast?.showToast) {
+          window.JobAssistToast.showToast(message, "warning");
+          return;
+        }
+
+        showToast(message, true);
+      }
+
+      // Forms
+      document.getElementById("addSocialBtn")?.addEventListener("click", function () {
+        const currentRows = getSettingsSocialDraftRows();
+        const hasBlankRow = currentRows.some((row) => !row.platform && !row.value);
+
+        if (currentRows.length >= 3) {
+          showWarningToast("You can add up to 3 social media accounts only.");
+          return;
+        }
+
+        if (hasBlankRow) return;
+
+        renderSettingsSocialMediaRows([...currentRows, { platform: "", value: "" }]);
+      });
+
       companyProfileForm.addEventListener("submit", function (e) {
         e.preventDefault();
-        showToast("Company profile updated successfully!");
+        const hardener = window.JobAssistInputHardening;
+        const socialMediaData = collectSettingsSocialMediaLinks();
+
+        if (socialMediaData.error) {
+          return showToast(socialMediaData.error, true);
+        }
+
+        persistEmployerProfileUpdates({
+          companyName: formatDisplayText(getDisplayInputValue(document.getElementById("companyName")), 120),
+          industry: formatDisplayText(getDisplayInputValue(document.getElementById("companyIndustry")), 120),
+          businessType: formatDisplayText(getDisplayInputValue(document.getElementById("businessType")), 80),
+          companySize: formatDisplayText(getDisplayInputValue(document.getElementById("companySize")), 80),
+          registrationNumber: hardener?.sanitizeText ? hardener.sanitizeText(getDisplayInputValue(document.getElementById("registrationNumber")), { maxLength: 60 }) : getDisplayInputValue(document.getElementById("registrationNumber")),
+          companyAddress: formatDisplayText(getDisplayInputValue(document.getElementById("companyAddress")), 180),
+          city: formatDisplayText(getDisplayInputValue(document.getElementById("city")), 80),
+          region: formatDisplayText(getDisplayInputValue(document.getElementById("region")), 80),
+          cityRegion: [
+            formatDisplayText(getDisplayInputValue(document.getElementById("city")), 80),
+            formatDisplayText(getDisplayInputValue(document.getElementById("region")), 80),
+          ]
+            .filter(Boolean)
+            .filter((value, index, all) => all.findIndex((item) => item.toLowerCase() === value.toLowerCase()) === index)
+            .join(", "),
+          companyDescription: hardener?.sanitizeMultilineText ? hardener.sanitizeMultilineText(getDisplayInputValue(document.getElementById("companyDescription")), { maxLength: 2000 }) : getDisplayInputValue(document.getElementById("companyDescription")),
+          socialMediaLinks: socialMediaData.links.map((link) => ({
+            platform: formatDisplayText(link?.platform, 40),
+            value: hardener?.sanitizeText ? hardener.sanitizeText(link?.value, { maxLength: 300 }) : String(link?.value || "").trim(),
+          })).filter((link) => link.platform && link.value),
+          socialMedia: formatSocialMediaLinks(socialMediaData.links),
+          socialPlatform: formatDisplayText(socialMediaData.links[0]?.platform || "", 40),
+          socialHandle: hardener?.sanitizeText ? hardener.sanitizeText(socialMediaData.links[0]?.value || "", { maxLength: 300 }) : socialMediaData.links[0]?.value || "",
+        });
+
+        setEmployerIdentity();
+        loadEmployerSettingsData();
+        showToast("Changes saved successfully");
       });
 
       accountSettingsForm.addEventListener("submit", function (e) {
         e.preventDefault();
-        showToast("Account information updated successfully!");
+        const hardener = window.JobAssistInputHardening;
+        const normalizedPhone = normalizeGhanaPhone(getDisplayInputValue(document.getElementById("phone")));
+        const workEmail = String(getDisplayInputValue(document.getElementById("workEmail")) || "").trim().toLowerCase();
+
+        if (!normalizedPhone) {
+          return showToast("Enter a valid Ghana phone number starting with 0, 233, or +233", true);
+        }
+
+        if (workEmail && !(hardener?.isValidEmail?.(workEmail) || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(workEmail))) {
+          return showToast("Enter a valid work email address", true);
+        }
+
+        persistEmployerProfileUpdates({
+          fullName: formatDisplayText(getDisplayInputValue(document.getElementById("fullName")), 120),
+          position: formatDisplayText(getDisplayInputValue(document.getElementById("position")), 120),
+          workEmail: workEmail,
+          phone: normalizedPhone,
+          loginPhone: normalizedPhone,
+          email: workEmail,
+        });
+
+        loadEmployerSettingsData();
+        setEmployerIdentity();
+        showToast("Changes saved successfully");
       });
 
       securitySettingsForm.addEventListener("submit", function (e) {
         e.preventDefault();
-        const currentPassword =
-          document.getElementById("currentPassword").value;
+
+        const currentPassword = document.getElementById("currentPassword").value;
         const newPassword = document.getElementById("newPassword").value;
-        const confirmPassword =
-          document.getElementById("confirmPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
 
-        // Basic validation
-        if (!currentPassword) {
-          showToast("Please enter your current password", true);
-          return;
-        }
+        if (!currentPassword) return showToast("Please enter your current password", true);
+        if (newPassword.length < 8) return showToast("New password must be at least 8 characters long", true);
+        if (newPassword !== confirmPassword) return showToast("New passwords do not match", true);
 
-        if (newPassword.length < 8) {
-          showToast("New password must be at least 8 characters long", true);
-          return;
-        }
+        persistEmployerProfileUpdates({
+          password: newPassword || getCurrentEmployerProfile().password || "",
+        });
 
-        if (newPassword !== confirmPassword) {
-          showToast("New passwords do not match", true);
-          return;
-        }
-
-        showToast("Security settings updated successfully!");
-
-        // Clear form
         document.getElementById("currentPassword").value = "";
         document.getElementById("newPassword").value = "";
         document.getElementById("confirmPassword").value = "";
+        showToast("Changes saved successfully");
       });
 
-      // Show toast notification
-      function showToast(message, isError = false) {
-        const toastMessage = document.getElementById("toastMessage");
-        toastMessage.textContent = message;
-
-        if (isError) {
-          toast.classList.add("toast-error");
-        } else {
-          toast.classList.remove("toast-error");
-        }
-
-        toast.classList.add("show");
-
-        setTimeout(() => {
-          toast.classList.remove("show");
-        }, 3000);
-      }
+      document.addEventListener("DOMContentLoaded", function () {
+        setEmployerIdentity();
+        renderEmployerNotifications();
+        loadEmployerSettingsData();
+        editableProfileFields.forEach((field) => attachNaBehavior(field));
+      });
 
       // Handle window resize
       window.addEventListener("resize", function () {
@@ -1882,5 +2293,9 @@ Tech Solutions Inc. is a leading technology company based in Accra, Ghana. We sp
         }
       });
     </script>
+  
+    <script src="../assets/js/job-posting-expiry.js"></script>
+    <script src='../assets/js/product-polish.js'></script>
   </body>
 </html>
+

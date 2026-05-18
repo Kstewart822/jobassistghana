@@ -1,10 +1,10 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Payment | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -14,8 +14,8 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
       }
 
       :root {
@@ -25,6 +25,7 @@
         --secondary: #f8c12e;
         --secondary-dark: #e6af1a;
         --danger: #ef4444;
+        --danger-dark: #dc2626;
         --success: #10b981;
         --warning: #f59e0b;
         --light: #f8fafc;
@@ -36,20 +37,14 @@
       }
 
       body {
-        background-color: #f1f5f9;
+        background:
+          radial-gradient(circle at top right, rgba(248, 193, 46, 0.14), transparent 24%),
+          linear-gradient(180deg, #f7f9fc 0%, #eef3fb 100%);
         color: var(--dark);
         min-height: 100vh;
         line-height: 1.4;
       }
 
-      /* Container - Desktop first, mobile optimized */
-      .container {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 30px;
-      }
-
-      /* Navbar Styles */
       .navbar {
         height: 70px;
         background-color: white;
@@ -67,6 +62,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        text-decoration: none;
       }
 
       .logo-img-placeholder {
@@ -111,6 +107,7 @@
         display: flex;
         align-items: center;
         gap: 15px;
+        position: relative;
       }
 
       .notification-icon {
@@ -210,59 +207,185 @@
         color: var(--primary);
       }
 
-      /* Dashboard Content */
+      .notification-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 74px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 300px;
+        max-height: 350px;
+        overflow-y: auto;
+        display: none;
+        z-index: 101;
+      }
+
+      .notification-dropdown.show {
+        display: block;
+      }
+
+      .notification-header {
+        padding: 12px 15px;
+        border-bottom: 1px solid var(--gray-light);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .notification-title {
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 0.95rem;
+      }
+
+      .mark-all-read {
+        background: none;
+        border: none;
+        color: var(--primary);
+        cursor: pointer;
+        font-size: 0.8rem;
+      }
+
+      .notification-list {
+        list-style: none;
+      }
+
+      .notification-item {
+        padding: 10px 15px;
+        border-bottom: 1px solid var(--gray-light);
+        transition: var(--transition);
+      }
+
+      .notification-item:hover {
+        background-color: rgba(248, 193, 46, 0.1);
+      }
+
+      .notification-item.unread {
+        background-color: rgba(10, 42, 102, 0.05);
+      }
+
+      .notification-item:last-child {
+        border-bottom: none;
+      }
+
+      .notification-content {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+      }
+
+      .notification-time {
+        font-size: 0.7rem;
+        color: var(--gray);
+      }
+
       .dashboard-content {
-        padding: 20px;
-        max-width: 1200px;
+        padding: 24px;
+        max-width: 1240px;
         margin: 0 auto;
       }
 
       .welcome-section {
-        margin-bottom: 30px;
-        text-align: center;
+        margin-bottom: 26px;
+        padding: 32px;
+        border-radius: 28px;
+        background: linear-gradient(135deg, #0a2a66 0%, #123a87 58%, #1b4ca9 100%);
+        box-shadow: 0 24px 55px rgba(10, 42, 102, 0.2);
+        position: relative;
+        overflow: hidden;
+        text-align: left;
+      }
+
+      .welcome-section::before {
+        content: "";
+        position: absolute;
+        right: -56px;
+        bottom: -78px;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: rgba(248, 193, 46, 0.18);
       }
 
       .welcome-title {
-        font-size: 1.8rem;
-        margin-bottom: 8px;
-        color: var(--primary);
-        font-weight: 700;
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: white;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        position: relative;
+        z-index: 1;
       }
 
       .welcome-subtitle {
-        color: var(--gray);
-        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 0.98rem;
         max-width: 600px;
-        margin: 0 auto;
-        line-height: 1.4;
+        margin: 0;
+        line-height: 1.7;
+        position: relative;
+        z-index: 1;
       }
 
-      /* Payment Container */
+      .tabs {
+        display: flex;
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 20px;
+        margin-bottom: 12px;
+        overflow-x: auto;
+        box-shadow: 0 18px 36px rgba(17, 38, 85, 0.1);
+        border: 1px solid rgba(10, 42, 102, 0.08);
+      }
+
+      .tab {
+        padding: 16px 20px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: var(--transition);
+        border-bottom: 3px solid transparent;
+        font-size: 0.92rem;
+        white-space: nowrap;
+        flex: 1;
+        text-align: center;
+      }
+
+      .tab.active {
+        color: var(--primary);
+        border-bottom: 3px solid var(--secondary);
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
       .payment-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 25px;
+        gap: 24px;
         margin-bottom: 40px;
       }
 
-      /* Order Summary */
       .order-summary {
-        background: white;
-        border-radius: 10px;
-        padding: 25px;
-        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
-        border-left: 4px solid var(--secondary);
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 24px;
+        padding: 32px;
+        box-shadow: 0 24px 45px rgba(17, 38, 85, 0.12);
+        border: 1px solid rgba(10, 42, 102, 0.08);
       }
 
       .order-header {
-        margin-bottom: 15px;
-        padding-bottom: 12px;
-        border-bottom: 1px solid var(--gray-light);
+        margin-bottom: 22px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid rgba(10, 42, 102, 0.08);
       }
 
       .order-title {
-        font-size: 1.3rem;
-        font-weight: 700;
+        font-size: 1.32rem;
+        font-weight: 800;
         color: var(--primary);
       }
 
@@ -273,9 +396,10 @@
       .order-item {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 12px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid var(--gray-light);
+        gap: 15px;
+        margin-bottom: 14px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(10, 42, 102, 0.08);
         font-size: 0.95rem;
       }
 
@@ -284,8 +408,12 @@
       }
 
       .item-label {
-        color: var(--gray);
-        font-size: 0.9rem;
+        color: #6c7b97;
+        font-size: 0.85rem;
+        flex: 0 0 40%;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        font-weight: 600;
       }
 
       .item-value {
@@ -293,52 +421,63 @@
         color: var(--dark);
         text-align: right;
         font-size: 0.95rem;
+        flex: 1;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+
+      .reference-text {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        letter-spacing: 0.04em;
       }
 
       .order-total {
         display: flex;
         justify-content: space-between;
-        font-size: 1.1rem;
+        gap: 15px;
+        font-size: 1.12rem;
         font-weight: 700;
-        padding-top: 12px;
-        border-top: 2px solid var(--gray-light);
+        padding-top: 16px;
+        border-top: 1px solid rgba(10, 42, 102, 0.1);
         color: var(--primary);
       }
 
-      /* Payment Form */
       .payment-form {
-        background: white;
-        border-radius: 10px;
-        padding: 25px;
-        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: 0 24px 45px rgba(17, 38, 85, 0.12);
+        border: 1px solid rgba(10, 42, 102, 0.08);
       }
 
       .form-title {
-        font-size: 1.3rem;
-        font-weight: 700;
-        margin-bottom: 15px;
+        font-size: 1.32rem;
+        font-weight: 800;
+        margin-bottom: 18px;
         color: var(--primary);
       }
 
       .form-group {
-        margin-bottom: 15px;
+        margin-bottom: 18px;
       }
 
       .form-label {
         display: block;
-        margin-bottom: 6px;
-        font-weight: 500;
+        margin-bottom: 8px;
+        font-weight: 600;
         color: var(--dark);
         font-size: 0.9rem;
       }
 
       .form-control {
         width: 100%;
-        padding: 12px 15px;
-        border: 1px solid var(--gray-light);
-        border-radius: 6px;
+        padding: 13px 15px;
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        border-radius: 14px;
         font-size: 0.95rem;
         transition: var(--transition);
+        background: #fbfcff;
+        box-shadow: inset 0 1px 2px rgba(10, 42, 102, 0.03);
       }
 
       .form-control:focus {
@@ -358,34 +497,36 @@
         gap: 12px;
       }
 
-      /* Payment Methods */
       .payment-methods {
-        margin-bottom: 20px;
+        margin-bottom: 22px;
       }
 
       .payment-options {
         display: flex;
         gap: 12px;
-        margin-top: 8px;
+        margin-top: 10px;
       }
 
       .payment-option {
         flex: 1;
-        border: 2px solid var(--gray-light);
-        border-radius: 6px;
-        padding: 12px;
+        border: 1px solid rgba(10, 42, 102, 0.1);
+        border-radius: 18px;
+        padding: 16px 14px;
         text-align: center;
         cursor: pointer;
         transition: var(--transition);
+        background: #f8fbff;
       }
 
       .payment-option:hover {
-        border-color: var(--primary);
+        border-color: rgba(248, 193, 46, 0.45);
+        transform: translateY(-2px);
       }
 
       .payment-option.selected {
         border-color: var(--primary);
-        background-color: rgba(10, 42, 102, 0.05);
+        background-color: rgba(10, 42, 102, 0.06);
+        box-shadow: 0 14px 30px rgba(17, 38, 85, 0.08);
       }
 
       .payment-icon {
@@ -399,10 +540,9 @@
         font-size: 0.85rem;
       }
 
-      /* Buttons */
       .btn {
-        padding: 12px 20px;
-        border-radius: 6px;
+        padding: 12px 18px;
+        border-radius: 14px;
         font-weight: 600;
         cursor: pointer;
         transition: var(--transition);
@@ -413,6 +553,7 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
+        box-shadow: 0 12px 24px rgba(10, 42, 102, 0.1);
       }
 
       .btn-primary {
@@ -452,7 +593,77 @@
         transform: none;
       }
 
-      /* Benefits Section */
+      .loading-button {
+        position: relative;
+      }
+
+      .btn-loader {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .loading-button::after {
+        content: "";
+        width: 14px;
+        height: 14px;
+        border: 2px solid currentColor;
+        border-top-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        margin-left: 8px;
+        animation: paymentSpin 0.6s linear infinite;
+      }
+
+      .payment-status-note {
+        margin-top: 12px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: rgba(10, 42, 102, 0.08);
+        color: var(--primary);
+        font-size: 0.84rem;
+        font-weight: 600;
+        display: none;
+      }
+
+      .payment-status-note.show {
+        display: block;
+      }
+
+      .processing-banner {
+        display: none;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 16px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(10, 42, 102, 0.08);
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        color: var(--primary);
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      .processing-banner.show {
+        display: inline-flex;
+      }
+
+      .processing-banner::before {
+        content: "";
+        width: 14px;
+        height: 14px;
+        border: 2px solid currentColor;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: paymentSpin 0.6s linear infinite;
+      }
+
+      @keyframes paymentSpin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
       .benefits-section {
         margin-bottom: 40px;
       }
@@ -472,12 +683,13 @@
       }
 
       .benefit-card {
-        background: white;
-        border-radius: 10px;
-        padding: 20px;
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 22px;
+        padding: 22px;
         text-align: center;
-        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 20px 40px rgba(17, 38, 85, 0.1);
         transition: var(--transition);
+        border: 1px solid rgba(10, 42, 102, 0.08);
         border-left: 4px solid var(--secondary);
       }
 
@@ -505,15 +717,16 @@
         line-height: 1.4;
       }
 
-      /* Paystack Integration */
       .paystack-info {
-        background-color: var(--light);
-        border-radius: 6px;
-        padding: 12px;
+        background-color: #f8fbff;
+        border-radius: 16px;
+        padding: 14px;
         margin-top: 15px;
+        margin-bottom: 15px;
         text-align: center;
         font-size: 0.85rem;
         color: var(--gray);
+        border: 1px solid rgba(10, 42, 102, 0.08);
       }
 
       .paystack-logo {
@@ -521,7 +734,6 @@
         color: var(--primary);
       }
 
-      /* Validation Styles */
       .error-message {
         color: var(--danger);
         font-size: 0.8rem;
@@ -540,7 +752,170 @@
         display: block;
       }
 
-      /* Service Type Badge */
+      .transactions-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .transactions-list {
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 22px;
+        box-shadow: 0 18px 36px rgba(17, 38, 85, 0.1);
+        overflow: hidden;
+        border: 1px solid rgba(10, 42, 102, 0.08);
+      }
+
+      .transaction-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--gray-light);
+        transition: var(--transition);
+        gap: 12px;
+      }
+
+      .transaction-item:hover {
+        background-color: #f8fbff;
+      }
+
+      .transaction-item.is-open {
+        background-color: rgba(10, 42, 102, 0.03);
+      }
+
+      .transaction-item:last-child {
+        border-bottom: none;
+      }
+
+      .transaction-info {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .transaction-service {
+        font-weight: 600;
+        color: var(--dark);
+        font-size: 0.9rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .transaction-date {
+        font-size: 0.8rem;
+        color: var(--gray);
+      }
+
+      .transaction-details {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 5px;
+        margin-left: 10px;
+      }
+
+      .transaction-main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+      }
+
+      .transaction-amount {
+        font-weight: 700;
+        color: var(--primary);
+        font-size: 0.9rem;
+      }
+
+      .transaction-status {
+        padding: 4px 8px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .transaction-toggle {
+        border: 1px solid rgba(10, 42, 102, 0.1);
+        background: white;
+        color: var(--primary);
+        border-radius: 10px;
+        padding: 6px 10px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .transaction-toggle:hover {
+        background: rgba(10, 42, 102, 0.05);
+      }
+
+      .transaction-extra {
+        display: none;
+        width: 100%;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(10, 42, 102, 0.08);
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 10px;
+      }
+
+      .transaction-item.is-open .transaction-extra {
+        display: grid;
+      }
+
+      .transaction-extra-item {
+        background: rgba(248, 251, 255, 0.95);
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        border-radius: 14px;
+        padding: 10px 12px;
+      }
+
+      .transaction-extra-label {
+        display: block;
+        color: var(--gray);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+
+      .transaction-extra-value {
+        color: var(--dark);
+        font-size: 0.85rem;
+        font-weight: 600;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+
+      .status-successful {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: var(--success);
+      }
+
+      .status-pending {
+        background-color: rgba(245, 158, 11, 0.1);
+        color: var(--warning);
+      }
+
+      .status-failed {
+        background-color: rgba(239, 68, 68, 0.1);
+        color: var(--danger);
+      }
+
       .service-badge {
         display: inline-block;
         padding: 3px 6px;
@@ -560,15 +935,15 @@
         color: white;
       }
 
-      /* Job Application Info */
       .job-application-info {
-        background: var(--light);
-        border-radius: 6px;
-        padding: 10px;
+        background: #f8fbff;
+        border-radius: 16px;
+        padding: 12px;
         margin-top: 4px;
+        border: 1px solid rgba(10, 42, 102, 0.08);
       }
 
-      .job-title {
+      .job-title-display {
         font-weight: 600;
         color: var(--primary);
         margin-bottom: 4px;
@@ -579,16 +954,7 @@
         font-size: 0.85rem;
       }
 
-      /* ====================== */
-      /* MOBILE OPTIMIZATIONS */
-      /* ====================== */
-
-      /* Tablet (992px and below) */
       @media (max-width: 992px) {
-        .container {
-          padding: 0 20px;
-        }
-
         .payment-container {
           grid-template-columns: 1fr;
         }
@@ -598,12 +964,7 @@
         }
       }
 
-      /* Mobile (768px and below) */
       @media (max-width: 768px) {
-        .container {
-          padding: 0 15px;
-        }
-
         .navbar {
           padding: 0 15px;
           height: 60px;
@@ -621,7 +982,7 @@
 
         .page-title {
           font-size: 1.1rem;
-          display: none; /* Hide on very small screens */
+          display: none;
         }
 
         .user-name {
@@ -638,17 +999,15 @@
         }
 
         .dashboard-content {
-          padding: 15px 12px;
+          padding: 16px 12px;
         }
 
         .welcome-section {
-          margin-bottom: 20px;
-          padding: 0 5px;
+          padding: 28px 24px;
         }
 
         .welcome-title {
-          font-size: 1.4rem;
-          margin-bottom: 6px;
+          font-size: 1.5rem;
         }
 
         .welcome-subtitle {
@@ -662,59 +1021,16 @@
 
         .order-summary,
         .payment-form {
-          padding: 18px;
+          padding: 22px;
         }
 
         .order-title,
         .form-title {
           font-size: 1.2rem;
-          margin-bottom: 12px;
-        }
-
-        .order-item {
-          font-size: 0.9rem;
-          margin-bottom: 8px;
-          padding-bottom: 8px;
-        }
-
-        .item-label {
-          font-size: 0.85rem;
-        }
-
-        .item-value {
-          font-size: 0.9rem;
-        }
-
-        .order-total {
-          font-size: 1rem;
-          padding-top: 10px;
-        }
-
-        .form-label {
-          font-size: 0.85rem;
-          margin-bottom: 5px;
-        }
-
-        .form-control {
-          padding: 10px 12px;
-          font-size: 0.9rem;
         }
 
         .payment-options {
           gap: 8px;
-        }
-
-        .payment-option {
-          padding: 10px;
-        }
-
-        .payment-icon {
-          font-size: 1.2rem;
-          margin-bottom: 4px;
-        }
-
-        .payment-name {
-          font-size: 0.8rem;
         }
 
         .benefits-grid {
@@ -726,37 +1042,52 @@
           padding: 18px;
         }
 
-        .benefit-icon {
-          font-size: 1.8rem;
-          margin-bottom: 10px;
-        }
-
-        .benefit-title {
-          font-size: 1rem;
-          margin-bottom: 6px;
-        }
-
-        .benefit-description {
-          font-size: 0.85rem;
-        }
-
         .section-title {
           font-size: 1.2rem;
-          margin-bottom: 15px;
         }
 
         .btn {
           padding: 10px 16px;
           font-size: 0.9rem;
         }
-      }
 
-      /* Small Mobile (576px and below) */
-      @media (max-width: 576px) {
-        .container {
-          padding: 0 12px;
+        .tabs {
+          flex-direction: column;
+          margin-bottom: 15px;
         }
 
+        .tab {
+          border-bottom: 1px solid var(--gray-light);
+        }
+
+        .tab.active {
+          border-bottom: 3px solid var(--secondary);
+        }
+
+        .transaction-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+          padding: 15px;
+        }
+
+        .transaction-details {
+          flex-direction: row;
+          justify-content: space-between;
+          width: 100%;
+          margin-left: 0;
+        }
+        .transaction-main {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .transaction-toggle {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 576px) {
         .form-row {
           grid-template-columns: 1fr;
           gap: 10px;
@@ -767,18 +1098,13 @@
           gap: 10px;
         }
 
+        .welcome-section {
+          padding: 26px 22px;
+        }
+
         .order-summary,
         .payment-form {
-          padding: 16px;
-        }
-
-        .order-header {
-          padding-bottom: 10px;
-          margin-bottom: 12px;
-        }
-
-        .form-group {
-          margin-bottom: 12px;
+          padding: 20px;
         }
 
         .welcome-title {
@@ -800,34 +1126,30 @@
         .logo-sub {
           font-size: 0.65rem;
         }
+
+        .notification-dropdown {
+          right: 12px;
+          width: 260px;
+        }
       }
 
-      /* Extra Small Mobile (480px and below) */
       @media (max-width: 480px) {
+        .welcome-section {
+          padding: 24px 20px;
+        }
+
         .dashboard-content {
           padding: 12px 10px;
         }
 
         .order-summary,
         .payment-form {
-          padding: 15px;
+          padding: 18px;
         }
 
         .order-title,
         .form-title {
           font-size: 1.1rem;
-        }
-
-        .order-item {
-          font-size: 0.85rem;
-        }
-
-        .item-label {
-          font-size: 0.8rem;
-        }
-
-        .item-value {
-          font-size: 0.85rem;
         }
 
         .form-control {
@@ -867,12 +1189,15 @@
           height: 16px;
           font-size: 0.65rem;
         }
+
+        .notification-dropdown {
+          width: 220px;
+        }
       }
 
-      /* Very Small Mobile (360px and below) */
       @media (max-width: 360px) {
-        .container {
-          padding: 0 10px;
+        .welcome-section {
+          padding: 22px 18px;
         }
 
         .dashboard-content {
@@ -881,7 +1206,7 @@
 
         .order-summary,
         .payment-form {
-          padding: 14px;
+          padding: 16px;
         }
 
         .welcome-title {
@@ -902,101 +1227,196 @@
           font-size: 0.9rem;
         }
       }
+      /* Candidate Notification Dropdown Standard */
+      .notification-dropdown {
+        top: calc(100% + 10px);
+        right: 0;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 320px;
+        max-height: 400px;
+      }
+
+      .notification-header {
+        padding: 12px 16px;
+        background-color: var(--light);
+        border-radius: 8px 8px 0 0;
+      }
+
+      .mark-all-read {
+        font-weight: 500;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+
+      .mark-all-read:hover {
+        background-color: rgba(10, 42, 102, 0.1);
+      }
+
+      .notification-item {
+        padding: 12px 16px;
+      }
+
+      .notification-item.unread {
+        background-color: rgba(10, 42, 102, 0.05);
+        border-left: 3px solid var(--primary);
+      }
+
+      .notification-content {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+        color: var(--dark);
+        line-height: 1.4;
+      }
+
+      .notification-time {
+        font-size: 0.7rem;
+        color: var(--gray);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      @media (max-width: 992px) {
+        .notification-dropdown {
+          right: 12px;
+          width: 280px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .notification-dropdown {
+          right: 10px;
+          width: 260px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .notification-dropdown {
+          width: 240px;
+          right: 8px;
+        }
+      }
     </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
   </head>
+
   <body>
-    <!-- Navbar -->
     <nav class="navbar">
-      <div class="logo">
+      <a href="../index.html" class="logo" aria-label="Job Assist Ghana Home">
         <div class="logo-img-placeholder">JA</div>
         <div class="logo-text">
           <div class="logo-main">JobAssist</div>
           <div class="logo-sub">GHANA</div>
         </div>
-      </div>
+      </a>
+
       <div class="page-title">Payment</div>
+
       <div class="navbar-right">
-        <div class="notification-icon">
+        <div class="notification-icon" id="notificationIcon">
           <i class="fas fa-bell"></i>
           <span class="notification-badge">3</span>
         </div>
+        <div class="notification-dropdown" id="notificationDropdown">
+          <div class="notification-header">
+            <h3 class="notification-title">Notifications</h3>
+            <button class="mark-all-read" type="button">Mark all as read</button>
+          </div>
+          <ul class="notification-list">
+            <li class="notification-item unread">
+              <div class="notification-content">Loading notifications...</div>
+              <div class="notification-time"><i class="far fa-clock"></i> Recently</div>
+            </li>
+          </ul>
+        </div>
+
         <div class="user-profile" id="userProfile">
           <div class="user-avatar">
-            <img src="https://i.pravatar.cc/150?img=12" alt="User" />
+              <img src="../assets/images/default-avatar.png" alt="User" />
           </div>
           <div class="user-name">Nana</div>
           <i class="fas fa-chevron-down"></i>
         </div>
-        <div class="dropdown-menu">
-          <a href="candidate-profile.html"
-            ><i class="fas fa-user"></i> View Profile</a
-          >
+
+        <div class="dropdown-menu" id="profileDropdown">
+          <a href="candidate-profile.html"><i class="fas fa-user"></i> View Profile</a>
           <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
-          <a href="#" id="dropdownLogout"
-            ><i class="fas fa-sign-out-alt"></i> Logout</a
-          >
+          <a href="#" id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
       </div>
     </nav>
 
-    <!-- Dashboard Content -->
     <div class="dashboard-content">
-      <!-- Welcome Section -->
-      <div class="welcome-section">
+      <div class="welcome-section ja-section-header-card">
         <h1 class="welcome-title">Complete Your Purchase</h1>
         <p class="welcome-subtitle">
           Review your order details and complete the payment to activate your
-          service
+          service.
         </p>
       </div>
 
-      <!-- Payment Container -->
+      <div class="tabs">
+        <div class="tab active" data-tab="payment">Make Payment</div>
+        <div class="tab" data-tab="history">Transaction History</div>
+      </div>
+
+      <div class="tab-content active" id="payment-tab">
+      <div class="processing-banner" id="processingBanner">Processing your payment, please wait...</div>
       <div class="payment-container">
-        <!-- Order Summary -->
         <div class="order-summary">
           <div class="order-header">
             <h3 class="order-title">Order Summary</h3>
           </div>
+
           <div class="order-details">
             <div class="order-item">
               <div class="item-label">Service</div>
-              <div class="item-value" id="serviceName">
-                Loading service details...
-              </div>
+              <div class="item-value" id="serviceName">Loading service details...</div>
             </div>
+
             <div class="order-item">
               <div class="item-label">Job Application</div>
-              <div class="item-value" id="jobApplication">
-                <div id="jobDetails">
-                  <div class="job-title" id="jobTitle">Loading...</div>
+              <div class="item-value">
+                <div class="job-application-info">
+                  <div class="job-title-display" id="jobTitle">Loading...</div>
                   <div class="job-company" id="jobCompany">Loading...</div>
                 </div>
               </div>
             </div>
+
             <div class="order-item">
-              <div class="item-label">Application ID</div>
+              <div class="item-label" id="applicationLabel">Application ID</div>
               <div class="item-value" id="applicationId">Loading...</div>
             </div>
+
+            <div class="order-item">
+              <div class="item-label">Reference</div>
+              <div class="item-value" id="paymentReference">Loading...</div>
+            </div>
+
             <div class="order-item">
               <div class="item-label">Duration</div>
               <div class="item-value" id="serviceDuration">Loading...</div>
             </div>
+
             <div class="order-item">
               <div class="item-label">Service Type</div>
               <div class="item-value" id="serviceType">Loading...</div>
             </div>
           </div>
+
           <div class="order-total">
             <div class="item-label">Total Amount</div>
             <div class="item-value" id="totalAmount">Loading...</div>
           </div>
         </div>
 
-        <!-- Payment Form -->
         <div class="payment-form">
           <h3 class="form-title">Payment Details</h3>
 
-          <!-- Payment Methods -->
           <div class="payment-methods">
             <div class="form-label">Select Payment Method</div>
             <div class="payment-options">
@@ -1006,6 +1426,7 @@
                 </div>
                 <div class="payment-name">Mobile Money</div>
               </div>
+
               <div class="payment-option" data-method="card">
                 <div class="payment-icon">
                   <i class="far fa-credit-card"></i>
@@ -1015,47 +1436,38 @@
             </div>
           </div>
 
-          <!-- Mobile Money Form -->
           <div class="payment-form-content" id="mobileForm">
             <div class="form-group">
-              <label class="form-label" for="mobileProvider"
-                >Mobile Provider *</label
-              >
+              <label class="form-label" for="mobileProvider">Mobile Provider *</label>
               <select class="form-control" id="mobileProvider" required>
                 <option value="">Select Provider</option>
                 <option value="mtn">MTN Mobile Money</option>
-                <option value="vodafone">
-                  Telecel Ghana (formerly Vodafone)
-                </option>
-                <option value="airteltigo">
-                  AT Ghana (Airtel / Airtel-Tigo)
-                </option>
+                <option value="vodafone">Telecel Ghana (formerly Vodafone)</option>
+                <option value="airteltigo">AT Ghana (Airtel / Airtel-Tigo)</option>
               </select>
               <div class="error-message" id="providerError">
                 Please select a mobile provider
               </div>
             </div>
+
             <div class="form-group">
-              <label class="form-label" for="mobileNumber"
-                >Mobile Number *</label
-              >
+              <label class="form-label" for="mobileNumber">Mobile Number *</label>
               <input
                 type="text"
                 class="form-control"
                 id="mobileNumber"
                 placeholder="e.g., 024 123 4567"
                 required
+                inputmode="numeric"
+                autocomplete="tel"
               />
               <div class="error-message" id="mobileError">
                 Please enter a valid 10-digit Ghana mobile number
               </div>
-              <div class="form-hint">
-                Enter your 10-digit Ghana mobile number
-              </div>
+              <div class="form-hint">Enter your 10-digit Ghana mobile number</div>
             </div>
           </div>
 
-          <!-- Card Payment Form -->
           <div class="payment-form-content" id="cardForm" style="display: none">
             <div class="form-group">
               <label class="form-label" for="cardNumber">Card Number *</label>
@@ -1065,11 +1477,14 @@
                 id="cardNumber"
                 placeholder="1234 5678 9012 3456"
                 required
+                inputmode="numeric"
+                autocomplete="cc-number"
               />
               <div class="error-message" id="cardError">
                 Please enter a valid card number
               </div>
             </div>
+
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label" for="expiryDate">Expiry Date *</label>
@@ -1079,11 +1494,14 @@
                   id="expiryDate"
                   placeholder="MM/YY"
                   required
+                  inputmode="numeric"
+                  autocomplete="cc-exp"
                 />
                 <div class="error-message" id="expiryError">
                   Please enter a valid expiry date (MM/YY)
                 </div>
               </div>
+
               <div class="form-group">
                 <label class="form-label" for="cvv">CVV *</label>
                 <input
@@ -1092,12 +1510,15 @@
                   id="cvv"
                   placeholder="123"
                   required
+                  inputmode="numeric"
+                  autocomplete="cc-csc"
                 />
                 <div class="error-message" id="cvvError">
                   Please enter a valid CVV
                 </div>
               </div>
             </div>
+
             <div class="form-group">
               <label class="form-label" for="cardName">Name on Card *</label>
               <input
@@ -1106,6 +1527,7 @@
                 id="cardName"
                 placeholder="John Doe"
                 required
+                autocomplete="cc-name"
               />
               <div class="error-message" id="nameError">
                 Please enter the name on your card
@@ -1119,16 +1541,16 @@
           </div>
 
           <button class="btn btn-accent btn-block" id="payButton" disabled>
-            <i class="fas fa-lock"></i> Pay Now
+            <span class="btn-text"><i class="fas fa-lock"></i> Complete Payment</span>
+            <span class="btn-loader" style="display: none">Processing...</span>
           </button>
+          <div class="payment-status-note" id="paymentStatusNote" aria-live="polite"></div>
         </div>
       </div>
 
-      <!-- Benefits Section -->
       <div class="benefits-section">
-        <h3 class="section-title" id="benefitsTitle">
-          What Happens After Payment?
-        </h3>
+        <h3 class="section-title" id="benefitsTitle">What Happens After Payment?</h3>
+
         <div class="benefits-grid">
           <div class="benefit-card">
             <div class="benefit-icon">
@@ -1136,8 +1558,7 @@
             </div>
             <h4 class="benefit-title">Immediate Activation</h4>
             <p class="benefit-description">
-              Your service will be activated immediately after successful
-              payment
+              Your service will be activated immediately after successful payment.
             </p>
           </div>
 
@@ -1147,7 +1568,7 @@
             </div>
             <h4 class="benefit-title">Support Available</h4>
             <p class="benefit-description">
-              Our support team is available if you have any questions
+              Our support team is available if you have any questions.
             </p>
           </div>
 
@@ -1157,7 +1578,7 @@
             </div>
             <h4 class="benefit-title">Secure Payment</h4>
             <p class="benefit-description">
-              Your payment is processed securely through Paystack
+              Your payment is processed securely through Paystack.
             </p>
           </div>
 
@@ -1167,22 +1588,45 @@
             </div>
             <h4 class="benefit-title">Confirmation</h4>
             <p class="benefit-description">
-              You'll receive a confirmation email after successful payment
+              You'll receive confirmation after successful payment.
             </p>
           </div>
         </div>
       </div>
+      </div>
+
+      <div class="tab-content" id="history-tab">
+        <div class="transactions-header">
+          <h2 class="section-title" style="margin: 0; text-align: left">
+            <i class="fas fa-history"></i> Transaction History
+          </h2>
+        </div>
+
+        <div class="transactions-list" id="transactionsList"></div>
+      </div>
     </div>
 
+    <script src="../assets/js/application-store.js"></script>
+    <script src="../assets/js/id-generator.js"></script>
+    <script src="../assets/js/candidate-session.js"></script>
+    <script src="../assets/js/toast.js"></script>
     <script>
-      // DOM Elements
       const userProfile = document.getElementById("userProfile");
+      const profileDropdown = document.getElementById("profileDropdown");
       const dropdownLogout = document.getElementById("dropdownLogout");
+      const notificationIcon = document.getElementById("notificationIcon");
+      const notificationDropdown = document.getElementById("notificationDropdown");
+      const tabs = document.querySelectorAll(".tab");
+      const tabContents = document.querySelectorAll(".tab-content");
+
       const paymentOptions = document.querySelectorAll(".payment-option");
       const paymentForms = document.querySelectorAll(".payment-form-content");
       const payButton = document.getElementById("payButton");
+      const transactionsList = document.getElementById("transactionsList");
+      const processingBanner = document.getElementById("processingBanner");
+      const payButtonText = payButton ? payButton.querySelector(".btn-text") : null;
+      const payButtonLoader = payButton ? payButton.querySelector(".btn-loader") : null;
 
-      // Form elements
       const mobileProvider = document.getElementById("mobileProvider");
       const mobileNumber = document.getElementById("mobileNumber");
       const cardNumber = document.getElementById("cardNumber");
@@ -1190,7 +1634,6 @@
       const cvv = document.getElementById("cvv");
       const cardName = document.getElementById("cardName");
 
-      // Error elements
       const providerError = document.getElementById("providerError");
       const mobileError = document.getElementById("mobileError");
       const cardError = document.getElementById("cardError");
@@ -1198,185 +1641,453 @@
       const cvvError = document.getElementById("cvvError");
       const nameError = document.getElementById("nameError");
 
-      // Order summary elements
       const serviceName = document.getElementById("serviceName");
-      const jobApplication = document.getElementById("jobDetails");
       const jobTitle = document.getElementById("jobTitle");
       const jobCompany = document.getElementById("jobCompany");
+      const applicationLabel = document.getElementById("applicationLabel");
       const applicationId = document.getElementById("applicationId");
+      const paymentReference = document.getElementById("paymentReference");
       const serviceDuration = document.getElementById("serviceDuration");
       const serviceType = document.getElementById("serviceType");
       const totalAmount = document.getElementById("totalAmount");
       const benefitsTitle = document.getElementById("benefitsTitle");
+      const paymentStatusNote = document.getElementById("paymentStatusNote");
 
-      // Get URL parameters
       const urlParams = new URLSearchParams(window.location.search);
-      const serviceTypeParam = urlParams.get("service");
-      const amount = urlParams.get("amount");
-      const serviceNameParam = urlParams.get("name");
-      const jobId = urlParams.get("jobId");
-      const appId = urlParams.get("appId") || "APP 789123"; // Get app ID from URL or use default
+      const serviceTypeParam = urlParams.get("service") || "application-premium";
+      const amountParam = urlParams.get("amount") || "";
+      const serviceNameParam = urlParams.get("name") || "";
+      const jobIdParam = urlParams.get("jobId") || "";
+      const appIdParam = urlParams.get("applicationId") || urlParams.get("appId") || "";
+      const actionIdParam = urlParams.get("actionId") || "";
+      const refParam = urlParams.get("ref") || "";
 
-      // Enhanced job database with more realistic data
-      const jobDatabase = {
-        "frontend-developer": {
-          title: "Frontend Developer",
-          company: "Two Southeast Las",
-          applicationDate: "May 15, 2024",
-          applicationId: "APP 789123",
-          status: "Under Review",
-          location: "Accra, Ghana",
-          salary: "₵5,000 - ₵8,000/month",
-        },
-        "backend-developer": {
-          title: "Backend Developer",
-          company: "Tech Solutions Ltd",
-          applicationDate: "May 18, 2024",
-          applicationId: "APP 456789",
-          status: "Pending",
-          location: "Kumasi, Ghana",
-          salary: "₵4,500 - ₵7,500/month",
-        },
-        "marketing-manager": {
-          title: "Marketing Manager",
-          company: "Global Emails Inc",
-          applicationDate: "May 10, 2024",
-          applicationId: "APP 654321",
-          status: "Under Review",
-          location: "Accra, Ghana",
-          salary: "₵6,000 - ₵9,000/month",
-        },
-        "data-analyst": {
-          title: "Data Analyst",
-          company: "Financial Insights Group",
-          applicationDate: "May 20, 2024",
-          applicationId: "APP 987654",
-          status: "Pending",
-          location: "Tema, Ghana",
-          salary: "₵4,000 - ₵6,500/month",
-        },
-      };
+      function showPaymentError(message) {
+        if (window.JobAssistUI?.showErrorToast) {
+          window.JobAssistUI.showErrorToast(message);
+          return;
+        }
+        alert(message);
+      }
 
-      // Service details - UPDATED FOR TWO-TIER SYSTEM
       const serviceDatabase = {
         "application-premium": {
           name: "Premium Application Verification",
-          duration: "Active until job filled",
-          amount: "₵50",
+          duration: "Active until job is filled",
+          amount: "GHS 50",
           type: "Premium Verification",
           benefitsTitle: "What Happens After Premium Verification?",
+        },
+        "boost-basic": {
+          name: "Basic Boost",
+          duration: "14 days",
+          amount: "GHS 80",
+          type: "Application Boost",
+          benefitsTitle: "What Happens After Boosting?",
         },
         "boost-pro": {
           name: "Professional Boost",
           duration: "30 days",
-          amount: "₵120",
+          amount: "GHS 120",
           type: "Application Boost",
           benefitsTitle: "What Happens After Boosting?",
         },
         "boost-enterprise": {
           name: "Enterprise Boost",
           duration: "90 days",
-          amount: "₵200",
+          amount: "GHS 200",
           type: "Application Boost",
           benefitsTitle: "What Happens After Boosting?",
         },
       };
 
-      // Initialize page with service and job data
-      function initializePage() {
-        // Get job data - first try from localStorage, then from URL params, then from database
-        let jobData;
-
-        // Try to get from localStorage first (most recent applications)
-        const appliedJobs =
-          JSON.parse(localStorage.getItem("appliedJobs")) || [];
-
-        if (appliedJobs.length > 0) {
-          // If jobId is specified in URL, find that specific job
-          if (jobId && jobDatabase[jobId]) {
-            jobData = jobDatabase[jobId];
-          } else {
-            // Otherwise, use the most recent application
-            jobData = appliedJobs[0];
-
-            // If we have stored job data from localStorage, use it
-            if (!jobData.title && !jobData.company) {
-              // Fallback to default if localStorage data is incomplete
-              jobData = jobDatabase["frontend-developer"];
-            }
-          }
-        } else {
-          // Fallback to database
-          jobData = jobDatabase[jobId] || jobDatabase["frontend-developer"];
+      function getStoredCandidateTransactions() {
+        try {
+          const stored = JSON.parse(localStorage.getItem("jobassist_candidate_transactions") || "[]");
+          return Array.isArray(stored) ? stored : [];
+        } catch {
+          return [];
         }
-
-        // Get service data
-        const serviceData =
-          serviceDatabase[serviceTypeParam] ||
-          serviceDatabase["application-premium"];
-
-        // Update order summary
-        serviceName.textContent = serviceData.name;
-        jobTitle.textContent = jobData.title;
-        jobCompany.textContent = jobData.company;
-        applicationId.textContent = appId || jobData.applicationId;
-        serviceDuration.textContent = serviceData.duration;
-        totalAmount.textContent = amount || serviceData.amount;
-        benefitsTitle.textContent = serviceData.benefitsTitle;
-
-        // Update service type with badge
-        if (serviceData.type === "Premium Verification") {
-          serviceType.innerHTML = `${serviceData.type} <span class="service-badge badge-premium">PREMIUM</span>`;
-        } else {
-          serviceType.innerHTML = `${serviceData.type} <span class="service-badge badge-boost">BOOST</span>`;
-        }
-
-        // Update page title with job info
-        document.title = `Payment for ${jobData.title} | JobAssist Ghana`;
       }
 
-      // User Profile Dropdown
-      userProfile.addEventListener("click", function () {
-        document.querySelector(".dropdown-menu").classList.toggle("show");
+      function getPaymentReferenceKind(serviceType) {
+        if (
+          serviceType === "boost-basic" ||
+          serviceType === "boost-pro" ||
+          serviceType === "boost-enterprise"
+        ) {
+          return "boost";
+        }
+
+        if (serviceType === "application-premium" || serviceType === "profile-activation") {
+          return "payment";
+        }
+
+        return "payment";
+      }
+
+      function getFormattedReference(ref) {
+        return window.JobAssistPaymentGate?.formatReference?.(ref) || ref || "N/A";
+      }
+
+      function getCandidatePaymentHistory() {
+        return window.JobAssistPaymentGate?.getPaymentHistory?.("candidate") || [];
+      }
+
+      function escapeHtml(value) {
+        return String(value == null ? "" : value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function formatTransactionDate(isoString) {
+        const date = new Date(isoString);
+        if (Number.isNaN(date.getTime())) return "Unknown date";
+
+        return date.toLocaleString("en-GB", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      }
+
+      function getTransactionStatusMeta(status) {
+        const normalizedStatus = String(status || "").toLowerCase();
+        if (normalizedStatus === "success") {
+          return { label: "Successful", className: "status-successful", icon: "\u2714" };
+        }
+        if (normalizedStatus === "failed") {
+          return { label: "Failed", className: "status-failed", icon: "\u2716" };
+        }
+        return { label: "Pending", className: "status-pending", icon: "\u23F3" };
+      }
+
+      function getTransactionTitle(action) {
+        if (!action) return "Payment";
+        return action.serviceName || action.service || action.serviceType || "Payment";
+      }
+
+      function getTransactionSubtitle(action) {
+        const relatedTitle =
+          action.jobTitle ||
+          action.payload?.jobTitle ||
+          action.payload?.title ||
+          "";
+        const applicationLabel = action.applicationId ? `Application ${action.applicationId}` : "";
+        return [relatedTitle, applicationLabel].filter(Boolean).join(" â€¢ ");
+      }
+
+      function loadTransactionHistory() {
+        if (!transactionsList) return;
+
+        const transactions = getCandidatePaymentHistory();
+        transactionsList.innerHTML = "";
+
+        if (!transactions.length) {
+          transactionsList.innerHTML = `
+            <div class="transaction-item" style="justify-content:center; text-align:center; padding:30px 20px;">
+              <div class="transaction-info" style="align-items:center;">
+                <div class="transaction-service">No transactions yet</div>
+                <div class="transaction-date">Your payment attempts will appear here.</div>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        transactions.forEach((transaction) => {
+          const row = document.createElement("div");
+          row.className = "transaction-item";
+          const statusMeta = getTransactionStatusMeta(transaction.status);
+          const amountText = transaction.displayAmount || formatAmount(transaction.amount, "GHS 0");
+          const relatedInfo = getTransactionSubtitle(transaction);
+          const timestamp = transaction.updatedAt || transaction.finalizedAt || transaction.failedAt || transaction.createdAt;
+
+          row.innerHTML = `
+            <div class="transaction-info">
+              <div class="transaction-service">${escapeHtml(getTransactionTitle(transaction))}</div>
+              ${relatedInfo ? `<div class="transaction-date">${escapeHtml(relatedInfo)}</div>` : ""}
+              <div class="transaction-date">${formatTransactionDate(timestamp)} â€¢ Ref: <span class="reference-text" title="${escapeHtml(String(transaction.referenceCode || transaction.reference || ""))}">${getFormattedReference(transaction.referenceCode || transaction.reference)}</span></div>
+            </div>
+            <div class="transaction-details">
+              <div class="transaction-amount">${escapeHtml(amountText)}</div>
+              <div class="transaction-status ${statusMeta.className}">${statusMeta.label}</div>
+            </div>
+          `;
+
+          const statusElement = row.querySelector(".transaction-status");
+          if (statusElement) {
+            statusElement.textContent = `${statusMeta.icon} ${statusMeta.label}`;
+          }
+
+          const mainSection = document.createElement("div");
+          mainSection.className = "transaction-main";
+          while (row.firstChild) {
+            mainSection.appendChild(row.firstChild);
+          }
+
+          const toggleButton = document.createElement("button");
+          toggleButton.type = "button";
+          toggleButton.className = "transaction-toggle";
+          toggleButton.setAttribute("aria-expanded", "false");
+          toggleButton.textContent = "View details";
+          mainSection.appendChild(toggleButton);
+          row.appendChild(mainSection);
+
+          const extraSection = document.createElement("div");
+          extraSection.className = "transaction-extra";
+          extraSection.innerHTML = `
+            <div class="transaction-extra-item">
+              <span class="transaction-extra-label">Service Type</span>
+              <span class="transaction-extra-value">${escapeHtml(transaction.serviceType || transaction.service || "Payment")}</span>
+            </div>
+            <div class="transaction-extra-item">
+              <span class="transaction-extra-label">Full Reference</span>
+              <span class="transaction-extra-value reference-text" title="${escapeHtml(String(transaction.referenceCode || transaction.reference || ""))}">${escapeHtml(String(transaction.referenceCode || transaction.reference || "N/A"))}</span>
+            </div>
+            <div class="transaction-extra-item">
+              <span class="transaction-extra-label">Status</span>
+              <span class="transaction-extra-value">${statusMeta.label}</span>
+            </div>
+          `;
+          row.appendChild(extraSection);
+
+          transactionsList.appendChild(row);
+        });
+      }
+
+      function setReferenceDisplay(element, ref) {
+        if (!element) return;
+        const normalizedRef = String(ref || "").trim();
+        element.textContent = getFormattedReference(normalizedRef);
+        element.title = normalizedRef || "N/A";
+        element.classList.add("reference-text");
+      }
+
+      function getOrCreatePaymentReference() {
+        const existingPendingAction =
+          window.JobAssistPaymentGate?.getPaymentAction({
+            actionId: actionIdParam,
+            role: "candidate",
+            serviceType: serviceTypeParam,
+            jobId: jobIdParam,
+            applicationId: appIdParam,
+          }) || null;
+
+        if (refParam) return refParam;
+        if (existingPendingAction?.reference) return existingPendingAction.reference;
+        const sessionKey = `jobassist_candidate_payment_ref:${serviceTypeParam}:${appIdParam || jobIdParam || "general"}`;
+        const storedReference = sessionStorage.getItem(sessionKey);
+        if (storedReference) return storedReference;
+
+        const existingRefs = getStoredCandidateTransactions().map((tx) => tx?.referenceCode);
+        if (!window.JobAssistIdGenerator?.generatePaymentReference) {
+          return "JAG-0001";
+        }
+
+        const generatedReference = window.JobAssistIdGenerator.generatePaymentReference(
+          getPaymentReferenceKind(serviceTypeParam),
+          existingRefs
+        );
+        sessionStorage.setItem(sessionKey, generatedReference);
+        return generatedReference;
+      }
+
+      function getCurrentCandidateApplications() {
+        if (window.JobAssistApplications) {
+          return window.JobAssistApplications.getApplicationsForCandidate();
+        }
+
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getCandidateApplications();
+        }
+
+        const stored = JSON.parse(localStorage.getItem("jobassist_applications") || "[]");
+        return Array.isArray(stored)
+          ? stored.slice().sort((a, b) => new Date(b?.appliedAt || 0) - new Date(a?.appliedAt || 0))
+          : [];
+      }
+
+      function getEmployerJobs() {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getEmployerJobs();
+        }
+
+        const stored = JSON.parse(localStorage.getItem("jobassist_employer_jobs") || "[]");
+        return Array.isArray(stored) ? stored : [];
+      }
+
+      function findEmployerJobById(jobId) {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.findEmployerJobById(jobId);
+        }
+
+        return (
+          getEmployerJobs().find((job) => {
+            return String(job?.jobId || job?.id || "") === String(jobId || "");
+          }) || null
+);
+      }
+
+      function formatAmount(value, fallback = "GHS 0") {
+        if (!value) return fallback;
+        if (String(value).includes("GHS ")) return String(value);
+        return `GHS ${value}`;
+      }
+
+      function getCurrentJobData() {
+        const candidateApplications = getCurrentCandidateApplications();
+        const requestedJobId = String(jobIdParam || "").trim();
+        const requestedApplicationId = String(appIdParam || "").trim();
+
+        const matchedApplication =
+          (requestedApplicationId &&
+            candidateApplications.find((application) => {
+              return String(application?.applicationId || application?.id || "").trim() === requestedApplicationId;
+            })) ||
+          (requestedJobId &&
+            candidateApplications.find((application) => {
+              return String(application?.jobId || application?.id || "").trim() === requestedJobId;
+            })) ||
+          null;
+
+        const resolvedJobId = String(
+          matchedApplication?.jobId ||
+            matchedApplication?.id ||
+            requestedJobId
+);
+        const linkedJob = findEmployerJobById(resolvedJobId) || {};
+
+        return {
+          id: resolvedJobId || "N/A",
+          title:
+            matchedApplication?.title ||
+            matchedApplication?.jobTitle ||
+            linkedJob?.jobTitle ||
+            linkedJob?.title ||
+            "Job Application",
+          company:
+            matchedApplication?.company ||
+            linkedJob?.companyName ||
+            linkedJob?.company ||
+            linkedJob?.businessName ||
+            "Company not provided",
+          applicationId:
+            matchedApplication?.applicationId ||
+            requestedApplicationId ||
+            "Pending assignment",
+        };
+      }
+
+      function initializePage() {
+        const jobData = getCurrentJobData();
+        const currentReference = getOrCreatePaymentReference();
+
+        const serviceData = serviceDatabase[serviceTypeParam] || {
+          name: serviceNameParam || "Payment Service",
+          duration: "One-time service",
+          amount: formatAmount(amountParam, "GHS 0"),
+          type: "Payment Service",
+          benefitsTitle: "What Happens After Payment?",
+        };
+
+        serviceName.textContent = serviceData.name;
+        jobTitle.textContent = jobData.title || "N/A";
+        jobCompany.textContent = jobData.company || "N/A";
+        applicationLabel.textContent =
+          serviceTypeParam === "application-premium" ||
+          serviceTypeParam === "boost-basic" ||
+          serviceTypeParam === "boost-pro" ||
+          serviceTypeParam === "boost-enterprise"
+            ? "Application ID"
+            : "Job ID";
+        applicationId.textContent = jobData.applicationId || "N/A";
+        setReferenceDisplay(paymentReference, currentReference);
+        serviceDuration.textContent = serviceData.duration;
+        totalAmount.textContent = formatAmount(amountParam || serviceData.amount, "GHS 0");
+        benefitsTitle.textContent = serviceData.benefitsTitle;
+
+        if (serviceData.type === "Premium Verification") {
+          serviceType.innerHTML = `${serviceData.type} <span class="service-badge badge-premium">PREMIUM</span>`;
+        } else if (serviceData.type === "Application Boost") {
+          serviceType.innerHTML = `${serviceData.type} <span class="service-badge badge-boost">BOOST</span>`;
+        } else {
+          serviceType.textContent = serviceData.type;
+        }
+
+        document.title = `Payment for ${jobData.title || "Service"} | Job Assist Ghana`;
+      }
+
+      userProfile.addEventListener("click", function (e) {
+        e.stopPropagation();
+        profileDropdown.classList.toggle("show");
       });
 
-      // Close dropdown when clicking outside
       document.addEventListener("click", function (event) {
         if (!event.target.closest(".user-profile")) {
-          document.querySelector(".dropdown-menu").classList.remove("show");
+          profileDropdown.classList.remove("show");
+        }
+
+        if (!event.target.closest(".notification-icon") && !event.target.closest(".notification-dropdown")) {
+          notificationDropdown.classList.remove("show");
         }
       });
 
-      // Payment Method Selection
+      notificationIcon.addEventListener("click", function (e) {
+        e.stopPropagation();
+        notificationDropdown.classList.toggle("show");
+      });
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", function () {
+          const tabId = tab.getAttribute("data-tab");
+          tabs.forEach((item) => item.classList.remove("active"));
+          tabContents.forEach((content) => content.classList.remove("active"));
+          tab.classList.add("active");
+          document.getElementById(`${tabId}-tab`).classList.add("active");
+
+          if (tabId === "history") {
+            loadTransactionHistory();
+          }
+        });
+      });
+
+      transactionsList?.addEventListener("click", function (event) {
+        const toggleButton = event.target.closest(".transaction-toggle");
+        if (!toggleButton) return;
+
+        const row = toggleButton.closest(".transaction-item");
+        if (!row) return;
+
+        const isOpen = row.classList.toggle("is-open");
+        toggleButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        toggleButton.textContent = isOpen ? "Hide details" : "View details";
+      });
+
       paymentOptions.forEach((option) => {
         option.addEventListener("click", function () {
-          // Remove selected class from all options
           paymentOptions.forEach((opt) => opt.classList.remove("selected"));
-
-          // Add selected class to clicked option
           this.classList.add("selected");
 
-          // Get payment method
           const method = this.getAttribute("data-method");
-
-          // Hide all payment forms
           paymentForms.forEach((form) => (form.style.display = "none"));
-
-          // Show selected payment form
           document.getElementById(`${method}Form`).style.display = "block";
 
-          // Clear any existing errors when switching methods
           clearErrors();
           checkFormValidity();
         });
       });
 
-      // Validation functions
       function validateMobileNumber(number) {
         const cleanNumber = number.replace(/\s/g, "");
         return /^(024|025|053|054|055|059|020|050|026|056|027|057)\d{7}$/.test(
-          cleanNumber,
-        );
+          cleanNumber
+);
       }
 
       function validateCardNumber(number) {
@@ -1388,116 +2099,87 @@
         return /^(0[1-9]|1[0-2])\/\d{2}$/.test(date);
       }
 
-      function validateCVV(cvv) {
-        return /^\d{3,4}$/.test(cvv);
+      function validateCVV(value) {
+        return /^\d{3,4}$/.test(value);
       }
 
       function validateCardName(name) {
         return name.trim().length >= 2;
       }
 
-      // Format mobile number input
       mobileNumber.addEventListener("input", function (e) {
-        let value = e.target.value.replace(/\D/g, "");
-
+        let value = e.target.value.replace(/\D/g, "").slice(0, 10);
         if (value.length > 0) {
           value = value.match(/.{1,3}/g).join(" ");
         }
-
         e.target.value = value;
         checkFormValidity();
       });
 
-      // Format card number input
       cardNumber.addEventListener("input", function (e) {
-        let value = e.target.value.replace(/\D/g, "");
-
+        let value = e.target.value.replace(/\D/g, "").slice(0, 16);
         if (value.length > 0) {
           value = value.match(/.{1,4}/g).join(" ");
         }
-
         e.target.value = value;
         checkFormValidity();
       });
 
-      // Format expiry date input
       expiryDate.addEventListener("input", function (e) {
-        let value = e.target.value.replace(/\D/g, "");
-
-        if (value.length >= 2) {
+        let value = e.target.value.replace(/\D/g, "").slice(0, 4);
+        if (value.length >= 3) {
           value = value.substring(0, 2) + "/" + value.substring(2, 4);
         }
-
         e.target.value = value;
         checkFormValidity();
       });
 
-      // Add input event listeners for real-time validation
-      const formInputs = [
-        mobileProvider,
-        mobileNumber,
-        cardNumber,
-        expiryDate,
-        cvv,
-        cardName,
-      ];
-      formInputs.forEach((input) => {
-        if (input) {
-          input.addEventListener("input", checkFormValidity);
-        }
+      [mobileProvider, cvv, cardName].forEach((input) => {
+        input.addEventListener("input", checkFormValidity);
       });
 
-      // Clear all error states
       function clearErrors() {
         document.querySelectorAll(".error-message").forEach((error) => {
           error.classList.remove("show");
         });
+
         document.querySelectorAll(".form-control").forEach((input) => {
           input.classList.remove("error");
         });
       }
 
-      // Check if form is valid (without showing errors)
       function checkFormValidity() {
         const selectedMethod = document
           .querySelector(".payment-option.selected")
           .getAttribute("data-method");
+
         let isValid = true;
 
         if (selectedMethod === "mobile") {
-          // Validate mobile money form
-          if (
-            !mobileProvider.value ||
-            !validateMobileNumber(mobileNumber.value)
-          ) {
+          if (!mobileProvider.value || !validateMobileNumber(mobileNumber.value)) {
             isValid = false;
           }
         } else {
-          // Validate card form
           if (
             !validateCardNumber(cardNumber.value) ||
             !validateExpiryDate(expiryDate.value) ||
             !validateCVV(cvv.value) ||
             !validateCardName(cardName.value)
-          ) {
+) {
             isValid = false;
           }
         }
 
-        // Update button state
         payButton.disabled = !isValid;
-
         return isValid;
       }
 
-      // Show validation errors
       function showValidationErrors() {
         const selectedMethod = document
           .querySelector(".payment-option.selected")
           .getAttribute("data-method");
 
         if (selectedMethod === "mobile") {
-          // Validate mobile money form
           if (!mobileProvider.value) {
             providerError.classList.add("show");
             mobileProvider.classList.add("error");
@@ -1508,7 +2190,6 @@
             mobileNumber.classList.add("error");
           }
         } else {
-          // Validate card form
           if (!validateCardNumber(cardNumber.value)) {
             cardError.classList.add("show");
             cardNumber.classList.add("error");
@@ -1531,107 +2212,131 @@
         }
       }
 
-      // Handle Payment
+      function setPaymentButtonState(isLoading, message) {
+        if (isLoading) {
+          payButton.dataset.loading = "true";
+          payButton.classList.add("loading-button");
+          if (payButtonText) payButtonText.style.display = "none";
+          if (payButtonLoader) payButtonLoader.style.display = "inline-flex";
+          payButton.disabled = true;
+          if (processingBanner) processingBanner.classList.add("show");
+          if (paymentStatusNote) {
+            paymentStatusNote.textContent = message || "Please wait, initializing payment...";
+            paymentStatusNote.classList.add("show");
+          }
+          return;
+        }
+
+        delete payButton.dataset.loading;
+        payButton.classList.remove("loading-button");
+        if (payButtonText) payButtonText.style.display = "inline-flex";
+        if (payButtonLoader) payButtonLoader.style.display = "none";
+        if (processingBanner) processingBanner.classList.remove("show");
+        payButton.disabled = !checkFormValidity();
+        if (paymentStatusNote) {
+          paymentStatusNote.classList.remove("show");
+          paymentStatusNote.textContent = "";
+        }
+      }
+
       payButton.addEventListener("click", function () {
-        // Clear previous errors
+        if (payButton.dataset.loading === "true") return;
+
         clearErrors();
 
-        // Validate form and show errors if invalid
         if (!checkFormValidity()) {
           showValidationErrors();
           return;
         }
 
-        // Get job details for confirmation
-        const appliedJobs =
-          JSON.parse(localStorage.getItem("appliedJobs")) || [];
-        let jobData;
+        setPaymentButtonState(true, "Redirecting to secure payment...");
 
-        if (jobId && jobDatabase[jobId]) {
-          jobData = jobDatabase[jobId];
-        } else if (appliedJobs.length > 0) {
-          jobData = appliedJobs[0];
-        } else {
-          jobData = jobDatabase["frontend-developer"];
-        }
+        try {
+          const jobData = getCurrentJobData();
+          const currentReference = getOrCreatePaymentReference();
+          const pendingAction =
+            window.JobAssistPaymentGate?.registerPendingPaymentAction({
+              actionId: actionIdParam || "",
+              role: "candidate",
+              flow: "candidate",
+              serviceType: serviceTypeParam,
+              serviceName: serviceDatabase[serviceTypeParam]?.name || safeDecode(serviceNameParam || serviceTypeParam),
+              referenceCode: currentReference,
+              jobId: String(jobData.id || jobIdParam || ""),
+              applicationId: String(jobData.applicationId || appIdParam || ""),
+              amount: Number(String(amountParam || serviceDatabase[serviceTypeParam]?.amount || "0").replace(/[^\d.]/g, "")),
+              displayAmount: formatAmount(amountParam || serviceDatabase[serviceTypeParam]?.amount || "0", "GHS 0"),
+              payload: {
+                jobTitle: String(jobData.title || ""),
+                company: String(jobData.company || ""),
+                next: serviceTypeParam === "application-premium" ||
+                  serviceTypeParam === "boost-basic" ||
+                  serviceTypeParam === "boost-pro" ||
+                  serviceTypeParam === "boost-enterprise"
+                  ? "your-applications.html"
+                  : "candidate-dashboard.html",
+              },
+            }) || null;
 
-        // Show loading state
-        const originalText = this.innerHTML;
-        this.innerHTML =
-          '<i class="fas fa-spinner fa-spin"></i> Processing Payment...';
-        this.disabled = true;
-
-        // In a real implementation, this would integrate with Paystack API
-        // For demonstration, we'll simulate payment processing with 80% success rate
-        setTimeout(() => {
-          const isSuccess = Math.random() > 0.2; // 80% success rate
-
-          if (isSuccess) {
-            // Update application status if it's a premium verification
-            if (serviceTypeParam === "application-premium") {
-              const appliedJobs =
-                JSON.parse(localStorage.getItem("appliedJobs")) || [];
-              const jobIndex = appliedJobs.findIndex((app) => app.id === jobId);
-              if (jobIndex !== -1) {
-                appliedJobs[jobIndex].status = "verified";
-                appliedJobs[jobIndex].tier = "premium";
-                appliedJobs[jobIndex].boosted = true;
-                appliedJobs[jobIndex].boostExpiry = new Date(
-                  Date.now() + 90 * 24 * 60 * 60 * 1000,
-                ).toISOString();
-                localStorage.setItem(
-                  "appliedJobs",
-                  JSON.stringify(appliedJobs),
-                );
+          setTimeout(() => {
+            try {
+              const successParams = new URLSearchParams();
+              successParams.set("service", serviceTypeParam);
+              successParams.set("amount", formatAmount(amountParam || serviceDatabase[serviceTypeParam]?.amount || "0"));
+              successParams.set("jobTitle", jobData.title || "");
+              successParams.set("company", jobData.company || "");
+              successParams.set("jobId", jobData.id || "");
+              successParams.set("applicationId", jobData.applicationId || "");
+              successParams.set("ref", currentReference);
+              if (pendingAction?.actionId) {
+                successParams.set("actionId", pendingAction.actionId);
               }
-            } else if (
-              serviceTypeParam === "boost-pro" ||
-              serviceTypeParam === "boost-enterprise"
-            ) {
-              // Update boost status
-              const appliedJobs =
-                JSON.parse(localStorage.getItem("appliedJobs")) || [];
-              const jobIndex = appliedJobs.findIndex((app) => app.id === jobId);
-              if (jobIndex !== -1) {
-                appliedJobs[jobIndex].boosted = true;
-                appliedJobs[jobIndex].boostExpiry =
-                  serviceTypeParam === "boost-pro"
-                    ? new Date(
-                        Date.now() + 30 * 24 * 60 * 60 * 1000,
-                      ).toISOString()
-                    : new Date(
-                        Date.now() + 90 * 24 * 60 * 60 * 1000,
-                      ).toISOString();
-                localStorage.setItem(
-                  "appliedJobs",
-                  JSON.stringify(appliedJobs),
-                );
+
+              if (
+                serviceTypeParam === "boost-basic" ||
+                serviceTypeParam === "boost-pro" ||
+                serviceTypeParam === "boost-enterprise"
+              ) {
+                successParams.set("next", "your-applications.html");
+              } else if (serviceTypeParam === "application-premium") {
+                successParams.set("next", "your-applications.html");
+              } else {
+                successParams.set("next", "candidate-dashboard.html");
               }
+
+              window.location.href = `payment-successful.html?${successParams.toString()}`;
+            } catch (error) {
+              console.error("Candidate payment redirect failed.", error);
+              setPaymentButtonState(false);
+              showPaymentError("Payment initialization failed. Please try again.");
             }
-
-            // Redirect to success page with order details
-            const successUrl = `payment-successful.html?service=${serviceTypeParam}&amount=${amount || "200"}&jobTitle=${encodeURIComponent(jobData.title)}&company=${encodeURIComponent(jobData.company)}&jobId=${jobId || "frontend-developer"}`;
-            window.location.href = successUrl;
-          } else {
-            // Redirect to failure page with error details
-            const failureUrl = `payment-failed.html?service=${serviceTypeParam}&amount=${amount || "200"}&jobTitle=${encodeURIComponent(jobData.title)}&company=${encodeURIComponent(jobData.company)}&jobId=${jobId || "frontend-developer"}`;
-            window.location.href = failureUrl;
-          }
-        }, 2000);
+          }, 2000);
+        } catch (error) {
+          console.error("Candidate payment setup failed.", error);
+          setPaymentButtonState(false);
+          showPaymentError("Payment initialization failed. Please try again.");
+        }
       });
 
-      // Logout functionality
       dropdownLogout.addEventListener("click", function (e) {
         e.preventDefault();
-        document.querySelector(".dropdown-menu").classList.remove("show");
-        alert("Logging out...");
+        profileDropdown.classList.remove("show");
+        window.location.href = "../login.html";
       });
 
-      // Initialize the page
       document.addEventListener("DOMContentLoaded", function () {
         initializePage();
-        checkFormValidity(); // Initial validation to set button state
+        loadTransactionHistory();
+        checkFormValidity();
+        if (window.JobAssistCandidateSession) {
+          window.JobAssistCandidateSession.renderCandidateHeader();
+        }
       });
     </script>
+  
+    <script src="../assets/js/payment-gating.js"></script>
+    <script src='../assets/js/product-polish.js'></script>
   </body>
 </html>
+
+

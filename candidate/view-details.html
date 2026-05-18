@@ -1,10 +1,10 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Job Details | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -14,8 +14,8 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
       }
 
       :root {
@@ -37,7 +37,9 @@
       }
 
       body {
-        background-color: var(--light);
+        background:
+          radial-gradient(circle at top right, rgba(248, 193, 46, 0.14), transparent 26%),
+          linear-gradient(180deg, #f8fbff 0%, #eef4fb 100%);
         color: var(--dark);
         line-height: 1.4;
       }
@@ -48,22 +50,21 @@
         padding: 0 30px;
       }
 
-      /* Header Section */
       .header-section {
-        background: linear-gradient(
-          135deg,
-          var(--primary-dark),
-          var(--primary)
-        );
+        background:
+          linear-gradient(135deg, rgba(10, 42, 102, 0.98), rgba(7, 30, 77, 0.94)),
+          linear-gradient(90deg, rgba(248, 193, 46, 0.16), transparent);
         color: white;
-        padding: 25px 0;
-        margin-bottom: 25px;
+        padding: 34px 0 30px;
+        margin-bottom: 28px;
+        box-shadow: 0 18px 42px rgba(10, 42, 102, 0.14);
       }
 
       .header-content {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 16px;
+        position: relative;
       }
 
       .back-btn {
@@ -71,7 +72,7 @@
         border: none;
         color: white;
         padding: 10px 16px;
-        border-radius: 6px;
+        border-radius: 999px;
         cursor: pointer;
         transition: var(--transition);
         display: inline-flex;
@@ -89,17 +90,29 @@
       }
 
       .job-title {
-        font-size: 1.6rem;
+        font-size: 2.15rem;
         font-weight: 700;
         color: white;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
         line-height: 1.3;
       }
 
       .company-name {
         font-size: 1.1rem;
         opacity: 0.9;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
+      }
+
+      .boost-banner {
+        display: none;
+        align-self: flex-start;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(248, 193, 46, 0.18);
+        border: 1px solid rgba(248, 193, 46, 0.4);
+        color: white;
+        font-size: 0.82rem;
+        font-weight: 700;
       }
 
       .job-meta {
@@ -114,10 +127,11 @@
         align-items: center;
         gap: 8px;
         background: rgba(255, 255, 255, 0.1);
-        padding: 8px 12px;
-        border-radius: 6px;
+        padding: 10px 14px;
+        border-radius: 14px;
         font-size: 0.9rem;
         flex-shrink: 0;
+        border: 1px solid rgba(255, 255, 255, 0.08);
       }
 
       .meta-item i {
@@ -125,7 +139,22 @@
         font-size: 0.9rem;
       }
 
-      /* Main Content Layout */
+      .job-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .job-tag {
+        background: rgba(255, 255, 255, 0.16);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
       .main-content {
         padding: 0 0 30px;
       }
@@ -133,18 +162,17 @@
       .job-details-container {
         display: grid;
         grid-template-columns: 1fr 350px;
-        gap: 20px;
+        gap: 22px;
         align-items: start;
       }
 
-      /* Job Details Sections */
       .details-section {
         background: white;
-        border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        border: 1px solid var(--gray-light);
+        border-radius: 22px;
+        padding: 24px;
+        margin-bottom: 22px;
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+        border: 1px solid rgba(10, 42, 102, 0.08);
       }
 
       .details-section:hover {
@@ -152,13 +180,13 @@
       }
 
       .section-title {
-        font-size: 1.1rem;
-        margin-bottom: 15px;
+        font-size: 1.14rem;
+        margin-bottom: 18px;
         color: var(--primary);
         display: flex;
         align-items: center;
         gap: 8px;
-        padding-bottom: 8px;
+        padding-bottom: 12px;
         border-bottom: 1px solid var(--gray-light);
         font-weight: 700;
       }
@@ -172,9 +200,9 @@
         line-height: 1.5;
         color: var(--dark);
         font-size: 0.95rem;
+        white-space: pre-line;
       }
 
-      /* Requirements Grid */
       .requirements-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -183,10 +211,11 @@
       }
 
       .requirement-item {
-        background: var(--light);
-        padding: 15px;
-        border-radius: 6px;
-        border-left: 3px solid var(--secondary);
+        background: linear-gradient(180deg, #fbfdff, #f8fafc);
+        padding: 16px;
+        border-radius: 16px;
+        border-left: 4px solid var(--secondary);
+        border: 1px solid rgba(10, 42, 102, 0.06);
       }
 
       .requirement-label {
@@ -202,15 +231,16 @@
         font-size: 0.95rem;
       }
 
-      /* Skills List */
-      .skills-list {
+      .skills-list,
+      .categories-list {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
         margin-top: 12px;
       }
 
-      .skill-tag {
+      .skill-tag,
+      .category-tag {
         background: var(--primary);
         color: white;
         padding: 6px 12px;
@@ -220,11 +250,11 @@
         transition: var(--transition);
       }
 
-      .skill-tag:hover {
+      .skill-tag:hover,
+      .category-tag:hover {
         background: var(--primary-dark);
       }
 
-      /* Application Details */
       .application-details {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -235,9 +265,10 @@
       .detail-item {
         display: flex;
         flex-direction: column;
-        background: var(--light);
-        padding: 15px;
-        border-radius: 6px;
+        background: linear-gradient(180deg, #fbfdff, #f8fafc);
+        padding: 16px;
+        border-radius: 16px;
+        border: 1px solid rgba(10, 42, 102, 0.06);
       }
 
       .detail-label {
@@ -251,6 +282,7 @@
         font-weight: 600;
         color: var(--dark);
         font-size: 0.95rem;
+        word-break: break-word;
       }
 
       .application-instructions {
@@ -275,13 +307,12 @@
         font-size: 1rem;
       }
 
-      /* Sidebar Actions */
       .sidebar-actions {
         background: white;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        border: 1px solid var(--gray-light);
+        border-radius: 22px;
+        padding: 22px;
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+        border: 1px solid rgba(10, 42, 102, 0.08);
         position: sticky;
         top: 20px;
       }
@@ -295,7 +326,7 @@
 
       .btn {
         padding: 12px 20px;
-        border-radius: 6px;
+        border-radius: 14px;
         font-weight: 600;
         cursor: pointer;
         transition: var(--transition);
@@ -347,15 +378,6 @@
         background-color: var(--gray-light);
       }
 
-      .btn-success {
-        background-color: var(--success);
-        color: white;
-      }
-
-      .btn-success:hover {
-        background-color: #0d9c6b;
-      }
-
       .btn-disabled {
         background-color: var(--gray-light);
         color: var(--gray);
@@ -366,14 +388,25 @@
         background-color: var(--gray-light);
       }
 
-      /* Application Status Badge */
+      .report-btn-disabled {
+        background: #94a3b8;
+        color: rgba(255, 255, 255, 0.95);
+        cursor: not-allowed;
+        opacity: 0.9;
+      }
+
+      .report-btn-disabled:hover {
+        background: #94a3b8;
+      }
+
       .application-status {
         display: inline-block;
         padding: 4px 8px;
         border-radius: 12px;
         font-size: 0.7rem;
-        font-weight: 600;
+        font-weight: 700;
         margin-left: 6px;
+        vertical-align: middle;
       }
 
       .status-applied {
@@ -386,17 +419,11 @@
         color: var(--primary);
       }
 
-      .status-pending {
-        background: var(--warning);
-        color: white;
-      }
-
-      /* Premium Verification Section */
       .premium-verification {
-        background: rgba(248, 193, 46, 0.1);
-        border: 1px solid var(--secondary);
-        border-radius: 6px;
-        padding: 15px;
+        background: linear-gradient(180deg, rgba(248, 193, 46, 0.14), rgba(255, 255, 255, 0.96));
+        border: 1px solid rgba(248, 193, 46, 0.55);
+        border-radius: 16px;
+        padding: 18px;
         margin: 15px 0;
         text-align: center;
       }
@@ -414,10 +441,21 @@
       .premium-verification p {
         color: var(--gray);
         font-size: 0.85rem;
-        margin-bottom: 10px;
+        margin-bottom: 0;
       }
 
-      /* Security Assurance Section */
+      .expired-job-notice {
+        display: none;
+        margin-bottom: 18px;
+        padding: 14px 16px;
+        border-radius: 14px;
+        background: rgba(239, 68, 68, 0.08);
+        border: 1px solid rgba(239, 68, 68, 0.22);
+        color: var(--danger-dark);
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
       .security-assurance {
         border-top: 1px solid var(--gray-light);
         padding-top: 15px;
@@ -427,9 +465,9 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        padding: 15px;
-        background: rgba(16, 185, 129, 0.1);
-        border-radius: 6px;
+        padding: 16px;
+        background: linear-gradient(180deg, rgba(16, 185, 129, 0.12), rgba(255, 255, 255, 0.96));
+        border-radius: 16px;
         margin-bottom: 15px;
         border: 1px solid rgba(16, 185, 129, 0.2);
       }
@@ -444,7 +482,7 @@
       }
 
       .verification-title {
-        font-weight: 600;
+        font-weight: 700;
         color: var(--success);
         margin-bottom: 4px;
         font-size: 0.95rem;
@@ -476,7 +514,6 @@
         font-size: 0.9rem;
       }
 
-      /* Report Button Container */
       .report-container {
         text-align: center;
         margin-top: 8px;
@@ -489,7 +526,6 @@
         font-style: italic;
       }
 
-      /* Application Modal */
       .application-modal {
         display: none;
         position: fixed;
@@ -510,10 +546,10 @@
 
       .application-modal .modal-content {
         background-color: white;
-        border-radius: 8px;
+        border-radius: 20px;
         width: 100%;
         max-width: 500px;
-        padding: 18px;
+        padding: 22px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         border-top: 5px solid var(--secondary);
       }
@@ -545,6 +581,10 @@
         margin-bottom: 12px;
       }
 
+      .application-modal .modal-content {
+        position: relative;
+      }
+
       .job-preview {
         background: var(--light);
         padding: 12px;
@@ -553,7 +593,7 @@
       }
 
       .job-preview-title {
-        font-weight: 600;
+        font-weight: 700;
         color: var(--primary);
         margin-bottom: 4px;
         font-size: 0.95rem;
@@ -570,15 +610,119 @@
         margin-top: 12px;
       }
 
+      .application-documents-section {
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid var(--gray-light);
+      }
+
+      .application-documents-title {
+        margin: 0 0 6px;
+        color: var(--primary);
+        font-size: 0.95rem;
+        font-weight: 700;
+      }
+
+      .application-documents-help {
+        margin: 0 0 12px;
+        color: var(--gray);
+        font-size: 0.82rem;
+        line-height: 1.5;
+      }
+
+      .document-upload-box {
+        border: 1px dashed rgba(10, 42, 102, 0.24);
+        border-radius: 12px;
+        background: rgba(248, 250, 252, 0.9);
+        padding: 14px;
+      }
+
+      .document-upload-trigger {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px;
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        border-radius: 10px;
+        background: white;
+        color: var(--primary);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+      }
+
+      .document-upload-trigger:hover {
+        border-color: rgba(10, 42, 102, 0.35);
+      }
+
+      .document-upload-meta {
+        margin-top: 8px;
+        color: var(--gray);
+        font-size: 0.76rem;
+        line-height: 1.5;
+      }
+
+      .selected-document-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .selected-document-item {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        background: white;
+        border: 1px solid rgba(148, 163, 184, 0.24);
+      }
+
+      .selected-document-name {
+        color: var(--dark);
+        font-size: 0.84rem;
+        font-weight: 600;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .selected-document-meta {
+        margin-top: 3px;
+        color: var(--gray);
+        font-size: 0.74rem;
+      }
+
+      .selected-document-remove {
+        flex-shrink: 0;
+        width: 30px;
+        height: 30px;
+        border: 0;
+        border-radius: 8px;
+        background: rgba(239, 68, 68, 0.12);
+        color: #dc2626;
+        cursor: pointer;
+      }
+
+      .selected-document-remove:hover {
+        background: rgba(239, 68, 68, 0.18);
+      }
+
       .tier-option {
         flex: 1;
         border: 1px solid var(--gray-light);
-        border-radius: 6px;
-        padding: 12px;
+        border-radius: 16px;
+        padding: 14px;
         text-align: center;
         cursor: pointer;
         transition: var(--transition);
         background: white;
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
       }
 
       .tier-option:hover {
@@ -603,7 +747,7 @@
         padding: 3px 6px;
         border-radius: 4px;
         font-size: 0.65rem;
-        font-weight: 600;
+        font-weight: 700;
         margin-bottom: 6px;
       }
 
@@ -619,7 +763,7 @@
 
       .tier-price {
         font-size: 0.9rem;
-        font-weight: 700;
+        font-weight: 800;
         margin: 6px 0;
       }
 
@@ -639,7 +783,7 @@
       }
 
       .tier-features li:before {
-        content: "✓";
+        content: "\2713";
         position: absolute;
         left: 0;
         color: var(--success);
@@ -648,7 +792,87 @@
       }
 
       .premium-features li:before {
-        color: var(--secondary);
+        color: var(--success);
+      }
+
+      .application-confirm-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.42);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+        z-index: 3;
+        border-radius: inherit;
+      }
+
+      .application-confirm-overlay.show {
+        display: flex;
+      }
+
+      .application-confirm-dialog {
+        width: min(100%, 430px);
+        background: white;
+        border-radius: 18px;
+        padding: 22px 22px 20px;
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        box-shadow: 0 24px 48px rgba(15, 23, 42, 0.22);
+      }
+
+      .application-confirm-title {
+        margin: 0 0 10px;
+        color: var(--primary);
+        font-size: 1.02rem;
+        font-weight: 800;
+        line-height: 1.35;
+      }
+
+      .application-confirm-copy {
+        margin: 0;
+        color: var(--gray);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .application-confirm-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .application-confirm-btn {
+        width: 100%;
+        min-height: 46px;
+        justify-content: center;
+        text-align: center;
+        white-space: normal;
+        line-height: 1.35;
+        box-shadow: none;
+        border-radius: 12px;
+        font-weight: 700;
+      }
+
+      .application-confirm-btn-secondary {
+        border: 1px solid rgba(10, 42, 102, 0.14);
+        background: white;
+        color: var(--primary);
+      }
+
+      .application-confirm-btn-secondary:hover {
+        background: rgba(10, 42, 102, 0.04);
+      }
+
+      .application-confirm-btn-primary {
+        background: rgba(248, 193, 46, 0.92);
+        color: var(--primary);
+      }
+
+      .application-confirm-btn-primary:hover {
+        background: var(--secondary);
       }
 
       .tier-action {
@@ -656,7 +880,7 @@
         padding: 8px;
         border: none;
         border-radius: 4px;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
         transition: var(--transition);
         font-size: 0.8rem;
@@ -693,7 +917,7 @@
 
       .success-title {
         font-size: 1.1rem;
-        font-weight: 600;
+        font-weight: 800;
         color: var(--primary);
         margin-bottom: 8px;
       }
@@ -725,7 +949,29 @@
         margin-bottom: 10px;
       }
 
-      /* Footer */
+      .upgrade-action-panel {
+        display: none;
+        margin-top: 18px;
+        padding: 18px 20px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, rgba(248, 193, 46, 0.14), rgba(10, 42, 102, 0.08));
+        border: 1px solid rgba(248, 193, 46, 0.35);
+        box-shadow: 0 16px 30px rgba(7, 30, 77, 0.08);
+      }
+
+      .upgrade-action-panel h4 {
+        margin: 0 0 8px;
+        color: var(--primary-dark);
+        font-size: 1rem;
+      }
+
+      .upgrade-action-panel p {
+        margin: 0 0 14px;
+        color: var(--gray);
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
       .footer {
         background-color: var(--primary);
         color: white;
@@ -760,12 +1006,6 @@
         font-size: 0.8rem;
       }
 
-      /* ====================== */
-      /* MOBILE RESPONSIVENESS */
-      /* Using view-applicants principles */
-      /* ====================== */
-
-      /* Tablet (992px and below) */
       @media (max-width: 992px) {
         .container {
           padding: 0 20px;
@@ -799,7 +1039,6 @@
         }
       }
 
-      /* Mobile (768px and below) */
       @media (max-width: 768px) {
         .container {
           padding: 0 15px;
@@ -859,7 +1098,8 @@
           font-size: 0.9rem;
         }
 
-        .skill-tag {
+        .skill-tag,
+        .category-tag {
           padding: 5px 10px;
           font-size: 0.75rem;
         }
@@ -911,7 +1151,6 @@
         }
       }
 
-      /* Small Mobile (576px and below) */
       @media (max-width: 576px) {
         .container {
           padding: 0 12px;
@@ -991,7 +1230,6 @@
         }
       }
 
-      /* Extra Small Mobile (480px and below) */
       @media (max-width: 480px) {
         .container {
           padding: 0 10px;
@@ -1030,7 +1268,8 @@
           padding: 10px;
         }
 
-        .skill-tag {
+        .skill-tag,
+        .category-tag {
           padding: 4px 8px;
           font-size: 0.7rem;
         }
@@ -1056,9 +1295,12 @@
         .application-modal .modal-content {
           padding: 14px;
         }
+
+        .application-confirm-actions {
+          grid-template-columns: 1fr;
+        }
       }
 
-      /* Very Small Mobile (360px and below) */
       @media (max-width: 360px) {
         .container {
           padding: 0 8px;
@@ -1107,60 +1349,83 @@
         }
       }
     </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
   </head>
+
   <body>
-    <!-- Application Modal -->
     <div class="application-modal" id="applicationModal">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title" id="applicationModalTitle">Apply for Job</h3>
-          <button class="close-modal" id="closeApplicationModal">
-            &times;
-          </button>
+          <button class="close-modal" id="closeApplicationModal">&times;</button>
         </div>
         <div class="modal-body">
           <div class="job-preview">
-            <div class="job-preview-title" id="modalJobTitle">
-              Frontend Developer
-            </div>
-            <div class="job-preview-company" id="modalJobCompany">
-              Two Southeast Las
-            </div>
+            <div class="job-preview-title" id="modalJobTitle">Frontend Developer</div>
+            <div class="job-preview-company" id="modalJobCompany">Two Southeast Las</div>
           </div>
 
           <div id="tierSelection">
-            <h4
-              style="
-                margin-bottom: 15px;
-                color: var(--primary);
-                font-size: 0.9rem;
-              "
-            >
+            <h4 style="margin-bottom: 15px; color: var(--primary); font-size: 0.9rem;">
               Choose Application Type
             </h4>
             <div class="application-tiers">
               <div class="tier-option tier-free" data-tier="free">
                 <div class="tier-badge badge-free">FREE</div>
-                <div class="tier-price">₵0</div>
+                <div class="tier-price">GHS 0</div>
                 <ul class="tier-features">
                   <li>Basic application submission</li>
                   <li>Standard placement in applicant list</li>
                   <li>Application confirmation</li>
                 </ul>
-                <button class="tier-action btn-free">Apply Free</button>
+                <button class="tier-action btn-free" type="button">Apply Free</button>
               </div>
               <div class="tier-option tier-premium" data-tier="premium">
                 <div class="tier-badge badge-premium">PREMIUM</div>
-                <div class="tier-price">₵50</div>
+                <div class="tier-price">GHS 50</div>
                 <ul class="tier-features premium-features">
                   <li>Priority placement in applicant list</li>
                   <li>Verified application badge</li>
                   <li>Enhanced employer visibility</li>
                   <li>Quality verification check</li>
                 </ul>
-                <button class="tier-action btn-premium">
+                <button class="tier-action btn-premium" type="button">
                   Apply with Premium
                 </button>
+              </div>
+            </div>
+
+            <div class="application-documents-section">
+              <h4 class="application-documents-title">Attach Application Documents</h4>
+              <p class="application-documents-help">
+                Upload the documents you want to send for this specific job
+                application.
+              </p>
+              <div class="document-upload-box">
+                <input
+                  type="file"
+                  id="applicationDocumentsInput"
+                  accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                  multiple
+                  hidden
+                />
+                <button
+                  type="button"
+                  class="document-upload-trigger"
+                  id="applicationDocumentsTrigger"
+                >
+                  <i class="fas fa-paperclip"></i>
+                  <span>Choose Documents</span>
+                </button>
+                <div class="document-upload-meta">
+                  PDF, DOC, DOCX, JPG, and PNG only. Maximum 3 files, 5MB each.
+                </div>
+                <div
+                  class="selected-document-list"
+                  id="applicationDocumentsList"
+                  aria-live="polite"
+                ></div>
               </div>
             </div>
           </div>
@@ -1172,22 +1437,37 @@
               </div>
               <h3 class="success-title">Application Submitted!</h3>
               <p class="success-message" id="successMessage">
-                Your application has been successfully submitted to the
-                employer.
+                Your application has been successfully submitted to the employer.
               </p>
 
-              <div class="boost-cta">
-                <h4>🚀 Boost Your Application</h4>
-                <p>
-                  Get priority visibility and stand out from other applicants
-                </p>
-                <button class="btn btn-premium" id="boostNowBtn">
-                  <i class="fas fa-rocket"></i> Boost Application Now
-                </button>
-              </div>
-
-              <button class="btn btn-outline" id="viewApplicationsBtn">
+              <button class="btn btn-outline" id="viewApplicationsBtn" type="button">
                 <i class="fas fa-list"></i> View My Applications
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="application-confirm-overlay" id="applicationConfirmOverlay">
+          <div class="application-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="applicationConfirmTitle">
+            <h4 class="application-confirm-title" id="applicationConfirmTitle">
+              Continue Without Documents?
+            </h4>
+            <p class="application-confirm-copy">
+              You have not attached any documents. Are you sure you want to continue without documents?
+            </p>
+            <div class="application-confirm-actions">
+              <button
+                type="button"
+                class="btn application-confirm-btn application-confirm-btn-secondary"
+                id="cancelNoDocumentsBtn"
+              >
+                Go Back and Attach Documents
+              </button>
+              <button
+                type="button"
+                class="btn application-confirm-btn application-confirm-btn-primary"
+                id="confirmNoDocumentsBtn"
+              >
+                Continue Without Documents
               </button>
             </div>
           </div>
@@ -1195,15 +1475,17 @@
       </div>
     </div>
 
-    <!-- Header -->
     <div class="header-section">
       <div class="container">
         <div class="header-content">
-          <button class="back-btn" id="backBtn">
+          <button class="back-btn" id="backBtn" type="button">
             <i class="fas fa-arrow-left"></i> Back
           </button>
+
           <h1 class="job-title" id="jobTitle">Job Title</h1>
           <div class="company-name" id="companyName">Company Name</div>
+          <div class="boost-banner" id="boostBanner">This job is featured</div>
+
           <div class="job-meta">
             <div class="meta-item">
               <i class="fas fa-map-marker-alt"></i>
@@ -1222,17 +1504,15 @@
               <span id="jobDeadline">Deadline</span>
             </div>
           </div>
+
         </div>
       </div>
     </div>
 
-    <!-- Main Content -->
     <div class="container">
       <div class="main-content">
         <div class="job-details-container">
-          <!-- Left Column - Job Details -->
           <div class="job-details">
-            <!-- Job Description Section -->
             <section class="details-section">
               <h2 class="section-title">
                 <i class="fas fa-file-alt"></i> Job Description
@@ -1242,11 +1522,9 @@
               </div>
             </section>
 
-            <!-- Requirements & Qualifications Section -->
             <section class="details-section">
               <h2 class="section-title">
-                <i class="fas fa-graduation-cap"></i> Requirements &
-                Qualifications
+                <i class="fas fa-graduation-cap"></i> Requirements & Qualifications
               </h2>
 
               <div class="requirements-grid">
@@ -1263,7 +1541,7 @@
                   </div>
                 </div>
                 <div class="requirement-item">
-                  <div class="requirement-label">Category</div>
+                  <div class="requirement-label">Categories</div>
                   <div class="requirement-value" id="jobCategory">
                     Not specified
                   </div>
@@ -1277,19 +1555,19 @@
               </div>
 
               <div class="requirement-item">
-                <div class="requirement-label">
-                  Specific Requirements & Skills
-                </div>
+                <div class="requirement-label">Selected Categories</div>
+                <div class="categories-list" id="categoriesList"></div>
+              </div>
+
+              <div class="requirement-item" style="margin-top: 15px;">
+                <div class="requirement-label">Specific Requirements & Skills</div>
                 <div class="requirement-value" id="jobRequirements">
                   Not specified
                 </div>
-                <div class="skills-list" id="skillsList">
-                  <!-- Skills will be dynamically added here -->
-                </div>
+                <div class="skills-list" id="skillsList"></div>
               </div>
             </section>
 
-            <!-- Application Details Section -->
             <section class="details-section">
               <h2 class="section-title">
                 <i class="fas fa-clipboard-list"></i> Application Details
@@ -1298,9 +1576,7 @@
               <div class="application-details">
                 <div class="detail-item">
                   <div class="detail-label">Contact Email</div>
-                  <div class="detail-value" id="contactEmail">
-                    email@company.com
-                  </div>
+                  <div class="detail-value" id="contactEmail">email@company.com</div>
                 </div>
                 <div class="detail-item">
                   <div class="detail-label">Application Deadline</div>
@@ -1323,38 +1599,40 @@
                   <div class="instructions-title">
                     <i class="fas fa-info-circle"></i> Application Instructions
                   </div>
-                  <div id="applicationInstructions">
-                    Loading instructions...
-                  </div>
+                  <div id="applicationInstructions">Loading instructions...</div>
                 </div>
               </div>
             </section>
           </div>
 
-          <!-- Right Column - Action Sidebar -->
           <div class="sidebar-actions">
-            <div class="action-buttons" id="actionButtons">
-              <!-- Action buttons will be dynamically populated based on context -->
+            <div class="action-buttons" id="actionButtons"></div>
+            <div class="expired-job-notice" id="expiredJobNotice">
+              This job has expired and is no longer accepting applications.
             </div>
 
-            <!-- Premium Verification Status -->
             <div id="premiumStatusSection" style="display: none">
               <div class="premium-verification">
                 <h4><i class="fas fa-crown"></i> Premium Verified</h4>
-                <p>
-                  Your application has premium verification and priority
-                  placement
-                </p>
+                <p>Your application has premium verification and priority placement</p>
               </div>
+            </div>
+
+            <div id="boostSection" class="upgrade-action-panel">
+              <h4><i class="fas fa-rocket"></i> Improve this application's visibility</h4>
+              <p>
+                Upgrade this application to a stronger priority tier and stay closer to the top of the shortlist.
+              </p>
+              <button class="btn btn-secondary" id="upgradeApplicationBtn" type="button">
+                <i class="fas fa-arrow-up-right-dots"></i> Upgrade Application
+              </button>
             </div>
 
             <div class="security-assurance">
               <div class="verification-badge">
                 <i class="fas fa-shield-check verification-icon"></i>
                 <div class="verification-text">
-                  <div class="verification-title">
-                    Job Assist Ghana Verified
-                  </div>
+                  <div class="verification-title">Job Assist Ghana Verified</div>
                   <div class="verification-desc">
                     This employer is verified and approved to post jobs
                   </div>
@@ -1380,9 +1658,8 @@
                 </div>
               </div>
 
-              <!-- Report Button Section -->
               <div class="report-container">
-                <button class="btn btn-danger" id="reportJobBtn">
+                <button class="btn btn-danger" id="reportJobBtn" type="button">
                   <i class="fas fa-flag"></i> Report Job/Business
                 </button>
                 <p class="report-note">
@@ -1395,230 +1672,822 @@
       </div>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
       <div class="footer-links">
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="contact.html">Contact Us</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../contact.html">Contact Us</a>
       </div>
       <div class="footer-bottom">
-        <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+        <p>Copyright 2025 Job Assist Ghana. All rights reserved.</p>
       </div>
     </footer>
 
+    <script src="../assets/js/id-generator.js"></script>
+    <script src="../assets/js/application-store.js"></script>
+    <script src="../assets/js/candidate-session.js"></script>
+    <script src="../assets/js/input-hardening.js"></script>
+    <script src="../assets/js/job-posting-expiry.js"></script>
+    <script src="../assets/js/toast.js"></script>
     <script>
-      // Job Data Structure (This would come from backend in real app)
-      const jobDatabase = {
-        "frontend-developer": {
-          id: "frontend-developer",
-          title: "Frontend Developer",
-          company: "Two Southeast Las",
-          description:
-            "We are looking for a skilled Frontend Developer with 3+ years of experience in modern web technologies. The ideal candidate will be responsible for building responsive web applications and collaborating with our design and backend teams.\n\nResponsibilities:\n• Develop and maintain responsive web applications using React.js\n• Collaborate with UX/UI designers to implement design systems\n• Write clean, maintainable, and efficient code\n• Participate in code reviews and team meetings\n• Optimize applications for maximum speed and scalability\n• Stay up-to-date with emerging technologies and industry trends",
-          category: "IT & Technology",
-          type: "Full-time",
-          city: "Accra",
-          region: "Greater Accra",
-          salaryRange: "₵3,500 - ₵4,500 per month",
-          experienceLevel: "Mid Level (2-5 years)",
-          educationLevel: "Bachelor's Degree",
-          requirements:
-            "React.js, JavaScript, HTML5, CSS3, Git, Responsive Design, REST APIs",
-          deadline: "2024-06-30",
-          vacancies: 2,
-          contactEmail: "careers@twosoutheast.com",
-          applicationInstructions:
-            'Please include your portfolio link and GitHub profile in your application. Mention "Frontend Developer Application" in the subject line.',
-          postedDate: "2024-05-15",
-        },
-        "marketing-manager": {
-          id: "marketing-manager",
-          title: "Marketing Manager",
-          company: "Global Emails Inc",
-          description:
-            "Exciting opportunity for a Marketing Manager with 3+ years experience in brand management and digital marketing strategies. You will lead our marketing efforts and drive brand awareness across multiple channels.\n\nKey Responsibilities:\n• Develop and execute comprehensive marketing strategies\n• Manage digital marketing campaigns across various platforms\n• Analyze market trends and customer insights\n• Coordinate with sales team to align marketing efforts\n• Manage marketing budget and measure ROI\n• Lead and mentor junior marketing team members",
-          category: "Marketing & Sales",
-          type: "Full-time",
-          city: "Kumasi",
-          region: "Ashanti",
-          salaryRange: "₵4,000 - ₵5,000 per month",
-          experienceLevel: "Mid Level (2-5 years)",
-          educationLevel: "Bachelor's Degree",
-          requirements:
-            "Digital Marketing, Brand Management, Social Media, Analytics, Team Leadership, Campaign Management",
-          deadline: "2024-07-15",
-          vacancies: 1,
-          contactEmail: "hr@globalemails.com",
-          applicationInstructions:
-            "Submit your CV along with a cover letter detailing your marketing achievements. Include examples of successful campaigns you have managed.",
-          postedDate: "2024-05-10",
-        },
-        "senior-ux-designer": {
-          id: "senior-ux-designer",
-          title: "Senior UX Designer",
-          company: "Creative Labs Ghana",
-          description:
-            "Join our innovative team as a Senior UX Designer and help shape the future of digital products. We're looking for a creative problem-solver with a passion for user-centered design.\n\nWhat You'll Do:\n• Lead UX design for multiple digital products\n• Conduct user research and usability testing\n• Create wireframes, prototypes, and design systems\n• Collaborate with product managers and developers\n• Mentor junior designers and establish design best practices\n• Ensure design consistency across all platforms",
-          category: "IT & Technology",
-          type: "Full-time",
-          city: "Accra",
-          region: "Greater Accra",
-          salaryRange: "₵4,500 - ₵5,500 per month",
-          experienceLevel: "Senior Level (5+ years)",
-          educationLevel: "Bachelor's Degree",
-          requirements:
-            "UX Design, User Research, Figma, Prototyping, Design Systems, Usability Testing",
-          deadline: "2024-06-20",
-          vacancies: 1,
-          contactEmail: "design@creativelabsgh.com",
-          applicationInstructions:
-            "Please include your portfolio and case studies. We're particularly interested in your design process and problem-solving approach.",
-          postedDate: "2024-05-22",
-        },
-        "data-analyst": {
-          id: "data-analyst",
-          title: "Data Analyst",
-          company: "Tech Solutions Ltd",
-          description:
-            "Looking for a Data Analyst with experience in SQL, Python, and data visualization tools. You will help transform raw data into actionable insights that drive business decisions.\n\nResponsibilities:\n• Analyze complex datasets to identify trends and patterns\n• Create reports and dashboards for stakeholders\n• Develop and maintain data pipelines\n• Collaborate with cross-functional teams\n• Ensure data quality and integrity",
-          category: "IT & Technology",
-          type: "Full-time",
-          city: "Accra",
-          region: "Greater Accra",
-          salaryRange: "₵3,000 - ₵4,000 per month",
-          experienceLevel: "Mid Level (2-5 years)",
-          educationLevel: "Bachelor's Degree",
-          requirements:
-            "SQL, Python, Data Visualization, Statistics, Excel, Power BI",
-          deadline: "2024-06-25",
-          vacancies: 2,
-          contactEmail: "careers@techsolutions.com",
-          applicationInstructions:
-            "Submit your CV along with examples of data analysis projects you have worked on.",
-          postedDate: "2024-05-20",
-        },
-      };
+      const APPLICATIONS_KEY = "jobassist_applications";
+      const JOB_POSTS_KEY = "jobassist_employer_jobs";
+      const jobPostingExpiry = window.JobAssistJobPostingExpiry;
 
-      // Track applied jobs from localStorage
-      let appliedJobs = JSON.parse(localStorage.getItem("appliedJobs")) || [];
-      let currentJobId = null;
-      let currentJobData = null;
-
-      // Get job ID from URL parameters
-      function getJobIdFromURL() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get("id") || "frontend-developer"; // Default for demo
+      function showPageToast(message, type = "error") {
+        if (window.JobAssistUI?.showToast) {
+          window.JobAssistUI.showToast(message, type);
+          return;
+        }
+        if (window.JobAssistToast?.showToast) {
+          window.JobAssistToast.showToast(message, type);
+          return;
+        }
+        alert(message);
       }
 
-      // Get source page from URL parameters or sessionStorage
+      let appliedJobs = window.JobAssistApplications
+        ? window.JobAssistApplications.loadApplications()
+        : JSON.parse(localStorage.getItem(APPLICATIONS_KEY)) || [];
+      let currentJobId = null;
+      let currentJobData = null;
+      const BOOST_HANDOFF_KEY = "jobassist_candidate_boost_context";
+      const applicationConfirmOverlay = document.getElementById("applicationConfirmOverlay");
+      const cancelNoDocumentsBtn = document.getElementById("cancelNoDocumentsBtn");
+      const confirmNoDocumentsBtn = document.getElementById("confirmNoDocumentsBtn");
+      const applicationDocumentsInput = document.getElementById("applicationDocumentsInput");
+      const applicationDocumentsTrigger = document.getElementById("applicationDocumentsTrigger");
+      const applicationDocumentsList = document.getElementById("applicationDocumentsList");
+      let selectedApplicationDocuments = [];
+      let isReadingApplicationDocuments = false;
+      let pendingApplicationTier = null;
+
+      function safeJSONParse(value) {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return null;
+        }
+      }
+
+      function formatApplicationDocumentSize(size) {
+        const numericSize = Number(size || 0);
+        if (!Number.isFinite(numericSize) || numericSize <= 0) {
+          return "";
+        }
+        if (numericSize >= 1024 * 1024) {
+          return `${(numericSize / (1024 * 1024)).toFixed(1)} MB`;
+        }
+        return `${Math.max(1, Math.round(numericSize / 1024))} KB`;
+      }
+
+      function clearApplicationDocuments() {
+        selectedApplicationDocuments = [];
+        isReadingApplicationDocuments = false;
+        if (applicationDocumentsInput) {
+          applicationDocumentsInput.value = "";
+        }
+        renderApplicationDocuments();
+      }
+
+      function escapeDisplayText(value) {
+        return window.JobAssistInputHardening?.escapeHtml
+          ? window.JobAssistInputHardening.escapeHtml(value)
+          : String(value == null ? "" : value)
+              .replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;")
+              .replace(/\"/g, "&quot;")
+              .replace(/'/g, "&#39;");
+      }
+
+      function renderApplicationDocuments() {
+        if (!applicationDocumentsList) return;
+
+        if (!selectedApplicationDocuments.length) {
+          applicationDocumentsList.innerHTML = "";
+          return;
+        }
+
+        applicationDocumentsList.innerHTML = selectedApplicationDocuments
+          .map((document, index) => {
+            return `
+              <div class="selected-document-item">
+                <div>
+                  <div class="selected-document-name">${escapeDisplayText(document.name || "Document")}</div>
+                  <div class="selected-document-meta">${escapeDisplayText(formatApplicationDocumentSize(document.size))}</div>
+                </div>
+                <button
+                  type="button"
+                  class="selected-document-remove"
+                  data-document-index="${index}"
+                  aria-label="Remove ${escapeDisplayText(document.name || "document")}"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      function getApplicationDocuments() {
+        return selectedApplicationDocuments.slice();
+      }
+
+      function openNoDocumentsConfirmation(tierType) {
+        pendingApplicationTier = tierType || null;
+        applicationConfirmOverlay?.classList.add("show");
+      }
+
+      function closeNoDocumentsConfirmation() {
+        pendingApplicationTier = null;
+        applicationConfirmOverlay?.classList.remove("show");
+      }
+
+      function isAllowedApplicationDocument(file) {
+        const allowedMimeTypes = [
+          "application/pdf",
+          "application/msword",
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "image/jpeg",
+          "image/png",
+        ];
+        const fileName = String(file?.name || "").toLowerCase();
+        const hasValidExtension = [".pdf", ".doc", ".docx", ".jpg", ".jpeg", ".png"].some(
+          (extension) => fileName.endsWith(extension)
+        );
+        return allowedMimeTypes.includes(String(file?.type || "").toLowerCase()) || hasValidExtension;
+      }
+
+      function readApplicationDocument(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            resolve({
+              name: file.name,
+              type: file.type || "application/octet-stream",
+              size: file.size,
+              dataUrl: String(event?.target?.result || ""),
+            });
+          };
+          reader.onerror = function () {
+            reject(new Error("Unable to read one of the selected files."));
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      async function handleApplicationDocumentSelection(fileList) {
+        const incomingFiles = Array.from(fileList || []);
+        if (!incomingFiles.length) return;
+
+        const remainingSlots = Math.max(0, 3 - selectedApplicationDocuments.length);
+        if (!remainingSlots) {
+          showPageToast("You can upload up to 3 documents only.", "warning");
+          if (applicationDocumentsInput) {
+            applicationDocumentsInput.value = "";
+          }
+          return;
+        }
+
+        const filesToProcess = incomingFiles.slice(0, remainingSlots);
+        if (incomingFiles.length > remainingSlots) {
+          showPageToast("You can upload up to 3 documents only.", "warning");
+        }
+
+        for (const file of filesToProcess) {
+          if (!isAllowedApplicationDocument(file)) {
+            showPageToast("Only PDF, DOC, DOCX, JPG, and PNG files are allowed.", "warning");
+            if (applicationDocumentsInput) {
+              applicationDocumentsInput.value = "";
+            }
+            return;
+          }
+
+          if (Number(file.size || 0) > 5 * 1024 * 1024) {
+            showPageToast("Each document must be 5MB or less.", "warning");
+            if (applicationDocumentsInput) {
+              applicationDocumentsInput.value = "";
+            }
+            return;
+          }
+        }
+
+        try {
+          isReadingApplicationDocuments = true;
+          const nextDocuments = await Promise.all(
+            filesToProcess.map((file) => readApplicationDocument(file))
+          );
+          selectedApplicationDocuments = selectedApplicationDocuments
+            .concat(nextDocuments)
+            .slice(0, 3);
+          renderApplicationDocuments();
+        } catch (error) {
+          showPageToast(error?.message || "Unable to process the selected document.", "error");
+        } finally {
+          isReadingApplicationDocuments = false;
+          if (applicationDocumentsInput) {
+            applicationDocumentsInput.value = "";
+          }
+        }
+      }
+
+      function getCurrentCandidateProfile() {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getCurrentCandidate();
+        }
+
+        return safeJSONParse(localStorage.getItem("jobassist_current_user")) || null;
+      }
+
+      function getCurrentCandidateId(candidateProfile) {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getCandidateId(candidateProfile);
+        }
+
+        return String(
+          candidateProfile?.id ||
+            candidateProfile?.candidateId ||
+            candidateProfile?.userId ||
+            ""
+).trim();
+      }
+
+      function getStoredEmployerJobs() {
+        const stored = safeJSONParse(localStorage.getItem(JOB_POSTS_KEY));
+        return Array.isArray(stored) ? stored : [];
+      }
+
+      function normalizeCategories(job) {
+        let categories = [];
+
+        if (Array.isArray(job.jobCategory)) {
+          categories = [...job.jobCategory];
+        } else if (typeof job.jobCategory === "string" && job.jobCategory.trim()) {
+          categories = [job.jobCategory.trim()];
+        }
+
+        if (job.otherCategory && categories.includes("Other")) {
+          categories = categories.map((cat) =>
+            cat === "Other" ? job.otherCategory : cat
+);
+        }
+
+        return categories.filter(Boolean);
+      }
+
+      function getJobIdFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get("id");
+      }
+
       function getSourcePage() {
         const urlParams = new URLSearchParams(window.location.search);
         const source = urlParams.get("source");
 
-        // If source is provided in URL, use it and store in sessionStorage
         if (source) {
           sessionStorage.setItem("viewDetailsSource", source);
           return source;
         }
 
-        // Otherwise, check sessionStorage
         const storedSource = sessionStorage.getItem("viewDetailsSource");
-        if (storedSource) {
-          return storedSource;
-        }
-
-        // Default to browse-jobs if no source found
-        return "browse-jobs";
+        return storedSource || "browse-jobs";
       }
 
-      // Get back button URL based on source
       function getBackButtonURL(source) {
         switch (source) {
           case "dashboard":
+          case "candidate-dashboard":
             return "candidate-dashboard.html";
+
           case "applications":
+          case "your-applications":
             return "your-applications.html";
+
           case "accepted":
+          case "accepted-offers":
             return "accepted-offers.html";
+
           case "browse":
+          case "browse-jobs":
           default:
             return "browse-jobs.html";
         }
       }
 
-      // Format date for display
       function formatDate(dateString) {
+        if (!dateString) return "Not specified";
+        const date = new Date(dateString);
+        if (Number.isNaN(date.getTime())) return "Not specified";
+
         const options = { year: "numeric", month: "long", day: "numeric" };
-        return new Date(dateString).toLocaleDateString("en-GB", options);
+        return date.toLocaleDateString("en-GB", options);
       }
 
-      // Parse requirements into skills array
       function parseRequirements(requirements) {
         if (!requirements) return [];
-        return requirements.split(",").map((skill) => skill.trim());
+        return sanitizeDisplayText(requirements, 1000)
+          .split(",")
+          .map((skill) => skill.trim())
+          .filter(Boolean);
       }
 
-      // Get appropriate action buttons based on application status
+      function sanitizeDisplayText(value, maxLength = 0) {
+        return window.JobAssistInputHardening?.sanitizeText
+          ? window.JobAssistInputHardening.sanitizeText(value, { maxLength })
+          : String(value == null ? "" : value).trim();
+      }
+
+      function sanitizeDisplayMultiline(value, maxLength = 0) {
+        return window.JobAssistInputHardening?.sanitizeMultilineText
+          ? window.JobAssistInputHardening.sanitizeMultilineText(value, { maxLength })
+          : String(value == null ? "" : value).trim();
+      }
+
+      function getAllJobs() {
+        const employerJobs = getStoredEmployerJobs().filter((job) => {
+          if (job.isClosed) return false;
+          if (job.status === "closed") return false;
+          return true;
+        });
+
+        return employerJobs;
+      }
+
+      function findJobById(jobId) {
+        if (!jobId) return null;
+        return (
+          getAllJobs().find(
+            (job) => String(job.jobId || job.id) === String(jobId)
+) || null
+);
+      }
+
+      function getCompanyName(jobData) {
+        return sanitizeDisplayText((
+          jobData.companyName ||
+          jobData.company ||
+          jobData.businessName ||
+          jobData.companyname ||
+          "Employer"
+), 120);
+      }
+
+      function getJobTypeLabel(jobData) {
+        return sanitizeDisplayText(jobData.jobTypeCategory || jobData.type || "Not specified", 60);
+      }
+
+      function getJobDescription(jobData) {
+        return sanitizeDisplayMultiline(jobData.jobDescription || jobData.description || "No description available.", 3000);
+      }
+
+      function getSalary(jobData) {
+        return sanitizeDisplayText(jobData.salaryRange || jobData.salary || "Negotiable", 80);
+      }
+
+      function getCategories(jobData) {
+        const categories = normalizeCategories(jobData);
+        return categories.length
+          ? categories.map((category) => sanitizeDisplayText(category, 60))
+          : ["Not specified"];
+      }
+
+      function getExperienceLevel(jobData) {
+        return sanitizeDisplayText(jobData.experienceLevel || "Not specified", 80);
+      }
+
+      function getEducationLevel(jobData) {
+        return sanitizeDisplayText(jobData.educationLevel || "Not specified", 80);
+      }
+
+      function getRequirementsText(jobData) {
+        return sanitizeDisplayMultiline(jobData.requirements || "Not specified", 2000);
+      }
+
+      function getVacancies(jobData) {
+        return sanitizeDisplayText(jobData.vacancies || "Not specified", 20);
+      }
+
+      function getDeadline(jobData) {
+        return (
+          jobData.applicationDeadline ||
+          jobData.expiresAt ||
+          jobData.deadline ||
+          ""
+        );
+      }
+
+      function getPostedDate(jobData) {
+        return jobData.postedDate || jobData.createdAt || "";
+      }
+
+      function getContactEmail(jobData) {
+        return sanitizeDisplayText(jobData.contactEmail || "Not provided", 120);
+      }
+
+      function getApplicationInstructions(jobData) {
+        return sanitizeDisplayMultiline(jobData.applicationInstructions || "", 1200);
+      }
+
+      function buildCategoriesList(categories) {
+        const categoriesList = document.getElementById("categoriesList");
+        categoriesList.innerHTML = "";
+
+        categories.forEach((category) => {
+          const tag = document.createElement("span");
+          tag.className = "category-tag";
+          tag.textContent = category;
+          categoriesList.appendChild(tag);
+        });
+      }
+
+      function buildSkillsList(requirements) {
+        const skillsList = document.getElementById("skillsList");
+        const skills = parseRequirements(requirements);
+        skillsList.innerHTML = "";
+
+        skills.forEach((skill) => {
+          const tag = document.createElement("span");
+          tag.className = "skill-tag";
+          tag.textContent = skill;
+          skillsList.appendChild(tag);
+        });
+      }
+
+      function getCurrentApplicationForJob(jobData) {
+        const currentCandidate = getCurrentCandidateProfile();
+        const currentCandidateId = getCurrentCandidateId(currentCandidate);
+        const normalizedJobId = String(jobData?.jobId || jobData?.id || "").trim();
+
+        if (window.JobAssistApplications?.getApplicationsForCandidate) {
+          const matchedApplications = window.JobAssistApplications.getApplicationsForCandidate(currentCandidate);
+          return (
+            matchedApplications.find((application) => {
+              return String(application?.jobId || application?.id || "").trim() === normalizedJobId;
+            }) || null
+          );
+        }
+
+        appliedJobs = window.JobAssistApplications
+          ? window.JobAssistApplications.loadApplications()
+          : appliedJobs;
+
+        const directMatch = appliedJobs.find((application) => {
+          return (
+            String(application?.jobId || application?.id || "").trim() === normalizedJobId &&
+            String(application?.candidateId || "").trim() === currentCandidateId
+          );
+        });
+
+        if (directMatch) {
+          return directMatch;
+        }
+
+        return null;
+      }
+
+      function getNormalizedApplicationStatus(application) {
+        if (!application) return "";
+
+        if (window.JobAssistApplications?.normalizeStatusValue) {
+          return window.JobAssistApplications.normalizeStatusValue(
+            application.status,
+            application
+          );
+        }
+
+        return String(application?.status || "").trim().toLowerCase();
+      }
+
+      function isRejectedForCurrentJob(jobData) {
+        const currentApplication = getCurrentApplicationForJob(jobData);
+        return getNormalizedApplicationStatus(currentApplication) === "rejected";
+      }
+
+      function updateReportButtonState(jobData) {
+        const reportButton = document.getElementById("reportJobBtn");
+        if (!reportButton) return;
+
+        const isRejected = isRejectedForCurrentJob(jobData);
+        reportButton.classList.toggle("report-btn-disabled", isRejected);
+        reportButton.setAttribute("aria-disabled", isRejected ? "true" : "false");
+        reportButton.title = isRejected
+          ? "You cannot report this job after your application has been rejected."
+          : "Report this job or business";
+      }
+
+      function buildBoostPageUrl(application, jobData) {
+        const targetApplicationId = String(application?.applicationId || application?.id || "").trim();
+        const targetJobId = String(
+          application?.jobId || jobData?.jobId || jobData?.id || currentJobId || ""
+        ).trim();
+        const currentCandidate = getCurrentCandidateProfile();
+        const candidateId = getCurrentCandidateId(currentCandidate);
+
+        try {
+          sessionStorage.setItem(
+            BOOST_HANDOFF_KEY,
+            JSON.stringify({
+              applicationId: targetApplicationId,
+              jobId: targetJobId,
+              candidateId: candidateId,
+            })
+          );
+        } catch (error) {
+          console.warn("Boost handoff context could not be saved:", error);
+        }
+
+        return `boost-profile.html?jobId=${encodeURIComponent(targetJobId)}&applicationId=${encodeURIComponent(
+          targetApplicationId
+        )}`;
+      }
+
+      function goToBoost(jobData) {
+        const targetApplication = getCurrentApplicationForJob(jobData || currentJobData);
+        if (!targetApplication) {
+          showPageToast("Apply to this job first before upgrading your application.", "error");
+          return;
+        }
+
+        window.location.href = buildBoostPageUrl(targetApplication, jobData || currentJobData);
+      }
+
+      function openApplicationModal(jobId) {
+        currentJobId = jobId;
+        currentJobData = findJobById(jobId);
+        if (!currentJobData) return;
+        if (jobPostingExpiry?.isJobExpired?.(currentJobData)) {
+          document.getElementById("expiredJobNotice").style.display = "block";
+          return;
+        }
+
+        document.getElementById("tierSelection").style.display = "block";
+        document.getElementById("applicationSuccess").style.display = "none";
+        clearApplicationDocuments();
+        closeNoDocumentsConfirmation();
+
+        document.getElementById("modalJobTitle").textContent =
+          currentJobData.jobTitle || currentJobData.title || "Job";
+        document.getElementById("modalJobCompany").textContent = getCompanyName(currentJobData);
+        document.getElementById("applicationModalTitle").textContent =
+          `Apply for ${currentJobData.jobTitle || currentJobData.title || "Job"}`;
+
+        document.querySelectorAll(".tier-option").forEach((o) => o.classList.remove("selected"));
+        document.getElementById("applicationModal").classList.add("show");
+      }
+
+      function closeApplicationModal() {
+        closeNoDocumentsConfirmation();
+        clearApplicationDocuments();
+        document.getElementById("applicationModal").classList.remove("show");
+      }
+
+      function submitApplication(tierType, allowWithoutDocuments = false) {
+        if (!currentJobData) return;
+        if (jobPostingExpiry?.isJobExpired?.(currentJobData)) {
+          document.getElementById("expiredJobNotice").style.display = "block";
+          closeApplicationModal();
+          return;
+        }
+
+        const candidateProfile = getCurrentCandidateProfile();
+        const normalizedCandidateId = getCurrentCandidateId(candidateProfile);
+
+        if (!candidateProfile || !normalizedCandidateId) {
+          showPageToast("Please log in again before applying to this job.", "error");
+          return;
+        }
+
+        const normalizedJobId = String(currentJobData.jobId || currentJobData.id || "");
+        appliedJobs = window.JobAssistApplications
+          ? window.JobAssistApplications.loadApplications()
+          : appliedJobs;
+
+        const hasExistingApplication = appliedJobs.some(
+          (app) =>
+            String(app.jobId || app.id || "").trim() === normalizedJobId &&
+            String(app.candidateId || "").trim() === normalizedCandidateId
+);
+
+        if (hasExistingApplication) {
+          showPageToast("You have already applied to this job.", "info");
+          return;
+        }
+
+        if (isReadingApplicationDocuments) {
+          showPageToast("Please wait for your document upload to finish.", "info");
+          return;
+        }
+
+        const applicationDocuments = getApplicationDocuments();
+        if (!applicationDocuments.length && !allowWithoutDocuments) {
+          openNoDocumentsConfirmation(tierType);
+          return;
+        }
+
+        const applicationData = {
+          applicationId:
+            window.JobAssistIdGenerator?.generateApplicationId?.(
+              (window.JobAssistApplications?.loadApplications?.() || []).map((application) => {
+                return application?.applicationId || application?.id;
+              })
+            ) || `APP-${Date.now()}`,
+          jobId: normalizedJobId,
+          title: currentJobData.jobTitle || currentJobData.title,
+          jobTitle: currentJobData.jobTitle || currentJobData.title,
+          company: getCompanyName(currentJobData),
+          location:
+            currentJobData.location ||
+            [currentJobData.city || "", currentJobData.region || ""].filter(Boolean).join(", "),
+
+          candidateId: normalizedCandidateId,
+          fullName: candidateProfile.fullName || candidateProfile.name || "Candidate User",
+          name: candidateProfile.fullName || candidateProfile.name || "Candidate User",
+          email: candidateProfile.email || "",
+          phone: candidateProfile.phone || "",
+          gender: candidateProfile.gender || "",
+          ghanaCardNumber: candidateProfile.ghanaCardNumber || "",
+          digitalAddress: candidateProfile.digitalAddress || "",
+          region: candidateProfile.region || "",
+          willingToRelocate: candidateProfile.willingToRelocate || "",
+          fieldOfStudy: candidateProfile.fieldOfStudy || "",
+          experienceLevel: candidateProfile.experienceLevel || "",
+          preferredIndustry: candidateProfile.preferredIndustry || "",
+          disabilityStatus: candidateProfile.disabilityStatus || "",
+          highestEducationLevel:
+            candidateProfile.highestEducationLevel ||
+            candidateProfile.educationLevel ||
+            "",
+          educationLevel:
+            candidateProfile.highestEducationLevel ||
+            candidateProfile.educationLevel ||
+            "",
+          skills: Array.isArray(candidateProfile.skills)
+            ? candidateProfile.skills
+            : String(candidateProfile.skills || "")
+                .split(",")
+                .map((skill) => skill.trim())
+                .filter(Boolean),
+          applicationDocuments: applicationDocuments,
+
+          appliedAt: new Date().toISOString(),
+          tier: tierType === "premium" ? "premium" : tierType,
+          isPremium: tierType === "premium",
+          status: "In Review",
+        };
+
+        if (tierType === "free") {
+          let createdApplication = applicationData;
+
+          try {
+            if (!window.JobAssistApplications) {
+              throw new Error("Application store unavailable. Please refresh and try again.");
+            }
+
+            createdApplication = window.JobAssistApplications.createApplication(applicationData);
+            localStorage.setItem(
+              "current_application_id",
+              String(createdApplication?.applicationId || createdApplication?.id || "")
+            );
+            appliedJobs = window.JobAssistApplications.loadApplications();
+          } catch (error) {
+            showPageToast(error?.message || "Unable to save your application right now.", "error");
+            return;
+          }
+
+          showApplicationSuccess(tierType, createdApplication);
+          return;
+        }
+
+        localStorage.removeItem("current_application_id");
+        showApplicationSuccess(tierType, applicationData);
+      }
+
+      function showApplicationSuccess(tierType, applicationRecord) {
+        document.getElementById("tierSelection").style.display = "none";
+        document.getElementById("applicationSuccess").style.display = "block";
+
+        const successMessage = document.getElementById("successMessage");
+
+        if (tierType === "free") {
+          successMessage.textContent =
+            "Your free application has been successfully submitted to the employer.";
+        } else {
+          try {
+            const pendingAction =
+              window.JobAssistPaymentGate?.registerPendingPaymentAction({
+                role: "candidate",
+                flow: "candidate",
+                serviceType: "application-premium",
+                serviceName: "Premium Application",
+                candidateId: String(applicationRecord?.candidateId || ""),
+                jobId: String(currentJobId || ""),
+                applicationId: String(applicationRecord?.applicationId || applicationRecord?.id || ""),
+                amount: 50,
+                displayAmount: "GHS 50.00",
+                payload: {
+                  applicationData: applicationRecord,
+                  applicationId: String(applicationRecord?.applicationId || applicationRecord?.id || ""),
+                  candidateId: String(applicationRecord?.candidateId || ""),
+                  jobTitle: String(currentJobData.jobTitle || currentJobData.title || ""),
+                  company: String(getCompanyName(currentJobData) || ""),
+                },
+              }) || null;
+            successMessage.textContent =
+              "Your premium application has been submitted and is ready for payment confirmation.";
+            setTimeout(() => {
+              try {
+                window.location.href = `payment.html?service=application-premium&amount=50&name=Premium%20Application%20Verification&jobId=${encodeURIComponent(currentJobId)}&jobTitle=${encodeURIComponent(currentJobData.jobTitle || currentJobData.title || "")}&company=${encodeURIComponent(getCompanyName(currentJobData))}&applicationId=${encodeURIComponent(applicationRecord?.applicationId || applicationRecord?.id || "")}&next=${encodeURIComponent("candidate/your-applications.html")}${pendingAction?.actionId ? `&actionId=${encodeURIComponent(pendingAction.actionId)}` : ""}`;
+              } catch (error) {
+                console.error("Premium application payment redirect failed.", error);
+                successMessage.textContent = "Payment initialization failed. Please try again.";
+              }
+            }, 2000);
+          } catch (error) {
+            console.error("Premium application payment setup failed.", error);
+            successMessage.textContent = "Payment initialization failed. Please try again.";
+          }
+        }
+
+        renderActionButtons(getActionButtons(currentJobData));
+      }
+
       function getActionButtons(jobData) {
         const buttons = [];
-        const currentApplication = appliedJobs.find(
-          (app) => app.id === jobData.id,
-        );
+        const currentApplication = getCurrentApplicationForJob(jobData);
+        const isExpiredJob = jobPostingExpiry?.isJobExpired?.(jobData) || false;
+        const expiredJobNotice = document.getElementById("expiredJobNotice");
+
+        document.getElementById("premiumStatusSection").style.display = "none";
+        document.getElementById("boostSection").style.display = "none";
+        if (expiredJobNotice) {
+          expiredJobNotice.style.display = isExpiredJob ? "block" : "none";
+        }
+
+        if (isExpiredJob) {
+          buttons.push({
+            text: "Job Expired",
+            type: "outline",
+            icon: "fas fa-clock",
+            action: null,
+            disabled: true,
+          });
+
+          return buttons;
+        }
 
         if (currentApplication) {
-          // Application already submitted
           const statusBadge =
-            currentApplication.tier === "premium"
-              ? '<span class="application-status status-premium">PREMIUM</span>'
-              : '<span class="application-status status-applied">APPLIED</span>';
+            currentApplication.applicationPriority === "enterprise"
+              ? '<span class="application-status status-premium">ENTERPRISE</span>'
+              : currentApplication.applicationPriority === "professional"
+                ? '<span class="application-status status-premium">PRO</span>'
+                : currentApplication.tier === "premium" ||
+                    currentApplication.applicationPriority === "premium"
+                  ? '<span class="application-status status-premium">PREMIUM</span>'
+                  : '<span class="application-status status-applied">APPLIED</span>';
 
           buttons.push({
-            text: `Applied ✓ ${statusBadge}`,
+            text: `Applied  ${statusBadge}`,
             type: "outline",
             icon: "fas fa-check",
             action: null,
             disabled: true,
-            isHtml: true,
           });
 
-          buttons.push({
-            text: "Boost Application",
-            type: "secondary",
-            icon: "fas fa-rocket",
-            action: () => boostApplication(jobData.id),
-          });
+          if (
+            currentApplication.tier === "premium" ||
+            currentApplication.applicationPriority === "premium" ||
+            currentApplication.applicationPriority === "professional" ||
+            currentApplication.applicationPriority === "enterprise"
+          ) {
+            document.getElementById("premiumStatusSection").style.display = "block";
+          }
 
-          // Show premium status section if premium
-          if (currentApplication.tier === "premium") {
-            document.getElementById("premiumStatusSection").style.display =
-              "block";
+          if (currentApplication.applicationPriority !== "enterprise") {
+            document.getElementById("boostSection").style.display = "block";
           }
         } else {
-          // Not applied yet
           buttons.push({
             text: "Apply Now",
             type: "primary",
             icon: "fas fa-paper-plane",
-            action: () => openApplicationModal(jobData.id),
+            action: () => openApplicationModal(jobData.jobId || jobData.id),
           });
         }
 
         return buttons;
       }
 
-      // Render action buttons
       function renderActionButtons(buttons) {
         const actionButtons = document.getElementById("actionButtons");
         actionButtons.innerHTML = "";
+
         buttons.forEach((button) => {
           const btn = document.createElement("button");
           btn.className = `btn btn-${button.type}`;
 
-          if (button.isHtml) {
-            btn.innerHTML = `<i class="${button.icon}"></i> ${button.text}`;
-          } else {
-            btn.innerHTML = `<i class="${button.icon}"></i> ${button.text}`;
-          }
+          btn.innerHTML = `<i class="${button.icon}"></i> ${button.text}`;
 
           if (button.disabled) {
             btn.disabled = true;
@@ -1630,8 +2499,7 @@
           actionButtons.appendChild(btn);
         });
 
-        // If no buttons to show (edge case)
-        if (buttons.length === 0) {
+        if (!buttons.length) {
           const message = document.createElement("div");
           message.style.textAlign = "center";
           message.style.color = "var(--gray)";
@@ -1641,208 +2509,153 @@
         }
       }
 
-      // Update page with job data
+      function getBoostRecordForJob(jobId) {
+        return window.JobAssistPaymentGate?.getJobBoostRecord?.(jobId) || null;
+      }
+
       function updateJobDetails(jobData) {
-        // Update header
-        document.getElementById("jobTitle").textContent = jobData.title;
-        document.getElementById("companyName").textContent = jobData.company;
+        const categories = getCategories(jobData);
+        const requirements = getRequirementsText(jobData);
+        const deadline = getDeadline(jobData);
+        const postedDate = getPostedDate(jobData);
+        const boostRecord = getBoostRecordForJob(jobData.jobId || jobData.id);
+
+        document.getElementById("jobTitle").textContent =
+          jobData.jobTitle || jobData.title || "Untitled Job";
+        document.getElementById("companyName").textContent = getCompanyName(jobData);
+        document.getElementById("boostBanner").style.display = boostRecord ? "inline-flex" : "none";
         document.getElementById("jobLocation").textContent =
-          `${jobData.city}, ${jobData.region}`;
-        document.getElementById("jobSalary").textContent = jobData.salaryRange;
-        document.getElementById("jobType").textContent = jobData.type;
-        document.getElementById("jobDeadline").textContent = formatDate(
-          jobData.deadline,
-        );
+          `${jobData.city || "Unknown City"}, ${jobData.region || "Unknown Region"}`;
+        document.getElementById("jobSalary").textContent = getSalary(jobData);
+        document.getElementById("jobType").textContent = getJobTypeLabel(jobData);
+        document.getElementById("jobDeadline").textContent = formatDate(deadline);
 
-        // Update job description
-        document.getElementById("jobDescription").textContent =
-          jobData.description;
+        document.getElementById("jobDescription").textContent = getJobDescription(jobData);
 
-        // Update requirements
-        document.getElementById("experienceLevel").textContent =
-          jobData.experienceLevel;
-        document.getElementById("educationLevel").textContent =
-          jobData.educationLevel || "Not specified";
-        document.getElementById("jobCategory").textContent = jobData.category;
-        document.getElementById("jobVacancies").textContent =
-          jobData.vacancies || "Not specified";
-        document.getElementById("jobRequirements").textContent =
-          jobData.requirements || "Not specified";
+        document.getElementById("experienceLevel").textContent = getExperienceLevel(jobData);
+        document.getElementById("educationLevel").textContent = getEducationLevel(jobData);
+        document.getElementById("jobCategory").textContent = categories.join(", ");
+        document.getElementById("jobVacancies").textContent = getVacancies(jobData);
+        document.getElementById("jobRequirements").textContent = requirements;
 
-        // Update skills list
-        const skillsList = document.getElementById("skillsList");
-        const skills = parseRequirements(jobData.requirements);
-        skillsList.innerHTML = skills
-          .map((skill) => `<span class="skill-tag">${skill}</span>`)
-          .join("");
+        document.getElementById("contactEmail").textContent = getContactEmail(jobData);
+        document.getElementById("applicationDeadline").textContent = formatDate(deadline);
+        document.getElementById("postedDate").textContent = formatDate(postedDate);
+        document.getElementById("jobId").textContent =
+          jobData.jobId || jobData.id || "Not specified";
 
-        // Update application details
-        document.getElementById("contactEmail").textContent =
-          jobData.contactEmail;
-        document.getElementById("applicationDeadline").textContent = formatDate(
-          jobData.deadline,
-        );
-        document.getElementById("postedDate").textContent = formatDate(
-          jobData.postedDate,
-        );
-        document.getElementById("jobId").textContent = jobData.id;
+        const instructions = getApplicationInstructions(jobData);
+        const instructionsContainer = document.getElementById("applicationInstructionsContainer");
+        const instructionsElement = document.getElementById("applicationInstructions");
 
-        // Update application instructions
-        const instructionsContainer = document.getElementById(
-          "applicationInstructionsContainer",
-        );
-        const instructionsElement = document.getElementById(
-          "applicationInstructions",
-        );
-        if (jobData.applicationInstructions) {
-          instructionsElement.textContent = jobData.applicationInstructions;
+        if (instructions) {
+          instructionsElement.textContent = instructions;
           instructionsContainer.style.display = "block";
         } else {
           instructionsContainer.style.display = "none";
         }
 
-        // Update page title
-        document.title = `${jobData.title} - ${jobData.company} | JobAssist Ghana`;
+        buildCategoriesList(categories);
+        buildSkillsList(requirements);
+
+        document.title = `${jobData.jobTitle || jobData.title || "Job"} - ${getCompanyName(jobData)} | JobAssist Ghana`;
       }
 
-      // Function to handle report button click
       function handleReportJob() {
         if (!currentJobData) return;
+        if (isRejectedForCurrentJob(currentJobData)) {
+          showPageToast(
+            "You cannot report this job after your application has been rejected.",
+            "warning"
+          );
+          return;
+        }
 
-        // Redirect to report page with job data
         const jobData = encodeURIComponent(
           JSON.stringify({
             id: currentJobData.id,
-            title: currentJobData.title,
-            company: currentJobData.company,
-            contactEmail: currentJobData.contactEmail,
-          }),
-        );
+            title: currentJobData.jobTitle || currentJobData.title,
+            company: getCompanyName(currentJobData),
+            contactEmail: getContactEmail(currentJobData),
+          })
+);
 
         window.location.href = `report.html?job=${jobData}`;
       }
 
-      // Application Modal Functions
-      function openApplicationModal(jobId) {
-        currentJobId = jobId;
-        currentJobData = jobDatabase[jobId];
-
-        if (!currentJobData) return;
-
-        // Reset modal state
-        document.getElementById("tierSelection").style.display = "block";
-        document.getElementById("applicationSuccess").style.display = "none";
-
-        // Update modal content
-        document.getElementById("modalJobTitle").textContent =
-          currentJobData.title;
-        document.getElementById("modalJobCompany").textContent =
-          currentJobData.company;
-        document.getElementById("applicationModalTitle").textContent =
-          `Apply for ${currentJobData.title}`;
-
-        // Reset tier selection
-        document
-          .querySelectorAll(".tier-option")
-          .forEach((option) => option.classList.remove("selected"));
-
-        // Show modal
-        document.getElementById("applicationModal").classList.add("show");
-      }
-
-      function closeApplicationModal() {
-        document.getElementById("applicationModal").classList.remove("show");
-      }
-
-      function submitApplication(tierType) {
-        if (!currentJobData) return;
-
-        const applicationData = {
-          id: currentJobData.id,
-          title: currentJobData.title,
-          company: currentJobData.company,
-          appliedAt: new Date().toISOString(),
-          tier: tierType,
-          status: tierType === "premium" ? "pending_payment" : "submitted",
-        };
-
-        // Add to applied jobs
-        if (!appliedJobs.some((app) => app.id === currentJobData.id)) {
-          appliedJobs.push(applicationData);
-          localStorage.setItem("appliedJobs", JSON.stringify(appliedJobs));
-        }
-
-        showApplicationSuccess(tierType);
-      }
-
-      function showApplicationSuccess(tierType) {
-        document.getElementById("tierSelection").style.display = "none";
-        document.getElementById("applicationSuccess").style.display = "block";
-
-        const successMessage = document.getElementById("successMessage");
-
-        if (tierType === "free") {
-          successMessage.textContent =
-            "Your free application has been successfully submitted to the employer.";
-        } else {
-          successMessage.textContent =
-            "Your premium application is pending payment confirmation.";
-          setTimeout(() => {
-            window.location.href = `payment.html?service=application-premium&amount=50&name=Premium%20Application%20Verification&jobId=${currentJobId}`;
-          }, 2000);
-        }
-
-        // Update the action buttons on the main page
-        const buttons = getActionButtons(currentJobData);
-        renderActionButtons(buttons);
-      }
-
-      // Action functions
-      function boostApplication(jobId) {
-        // Redirect to boost page
-        window.location.href = `boost-profile.html?jobId=${jobId}`;
-      }
-
-      // Initialize page
       function initializePage() {
         const jobId = getJobIdFromURL();
-        const jobData = jobDatabase[jobId];
+        const jobData = findJobById(jobId);
         const sourcePage = getSourcePage();
 
-        if (jobData) {
-          currentJobId = jobId;
-          currentJobData = jobData;
-          updateJobDetails(jobData);
-          const buttons = getActionButtons(jobData);
-          renderActionButtons(buttons);
-
-          // Set back button URL based on source
-          const backButton = document.getElementById("backBtn");
-          const backURL = getBackButtonURL(sourcePage);
-          backButton.onclick = () => {
-            window.location.href = backURL;
-          };
-        } else {
-          alert("Job not found!");
-          window.history.back();
+        if (!jobData) {
+          showPageToast("Job not found.", "error");
+          window.location.href = getBackButtonURL(sourcePage);
+          return;
         }
 
-        // Application modal event listeners
+        currentJobId = String(jobData.jobId || jobData.id || "");
+        currentJobData = jobData;
+
+        updateJobDetails(jobData);
+        renderActionButtons(getActionButtons(jobData));
+        updateReportButtonState(jobData);
+
+        const backButton = document.getElementById("backBtn");
+        const backURL = getBackButtonURL(sourcePage);
+        backButton.addEventListener("click", () => {
+          window.location.href = new URL(backURL, window.location.href).toString();
+        });
+
         document
           .getElementById("closeApplicationModal")
           .addEventListener("click", closeApplicationModal);
 
-        // Tier selection
+        if (applicationDocumentsTrigger && applicationDocumentsInput) {
+          applicationDocumentsTrigger.addEventListener("click", function () {
+            applicationDocumentsInput.click();
+          });
+
+          applicationDocumentsInput.addEventListener("change", function () {
+            handleApplicationDocumentSelection(this.files);
+          });
+        }
+
+        if (applicationDocumentsList) {
+          applicationDocumentsList.addEventListener("click", function (event) {
+            const removeButton = event.target.closest("[data-document-index]");
+            if (!removeButton) return;
+
+            const documentIndex = Number(removeButton.getAttribute("data-document-index"));
+            if (!Number.isInteger(documentIndex) || documentIndex < 0) return;
+
+            selectedApplicationDocuments = selectedApplicationDocuments.filter(function (_, index) {
+              return index !== documentIndex;
+            });
+            renderApplicationDocuments();
+          });
+        }
+
+        cancelNoDocumentsBtn?.addEventListener("click", function () {
+          closeNoDocumentsConfirmation();
+          applicationDocumentsTrigger?.focus();
+        });
+
+        confirmNoDocumentsBtn?.addEventListener("click", function () {
+          const nextTier = pendingApplicationTier;
+          closeNoDocumentsConfirmation();
+          if (nextTier) {
+            submitApplication(nextTier, true);
+          }
+        });
+
         document.querySelectorAll(".tier-option").forEach((option) => {
           option.addEventListener("click", function () {
-            document
-              .querySelectorAll(".tier-option")
-              .forEach((opt) => opt.classList.remove("selected"));
+            document.querySelectorAll(".tier-option").forEach((o) => o.classList.remove("selected"));
             this.classList.add("selected");
           });
         });
 
-        // Tier action buttons
         document.querySelectorAll(".tier-action").forEach((button) => {
           button.addEventListener("click", function (e) {
             e.stopPropagation();
@@ -1852,350 +2665,33 @@
           });
         });
 
-        // Report button click handler
-        document
-          .getElementById("reportJobBtn")
-          .addEventListener("click", handleReportJob);
+        document.getElementById("reportJobBtn").addEventListener("click", handleReportJob);
 
-        // Boost now button
-        document
-          .getElementById("boostNowBtn")
-          .addEventListener("click", function () {
-            window.location.href = `boost-profile.html?jobId=${currentJobId}`;
-          });
+        document.getElementById("upgradeApplicationBtn").addEventListener("click", function () {
+          goToBoost(currentJobData);
+        });
 
-        // View applications button
-        document
-          .getElementById("viewApplicationsBtn")
-          .addEventListener("click", function () {
-            window.location.href = "your-applications.html";
-          });
+        document.getElementById("viewApplicationsBtn").addEventListener("click", function () {
+          window.location.href = "your-applications.html";
+        });
 
-        // Close modal when clicking outside
-        document
-          .getElementById("applicationModal")
-          .addEventListener("click", function (e) {
-            if (e.target === this) {
-              closeApplicationModal();
-            }
-          });
+        document.getElementById("applicationModal").addEventListener("click", function (e) {
+          if (e.target === this) closeApplicationModal();
+        });
+
+        applicationConfirmOverlay?.addEventListener("click", function (event) {
+          if (event.target === this) {
+            closeNoDocumentsConfirmation();
+          }
+        });
       }
 
-<<<<<<< HEAD:view-details.html
-      // Initialize when page loads
       document.addEventListener("DOMContentLoaded", initializePage);
-=======
-        // Get back button URL based on source
-        function getBackButtonURL(source) {
-            switch(source) {
-                case 'dashboard':
-                    return 'candidate/candidate-dashboard.html';
-                case 'applications':
-                    return 'your-applications.html';
-                case 'accepted':
-                    return 'accepted-offers.html';
-                case 'browse':
-                default:
-                    return 'candidate/browse-jobs.html';
-            }
-        }
-
-        // Format date for display
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('en-GB', options);
-        }
-
-        // Parse requirements into skills array
-        function parseRequirements(requirements) {
-            if (!requirements) return [];
-            return requirements.split(',').map(skill => skill.trim());
-        }
-
-        // Get appropriate action buttons based on application status
-        function getActionButtons(jobData) {
-            const buttons = [];
-            const currentApplication = appliedJobs.find(app => app.id === jobData.id);
-
-            if (currentApplication) {
-                // Application already submitted
-                const statusBadge = currentApplication.tier === 'premium' ? 
-                    '<span class="application-status status-premium">PREMIUM</span>' : 
-                    '<span class="application-status status-applied">APPLIED</span>';
-
-                buttons.push({
-                    text: `Applied ✓ ${statusBadge}`,
-                    type: 'outline',
-                    icon: 'fas fa-check',
-                    action: null,
-                    disabled: true,
-                    isHtml: true
-                });
-                
-                buttons.push({
-                    text: 'Boost Application',
-                    type: 'secondary',
-                    icon: 'fas fa-rocket',
-                    action: () => boostApplication(jobData.id)
-                });
-
-                // Show premium status section if premium
-                if (currentApplication.tier === 'premium') {
-                    document.getElementById('premiumStatusSection').style.display = 'block';
-                }
-            } else {
-                // Not applied yet
-                buttons.push({
-                    text: 'Apply Now',
-                    type: 'primary',
-                    icon: 'fas fa-paper-plane',
-                    action: () => openApplicationModal(jobData.id)
-                });
-            }
-
-            return buttons;
-        }
-
-        // Render action buttons
-        function renderActionButtons(buttons) {
-            const actionButtons = document.getElementById('actionButtons');
-            actionButtons.innerHTML = '';
-            buttons.forEach(button => {
-                const btn = document.createElement('button');
-                btn.className = `btn btn-${button.type}`;
-                
-                if (button.isHtml) {
-                    btn.innerHTML = `<i class="${button.icon}"></i> ${button.text}`;
-                } else {
-                    btn.innerHTML = `<i class="${button.icon}"></i> ${button.text}`;
-                }
-                
-                if (button.disabled) {
-                    btn.disabled = true;
-                    btn.classList.add('btn-disabled');
-                } else {
-                    btn.onclick = button.action;
-                }
-                
-                actionButtons.appendChild(btn);
-            });
-
-            // If no buttons to show (edge case)
-            if (buttons.length === 0) {
-                const message = document.createElement('div');
-                message.style.textAlign = 'center';
-                message.style.color = 'var(--gray)';
-                message.style.fontSize = '0.9rem';
-                message.textContent = 'No actions available';
-                actionButtons.appendChild(message);
-            }
-        }
-
-        // Update page with job data
-        function updateJobDetails(jobData) {
-            // Update header
-            document.getElementById('jobTitle').textContent = jobData.title;
-            document.getElementById('companyName').textContent = jobData.company;
-            document.getElementById('jobLocation').textContent = `${jobData.city}, ${jobData.region}`;
-            document.getElementById('jobSalary').textContent = jobData.salaryRange;
-            document.getElementById('jobType').textContent = jobData.type;
-            document.getElementById('jobDeadline').textContent = formatDate(jobData.deadline);
-
-            // Update job description
-            document.getElementById('jobDescription').textContent = jobData.description;
-
-            // Update requirements
-            document.getElementById('experienceLevel').textContent = jobData.experienceLevel;
-            document.getElementById('educationLevel').textContent = jobData.educationLevel || 'Not specified';
-            document.getElementById('jobCategory').textContent = jobData.category;
-            document.getElementById('jobVacancies').textContent = jobData.vacancies || 'Not specified';
-            document.getElementById('jobRequirements').textContent = jobData.requirements || 'Not specified';
-
-            // Update skills list
-            const skillsList = document.getElementById('skillsList');
-            const skills = parseRequirements(jobData.requirements);
-            skillsList.innerHTML = skills.map(skill => 
-                `<span class="skill-tag">${skill}</span>`
-            ).join('');
-
-            // Update application details
-            document.getElementById('contactEmail').textContent = jobData.contactEmail;
-            document.getElementById('applicationDeadline').textContent = formatDate(jobData.deadline);
-            document.getElementById('postedDate').textContent = formatDate(jobData.postedDate);
-            document.getElementById('jobId').textContent = jobData.id;
-
-            // Update application instructions
-            const instructionsContainer = document.getElementById('applicationInstructionsContainer');
-            const instructionsElement = document.getElementById('applicationInstructions');
-            if (jobData.applicationInstructions) {
-                instructionsElement.textContent = jobData.applicationInstructions;
-                instructionsContainer.style.display = 'block';
-            } else {
-                instructionsContainer.style.display = 'none';
-            }
-
-            // Update page title
-            document.title = `${jobData.title} - ${jobData.company} | JobAssist Ghana`;
-        }
-
-        // Function to handle report button click
-        function handleReportJob() {
-            if (!currentJobData) return;
-            
-            // Redirect to report page with job data
-            const jobData = encodeURIComponent(JSON.stringify({
-                id: currentJobData.id,
-                title: currentJobData.title,
-                company: currentJobData.company,
-                contactEmail: currentJobData.contactEmail
-            }));
-            
-            window.location.href = `report.html?job=${jobData}`;
-        }
-
-        // Application Modal Functions
-        function openApplicationModal(jobId) {
-            currentJobId = jobId;
-            currentJobData = jobDatabase[jobId];
-            
-            if (!currentJobData) return;
-            
-            // Reset modal state
-            document.getElementById('tierSelection').style.display = 'block';
-            document.getElementById('applicationSuccess').style.display = 'none';
-            
-            // Update modal content
-            document.getElementById('modalJobTitle').textContent = currentJobData.title;
-            document.getElementById('modalJobCompany').textContent = currentJobData.company;
-            document.getElementById('applicationModalTitle').textContent = `Apply for ${currentJobData.title}`;
-            
-            // Reset tier selection
-            document.querySelectorAll('.tier-option').forEach(option => option.classList.remove('selected'));
-            
-            // Show modal
-            document.getElementById('applicationModal').classList.add('show');
-        }
-
-        function closeApplicationModal() {
-            document.getElementById('applicationModal').classList.remove('show');
-        }
-
-        function submitApplication(tierType) {
-            if (!currentJobData) return;
-
-            const applicationData = {
-                id: currentJobData.id,
-                title: currentJobData.title,
-                company: currentJobData.company,
-                appliedAt: new Date().toISOString(),
-                tier: tierType,
-                status: tierType === 'premium' ? 'pending_payment' : 'submitted'
-            };
-
-            // Add to applied jobs
-            if (!appliedJobs.some(app => app.id === currentJobData.id)) {
-                appliedJobs.push(applicationData);
-                localStorage.setItem('appliedJobs', JSON.stringify(appliedJobs));
-            }
-
-            showApplicationSuccess(tierType);
-        }
-
-        function showApplicationSuccess(tierType) {
-            document.getElementById('tierSelection').style.display = 'none';
-            document.getElementById('applicationSuccess').style.display = 'block';
-
-            const successMessage = document.getElementById('successMessage');
-            
-            if (tierType === 'free') {
-                successMessage.textContent = 'Your free application has been successfully submitted to the employer.';
-            } else {
-                successMessage.textContent = 'Your premium application is pending payment confirmation.';
-                setTimeout(() => {
-                    window.location.href = `payment.html?service=application-premium&amount=50&name=Premium%20Application%20Verification&jobId=${currentJobId}`;
-                }, 2000);
-            }
-
-            // Update the action buttons on the main page
-            const buttons = getActionButtons(currentJobData);
-            renderActionButtons(buttons);
-        }
-
-        // Action functions
-        function boostApplication(jobId) {
-            // Redirect to boost page
-            window.location.href = `boost-profile.html?jobId=${jobId}`;
-        }
-
-        // Initialize page
-        function initializePage() {
-            const jobId = getJobIdFromURL();
-            const jobData = jobDatabase[jobId];
-            const sourcePage = getSourcePage();
-
-            if (jobData) {
-                currentJobId = jobId;
-                currentJobData = jobData;
-                updateJobDetails(jobData);
-                const buttons = getActionButtons(jobData);
-                renderActionButtons(buttons);
-                
-                // Set back button URL based on source
-                const backButton = document.getElementById('backBtn');
-                const backURL = getBackButtonURL(sourcePage);
-                backButton.onclick = () => {
-                    window.location.href = backURL;
-                };
-            } else {
-                alert('Job not found!');
-                window.history.back();
-            }
-
-            // Application modal event listeners
-            document.getElementById('closeApplicationModal').addEventListener('click', closeApplicationModal);
-            
-            // Tier selection
-            document.querySelectorAll('.tier-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    document.querySelectorAll('.tier-option').forEach(opt => opt.classList.remove('selected'));
-                    this.classList.add('selected');
-                });
-            });
-
-            // Tier action buttons
-            document.querySelectorAll('.tier-action').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const tierOption = this.closest('.tier-option');
-                    const tierType = tierOption.getAttribute('data-tier');
-                    submitApplication(tierType);
-                });
-            });
-
-            // Report button click handler
-            document.getElementById('reportJobBtn').addEventListener('click', handleReportJob);
-
-            // Boost now button
-            document.getElementById('boostNowBtn').addEventListener('click', function() {
-                window.location.href = `boost-profile.html?jobId=${currentJobId}`;
-            });
-
-            // View applications button
-            document.getElementById('viewApplicationsBtn').addEventListener('click', function() {
-                window.location.href = 'your-applications.html';
-            });
-
-            // Close modal when clicking outside
-            document.getElementById('applicationModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeApplicationModal();
-                }
-            });
-        }
-
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', initializePage);
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/view-details.html
     </script>
+  
+    <script src="../assets/js/payment-gating.js"></script>
+    <script src='../assets/js/product-polish.js'></script>
   </body>
 </html>
+
+

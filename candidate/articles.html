@@ -1,10 +1,10 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Articles | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -52,7 +52,7 @@
           180deg,
           var(--primary),
           var(--primary-dark)
-        );
+);
         color: white;
         height: 100vh;
         position: fixed;
@@ -82,6 +82,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        text-decoration: none;
       }
 
       .logo-img-placeholder {
@@ -450,7 +451,7 @@
           135deg,
           var(--primary),
           var(--primary-dark)
-        );
+);
         color: white;
         border-radius: 8px;
         padding: 20px;
@@ -574,7 +575,7 @@
           135deg,
           var(--primary),
           var(--primary-dark)
-        );
+);
         color: white;
         border-radius: 8px;
         padding: 18px;
@@ -934,9 +935,9 @@
         }
       }
 
-      /* ========================================== */
+      /* ===================================*/
       /* MOBILE RESPONSIVENESS - view-applicants style */
-      /* ========================================== */
+      /* ===================================*/
 
       /* Tablet (992px and below) */
       @media (max-width: 992px) {
@@ -1346,7 +1347,80 @@
           font-size: 0.7rem;
         }
       }
+      /* Candidate Notification Dropdown Standard */
+      .notification-dropdown {
+        top: calc(100% + 10px);
+        right: 0;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 320px;
+        max-height: 400px;
+      }
+
+      .notification-header {
+        padding: 12px 16px;
+        background-color: var(--light);
+        border-radius: 8px 8px 0 0;
+      }
+
+      .mark-all-read {
+        font-weight: 500;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+
+      .mark-all-read:hover {
+        background-color: rgba(10, 42, 102, 0.1);
+      }
+
+      .notification-item {
+        padding: 12px 16px;
+      }
+
+      .notification-item.unread {
+        background-color: rgba(10, 42, 102, 0.05);
+        border-left: 3px solid var(--primary);
+      }
+
+      .notification-content {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+        color: var(--dark);
+        line-height: 1.4;
+      }
+
+      .notification-time {
+        font-size: 0.7rem;
+        color: var(--gray);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      @media (max-width: 992px) {
+        .notification-dropdown {
+          right: 12px;
+          width: 280px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .notification-dropdown {
+          right: 10px;
+          width: 260px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .notification-dropdown {
+          width: 240px;
+          right: 8px;
+        }
+      }
     </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
   </head>
   <body>
     <!-- Mobile Overlay -->
@@ -1389,13 +1463,13 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <div class="logo">
+        <a href="../index.html" class="logo" aria-label="Job Assist Ghana Home">
           <div class="logo-img-placeholder">JA</div>
           <div class="logo-text">
             <div class="logo-main">JobAssist</div>
             <div class="logo-sub">GHANA</div>
           </div>
-        </div>
+        </a>
         <button class="toggle-btn" id="sidebarToggle">
           <i class="fas fa-chevron-left"></i>
         </button>
@@ -1408,7 +1482,7 @@
           >
         </li>
         <li>
-          <a href="applications.html"
+          <a href="your-applications.html"
             ><i class="fas fa-list-alt"></i>
             <span class="menu-text">My Applications</span></a
           >
@@ -1476,38 +1550,38 @@
           <div class="notification-dropdown" id="notificationDropdown">
             <div class="notification-header">
               <h3 class="notification-title">Notifications</h3>
-              <button class="mark-all-read">Mark all as read</button>
+              <button class="mark-all-read" type="button">Mark all as read</button>
             </div>
             <ul class="notification-list">
               <li class="notification-item unread">
                 <div class="notification-content">
                   Your application for Frontend Developer has been submitted
                 </div>
-                <div class="notification-time">2 hours ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 2 hours ago</div>
               </li>
               <li class="notification-item unread">
                 <div class="notification-content">
                   New job matches your profile: Data Analyst at Tech Solutions
                 </div>
-                <div class="notification-time">5 hours ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 5 hours ago</div>
               </li>
               <li class="notification-item unread">
                 <div class="notification-content">
                   Your profile has been viewed by 5 employers this week
                 </div>
-                <div class="notification-time">1 day ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 1 day ago</div>
               </li>
               <li class="notification-item">
                 <div class="notification-content">
                   Your application for UX Designer is being reviewed
                 </div>
-                <div class="notification-time">2 days ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 2 days ago</div>
               </li>
             </ul>
           </div>
           <div class="user-profile" id="userProfile">
             <div class="user-avatar">
-              <img src="https://i.pravatar.cc/150?img=12" alt="User" />
+              <img src="../assets/images/default-avatar.png" alt="User" />
             </div>
             <div class="user-name">Nana</div>
             <i class="fas fa-chevron-down"></i>
@@ -1579,7 +1653,6 @@
                     and talent discovery
                   </p>
                 </div>
-<<<<<<< HEAD:articles.html
                 <div class="feature-item">
                   <div class="feature-icon">
                     <i class="fas fa-handshake"></i>
@@ -1588,16 +1661,14 @@
                   <p class="feature-description">
                     Transparency, innovation, empowerment, and community success
                   </p>
-=======
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
                         <li><a href="../index.html">Home</a></li>
                         <li><a href="articles.html">About Us</a></li>
-                        <li><a href="build-cv.html">Build a CV</a></li>
-                        <li><a href="login.html">Login</a></li>
+                        <li><a href="../build-cv.html">Build a CV</a></li>
+                        <li><a href="../login.html">Login</a></li>
                     </ul>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/articles.html
                 </div>
                 <div class="feature-item">
                   <div class="feature-icon">
@@ -1686,7 +1757,7 @@
                   font-size: 0.95rem;
                 "
               >
-                🇬🇭 Ghana-Focused Solutions
+                 Ghana-Focused Solutions
               </h4>
               <p>
                 We understand the unique dynamics of the Ghanaian job market.
@@ -1702,7 +1773,7 @@
                   font-size: 0.95rem;
                 "
               >
-                🤖 Smart Matching Technology
+                 Smart Matching Technology
               </h4>
               <p>
                 Our algorithms analyze your skills, experience, and preferences
@@ -1717,7 +1788,7 @@
                   font-size: 0.95rem;
                 "
               >
-                💼 Comprehensive Career Support
+                 Comprehensive Career Support
               </h4>
               <p>
                 Beyond job listings, we provide career guidance, CV building
@@ -1732,7 +1803,7 @@
                   font-size: 0.95rem;
                 "
               >
-                🔒 Trust & Verification
+                 Trust & Verification
               </h4>
               <p>
                 All employers and job listings are verified to ensure legitimacy
@@ -1802,7 +1873,7 @@
                   Learn how to create a professional CV that stands out to
                   employers with our comprehensive guide.
                 </p>
-                <a href="build-cv.html" class="btn btn-outline">View Guide</a>
+                <a href="../build-cv.html" class="btn btn-outline">View Guide</a>
               </div>
 
               <div class="resource-card">
@@ -1889,7 +1960,7 @@
               </p>
 
               <div style="text-align: center; margin-top: 20px">
-                <a href="login.html" class="btn btn-primary">
+                <a href="../login.html" class="btn btn-primary">
                   <i class="fas fa-rocket"></i> Start Your Journey
                 </a>
                 <a href="help.html" class="btn btn-outline">
@@ -1913,10 +1984,10 @@
           <div class="footer-section">
             <h3>Quick Links</h3>
             <ul class="footer-links">
-              <li><a href="index.html">Home</a></li>
+              <li><a href="../index.html">Home</a></li>
               <li><a href="articles.html">About Us</a></li>
-              <li><a href="build-cv.html">Build a CV</a></li>
-              <li><a href="login.html">Login</a></li>
+              <li><a href="../build-cv.html">Build a CV</a></li>
+              <li><a href="../login.html">Login</a></li>
             </ul>
           </div>
           <div class="footer-section">
@@ -1930,13 +2001,14 @@
         </div>
         <div class="footer-bottom">
           <p>
-            © 2025 Job Assist Ghana All rights reserved. | Privacy Terms |
+            Copyright 2025 Job Assist Ghana All rights reserved. | Privacy Terms |
             Contact us
           </p>
         </div>
       </footer>
     </div>
 
+    <script src="../assets/js/candidate-session.js"></script>
     <script>
       // DOM Elements
       const sidebar = document.getElementById("sidebar");
@@ -1954,7 +2026,7 @@
       const notificationIcon = document.getElementById("notificationIcon");
       const notificationDropdown = document.getElementById(
         "notificationDropdown",
-      );
+);
       const closeModalBtn = document.querySelector(".close-modal");
 
       // Initialize page
@@ -2061,7 +2133,7 @@
         confirmLogout.addEventListener("click", function () {
           // Redirect to login page
           logoutModal.classList.remove("show");
-          window.location.href = "login.html";
+          window.location.href="../login.html";
         });
 
         cancelLogout.addEventListener("click", function () {
@@ -2104,5 +2176,9 @@
         closeComingSoon.addEventListener("click", hideComingSoon);
       }
     </script>
+  
+    <script src='../assets/js/product-polish.js'></script>
   </body>
 </html>
+
+

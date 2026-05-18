@@ -2,1151 +2,1114 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>Privacy Policy | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+
+    <link rel="icon" type="image/png" href="assets/images/tab-logo.png" />
+
+    <!-- Fonts (match your main site) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Bootstrap (optional, but keeps spacing consistent) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
     <style>
       :root {
-        --primary: #0a2a66;
-        --primary-dark: #071e4d;
-        --secondary: #f8c12e;
-        --secondary-dark: #e6af1a;
-        --light: #f8fafc;
-        --dark: #1e293b;
-        --gray: #64748b;
-        --gray-light: #e2e8f0;
+        --navy: #0a2a66;
+        --navy2: #0a4a9c;
+        --gold: #f8c12e;
+        --gold2: #ffda6a;
+        --muted: #6b7280;
+        --bg: #ffffff;
+        --soft: #f5f7fb;
+        --soft2: #eef3ff;
+        --border: rgba(10, 42, 102, 0.12);
+
         --success: #10b981;
         --danger: #ef4444;
         --info: #3b82f6;
-        --login-color: #0a2a66;
+
+        --nav-h: 68px; /* LOCKED navbar height across ALL pages */
+        --shadow: 0 14px 34px rgba(10, 42, 102, 0.12);
       }
 
       * {
-        margin: 0;
-        padding: 0;
         box-sizing: border-box;
       }
-
+      html {
+        scroll-behavior: smooth;
+      }
       body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        line-height: 1.6;
-        color: var(--dark);
-        background-color: var(--light);
+        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        background: var(--bg);
+        color: #111827;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
 
-      .container {
+      /* =======================
+       NAVBAR (SHARED) - matches your homepage
+       ================*/
+      .site-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 2000;
+        height: var(--nav-h);
+        background: rgba(10, 42, 102, 0.97);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .nav-inner {
+        height: var(--nav-h);
         max-width: 1200px;
         margin: 0 auto;
-        padding: 20px;
-      }
-
-      /* Header Styles - EXACT SAME */
-      .site-header {
-        background: linear-gradient(
-          135deg,
-          var(--primary),
-          var(--primary-dark)
-        );
-        color: white;
-        padding: 1rem 0;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .header-content {
-        max-width: 1200px;
-        margin: 0 auto;
+        padding: 0 16px;
         display: flex;
+        align-items: center;
         justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
+        gap: 14px;
       }
-
-      .logo {
+      .brand {
         display: flex;
         align-items: center;
-        gap: 10px;
         text-decoration: none;
-        color: white;
+        gap: 10px;
+        min-width: 140px;
       }
-
-      .logo-img {
-        height: 40px;
-        display: flex;
-        align-items: center;
-      }
-
-      .logo-img img {
-        height: 100%;
+      .brand img {
+        height: 36px;
         width: auto;
-      }
-
-      .logo-text {
-        display: flex;
-        flex-direction: column;
-        line-height: 1.2;
-      }
-
-      .logo-main {
-        font-size: 1.3rem;
-        font-weight: 700;
-      }
-
-      .logo-sub {
-        font-size: 0.7rem;
-        font-weight: 500;
-        opacity: 0.9;
+        display: block;
+        filter: brightness(0) invert(1);
       }
 
       .nav-links {
-        display: flex;
-        gap: 2rem;
+        display: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
         align-items: center;
+        gap: 18px;
       }
-
       .nav-links a {
-        color: white;
+        color: rgba(255, 255, 255, 0.92);
         text-decoration: none;
-        font-weight: 500;
-        transition: all 0.3s ease;
+        font-weight: 700;
+        font-size: 14px;
+        padding: 10px 10px;
+        transition: color 0.2s ease, background 0.2s ease;
+        border-radius: 8px;
+        white-space: nowrap;
       }
-
       .nav-links a:hover {
-        color: var(--secondary);
+        color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .nav-links a.active {
+        color: var(--gold);
+        background: rgba(248, 193, 46, 0.14);
       }
 
-      .login-btn {
-        background: var(--secondary);
-        color: var(--login-color);
-        padding: 8px 20px;
-        border-radius: 6px;
-        font-weight: 600;
+      .nav-cta {
+        display: none;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-solid {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         text-decoration: none;
-        transition: all 0.3s ease;
+        font-weight: 800;
+        font-size: 14px;
+        padding: 12px 16px;
+        border-radius: 6px;
+        border: 1px solid transparent;
+        transition: transform 0.12s ease, filter 0.2s ease, box-shadow 0.2s ease,
+          background 0.2s ease;
+        white-space: nowrap;
+        line-height: 1;
+      }
+      .btn-solid-primary {
+        background: var(--gold);
+        color: var(--navy);
+        box-shadow: 0 14px 26px rgba(248, 193, 46, 0.24);
+      }
+      .btn-solid-primary:hover {
+        background: var(--gold2);
+        color: var(--navy);
+        transform: translateY(-1px);
+        box-shadow: 0 18px 30px rgba(248, 193, 46, 0.28);
+      }
+      .btn-solid-ghost {
+        background: transparent;
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.55);
+      }
+      .btn-solid-ghost:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        transform: translateY(-1px);
       }
 
-      .login-btn:hover {
-        background: var(--secondary-dark);
-        transform: translateY(-2px);
+      .menu-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        cursor: pointer;
+      }
+      .menu-btn i {
+        font-size: 18px;
       }
 
-      /* Page Header */
-      .page-header {
-        text-align: center;
-        margin: 3rem 0 2rem;
+      .mobile-drawer {
+        position: fixed;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        z-index: 1999;
+        display: none;
+        background: rgba(10, 42, 102, 0.985);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        max-height: calc(100vh - var(--nav-h));
+        overflow: auto;
+      }
+      .mobile-drawer.active {
+        display: block;
       }
 
-      .page-header h1 {
-        color: var(--primary);
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
+      .mobile-drawer a {
+        display: block;
+        padding: 14px 18px;
+        color: rgba(255, 255, 255, 0.92);
+        text-decoration: none;
+        font-weight: 700;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .mobile-drawer a:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
+      }
+      .mobile-drawer a.active {
+        color: var(--gold);
+        background: rgba(248, 193, 46, 0.14);
+      }
+      .mobile-drawer .mobile-cta {
+        padding: 14px 18px;
+        border-bottom: none;
       }
 
-      .page-header p {
-        color: var(--gray);
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto;
+      @media (min-width: 992px) {
+        .nav-links {
+          display: flex;
+          margin-left: auto;
+        }
+        .nav-cta {
+          display: flex;
+        }
+        .menu-btn {
+          display: none;
+        }
+        .mobile-drawer {
+          display: none !important;
+        }
+        .nav-inner {
+          padding: 0 20px;
+        }
+      }
+
+      .page-offset {
+        padding-top: var(--nav-h);
+      }
+
+      /* =======================
+       PAGE
+       ================*/
+      .hero-lite {
+        background: linear-gradient(135deg, var(--soft) 0%, var(--soft2) 100%);
+        border-bottom: 1px solid var(--border);
+        padding: 46px 0 30px;
+      }
+      .page-title {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        color: var(--navy);
+        font-size: clamp(1.9rem, 3vw, 2.6rem);
+        line-height: 1.15;
+        margin: 0 0 10px;
+      }
+      .page-subtitle {
+        color: var(--muted);
+        margin: 0;
+        line-height: 1.7;
+        max-width: 75ch;
+      }
+
+      .wrap {
+        padding: 26px 0 60px;
+      }
+
+      .policy-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: 0 10px 28px rgba(10, 42, 102, 0.08);
+        padding: 22px 16px;
+      }
+      @media (min-width: 768px) {
+        .policy-card {
+          padding: 28px 26px;
+        }
       }
 
       .effective-date {
-        text-align: center;
-        color: var(--gray);
-        font-style: italic;
-        margin-bottom: 2rem;
-        background: white;
-        padding: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(10, 42, 102, 0.05);
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        color: var(--navy);
+        padding: 10px 12px;
+        border-radius: 999px;
+        font-weight: 800;
+        margin-bottom: 14px;
       }
 
-      /* Privacy Content */
-      .privacy-content {
-        background: white;
-        border-radius: 12px;
-        padding: 2.5rem;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        margin-bottom: 2rem;
+      .notice {
+        border-radius: 14px;
+        padding: 16px;
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        margin: 14px 0 18px;
       }
-
-      .compliance-notice {
-        background: rgba(59, 130, 246, 0.1);
+      .notice.info {
+        background: rgba(59, 130, 246, 0.10);
         border-left: 4px solid var(--info);
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-        border-radius: 0 8px 8px 0;
+      }
+      .notice.success {
+        background: rgba(16, 185, 129, 0.10);
+        border-left: 4px solid var(--success);
+      }
+      .notice.warn {
+        background: rgba(239, 68, 68, 0.10);
+        border-left: 4px solid var(--danger);
+      }
+      .notice.gold {
+        background: rgba(248, 193, 46, 0.14);
+        border-left: 4px solid var(--gold);
       }
 
-      .compliance-notice h3 {
-        color: var(--info);
-        margin-bottom: 0.5rem;
+      .notice h3 {
+        margin: 0 0 6px;
+        font-weight: 900;
+        color: var(--navy);
+        font-size: 1.05rem;
+      }
+      .notice p {
+        margin: 0;
+        color: #0f172a;
+        line-height: 1.7;
       }
 
       .section {
-        margin-bottom: 2.5rem;
+        margin-top: 22px;
       }
-
       .section-title {
-        color: var(--primary);
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid var(--secondary);
+        color: var(--navy);
+        font-weight: 900;
+        font-size: 1.15rem;
+        margin: 0 0 10px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid rgba(248, 193, 46, 0.65);
       }
-
-      .subsection {
-        margin-bottom: 1.5rem;
+      .sub-title {
+        color: var(--navy);
+        font-weight: 900;
+        font-size: 1.02rem;
+        margin: 14px 0 8px;
       }
-
-      .subsection-title {
-        color: var(--primary);
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-      }
-
-      .highlight-box {
-        background: rgba(248, 193, 46, 0.1);
-        border-left: 4px solid var(--secondary);
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        border-radius: 0 8px 8px 0;
-      }
-
-      .rights-box {
-        background: rgba(16, 185, 129, 0.1);
-        border-left: 4px solid var(--success);
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        border-radius: 0 8px 8px 0;
-      }
-
-      .warning-box {
-        background: rgba(239, 68, 68, 0.1);
-        border-left: 4px solid var(--danger);
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-        border-radius: 0 8px 8px 0;
+      .policy-card p {
+        color: #0f172a;
+        line-height: 1.8;
+        margin: 0 0 10px;
       }
 
       .privacy-list {
-        padding-left: 1.5rem;
-        margin-bottom: 1rem;
+        margin: 8px 0 12px;
+        padding-left: 18px;
+        color: #0f172a;
+        line-height: 1.8;
       }
-
       .privacy-list li {
-        margin-bottom: 0.5rem;
-        position: relative;
+        margin-bottom: 6px;
       }
-
-      .privacy-list li strong {
-        color: var(--primary);
+      .privacy-list strong {
+        color: var(--navy);
       }
 
       .data-table {
         width: 100%;
         border-collapse: collapse;
-        margin: 1.5rem 0;
-        background: var(--light);
-        border-radius: 8px;
+        margin: 12px 0 16px;
+        background: #fff;
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        border-radius: 12px;
         overflow: hidden;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       }
-
       .data-table th {
-        background: var(--primary);
-        color: white;
-        padding: 1rem;
+        background: var(--navy);
+        color: #fff;
+        padding: 12px;
         text-align: left;
-        font-weight: 600;
+        font-weight: 900;
+        font-size: 14px;
       }
-
       .data-table td {
-        padding: 1rem;
-        border-bottom: 1px solid var(--gray-light);
+        padding: 12px;
+        border-top: 1px solid rgba(10, 42, 102, 0.10);
+        color: #0f172a;
+        vertical-align: top;
       }
-
-      .data-table tr:last-child td {
-        border-bottom: none;
+      .data-table tr:nth-child(even) td {
+        background: rgba(248, 193, 46, 0.06);
       }
-
-      .data-table tr:nth-child(even) {
-        background: rgba(248, 193, 46, 0.05);
-      }
-
-      .back-home {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: var(--primary);
-        color: white;
-        padding: 12px 24px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 600;
-        margin-top: 1rem;
-        transition: all 0.3s ease;
-      }
-
-      .back-home:hover {
-        background: var(--primary-dark);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(10, 42, 102, 0.2);
-      }
-
-      /* Footer */
-      .site-footer {
-        background: var(--primary);
-        color: white;
-        padding: 2rem 0;
-        margin-top: 3rem;
-      }
-
-      .footer-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-        text-align: center;
-      }
-
-      .footer-links {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        margin-top: 1rem;
-      }
-
-      .footer-links a {
-        color: rgba(255, 255, 255, 0.8);
-        text-decoration: none;
-        transition: color 0.3s ease;
-      }
-
-      .footer-links a:hover {
-        color: var(--secondary);
-      }
-
       @media (max-width: 768px) {
-        .header-content {
-          flex-direction: column;
-          gap: 1rem;
-          text-align: center;
-        }
-
-        .nav-links {
-          gap: 1rem;
-        }
-
-        .page-header h1 {
-          font-size: 2rem;
-        }
-
-        .privacy-content {
-          padding: 1.5rem;
-        }
-
         .data-table {
           display: block;
           overflow-x: auto;
-        }
-
-        .footer-links {
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .effective-date {
-          padding: 0.8rem;
-          font-size: 0.9rem;
+          white-space: nowrap;
         }
       }
+
+      .back-row {
+        margin-top: 18px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .back-home {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--navy);
+        color: white;
+        padding: 12px 18px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 900;
+        transition: transform 0.14s ease, filter 0.2s ease;
+      }
+      .back-home:hover {
+        filter: brightness(1.03);
+        transform: translateY(-1px);
+      }
+      .btn-outline {
+        background: #fff;
+        color: var(--navy);
+        border: 1px solid rgba(10, 42, 102, 0.18);
+      }
+      .btn-outline:hover {
+        background: rgba(10, 42, 102, 0.04);
+      }
+
+      /* =======================
+       FOOTER (match your shared footer style)
+       ================*/
+      footer {
+        background: #001a3d;
+        color: #fff;
+        padding: 54px 0 28px;
+        margin-top: 30px;
+      }
+      .footer-title {
+        color: #f5c542;
+        font-weight: 900;
+        margin-bottom: 12px;
+        font-size: 16px;
+      }
+      .footer-text,
+      .footer-link {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 14px;
+        line-height: 1.7;
+        text-decoration: none;
+      }
+      .footer-link:hover {
+        color: #f5c542;
+      }
+      .footer-social {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+        flex-wrap: wrap;
+      }
+      .footer-social a {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        transition: transform 0.16s ease, background 0.18s ease, color 0.18s ease;
+      }
+      .footer-social a:hover {
+        background: #f5c542;
+        color: var(--navy);
+        transform: translateY(-2px);
+      }
+      .footer-divider {
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        margin-top: 18px;
+        padding-top: 16px;
+      }
+      .section-cta {
+        padding: 10px 0 0;
+      }
+      .section-cta-card {
+        padding: 26px 18px;
+        background: linear-gradient(135deg, var(--navy) 0%, #0a3d62 100%);
+        border: none;
+        color: #fff;
+        border-radius: 14px;
+        box-shadow: 0 18px 38px rgba(10, 42, 102, 0.18);
+      }
+      .section-cta-title {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: 1.8rem;
+        line-height: 1.2;
+        margin-bottom: 8px;
+      }
+      .section-cta-copy {
+        opacity: 0.92;
+        line-height: 1.7;
+      }
     </style>
+  
+    <link rel='stylesheet' href='assets/css/product-polish.css' />
   </head>
+
   <body>
-    <header class="site-header">
-<<<<<<< HEAD
-      <div class="header-content">
-        <a href="index.html" class="logo">
-          <div class="logo-img">
-            <img src="logo.png" alt="Job Assist Ghana" />
-          </div>
+    <!-- NAVBAR (fixed + not duplicated) -->
+    <header class="site-nav">
+      <div class="nav-inner">
+        <a class="brand" href="index.html">
+          <img src="assets/images/logo.png" alt="Job Assist Ghana Logo" />
         </a>
 
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="login.html" class="login-btn">Login</a>
-=======
-        <div class="header-content">
-            <a href="../index.html" class="logo">
-                <div class="logo-img">
-                    <img src="logo.png" alt="Job Assist Ghana">
-                </div>
-            </a>
-            
-            <div class="nav-links">
-                <a href="../index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="login.html" class="login-btn">Login</a>
-            </div>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
-        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="build-cv.html">Build a CV</a></li>
+        </ul>
+
+        <button
+          class="menu-btn"
+          type="button"
+          onclick="toggleMenu()"
+          aria-label="Open menu"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
+
+      <nav class="mobile-drawer" id="mobile-nav" aria-label="Mobile navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="build-cv.html">Build a CV</a>
+      </nav>
     </header>
 
-    <div class="container">
-      <div class="page-header">
-        <h1>Privacy Policy</h1>
-        <p>How we collect, use, store, and protect your personal information</p>
-      </div>
-
-      <div class="effective-date">
-        <p><strong>Last Updated:</strong> January 2026</p>
-      </div>
-
-      <div class="privacy-content">
-        <!-- Compliance Notice -->
-        <div class="compliance-notice">
-          <h3>Data Protection Compliance</h3>
-          <p>
-            This Privacy Policy explains how we collect, use, store, and protect
-            your personal information when you access or use our job platform
-            ("the Platform"). We are committed to safeguarding the privacy and
-            security of all users, including job seekers, employers, and
-            visitors.
-          </p>
-          <p>
-            <strong
-              >By using the Platform, you agree to the practices described in
-              this Privacy Policy in accordance with the Ghana Data Protection
-              Act, 2012 (Act 843).</strong
-            >
+    <main class="page-offset">
+      <!-- Page header -->
+      <section class="hero-lite">
+        <div class="container">
+          <h1 class="page-title">Privacy Policy</h1>
+          <p class="page-subtitle">
+            How we collect, use, store, and protect your personal information.
           </p>
         </div>
+      </section>
 
-        <!-- Section 1: Introduction -->
-        <div class="section">
-          <h2 class="section-title">1. Introduction</h2>
-          <p>
-            We respect your privacy and are committed to protecting your
-            personal data. This Privacy Policy outlines the types of information
-            we collect, how we use it, how we protect it, and the rights you
-            have regarding your data.
-          </p>
-          <p>This policy applies to:</p>
-          <ul class="privacy-list">
-            <li><strong>Job seekers</strong></li>
-            <li><strong>Employers and recruiters</strong></li>
-            <li><strong>Visitors to our website</strong></li>
-            <li>
-              <strong
-                >Users of any related services, tools, or applications</strong
-              >
-            </li>
-          </ul>
-        </div>
-
-        <!-- Section 2: Information We Collect -->
-        <div class="section">
-          <h2 class="section-title">2. Information We Collect</h2>
-
-          <div class="subsection">
-            <h3 class="subsection-title">
-              2.1 Personal Information Provided by Users
-            </h3>
-            <p>
-              When you create an account, apply for a job, or use our services,
-              we may collect:
-            </p>
-
-            <div class="highlight-box">
-              <ul class="privacy-list">
-                <li><strong>Full name</strong></li>
-                <li><strong>Email address</strong></li>
-                <li><strong>Phone number</strong></li>
-                <li><strong>Location or address</strong></li>
-                <li><strong>CV/resume content</strong></li>
-                <li><strong>Date of birth (optional)</strong></li>
-                <li><strong>Employment history</strong></li>
-                <li>
-                  <strong>Skills, qualifications, and certifications</strong>
-                </li>
-                <li><strong>Profile picture (optional)</strong></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="subsection">
-            <h3 class="subsection-title">
-              2.2 Employer and Company Information
-            </h3>
-            <p>For employers, we may collect:</p>
-            <ul class="privacy-list">
-              <li><strong>Company name</strong></li>
-              <li><strong>Business address</strong></li>
-              <li><strong>Contact person's name</strong></li>
-              <li><strong>Contact email and phone number</strong></li>
-              <li><strong>Job descriptions and postings</strong></li>
-            </ul>
-          </div>
-
-          <div class="subsection">
-            <h3 class="subsection-title">
-              2.3 Automatically Collected Information
-            </h3>
-            <p>When you access the Platform, we automatically collect:</p>
-
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Information Type</th>
-                  <th>Examples</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Device Information</strong></td>
-                  <td>Desktop, mobile, browser type</td>
-                </tr>
-                <tr>
-                  <td><strong>Technical Information</strong></td>
-                  <td>IP address, operating system</td>
-                </tr>
-                <tr>
-                  <td><strong>Usage Data</strong></td>
-                  <td>Pages viewed and time spent on the Platform</td>
-                </tr>
-                <tr>
-                  <td><strong>Activity Logs</strong></td>
-                  <td>Login times and activity logs</td>
-                </tr>
-                <tr>
-                  <td><strong>Cookies and Tracking</strong></td>
-                  <td>Cookies and tracking data</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="subsection">
-            <h3 class="subsection-title">2.4 Payment Information</h3>
-            <div class="highlight-box">
-              <p>For users who choose premium services:</p>
-              <ul class="privacy-list">
-                <li>We collect payment confirmations and transaction IDs</li>
-                <li>
-                  All payments are processed by secure third-party providers
-                </li>
-                <li>
-                  <strong
-                    >We do not store or process credit/debit card
-                    details</strong
-                  >
-                </li>
-              </ul>
-            </div>
-<<<<<<< HEAD
-          </div>
-=======
-
-            <!-- Section 5: Sharing of Information -->
-            <div class="section">
-                <h2 class="section-title">5. Sharing of Information</h2>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">5.1 With Employers</h3>
-                    <div class="highlight-box">
-                        <p>When you apply for a job or create a public profile, your information may be shared with employers, including:</p>
-                        <ul class="privacy-list">
-                            <li><strong>Name</strong></li>
-                            <li><strong>Contact details</strong></li>
-                            <li><strong>Resume/CV</strong></li>
-                            <li><strong>Skills and experience</strong></li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">5.2 With Service Providers</h3>
-                    <p>We may share limited data with trusted third parties such as:</p>
-                    <ul class="privacy-list">
-                        <li><strong>Payment processors</strong></li>
-                        <li><strong>Cloud hosting providers</strong></li>
-                        <li><strong>Analytics partners</strong></li>
-                    </ul>
-                    <p>These partners are obligated to protect your information and may not use it for any other purpose.</p>
-                </div>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">5.3 Legal Disclosures</h3>
-                    <div class="warning-box">
-                        <p>We may disclose your data:</p>
-                        <ul class="privacy-list">
-                            <li>To comply with court orders, laws, or regulations</li>
-                            <li>To prevent illegal activity, fraud, or security threats</li>
-                            <li>When required by law enforcement or government agencies</li>
-                        </ul>
-                    </div>
-                </div>
+      <section class="wrap">
+        <div class="container">
+          <div class="policy-card">
+            <div class="effective-date">
+              <i class="fa-solid fa-calendar-check"></i>
+              <span><strong>Last Updated:</strong> May 2026</span>
             </div>
 
-            <!-- Section 6: Cookies and Tracking Technologies -->
-            <div class="section">
-                <h2 class="section-title">6. Cookies and Tracking Technologies</h2>
-                
-                <div class="subsection">
-                    <p>We use cookies and similar technologies to:</p>
-                    
-                    <div class="highlight-box">
-                        <ul class="privacy-list">
-                            <li><strong>Improve website functionality</strong></li>
-                            <li><strong>Remember user preferences</strong></li>
-                            <li><strong>Analyze platform usage</strong></li>
-                            <li><strong>Enhance security</strong></li>
-                        </ul>
-                    </div>
-                    
-                    <p>You may disable cookies through your browser settings, but this may affect your experience on the Platform.</p>
-                </div>
-            </div>
-
-            <!-- Section 7: Data Retention -->
-            <div class="section">
-                <h2 class="section-title">7. Data Retention</h2>
-                
-                <div class="subsection">
-                    <p>We retain your personal information only for as long as necessary to:</p>
-                    
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Purpose</th>
-                                <th>Retention Period</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Provide our services</strong></td>
-                                <td>While account is active + 2 years</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Comply with legal obligations</strong></td>
-                                <td>As required by law (typically 7 years)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Resolve disputes</strong></td>
-                                <td>Until dispute resolution + 2 years</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Enforce agreements</strong></td>
-                                <td>Duration of agreement + 5 years</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                    <div class="highlight-box" style="margin-top: 1.5rem;">
-                        <p><strong>You may request deletion of your account and data at any time (see Section 9).</strong></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 8: Data Protection & Security -->
-            <div class="section">
-                <h2 class="section-title">8. Data Protection & Security</h2>
-                
-                <div class="subsection">
-                    <p>We implement strong technical and organizational measures to protect data, including:</p>
-                    
-                    <div class="highlight-box">
-                        <ul class="privacy-list">
-                            <li><strong>Encryption</strong></li>
-                            <li><strong>Secure servers and firewalls</strong></li>
-                            <li><strong>Access controls</strong></li>
-                            <li><strong>Regular security audits</strong></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="warning-box">
-                        <p><strong>Important:</strong> No online platform is 100% secure. Users are encouraged to keep their passwords confidential and use strong, unique passwords.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 9: Your Rights (Under Act 843) -->
-            <div class="section">
-                <h2 class="section-title">9. Your Rights (Under Act 843)</h2>
-                
-                <div class="subsection">
-                    <p>You have the right to:</p>
-                    
-                    <div class="rights-box">
-                        <ul class="privacy-list">
-                            <li><strong>Access your personal data</strong></li>
-                            <li><strong>Correct inaccurate or outdated information</strong></li>
-                            <li><strong>Request deletion of your data</strong></li>
-                            <li><strong>Withdraw consent at any time</strong></li>
-                            <li><strong>Object to certain processing activities</strong></li>
-                            <li><strong>Restrict processing in certain circumstances</strong></li>
-                            <li><strong>Lodge a complaint with the Data Protection Commission</strong></li>
-                        </ul>
-                    </div>
-                    
-                    <p><strong>To exercise your rights, contact us at the details provided in Section 14.</strong></p>
-                </div>
-            </div>
-
-            <!-- Section 10: International Data Transfers -->
-            <div class="section">
-                <h2 class="section-title">10. International Data Transfers</h2>
-                
-                <div class="subsection">
-                    <p>Some data may be stored or processed in secure servers outside Ghana.</p>
-                    <p>Where this occurs, we ensure your information is protected in accordance with Act 843 and international data protection standards.</p>
-                </div>
-            </div>
-
-            <!-- Section 11: Children's Privacy -->
-            <div class="section">
-                <h2 class="section-title">11. Children's Privacy</h2>
-                
-                <div class="subsection">
-                    <div class="warning-box">
-                        <p>The Platform is not intended for individuals under the age of 18.</p>
-                        <p><strong>If we discover that a minor has provided us with personal data, we will delete it immediately.</strong></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 12: Third-Party Links -->
-            <div class="section">
-                <h2 class="section-title">12. Third-Party Links</h2>
-                
-                <div class="subsection">
-                    <p>Our Platform may contain links to third-party websites.</p>
-                    <div class="highlight-box">
-                        <p><strong>Important:</strong> We are not responsible for the privacy practices of those websites, and users are encouraged to review their privacy policies.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 13: Changes to This Privacy Policy -->
-            <div class="section">
-                <h2 class="section-title">13. Changes to This Privacy Policy</h2>
-                
-                <div class="subsection">
-                    <p>We may update this Privacy Policy from time to time.</p>
-                    <div class="highlight-box">
-                        <p>Any changes will be posted on this page with an updated "Last Updated" date. Continued use of the Platform after changes means you accept the updated policy.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 14: Contact Information -->
-            <div class="section">
-                <h2 class="section-title">14. Contact Information</h2>
-                
-                <div class="subsection">
-                    <div class="highlight-box">
-                        <p><strong>If you have questions or want to exercise your data rights, contact us:</strong></p>
-                        <ul class="privacy-list" style="list-style: none; padding-left: 0;">
-                            <li><strong>Email:</strong> info@jobassistgh.com</li>
-                            <li><strong>Phone:</strong> +233 (0) 59-477-2550</li>
-                            <li><strong>Address:</strong> Osu, Accra, Ghana</li>
-                            <li><strong>Data Protection Officer:</strong> Available upon request</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <a href="../index.html" class="back-home">
-                Back to Home
-            </a>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047
-        </div>
-
-        <!-- Section 3: How We Use Your Information -->
-        <div class="section">
-          <h2 class="section-title">3. How We Use Your Information</h2>
-
-          <div class="subsection">
-            <p>We use your information to:</p>
-
-            <div class="highlight-box">
-              <ul class="privacy-list">
-                <li><strong>Create and manage your user account</strong></li>
-                <li><strong>Process job applications</strong></li>
-                <li><strong>Connect job seekers with employers</strong></li>
-                <li>
-                  <strong
-                    >Provide employers with access to candidate profiles</strong
-                  >
-                </li>
-                <li><strong>Enable premium application features</strong></li>
-                <li>
-                  <strong
-                    >Improve user experience and platform performance</strong
-                  >
-                </li>
-                <li><strong>Send notifications and job alerts</strong></li>
-                <li>
-                  <strong
-                    >Ensure compliance with legal and regulatory
-                    requirements</strong
-                  >
-                </li>
-                <li>
-                  <strong
-                    >Detect and prevent fraud, abuse, or security issues</strong
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Section 4: Legal Basis for Processing -->
-        <div class="section">
-          <h2 class="section-title">4. Legal Basis for Processing</h2>
-
-          <div class="subsection">
-            <p>
-              Under the Ghana Data Protection Act, we process personal data
-              based on:
-            </p>
-
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Legal Basis</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Your Consent</strong></td>
-                  <td>When you explicitly agree to data processing</td>
-                </tr>
-                <tr>
-                  <td><strong>Contract</strong></td>
-                  <td>
-                    To fulfill our agreement with you (e.g., job application or
-                    employer service)
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>Legitimate Interests</strong></td>
-                  <td>
-                    Our legitimate business interests that don't override your
-                    rights
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>Legal Obligations</strong></td>
-                  <td>To comply with applicable laws and regulations</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Section 5: Sharing of Information -->
-        <div class="section">
-          <h2 class="section-title">5. Sharing of Information</h2>
-
-          <div class="subsection">
-            <h3 class="subsection-title">5.1 With Employers</h3>
-            <div class="highlight-box">
+            <div class="notice info">
+              <h3>Data Protection Compliance</h3>
               <p>
-                When you apply for a job or create a public profile, your
-                information may be shared with employers, including:
+                This Privacy Policy explains how Job Assist Ghana collects, uses, stores,
+                shares, and protects personal information when you use our recruitment
+                platform. It applies to candidates, employers, recruiters, and visitors.
               </p>
-              <ul class="privacy-list">
-                <li><strong>Name</strong></li>
-                <li><strong>Contact details</strong></li>
-                <li><strong>Resume/CV</strong></li>
-                <li><strong>Skills and experience</strong></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="subsection">
-            <h3 class="subsection-title">5.2 With Service Providers</h3>
-            <p>We may share limited data with trusted third parties such as:</p>
-            <ul class="privacy-list">
-              <li><strong>Payment processors</strong></li>
-              <li><strong>Cloud hosting providers</strong></li>
-              <li><strong>Analytics partners</strong></li>
-            </ul>
-            <p>
-              These partners are obligated to protect your information and may
-              not use it for any other purpose.
-            </p>
-          </div>
-
-          <div class="subsection">
-            <h3 class="subsection-title">5.3 Legal Disclosures</h3>
-            <div class="warning-box">
-              <p>We may disclose your data:</p>
-              <ul class="privacy-list">
-                <li>To comply with court orders, laws, or regulations</li>
-                <li>To prevent illegal activity, fraud, or security threats</li>
-                <li>When required by law enforcement or government agencies</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Section 6: Cookies and Tracking Technologies -->
-        <div class="section">
-          <h2 class="section-title">6. Cookies and Tracking Technologies</h2>
-
-          <div class="subsection">
-            <p>We use cookies and similar technologies to:</p>
-
-            <div class="highlight-box">
-              <ul class="privacy-list">
-                <li><strong>Improve website functionality</strong></li>
-                <li><strong>Remember user preferences</strong></li>
-                <li><strong>Analyze platform usage</strong></li>
-                <li><strong>Enhance security</strong></li>
-              </ul>
-            </div>
-
-            <p>
-              You may disable cookies through your browser settings, but this
-              may affect your experience on the Platform.
-            </p>
-          </div>
-        </div>
-
-        <!-- Section 7: Data Retention -->
-        <div class="section">
-          <h2 class="section-title">7. Data Retention</h2>
-
-          <div class="subsection">
-            <p>
-              We retain your personal information only for as long as necessary
-              to:
-            </p>
-
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Purpose</th>
-                  <th>Retention Period</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Provide our services</strong></td>
-                  <td>While account is active + 2 years</td>
-                </tr>
-                <tr>
-                  <td><strong>Comply with legal obligations</strong></td>
-                  <td>As required by law (typically 7 years)</td>
-                </tr>
-                <tr>
-                  <td><strong>Resolve disputes</strong></td>
-                  <td>Until dispute resolution + 2 years</td>
-                </tr>
-                <tr>
-                  <td><strong>Enforce agreements</strong></td>
-                  <td>Duration of agreement + 5 years</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div class="highlight-box" style="margin-top: 1.5rem">
-              <p>
-                <strong
-                  >You may request deletion of your account and data at any time
-                  (see Section 9).</strong
-                >
+              <p style="margin-top: 8px">
+                <strong>
+                  We handle personal data in line with the Ghana Data Protection Act, 2012
+                  (Act 843), the Electronic Transactions Act, 2008 (Act 772), and other
+                  applicable Ghanaian law.
+                </strong>
               </p>
             </div>
-          </div>
-        </div>
 
-        <!-- Section 8: Data Protection & Security -->
-        <div class="section">
-          <h2 class="section-title">8. Data Protection & Security</h2>
-
-          <div class="subsection">
-            <p>
-              We implement strong technical and organizational measures to
-              protect data, including:
-            </p>
-
-            <div class="highlight-box">
+            <!-- 1 -->
+            <div class="section">
+              <h2 class="section-title">1. Introduction</h2>
+              <p>
+                Job Assist Ghana is a job and recruitment facilitation platform. We help
+                candidates create profiles, browse jobs, submit applications, and use
+                optional paid visibility services where available. We also help employers
+                create company accounts, post jobs, review applicants, and unlock selected
+                applicant contact details for recruitment purposes.
+              </p>
+              <p>
+                This Privacy Policy describes what information we collect, why we collect it,
+                how it may be shared, how long we keep it, and the rights available to users.
+              </p>
+              <p>This policy applies to:</p>
               <ul class="privacy-list">
-                <li><strong>Encryption</strong></li>
-                <li><strong>Secure servers and firewalls</strong></li>
-                <li><strong>Access controls</strong></li>
-                <li><strong>Regular security audits</strong></li>
+                <li><strong>Candidates and job seekers</strong></li>
+                <li><strong>Employers, recruiters, and company representatives</strong></li>
+                <li><strong>Visitors to our website and public pages</strong></li>
+                <li><strong>Users of related platform services, tools, and payment flows</strong></li>
               </ul>
             </div>
 
-            <div class="warning-box">
+            <!-- 2 -->
+            <div class="section">
+              <h2 class="section-title">2. Information We Collect</h2>
+
+              <h3 class="sub-title">2.1 Candidate Account and Profile Information</h3>
               <p>
-                <strong>Important:</strong> No online platform is 100% secure.
-                Users are encouraged to keep their passwords confidential and
-                use strong, unique passwords.
+                When candidates create accounts, complete profiles, apply for jobs, or use
+                optional paid services, we may collect:
               </p>
-            </div>
-          </div>
-        </div>
+              <div class="notice gold">
+                <ul class="privacy-list" style="margin-bottom: 0">
+                  <li><strong>Full name</strong></li>
+                  <li><strong>NSS number or SHS graduate status</strong></li>
+                  <li><strong>Email address</strong></li>
+                  <li><strong>Phone number</strong></li>
+                  <li><strong>Gender</strong></li>
+                  <li><strong>Date of birth (optional)</strong></li>
+                  <li><strong>Ghana Card number</strong></li>
+                  <li><strong>Digital address</strong></li>
+                  <li><strong>Region</strong></li>
+                  <li><strong>Field of study</strong></li>
+                  <li><strong>Experience level</strong></li>
+                  <li><strong>Highest level of education</strong></li>
+                  <li><strong>Preferred industry</strong></li>
+                  <li><strong>Skills, currently limited in the platform form</strong></li>
+                  <li><strong>Disability status</strong></li>
+                  <li><strong>Password and login credentials</strong></li>
+                  <li><strong>Optional profile picture, if you choose to upload one</strong></li>
+                </ul>
+              </div>
+              <p>
+                Candidates no longer upload general supporting documents during signup.
+                Supporting files are attached per job application instead.
+              </p>
 
-        <!-- Section 9: Your Rights (Under Act 843) -->
-        <div class="section">
-          <h2 class="section-title">9. Your Rights (Under Act 843)</h2>
-
-          <div class="subsection">
-            <p>You have the right to:</p>
-
-            <div class="rights-box">
+              <h3 class="sub-title">2.2 Employer and Company Information</h3>
+              <p>When employers or recruiters create accounts or manage company profiles, we may collect:</p>
               <ul class="privacy-list">
-                <li><strong>Access your personal data</strong></li>
-                <li>
-                  <strong>Correct inaccurate or outdated information</strong>
-                </li>
-                <li><strong>Request deletion of your data</strong></li>
-                <li><strong>Withdraw consent at any time</strong></li>
-                <li>
-                  <strong>Object to certain processing activities</strong>
-                </li>
-                <li>
-                  <strong>Restrict processing in certain circumstances</strong>
-                </li>
-                <li>
-                  <strong
-                    >Lodge a complaint with the Data Protection
-                    Commission</strong
-                  >
-                </li>
+                <li><strong>Company name</strong></li>
+                <li><strong>Industry or field</strong></li>
+                <li><strong>Business type</strong></li>
+                <li><strong>Company size</strong></li>
+                <li><strong>Business registration number (optional)</strong></li>
+                <li><strong>Company description</strong></li>
+                <li><strong>Recruiter or contact person’s full name</strong></li>
+                <li><strong>Position or job title</strong></li>
+                <li><strong>Work email where provided</strong></li>
+                <li><strong>Company address</strong></li>
+                <li><strong>City and region</strong></li>
+                <li><strong>Phone number used for login</strong></li>
+                <li><strong>Password and login credentials</strong></li>
+                <li><strong>Optional social media links, currently limited in the platform form</strong></li>
+                <li><strong>Job postings and recruitment activity</strong></li>
               </ul>
+              <p>
+                Employer social media links are collected for account or company context only.
+                They should not be assumed to be publicly displayed on every job card or job detail page.
+              </p>
+
+              <h3 class="sub-title">2.3 Job Application Documents</h3>
+              <p>
+                Candidates may upload documents for a specific job application. These may include
+                CVs, resumes, certificates, cover letters, or image files supported by the platform
+                at the time of upload. These files are attached to that application record rather than
+                to the candidate signup form generally.
+              </p>
+
+              <h3 class="sub-title">2.4 Payment Information</h3>
+              <div class="notice gold">
+                <p style="margin: 0 0 8px">
+                  When a user pays for a platform service, we may store relevant payment records such as:
+                </p>
+                <ul class="privacy-list" style="margin-bottom: 0">
+                  <li><strong>Service paid for</strong></li>
+                  <li><strong>Amount</strong></li>
+                  <li><strong>Date</strong></li>
+                  <li><strong>Reference or transaction ID</strong></li>
+                  <li><strong>Payment status</strong></li>
+                </ul>
+              </div>
+              <p>
+                Payments may be processed through secure third-party providers such as Paystack,
+                where applicable. We do not claim to store your debit or credit card details.
+              </p>
+
+              <h3 class="sub-title">2.5 Automatically Collected Technical and Usage Data</h3>
+              <p>When you access the Platform, we may automatically collect:</p>
+
+              <table class="data-table" aria-label="Automatically collected information">
+                <thead>
+                  <tr>
+                    <th>Information Type</th>
+                    <th>Examples</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Device Information</strong></td>
+                    <td>Desktop, mobile, browser type</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Technical Information</strong></td>
+                    <td>IP address, operating system</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Usage Data</strong></td>
+                    <td>Pages viewed, actions taken, searches, and time spent on the Platform</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Activity Logs</strong></td>
+                    <td>Login times, notifications, payment status activity, and security logs</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Cookies and Tracking</strong></td>
+                    <td>Cookies and tracking data</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
-            <p>
-              <strong
-                >To exercise your rights, contact us at the details provided in
-                Section 14.</strong
-              >
-            </p>
-          </div>
-        </div>
+            <!-- 3 -->
+            <div class="section">
+              <h2 class="section-title">3. How We Use Information</h2>
+              <p>We use information we collect to:</p>
+              <div class="notice gold">
+                <ul class="privacy-list" style="margin-bottom: 0">
+                  <li><strong>Create and manage accounts</strong></li>
+                  <li><strong>Support profile completion and profile management</strong></li>
+                  <li><strong>Process and store job applications</strong></li>
+                  <li><strong>Allow employers to review applicants for their posted jobs</strong></li>
+                  <li><strong>Enable employer applicant unlocks where available</strong></li>
+                  <li><strong>Process payments for optional candidate services and employer services</strong></li>
+                  <li><strong>Display employer job postings and company information to candidates</strong></li>
+                  <li><strong>Send notifications and platform updates</strong></li>
+                  <li><strong>Prevent fraud, abuse, misuse, or security incidents</strong></li>
+                  <li><strong>Meet legal, regulatory, and support obligations</strong></li>
+                </ul>
+              </div>
+            </div>
 
-        <!-- Section 10: International Data Transfers -->
-        <div class="section">
-          <h2 class="section-title">10. International Data Transfers</h2>
+            <!-- 4 -->
+            <div class="section">
+              <h2 class="section-title">4. Sharing of Information</h2>
 
-          <div class="subsection">
-            <p>
-              Some data may be stored or processed in secure servers outside
-              Ghana.
-            </p>
-            <p>
-              Where this occurs, we ensure your information is protected in
-              accordance with Act 843 and international data protection
-              standards.
-            </p>
-          </div>
-        </div>
+              <h3 class="sub-title">4.1 Sharing with Employers and Candidates</h3>
+              <div class="notice gold">
+                <p style="margin: 0 0 8px">
+                  The platform is designed to connect candidates and employers, so some information
+                  may be shared as part of that functionality:
+                </p>
+                <ul class="privacy-list" style="margin-bottom: 0">
+                  <li><strong>Candidate profile and application details</strong> may be shared with employers when a candidate applies or where platform functionality allows.</li>
+                  <li><strong>Candidate contact details and attached application documents</strong> may be available to employers when an application is submitted and/or when contact details are unlocked, where applicable.</li>
+                  <li><strong>Employer company and job posting details</strong> may be shown to candidates who browse or view jobs.</li>
+                </ul>
+              </div>
 
-        <!-- Section 11: Children's Privacy -->
-        <div class="section">
-          <h2 class="section-title">11. Children's Privacy</h2>
+              <h3 class="sub-title">4.2 Sharing with Service Providers</h3>
+              <p>We may share limited information with service providers who help us operate the platform, such as payment processors, hosting providers, analytics or technical support providers, and security or communications tools.</p>
 
-          <div class="subsection">
-            <div class="warning-box">
+              <h3 class="sub-title">4.3 Legal Disclosures</h3>
+              <div class="notice warn">
+                <h3 style="color: var(--navy)">Legal Disclosures</h3>
+                <p style="margin-bottom: 8px">We may disclose information where required by law, court order, lawful regulatory request, or where reasonably necessary to:</p>
+                <ul class="privacy-list" style="margin-bottom: 0">
+                  <li>Protect users or the platform</li>
+                  <li>Investigate abuse, fraud, or security threats</li>
+                  <li>Enforce our rules or respond to disputes</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- 5 -->
+            <div class="section">
+              <h2 class="section-title">5. Application Documents</h2>
               <p>
-                The Platform is not intended for individuals under the age of
-                18.
+                Candidates upload supporting files per job application, not as a general signup requirement.
+                Candidates should ensure they attach the correct document for each application.
               </p>
+              <div class="notice gold">
+                <ul class="privacy-list" style="margin-bottom: 0">
+                  <li>Application documents are linked to the specific job application where they were uploaded.</li>
+                  <li>Employers should use those documents only for recruitment review and assessment.</li>
+                  <li>Where an employer can view application documents, that access should be limited to the relevant recruitment context.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- 6 -->
+            <div class="section">
+              <h2 class="section-title">6. Payments</h2>
               <p>
-                <strong
-                  >If we discover that a minor has provided us with personal
-                  data, we will delete it immediately.</strong
-                >
+                Candidate paid services and employer paid services may be processed through secure
+                third-party providers such as Paystack, where applicable.
               </p>
+              <div class="notice gold">
+                <ul class="privacy-list" style="margin-bottom: 0">
+                  <li><strong>We do not claim to store your card details.</strong></li>
+                  <li>We may store transaction references, payment status, amount, date, and service type for support, reconciliation, and compliance purposes.</li>
+                  <li>Payment records may be used to activate services, investigate failed transactions, and respond to refund requests.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- 7 -->
+            <div class="section">
+              <h2 class="section-title">7. Cookies and Tracking</h2>
+              <p>We may use cookies and similar technologies to:</p>
+              <div class="notice gold">
+                <ul class="privacy-list" style="margin-bottom: 0">
+                  <li><strong>Keep users signed in where appropriate</strong></li>
+                  <li><strong>Remember preferences and improve usability</strong></li>
+                  <li><strong>Measure usage and troubleshoot performance issues</strong></li>
+                  <li><strong>Support fraud prevention and platform security</strong></li>
+                </ul>
+              </div>
+              <p>You may control cookies through your browser settings, although disabling them may affect some features.</p>
+            </div>
+
+            <!-- 8 -->
+            <div class="section">
+              <h2 class="section-title">8. Data Retention</h2>
+              <p>We keep information only for as long as reasonably necessary for platform operations, support, compliance, and dispute handling.</p>
+
+              <table class="data-table" aria-label="Data retention table">
+                <thead>
+                  <tr>
+                    <th>Information Type</th>
+                    <th>General Retention Approach</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Active account and profile data</strong></td>
+                    <td>While the account remains active and for a reasonable period afterward for support, compliance, and dispute management</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Job applications and application documents</strong></td>
+                    <td>For as long as needed for recruitment workflows, records, legitimate business purposes, and legal compliance</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Payment and transaction records</strong></td>
+                    <td>As reasonably necessary for accounting, audit, support, and legal obligations</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Security, fraud, and system logs</strong></td>
+                    <td>For as long as reasonably needed to maintain security, investigate abuse, and comply with applicable law</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- 9 -->
+            <div class="section">
+              <h2 class="section-title">9. Data Security</h2>
+              <p>We use reasonable technical and organisational safeguards to protect personal data, including access controls, secure hosting practices, monitoring, and other measures appropriate to the service.</p>
+              <div class="notice gold">
+                <ul class="privacy-list" style="margin-bottom: 0">
+                  <li><strong>Access controls and role-based restrictions</strong></li>
+                  <li><strong>Reasonable protection for account credentials and records</strong></li>
+                  <li><strong>Security monitoring and technical troubleshooting</strong></li>
+                  <li><strong>Processes for handling abuse, fraud, or suspicious activity</strong></li>
+                </ul>
+              </div>
+
+              <div class="notice warn">
+                <h3 style="color: var(--navy)">Important</h3>
+                <p>
+                  No internet-based platform is completely risk free. Users should protect
+                  their passwords, devices, and account access details.
+                </p>
+              </div>
+            </div>
+
+            <!-- 10 -->
+            <div class="section">
+              <h2 class="section-title">10. User Rights under Ghana Data Protection Act</h2>
+              <p>Subject to applicable law, you may have the right to:</p>
+              <div class="notice success">
+                <ul class="privacy-list" style="margin-bottom: 0">
+                  <li><strong>Access your personal data</strong></li>
+                  <li><strong>Correct inaccurate or outdated information</strong></li>
+                  <li><strong>Request deletion where appropriate</strong></li>
+                  <li><strong>Withdraw consent where processing is based on consent</strong></li>
+                  <li><strong>Object to or restrict certain processing in appropriate circumstances</strong></li>
+                  <li><strong>Raise concerns with the relevant data protection authority</strong></li>
+                </ul>
+              </div>
+              <p><strong>To exercise your rights, please contact us using the details in Section 15.</strong></p>
+            </div>
+
+            <!-- 11 -->
+            <div class="section">
+              <h2 class="section-title">11. International Data Transfers</h2>
+              <p>
+                Some services or infrastructure used by the platform may involve storage or
+                processing outside Ghana. Where that happens, we aim to use appropriate safeguards
+                consistent with reasonable security practices and applicable data protection requirements.
+              </p>
+            </div>
+
+            <!-- 12 -->
+            <div class="section">
+              <h2 class="section-title">12. Children and Underage Users</h2>
+              <div class="notice warn">
+                <h3 style="color: var(--navy)">Underage Use</h3>
+                <p>
+                  The platform is intended for users who are legally able to use recruitment
+                  services in accordance with applicable law. If we become aware that personal
+                  data has been provided inappropriately by an underage user, we may restrict
+                  the account or remove the relevant information.
+                </p>
+              </div>
+            </div>
+
+            <!-- 13 -->
+            <div class="section">
+              <h2 class="section-title">13. Third-party Links</h2>
+              <div class="notice gold">
+                <h3 style="color: var(--navy)">Important</h3>
+                <p>
+                  The platform may contain links to third-party websites or services. We are not
+                  responsible for the privacy or security practices of third parties, and you should
+                  review their own policies where relevant.
+                </p>
+              </div>
+            </div>
+
+            <!-- 14 -->
+            <div class="section">
+              <h2 class="section-title">14. Changes to Privacy Policy</h2>
+              <div class="notice gold">
+                <p style="margin: 0">
+                  We may update this Privacy Policy from time to time to reflect platform
+                  changes, legal requirements, or operational updates. The revised version will
+                  be posted on this page with an updated effective date.
+                </p>
+              </div>
+            </div>
+
+            <!-- 15 -->
+            <div class="section">
+              <h2 class="section-title">15. Contact Information</h2>
+              <div class="notice gold">
+                <p style="margin: 0 0 10px">
+                  <strong>If you have questions or want to exercise your data rights, contact us:</strong>
+                </p>
+                <ul class="privacy-list" style="list-style: none; padding-left: 0; margin-bottom: 0">
+                  <li><strong>Email:</strong> info@jobassistgh.com</li>
+                  <li><strong>Phone:</strong> +233 (0) 59-477-2550</li>
+                  <li><strong>Address:</strong> Osu, Accra, Ghana</li>
+                  <li><strong>Legal inquiries:</strong> legal@jobassistgh.com</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="back-row">
+              <a href="index.html" class="back-home">
+                <i class="fas fa-home"></i> Back to Home
+              </a>
+              <a href="contact.html" class="back-home btn-outline">
+                <i class="fa-solid fa-phone"></i> Contact Page
+              </a>
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- Section 12: Third-Party Links -->
-        <div class="section">
-          <h2 class="section-title">12. Third-Party Links</h2>
-
-          <div class="subsection">
-            <p>Our Platform may contain links to third-party websites.</p>
-            <div class="highlight-box">
-              <p>
-                <strong>Important:</strong> We are not responsible for the
-                privacy practices of those websites, and users are encouraged to
-                review their privacy policies.
-              </p>
+      <section class="section-cta">
+        <div class="container">
+          <div class="section-cta-card">
+            <div class="row align-items-center g-3">
+              <div class="col-lg-8">
+                <div class="section-cta-title">Ready to hire or get hired?</div>
+                <div class="section-cta-copy">
+                  Employers can start hiring with a clearer process, while candidates can
+                  build their profile and begin applying for roles that fit.
+                </div>
+              </div>
+              <div class="col-lg-4 d-flex flex-column flex-sm-row justify-content-lg-end gap-2">
+                <a class="btn-solid btn-solid-primary" href="employer-login.html">Start Hiring</a>
+                <a class="btn-solid btn-solid-ghost" href="login.html">Find a Job</a>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- Section 13: Changes to This Privacy Policy -->
-        <div class="section">
-          <h2 class="section-title">13. Changes to This Privacy Policy</h2>
+      <!-- FOOTER -->
+      <footer>
+        <div class="container">
+          <div class="row g-4">
+            <div class="col-lg-4">
+              <div class="footer-title">Job Assist Ghana</div>
+              <div class="footer-text">
+                Connecting talented Ghanaians with credible employers. Built for
+                mobile, built for speed, built for real outcomes.
+              </div>
+              <div class="footer-social">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              </div>
+            </div>
 
-          <div class="subsection">
-            <p>We may update this Privacy Policy from time to time.</p>
-            <div class="highlight-box">
-              <p>
-                Any changes will be posted on this page with an updated "Last
-                Updated" date. Continued use of the Platform after changes means
-                you accept the updated policy.
-              </p>
+            <div class="col-lg-4">
+              <div class="footer-title">Quick Links</div>
+              <div class="d-flex flex-column gap-2">
+                <a class="footer-link" href="index.html">Home</a>
+                <a class="footer-link" href="about.html">About</a>
+                <a class="footer-link" href="build-cv.html">Build a CV</a>
+                <a class="footer-link" href="employer-login.html">Get Started</a>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="footer-title">Contact</div>
+              <div class="footer-text">
+                <i class="fas fa-map-marker-alt me-2"></i>Osu, Accra, Ghana
+              </div>
+              <div class="footer-text">
+                <i class="fas fa-phone me-2"></i>+233 (0) 59-477-2550
+              </div>
+              <div class="footer-text">
+                <i class="fas fa-envelope me-2"></i>info@jobassistgh.com
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-divider mt-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+              <div class="footer-text mb-0">
+                Copyright <span id="year"></span> Job Assist Ghana. All rights reserved.
+              </div>
+              <div class="d-flex gap-3 flex-wrap">
+                <a class="footer-link" href="privacy.html">Privacy</a>
+                <a class="footer-link" href="terms.html">Terms</a>
+                <a class="footer-link" href="contact.html">Contact</a>
+              </div>
             </div>
           </div>
         </div>
+      </footer>
+    </main>
 
-        <!-- Section 14: Contact Information -->
-        <div class="section">
-          <h2 class="section-title">14. Contact Information</h2>
+    <script>
+      // Footer year
+      document.getElementById("year").textContent = new Date().getFullYear();
 
-          <div class="subsection">
-            <div class="highlight-box">
-              <p>
-                <strong
-                  >If you have questions or want to exercise your data rights,
-                  contact us:</strong
-                >
-              </p>
-              <ul
-                class="privacy-list"
-                style="list-style: none; padding-left: 0"
-              >
-                <li><strong>Email:</strong> info@jobassistgh.com</li>
-                <li><strong>Phone:</strong> +233 (0) 59-477-2550</li>
-                <li><strong>Address:</strong> Osu, Accra, Ghana</li>
-                <li>
-                  <strong>Data Protection Officer:</strong> Available upon
-                  request
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+      // Mobile menu
+      function toggleMenu() {
+        const drawer = document.getElementById("mobile-nav");
+        const icon = document.querySelector(".menu-btn i");
 
-        <a href="index.html" class="back-home"> Back to Home </a>
-      </div>
-    </div>
+        drawer.classList.toggle("active");
 
-    <footer class="site-footer">
-      <div class="footer-content">
-        <p>© 2025 Job Assist Ghana. All rights reserved.</p>
-        <div class="footer-links">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="terms.html">Terms & Conditions</a>
-          <a href="contact.html">Contact Us</a>
-        </div>
-        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8">
-          Compliant with Ghana Data Protection Act, 2012 (Act 843)
-        </p>
-      </div>
-    </footer>
+        if (drawer.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-xmark");
+        } else {
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        }
+      }
+
+      // Close menu when clicking outside
+      document.addEventListener("click", function (event) {
+        const drawer = document.getElementById("mobile-nav");
+        const menuBtn = document.querySelector(".menu-btn");
+        const nav = document.querySelector(".site-nav");
+
+        if (!drawer || !menuBtn || !nav) return;
+
+        const clickedInsideNav = nav.contains(event.target);
+        if (!clickedInsideNav && drawer.classList.contains("active")) {
+          drawer.classList.remove("active");
+          const icon = document.querySelector(".menu-btn i");
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Close menu when clicking a link
+      document.querySelectorAll("#mobile-nav a").forEach((a) => {
+        a.addEventListener("click", () => {
+          const drawer = document.getElementById("mobile-nav");
+          drawer.classList.remove("active");
+          const icon = document.querySelector(".menu-btn i");
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        });
+      });
+
+      // Mobile tap highlight off
+      document.querySelectorAll("a, button").forEach((el) => {
+        el.style.webkitTapHighlightColor = "transparent";
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+    <script src='assets/js/product-polish.js'></script>
   </body>
 </html>

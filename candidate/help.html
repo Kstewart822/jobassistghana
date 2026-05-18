@@ -1,10 +1,10 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Help & Support | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -54,7 +54,7 @@
           180deg,
           var(--primary),
           var(--primary-dark)
-        );
+);
         color: white;
         height: 100vh;
         position: fixed;
@@ -84,6 +84,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        text-decoration: none;
       }
 
       .logo-img-placeholder {
@@ -428,90 +429,126 @@
 
       /* Help Content - Compact like view-applicants */
       .help-content {
-        padding: 20px;
+        padding: 24px;
         flex: 1;
+        background:
+          radial-gradient(circle at top right, rgba(248, 193, 46, 0.14), transparent 26%),
+          linear-gradient(180deg, #f7f9fc 0%, #eef3fb 100%);
       }
 
       /* Welcome Section - Compact */
       .welcome-section {
-        margin-bottom: 15px;
-        padding: 0 5px;
+        margin-bottom: 24px;
+        padding: 28px;
+        border-radius: 28px;
+        background: linear-gradient(135deg, #0a2a66 0%, #123a87 56%, #1c4eae 100%);
+        box-shadow: 0 24px 55px rgba(10, 42, 102, 0.2);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .welcome-section::before {
+        content: "";
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        right: -70px;
+        bottom: -90px;
+        border-radius: 50%;
+        background: rgba(248, 193, 46, 0.18);
       }
 
       .welcome-title {
-        font-size: 1.4rem;
-        margin-bottom: 4px;
-        color: var(--primary);
-        font-weight: 700;
+        font-size: 2rem;
+        margin-bottom: 8px;
+        color: white;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        position: relative;
+        z-index: 1;
       }
 
       .welcome-subtitle {
-        color: var(--gray);
-        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 0.98rem;
+        line-height: 1.7;
+        max-width: 640px;
+        position: relative;
+        z-index: 1;
       }
 
       /* Support Grid - Compact cards */
       .support-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 15px;
-        margin-bottom: 25px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 18px;
+        margin-bottom: 28px;
       }
 
       .support-card {
-        background: white;
-        border-radius: 8px;
-        padding: 18px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 22px;
+        padding: 24px 22px;
+        box-shadow: 0 18px 40px rgba(17, 38, 85, 0.1);
         transition: var(--transition);
-        border-top: 4px solid var(--primary);
+        border: 1px solid rgba(10, 42, 102, 0.08);
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
+        position: relative;
+        overflow: hidden;
       }
 
       .support-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        border-color: var(--secondary);
+        transform: translateY(-4px);
+        box-shadow: 0 24px 45px rgba(17, 38, 85, 0.14);
+        border-color: rgba(248, 193, 46, 0.45);
       }
 
       .support-icon {
         font-size: 2rem;
         color: var(--primary);
-        margin-bottom: 12px;
+        margin-bottom: 14px;
+        width: 62px;
+        height: 62px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 18px;
+        background: rgba(10, 42, 102, 0.08);
       }
 
       .support-title {
-        font-size: 1.1rem;
-        font-weight: 700;
-        margin-bottom: 8px;
+        font-size: 1.14rem;
+        font-weight: 800;
+        margin-bottom: 10px;
         color: var(--primary);
       }
 
       .support-description {
-        color: var(--gray);
-        margin-bottom: 15px;
-        font-size: 0.9rem;
-        line-height: 1.5;
+        color: #61708e;
+        margin-bottom: 18px;
+        font-size: 0.92rem;
+        line-height: 1.65;
       }
 
       /* Buttons - Compact */
       .btn {
-        padding: 8px 12px;
-        border-radius: 5px;
+        padding: 10px 14px;
+        border-radius: 12px;
         font-weight: 600;
         cursor: pointer;
         transition: var(--transition);
         border: none;
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 5px;
+        gap: 6px;
         text-decoration: none;
         white-space: nowrap;
+        box-shadow: 0 10px 18px rgba(10, 42, 102, 0.08);
       }
 
       .btn-primary {
@@ -521,6 +558,7 @@
 
       .btn-primary:hover {
         background-color: var(--primary-dark);
+        transform: translateY(-1px);
       }
 
       .btn-accent {
@@ -531,16 +569,18 @@
 
       .btn-accent:hover {
         background-color: var(--secondary-dark);
+        transform: translateY(-1px);
       }
 
       .btn-outline {
         background-color: transparent;
-        border: 1px solid var(--gray-light);
+        border: 1px solid rgba(10, 42, 102, 0.12);
         color: var(--dark);
       }
 
       .btn-outline:hover {
-        background-color: var(--gray-light);
+        background-color: rgba(10, 42, 102, 0.05);
+        transform: translateY(-1px);
       }
 
       /* Logout button style - matching notification badge red */
@@ -555,17 +595,22 @@
 
       /* FAQ Section - Compact */
       .faq-section {
-        margin-bottom: 25px;
+        margin-bottom: 28px;
+        background: rgba(255, 255, 255, 0.94);
+        border-radius: 24px;
+        padding: 24px;
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        box-shadow: 0 20px 40px rgba(17, 38, 85, 0.1);
       }
 
       .section-title {
-        font-size: 1.1rem;
-        margin-bottom: 12px;
+        font-size: 1.24rem;
+        margin-bottom: 18px;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
         color: var(--primary);
-        font-weight: 700;
+        font-weight: 800;
       }
 
       .section-title i {
@@ -574,20 +619,21 @@
 
       .faq-categories {
         display: flex;
-        gap: 8px;
-        margin-bottom: 15px;
+        gap: 10px;
+        margin-bottom: 18px;
         flex-wrap: wrap;
       }
 
       .faq-category {
-        padding: 6px 12px;
-        background: var(--light);
-        border: 1px solid var(--gray-light);
-        border-radius: 16px;
+        padding: 9px 14px;
+        background: #f8faff;
+        border: 1px solid rgba(10, 42, 102, 0.1);
+        border-radius: 999px;
         cursor: pointer;
         transition: var(--transition);
         font-size: 0.85rem;
-        font-weight: 500;
+        font-weight: 600;
+        color: #51617f;
       }
 
       .faq-category.active,
@@ -604,34 +650,35 @@
 
       .faq-item {
         background: white;
-        border-radius: 8px;
-        padding: 15px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        border-radius: 18px;
+        padding: 18px;
+        box-shadow: 0 10px 24px rgba(17, 38, 85, 0.08);
         cursor: pointer;
         transition: var(--transition);
-        border: 1px solid var(--gray-light);
+        border: 1px solid rgba(10, 42, 102, 0.08);
       }
 
       .faq-item:hover {
-        border-color: var(--secondary);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border-color: rgba(248, 193, 46, 0.45);
+        box-shadow: 0 16px 32px rgba(17, 38, 85, 0.1);
       }
 
       .faq-question {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-weight: 600;
+        font-weight: 700;
         color: var(--primary);
-        font-size: 0.95rem;
+        font-size: 0.98rem;
+        gap: 12px;
       }
 
       .faq-answer {
-        margin-top: 10px;
-        color: var(--gray);
-        line-height: 1.5;
+        margin-top: 12px;
+        color: #60708f;
+        line-height: 1.65;
         display: none;
-        font-size: 0.9rem;
+        font-size: 0.92rem;
       }
 
       .faq-item.active .faq-answer {
@@ -650,35 +697,36 @@
 
       /* Contact Section - Compact */
       .contact-section {
-        background: white;
-        border-radius: 8px;
-        padding: 18px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        margin-bottom: 25px;
-        border: 1px solid var(--gray-light);
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: 0 20px 40px rgba(17, 38, 85, 0.1);
+        margin-bottom: 28px;
+        border: 1px solid rgba(10, 42, 102, 0.08);
       }
 
       .contact-methods {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 12px;
-        margin-top: 15px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+        margin-top: 18px;
       }
 
       .contact-method {
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 12px;
-        background: var(--light);
-        border-radius: 6px;
+        gap: 12px;
+        padding: 14px;
+        background: #f8fbff;
+        border-radius: 18px;
         transition: var(--transition);
-        border: 1px solid var(--gray-light);
+        border: 1px solid rgba(10, 42, 102, 0.08);
       }
 
       .contact-method:hover {
-        background: var(--gray-light);
-        border-color: var(--secondary);
+        background: white;
+        border-color: rgba(248, 193, 46, 0.45);
+        box-shadow: 0 12px 28px rgba(17, 38, 85, 0.08);
       }
 
       .contact-icon {
@@ -703,29 +751,29 @@
 
       /* Resources Section - Compact */
       .resources-section {
-        margin-bottom: 25px;
+        margin-bottom: 28px;
       }
 
       .resources-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 12px;
+        gap: 16px;
       }
 
       .resource-card {
-        background: white;
-        border-radius: 8px;
-        padding: 15px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 22px;
+        padding: 20px;
+        box-shadow: 0 18px 36px rgba(17, 38, 85, 0.1);
         transition: var(--transition);
-        border-left: 3px solid var(--secondary);
-        border: 1px solid var(--gray-light);
+        border-left: 4px solid var(--secondary);
+        border: 1px solid rgba(10, 42, 102, 0.08);
       }
 
       .resource-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        border-color: var(--secondary);
+        transform: translateY(-4px);
+        box-shadow: 0 22px 40px rgba(17, 38, 85, 0.12);
+        border-color: rgba(248, 193, 46, 0.45);
       }
 
       .resource-icon {
@@ -735,17 +783,17 @@
       }
 
       .resource-title {
-        font-size: 1rem;
-        font-weight: 600;
-        margin-bottom: 6px;
+        font-size: 1.03rem;
+        font-weight: 700;
+        margin-bottom: 8px;
         color: var(--primary);
       }
 
       .resource-description {
-        color: var(--gray);
-        font-size: 0.85rem;
-        margin-bottom: 10px;
-        line-height: 1.4;
+        color: #61708e;
+        font-size: 0.88rem;
+        margin-bottom: 12px;
+        line-height: 1.55;
       }
 
       /* Footer - Compact */
@@ -928,9 +976,9 @@
         }
       }
 
-      /* ========================================== */
+      /* ===================================*/
       /* MOBILE RESPONSIVENESS - view-applicants style */
-      /* ========================================== */
+      /* ===================================*/
 
       /* Tablet (992px and below) */
       @media (max-width: 992px) {
@@ -1398,7 +1446,80 @@
           font-size: 0.7rem;
         }
       }
+      /* Candidate Notification Dropdown Standard */
+      .notification-dropdown {
+        top: calc(100% + 10px);
+        right: 0;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 320px;
+        max-height: 400px;
+      }
+
+      .notification-header {
+        padding: 12px 16px;
+        background-color: var(--light);
+        border-radius: 8px 8px 0 0;
+      }
+
+      .mark-all-read {
+        font-weight: 500;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+
+      .mark-all-read:hover {
+        background-color: rgba(10, 42, 102, 0.1);
+      }
+
+      .notification-item {
+        padding: 12px 16px;
+      }
+
+      .notification-item.unread {
+        background-color: rgba(10, 42, 102, 0.05);
+        border-left: 3px solid var(--primary);
+      }
+
+      .notification-content {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+        color: var(--dark);
+        line-height: 1.4;
+      }
+
+      .notification-time {
+        font-size: 0.7rem;
+        color: var(--gray);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      @media (max-width: 992px) {
+        .notification-dropdown {
+          right: 12px;
+          width: 280px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .notification-dropdown {
+          right: 10px;
+          width: 260px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .notification-dropdown {
+          width: 240px;
+          right: 8px;
+        }
+      }
     </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
   </head>
   <body>
     <!-- Mobile Overlay -->
@@ -1442,13 +1563,13 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <div class="logo">
+        <a href="../index.html" class="logo" aria-label="Job Assist Ghana Home">
           <div class="logo-img-placeholder">JA</div>
           <div class="logo-text">
             <div class="logo-main">JobAssist</div>
             <div class="logo-sub">GHANA</div>
           </div>
-        </div>
+        </a>
         <button class="toggle-btn" id="sidebarToggle">
           <i class="fas fa-chevron-left"></i>
         </button>
@@ -1529,38 +1650,38 @@
           <div class="notification-dropdown" id="notificationDropdown">
             <div class="notification-header">
               <h3 class="notification-title">Notifications</h3>
-              <button class="mark-all-read">Mark all as read</button>
+              <button class="mark-all-read" type="button">Mark all as read</button>
             </div>
             <ul class="notification-list">
               <li class="notification-item unread">
                 <div class="notification-content">
                   Your application for Frontend Developer has been submitted
                 </div>
-                <div class="notification-time">2 hours ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 2 hours ago</div>
               </li>
               <li class="notification-item unread">
                 <div class="notification-content">
                   New job matches your profile: Data Analyst at Tech Solutions
                 </div>
-                <div class="notification-time">5 hours ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 5 hours ago</div>
               </li>
               <li class="notification-item unread">
                 <div class="notification-content">
                   Your profile has been viewed by 5 employers this week
                 </div>
-                <div class="notification-time">1 day ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 1 day ago</div>
               </li>
               <li class="notification-item">
                 <div class="notification-content">
                   Your application for UX Designer is being reviewed
                 </div>
-                <div class="notification-time">2 days ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 2 days ago</div>
               </li>
             </ul>
           </div>
           <div class="user-profile" id="userProfile">
             <div class="user-avatar">
-              <img src="https://i.pravatar.cc/150?img=12" alt="User" />
+              <img id="dashboardAvatar" src="../assets/images/default-avatar.png" alt="User" />
             </div>
             <div class="user-name">Nana</div>
             <i class="fas fa-chevron-down"></i>
@@ -1581,7 +1702,7 @@
       <div class="help-content">
         <!-- Welcome Section -->
         <div class="welcome-section">
-          <h1 class="welcome-title">Help & Support Center 🆘</h1>
+          <h1 class="welcome-title">Help & Support Center </h1>
           <p class="welcome-subtitle">
             Find answers to common questions, contact support, and access
             helpful resources
@@ -1854,7 +1975,7 @@
                 Learn how to create a professional CV that stands out to
                 employers with our comprehensive guide.
               </p>
-              <a href="build-cv.html" class="btn btn-outline">View Guide</a>
+              <a href="../build-cv.html" class="btn btn-outline">View Guide</a>
             </div>
 
             <div class="resource-card">
@@ -1903,15 +2024,16 @@
       <!-- Footer -->
       <footer class="footer">
         <div class="footer-links">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="contact.html">Contact Us</a>
+          <a href="../privacy.html">Privacy Policy</a>
+          <a href="../contact.html">Contact Us</a>
         </div>
         <div class="footer-bottom">
-          <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+          <p>Copyright 2025 Job Assist Ghana. All rights reserved.</p>
         </div>
       </footer>
     </div>
 
+    <script src="../assets/js/candidate-session.js"></script>
     <script>
       // DOM Elements
       const sidebar = document.getElementById("sidebar");
@@ -1931,7 +2053,7 @@
       const notificationIcon = document.getElementById("notificationIcon");
       const notificationDropdown = document.getElementById(
         "notificationDropdown",
-      );
+);
 
       // Toggle Sidebar (Desktop)
       sidebarToggle.addEventListener("click", function () {
@@ -2037,7 +2159,7 @@
               if (
                 selectedCategory === "general" ||
                 item.getAttribute("data-category") === selectedCategory
-              ) {
+) {
                 item.style.display = "block";
               } else {
                 item.style.display = "none";
@@ -2079,7 +2201,7 @@
         confirmLogout.addEventListener("click", function () {
           // Redirect to login.html after successful logout
           logoutModal.classList.remove("show");
-          window.location.href = "login.html";
+          window.location.href="../login.html";
         });
 
         cancelLogout.addEventListener("click", function () {
@@ -2120,5 +2242,9 @@
         closeComingSoon.addEventListener("click", hideComingSoon);
       }
     </script>
+  
+    <script src='../assets/js/product-polish.js'></script>
   </body>
 </html>
+
+

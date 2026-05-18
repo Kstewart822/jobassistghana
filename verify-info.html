@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Verify Information | Job Assist Ghana — Step 2 of 2</title>
+  <title>Verify Information | Job Assist Ghana - Step 2 of 2</title>
   <!-- Favicon - using your existing logo -->
-  <link rel="icon" type="image/png" href="tab-logo.png">
+  <link rel="icon" type="image/png" href="assets/images/tab-logo.png">
 
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root{
@@ -18,14 +19,18 @@
       --muted: #6b7280;
       --card-bg: #ffffff;
       --radius: 12px;
-      --max-width: 1100px;
+      --max-width: 1120px;
       --error-red: #e74c3c;
       --success-green: #2ecc71;
+      --navy: #0a2a66;
+      --gold: #f8c12e;
+      --gold2: #ffda6a;
+      --nav-h: 68px;
     }
 
     /* Reset + base */
     *{box-sizing:border-box}
-    html,body{height:100%}
+    html,body{height:100%;max-width:100%;overflow-x:hidden}
     body{
       margin:0;
       font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'San Francisco', sans-serif;
@@ -36,119 +41,198 @@
       line-height:1.4;
     }
 
-    /* ---------- NAVBAR (same structure as homepage) ---------- */
-    .site-navbar{
-      position:sticky;
-      top:0;
-      z-index:1000;
-      background:var(--deep-blue);
-      color:#fff;
-      box-shadow:0 4px 12px rgba(0,0,0,0.08);
-      width: 100%;
-    }
-    .nav-inner{
-      max-width:var(--max-width);
-      margin:0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 24px;
-    }
-    .brand img{height:42px;width:auto;max-width:180px;object-fit:contain;filter:brightness(0) invert(1);display:block;}
-
-    nav.desktop-nav ul{display:flex; gap:22px; margin:0; padding:0; list-style:none; align-items:center;}
-    nav.desktop-nav a{color:#fff; text-decoration:none; font-weight:600;}
-    nav.desktop-nav a:hover{color:var(--accent-gold);}
-
-    /* Login button styles */
-    .login-btn {
-      background: var(--accent-gold);
-      color: var(--deep-blue);
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-    .login-btn:hover {
-      background: #ffda6a;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(248, 193, 46, 0.3);
-      color: var(--deep-blue);
-    }
-
-    /* Hamburger (mobile) */
-    .menu-icon{
-      display:none; 
-      font-size:28px;
-      cursor:pointer; 
-      color:#fff;
-      z-index: 1000;
-    }
-
-    /* Mobile Menu - Fixed to match homepage */
-    #mobile-menu{
-      display:none;
+    /* ---------- NAVBAR (copied from homepage) ---------- */
+    .site-nav {
       position: fixed;
-      top: 70px;
+      top: 0;
       left: 0;
-      width: 100%;
-      background-color: var(--deep-blue);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      z-index: 999;
+      right: 0;
+      z-index: 2000;
+      height: var(--nav-h);
+      background: rgba(10, 42, 102, 0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
-
-    #mobile-menu.active {
+    .nav-inner {
+      height: var(--nav-h);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      gap: 10px;
+      min-width: 140px;
+    }
+    .brand img {
+      height: 36px;
+      width: auto;
+      display: block;
+      filter: brightness(0) invert(1);
+    }
+    .nav-links {
+      display: none;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      gap: 18px;
+    }
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.92);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 10px;
+      transition: color 0.2s ease, background 0.2s ease;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+    .nav-links a:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .nav-links a.active {
+      color: var(--gold);
+      background: rgba(248, 193, 46, 0.14);
+    }
+    .nav-cta {
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-solid {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 12px 16px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      transition: transform 0.12s ease, filter 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .btn-solid-primary {
+      background: var(--gold);
+      color: var(--navy);
+      box-shadow: 0 14px 26px rgba(248, 193, 46, 0.24);
+    }
+    .btn-solid-primary:hover {
+      background: var(--gold2);
+      color: var(--navy);
+      transform: translateY(-1px);
+      box-shadow: 0 18px 30px rgba(248, 193, 46, 0.28);
+    }
+    .menu-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      cursor: pointer;
+    }
+    .menu-btn i {
+      font-size: 18px;
+    }
+    .mobile-drawer {
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      z-index: 1999;
+      display: none;
+      background: rgba(10, 42, 102, 0.985);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      max-height: calc(100vh - var(--nav-h));
+      overflow: auto;
+    }
+    .mobile-drawer.active {
       display: block;
     }
-
-    #mobile-menu ul {
-      list-style: none;
-      padding: 20px 0;
-      width: 100%;
-    }
-
-    #mobile-menu ul li {
-      padding: 12px 30px;
+    .mobile-drawer a {
+      display: block;
+      padding: 14px 18px;
+      color: rgba(255, 255, 255, 0.92);
+      text-decoration: none;
+      font-weight: 700;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      width: 100%;
     }
-
-    #mobile-menu ul li:last-child {
+    .mobile-drawer a:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+    }
+    .mobile-drawer a.active {
+      color: var(--gold);
+      background: rgba(248, 193, 46, 0.14);
+    }
+    .mobile-drawer .mobile-cta {
+      padding: 14px 18px;
       border-bottom: none;
     }
-
-    #mobile-menu ul li a {
-      color: white;
-      text-decoration: none;
-      font-size: 18px;
-      display: block;
-      transition: color 0.3s ease;
-      width: 100%;
+    @media (min-width: 992px) {
+      .nav-links {
+        display: flex;
+        margin-left: auto;
+      }
+      .nav-cta {
+        display: flex;
+      }
+      .menu-btn {
+        display: none;
+      }
+      .mobile-drawer {
+        display: none !important;
+      }
+      .nav-inner {
+        padding: 0 20px;
+      }
     }
-
-    #mobile-menu ul li a:hover,
-    #mobile-menu ul li a.active {
-      color: var(--accent-gold);
-    }
-
-    #mobile-menu .login-btn {
-      display: inline-block;
-      margin: 10px 30px;
-      text-align: center;
-      width: calc(100% - 60px);
+    .page-offset {
+      padding-top: calc(var(--nav-h) + 24px);
     }
 
     /* ---------- PAGE LAYOUT ---------- */
     .page {
       max-width: var(--max-width);
-      margin: 40px auto;
+      margin: 0 auto 40px;
       padding: 20px;
       display: grid;
-      grid-template-columns: 1fr 480px; /* main form left, empty right (or future info) */
-      gap: 36px;
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: 40px;
       align-items:start;
       position: relative;
+    }
+
+    #step2 {
+      min-width: 0;
+      width: 100%;
+      max-width: 680px;
+      justify-self: start;
+    }
+
+    .page,
+    .verification-card,
+    .info-grid,
+    .info-item,
+    .btn-group,
+    .right-column,
+    .placeholder-card {
+      max-width: 100%;
     }
 
     /* Progress / heading area */
@@ -329,6 +413,13 @@
     .info-value {
       font-size: 16px;
       color: #111827;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .info-value.multi-line {
+      white-space: pre-line;
+      line-height: 1.5;
     }
 
     .passport-preview-verification {
@@ -350,6 +441,31 @@
       margin-top: 24px;
     }
 
+    @media (min-width: 1025px){
+      .page {
+        max-width: 1120px;
+        margin: 0 auto 30px;
+        padding: 20px 24px;
+        grid-template-columns: minmax(0, 1fr) 380px;
+        gap: 40px;
+      }
+
+      #step2 {
+        max-width: 680px;
+      }
+
+      .right-column {
+        display:flex;
+        max-width: 380px;
+        gap:16px;
+        padding: 6px 0;
+      }
+
+      .placeholder-card {
+        height:180px;
+      }
+    }
+
     .btn-secondary {
       padding: 12px 16px;
       border-radius: 10px;
@@ -368,11 +484,25 @@
     }
 
     /* MOBILE */
+    @media (max-width: 1024px){
+      .page {
+        grid-template-columns: 1fr !important;
+        width: 100%;
+        max-width: 100%;
+      }
+      .right-column {
+        display: none !important;
+      }
+      #step2,
+      .verification-card {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+
     @media (max-width: 900px){
       .page { grid-template-columns: 1fr; padding: 18px; }
       .right-column{order:2; width:100%; display: none;}
-      nav.desktop-nav{display:none}
-      .menu-icon{display:block}
       .info-grid {
         grid-template-columns: 1fr;
       }
@@ -382,18 +512,22 @@
       .nav-inner{padding:12px 20px;}
       .page-heading h1{font-size:22px}
       .page{margin:18px auto}
-      
-      #mobile-menu ul li {
-        padding: 12px 20px;
-      }
-      
-      #mobile-menu .login-btn {
-        margin: 10px 20px;
-        width: calc(100% - 40px);
-      }
-      
       .btn-group {
         flex-direction: column;
+      }
+    }
+
+    @media (max-width: 600px){
+      .info-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .btn-group {
+        flex-direction: column;
+        width: 100%;
+      }
+      .btn-group button,
+      .btn-group a {
+        width: 100%;
       }
     }
   
@@ -401,36 +535,46 @@
   .brand img{height:34px;max-width:150px;}
 }
 </style>
-</head>
+
+    <link rel='stylesheet' href='assets/css/product-polish.css' />
+  </head>
 <body>
   <!-- NAVBAR -->
-  <header class="site-navbar">
+  <header class="site-nav">
     <div class="nav-inner">
-      <a class="brand" href="index.html"><img src="logo.png" alt="Job Assist Ghana logo"></a>
+      <a class="brand" href="index.html"><img src="assets/images/logo.png" alt="Job Assist Ghana Logo"></a>
 
-      <nav class="desktop-nav" aria-label="Main navigation">
-        <ul>
-          <li><a href="job_assist.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="login.html" class="login-btn">Login</a></li>
-        </ul>
-      </nav>
-
-      <div class="menu-icon" id="menuBtn">☰</div>
-    </div>
-
-    <!-- mobile menu (hidden by default) -->
-    <div id="mobile-menu">
-      <ul>
-        <li><a href="job_assist.html">Home</a></li>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="login.html" class="login-btn">Login</a></li>
+        <li><a href="build-cv.html">Build a CV</a></li>
       </ul>
+
+      <div class="nav-cta">
+        <a class="btn-solid btn-solid-primary" href="login.html">Login</a>
+      </div>
+
+      <button
+        class="menu-btn"
+        id="menuBtn"
+        type="button"
+        onclick="toggleMenu()"
+        aria-label="Open menu"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
+
+    <nav class="mobile-drawer" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="build-cv.html">Build a CV</a>
+      <a class="mobile-cta active" href="login.html">Login</a>
+    </nav>
   </header>
 
   <!-- MAIN PAGE -->
-  <main class="page" role="main">
+  <main class="page page-offset" role="main">
     <!-- Step 2: Verification Page -->
     <div id="step2">
       <div class="step-bar" aria-hidden="true">
@@ -442,7 +586,7 @@
 
       <div class="page-heading">
         <h1 id="pageTitle">Verify Your Information</h1>
-        <a href="employer-signup.html" class="employer-cta" id="switchAccountType">Sign up as Employer →</a>
+        <a href="employer-signup.html" class="employer-cta" id="switchAccountType">Sign up as Employer -></a>
       </div>
 
       <p class="subtext" id="pageSubtext">Please review all your information carefully before creating your account. If anything is incorrect, click "Back" to make changes.</p>
@@ -453,60 +597,72 @@
         <div class="info-grid">
           <div class="info-item">
             <div class="info-label">Full Name</div>
-            <div class="info-value" id="verifyFullName">Not provided</div>
+            <div class="info-value" id="verifyFullName">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">NSS Number</div>
-            <div class="info-value" id="verifyNss">Not provided</div>
+            <div class="info-value" id="verifyNss">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Email Address</div>
-            <div class="info-value" id="verifyEmail">Not provided</div>
+            <div class="info-value" id="verifyEmail">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Phone Number</div>
-            <div class="info-value" id="verifyPhone">Not provided</div>
+            <div class="info-value" id="verifyPhone">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Gender</div>
-            <div class="info-value" id="verifyGender">Not provided</div>
+            <div class="info-value" id="verifyGender">N/A</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Date of Birth</div>
+            <div class="info-value" id="verifyDateOfBirth">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Ghana Card Number</div>
-            <div class="info-value" id="verifyGhanaCard">Not provided</div>
+            <div class="info-value" id="verifyGhanaCard">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Digital Address</div>
-            <div class="info-value" id="verifyDigitalAddress">Not provided</div>
+            <div class="info-value" id="verifyDigitalAddress">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Region</div>
-            <div class="info-value" id="verifyRegion">Not provided</div>
+            <div class="info-value" id="verifyRegion">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Willing to Work Outside Region</div>
-            <div class="info-value" id="verifyOutside">Not provided</div>
+            <div class="info-value" id="verifyOutside">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Field of Study</div>
-            <div class="info-value" id="verifyStudy">Not provided</div>
+            <div class="info-value" id="verifyStudy">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Experience Level</div>
-            <div class="info-value" id="verifyExperience">Not provided</div>
+            <div class="info-value" id="verifyExperience">N/A</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Highest Level of Education</div>
+            <div class="info-value" id="verifyHighestEducation">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Preferred Industry</div>
-            <div class="info-value" id="verifyIndustry">Not provided</div>
+            <div class="info-value" id="verifyIndustry">N/A</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Skills</div>
+            <div class="info-value" id="verifySkills">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Are you disabled?</div>
-            <div class="info-value" id="verifyDisabled">Not provided</div>
+            <div class="info-value" id="verifyDisabled">N/A</div>
           </div>
         </div>
         
         <div class="passport-preview-verification" id="passportSection">
-          <div class="info-label">Passport Picture</div>
+          <div class="info-label">Profile Picture</div>
           <img class="preview-image-verification" id="verifyPassportImage" src="" alt="Passport preview">
         </div>
       </div>
@@ -517,23 +673,23 @@
         <div class="info-grid">
           <div class="info-item">
             <div class="info-label">Company Name</div>
-            <div class="info-value" id="verifyCompanyName">Not provided</div>
+            <div class="info-value" id="verifyCompanyName">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Industry/Field</div>
-            <div class="info-value" id="verifyCompanyIndustry">Not provided</div>
+            <div class="info-value" id="verifyCompanyIndustry">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Business Type</div>
-            <div class="info-value" id="verifyBusinessType">Not provided</div>
+            <div class="info-value" id="verifyBusinessType">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Company Size</div>
-            <div class="info-value" id="verifyCompanySize">Not provided</div>
+            <div class="info-value" id="verifyCompanySize">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Registration Number</div>
-            <div class="info-value" id="verifyRegistrationNumber">Not provided</div>
+            <div class="info-value" id="verifyRegistrationNumber">N/A</div>
           </div>
         </div>
 
@@ -541,19 +697,19 @@
         <div class="info-grid">
           <div class="info-item">
             <div class="info-label">Full Name</div>
-            <div class="info-value" id="verifyContactName">Not provided</div>
+            <div class="info-value" id="verifyContactName">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Position/Job Title</div>
-            <div class="info-value" id="verifyContactPosition">Not provided</div>
+            <div class="info-value" id="verifyContactPosition">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Work Email</div>
-            <div class="info-value" id="verifyWorkEmail">Not provided</div>
+            <div class="info-value" id="verifyWorkEmail">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Phone Number</div>
-            <div class="info-value" id="verifyContactPhone">Not provided</div>
+            <div class="info-value" id="verifyContactPhone">N/A</div>
           </div>
         </div>
 
@@ -561,23 +717,19 @@
         <div class="info-grid">
           <div class="info-item">
             <div class="info-label">Company Address</div>
-            <div class="info-value" id="verifyCompanyAddress">Not provided</div>
+            <div class="info-value" id="verifyCompanyAddress">N/A</div>
           </div>
           <div class="info-item">
-            <div class="info-label">City/Region</div>
-            <div class="info-value" id="verifyCompanyRegion">Not provided</div>
+            <div class="info-label">City</div>
+            <div class="info-value" id="verifyCompanyCity">N/A</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Region</div>
+            <div class="info-value" id="verifyCompanyRegion">N/A</div>
           </div>
           <div class="info-item">
             <div class="info-label">Social Media Links</div>
-            <div class="info-value" id="verifySocialMedia">Not provided</div>
-          </div>
-        </div>
-
-        <h2 style="margin-top: 30px;">Account Details</h2>
-        <div class="info-grid">
-          <div class="info-item">
-            <div class="info-label">Email</div>
-            <div class="info-value" id="verifyAccountEmail">Not provided</div>
+            <div class="info-value multi-line" id="verifySocialMedia">N/A</div>
           </div>
         </div>
       </div>
@@ -600,22 +752,80 @@
   </main>
 
   <footer style="max-width:var(--max-width);margin:30px auto;padding:20px;text-align:center;color:var(--muted);">
-    <div>© 2025 Job Assist Ghana. All rights reserved.</div>
+    <div>Copyright 2025 Job Assist Ghana. All rights reserved.</div>
     <div style="margin-top:6px;font-size:13px">Privacy | Terms | Contact</div>
   </footer>
 
   <!-- ---------- SCRIPTS: tooltips, mobile menu, validation ---------- -->
-  <script>
+    <script src="assets/js/id-generator.js"></script>
+    <script src="assets/js/input-hardening.js"></script>
+    <script src="assets/js/candidate-session.js"></script>
+    <script src="assets/js/toast.js"></script>
+    <script>
     // Mobile menu functionality - matches homepage
     function toggleMenu() {
-      const mobileNav = document.getElementById('mobile-menu');
-      mobileNav.classList.toggle('active');
+      const drawer = document.getElementById('mobile-nav');
+      const icon = document.querySelector('.menu-btn i');
+      if (!drawer || !icon) return;
+      drawer.classList.toggle('active');
+      if (drawer.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-xmark');
+      } else {
+        icon.classList.remove('fa-xmark');
+        icon.classList.add('fa-bars');
+      }
     }
 
-    // Update the menu icon event listener
+    document.addEventListener('click', function (event) {
+      const drawer = document.getElementById('mobile-nav');
+      const menuBtn = document.querySelector('.menu-btn');
+      const nav = document.querySelector('.site-nav');
+      if (!drawer || !menuBtn || !nav) return;
+      if (!nav.contains(event.target) && drawer.classList.contains('active')) {
+        drawer.classList.remove('active');
+        const icon = document.querySelector('.menu-btn i');
+        if (icon) {
+          icon.classList.remove('fa-xmark');
+          icon.classList.add('fa-bars');
+        }
+      }
+    });
+
+    document.querySelectorAll('#mobile-nav a').forEach((a) => {
+      a.addEventListener('click', () => {
+        const drawer = document.getElementById('mobile-nav');
+        const icon = document.querySelector('.menu-btn i');
+        if (drawer) drawer.classList.remove('active');
+        if (icon) {
+          icon.classList.remove('fa-xmark');
+          icon.classList.add('fa-bars');
+        }
+      });
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
-      const menuBtn = document.getElementById('menuBtn');
-      const mobileMenu = document.getElementById('mobile-menu');
+      const hardener = window.JobAssistInputHardening;
+      const sanitizeText = (value, maxLength = 0) =>
+        hardener?.sanitizeText
+          ? hardener.sanitizeText(value, { maxLength })
+          : String(value || '').trim();
+      const sanitizeMultiline = (value, maxLength = 0) =>
+        hardener?.sanitizeMultilineText
+          ? hardener.sanitizeMultilineText(value, { maxLength })
+          : String(value || '').trim();
+      const formatDisplayText = (value, maxLength = 0) => {
+        const sanitized = sanitizeText(value, maxLength || 300);
+        return hardener?.formatDisplayText
+          ? hardener.formatDisplayText(sanitized, { maxLength: maxLength || 300 })
+          : sanitized;
+      };
+      const formatSkillDisplay = (value, maxLength = 0) => {
+        const sanitized = sanitizeText(value, maxLength || 120);
+        return hardener?.formatSkillDisplay
+          ? hardener.formatSkillDisplay(sanitized, { maxLength: maxLength || 120 })
+          : sanitized;
+      };
       const backBtn = document.getElementById('backBtn');
       const createAccountBtn = document.getElementById('createAccountBtn');
       const createAccountSpinner = document.getElementById('createAccountSpinner');
@@ -625,9 +835,32 @@
       const pageTitle = document.getElementById('pageTitle');
       const pageSubtext = document.getElementById('pageSubtext');
       const createAccountText = document.getElementById('createAccountText');
+      const displayValue = (value, maxLength = 0) => {
+        const cleaned = sanitizeText(value, maxLength || 300);
+        return cleaned ? cleaned : 'N/A';
+      };
+      const displayHumanValue = (value, maxLength = 0) => {
+        const cleaned = formatDisplayText(value, maxLength || 300);
+        return cleaned ? cleaned : 'N/A';
+      };
+      const setTextValue = (elementId, value, maxLength = 0) => {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+        element.textContent = displayValue(value, maxLength);
+      };
+      const setHumanTextValue = (elementId, value, maxLength = 0) => {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+        element.textContent = displayHumanValue(value, maxLength);
+      };
       // Determine signup type (candidate vs employer)
       const params = new URLSearchParams(window.location.search);
-      let userType = (params.get('type') || localStorage.getItem('signupType') || '').toLowerCase();
+      let userType = (
+        params.get('type') ||
+        sessionStorage.getItem('signupType') ||
+        localStorage.getItem('signupType') ||
+        ''
+      ).toLowerCase();
 
       // Fallback to referrer (if available)
       if (!userType) {
@@ -639,58 +872,315 @@
 
       // Persist so buttons keep working even if referrer is empty
       localStorage.setItem('signupType', userType);
+      try {
+        sessionStorage.setItem('signupType', userType);
+      } catch {}
 // Update UI based on user type
       if (userType === 'employer') {
         candidateInfo.style.display = 'none';
         employerInfo.style.display = 'block';
         pageTitle.textContent = 'Verify Company Information';
         pageSubtext.textContent = 'Please review all your company information carefully before creating your employer account. If anything is incorrect, click "Back" to make changes.';
-        switchAccountType.textContent = 'Sign up as Candidate →';
-        switchAccountType.href = 'signup.html';
+        switchAccountType.textContent = 'Sign up as Candidate ->';
+        switchAccountType.href="signup.html";
         createAccountText.textContent = 'Complete Registration';
       } else {
         candidateInfo.style.display = 'block';
         employerInfo.style.display = 'none';
         pageTitle.textContent = 'Verify Your Information';
         pageSubtext.textContent = 'Please review all your information carefully before creating your account. If anything is incorrect, click "Back" to make changes.';
-        switchAccountType.textContent = 'Sign up as Employer →';
-        switchAccountType.href = 'employer-signup.html';
+        switchAccountType.textContent = 'Sign up as Employer ->';
+        switchAccountType.href="employer-signup.html";
         createAccountText.textContent = 'Create Account';
       }
 
       // Load form data from localStorage
       loadFormData(userType);
 
-      if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          mobileMenu.classList.toggle('active');
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-          if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-            mobileMenu.classList.remove('active');
-          }
-        });
-
-        // Close menu when clicking on links
-        mobileMenu.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-          });
-        });
-      }
-
       // Handle Back button click
       backBtn.addEventListener('click', function() {
         // Go back to appropriate signup page
         if (userType === 'employer') {
-          window.location.href = 'employer-signup.html';
+          window.location.href="employer-signup.html";
         } else {
-          window.location.href = 'signup.html';
+          window.location.href="signup.html";
         }
       });
+
+      function getCandidateSignupPassportImage() {
+        return sessionStorage.getItem('jobassist_passport_temp') || '';
+      }
+
+      function getCandidateSignupData() {
+        try {
+          const parsed = JSON.parse(
+            sessionStorage.getItem('jobassist_candidate_signup_temp') || '{}'
+          );
+          return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+        } catch {
+          return {};
+        }
+      }
+
+      function getCandidateSignupValue(key, fallbackKey) {
+        const data = getCandidateSignupData();
+        const value = data[key];
+        if (value !== undefined && value !== null && String(value).trim() !== '') {
+          return sanitizeText(value, 300);
+        }
+        if (fallbackKey) {
+          const fallbackValue = data[fallbackKey];
+          if (fallbackValue !== undefined && fallbackValue !== null && String(fallbackValue).trim() !== '') {
+            return sanitizeText(fallbackValue, 300);
+          }
+        }
+        return '';
+      }
+
+      function formatCandidateDateOfBirth(value) {
+        const rawValue = String(value || '').trim();
+        if (!rawValue) return 'N/A';
+
+        const parsed = new Date(rawValue);
+        if (Number.isNaN(parsed.getTime())) {
+          return rawValue;
+        }
+
+        return parsed.toLocaleDateString('en-GB', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric'
+        });
+      }
+
+      function getCandidateNssDisplay() {
+        const candidateData = getCandidateSignupData();
+        if (candidateData.isShsGraduate) {
+          return 'SHS Graduate';
+        }
+
+        const nssValue = getCandidateSignupValue('nssNumber');
+        return nssValue || 'N/A';
+      }
+
+      function getCandidateOptionalDisplay(key, fallbackValue = 'N/A') {
+        const value = getCandidateSignupValue(key);
+        return value || fallbackValue;
+      }
+
+      function createCandidateInitialAvatar(name) {
+        const initial = String(name || '').trim().charAt(0).toUpperCase() || 'C';
+        const svg = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="${initial}">
+            <rect width="160" height="160" rx="80" fill="#0a2a66"></rect>
+            <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" fill="#ffffff" font-family="Poppins, Arial, sans-serif" font-size="72" font-weight="700">${initial}</text>
+          </svg>
+        `;
+        return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg.replace(/\s+/g, ' ').trim());
+      }
+
+      function normalizeCandidateSkills(value) {
+        if (Array.isArray(value)) {
+          return value
+            .map((skill) => formatSkillDisplay(skill, 60))
+            .filter(Boolean)
+            .slice(0, 3);
+        }
+
+        return sanitizeText(value, 500)
+          .split(',')
+          .map((skill) => formatSkillDisplay(skill, 60))
+          .filter(Boolean)
+          .slice(0, 3);
+      }
+
+      function getCandidateSkillsDisplay() {
+        const skills = normalizeCandidateSkills(getCandidateSignupData().skills);
+        return skills.length ? skills.join(', ') : 'N/A';
+      }
+
+      function safeParseJSON(value, fallback) {
+        try {
+          const parsed = JSON.parse(value);
+          return parsed ?? fallback;
+        } catch {
+          return fallback;
+        }
+      }
+
+      function normalizeEmployerSocialMediaLinks(value) {
+        let rawValue = value;
+        if (typeof rawValue === 'string') {
+          const parsed = safeParseJSON(rawValue, null);
+          rawValue = parsed || rawValue;
+        }
+
+        if (Array.isArray(rawValue)) {
+          return rawValue
+            .map((link) => ({
+              platform: formatDisplayText(link?.platform || '', 40),
+              value: sanitizeText(link?.value || link?.handle || '', 300)
+            }))
+            .filter((link) => link.platform && link.value)
+            .slice(0, 3);
+        }
+
+        const legacyPlatform = String(localStorage.getItem('socialPlatform') || '').trim();
+        const legacyHandle = String(localStorage.getItem('socialHandle') || '').trim();
+        if (legacyPlatform && legacyHandle) {
+          return [{ platform: formatDisplayText(legacyPlatform, 40), value: legacyHandle }];
+        }
+
+        const legacyDisplay = String(rawValue || localStorage.getItem('socialMedia') || '').trim();
+        if (!legacyDisplay) return [];
+
+        return legacyDisplay
+          .split(/\n|,/)
+          .map((entry) => {
+            const parts = entry.split(':');
+            if (parts.length < 2) return null;
+            return {
+              platform: formatDisplayText(parts.shift().trim(), 40),
+              value: parts.join(':').trim()
+            };
+          })
+          .filter((link) => link?.platform && link?.value)
+          .slice(0, 3);
+      }
+
+      function getEmployerSocialMediaLinks() {
+        return normalizeEmployerSocialMediaLinks(localStorage.getItem('socialMediaLinks'));
+      }
+
+      function formatSocialHandle(platform, value) {
+        const cleanPlatform = String(platform || '').trim();
+        let cleanValue = String(value || '').trim();
+
+        if (!cleanValue) return '';
+
+        const isWhatsapp = cleanPlatform.toLowerCase() === 'whatsapp';
+
+        cleanValue = cleanValue
+          .replace(/^https?:\/\//i, '')
+          .replace(/^www\./i, '')
+          .replace(/\/+$/g, '')
+          .trim();
+
+        cleanValue = cleanValue
+          .replace(/^facebook\.com\//i, '')
+          .replace(/^fb\.com\//i, '')
+          .replace(/^instagram\.com\//i, '')
+          .replace(/^tiktok\.com\//i, '')
+          .replace(/^x\.com\//i, '')
+          .replace(/^twitter\.com\//i, '')
+          .replace(/^linkedin\.com\/in\//i, '')
+          .replace(/^linkedin\.com\//i, '')
+          .replace(/^youtube\.com\//i, '')
+          .replace(/^youtu\.be\//i, '')
+          .replace(/^snapchat\.com\/add\//i, '')
+          .replace(/^discord\.gg\//i, '')
+          .replace(/^discord\.com\//i, '')
+          .trim();
+
+        if (cleanValue.includes('/')) {
+          cleanValue = cleanValue.split('/').filter(Boolean).pop() || '';
+        }
+
+        cleanValue = cleanValue.replace(/^@+/, '').trim();
+
+        if (!cleanValue) return '';
+
+        if (isWhatsapp) return cleanValue;
+
+        return `@${cleanValue}`;
+      }
+
+      function formatEmployerSocialMediaLinks(links) {
+        return (Array.isArray(links) ? links : [])
+          .map((link) => {
+            const platform = String(link?.platform || '').trim();
+            const value = formatSocialHandle(platform, link?.value || '');
+            const displayPlatform = formatDisplayText(platform, 40);
+            return displayPlatform && value ? `${displayPlatform}: ${value}` : '';
+          })
+          .filter(Boolean)
+          .join('\n');
+      }
+
+      function getEmployerLocationParts(source = {}) {
+        const rawCity = source.city || localStorage.getItem('city') || '';
+        const rawRegion = source.region || localStorage.getItem('region') || '';
+        const legacyCityRegion =
+          source.cityRegion ||
+          source.cityRegionText ||
+          source.location ||
+          localStorage.getItem('cityRegion') ||
+          localStorage.getItem('location') ||
+          '';
+
+        const city = formatDisplayText(rawCity, 80);
+        let region = formatDisplayText(rawRegion, 80);
+
+        if (!region) {
+          const legacy = formatDisplayText(legacyCityRegion, 120);
+          if (legacy && !city) {
+            region = legacy;
+          } else if (legacy && city && legacy.toLowerCase() !== city.toLowerCase()) {
+            region = legacy;
+          }
+        }
+
+        return {
+          city,
+          region,
+          cityRegion: [city, region]
+            .filter(Boolean)
+            .filter((value, index, all) => all.findIndex((item) => item.toLowerCase() === value.toLowerCase()) === index)
+            .join(', ')
+        };
+      }
+
+      function stripCandidateImageFields(candidate) {
+        if (!candidate || typeof candidate !== 'object') {
+          return {};
+        }
+
+        const {
+          passportImage,
+          avatar,
+          image,
+          profileImage,
+          photo,
+          profilePicture,
+          passportPhoto,
+          picture,
+          candidateImage,
+          candidatePhoto,
+          ...rest
+        } = candidate;
+
+        return rest;
+      }
+
+      function writeStorageProfile(key, value) {
+        const serialized = JSON.stringify(value);
+
+        try {
+          localStorage.setItem(key, serialized);
+          return true;
+        } catch (storageError) {
+          console.warn(`Candidate profile could not be persisted to localStorage key "${key}":`, storageError);
+        }
+
+        try {
+          sessionStorage.setItem(key, serialized);
+          return true;
+        } catch (sessionError) {
+          console.warn(`Candidate profile could not be persisted to sessionStorage key "${key}":`, sessionError);
+        }
+
+        return false;
+      }
 
       // Handle Create Account button click
       createAccountBtn.addEventListener('click', function() {
@@ -705,16 +1195,202 @@
           const accountCreated = true; // Simulate successful account creation
           
           if (accountCreated) {
-            // Redirect to appropriate dashboard
-            if (userType === 'employer') {
-              window.location.href = 'employer-dashboard.html';
+            if (userType === 'candidate') {
+              const passportImage = getCandidateSignupPassportImage();
+              const candidateSignupData = getCandidateSignupData();
+              const normalizedPhone = String(candidateSignupData.phone || '').replace(/\D/g, '');
+              const normalizedEmail = String(candidateSignupData.email || '').trim().toLowerCase();
+              const candidateId = normalizedPhone
+                ? `temp-candidate-${normalizedPhone}`
+                : `temp-candidate-${normalizedEmail.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}`;
+              const candidateProfile = {
+                id: candidateId,
+                candidateId: candidateId,
+                userType: 'candidate',
+                fullName: formatDisplayText(candidateSignupData.fullName || '', 120),
+                email: sanitizeText(candidateSignupData.email || '', 120).toLowerCase(),
+                phone: hardener?.normalizeGhanaPhone
+                  ? hardener.normalizeGhanaPhone(candidateSignupData.phone || '')
+                  : sanitizeText(candidateSignupData.phone || '', 20),
+                password: candidateSignupData.password || '',
+                gender: sanitizeText(candidateSignupData.gender || '', 40),
+                dateOfBirth: sanitizeText(candidateSignupData.dateOfBirth || '', 20),
+                isShsGraduate: Boolean(candidateSignupData.isShsGraduate),
+                ghanaCardNumber: sanitizeText(candidateSignupData.ghanaCard || '', 30),
+                digitalAddress: sanitizeText(candidateSignupData.digitalAddress || '', 40),
+                region: formatDisplayText(candidateSignupData.region || '', 80),
+                willingToRelocate: formatDisplayText(candidateSignupData.willingToRelocate || candidateSignupData.workOutside || '', 80),
+                fieldOfStudy: formatDisplayText(candidateSignupData.course || candidateSignupData.fieldOfStudy || '', 120),
+                highestEducationLevel: formatDisplayText(candidateSignupData.highestEducationLevel || candidateSignupData.educationLevel || '', 120),
+                educationLevel: formatDisplayText(candidateSignupData.highestEducationLevel || candidateSignupData.educationLevel || '', 120),
+                experienceLevel: formatDisplayText(candidateSignupData.experience || '', 80),
+                preferredIndustry: formatDisplayText(candidateSignupData.preferredIndustry || '', 120),
+                skills: normalizeCandidateSkills(candidateSignupData.skills),
+                disabilityStatus: sanitizeText(candidateSignupData.disabled || '', 40),
+                nssNumber: candidateSignupData.isShsGraduate
+                  ? ''
+                  : sanitizeText(candidateSignupData.nssNumber || '', 20),
+                createdAt: new Date().toISOString(),
+                passportImage: passportImage || '',
+                avatar: passportImage || '',
+                image: passportImage || '',
+                profileImage: passportImage || '',
+                photo: passportImage || '',
+                profilePicture: passportImage || '',
+                passportPhoto: passportImage || '',
+                picture: passportImage || '',
+                candidateImage: passportImage || '',
+                candidatePhoto: passportImage || ''
+              };
+
+              try {
+                console.log('Candidate account creation debug:', {
+                  hasPassportImage: Boolean(passportImage),
+                  candidateEmail: candidateProfile.email,
+                  candidateFullName: candidateProfile.fullName
+                });
+
+                const imageStoreKey = 'jobassist_candidate_images';
+                let imageStore = {};
+                try {
+                  const parsedImageStore = JSON.parse(localStorage.getItem(imageStoreKey) || '{}');
+                  imageStore =
+                    parsedImageStore && typeof parsedImageStore === 'object' && !Array.isArray(parsedImageStore)
+                      ? parsedImageStore
+                      : {};
+                } catch (imageStoreError) {
+                  console.warn('Candidate image store could not be read safely:', imageStoreError);
+                  imageStore = {};
+                }
+                const candidateImageKey = String(candidateProfile.id || '').trim();
+
+                if (candidateImageKey) {
+                  if (window.JobAssistCandidateSession?.persistCandidateImage) {
+                    window.JobAssistCandidateSession.persistCandidateImage(candidateProfile, passportImage || '');
+                  } else {
+                    if (passportImage) {
+                      imageStore[candidateImageKey] = passportImage;
+                    } else {
+                      delete imageStore[candidateImageKey];
+                    }
+
+                    try {
+                      localStorage.setItem(imageStoreKey, JSON.stringify(imageStore));
+                    } catch (imageError) {
+                      console.warn('Candidate passport image could not be persisted:', imageError);
+                    }
+                  }
+                }
+
+                window.JobAssistCandidateSession?.upsertCandidateAccount?.(candidateProfile);
+
+                const candidateSessionProfile = {
+                  ...stripCandidateImageFields(candidateProfile),
+                  password: ''
+                };
+
+                if (window.JobAssistCandidateSession?.setCurrentUser) {
+                  window.JobAssistCandidateSession.setCurrentUser(candidateSessionProfile);
+                } else {
+                  writeStorageProfile('jobassist_current_user', candidateSessionProfile);
+                }
+                localStorage.removeItem('jobassist_current_candidate');
+                localStorage.removeItem('candidate');
+                sessionStorage.removeItem('jobassist_passport_temp');
+                sessionStorage.removeItem('jobassist_candidate_signup_temp');
+                sessionStorage.removeItem('jobassist_candidate_signup');
+                sessionStorage.removeItem('jobassist_candidate_signup_data');
+                sessionStorage.removeItem('jobassist_candidate_signup_image');
+                sessionStorage.removeItem('jobassist_temp_candidate');
+                localStorage.removeItem('profilePhoto');
+                localStorage.removeItem('candidatePhoto');
+                localStorage.removeItem('candidateImage');
+                localStorage.removeItem('passportPhoto');
+                localStorage.removeItem('profilePicture');
+                localStorage.removeItem('picture');
+                sessionStorage.removeItem('profilePhoto');
+                sessionStorage.removeItem('candidatePhoto');
+                sessionStorage.removeItem('candidateImage');
+                sessionStorage.removeItem('passportPhoto');
+                sessionStorage.removeItem('profilePicture');
+                sessionStorage.removeItem('picture');
+
+                window.location.href = 'candidate/candidate-dashboard.html';
+              } catch (error) {
+                console.error('Candidate account creation failed:', error);
+                setCreateAccountLoadingState(false);
+                const message = 'Account creation failed: ' + (error?.message || error);
+                if (window.JobAssistUI?.showErrorToast) {
+                  window.JobAssistUI.showErrorToast(message);
+                } else if (window.showErrorToast) {
+                  window.showErrorToast(message);
+                }
+              }
             } else {
-              window.location.href = 'candidate-dashboard.html';
+              const existingEmployers = JSON.parse(localStorage.getItem('jobassist_employers') || '[]');
+              const employerSocialMediaLinks = getEmployerSocialMediaLinks();
+              const employerSocialMediaDisplay = formatEmployerSocialMediaLinks(employerSocialMediaLinks);
+              const employerLocation = getEmployerLocationParts({
+                city: localStorage.getItem('city') || '',
+                region: localStorage.getItem('region') || '',
+                cityRegion: localStorage.getItem('cityRegion') || '',
+              });
+              if (!window.JobAssistIdGenerator) {
+                throw new Error('Employer ID generator unavailable.');
+              }
+              const employerId = window.JobAssistIdGenerator.generateUniqueId(
+                'EMP',
+                Array.isArray(existingEmployers)
+                  ? existingEmployers.map((employer) => employer?.id)
+                  : []
+              );
+              const employerProfile = {
+              id: employerId,
+              companyName: formatDisplayText(localStorage.getItem('companyName') || '', 120),
+              industry: formatDisplayText(localStorage.getItem('industry') || '', 120),
+              businessType: formatDisplayText(localStorage.getItem('businessType') || '', 80),
+              companySize: sanitizeText(localStorage.getItem('companySize') || '', 80),
+              registrationNumber: sanitizeText(localStorage.getItem('registrationNumber') || '', 60),
+              fullName: formatDisplayText(localStorage.getItem('fullName') || '', 120),
+              position: formatDisplayText(localStorage.getItem('position') || '', 120),
+              workEmail: sanitizeText(localStorage.getItem('workEmail') || '', 120).toLowerCase(),
+              phone: sanitizeText(localStorage.getItem('phone') || '', 20),
+              loginPhone: sanitizeText(localStorage.getItem('loginPhone') || localStorage.getItem('phone') || '', 20),
+              password: localStorage.getItem('password') || '',
+              companyAddress: formatDisplayText(localStorage.getItem('companyAddress') || '', 180),
+              city: employerLocation.city,
+              region: employerLocation.region,
+              cityRegion: employerLocation.cityRegion,
+              socialMediaLinks: employerSocialMediaLinks,
+              socialMedia: sanitizeText(employerSocialMediaDisplay, 500),
+              socialPlatform: formatDisplayText(employerSocialMediaLinks[0]?.platform || '', 40),
+              socialHandle: sanitizeText(employerSocialMediaLinks[0]?.value || '', 300),
+              companyDescription: sanitizeMultiline(localStorage.getItem('companyDescription') || '', 2000),
+              createdAt: new Date().toISOString()
+            };
+
+            localStorage.setItem('jobassist_current_employer', JSON.stringify(employerProfile));
+            localStorage.setItem('jobassist_employer_profile', JSON.stringify(employerProfile));
+
+              const allEmployers = Array.isArray(existingEmployers) ? existingEmployers : [];
+            const existingEmployerIndex = allEmployers.findIndex(
+              e =>
+                (e.phone && e.phone === employerProfile.phone) ||
+                (e.loginPhone && e.loginPhone === employerProfile.loginPhone) ||
+                (e.workEmail && e.workEmail === employerProfile.workEmail) ||
+                (e.companyName && e.companyName === employerProfile.companyName)
+);
+
+            if (existingEmployerIndex >= 0) {
+              allEmployers[existingEmployerIndex] = employerProfile;
+            } else {
+              allEmployers.push(employerProfile);
             }
-          } else {
-            // Account creation failed
-            setCreateAccountLoadingState(false);
-            alert('There was an issue creating your account. Please try again.');
+
+            localStorage.setItem('jobassist_employers', JSON.stringify(allEmployers));
+            localStorage.removeItem('password');
+            window.location.href = 'employer/employer-dashboard.html';
+            }
           }
         }, delay);
       });
@@ -732,46 +1408,51 @@
       }
 
       function loadFormData(userType) {
-        // In a real implementation, this would retrieve data from the server
-        // For now, we'll use localStorage to simulate data persistence
         if (userType === 'employer') {
-          // Load employer data
-          document.getElementById('verifyCompanyName').textContent = localStorage.getItem('companyName') || 'Not provided';
-          document.getElementById('verifyCompanyIndustry').textContent = localStorage.getItem('industry') || 'Not provided';
-          document.getElementById('verifyBusinessType').textContent = localStorage.getItem('businessType') || 'Not provided';
-          document.getElementById('verifyCompanySize').textContent = localStorage.getItem('companySize') || 'Not provided';
-          document.getElementById('verifyRegistrationNumber').textContent = localStorage.getItem('registrationNumber') || 'Not provided';
-          document.getElementById('verifyContactName').textContent = localStorage.getItem('fullName') || 'Not provided';
-          document.getElementById('verifyContactPosition').textContent = localStorage.getItem('position') || 'Not provided';
-          document.getElementById('verifyWorkEmail').textContent = localStorage.getItem('workEmail') || 'Not provided';
-          document.getElementById('verifyContactPhone').textContent = localStorage.getItem('phone') || 'Not provided';
-          document.getElementById('verifyCompanyAddress').textContent = localStorage.getItem('companyAddress') || 'Not provided';
-          document.getElementById('verifyCompanyRegion').textContent = localStorage.getItem('cityRegion') || 'Not provided';
-          document.getElementById('verifySocialMedia').textContent = localStorage.getItem('socialMedia') || 'Not provided';
-          document.getElementById('verifyAccountEmail').textContent = localStorage.getItem('email') || 'Not provided';
+          const employerLocation = getEmployerLocationParts();
+          setHumanTextValue('verifyCompanyName', localStorage.getItem('companyName'), 120);
+          setHumanTextValue('verifyCompanyIndustry', localStorage.getItem('industry'), 120);
+          setHumanTextValue('verifyBusinessType', localStorage.getItem('businessType'), 80);
+          setTextValue('verifyCompanySize', localStorage.getItem('companySize'), 80);
+          setTextValue('verifyRegistrationNumber', localStorage.getItem('registrationNumber'), 60);
+          setHumanTextValue('verifyContactName', localStorage.getItem('fullName'), 120);
+          setHumanTextValue('verifyContactPosition', localStorage.getItem('position'), 120);
+          setTextValue('verifyWorkEmail', localStorage.getItem('workEmail'), 120);
+          setTextValue('verifyContactPhone', localStorage.getItem('phone') || localStorage.getItem('loginPhone'), 20);
+          setHumanTextValue('verifyCompanyAddress', localStorage.getItem('companyAddress'), 180);
+          setHumanTextValue('verifyCompanyCity', employerLocation.city, 80);
+          setHumanTextValue('verifyCompanyRegion', employerLocation.region, 80);
+          const employerSocialMediaLinks = getEmployerSocialMediaLinks();
+          setTextValue('verifySocialMedia', formatEmployerSocialMediaLinks(employerSocialMediaLinks), 500);
         } else {
-          // Load candidate data
-          document.getElementById('verifyFullName').textContent = localStorage.getItem('fullName') || 'Not provided';
-          document.getElementById('verifyNss').textContent = localStorage.getItem('nssNumber') || 'Not provided';
-          document.getElementById('verifyEmail').textContent = localStorage.getItem('email') || 'Not provided';
-          document.getElementById('verifyPhone').textContent = localStorage.getItem('phone') || 'Not provided';
-          document.getElementById('verifyGender').textContent = localStorage.getItem('gender') || 'Not provided';
-          document.getElementById('verifyGhanaCard').textContent = localStorage.getItem('ghanaCard') || 'Not provided';
-          document.getElementById('verifyDigitalAddress').textContent = localStorage.getItem('digitalAddress') || 'Not provided';
-          document.getElementById('verifyRegion').textContent = localStorage.getItem('region') || 'Not provided';
-          document.getElementById('verifyOutside').textContent = localStorage.getItem('workOutside') || 'Not provided';
-          document.getElementById('verifyStudy').textContent = localStorage.getItem('fieldOfStudy') || 'Not provided';
-          document.getElementById('verifyExperience').textContent = localStorage.getItem('experience') || 'Not provided';
-          document.getElementById('verifyIndustry').textContent = localStorage.getItem('preferredIndustry') || 'Not provided';
-          document.getElementById('verifyDisabled').textContent = localStorage.getItem('disabled') || 'Not provided';
-          
+          setHumanTextValue('verifyFullName', getCandidateSignupValue('fullName'), 120);
+          setTextValue('verifyNss', getCandidateNssDisplay(), 80);
+          setTextValue('verifyEmail', getCandidateSignupValue('email'), 120);
+          setTextValue('verifyPhone', getCandidateSignupValue('phone'), 20);
+          setTextValue('verifyGender', getCandidateSignupValue('gender'), 40);
+          setTextValue(
+            'verifyDateOfBirth',
+            formatCandidateDateOfBirth(getCandidateSignupValue('dateOfBirth')),
+            40
+          );
+          setTextValue('verifyGhanaCard', getCandidateSignupValue('ghanaCard'), 30);
+          setTextValue('verifyDigitalAddress', getCandidateOptionalDisplay('digitalAddress'), 40);
+          setHumanTextValue('verifyRegion', getCandidateSignupValue('region'), 80);
+          setHumanTextValue('verifyOutside', getCandidateSignupValue('willingToRelocate', 'workOutside'), 80);
+          setHumanTextValue('verifyStudy', getCandidateSignupValue('course', 'fieldOfStudy'), 120);
+          setHumanTextValue('verifyExperience', getCandidateSignupValue('experience'), 80);
+          setHumanTextValue('verifyHighestEducation', getCandidateSignupValue('highestEducationLevel', 'educationLevel'), 120);
+          setHumanTextValue('verifyIndustry', getCandidateSignupValue('preferredIndustry'), 120);
+          setTextValue('verifySkills', getCandidateSkillsDisplay(), 300);
+          setTextValue('verifyDisabled', getCandidateSignupValue('disabled'), 40);
           // Load passport image if available
-          const passportImage = localStorage.getItem('passportImage');
-          if (passportImage) {
-            document.getElementById('verifyPassportImage').src = passportImage;
-          } else {
-            document.getElementById('passportSection').style.display = 'none';
-          }
+          const passportImage = getCandidateSignupPassportImage();
+          const candidateName = getCandidateSignupValue('fullName') || 'Candidate';
+          document.getElementById('verifyPassportImage').src =
+            passportImage || createCandidateInitialAvatar(candidateName);
+          document.getElementById('verifyPassportImage').alt = passportImage
+            ? 'Profile picture preview'
+            : `${candidateName} avatar placeholder`;
         }
       }
     });
@@ -790,5 +1471,8 @@
       el.addEventListener('blur', ()=> tipBox.style.display = 'none');
     });
   </script>
-</body>
+
+    <script src='assets/js/product-polish.js'></script>
+  </body>
 </html>
+

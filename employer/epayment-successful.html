@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Payment Successful | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -14,217 +14,282 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       }
 
       :root {
         --primary: #0a2a66;
         --primary-dark: #071e4d;
+        --primary-light: #1e3a8a;
         --secondary: #f8c12e;
         --secondary-dark: #e6af1a;
-        --danger: #ef4444;
         --success: #10b981;
         --warning: #f59e0b;
+        --danger: #ef4444;
+        --danger-dark: #dc2626;
         --light: #f8fafc;
         --dark: #1e293b;
         --gray: #64748b;
         --gray-light: #e2e8f0;
-        --transition: all 0.3s ease;
+        --white: #ffffff;
+        --transition: all 0.2s ease;
       }
 
       body {
-        background-color: white;
+        background:
+          radial-gradient(circle at top right, rgba(16, 185, 129, 0.14), transparent 22%),
+          radial-gradient(circle at top left, rgba(248, 193, 46, 0.12), transparent 24%),
+          linear-gradient(180deg, #f7f9fc 0%, #eef3fb 100%);
         color: var(--dark);
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 15px;
+        padding: 20px;
+        line-height: 1.4;
       }
 
       .success-container {
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        padding: 25px;
-        max-width: 380px;
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 28px;
+        box-shadow: 0 28px 55px rgba(17, 38, 85, 0.14);
+        padding: 42px 30px 30px;
+        max-width: 520px;
         width: 100%;
         text-align: center;
-        border: 1px solid var(--gray-light);
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .success-container::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 140px;
+        background: linear-gradient(135deg, #0a2a66 0%, #123a87 58%, #1b4ca9 100%);
+      }
+
+      .success-container::after {
+        content: "";
+        position: absolute;
+        right: -58px;
+        top: 40px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(248, 193, 46, 0.18);
       }
 
       .success-icon {
-        width: 60px;
-        height: 60px;
-        background: var(--success);
+        font-size: 2.8rem;
+        color: var(--success);
+        margin: 18px auto 16px;
+        position: relative;
+        z-index: 1;
+        width: 84px;
+        height: 84px;
         border-radius: 50%;
+        background: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 15px;
-        box-shadow: 0 3px 10px rgba(16, 185, 129, 0.2);
-      }
-
-      .success-icon i {
-        font-size: 1.8rem;
-        color: white;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 16px 32px rgba(16, 185, 129, 0.18);
       }
 
       .success-title {
-        font-size: 1.4rem;
+        font-size: 1.7rem;
         color: var(--primary);
-        font-weight: 700;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
+        font-weight: 800;
+        position: relative;
+        z-index: 1;
       }
 
       .success-message {
-        color: var(--gray);
-        margin-bottom: 15px;
-        line-height: 1.4;
-        font-size: 0.9rem;
+        color: #61708e;
+        margin-bottom: 24px;
+        font-size: 0.98rem;
+        line-height: 1.7;
+        position: relative;
+        z-index: 1;
       }
 
-      /* Job Type Badge - Smaller */
-      .job-type-badge {
-        display: inline-block;
-        padding: 3px 10px;
-        border-radius: 12px;
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-        margin-bottom: 12px;
+      .payment-details {
+        background: rgba(248, 250, 255, 0.95);
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        border-radius: 20px;
+        padding: 18px;
+        margin-bottom: 18px;
+        text-align: left;
+        box-shadow: 0 14px 28px rgba(17, 38, 85, 0.08);
       }
 
-      .badge-standard {
-        background-color: rgba(16, 185, 129, 0.15);
-        color: var(--success);
-        border: 1px solid rgba(16, 185, 129, 0.3);
-      }
-
-      .badge-premium {
-        background-color: rgba(248, 193, 46, 0.15);
+      .payment-title {
         color: var(--primary);
-        border: 1px solid rgba(248, 193, 46, 0.3);
-      }
-
-      /* Auto-redirect - Compact */
-      .redirect-countdown {
-        margin: 12px 0;
-        padding: 10px;
-        background: rgba(248, 193, 46, 0.08);
-        border-radius: 8px;
-        border-left: 3px solid var(--secondary);
-      }
-
-      .countdown-text {
-        font-size: 0.8rem;
-        color: var(--dark);
+        font-weight: 700;
+        margin-bottom: 10px;
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 5px;
-        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 1rem;
       }
 
-      .countdown-number {
-        font-weight: 700;
-        color: var(--primary);
-        font-size: 0.9rem;
-        min-width: 20px;
+      .payment-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 12px;
+        margin-top: 10px;
       }
 
-      .countdown-progress {
-        height: 3px;
-        background: var(--gray-light);
-        border-radius: 2px;
-        overflow: hidden;
-        margin-top: 8px;
-      }
-
-      .progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, var(--secondary), var(--success));
-        border-radius: 2px;
-        width: 100%;
-        animation: progressShrink 5s linear forwards;
-      }
-
-      @keyframes progressShrink {
-        0% {
-          width: 100%;
-        }
-        100% {
-          width: 0%;
-        }
-      }
-
-      /* Payment Details - Compact */
-      .payment-details {
-        background: var(--light);
-        border-radius: 8px;
-        padding: 15px;
-        margin-bottom: 15px;
-        text-align: left;
-        border: 1px solid var(--gray-light);
-      }
-
-      .detail-item {
+      .payment-item {
         display: flex;
-        justify-content: space-between;
-        margin-bottom: 8px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid rgba(100, 116, 139, 0.1);
-        font-size: 0.85rem;
+        flex-direction: column;
       }
 
-      .detail-item:last-child {
-        border-bottom: none;
-        margin-bottom: 0;
-        padding-bottom: 0;
-      }
-
-      .detail-label {
+      .payment-label {
+        font-size: 0.75rem;
         color: var(--gray);
-        font-weight: 500;
+        margin-bottom: 4px;
       }
 
-      .detail-value {
+      .payment-value {
         font-weight: 600;
         color: var(--dark);
-        text-align: right;
-        max-width: 60%;
+        font-size: 0.9rem;
         word-break: break-word;
       }
 
-      .detail-value.amount {
-        color: var(--primary);
-        font-weight: 700;
-        font-size: 0.95rem;
+      .reference-text {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        letter-spacing: 0.04em;
       }
 
-      /* Buttons - Compact */
-      .btn-group {
+      .payment-value.amount {
+        color: var(--success);
+        font-size: 1rem;
+      }
+
+      .confirmation-details {
+        background: linear-gradient(180deg, rgba(236, 253, 245, 0.98), rgba(240, 253, 250, 0.95));
+        border: 1px solid rgba(16, 185, 129, 0.14);
+        border-radius: 20px;
+        padding: 18px;
+        margin-bottom: 18px;
+        text-align: left;
+        box-shadow: 0 14px 28px rgba(16, 185, 129, 0.08);
+      }
+
+      .confirmation-title {
+        color: var(--success);
+        font-weight: 700;
+        margin-bottom: 8px;
         display: flex;
-        flex-direction: column;
+        align-items: center;
         gap: 8px;
-        margin-bottom: 15px;
+        font-size: 1rem;
+      }
+
+      .confirmation-description {
+        color: #5f6f8e;
+        font-size: 0.9rem;
+        line-height: 1.65;
+      }
+
+      .next-steps {
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 20px;
+        padding: 18px;
+        margin-bottom: 22px;
+        text-align: left;
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        box-shadow: 0 14px 28px rgba(17, 38, 85, 0.08);
+      }
+
+      .next-steps-title {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1rem;
+      }
+
+      .next-steps-list {
+        color: #61708e;
+        font-size: 0.88rem;
+        padding-left: 18px;
+        line-height: 1.65;
+      }
+
+      .next-steps-list li {
+        margin-bottom: 6px;
+      }
+
+      .loading-animation {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(0, 0, 0, 0.1);
+        border-left-color: var(--success);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loading-text {
+        color: var(--gray);
+        font-size: 0.9rem;
+      }
+
+      .auto-redirect {
+        margin-top: 15px;
+        padding: 12px;
+        background: rgba(248, 193, 46, 0.12);
+        border-radius: 14px;
+        font-size: 0.85rem;
+        color: var(--primary);
+        display: none;
+        border: 1px solid rgba(248, 193, 46, 0.22);
+      }
+
+      .countdown {
+        font-weight: 700;
+        color: var(--secondary-dark);
       }
 
       .btn {
-        padding: 10px 16px;
-        border-radius: 6px;
+        padding: 13px 18px;
+        border-radius: 14px;
         font-weight: 600;
         cursor: pointer;
         transition: var(--transition);
         border: none;
-        font-size: 0.85rem;
-        display: flex;
+        font-size: 0.95rem;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
+        gap: 8px;
         text-decoration: none;
         width: 100%;
+        margin-bottom: 10px;
+        box-shadow: 0 14px 24px rgba(10, 42, 102, 0.1);
       }
 
       .btn-primary {
@@ -234,115 +299,160 @@
 
       .btn-primary:hover {
         background-color: var(--primary-dark);
+        transform: translateY(-1px);
       }
 
-      .btn-accent {
-        background-color: var(--secondary);
-        color: var(--primary);
-        font-weight: 700;
+      .btn-outline {
+        background-color: transparent;
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        color: var(--dark);
       }
 
-      .btn-accent:hover {
-        background-color: var(--secondary-dark);
+      .btn-outline:hover {
+        background-color: rgba(10, 42, 102, 0.05);
+        transform: translateY(-1px);
       }
 
-      /* Next Steps - Compact */
-      .whats-next {
-        margin-top: 12px;
-        padding-top: 12px;
-        border-top: 1px solid var(--gray-light);
+      .btn[disabled] {
+        opacity: 0.7;
+        pointer-events: none;
       }
 
-      .whats-next h3 {
-        color: var(--primary);
-        margin-bottom: 5px;
-        font-size: 0.9rem;
-        font-weight: 600;
+      .support-contact {
+        margin-top: 22px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(10, 42, 102, 0.08);
       }
 
-      .whats-next p {
+      .support-contact p {
         color: var(--gray);
-        font-size: 0.8rem;
-        line-height: 1.4;
+        font-size: 0.85rem;
+        line-height: 1.5;
       }
 
-      /* Responsive Design - Optimized for Small Screens */
-      @media (max-width: 480px) {
+      .support-email {
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.85rem;
+      }
+
+      .support-email:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
         body {
-          padding: 10px;
+          padding: 15px;
         }
 
         .success-container {
-          padding: 20px 15px;
-          border-radius: 10px;
-          max-width: 100%;
+          padding: 34px 20px 20px;
+        }
+
+        .success-title {
+          font-size: 1.3rem;
         }
 
         .success-icon {
-          width: 50px;
-          height: 50px;
-          margin-bottom: 12px;
+          font-size: 2.2rem;
         }
 
-        .success-icon i {
-          font-size: 1.5rem;
+        .success-message {
+          font-size: 0.9rem;
+        }
+
+        .confirmation-details,
+        .next-steps,
+        .payment-details {
+          padding: 12px;
+        }
+
+        .btn {
+          padding: 10px 16px;
+          font-size: 0.9rem;
+        }
+
+        .payment-info {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 576px) {
+        body {
+          padding: 12px;
+          align-items: flex-start;
+          padding-top: 40px;
+        }
+
+        .success-container {
+          padding: 30px 18px 18px;
         }
 
         .success-title {
           font-size: 1.2rem;
-          margin-bottom: 6px;
+        }
+
+        .success-icon {
+          font-size: 2rem;
+          margin: 12px auto 12px;
         }
 
         .success-message {
           font-size: 0.85rem;
-          margin-bottom: 12px;
+          margin-bottom: 18px;
         }
 
-        .payment-details {
-          padding: 12px;
-          margin-bottom: 12px;
-        }
-
-        .detail-item {
-          font-size: 0.8rem;
-          margin-bottom: 6px;
-          padding-bottom: 6px;
-        }
-
-        .detail-value.amount {
+        .confirmation-title,
+        .next-steps-title,
+        .payment-title {
           font-size: 0.9rem;
+        }
+
+        .confirmation-description,
+        .next-steps-list,
+        .support-contact p {
+          font-size: 0.8rem;
         }
 
         .btn {
           padding: 9px 14px;
-          font-size: 0.82rem;
-        }
-
-        .redirect-countdown {
-          padding: 8px;
-          margin: 10px 0;
-        }
-
-        .countdown-text {
-          font-size: 0.75rem;
-        }
-
-        .whats-next h3 {
           font-size: 0.85rem;
         }
 
-        .whats-next p {
-          font-size: 0.75rem;
+        .support-email {
+          font-size: 0.8rem;
+        }
+
+        .payment-label {
+          font-size: 0.7rem;
+        }
+
+        .payment-value {
+          font-size: 0.85rem;
+        }
+
+        .payment-value.amount {
+          font-size: 0.9rem;
         }
       }
 
-      @media (max-width: 360px) {
+      @media (max-width: 480px) {
+        body {
+          padding: 10px;
+          padding-top: 30px;
+        }
+
         .success-container {
-          padding: 18px 12px;
+          padding: 26px 16px 16px;
         }
 
         .success-title {
           font-size: 1.1rem;
+        }
+
+        .success-icon {
+          font-size: 1.8rem;
         }
 
         .btn {
@@ -350,334 +460,1051 @@
           font-size: 0.8rem;
         }
 
-        .detail-item {
-          flex-direction: column;
-          gap: 2px;
+        .auto-redirect {
+          font-size: 0.8rem;
+          padding: 8px;
         }
 
-        .detail-value {
-          text-align: left;
-          max-width: 100%;
+        .loading-spinner {
+          width: 35px;
+          height: 35px;
         }
       }
 
-      /* Very small height screens */
-      @media (max-height: 600px) {
+      @media (max-width: 360px) {
+        .success-container {
+          padding: 24px 14px 14px;
+        }
+
+        .success-title {
+          font-size: 1rem;
+        }
+
+        .success-icon {
+          font-size: 1.6rem;
+        }
+
+        .btn {
+          padding: 7px 10px;
+          font-size: 0.75rem;
+        }
+
+        .support-contact p {
+          font-size: 0.75rem;
+        }
+      }
+
+      .success-container {
+        max-width: 500px;
+        padding: 26px 22px 18px;
+        border-radius: 24px;
+      }
+
+      .success-container::before {
+        height: 6px;
+      }
+
+      .success-container::after {
+        display: none;
+      }
+
+      .success-icon {
+        width: 72px;
+        height: 72px;
+        font-size: 2.2rem;
+        margin: 0 auto 14px;
+        box-shadow: 0 12px 24px rgba(16, 185, 129, 0.16);
+      }
+
+      .success-title {
+        font-size: 1.55rem;
+        margin-bottom: 10px;
+      }
+
+      .success-message {
+        margin-bottom: 16px;
+        font-size: 0.94rem;
+        line-height: 1.55;
+      }
+
+      .payment-details,
+      .confirmation-details,
+      .next-steps {
+        padding: 14px;
+        margin-bottom: 12px;
+        border-radius: 16px;
+        box-shadow: none;
+      }
+
+      .payment-title,
+      .confirmation-title,
+      .next-steps-title {
+        margin-bottom: 6px;
+        font-size: 0.95rem;
+      }
+
+      .payment-info {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px 12px;
+        margin-top: 8px;
+      }
+
+      .payment-value.amount {
+        font-size: 0.96rem;
+      }
+
+      .confirmation-description {
+        font-size: 0.86rem;
+        line-height: 1.5;
+      }
+
+      .next-steps-list {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+        display: grid;
+        gap: 4px;
+        font-size: 0.82rem;
+        line-height: 1.45;
+      }
+
+      .next-steps-list li {
+        position: relative;
+        padding-left: 14px;
+        margin-bottom: 0;
+      }
+
+      .next-steps-list li::before {
+        content: "\2022";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--secondary-dark);
+        font-weight: 700;
+      }
+
+      .loading-animation {
+        margin: 10px 0;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: rgba(248, 250, 255, 0.9);
+      }
+
+      .auto-redirect {
+        margin-top: 6px;
+        padding: 10px 12px;
+        font-size: 0.82rem;
+      }
+
+      .action-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 4px;
+      }
+
+      .btn {
+        min-height: 44px;
+        margin-bottom: 0;
+        padding: 12px 14px;
+        box-shadow: none;
+      }
+
+      .support-contact {
+        margin-top: 12px;
+        padding-top: 12px;
+      }
+
+      .support-contact p,
+      .support-email {
+        font-size: 0.8rem;
+      }
+
+      @media (max-width: 640px) {
         body {
-          align-items: flex-start;
-          padding-top: 10px;
-          padding-bottom: 10px;
+          padding: 14px;
+          align-items: center;
         }
 
         .success-container {
-          margin-top: 0;
+          padding: 22px 18px 16px;
         }
 
-        .whats-next {
-          display: none; /* Hide next steps on very short screens */
+        .success-title {
+          font-size: 1.32rem;
+        }
+
+        .payment-info,
+        .action-buttons {
+          grid-template-columns: 1fr;
+        }
+
+        .payment-details,
+        .confirmation-details,
+        .next-steps {
+          padding: 12px;
         }
       }
 
-      /* Hide some elements on very small screens */
-      @media (max-height: 500px) {
+      @media (max-width: 480px) {
+        body {
+          padding: 10px;
+          align-items: center;
+        }
+
+        .success-container {
+          padding: 16px;
+          border-radius: 20px;
+        }
+
+        .success-icon {
+          width: 46px;
+          height: 46px;
+          font-size: 1.45rem;
+          margin-bottom: 10px;
+        }
+
+        .success-title {
+          font-size: 1.18rem;
+          margin-bottom: 4px;
+        }
+
         .success-message {
+          margin-bottom: 10px;
+          font-size: 0.84rem;
+          line-height: 1.4;
+        }
+
+        .payment-details,
+        .confirmation-details,
+        .next-steps {
+          padding: 10px 11px;
+          margin-bottom: 8px;
+          border-radius: 14px;
+        }
+
+        .payment-title,
+        .confirmation-title,
+        .next-steps-title {
+          font-size: 0.86rem;
+          margin-bottom: 5px;
+        }
+
+        .payment-info {
+          grid-template-columns: 1fr;
+          gap: 7px;
+          margin-top: 6px;
+        }
+
+        .payment-label {
+          font-size: 0.68rem;
+        }
+
+        .payment-value,
+        .payment-value.amount {
+          font-size: 0.82rem;
+        }
+
+        .confirmation-description {
+          font-size: 0.8rem;
+          line-height: 1.4;
+        }
+
+        .next-steps-list {
           display: none;
         }
 
-        .job-type-badge {
+        .next-steps::after {
+          content: "Your service is active. Continue to the next page to proceed.";
+          display: block;
+          font-size: 0.8rem;
+          color: #475569;
+          line-height: 1.4;
+        }
+
+        .loading-animation {
+          margin: 8px 0;
+          padding: 8px 10px;
+          gap: 8px;
+        }
+
+        .loading-spinner {
+          width: 30px;
+          height: 30px;
+        }
+
+        .loading-text,
+        .auto-redirect {
+          font-size: 0.76rem;
+        }
+
+        .auto-redirect {
+          margin-top: 4px;
+          padding: 8px 10px;
           margin-bottom: 8px;
         }
 
-        .redirect-countdown small {
-          display: none;
+        .action-buttons {
+          gap: 8px;
+        }
+
+        .btn {
+          min-height: 40px;
+          padding: 10px 12px;
+          font-size: 0.8rem;
+        }
+
+        .support-contact {
+          margin-top: 8px;
+          padding-top: 8px;
+        }
+
+        .support-contact p,
+        .support-email {
+          font-size: 0.72rem;
+          line-height: 1.35;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .action-buttons {
+          grid-template-columns: 1fr;
         }
       }
     </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
   </head>
+
   <body>
-    <div class="success-container">
+    <div class="success-container ja-section-header-card">
       <div class="success-icon">
-        <i class="fas fa-check"></i>
+        <i class="fas fa-check-circle"></i>
       </div>
 
-      <h1 class="success-title">Payment Successful!</h1>
+      <h1 class="success-title" id="successTitle">Payment Successful</h1>
 
       <p class="success-message" id="successMessage">
         Your payment has been processed successfully.
       </p>
 
-      <!-- Job Type Badge -->
-      <div id="jobTypeBadge" class="job-type-badge badge-standard">
-        Standard
+      <div class="payment-details" id="paymentDetails">
+        <div class="payment-title">
+          <i class="fas fa-receipt"></i>
+          <span>Payment Details</span>
+        </div>
+        <div class="payment-info" id="paymentInfo"></div>
       </div>
 
-      <!-- Auto-redirect countdown -->
-      <div class="redirect-countdown">
-        <div class="countdown-text">
-          <i class="fas fa-clock"></i>
-          Redirecting in
-          <span class="countdown-number" id="countdown">5</span> seconds
+      <div class="confirmation-details">
+        <div class="confirmation-title">
+          <i class="fas fa-check"></i>
+          <span>Payment Confirmed</span>
         </div>
-        <div class="countdown-progress">
-          <div class="progress-fill"></div>
-        </div>
-        <small
-          style="
-            color: var(--gray);
-            font-size: 0.7rem;
-            display: block;
-            margin-top: 5px;
-          "
-        >
-          Click anywhere to cancel
-        </small>
+        <p class="confirmation-description" id="confirmationDescription">
+          Your transaction was completed successfully.
+        </p>
       </div>
 
-      <!-- Payment Details -->
-      <div class="payment-details">
-        <div class="detail-item">
-          <span class="detail-label">Service:</span>
-          <span class="detail-value" id="serviceName">Job Posting</span>
+      <div class="next-steps">
+        <div class="next-steps-title">
+          <i class="fas fa-rocket"></i>
+          <span>What happens next</span>
         </div>
-        <div class="detail-item">
-          <span class="detail-label">Amount:</span>
-          <span class="detail-value amount" id="amountPaid">₵100.00</span>
-        </div>
-        <div class="detail-item">
-          <span class="detail-label">Reference:</span>
-          <span class="detail-value" id="referenceCode">JA-JOB-789123</span>
-        </div>
-        <div class="detail-item" id="applicantCountItem" style="display: none">
-          <span class="detail-label">Applicants:</span>
-          <span class="detail-value" id="applicantCount">0</span>
-        </div>
+        <ul class="next-steps-list" id="nextStepsList"></ul>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="btn-group">
-        <a
-          href="employer-dashboard.html"
-          class="btn btn-primary"
-          id="dashboardBtn"
-        >
+      <div class="loading-animation" id="processingAnimation">
+        <div class="loading-spinner"></div>
+        <div class="loading-text" id="loadingText">Finalizing your payment...</div>
+      </div>
+
+      <div class="auto-redirect" id="autoRedirect">
+        Redirecting in <span class="countdown" id="countdown">5</span> seconds...
+      </div>
+
+      <div class="action-buttons">
+        <a href="#" class="btn btn-primary" id="dashboardButton">
+          <i class="fas fa-arrow-right"></i> Continue
+        </a>
+
+        <a href="employer-dashboard.html" class="btn btn-outline" id="homeButton">
           <i class="fas fa-home"></i> Go to Dashboard
         </a>
-
-        <a href="#" class="btn btn-accent" id="actionBtn">
-          <i class="fas fa-eye"></i> View Service
-        </a>
       </div>
 
-      <!-- Next Steps -->
-      <div class="whats-next">
-        <h3>What happens next?</h3>
-        <p id="nextSteps">
-          Your job posting is now live and visible to candidates.
+      <div class="support-contact">
+        <p>
+          Need help? Contact our support team at
+          <a href="mailto:support@jobassistgh.com" class="support-email">
+            support@jobassistgh.com
+          </a>
         </p>
-<<<<<<< HEAD:epayment-successful.html
       </div>
-=======
-
-        <!-- Job Type Badge -->
-        <div id="jobTypeBadge" class="job-type-badge badge-standard">Standard</div>
-
-        <!-- Auto-redirect countdown -->
-        <div class="redirect-countdown">
-            <div class="countdown-text">
-                <i class="fas fa-clock"></i> 
-                Redirecting in 
-                <span class="countdown-number" id="countdown">5</span> seconds
-            </div>
-            <div class="countdown-progress">
-                <div class="progress-fill"></div>
-            </div>
-            <small style="color: var(--gray); font-size: 0.7rem; display: block; margin-top: 5px;">
-                Click anywhere to cancel
-            </small>
-        </div>
-
-        <!-- Payment Details -->
-        <div class="payment-details">
-            <div class="detail-item">
-                <span class="detail-label">Service:</span>
-                <span class="detail-value" id="serviceName">Job Posting</span>
-            </div>
-            <div class="detail-item">
-                <span class="detail-label">Amount:</span>
-                <span class="detail-value amount" id="amountPaid">₵100.00</span>
-            </div>
-            <div class="detail-item">
-                <span class="detail-label">Reference:</span>
-                <span class="detail-value" id="referenceCode">JA-JOB-789123</span>
-            </div>
-            <div class="detail-item" id="applicantCountItem" style="display: none;">
-                <span class="detail-label">Applicants:</span>
-                <span class="detail-value" id="applicantCount">0</span>
-            </div>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="btn-group">
-            <a href="employer/employer/employer-dashboard.html" class="btn btn-primary" id="dashboardBtn">
-                <i class="fas fa-home"></i> Go to Dashboard
-            </a>
-            
-            <a href="#" class="btn btn-accent" id="actionBtn">
-                <i class="fas fa-eye"></i> View Service
-            </a>
-        </div>
-
-        <!-- Next Steps -->
-        <div class="whats-next">
-            <h3>What happens next?</h3>
-            <p id="nextSteps">
-                Your job posting is now live and visible to candidates.
-            </p>
-        </div>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:employer/epayment-successful.html
     </div>
 
     <script>
-      // Initialize success page based on URL parameters
-      function initializeSuccessPage() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const serviceParam =
-          urlParams.get("service") || "Job Posting - Standard";
-        const amountParam = urlParams.get("amount") || "₵100.00";
-        const refParam = urlParams.get("ref") || "";
-        const jobTitleParam = urlParams.get("jobTitle") || "";
-        const jobTypeParam = urlParams.get("jobType") || "standard";
-        const applicantCountParam = urlParams.get("applicantCount") || "1";
-
-        // Service type detection
-        let serviceType = "job_posting_standard";
-        let serviceName = "Job Posting";
-        let actionUrl = "my-job-post.html";
-        let actionText = "View Job Posts";
-        let actionIcon = "fas fa-briefcase";
-        let nextSteps =
-          "Your job posting is now live and visible to candidates.";
-
-        // Determine service type from parameters
-        if (serviceParam.includes("Premium")) {
-          serviceType = "job_posting_premium";
-          serviceName = "Premium Job Posting";
-          nextSteps = "Your premium job posting is now active for 5 months.";
-        } else if (serviceParam.includes("Boost")) {
-          serviceType = "job_posting_boost";
-          serviceName = serviceParam;
-          actionUrl = "boost-job.html";
-          actionText = "View Boosted Jobs";
-          actionIcon = "fas fa-rocket";
-          nextSteps = "Your job is now boosted for priority placement.";
-        } else if (serviceParam.includes("Unlock")) {
-          serviceType = "unlock_applicants";
-          serviceName = "Applicant Unlock";
-          actionUrl = "view-applicants.html";
-          actionText = "View Applicants";
-          actionIcon = "fas fa-users";
-          nextSteps = `You can now view ${applicantCountParam} applicant profile${applicantCountParam > 1 ? "s" : ""}.`;
+      function safeJSONParse(v) {
+        try {
+          return JSON.parse(v);
+        } catch {
+          return null;
         }
-
-        // Update page content
-        document.getElementById("serviceName").textContent = serviceName;
-        document.getElementById("amountPaid").textContent = amountParam;
-        document.getElementById("successMessage").textContent =
-          `Your ${serviceName.toLowerCase()} payment was successful.`;
-        document.getElementById("nextSteps").textContent = nextSteps;
-
-        // Update job type badge
-        const jobTypeBadge = document.getElementById("jobTypeBadge");
-        if (serviceType.includes("premium")) {
-          jobTypeBadge.textContent = "Premium";
-          jobTypeBadge.className = "job-type-badge badge-premium";
-        } else if (serviceType.includes("standard")) {
-          jobTypeBadge.textContent = "Standard";
-          jobTypeBadge.className = "job-type-badge badge-standard";
-        } else {
-          jobTypeBadge.style.display = "none";
-        }
-
-        // Update action button
-        const actionBtn = document.getElementById("actionBtn");
-        actionBtn.innerHTML = `<i class="${actionIcon}"></i> ${actionText}`;
-        actionBtn.href = actionUrl;
-
-        // Show applicant count for unlock service
-        if (serviceType === "unlock_applicants") {
-          const applicantCountRow =
-            document.getElementById("applicantCountItem");
-          const applicantCountValue = document.getElementById("applicantCount");
-          applicantCountRow.style.display = "flex";
-          applicantCountValue.textContent = applicantCountParam;
-
-          // Update dashboard button for applicant unlock
-          const dashboardBtn = document.getElementById("dashboardBtn");
-          dashboardBtn.innerHTML =
-            '<i class="fas fa-users"></i> View Applicants';
-          dashboardBtn.href = "view-applicants.html";
-        }
-
-        // Generate reference code if not provided
-        if (refParam) {
-          document.getElementById("referenceCode").textContent = refParam;
-        } else {
-          const prefix = serviceType.includes("premium")
-            ? "JA-PRM-"
-            : serviceType.includes("unlock")
-              ? "JA-APP-"
-              : "JA-STD-";
-          document.getElementById("referenceCode").textContent =
-            prefix + Math.floor(100000 + Math.random() * 900000);
-        }
-
-        // Update page title
-        document.title = `${serviceName} Payment Successful | JobAssist Ghana`;
-
-        // Start auto-redirect countdown
-        startAutoRedirect();
       }
 
-      // Auto-redirect to dashboard after 5 seconds
-      function startAutoRedirect() {
-        let seconds = 5;
+      function normalizeText(s) {
+        return String(s || "").replace(/\+/g, " ").trim();
+      }
+
+      function formatCurrencyValue(amount) {
+        if (!amount) return "GHS 0.00";
+
+        const raw = String(amount).trim();
+        if (raw.includes("GHS ")) return raw;
+
+        const numeric = Number(raw);
+        if (Number.isFinite(numeric)) {
+          return `GHS ${numeric.toFixed(2)}`;
+        }
+
+        return raw;
+      }
+
+      function buildApplicantsUrl(jobId) {
+        const base = "view-applicants.html";
+        const qs = new URLSearchParams();
+        if (jobId) qs.set("jobId", String(jobId));
+        qs.set("payment_success", "true");
+        return base + "?" + qs.toString();
+      }
+
+      const UNLOCKED_APPLICATIONS_KEY = "jobassist_unlocked_applications";
+      const SIMPLE_UNLOCKED_APPLICATIONS_KEY = "unlockedApplicants";
+
+      function getUnlockedApplicationsStore() {
+        const parsed = safeJSONParse(localStorage.getItem(UNLOCKED_APPLICATIONS_KEY));
+        return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+      }
+
+      function saveUnlockedApplicationsStore(store) {
+        localStorage.setItem(UNLOCKED_APPLICATIONS_KEY, JSON.stringify(store || {}));
+      }
+
+      function getSimpleUnlockedApplicants() {
+        const parsed = safeJSONParse(localStorage.getItem(SIMPLE_UNLOCKED_APPLICATIONS_KEY));
+        return Array.isArray(parsed) ? parsed.map(String) : [];
+      }
+
+      function saveSimpleUnlockedApplicants(ids) {
+        localStorage.setItem(
+          SIMPLE_UNLOCKED_APPLICATIONS_KEY,
+          JSON.stringify([...new Set((Array.isArray(ids) ? ids : []).map(String))])
+        );
+      }
+
+      function persistEmployerUnlocks(unlockData) {
+        if (!unlockData) return;
+
+        const employerId = String(unlockData.employerId || "").trim();
+        const selectedApplicants = Array.isArray(unlockData.selectedApplicants)
+          ? unlockData.selectedApplicants.map(String)
+          : [];
+        const applicationId = String(unlockData.applicationId || "").trim();
+
+        const idsToUnlock = [...selectedApplicants, applicationId].filter(Boolean);
+        if (!idsToUnlock.length) return;
+
+        saveSimpleUnlockedApplicants([...getSimpleUnlockedApplicants(), ...idsToUnlock]);
+
+        if (!employerId) return;
+
+        const store = getUnlockedApplicationsStore();
+        const existing = Array.isArray(store[employerId]) ? store[employerId].map(String) : [];
+        const mergedIds = [...new Set([...existing, ...idsToUnlock])];
+        store[employerId] = mergedIds;
+        saveUnlockedApplicationsStore(store);
+      }
+
+      function getNextUrl(urlParams) {
+        const nextParamRaw = urlParams.get("next");
+        if (!nextParamRaw) return "";
+
+        const decoded = normalizeText(decodeURIComponent(nextParamRaw));
+        if (/^(https?:|javascript:)/i.test(decoded)) return "";
+        if (decoded.startsWith("//")) return "";
+
+        return decoded;
+      }
+
+      function makeRef(serviceType, prefix) {
+        if (!window.JobAssistIdGenerator?.generatePaymentReference) {
+          return prefix || "JAG-0001";
+        }
+        return window.JobAssistIdGenerator.generatePaymentReference(serviceType || "employer");
+      }
+
+      function getFormattedReference(ref) {
+        return window.JobAssistPaymentGate?.formatReference?.(ref) || ref || "N/A";
+      }
+
+      function startAutoRedirect(url) {
+        const autoRedirect = document.getElementById("autoRedirect");
         const countdownElement = document.getElementById("countdown");
 
-        const countdownInterval = setInterval(() => {
-          seconds--;
-          countdownElement.textContent = seconds;
+        autoRedirect.style.display = "block";
 
-          if (seconds <= 0) {
-            clearInterval(countdownInterval);
-            redirectToDashboard();
+        let countdown = 5;
+        countdownElement.textContent = countdown;
+
+        const timer = setInterval(() => {
+          countdown -= 1;
+          countdownElement.textContent = countdown;
+
+          if (countdown <= 0) {
+            clearInterval(timer);
+            window.location.href = url;
           }
         }, 1000);
+      }
 
-        // Allow user to cancel auto-redirect by clicking anywhere
-        document.addEventListener("click", function cancelRedirect() {
-          clearInterval(countdownInterval);
-          const redirectDiv = document.querySelector(".redirect-countdown");
-          redirectDiv.innerHTML = `
-                    <div style="color: var(--gray); font-size: 0.8rem; text-align: center;">
-                        <i class="fas fa-times-circle"></i> Redirect cancelled
-                    </div>
-                `;
-          document.removeEventListener("click", cancelRedirect);
+      function showProcessingAnimation(onComplete) {
+        const processingAnimation = document.getElementById("processingAnimation");
+        processingAnimation.style.display = "flex";
+
+        setTimeout(() => {
+          processingAnimation.style.display = "none";
+          onComplete();
+        }, 1200);
+      }
+
+      function setSuccessPageProcessingState(isProcessing, message) {
+        const dashboardButton = document.getElementById("dashboardButton");
+        const homeButton = document.getElementById("homeButton");
+        const successMessage = document.getElementById("successMessage");
+
+        if (dashboardButton) dashboardButton.disabled = !!isProcessing;
+        if (homeButton) homeButton.disabled = !!isProcessing;
+        if (isProcessing && successMessage && message) {
+          successMessage.textContent = message;
+        }
+      }
+
+      function getEmployerJobs() {
+        const parsed = safeJSONParse(localStorage.getItem("jobassist_employer_jobs"));
+        return Array.isArray(parsed) ? parsed : [];
+      }
+
+      function saveEmployerJobs(jobs) {
+        localStorage.setItem("jobassist_employer_jobs", JSON.stringify(Array.isArray(jobs) ? jobs : []));
+      }
+
+      function resolveBoostDurationDays(action, payload) {
+        const serviceType = normalizeText(action?.serviceType || action?.service || "");
+        const durationText = normalizeText(payload?.duration || action?.duration || "");
+        const explicitDays = Number.parseInt(durationText, 10);
+
+        if (Number.isFinite(explicitDays) && explicitDays > 0) {
+          return explicitDays;
+        }
+
+        if (serviceType === "job_boost_premium" || /premium/i.test(payload?.boostType || payload?.boostName || "")) {
+          return 60;
+        }
+
+        return 30;
+      }
+
+      function saveBoostedJobRecord(action, payload) {
+        const normalizedJobId = String(action?.jobId || payload?.jobId || "").trim();
+        if (!normalizedJobId) return false;
+
+        const storageKey = window.JobAssistPaymentGate?.BOOSTED_JOBS_KEY || "jobassist_boosted_jobs";
+        const boostedJobs = safeJSONParse(localStorage.getItem(storageKey));
+        const existingRecords = Array.isArray(boostedJobs) ? boostedJobs : [];
+        const durationDays = resolveBoostDurationDays(action, payload);
+        const rawBoostType = normalizeText(payload?.boostType || payload?.boostTier || "standard").toLowerCase();
+        const normalizedBoostType = rawBoostType.includes("premium") ? "premium" : "standard";
+        const nextRecord = {
+          jobId: normalizedJobId,
+          boostType: normalizedBoostType,
+          expiresAt: Date.now() + durationDays * 24 * 60 * 60 * 1000,
+        };
+
+        const nextRecords = existingRecords.filter((entry) => {
+          return String(entry?.jobId || "").trim() !== normalizedJobId;
+        });
+
+        nextRecords.unshift(nextRecord);
+        localStorage.setItem(storageKey, JSON.stringify(nextRecords));
+        return true;
+      }
+
+      function upsertEmployerJob(jobData) {
+        if (!jobData || typeof jobData !== "object") return false;
+
+        const normalizedJobId = String(jobData.jobId || jobData.id || "").trim();
+        if (!normalizedJobId) return false;
+
+        const jobs = getEmployerJobs();
+        const now = new Date().toISOString();
+        const jobPostingExpiry = window.JobAssistJobPostingExpiry;
+        const packageType = jobPostingExpiry?.normalizePackageType
+          ? jobPostingExpiry.normalizePackageType(
+              jobData.packageType || jobData.jobType || ""
+            )
+          : String(jobData.packageType || jobData.jobType || "").trim().toLowerCase() === "premium"
+            ? "premium"
+            : "standard";
+        const postingDates = jobPostingExpiry?.calculatePostingDates
+          ? jobPostingExpiry.calculatePostingDates(packageType, now)
+          : {
+              postedAt: now,
+              expiresAt: now,
+              applicationDeadline: now,
+              deadline: now.split("T")[0],
+              durationLabel: packageType === "premium" ? "3 months" : "30 days",
+            };
+        const idx = jobs.findIndex(
+          (job) => String(job?.jobId || job?.id || "").trim() === normalizedJobId
+        );
+
+        const baseJob = idx >= 0 && jobs[idx] && typeof jobs[idx] === "object" ? jobs[idx] : {};
+        const mergedJob = {
+          ...baseJob,
+          ...jobData,
+          jobId: normalizedJobId,
+          id: baseJob.id || jobData.id || normalizedJobId,
+          jobType: packageType,
+          packageType,
+          status: "active",
+          paymentStatus: "success",
+          isClosed: false,
+          createdAt: postingDates.postedAt,
+          postedDate: postingDates.postedAt,
+          publishedAt: postingDates.postedAt,
+          listingActivatedAt: postingDates.postedAt,
+          expiresAt: postingDates.expiresAt,
+          applicationDeadline: postingDates.applicationDeadline,
+          deadline: postingDates.deadline,
+          listingDurationLabel: postingDates.durationLabel,
+          updatedAt: now,
+        };
+
+        if (idx >= 0) {
+          jobs[idx] = mergedJob;
+        } else {
+          jobs.unshift(mergedJob);
+        }
+
+        saveEmployerJobs(jobs);
+        return true;
+      }
+
+      function activateJobBoost(action) {
+        const normalizedJobId = String(action?.jobId || action?.payload?.jobId || "").trim();
+        if (!normalizedJobId) return false;
+
+        const jobs = getEmployerJobs();
+        const idx = jobs.findIndex(
+          (job) => String(job?.jobId || job?.id || "").trim() === normalizedJobId
+        );
+
+        if (idx < 0) return false;
+
+        const existingJob = jobs[idx] || {};
+        const boostPayload = action?.payload && typeof action.payload === "object" ? action.payload : {};
+        const now = new Date().toISOString();
+
+        jobs[idx] = {
+          ...existingJob,
+          boosted: true,
+          boostActive: true,
+          boostStatus: "active",
+          boostTier: boostPayload.boostTier || existingJob.boostTier || "",
+          boostName: boostPayload.boostName || existingJob.boostName || "",
+          boostPaidAt: now,
+          paymentStatus: "success",
+          updatedAt: now,
+        };
+
+        saveEmployerJobs(jobs);
+        saveBoostedJobRecord(action, boostPayload);
+        return true;
+      }
+
+      function getPendingActionContext(urlParams) {
+        const actionId = normalizeText(urlParams.get("actionId") || "");
+        const referenceCode = normalizeText(urlParams.get("ref") || "");
+        const serviceTypeFromUrl = normalizeText(urlParams.get("service") || "");
+        const jobId = normalizeText(urlParams.get("jobId") || "");
+        const applicationId = normalizeText(urlParams.get("applicationId") || "");
+
+        const action =
+          window.JobAssistPaymentGate?.getPaymentAction({
+            actionId,
+            referenceCode,
+            role: "employer",
+            serviceType: serviceTypeFromUrl,
+            jobId,
+            applicationId,
+          }) || null;
+
+        return {
+          action,
+          actionId,
+          referenceCode,
+          serviceTypeFromUrl,
+          jobId,
+          applicationId,
+        };
+      }
+
+      function showVerificationFailure() {
+        document.getElementById("successTitle").textContent = "Payment Could Not Be Verified";
+        document.getElementById("successMessage").textContent =
+          "Payment could not be verified. No service has been activated.";
+        document.getElementById("confirmationDescription").textContent =
+          "Please contact support or retry from your payments page if needed.";
+        document.querySelector(".confirmation-details").style.display = "none";
+        document.getElementById("paymentInfo").innerHTML = "";
+        document.getElementById("nextStepsList").innerHTML = `
+          <li>No employer service has been activated.</li>
+          <li>Your applicant unlock, job posting, or boost remains inactive.</li>
+        `;
+        document.getElementById("dashboardButton").href = "employer-payment.html";
+        document.getElementById("dashboardButton").innerHTML =
+          '<i class="fas fa-credit-card"></i> Return to Payments';
+      }
+
+      async function initializeSuccessPage() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const nextOverride = getNextUrl(urlParams);
+        const actionContext = getPendingActionContext(urlParams);
+        const pendingAction = actionContext.action;
+
+        const serviceParam = normalizeText(decodeURIComponent(urlParams.get("service") || ""));
+        const amountParam = normalizeText(urlParams.get("amount") || "");
+        const refParam = normalizeText(urlParams.get("ref") || "");
+        const jobTypeParam = normalizeText(urlParams.get("jobType") || "").toLowerCase();
+        const applicantCountParam = Number(urlParams.get("applicantCount") || "0");
+        const jobIdParam = normalizeText(urlParams.get("jobId") || "");
+
+        const unlockData = safeJSONParse(sessionStorage.getItem("jobassist_payment_data"));
+        const boostData = safeJSONParse(sessionStorage.getItem("paymentData"));
+        const jobPostData = safeJSONParse(localStorage.getItem("jobPostData"));
+        const localUnlockApplicantId = normalizeText(localStorage.getItem("unlockApplicantId") || "");
+        const localPaymentType = normalizeText(localStorage.getItem("paymentType") || "");
+        const localAmount = Number(localStorage.getItem("amount") || "0");
+
+        const fallbackUnlockData = localPaymentType === "unlock_applicant"
+          ? {
+              applicationId: localUnlockApplicantId,
+              selectedApplicants: [localUnlockApplicantId].filter(Boolean),
+              amount: localAmount || 100,
+              employerId: "",
+              jobId: jobIdParam,
+            }
+          : null;
+
+        const resolvedUnlockData = unlockData || fallbackUnlockData;
+
+        const actionServiceName =
+          normalizeText(pendingAction?.serviceName || "") ||
+          normalizeText(pendingAction?.serviceType || "");
+        const fallbackService =
+          actionServiceName ||
+          (resolvedUnlockData ? "Unlock Applicants" :
+          (boostData && (boostData.service === "job_boost" || /boost/i.test(boostData.service || ""))) ? "Job Boost" :
+          jobPostData ? (jobPostData.jobType === "premium" ? "Job Posting - Premium" : "Job Posting - Standard") :
+          "Job Posting - Standard");
+
+        const displayServiceName =
+          serviceParam === "unlock_applicants"
+            ? "Unlock Applicants"
+            : (serviceParam || fallbackService);
+
+        const isBoost = /boost/i.test(displayServiceName);
+        const isUnlock = /unlock/i.test(displayServiceName) || /applicant/i.test(displayServiceName);
+        const isPremium = /premium/i.test(displayServiceName) || jobTypeParam === "premium";
+        const confirmationCard = document.querySelector(".confirmation-details");
+
+        if (confirmationCard) {
+          confirmationCard.style.display = "";
+        }
+
+        const amount =
+          amountParam ||
+          (pendingAction?.displayAmount ? pendingAction.displayAmount :
+          (resolvedUnlockData ? `GHS ${Number(resolvedUnlockData.amount || 0).toFixed(2)}` :
+          (boostData && boostData.amount ? `GHS ${Number(boostData.amount).toFixed(2)}` :
+          (jobPostData ? (jobPostData.jobType === "premium" ? "GHS 500.00" : "GHS 300.00") : "GHS 0.00"))));
+
+        const jobTitle =
+          (resolvedUnlockData && resolvedUnlockData.jobTitle) ||
+          (pendingAction?.payload && pendingAction.payload.jobTitle) ||
+          (boostData && boostData.jobTitle) ||
+          (jobPostData && jobPostData.jobTitle) ||
+          "";
+
+        const company =
+          (resolvedUnlockData && resolvedUnlockData.company) ||
+          (pendingAction?.payload && pendingAction.payload.company) ||
+          (boostData && boostData.company) ||
+          localStorage.getItem("companyName") ||
+          "";
+
+        const jobId =
+          jobIdParam ||
+          actionContext.jobId ||
+          (resolvedUnlockData && resolvedUnlockData.jobId) ||
+          (pendingAction && pendingAction.jobId) ||
+          (boostData && boostData.jobId) ||
+          "";
+
+        const applicantCount =
+          applicantCountParam ||
+          (resolvedUnlockData && Number(resolvedUnlockData.selectedCount || resolvedUnlockData.applicantCount || 0)) ||
+          0;
+
+        let ref = refParam || normalizeText(pendingAction?.referenceCode || "");
+        if (!ref) {
+          const fallbackType = isUnlock
+            ? "unlock_applicants"
+            : isBoost
+              ? "job_boost"
+              : "job_posting_standard";
+          ref = makeRef(fallbackType);
+        }
+
+        let continueUrl = "employer-dashboard.html";
+        let nextSteps = [
+          "Your payment has been recorded successfully.",
+          "Your employer service is now being activated.",
+          "You can continue using your dashboard.",
+          "Check your dashboard for the latest update."
+        ];
+        let confirmationText = "Your employer payment was completed successfully.";
+
+        setSuccessPageProcessingState(true, "Payment successful. Activating service...");
+        await new Promise((resolve) => setTimeout(resolve, 600));
+
+        const verificationResult = await window.JobAssistPaymentGate?.verifyPaystackPayment(
+          ref,
+          {
+            actionId: actionContext.actionId,
+            referenceCode: actionContext.referenceCode || ref,
+            serviceType:
+              normalizeText(pendingAction?.serviceType || "") ||
+              actionContext.serviceTypeFromUrl ||
+              (isUnlock ? "unlock_applicants" : isBoost ? "job_boost" : "job_posting_standard"),
+            role: "employer",
+            jobId: jobId,
+            applicationId: actionContext.applicationId,
+          }
+        );
+
+        if (!verificationResult?.ok) {
+          console.warn("Employer payment could not be verified.", verificationResult);
+          setSuccessPageProcessingState(false);
+          showVerificationFailure();
+          return;
+        }
+
+        const finalizeResult = window.JobAssistPaymentGate?.finalizePendingPaymentAction(
+          {
+            actionId: actionContext.actionId,
+            referenceCode: actionContext.referenceCode,
+            serviceType:
+              normalizeText(pendingAction?.serviceType || "") ||
+              actionContext.serviceTypeFromUrl ||
+              (isUnlock ? "unlock_applicants" : isBoost ? "job_boost" : "job_posting_standard"),
+            role: "employer",
+            jobId: jobId,
+            applicationId: actionContext.applicationId,
+          },
+          (action) => {
+            const payload = action?.payload && typeof action.payload === "object" ? action.payload : {};
+            const serviceType = normalizeText(action?.serviceType || "");
+            const actionAmount = Number(action?.amount || 0);
+
+            if (normalizeText(action?.role || action?.flow || "") !== "employer") {
+              return false;
+            }
+
+            if (serviceType === "unlock_applicants") {
+              if (!action.jobId || !action.applicationId || actionAmount <= 0) {
+                return false;
+              }
+              persistEmployerUnlocks({
+                ...(payload || {}),
+                employerId: action.employerId || payload.employerId || "",
+                applicationId: action.applicationId || payload.applicationId || "",
+                selectedApplicants: Array.isArray(payload.selectedApplicants)
+                  ? payload.selectedApplicants
+                  : [action.applicationId].filter(Boolean),
+                jobId: action.jobId || payload.jobId || "",
+              });
+              return true;
+            }
+
+            if (serviceType === "job_boost_standard" || serviceType === "job_boost_premium") {
+              return activateJobBoost(action);
+            }
+
+            if (serviceType === "job_posting_standard" || serviceType === "job_posting_premium") {
+              const pendingJob = payload.jobData || jobPostData;
+              if (!pendingJob || Number(actionAmount || pendingJob.amount || 0) <= 0) {
+                return false;
+              }
+              const resolvedPackageType = serviceType === "job_posting_premium" ? "premium" : "standard";
+              return upsertEmployerJob({
+                ...pendingJob,
+                packageType: resolvedPackageType,
+                jobType: resolvedPackageType,
+              });
+            }
+
+            return false;
+          }
+        );
+
+        if (!finalizeResult?.ok && !finalizeResult?.alreadyFinalized) {
+          console.warn("Employer payment success page could not finalize a pending action.", finalizeResult);
+          setSuccessPageProcessingState(false);
+          showVerificationFailure();
+          return;
+        }
+
+        if (isUnlock) {
+          continueUrl = nextOverride || buildApplicantsUrl(jobId);
+          confirmationText = "Your selected applicants have now been unlocked successfully.";
+          nextSteps = [
+            "You can now view the unlocked applicant details.",
+            "Contact information for the selected applicants is now accessible.",
+            "Return to your applicants page to continue reviewing candidates.",
+            "Manage your hiring process from your employer dashboard."
+          ];
+        } else if (isBoost) {
+          continueUrl = "employer-dashboard.html";
+          confirmationText = "Your job boost is now active and your visibility has increased.";
+          nextSteps = [
+            "Your job boost is now active.",
+            "Your listing receives stronger placement and visibility.",
+            "More candidates can now discover your job post.",
+            "Track performance from your employer dashboard."
+          ];
+        } else if (/job posting/i.test(displayServiceName)) {
+          continueUrl = "my-job-post.html";
+          confirmationText = isPremium
+            ? "Your premium job posting is now active."
+            : "Your standard job posting is now active.";
+          nextSteps = [
+            "Your job posting has been activated successfully.",
+            "Candidates can now begin applying.",
+            "You can manage the listing from My Job Posts.",
+            "Track applicants from your employer dashboard."
+          ];
+        }
+
+        document.getElementById("successTitle").textContent = "Payment Successful";
+        document.getElementById("successMessage").textContent = "Your service has been activated.";
+        document.getElementById("confirmationDescription").textContent = confirmationText;
+        document.getElementById("dashboardButton").href = continueUrl;
+        document.getElementById("dashboardButton").innerHTML = isUnlock
+          ? '<i class="fas fa-users"></i> Continue to Applicants'
+          : '<i class="fas fa-arrow-right"></i> Continue';
+
+        const nextStepsList = document.getElementById("nextStepsList");
+        nextStepsList.innerHTML = nextSteps.map((step) => `<li>${step}</li>`).join("");
+
+        const paymentInfo = [];
+        paymentInfo.push(`
+          <div class="payment-item">
+            <div class="payment-label">Service</div>
+            <div class="payment-value">${displayServiceName}</div>
+          </div>
+        `);
+
+        paymentInfo.push(`
+          <div class="payment-item">
+            <div class="payment-label">Amount</div>
+            <div class="payment-value amount">${formatCurrencyValue(amount)}</div>
+          </div>
+        `);
+
+        paymentInfo.push(`
+          <div class="payment-item">
+            <div class="payment-label">Reference</div>
+            <div class="payment-value reference-text" title="${ref || "N/A"}">${getFormattedReference(ref)}</div>
+          </div>
+        `);
+
+        paymentInfo.push(`
+          <div class="payment-item">
+            <div class="payment-label">Date</div>
+            <div class="payment-value">${new Date().toLocaleDateString("en-GB")}</div>
+          </div>
+        `);
+
+        if (jobTitle) {
+          paymentInfo.push(`
+            <div class="payment-item">
+              <div class="payment-label">Job Title</div>
+              <div class="payment-value">${jobTitle}</div>
+            </div>
+          `);
+        }
+
+        if (company) {
+          paymentInfo.push(`
+            <div class="payment-item">
+              <div class="payment-label">Company</div>
+              <div class="payment-value">${company}</div>
+            </div>
+          `);
+        }
+
+        if (isUnlock) {
+          paymentInfo.push(`
+            <div class="payment-item">
+              <div class="payment-label">Applicants</div>
+              <div class="payment-value">${applicantCount}</div>
+            </div>
+          `);
+        }
+
+        document.getElementById("paymentInfo").innerHTML = paymentInfo.join("");
+        document.title = `${displayServiceName} Successful | Job Assist Ghana`;
+
+        const shouldClearPendingState = Boolean(
+          finalizeResult?.ok || finalizeResult?.alreadyFinalized
+        );
+
+        if (shouldClearPendingState) {
+          localStorage.removeItem("unlockApplicantId");
+          localStorage.removeItem("paymentType");
+          localStorage.removeItem("amount");
+          sessionStorage.removeItem("jobassist_payment_data");
+          sessionStorage.removeItem("paymentData");
+          sessionStorage.removeItem("jobassist_return_to");
+          if (!isUnlock) {
+            localStorage.removeItem("jobPostData");
+          }
+        }
+
+        showProcessingAnimation(() => {
+          setSuccessPageProcessingState(false);
+          startAutoRedirect(continueUrl);
         });
       }
 
-<<<<<<< HEAD:epayment-successful.html
-      function redirectToDashboard() {
-        window.location.href = "employer-dashboard.html";
-      }
-=======
-        function redirectToDashboard() {
-            window.location.href = 'employer/employer/employer/employer-dashboard.html';
-        }
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:employer/epayment-successful.html
-
-      // Initialize when page loads
       document.addEventListener("DOMContentLoaded", initializeSuccessPage);
     </script>
+  
+    <script src="../assets/js/id-generator.js"></script>
+    <script src="../assets/js/payment-gating.js"></script>
+    <script src="../assets/js/job-posting-expiry.js"></script>
+    <script src='../assets/js/product-polish.js'></script>
   </body>
 </html>
+

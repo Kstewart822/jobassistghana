@@ -1,33 +1,33 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Accepted Offers | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <script src="../assets/js/input-hardening.js"></script>
+
     <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
       }
 
       :root {
         --primary: #0a2a66;
         --primary-dark: #071e4d;
-        --primary-light: #1e3a8a;
         --secondary: #f8c12e;
         --secondary-dark: #e6af1a;
         --danger: #ef4444;
         --danger-dark: #dc2626;
         --success: #10b981;
-        --warning: #f59e0b;
         --light: #f8fafc;
         --dark: #1e293b;
         --gray: #64748b;
@@ -48,14 +48,9 @@
         line-height: 1.4;
       }
 
-      /* Sidebar Styles */
       .sidebar {
         width: var(--sidebar-width);
-        background: linear-gradient(
-          180deg,
-          var(--primary),
-          var(--primary-dark)
-        );
+        background: linear-gradient(180deg, var(--primary), var(--primary-dark));
         color: white;
         height: 100vh;
         position: fixed;
@@ -85,6 +80,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        text-decoration: none;
       }
 
       .logo-img-placeholder {
@@ -196,7 +192,6 @@
         font-size: 0.8rem;
       }
 
-      /* Main Content Area */
       .main-content {
         flex: 1;
         margin-left: var(--sidebar-width);
@@ -212,7 +207,6 @@
         width: calc(100% - var(--sidebar-collapsed));
       }
 
-      /* Navbar Styles */
       .navbar {
         height: var(--navbar-height);
         background-color: white;
@@ -249,7 +243,6 @@
         position: relative;
       }
 
-      /* NOTIFICATION AREA */
       .notification-container {
         position: relative;
       }
@@ -262,7 +255,6 @@
         transition: var(--transition);
         padding: 8px;
         border-radius: 50%;
-        background: transparent;
       }
 
       .notification-icon:hover {
@@ -300,7 +292,6 @@
         display: none;
         z-index: 101;
         border: 1px solid var(--gray-light);
-        transform-origin: top right;
         animation: dropdownFade 0.2s ease;
       }
 
@@ -353,15 +344,12 @@
 
       .notification-list {
         list-style: none;
-        max-height: 300px;
-        overflow-y: auto;
       }
 
       .notification-item {
         padding: 12px 16px;
         border-bottom: 1px solid var(--gray-light);
         transition: var(--transition);
-        cursor: pointer;
       }
 
       .notification-item:hover {
@@ -392,24 +380,6 @@
         gap: 4px;
       }
 
-      .notification-time i {
-        font-size: 0.6rem;
-      }
-
-      .notification-empty {
-        padding: 30px 20px;
-        text-align: center;
-        color: var(--gray);
-        font-size: 0.9rem;
-      }
-
-      .notification-empty i {
-        font-size: 1.5rem;
-        margin-bottom: 10px;
-        color: var(--gray-light);
-      }
-
-      /* User Profile */
       .user-profile {
         display: flex;
         align-items: center;
@@ -488,45 +458,70 @@
         text-align: center;
       }
 
-      /* Dashboard Content */
       .dashboard-content {
-        padding: 20px;
+        padding: 24px;
         flex: 1;
+        background:
+          radial-gradient(circle at top right, rgba(248, 193, 46, 0.15), transparent 28%),
+          linear-gradient(180deg, #f8fbff 0%, #eef4fb 100%);
       }
 
       .welcome-section {
-        margin-bottom: 15px;
-        padding: 0 5px;
+        margin-bottom: 18px;
+        padding: 26px;
+        background:
+          linear-gradient(135deg, rgba(10, 42, 102, 0.98), rgba(7, 30, 77, 0.94)),
+          linear-gradient(90deg, rgba(248, 193, 46, 0.18), transparent);
+        border-radius: 22px;
+        box-shadow: 0 18px 42px rgba(10, 42, 102, 0.14);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .welcome-section::after {
+        content: "";
+        position: absolute;
+        right: -48px;
+        bottom: -70px;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(248, 193, 46, 0.24), transparent 70%);
       }
 
       .welcome-title {
-        font-size: 1.4rem;
-        margin-bottom: 4px;
-        color: var(--primary);
+        font-size: 2rem;
+        margin-bottom: 8px;
+        color: white;
         font-weight: 700;
+        position: relative;
+        z-index: 1;
       }
 
       .welcome-subtitle {
-        color: var(--gray);
-        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 0.96rem;
+        max-width: 620px;
+        position: relative;
+        z-index: 1;
       }
 
-      /* Stats Cards */
       .stats-container {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        gap: 12px;
-        margin-bottom: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 14px;
+        margin-bottom: 22px;
       }
 
       .stat-card {
-        background-color: white;
-        border-radius: 8px;
-        padding: 16px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        text-align: center;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+        border-radius: 18px;
+        padding: 18px;
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+        text-align: left;
         transition: var(--transition);
-        border-top: 3px solid var(--success);
+        border: 1px solid rgba(10, 42, 102, 0.07);
+        border-top: 4px solid var(--success);
       }
 
       .stat-card:hover {
@@ -541,26 +536,25 @@
       }
 
       .stat-number {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         font-weight: 700;
         color: var(--primary);
-        margin-bottom: 4px;
+        margin-bottom: 6px;
       }
 
       .stat-label {
-        color: var(--gray);
-        font-size: 0.85rem;
-        font-weight: 500;
-        margin-bottom: 3px;
+        color: var(--dark);
+        font-size: 0.92rem;
+        font-weight: 600;
+        margin-bottom: 4px;
       }
 
       .stat-subtitle {
-        font-size: 0.75rem;
+        font-size: 0.78rem;
         color: var(--gray);
         margin-top: 3px;
       }
 
-      /* Accepted Offers Section */
       .section-title {
         font-size: 1.1rem;
         margin-bottom: 12px;
@@ -574,19 +568,19 @@
       .accepted-offers-container {
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        margin-bottom: 25px;
+        gap: 16px;
+        margin-bottom: 28px;
       }
 
-      /* FIXED: Increased card width to 70-75% */
       .accepted-offer-card {
-        background-color: white;
-        border-radius: 8px;
-        padding: 16px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        background: linear-gradient(180deg, #ffffff, #f8fbff);
+        border-radius: 22px;
+        padding: 20px;
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
         transition: var(--transition);
         border-left: 4px solid var(--success);
-        width: 70%;
+        border: 1px solid rgba(10, 42, 102, 0.07);
+        width: 78%;
         max-width: 900px;
         min-width: 600px;
       }
@@ -601,6 +595,7 @@
         justify-content: space-between;
         align-items: flex-start;
         margin-bottom: 8px;
+        gap: 10px;
       }
 
       .offer-title {
@@ -640,7 +635,7 @@
 
       .job-status {
         display: inline-block;
-        padding: 4px 8px;
+        padding: 6px 10px;
         border-radius: 20px;
         font-size: 0.7rem;
         font-weight: 600;
@@ -667,10 +662,9 @@
         align-items: center;
       }
 
-      /* BUTTONS - Regular width, not stretched */
       .btn {
-        padding: 8px 12px;
-        border-radius: 5px;
+        padding: 10px 14px;
+        border-radius: 12px;
         font-weight: 600;
         cursor: pointer;
         transition: var(--transition);
@@ -714,7 +708,6 @@
         background-color: var(--danger-dark);
       }
 
-      /* ACCENT YELLOW/GOLD COLOR ON VIEW DETAILS BUTTON */
       .btn-accent {
         background-color: var(--secondary);
         color: var(--primary);
@@ -725,7 +718,6 @@
         background-color: var(--secondary-dark);
       }
 
-      /* Logout button style - matching notification badge red */
       .btn-logout {
         background-color: var(--danger);
         color: white;
@@ -735,14 +727,10 @@
         background-color: var(--danger-dark);
       }
 
-      /* Modal Styles */
       .modal {
         display: none;
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        inset: 0;
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 1000;
         align-items: center;
@@ -798,7 +786,6 @@
         flex-wrap: wrap;
       }
 
-      /* Footer */
       .footer {
         background-color: var(--primary);
         color: white;
@@ -834,14 +821,10 @@
         font-size: 0.8rem;
       }
 
-      /* Mobile Overlay */
       .mobile-overlay {
         display: none;
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        inset: 0;
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 99;
       }
@@ -850,21 +833,21 @@
         display: block;
       }
 
-      /* Empty State */
       .empty-state {
         text-align: center;
-        padding: 40px 20px;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        width: 70%;
+        padding: 44px 24px;
+        background: linear-gradient(180deg, #ffffff, #f8fbff);
+        border-radius: 22px;
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.05);
+        border: 1px dashed rgba(10, 42, 102, 0.18);
+        width: 78%;
         max-width: 900px;
         min-width: 600px;
       }
 
       .empty-state-icon {
-        font-size: 2.5rem;
-        color: var(--gray-light);
+        font-size: 2.6rem;
+        color: var(--primary);
         margin-bottom: 15px;
       }
 
@@ -884,11 +867,6 @@
         margin-right: auto;
       }
 
-      /* ====================== */
-      /* MOBILE OPTIMIZATIONS */
-      /* ====================== */
-
-      /* Tablet (992px and below) */
       @media (max-width: 992px) {
         .dashboard-content {
           padding: 12px;
@@ -937,14 +915,8 @@
           width: 280px;
         }
 
-        .welcome-section {
-          margin-bottom: 12px;
-          padding: 0 3px;
-        }
-
         .welcome-title {
           font-size: 1.1rem;
-          margin-bottom: 3px;
         }
 
         .welcome-subtitle {
@@ -955,31 +927,14 @@
           padding: 14px;
         }
 
-        .stat-icon {
-          font-size: 1.2rem;
-          margin-bottom: 6px;
-        }
-
         .stat-number {
           font-size: 1.3rem;
-          margin-bottom: 3px;
-        }
-
-        .stat-label {
-          font-size: 0.8rem;
-          margin-bottom: 2px;
-        }
-
-        .stat-subtitle {
-          font-size: 0.7rem;
         }
 
         .section-title {
           font-size: 0.95rem;
-          margin-bottom: 10px;
         }
 
-        /* FIXED: Cards full width on tablet */
         .accepted-offer-card {
           padding: 14px;
           width: 100%;
@@ -987,47 +942,13 @@
           max-width: 100%;
         }
 
-        .offer-title {
-          font-size: 0.9rem;
-        }
-
-        .offer-date {
-          font-size: 0.7rem;
-        }
-
         .offer-details {
           grid-template-columns: repeat(2, 1fr);
-          gap: 6px;
-          margin-bottom: 6px;
-        }
-
-        .detail-label {
-          font-size: 0.7rem;
-        }
-
-        .detail-value {
-          font-size: 0.8rem;
-        }
-
-        .job-status {
-          padding: 3px 6px;
-          font-size: 0.65rem;
-          margin-bottom: 6px;
-        }
-
-        .accepted-offer-card p {
-          font-size: 0.8rem;
-          margin-bottom: 10px;
-          line-height: 1.3;
         }
 
         .btn {
           padding: 7px 10px;
           font-size: 0.75rem;
-        }
-
-        .offer-actions {
-          gap: 6px;
         }
 
         .empty-state {
@@ -1037,7 +958,6 @@
         }
       }
 
-      /* Mobile (768px and below) */
       @media (max-width: 768px) {
         .dashboard-content {
           padding: 10px;
@@ -1048,46 +968,8 @@
           height: 55px;
         }
 
-        .logo-main {
-          font-size: 1rem;
-        }
-
-        .logo-img-placeholder {
-          width: 35px;
-          height: 35px;
-          font-size: 1rem;
-        }
-
         .user-name {
           display: none;
-        }
-
-        .notification-icon {
-          font-size: 1rem;
-          padding: 6px;
-        }
-
-        .user-avatar {
-          width: 35px;
-          height: 35px;
-        }
-
-        .dropdown-menu {
-          right: 12px;
-          width: 160px;
-        }
-
-        .welcome-section {
-          margin-bottom: 10px;
-        }
-
-        .welcome-title {
-          font-size: 1rem;
-          margin-bottom: 2px;
-        }
-
-        .welcome-subtitle {
-          font-size: 0.75rem;
         }
 
         .stats-container {
@@ -1095,130 +977,19 @@
           gap: 8px;
         }
 
-        .accepted-offers-container {
-          gap: 10px;
-          margin-bottom: 20px;
-        }
-
-        .stat-card,
-        .accepted-offer-card {
-          padding: 12px;
-        }
-
-        .stat-icon {
-          font-size: 1.1rem;
-          margin-bottom: 4px;
-        }
-
-        .stat-number {
-          font-size: 1.2rem;
-        }
-
-        .section-title {
-          font-size: 0.9rem;
-          margin-bottom: 8px;
-        }
-
         .offer-details {
           grid-template-columns: 1fr;
-          gap: 5px;
-        }
-
-        .offer-title {
-          font-size: 0.85rem;
-        }
-
-        .offer-date {
-          font-size: 0.65rem;
-        }
-
-        .detail-label {
-          font-size: 0.65rem;
-        }
-
-        .detail-value {
-          font-size: 0.75rem;
-        }
-
-        .accepted-offer-card p {
-          font-size: 0.75rem;
-          margin-bottom: 8px;
-        }
-
-        .btn {
-          padding: 6px 8px;
-          font-size: 0.7rem;
-        }
-
-        .offer-actions {
-          gap: 5px;
         }
 
         .notification-dropdown {
           right: 10px;
           width: 260px;
         }
-
-        .footer {
-          padding: 12px 15px 8px;
-          margin-top: 20px;
-        }
       }
 
-      /* Small Mobile (576px and below) */
       @media (max-width: 576px) {
-        .dashboard-content {
-          padding: 8px;
-        }
-
-        .navbar {
-          padding: 0 10px;
-          height: 50px;
-        }
-
-        .mobile-menu-btn {
-          font-size: 0.9rem;
-        }
-
         .page-title {
           font-size: 0.9rem;
-        }
-
-        .welcome-title {
-          font-size: 0.9rem;
-        }
-
-        .welcome-subtitle {
-          font-size: 0.7rem;
-        }
-
-        .stats-container {
-          gap: 6px;
-        }
-
-        .accepted-offers-container {
-          gap: 8px;
-        }
-
-        .stat-card,
-        .accepted-offer-card {
-          padding: 10px;
-        }
-
-        .stat-icon {
-          font-size: 1rem;
-        }
-
-        .stat-number {
-          font-size: 1.1rem;
-        }
-
-        .stat-label {
-          font-size: 0.75rem;
-        }
-
-        .section-title {
-          font-size: 0.85rem;
         }
 
         .offer-header {
@@ -1233,8 +1004,6 @@
         }
 
         .btn {
-          padding: 5px 7px;
-          font-size: 0.65rem;
           justify-content: center;
         }
 
@@ -1242,205 +1011,40 @@
           width: 240px;
           right: 8px;
         }
-
-        .footer {
-          padding: 10px 12px 6px;
-        }
-
-        .footer-links {
-          gap: 10px;
-        }
-
-        .footer-links a {
-          font-size: 0.8rem;
-        }
-
-        .footer-bottom {
-          font-size: 0.75rem;
-        }
-      }
-
-      /* Extra Small Mobile (480px and below) */
-      @media (max-width: 480px) {
-        .dashboard-content {
-          padding: 6px;
-        }
-
-        .navbar {
-          padding: 0 8px;
-          height: 45px;
-        }
-
-        .logo-img-placeholder {
-          width: 30px;
-          height: 30px;
-          font-size: 0.9rem;
-        }
-
-        .mobile-menu-btn {
-          font-size: 0.85rem;
-        }
-
-        .page-title {
-          font-size: 0.85rem;
-        }
-
-        .notification-icon {
-          font-size: 0.9rem;
-        }
-
-        .notification-badge {
-          width: 16px;
-          height: 16px;
-          font-size: 0.65rem;
-        }
-
-        .user-avatar {
-          width: 30px;
-          height: 30px;
-        }
-
-        .welcome-title {
-          font-size: 0.85rem;
-        }
-
-        .welcome-subtitle {
-          font-size: 0.65rem;
-        }
-
-        .stat-card,
-        .accepted-offer-card {
-          padding: 8px;
-        }
-
-        .stat-icon {
-          font-size: 0.9rem;
-          margin-bottom: 3px;
-        }
-
-        .stat-number {
-          font-size: 1rem;
-          margin-bottom: 2px;
-        }
-
-        .stat-label {
-          font-size: 0.7rem;
-        }
-
-        .section-title {
-          font-size: 0.8rem;
-        }
-
-        .offer-title {
-          font-size: 0.8rem;
-        }
-
-        .offer-date {
-          font-size: 0.6rem;
-        }
-
-        .detail-label {
-          font-size: 0.6rem;
-        }
-
-        .detail-value {
-          font-size: 0.7rem;
-        }
-
-        .accepted-offer-card p {
-          font-size: 0.7rem;
-        }
-
-        .btn {
-          padding: 4px 6px;
-          font-size: 0.6rem;
-        }
-      }
-
-      /* Very Small Mobile (360px and below) */
-      @media (max-width: 360px) {
-        .dashboard-content {
-          padding: 5px;
-        }
-
-        .navbar {
-          padding: 0 6px;
-          height: 40px;
-        }
-
-        .logo-img-placeholder {
-          width: 28px;
-          height: 28px;
-          font-size: 0.8rem;
-        }
-
-        .logo-main {
-          font-size: 0.9rem;
-        }
-
-        .logo-sub {
-          font-size: 0.6rem;
-        }
-
-        .welcome-title {
-          font-size: 0.8rem;
-        }
-
-        .stat-card,
-        .accepted-offer-card {
-          padding: 6px;
-        }
-
-        .stat-icon {
-          font-size: 0.85rem;
-        }
-
-        .stat-number {
-          font-size: 0.9rem;
-        }
-
-        .section-title {
-          font-size: 0.75rem;
-        }
-
-        .offer-title {
-          font-size: 0.75rem;
-        }
-
-        .btn {
-          padding: 3px 5px;
-          font-size: 0.55rem;
-        }
       }
     </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
   </head>
+
   <body>
-    <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
-    <!-- Logout Confirmation Modal -->
     <div class="modal" id="logoutModal">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title">Confirm Logout</h3>
-          <button class="close-modal">&times;</button>
+          <button class="close-modal" type="button">&times;</button>
         </div>
         <div class="modal-body">
           <p>Are you sure you want to log out?</p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-logout" id="confirmLogout">Log Out</button>
-          <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+          <button class="btn btn-logout" id="confirmLogout" type="button">
+            Log Out
+          </button>
+          <button class="btn btn-outline" id="cancelLogout" type="button">
+            Cancel
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- Withdraw Offer Modal -->
     <div class="modal" id="withdrawModal">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title">Withdraw Accepted Offer</h3>
-          <button class="close-modal">&times;</button>
+          <button class="close-modal" type="button">&times;</button>
         </div>
         <div class="modal-body">
           <p>
@@ -1453,144 +1057,143 @@
           </p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-danger" id="confirmWithdraw">
+          <button class="btn btn-danger" id="confirmWithdraw" type="button">
             Yes, Withdraw
           </button>
-          <button class="btn btn-outline" id="cancelWithdraw">Cancel</button>
+          <button class="btn btn-outline" id="cancelWithdraw" type="button">
+            Cancel
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- Employer Details Modal -->
     <div class="modal" id="employerDetailsModal">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title">Employer Details</h3>
-          <button class="close-modal">&times;</button>
+          <button class="close-modal" type="button">&times;</button>
         </div>
         <div class="modal-body">
           <div class="offer-details">
-            <div class="offer-detail">
+            <div class="offer-detail" id="employerCompanyRow">
+              <span class="detail-label">Company Name</span>
+              <span class="detail-value" id="employerCompanyName"></span>
+            </div>
+            <div class="offer-detail" id="employerNameRow">
+              <span class="detail-label">Employer Name</span>
+              <span class="detail-value" id="employerContactName"></span>
+            </div>
+            <div class="offer-detail" id="employerPositionRow">
+              <span class="detail-label">Position / Title</span>
+              <span class="detail-value" id="employerPosition"></span>
+            </div>
+            <div class="offer-detail" id="employerEmailRow" style="display: none;">
               <span class="detail-label">Email</span>
-              <span class="detail-value" id="employerEmail"
-                >hr@creativelabsgh.com</span
-              >
+              <span class="detail-value" id="employerEmail"></span>
             </div>
-            <div class="offer-detail">
+            <div class="offer-detail" id="employerPhoneRow" style="display: none;">
               <span class="detail-label">Phone Number</span>
-              <span class="detail-value" id="employerPhone"
-                >+233 24 123 4567</span
-              >
+              <span class="detail-value" id="employerPhone"></span>
             </div>
-            <div class="offer-detail">
+            <div class="offer-detail" id="employerAddressRow" style="display: none;">
               <span class="detail-label">Company Address</span>
-              <span class="detail-value" id="employerAddress"
-                >123 Creative Street, Accra, Ghana</span
-              >
+              <span class="detail-value" id="employerAddress"></span>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" id="closeEmployerDetails">
+          <button class="btn btn-primary" id="closeEmployerDetails" type="button">
             Close
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <div class="logo">
+        <a href="../index.html" class="logo" aria-label="Job Assist Ghana Home">
           <div class="logo-img-placeholder">JA</div>
           <div class="logo-text">
             <div class="logo-main">JobAssist</div>
             <div class="logo-sub">GHANA</div>
           </div>
-        </div>
-        <button class="toggle-btn" id="sidebarToggle">
+        </a>
+        <button class="toggle-btn" id="sidebarToggle" type="button">
           <i class="fas fa-chevron-left"></i>
         </button>
       </div>
+
       <ul class="sidebar-menu">
         <li>
-          <a href="candidate-dashboard.html"
-            ><i class="fas fa-home"></i>
-            <span class="menu-text">Dashboard</span></a
-          >
+          <a href="candidate-dashboard.html">
+            <i class="fas fa-home"></i><span class="menu-text">Dashboard</span>
+          </a>
         </li>
         <li>
-          <a href="your-applications.html"
-            ><i class="fas fa-list-alt"></i>
-            <span class="menu-text">My Applications</span></a
-          >
+          <a href="your-applications.html">
+            <i class="fas fa-list-alt"></i><span class="menu-text">My Applications</span>
+          </a>
         </li>
         <li>
-          <a href="accepted-offers.html" class="active"
-            ><i class="fas fa-check-circle"></i>
-            <span class="menu-text">Accepted Offers</span></a
-          >
+          <a href="accepted-offers.html" class="active">
+            <i class="fas fa-check-circle"></i><span class="menu-text">Accepted Offers</span>
+          </a>
         </li>
         <li>
-          <a href="candidate-profile.html"
-            ><i class="fas fa-user"></i>
-            <span class="menu-text">My Profile</span></a
-          >
+          <a href="candidate-profile.html">
+            <i class="fas fa-user"></i><span class="menu-text">My Profile</span>
+          </a>
         </li>
         <li>
-          <a href="boost-profile.html"
-            ><i class="fas fa-rocket"></i>
-            <span class="menu-text">Boost Application</span>
-            <i class="fas fa-crown premium-indicator"></i
-          ></a>
+          <a href="boost-profile.html">
+            <i class="fas fa-rocket"></i><span class="menu-text">Boost Application</span>
+            <i class="fas fa-crown premium-indicator"></i>
+          </a>
         </li>
         <li>
-          <a href="browse-jobs.html"
-            ><i class="fas fa-search"></i>
-            <span class="menu-text">Browse Jobs</span></a
-          >
+          <a href="browse-jobs.html">
+            <i class="fas fa-search"></i><span class="menu-text">Browse Jobs</span>
+          </a>
         </li>
         <li>
-          <a href="settings.html"
-            ><i class="fas fa-cog"></i>
-            <span class="menu-text">Settings</span></a
-          >
+          <a href="settings.html">
+            <i class="fas fa-cog"></i><span class="menu-text">Settings</span>
+          </a>
         </li>
         <li>
-          <a href="help.html"
-            ><i class="fas fa-question-circle"></i>
-            <span class="menu-text">Help & Support</span></a
-          >
+          <a href="help.html">
+            <i class="fas fa-question-circle"></i><span class="menu-text">Help & Support</span>
+          </a>
         </li>
         <li>
-          <a href="#" id="sidebarLogout"
-            ><i class="fas fa-sign-out-alt"></i>
-            <span class="menu-text">Logout</span></a
-          >
+          <a href="#" id="sidebarLogout">
+            <i class="fas fa-sign-out-alt"></i><span class="menu-text">Logout</span>
+          </a>
         </li>
       </ul>
     </aside>
 
-    <!-- Main Content -->
     <div class="main-content" id="mainContent">
-      <!-- Navbar with Notification Area -->
       <nav class="navbar">
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
           <i class="fas fa-bars"></i>
         </button>
+
         <div class="page-title">Accepted Offers</div>
+
         <div class="navbar-right">
-          <!-- Notification Area -->
           <div class="notification-container">
             <div class="notification-icon" id="notificationIcon">
               <i class="fas fa-bell"></i>
               <span class="notification-badge">3</span>
             </div>
+
             <div class="notification-dropdown" id="notificationDropdown">
               <div class="notification-header">
                 <h3 class="notification-title">Notifications</h3>
-                <button class="mark-all-read">Mark all as read</button>
+                <button class="mark-all-read" type="button">Mark all as read</button>
               </div>
+
               <ul class="notification-list">
                 <li class="notification-item unread">
                   <div class="notification-content">
@@ -1620,576 +1223,714 @@
             </div>
           </div>
 
-          <!-- User Profile -->
           <div class="user-profile" id="userProfile">
             <div class="user-avatar">
-              <img src="https://i.pravatar.cc/150?img=12" alt="User" />
+              <img id="dashboardAvatar" src="../assets/images/default-avatar.png" alt="User" />
             </div>
             <div class="user-name">Nana</div>
             <i class="fas fa-chevron-down"></i>
           </div>
-          <div class="dropdown-menu">
-            <a href="candidate-profile.html"
-              ><i class="fas fa-user"></i> View Profile</a
-            >
+
+          <div class="dropdown-menu" id="profileDropdown">
+            <a href="candidate-profile.html"><i class="fas fa-user"></i> View Profile</a>
             <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
-            <a href="#" id="dropdownLogout"
-              ><i class="fas fa-sign-out-alt"></i> Logout</a
-            >
+            <a href="#" id="dropdownLogout"><i class="fas fa-sign-out-alt"></i> Logout</a>
           </div>
         </div>
       </nav>
 
-<<<<<<< HEAD:accepted-offers.html
-      <!-- Dashboard Content -->
       <div class="dashboard-content">
-        <!-- Welcome Section -->
         <div class="welcome-section">
-          <h1 class="welcome-title">Accepted Offers 🎉</h1>
+          <h1 class="welcome-title">Accepted Offers </h1>
           <p class="welcome-subtitle">
             Congratulations on your job offers! Manage them here.
           </p>
-=======
-            <!-- Accepted Offers Section -->
-            <h2 class="section-title"><i class="fas fa-check-circle"></i> Your Accepted Offers (<span id="offersCount">2</span>)</h2>
-            
-            <!-- Accepted Offers Container -->
-            <div class="accepted-offers-container" id="acceptedOffersContainer">
-                <!-- Offer Card 1 -->
-                <div class="accepted-offer-card">
-                    <div class="offer-header">
-                        <h3 class="offer-title">Senior UX Designer</h3>
-                        <div class="offer-date">Accepted: 22 May 2023</div>
-                    </div>
-                    <div class="offer-details">
-                        <div class="offer-detail">
-                            <span class="detail-label">Company</span>
-                            <span class="detail-value">Creative Labs Ghana</span>
-                        </div>
-                        <div class="offer-detail">
-                            <span class="detail-label">Location</span>
-                            <span class="detail-value">Accra, Ghana</span>
-                        </div>
-                        <div class="offer-detail">
-                            <span class="detail-label">Job ID</span>
-                            <span class="detail-value">CLG-UX-001</span>
-                        </div>
-                        <div class="offer-detail">
-                            <span class="detail-label">Applied Date</span>
-                            <span class="detail-value">18 May 2023</span>
-                        </div>
-                        <div class="offer-detail">
-                            <span class="detail-label">Salary</span>
-                            <span class="detail-value">₵4,500/month</span>
-                        </div>
-                    </div>
-                    <div class="job-status status-accepted">Accepted</div>
-                    <p>Congratulations! You've accepted this offer. The employer will contact you with further details.</p>
-                    <div class="offer-actions">
-                        <!-- ACCENT YELLOW/GOLD BUTTON -->
-                        <button class="btn btn-accent" onclick="viewJobDetails('senior-ux-designer', 'accepted-offers')">View Details</button>
-                        <button class="btn btn-outline contact-employer" data-company="Creative Labs Ghana">Contact Employer</button>
-                        <button class="btn btn-danger withdraw-offer" data-job="Senior UX Designer">Withdraw Acceptance</button>
-                    </div>
-                </div>
-
-                <!-- Offer Card 2 -->
-                <div class="accepted-offer-card">
-                    <div class="offer-header">
-                        <h3 class="offer-title">Product Manager</h3>
-                        <div class="offer-date">Accepted: 18 May 2023</div>
-                    </div>
-                    <div class="offer-details">
-                        <div class="offer-detail">
-                            <span class="detail-label">Company</span>
-                            <span class="detail-value">FinTech Innovations</span>
-                        </div>
-                        <div class="offer-detail">
-                            <span class="detail-label">Location</span>
-                            <span class="detail-value">Accra, Ghana (Remote)</span>
-                        </div>
-                        <div class="offer-detail">
-                            <span class="detail-label">Job ID</span>
-                            <span class="detail-value">FTI-PM-045</span>
-                        </div>
-                        <div class="offer-detail">
-                            <span class="detail-label">Applied Date</span>
-                            <span class="detail-value">15 May 2023</span>
-                        </div>
-                        <div class="offer-detail">
-                            <span class="detail-label">Salary</span>
-                            <span class="detail-value">₵5,200/month</span>
-                        </div>
-                    </div>
-                    <div class="job-status status-accepted">Accepted</div>
-                    <p>You've accepted this offer. Awaiting contact from the employer.</p>
-                    <div class="offer-actions">
-                        <!-- ACCENT YELLOW/GOLD BUTTON -->
-                        <button class="btn btn-accent" onclick="viewJobDetails('product-manager', 'accepted-offers')">View Details</button>
-                        <button class="btn btn-outline contact-employer" data-company="FinTech Innovations">Contact Employer</button>
-                        <button class="btn btn-danger withdraw-offer" data-job="Product Manager">Withdraw Acceptance</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- If there are no accepted offers (hidden by default) -->
-            <div class="empty-state" id="emptyState" style="display: none;">
-                <div class="empty-state-icon">
-                    <i class="far fa-file-alt"></i>
-                </div>
-                <h3 class="empty-state-title">No Accepted Offers Yet</h3>
-                <p class="empty-state-text">When you accept job offers from employers, they will appear here. Keep applying and interviewing to receive offers!</p>
-                <button class="btn btn-primary" onclick="window.location.href='candidate/browse-jobs.html'">Browse Jobs</button>
-            </div>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/accepted-offers.html
         </div>
 
-        <!-- Stats Section -->
         <div class="stats-container">
           <div class="stat-card">
             <div class="stat-icon"><i class="fas fa-briefcase"></i></div>
-            <div class="stat-number" id="totalOffers">2</div>
+            <div class="stat-number" id="totalOffers">0</div>
             <div class="stat-label">Total Offers</div>
             <div class="stat-subtitle">All accepted job offers</div>
           </div>
+
           <div class="stat-card">
             <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
-            <div class="stat-number" id="activeOffers">2</div>
+            <div class="stat-number" id="activeOffers">0</div>
             <div class="stat-label">Active Offers</div>
             <div class="stat-subtitle">Currently valid offers</div>
           </div>
         </div>
 
-        <!-- Accepted Offers Section -->
         <h2 class="section-title">
-          <i class="fas fa-check-circle"></i> Your Accepted Offers (<span
-            id="offersCount"
-            >2</span
-          >)
+          <i class="fas fa-check-circle"></i>
+          Your Accepted Offers (<span id="offersCount">0</span>)
         </h2>
 
-        <!-- Accepted Offers Container -->
-        <div class="accepted-offers-container" id="acceptedOffersContainer">
-          <!-- Offer Card 1 -->
-          <div class="accepted-offer-card">
-            <div class="offer-header">
-              <h3 class="offer-title">Senior UX Designer</h3>
-              <div class="offer-date">Accepted: 22 May 2023</div>
-            </div>
-            <div class="offer-details">
-              <div class="offer-detail">
-                <span class="detail-label">Company</span>
-                <span class="detail-value">Creative Labs Ghana</span>
-              </div>
-              <div class="offer-detail">
-                <span class="detail-label">Location</span>
-                <span class="detail-value">Accra, Ghana</span>
-              </div>
-              <div class="offer-detail">
-                <span class="detail-label">Job ID</span>
-                <span class="detail-value">CLG-UX-001</span>
-              </div>
-              <div class="offer-detail">
-                <span class="detail-label">Applied Date</span>
-                <span class="detail-value">18 May 2023</span>
-              </div>
-              <div class="offer-detail">
-                <span class="detail-label">Salary</span>
-                <span class="detail-value">₵4,500/month</span>
-              </div>
-            </div>
-            <div class="job-status status-accepted">Accepted</div>
-            <p>
-              Congratulations! You've accepted this offer. The employer will
-              contact you with further details.
-            </p>
-            <div class="offer-actions">
-              <!-- ACCENT YELLOW/GOLD BUTTON -->
-              <button
-                class="btn btn-accent"
-                onclick="
-                  viewJobDetails('senior-ux-designer', 'accepted-offers')
-                "
-              >
-                View Details
-              </button>
-              <button
-                class="btn btn-outline contact-employer"
-                data-company="Creative Labs Ghana"
-              >
-                Contact Employer
-              </button>
-              <button
-                class="btn btn-danger withdraw-offer"
-                data-job="Senior UX Designer"
-              >
-                Withdraw Acceptance
-              </button>
-            </div>
-          </div>
+        <div class="accepted-offers-container" id="acceptedOffersContainer"></div>
 
-          <!-- Offer Card 2 -->
-          <div class="accepted-offer-card">
-            <div class="offer-header">
-              <h3 class="offer-title">Product Manager</h3>
-              <div class="offer-date">Accepted: 18 May 2023</div>
-            </div>
-            <div class="offer-details">
-              <div class="offer-detail">
-                <span class="detail-label">Company</span>
-                <span class="detail-value">FinTech Innovations</span>
-              </div>
-              <div class="offer-detail">
-                <span class="detail-label">Location</span>
-                <span class="detail-value">Accra, Ghana (Remote)</span>
-              </div>
-              <div class="offer-detail">
-                <span class="detail-label">Job ID</span>
-                <span class="detail-value">FTI-PM-045</span>
-              </div>
-              <div class="offer-detail">
-                <span class="detail-label">Applied Date</span>
-                <span class="detail-value">15 May 2023</span>
-              </div>
-              <div class="offer-detail">
-                <span class="detail-label">Salary</span>
-                <span class="detail-value">₵5,200/month</span>
-              </div>
-            </div>
-            <div class="job-status status-accepted">Accepted</div>
-            <p>
-              You've accepted this offer. Awaiting contact from the employer.
-            </p>
-            <div class="offer-actions">
-              <!-- ACCENT YELLOW/GOLD BUTTON -->
-              <button
-                class="btn btn-accent"
-                onclick="viewJobDetails('product-manager', 'accepted-offers')"
-              >
-                View Details
-              </button>
-              <button
-                class="btn btn-outline contact-employer"
-                data-company="FinTech Innovations"
-              >
-                Contact Employer
-              </button>
-              <button
-                class="btn btn-danger withdraw-offer"
-                data-job="Product Manager"
-              >
-                Withdraw Acceptance
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- If there are no accepted offers (hidden by default) -->
         <div class="empty-state" id="emptyState" style="display: none">
           <div class="empty-state-icon">
             <i class="far fa-file-alt"></i>
           </div>
           <h3 class="empty-state-title">No Accepted Offers Yet</h3>
           <p class="empty-state-text">
-            When you accept job offers from employers, they will appear here.
-            Keep applying and interviewing to receive offers!
+            When you accept job offers from employers, they will appear here. Keep applying
+            and interviewing to receive offers!
           </p>
+
           <button
             class="btn btn-primary"
-            onclick="window.location.href = 'browse-jobs.html'"
+            type="button"
+            onclick="window.location.href='browse-jobs.html'"
           >
             Browse Jobs
           </button>
         </div>
       </div>
 
-      <!-- Footer -->
       <footer class="footer">
         <div class="footer-links">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="contact.html">Contact Us</a>
+          <a href="../privacy.html">Privacy Policy</a>
+          <a href="../contact.html">Contact Us</a>
         </div>
         <div class="footer-bottom">
-          <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+          <p>Copyright 2025 Job Assist Ghana. All rights reserved.</p>
         </div>
       </footer>
     </div>
 
+    <script src="../assets/js/application-store.js"></script>
+    <script src="../assets/js/candidate-session.js"></script>
     <script>
-      // DOM Elements
+      const inputHardener = window.JobAssistInputHardening || null;
+      function escapeHTML(str) {
+        if (inputHardener?.escapeHtml) {
+          return inputHardener.escapeHtml(str);
+        }
+        return String(str || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+      function cleanText(value, maxLength = 200) {
+        if (inputHardener?.sanitizeText) {
+          return inputHardener.sanitizeText(value, { maxLength });
+        }
+        return String(value || "").replace(/\s+/g, " ").trim().slice(0, maxLength);
+      }
+      function cleanBlockText(value, maxLength = 1200) {
+        if (inputHardener?.sanitizeMultilineText) {
+          return inputHardener.sanitizeMultilineText(value, { maxLength });
+        }
+        return String(value || "").replace(/\s+/g, " ").trim().slice(0, maxLength);
+      }
+      const STORAGE_KEYS = {
+        APPLICATIONS: "jobassist_applications",
+        JOBS: "jobassist_employer_jobs",
+        UNLOCKS: "jobassist_unlocked_applications",
+        EMPLOYERS: "jobassist_employers",
+      };
+
       const sidebar = document.getElementById("sidebar");
       const sidebarToggle = document.getElementById("sidebarToggle");
       const mainContent = document.getElementById("mainContent");
       const mobileMenuBtn = document.getElementById("mobileMenuBtn");
       const mobileOverlay = document.getElementById("mobileOverlay");
+
       const logoutModal = document.getElementById("logoutModal");
       const withdrawModal = document.getElementById("withdrawModal");
-      const employerDetailsModal = document.getElementById(
-        "employerDetailsModal",
-      );
+      const employerDetailsModal = document.getElementById("employerDetailsModal");
+
       const sidebarLogout = document.getElementById("sidebarLogout");
       const dropdownLogout = document.getElementById("dropdownLogout");
+
       const confirmLogout = document.getElementById("confirmLogout");
       const cancelLogout = document.getElementById("cancelLogout");
       const confirmWithdraw = document.getElementById("confirmWithdraw");
       const cancelWithdraw = document.getElementById("cancelWithdraw");
-      const closeEmployerDetails = document.getElementById(
-        "closeEmployerDetails",
-      );
+      const closeEmployerDetails = document.getElementById("closeEmployerDetails");
+
       const notificationIcon = document.getElementById("notificationIcon");
-      const notificationDropdown = document.getElementById(
-        "notificationDropdown",
-      );
+      const notificationDropdown = document.getElementById("notificationDropdown");
+      const userProfile = document.getElementById("userProfile");
+      const profileDropdown = document.getElementById("profileDropdown");
 
-      // Accepted Offers Data
-      const userAcceptedOffers = {
-        total: 2,
-        active: 2,
-        offers: [
-          {
-            id: "senior-ux-designer",
-            title: "Senior UX Designer",
-            company: "Creative Labs Ghana",
-            location: "Accra, Ghana",
-            jobId: "CLG-UX-001",
-            appliedDate: "18 May 2023",
-            acceptedDate: "22 May 2023",
-            salary: "₵4,500/month",
-            status: "accepted",
-          },
-          {
-            id: "product-manager",
-            title: "Product Manager",
-            company: "FinTech Innovations",
-            location: "Accra, Ghana (Remote)",
-            jobId: "FTI-PM-045",
-            appliedDate: "15 May 2023",
-            acceptedDate: "18 May 2023",
-            salary: "₵5,200/month",
-            status: "accepted",
-          },
-        ],
-      };
+      const acceptedOffersContainer = document.getElementById("acceptedOffersContainer");
+      const emptyState = document.getElementById("emptyState");
 
-      // Employer Details Data
-      const employerDetails = {
-        "Creative Labs Ghana": {
-          email: "hr@creativelabsgh.com",
-          phone: "+233 24 123 4567",
-          address: "123 Creative Street, Accra, Ghana",
-        },
-        "FinTech Innovations": {
-          email: "careers@fintechinnovations.com",
-          phone: "+233 20 987 6543",
-          address: "45 Innovation Avenue, Accra, Ghana",
-        },
-      };
+      const totalOffersEl = document.getElementById("totalOffers");
+      const activeOffersEl = document.getElementById("activeOffers");
+      const offersCountEl = document.getElementById("offersCount");
 
-      // Initialize page
-      function initializePage() {
-        // Update stats
-        document.getElementById("totalOffers").textContent =
-          userAcceptedOffers.total;
-        document.getElementById("activeOffers").textContent =
-          userAcceptedOffers.active;
-        document.getElementById("offersCount").textContent =
-          userAcceptedOffers.total;
+      let currentWithdrawJobId = null;
+      let currentWithdrawJobTitle = "";
 
-        // Setup event listeners
-        setupEventListeners();
+      function safeJSONParse(value, fallback = null) {
+        try {
+          const parsed = JSON.parse(value);
+          return parsed ?? fallback;
+        } catch {
+          return fallback;
+        }
       }
 
-      // Setup event listeners
-      function setupEventListeners() {
-        // Notification dropdown
-        notificationIcon.addEventListener("click", function (e) {
-          e.stopPropagation();
-          notificationDropdown.classList.toggle("show");
+      function getApplications() {
+        if (window.JobAssistApplications) {
+          return window.JobAssistApplications.loadApplications();
+        }
+
+        const stored = safeJSONParse(localStorage.getItem(STORAGE_KEYS.APPLICATIONS), []);
+        return Array.isArray(stored) ? stored : [];
+      }
+
+      function saveApplications(applications) {
+        localStorage.setItem(STORAGE_KEYS.APPLICATIONS, JSON.stringify(applications));
+      }
+
+      function getStoredJobsCatalog() {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getEmployerJobs();
+        }
+
+        const stored = safeJSONParse(localStorage.getItem(STORAGE_KEYS.JOBS), []);
+        return Array.isArray(stored) ? stored : [];
+      }
+
+      function formatDate(dateValue) {
+        if (!dateValue) return "Not specified";
+        const date = new Date(dateValue);
+        if (Number.isNaN(date.getTime())) return "Not specified";
+
+        return date.toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        });
+      }
+
+      function getCurrentCandidate() {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getCurrentCandidate();
+        }
+
+        return safeJSONParse(localStorage.getItem("jobassist_current_user"), {}) || {};
+      }
+
+      function getCurrentCandidateIdentifier(candidate) {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getCandidateId(candidate);
+        }
+
+        return String(candidate?.candidateId || candidate?.id || candidate?.userId || "").trim();
+      }
+
+      function getCurrentCandidateEmail(candidate) {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getCandidateEmail(candidate);
+        }
+
+        return String(candidate?.email || "").trim().toLowerCase();
+      }
+
+      function findJobById(jobId) {
+        return (
+          getStoredJobsCatalog().find((job) => {
+            return String(job?.jobId || job?.id || "").trim() === String(jobId || "").trim();
+          }) || {}
+        );
+      }
+
+      function getEmployersStore() {
+        const stored = safeJSONParse(localStorage.getItem(STORAGE_KEYS.EMPLOYERS), []);
+        return Array.isArray(stored) ? stored : [];
+      }
+
+      function getEmployerProfileForJob(job = {}) {
+        const employers = getEmployersStore();
+        const employerId = String(job?.employerId || "").trim();
+        const contactEmail = String(job?.contactEmail || "").trim().toLowerCase();
+        const companyName = String(
+          job?.companyName || job?.company || job?.businessName || ""
+        ).trim().toLowerCase();
+
+        return (
+          employers.find((employer) => {
+            const storedEmployerId = String(employer?.id || employer?.employerId || "").trim();
+            const storedEmail = String(employer?.workEmail || "").trim().toLowerCase();
+            const storedCompany = String(employer?.companyName || "").trim().toLowerCase();
+
+            if (employerId && storedEmployerId) return storedEmployerId === employerId;
+            if (contactEmail && storedEmail) return storedEmail === contactEmail;
+            if (companyName && storedCompany) return storedCompany === companyName;
+            return false;
+          }) || {}
+        );
+      }
+
+      function cleanEmployerValue(value) {
+        const text = String(value || "").trim();
+        return text && text !== "Not provided" ? text : "";
+      }
+
+      function getUnlockedApplicationsStore() {
+        const stored = safeJSONParse(localStorage.getItem(STORAGE_KEYS.UNLOCKS), {});
+        return stored && typeof stored === "object" && !Array.isArray(stored) ? stored : {};
+      }
+
+      function isAcceptedStatus(status) {
+        const value = String(status || "").toLowerCase().trim();
+        return [
+          "accepted",
+          "offer accepted",
+          "offer_accepted",
+          "accepted-offer",
+          "accepted_offer",
+        ].includes(value);
+      }
+
+      function isApplicationForCurrentCandidate(application, candidate) {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.isApplicationForCurrentCandidate(application, candidate);
+        }
+
+        const candidateId = getCurrentCandidateIdentifier(candidate);
+        const candidateEmail = getCurrentCandidateEmail(candidate);
+        const applicationCandidateId = String(application?.candidateId || "").trim();
+        const applicationEmail = String(application?.email || "").trim().toLowerCase();
+
+        if (candidateId && applicationCandidateId) {
+          return applicationCandidateId === candidateId;
+        }
+
+        if (candidateEmail && applicationEmail) {
+          return applicationEmail === candidateEmail;
+        }
+
+        return false;
+      }
+
+      function isEmployerUnlockedForApplication(record) {
+        const applicationId = String(record?.applicationId || record?.id || "").trim();
+        if (!applicationId) return false;
+
+        const unlockStore = getUnlockedApplicationsStore();
+        const employerId = String(
+          record?.linkedJob?.employerId ||
+            record?.employerId ||
+            record?.employerProfile?.id ||
+            record?.employerProfile?.employerId ||
+            ""
+        ).trim();
+
+        if (!employerId) return false;
+
+        const employerUnlocks = Array.isArray(unlockStore[employerId])
+          ? unlockStore[employerId].map(String)
+          : [];
+
+        return employerUnlocks.includes(applicationId);
+      }
+
+      function buildAcceptedOfferRecord(application) {
+        const linkedJob = findJobById(application.jobId || application.id) || {};
+        const employerProfile = getEmployerProfileForJob(linkedJob);
+        const companyName = cleanEmployerValue(
+          application.company ||
+            linkedJob.companyName ||
+            linkedJob.company ||
+            linkedJob.businessName
+        );
+        const location =
+          application.location ||
+          linkedJob.location ||
+          [linkedJob.city, linkedJob.region].filter(Boolean).join(", ") ||
+          "Location not specified";
+
+        return {
+          ...application,
+          linkedJob,
+          employerProfile,
+          isEmployerUnlocked: isEmployerUnlockedForApplication({
+            ...application,
+            linkedJob,
+            employerProfile,
+          }),
+          applicationId: application.applicationId || application.id,
+          jobId: application.jobId || application.id,
+          title:
+            application.title ||
+            application.jobTitle ||
+            linkedJob.jobTitle ||
+            linkedJob.title ||
+            "Untitled Job",
+          companyName: companyName || "Company not provided",
+          location,
+          salaryRange: linkedJob.salaryRange || linkedJob.salary || application.salaryRange || "Negotiable",
+          appliedAt: application.appliedAt || application.createdAt || null,
+          acceptedAt: application.acceptedAt || application.updatedAt || application.appliedAt || null,
+          description:
+            linkedJob.jobDescription ||
+            linkedJob.description ||
+            application.description ||
+            "Congratulations. Your accepted offer is now linked to your real application record.",
+          employerName: cleanEmployerValue(linkedJob.employerName || employerProfile.fullName),
+          employerPosition: cleanEmployerValue(linkedJob.employerPosition || employerProfile.position),
+          contactEmail: cleanEmployerValue(
+            linkedJob.contactEmail ||
+              employerProfile.workEmail ||
+              employerProfile.email
+          ),
+          contactPhone: cleanEmployerValue(
+            linkedJob.contactPhone ||
+              linkedJob.companyPhone ||
+              employerProfile.phone
+          ),
+          contactAddress: cleanEmployerValue(
+            linkedJob.companyAddress ||
+              linkedJob.address ||
+              employerProfile.companyAddress
+          ),
+        };
+      }
+
+      function buildAcceptedOffersFromApplications() {
+        const currentCandidate = getCurrentCandidate();
+        const applications = getApplications();
+
+        return applications
+          .filter((application) => {
+            return (
+              isApplicationForCurrentCandidate(application, currentCandidate) &&
+              (isAcceptedStatus(application.status) || application.offerAccepted === true)
+            );
+          })
+          .sort((a, b) => new Date(b?.acceptedAt || b?.updatedAt || 0) - new Date(a?.acceptedAt || a?.updatedAt || 0))
+          .map(buildAcceptedOfferRecord);
+      }
+
+      function updateStats(offers) {
+        const total = offers.length;
+        totalOffersEl.textContent = total;
+        activeOffersEl.textContent = total;
+        offersCountEl.textContent = total;
+      }
+
+      function renderAcceptedOffers() {
+        const offers = buildAcceptedOffersFromApplications();
+        updateStats(offers);
+
+        acceptedOffersContainer.innerHTML = "";
+
+        if (!offers.length) {
+          acceptedOffersContainer.style.display = "none";
+          emptyState.style.display = "block";
+          return;
+        }
+
+        acceptedOffersContainer.style.display = "flex";
+        emptyState.style.display = "none";
+
+        offers.forEach((offer) => {
+          const card = document.createElement("div");
+          card.className = "accepted-offer-card";
+          const title = cleanText(offer.title, 160) || "Untitled Job";
+          const companyName = cleanText(offer.companyName, 160) || "Not provided";
+          const location = cleanText(offer.location, 160) || "Not provided";
+          const jobId = cleanText(offer.jobId, 60) || "N/A";
+          const salaryRange = cleanText(offer.salaryRange, 120) || "Not provided";
+          const description = cleanBlockText(offer.description, 800) || "No description provided.";
+          const employerName = cleanText(offer.employerName, 120) || "Not provided";
+          const employerPosition = cleanText(offer.employerPosition, 120) || "Not provided";
+          const contactEmail = cleanText(offer.contactEmail, 160) || "Not provided";
+          const contactPhone = cleanText(offer.contactPhone, 40) || "Not provided";
+          const contactAddress = cleanText(offer.contactAddress, 200) || "Not provided";
+
+          card.innerHTML = `
+            <div class="offer-header">
+              <h3 class="offer-title">${escapeHTML(title)}</h3>
+              <div class="offer-date">Accepted: ${formatDate(offer.acceptedAt)}</div>
+            </div>
+
+            <div class="offer-details">
+              <div class="offer-detail">
+                <span class="detail-label">Company</span>
+                <span class="detail-value">${escapeHTML(companyName)}</span>
+              </div>
+              <div class="offer-detail">
+                <span class="detail-label">Location</span>
+                <span class="detail-value">${escapeHTML(location)}</span>
+              </div>
+              <div class="offer-detail">
+                <span class="detail-label">Job ID</span>
+                <span class="detail-value">${escapeHTML(jobId)}</span>
+              </div>
+              <div class="offer-detail">
+                <span class="detail-label">Applied Date</span>
+                <span class="detail-value">${formatDate(offer.appliedAt)}</span>
+              </div>
+              <div class="offer-detail">
+                <span class="detail-label">Salary</span>
+                <span class="detail-value">${escapeHTML(salaryRange)}</span>
+              </div>
+            </div>
+
+            <div class="job-status status-accepted">Accepted</div>
+            <p>${escapeHTML(description)}</p>
+
+            <div class="offer-actions">
+              <button
+                class="btn btn-accent view-details-btn"
+                type="button"
+                data-job-id="${escapeHTML(jobId)}"
+              >
+                View Details
+              </button>
+
+              <button
+                class="btn btn-outline employer-details-trigger"
+                type="button"
+                data-company="${escapeHTML(companyName)}"
+                data-name="${escapeHTML(employerName)}"
+                data-position="${escapeHTML(employerPosition)}"
+                data-email="${escapeHTML(contactEmail)}"
+                data-phone="${escapeHTML(contactPhone)}"
+                data-address="${escapeHTML(contactAddress)}"
+                data-unlocked="${offer.isEmployerUnlocked ? "true" : "false"}"
+              >
+                ${offer.isEmployerUnlocked ? "Contact Employer" : "View Employer"}
+              </button>
+
+              <button
+                class="btn btn-danger withdraw-offer"
+                type="button"
+                data-application-id="${offer.applicationId}"
+                data-job-title="${offer.title}"
+              >
+                Withdraw Acceptance
+              </button>
+            </div>
+          `;
+
+          acceptedOffersContainer.appendChild(card);
         });
 
-        // Close notification dropdown when clicking outside
-        document.addEventListener("click", function (event) {
-          if (!event.target.closest(".notification-icon")) {
-            notificationDropdown.classList.remove("show");
-          }
-        });
+        attachDynamicOfferEvents();
+      }
 
-        // Mark all notifications as read
-        document
-          .querySelector(".mark-all-read")
-          .addEventListener("click", function () {
-            document
-              .querySelectorAll(".notification-item.unread")
-              .forEach((item) => {
-                item.classList.remove("unread");
-              });
-            document.querySelector(".notification-badge").style.display =
-              "none";
-          });
-
-        // Contact employer buttons
-        document.querySelectorAll(".contact-employer").forEach((button) => {
+      function attachDynamicOfferEvents() {
+        document.querySelectorAll(".view-details-btn").forEach((button) => {
           button.addEventListener("click", function () {
-            const companyName = this.getAttribute("data-company");
-            contactEmployer(companyName);
+            const jobId = this.getAttribute("data-job-id");
+            viewJobDetails(jobId, "accepted-offers");
           });
         });
 
-        // Withdraw offer buttons
+        document.querySelectorAll(".employer-details-trigger").forEach((button) => {
+          button.addEventListener("click", function () {
+            const unlocked = this.getAttribute("data-unlocked") === "true";
+            const company = this.getAttribute("data-company") || "";
+            const name = this.getAttribute("data-name") || "";
+            const position = this.getAttribute("data-position") || "";
+            const email = this.getAttribute("data-email") || "";
+            const phone = this.getAttribute("data-phone") || "";
+            const address = this.getAttribute("data-address") || "";
+
+            document.getElementById("employerCompanyRow").style.display = company ? "flex" : "none";
+            document.getElementById("employerNameRow").style.display = name ? "flex" : "none";
+            document.getElementById("employerPositionRow").style.display = position ? "flex" : "none";
+            document.getElementById("employerCompanyName").textContent = company;
+            document.getElementById("employerContactName").textContent = name;
+            document.getElementById("employerPosition").textContent = position;
+
+            document.getElementById("employerEmailRow").style.display =
+              unlocked && email ? "flex" : "none";
+            document.getElementById("employerPhoneRow").style.display =
+              unlocked && phone ? "flex" : "none";
+            document.getElementById("employerAddressRow").style.display =
+              unlocked && address ? "flex" : "none";
+
+            if (unlocked) {
+              document.getElementById("employerEmail").textContent = email;
+              document.getElementById("employerPhone").textContent = phone;
+              document.getElementById("employerAddress").textContent = address;
+            }
+
+            employerDetailsModal.classList.add("show");
+          });
+        });
+
         document.querySelectorAll(".withdraw-offer").forEach((button) => {
           button.addEventListener("click", function () {
-            const jobTitle = this.getAttribute("data-job");
-            document.getElementById("withdrawJobTitle").textContent = jobTitle;
+            currentWithdrawJobId = this.getAttribute("data-application-id");
+            currentWithdrawJobTitle =
+              this.getAttribute("data-job-title") || "this job";
+            document.getElementById("withdrawJobTitle").textContent =
+              currentWithdrawJobTitle;
             withdrawModal.classList.add("show");
           });
         });
       }
 
-      // Contact employer
-      function contactEmployer(companyName) {
-        const employer = employerDetails[companyName];
-
-        if (employer) {
-          document.getElementById("employerEmail").textContent = employer.email;
-          document.getElementById("employerPhone").textContent = employer.phone;
-          document.getElementById("employerAddress").textContent =
-            employer.address;
-          employerDetailsModal.classList.add("show");
-        }
-      }
-
-      // View job details
       function viewJobDetails(jobId, source = "accepted-offers") {
-        window.location.href = `view-details.html?id=${jobId}&source=${source}`;
+        window.location.href = `view-details.html?id=${encodeURIComponent(
+          jobId
+)}&source=${encodeURIComponent(source)}`;
       }
 
-      // Toggle Sidebar (Desktop)
-      sidebarToggle.addEventListener("click", function () {
-        sidebar.classList.toggle("collapsed");
-        mainContent.classList.toggle("expanded");
+      function withdrawAcceptedOffer() {
+        if (!currentWithdrawJobId) return;
 
-        const icon = this.querySelector("i");
-        if (sidebar.classList.contains("collapsed")) {
-          icon.className = "fas fa-chevron-right";
+        if (window.JobAssistApplications) {
+          window.JobAssistApplications.updateApplication(currentWithdrawJobId, {
+            status: "withdrawn",
+            offerAccepted: false,
+            withdrawnAt: new Date().toISOString(),
+          });
         } else {
-          icon.className = "fas fa-chevron-left";
+          const updatedApplications = getApplications().map((app) => {
+            const matches =
+              String(app.applicationId || app.id) === String(currentWithdrawJobId);
+
+            if (!matches) return app;
+
+            return {
+              ...app,
+              status: "withdrawn",
+              offerAccepted: false,
+              withdrawnAt: new Date().toISOString(),
+            };
+          });
+
+          saveApplications(updatedApplications);
         }
-      });
 
-      // Mobile Menu Toggle
-      let isMobileMenuOpen = false;
+        withdrawModal.classList.remove("show");
+        currentWithdrawJobId = null;
+        currentWithdrawJobTitle = "";
 
-      mobileMenuBtn.addEventListener("click", function () {
-        if (isMobileMenuOpen) {
+        renderAcceptedOffers();
+      }
+
+      function setupEventListeners() {
+        notificationIcon.addEventListener("click", function (e) {
+          e.stopPropagation();
+          notificationDropdown.classList.toggle("show");
+        });
+
+        document.querySelector(".mark-all-read").addEventListener("click", function () {
+          document.querySelectorAll(".notification-item.unread").forEach((item) => {
+            item.classList.remove("unread");
+          });
+
+          const badge = document.querySelector(".notification-badge");
+          if (badge) badge.style.display = "none";
+        });
+
+        userProfile.addEventListener("click", function (e) {
+          e.stopPropagation();
+          profileDropdown.classList.toggle("show");
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!event.target.closest(".user-profile")) {
+            profileDropdown.classList.remove("show");
+          }
+
+          if (!event.target.closest(".notification-container")) {
+            notificationDropdown.classList.remove("show");
+          }
+        });
+
+        sidebarToggle.addEventListener("click", function () {
+          sidebar.classList.toggle("collapsed");
+          mainContent.classList.toggle("expanded");
+
+          const icon = this.querySelector("i");
+          icon.className = sidebar.classList.contains("collapsed")
+            ? "fas fa-chevron-right"
+            : "fas fa-chevron-left";
+        });
+
+        let isMobileMenuOpen = false;
+
+        mobileMenuBtn.addEventListener("click", function () {
+          isMobileMenuOpen = !isMobileMenuOpen;
+          sidebar.classList.toggle("mobile-open", isMobileMenuOpen);
+          mobileOverlay.classList.toggle("show", isMobileMenuOpen);
+        });
+
+        mobileOverlay.addEventListener("click", function () {
           sidebar.classList.remove("mobile-open");
           mobileOverlay.classList.remove("show");
           isMobileMenuOpen = false;
-        } else {
-          sidebar.classList.add("mobile-open");
-          mobileOverlay.classList.add("show");
-          isMobileMenuOpen = true;
-        }
-      });
-
-      // Close mobile menu when clicking overlay
-      mobileOverlay.addEventListener("click", function () {
-        sidebar.classList.remove("mobile-open");
-        mobileOverlay.classList.remove("show");
-        isMobileMenuOpen = false;
-      });
-
-      // User Profile Dropdown
-      document
-        .querySelector(".user-profile")
-        .addEventListener("click", function () {
-          document.querySelector(".dropdown-menu").classList.toggle("show");
         });
 
-      // Close dropdowns when clicking outside
-      document.addEventListener("click", function (event) {
-        if (!event.target.closest(".user-profile")) {
-          document.querySelector(".dropdown-menu").classList.remove("show");
-        }
+        window.addEventListener("resize", function () {
+          if (window.innerWidth > 992) {
+            sidebar.classList.remove("mobile-open");
+            mobileOverlay.classList.remove("show");
+            isMobileMenuOpen = false;
+          }
+        });
 
-        if (!event.target.closest(".notification-icon")) {
-          notificationDropdown.classList.remove("show");
-        }
-      });
-
-      // Close modals
-      closeEmployerDetails.addEventListener("click", function () {
-        employerDetailsModal.classList.remove("show");
-      });
-
-      // Close modal when clicking outside
-      window.addEventListener("click", function (event) {
-        if (event.target === logoutModal) {
-          logoutModal.classList.remove("show");
-        }
-        if (event.target === withdrawModal) {
-          withdrawModal.classList.remove("show");
-        }
-        if (event.target === employerDetailsModal) {
+        closeEmployerDetails.addEventListener("click", function () {
           employerDetailsModal.classList.remove("show");
-        }
-      });
-
-      // Close modals with X button
-      document.querySelectorAll(".close-modal").forEach((button) => {
-        button.addEventListener("click", function () {
-          const modal = this.closest(".modal");
-          modal.classList.remove("show");
         });
-      });
 
-      // Confirm withdraw offer
-      confirmWithdraw.addEventListener("click", function () {
-        const jobTitle =
-          document.getElementById("withdrawJobTitle").textContent;
-        alert(`You have withdrawn your acceptance for ${jobTitle}.`);
-        withdrawModal.classList.remove("show");
-      });
+        document.querySelectorAll(".close-modal").forEach((button) => {
+          button.addEventListener("click", function () {
+            this.closest(".modal").classList.remove("show");
+          });
+        });
 
-      // Cancel withdraw offer
-      cancelWithdraw.addEventListener("click", function () {
-        withdrawModal.classList.remove("show");
-      });
+        window.addEventListener("click", function (event) {
+          if (event.target === logoutModal) logoutModal.classList.remove("show");
+          if (event.target === withdrawModal) withdrawModal.classList.remove("show");
+          if (event.target === employerDetailsModal)
+            employerDetailsModal.classList.remove("show");
+        });
 
-      // Handle window resize
-      window.addEventListener("resize", function () {
-        if (window.innerWidth > 992) {
-          sidebar.classList.remove("mobile-open");
-          mobileOverlay.classList.remove("show");
-          isMobileMenuOpen = false;
-        }
-      });
+        confirmWithdraw.addEventListener("click", withdrawAcceptedOffer);
 
-      // Logout functionality
-      sidebarLogout.addEventListener("click", function (e) {
-        e.preventDefault();
-        logoutModal.classList.add("show");
-      });
+        cancelWithdraw.addEventListener("click", function () {
+          withdrawModal.classList.remove("show");
+        });
 
-      dropdownLogout.addEventListener("click", function (e) {
-        e.preventDefault();
-        document.querySelector(".dropdown-menu").classList.remove("show");
-        logoutModal.classList.add("show");
-      });
+        sidebarLogout.addEventListener("click", function (e) {
+          e.preventDefault();
+          logoutModal.classList.add("show");
+        });
 
-      confirmLogout.addEventListener("click", function () {
-        // Redirect to login.html after successful logout
-        logoutModal.classList.remove("show");
-        window.location.href = "login.html";
-      });
+        dropdownLogout.addEventListener("click", function (e) {
+          e.preventDefault();
+          profileDropdown.classList.remove("show");
+          logoutModal.classList.add("show");
+        });
 
-      cancelLogout.addEventListener("click", function () {
-        logoutModal.classList.remove("show");
-      });
+        confirmLogout.addEventListener("click", function () {
+          logoutModal.classList.remove("show");
+          window.location.href = "../login.html";
+        });
 
-      // Initialize page on load
-      window.addEventListener("load", function () {
-        initializePage();
-      });
+        cancelLogout.addEventListener("click", function () {
+          logoutModal.classList.remove("show");
+        });
+      }
+
+      function initializePage() {
+        renderAcceptedOffers();
+        setupEventListeners();
+      }
+
+      window.addEventListener("load", initializePage);
     </script>
+  
+    <script src='../assets/js/product-polish.js'></script>
   </body>
 </html>
+
+

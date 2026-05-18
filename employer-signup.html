@@ -3,14 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Employer Sign Up | Job Assist Ghana — Step 1 of 2</title>
+    <title>Employer Sign Up | Job Assist Ghana - Step 1 of 2</title>
     <!-- Favicon - using your existing logo -->
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="assets/images/tab-logo.png" />
 
     <!-- Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
 
     <style>
@@ -24,6 +28,10 @@
         --max-width: 1100px;
         --error-red: #e74c3c;
         --success-green: #2ecc71;
+        --navy: #0a2a66;
+        --gold: #f8c12e;
+        --gold2: #ffda6a;
+        --nav-h: 68px;
       }
 
       /* Reset + base */
@@ -49,128 +57,179 @@
         line-height: 1.4;
       }
 
-      /* ---------- NAVBAR (same structure as homepage) ---------- */
-      .site-navbar {
-        position: sticky;
+      /* ---------- NAVBAR (copied from homepage) ---------- */
+      .site-nav {
+        position: fixed;
         top: 0;
-        z-index: 1000;
-        background: var(--deep-blue);
-        color: #fff;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        width: 100%;
+        left: 0;
+        right: 0;
+        z-index: 2000;
+        height: var(--nav-h);
+        background: rgba(10, 42, 102, 0.97);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       }
       .nav-inner {
-        max-width: var(--max-width);
+        height: var(--nav-h);
+        max-width: 1200px;
         margin: 0 auto;
+        padding: 0 16px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 14px 24px;
+        gap: 14px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        gap: 10px;
+        min-width: 140px;
       }
       .brand img {
-        height: 48px;
+        height: 36px;
+        width: auto;
+        display: block;
         filter: brightness(0) invert(1);
       }
-      nav.desktop-nav ul {
-        display: flex;
-        gap: 22px;
+      .nav-links {
+        display: none;
+        list-style: none;
         margin: 0;
         padding: 0;
-        list-style: none;
         align-items: center;
+        gap: 18px;
       }
-      nav.desktop-nav a {
-        color: #fff;
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.92);
         text-decoration: none;
-        font-weight: 600;
-      }
-      nav.desktop-nav a:hover {
-        color: var(--accent-gold);
-      }
-
-      /* Login button styles */
-      .login-btn {
-        background: var(--accent-gold);
-        color: var(--deep-blue);
-        padding: 10px 20px;
-        border-radius: 8px;
         font-weight: 700;
-        text-decoration: none;
-        transition: all 0.2s ease;
+        font-size: 14px;
+        padding: 10px 10px;
+        transition: color 0.2s ease, background 0.2s ease;
+        border-radius: 8px;
+        white-space: nowrap;
       }
-      .login-btn:hover {
-        background: #ffda6a;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(248, 193, 46, 0.3);
-        color: var(--deep-blue);
-      }
-
-      /* Hamburger (mobile) */
-      .menu-icon {
-        display: none;
-        font-size: 28px;
-        cursor: pointer;
+      .nav-links a:hover {
         color: #fff;
-        z-index: 1000;
+        background: rgba(255, 255, 255, 0.08);
       }
-
-      /* Mobile Menu - Fixed to match homepage */
-      #mobile-menu {
+      .nav-links a.active {
+        color: var(--gold);
+        background: rgba(248, 193, 46, 0.14);
+      }
+      .nav-cta {
         display: none;
-        position: fixed;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background-color: var(--deep-blue);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        z-index: 999;
+        align-items: center;
+        gap: 10px;
       }
-
-      #mobile-menu.active {
+      .btn-solid {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 14px;
+        padding: 12px 16px;
+        border-radius: 6px;
+        border: 1px solid transparent;
+        transition:
+          transform 0.12s ease,
+          filter 0.2s ease,
+          box-shadow 0.2s ease,
+          background 0.2s ease;
+        white-space: nowrap;
+        line-height: 1;
+      }
+      .btn-solid-primary {
+        background: var(--gold);
+        color: var(--navy);
+        box-shadow: 0 14px 26px rgba(248, 193, 46, 0.24);
+      }
+      .btn-solid-primary:hover {
+        background: var(--gold2);
+        color: var(--navy);
+        transform: translateY(-1px);
+        box-shadow: 0 18px 30px rgba(248, 193, 46, 0.28);
+      }
+      .menu-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        cursor: pointer;
+      }
+      .menu-btn i {
+        font-size: 18px;
+      }
+      .mobile-drawer {
+        position: fixed;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        z-index: 1999;
+        display: none;
+        background: rgba(10, 42, 102, 0.985);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        max-height: calc(100vh - var(--nav-h));
+        overflow: auto;
+      }
+      .mobile-drawer.active {
         display: block;
       }
-
-      #mobile-menu ul {
-        list-style: none;
-        padding: 20px 0;
-        width: 100%;
-      }
-
-      #mobile-menu ul li {
-        padding: 12px 30px;
+      .mobile-drawer a {
+        display: block;
+        padding: 14px 18px;
+        color: rgba(255, 255, 255, 0.92);
+        text-decoration: none;
+        font-weight: 700;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        width: 100%;
       }
-
-      #mobile-menu ul li:last-child {
+      .mobile-drawer a:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
+      }
+      .mobile-drawer a.active {
+        color: var(--gold);
+        background: rgba(248, 193, 46, 0.14);
+      }
+      .mobile-drawer .mobile-cta {
+        padding: 14px 18px;
         border-bottom: none;
       }
-
-      #mobile-menu ul li a {
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        display: block;
-        transition: color 0.3s ease;
-        width: 100%;
+      @media (min-width: 992px) {
+        .nav-links {
+          display: flex;
+          margin-left: auto;
+        }
+        .nav-cta {
+          display: flex;
+        }
+        .menu-btn {
+          display: none;
+        }
+        .mobile-drawer {
+          display: none !important;
+        }
+        .nav-inner {
+          padding: 0 20px;
+        }
       }
-
-      #mobile-menu ul li a:hover,
-      #mobile-menu ul li a.active {
-        color: var(--accent-gold);
-      }
-
-      #mobile-menu .login-btn {
-        display: inline-block;
-        margin: 10px 30px;
-        text-align: center;
-        width: calc(100% - 60px);
+      .page-offset {
+        padding-top: calc(var(--nav-h) + 44px);
       }
 
       /* ---------- PAGE LAYOUT ---------- */
       .page {
         max-width: var(--max-width);
-        margin: 40px auto;
+        margin: 0 auto 40px;
         padding: 20px;
         display: grid;
         grid-template-columns: 1fr 480px; /* main form left, empty right (or future info) */
@@ -180,11 +239,13 @@
       }
 
       /* Progress / heading area */
+      .signup-step-row,
       .step-bar {
         display: flex;
         align-items: center;
         gap: 16px;
         margin-bottom: 18px;
+        width: 100%;
       }
       .step-pill {
         background: #e9eef7;
@@ -194,17 +255,21 @@
         font-weight: 700;
         font-size: 14px;
       }
+      .step-track,
       .progress-line {
         flex: 1;
         height: 8px;
         background: #e6e8eb;
         border-radius: 999px;
         overflow: hidden;
+        min-width: 0;
       }
+      .step-track .step-fill,
       .progress-line .fill {
         width: 50%; /* Step 1 of 2 */
         height: 100%;
         background: linear-gradient(90deg, var(--accent-gold), #ffda6a);
+        border-radius: 999px;
       }
 
       .page-heading {
@@ -312,6 +377,69 @@
         gap: 12px;
       }
 
+      .social-media-row {
+        display: grid;
+        grid-template-columns: minmax(135px, 0.32fr) 1fr auto;
+        gap: 12px;
+        align-items: start;
+      }
+
+      .social-media-row select,
+      .social-media-row input {
+        height: 45px;
+      }
+
+      .social-media-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .social-media-remove {
+        height: 45px;
+        min-width: 42px;
+        border: 1px solid #fee2e2;
+        background: #fff5f5;
+        color: #b91c1c;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: all 0.2s ease;
+      }
+
+      .social-media-remove:hover {
+        background: #fee2e2;
+      }
+
+      .social-media-add {
+        margin-top: 10px;
+        border: 1px solid #d9e1f2;
+        background: #fff;
+        color: var(--deep-blue);
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .social-media-add:hover:not(:disabled) {
+        background: var(--deep-blue);
+        color: #fff;
+        border-color: var(--deep-blue);
+      }
+
+      .social-media-add:disabled {
+        cursor: not-allowed;
+        opacity: 0.55;
+      }
+
+      .field-help {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.4;
+        margin-top: 2px;
+      }
+
       .tooltip {
         display: inline-block;
         margin-left: 8px;
@@ -373,8 +501,8 @@
         transition: all 0.3s ease;
       }
       .btn-primary:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
+        opacity: 0.82;
+        cursor: progress;
         transform: none;
         box-shadow: none;
       }
@@ -544,17 +672,13 @@
 
       /* Loading overlay */
       .loading-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        position: fixed;
+        inset: 0;
         background-color: rgba(255, 255, 255, 0.95);
         display: none;
         justify-content: center;
         align-items: center;
-        border-radius: 12px;
-        z-index: 100;
+        z-index: 9999;
       }
 
       .loading-overlay.active {
@@ -620,6 +744,98 @@
         display: block;
       }
 
+      .field.has-error input,
+      .field.has-error select,
+      .field.has-error textarea,
+      .input-error {
+        border-color: #ef4444 !important;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+      }
+
+      .field-error-text {
+        color: #dc2626;
+        font-size: 12px;
+        margin-top: 6px;
+        line-height: 1.35;
+        font-weight: 500;
+        background: transparent;
+        border: 0;
+      }
+
+      .password-field {
+        position: relative;
+        width: 100%;
+      }
+
+      .password-field input {
+        width: 100%;
+        padding-right: 48px !important;
+      }
+
+      .password-toggle {
+        position: absolute !important;
+        top: 50% !important;
+        right: 12px !important;
+        transform: translateY(-50%) !important;
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        min-height: 32px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        background: transparent !important;
+        color: #64748b;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        line-height: 1 !important;
+        cursor: pointer;
+        z-index: 2;
+      }
+
+      .password-toggle:hover,
+      .password-toggle:active,
+      .password-toggle:focus {
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        color: var(--deep-blue);
+      }
+
+      .password-toggle svg {
+        display: block;
+        width: 18px;
+        height: 18px;
+        pointer-events: none;
+      }
+
+      .password-toggle:focus-visible {
+        outline: 2px solid rgba(248, 193, 46, 0.8);
+        outline-offset: 2px;
+        border-radius: 8px;
+      }
+
+      .password-toggle .icon-hide {
+        display: none;
+      }
+
+      .password-toggle.is-visible .icon-show {
+        display: none;
+      }
+
+      .password-toggle.is-visible .icon-hide {
+        display: inline-flex;
+      }
+
+      .checkbox-error {
+        outline: 2px solid rgba(239, 68, 68, 0.65);
+        outline-offset: 2px;
+      }
+
       /* Other Industry Field */
       .other-industry-field {
         display: none;
@@ -630,11 +846,41 @@
         display: block;
       }
 
+      @media (min-width: 901px) and (max-width: 1100px) {
+        .page {
+          grid-template-columns: minmax(420px, 1.35fr) minmax(240px, 0.65fr);
+          gap: 24px;
+          padding: 20px 18px;
+          align-items: start;
+        }
+
+        .page > div:first-of-type,
+        .signup-form {
+          width: 100%;
+          max-width: none;
+          min-width: 0;
+        }
+
+        .right-column {
+          width: 100%;
+          max-width: 300px;
+          justify-self: end;
+          gap: 14px;
+          padding: 4px 0 0;
+        }
+
+        .placeholder-card {
+          height: 160px;
+          min-height: 160px;
+          padding: 18px;
+        }
+      }
+
       /* MOBILE */
       @media (max-width: 900px) {
-        .page {
+        .page.page-offset {
           grid-template-columns: 1fr;
-          padding: 18px;
+          padding: calc(var(--nav-h) + 18px) 18px 18px;
         }
         .right-column {
           order: 2;
@@ -643,12 +889,6 @@
         }
         .signup-form {
           order: 1;
-        }
-        nav.desktop-nav {
-          display: none;
-        }
-        .menu-icon {
-          display: block;
         }
       }
 
@@ -659,24 +899,44 @@
         .page-heading h1 {
           font-size: 22px;
         }
-        .page {
+        .page.page-offset {
           margin: 18px auto;
         }
         .row-2 {
           grid-template-columns: 1fr;
         }
 
-        #mobile-menu ul li {
-          padding: 12px 20px;
+        .social-media-row {
+          grid-template-columns: 1fr;
         }
 
-        #mobile-menu .login-btn {
-          margin: 10px 20px;
-          width: calc(100% - 40px);
+        .social-media-remove {
+          width: 100%;
         }
+
       }
 
       @media (max-width: 480px) {
+        .signup-step-row,
+        .step-bar {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          width: 100%;
+          margin-bottom: 18px;
+        }
+        .step-pill {
+          flex: 0 0 auto;
+          font-size: 13px;
+          padding: 6px 10px;
+          white-space: nowrap;
+        }
+        .step-track,
+        .progress-line {
+          flex: 1 1 auto;
+          min-width: 0;
+          display: block;
+        }
         .page-heading {
           flex-direction: column;
           align-items: flex-start;
@@ -687,39 +947,83 @@
           margin-top: 10px;
         }
       }
+
+      @media (min-width: 769px) {
+        .page-offset {
+          padding-top: calc(var(--nav-h) + 56px);
+        }
+      }
+
+      @media (max-width: 768px) {
+        #step,
+        .signup-step-row,
+        .step-bar {
+          display: flex !important;
+          align-items: center;
+          gap: 10px;
+          width: 100%;
+          margin: 16px 0 18px;
+        }
+        #step .step-pill,
+        .signup-step-row .step-pill {
+          font-size: 0.78rem;
+          padding: 7px 11px;
+          white-space: nowrap;
+          flex: 0 0 auto;
+        }
+        #step .step-track,
+        #step .progress-line,
+        .signup-step-row .step-track,
+        .signup-step-row .progress-line {
+          flex: 1 1 auto;
+          min-width: 0;
+          height: 5px;
+          display: block !important;
+        }
+      }
     </style>
+  
+    <link rel='stylesheet' href='assets/css/product-polish.css' />
   </head>
   <body>
     <!-- NAVBAR -->
-    <header class="site-navbar">
+    <header class="site-nav">
       <div class="nav-inner">
-        <a class="brand" href="index.html"
-          ><img src="logo.png" alt="Job Assist Ghana logo"
-        /></a>
+        <a class="brand" href="index.html">
+          <img src="assets/images/logo.png" alt="Job Assist Ghana Logo" />
+        </a>
 
-        <nav class="desktop-nav" aria-label="Main navigation">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="login.html" class="login-btn">Login</a></li>
-          </ul>
-        </nav>
-
-        <div class="menu-icon" id="menuBtn">☰</div>
-      </div>
-
-      <!-- mobile menu (hidden by default) -->
-      <div id="mobile-menu">
-        <ul>
-          <li><a href="../index.html">Home</a></li>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="login.html" class="login-btn">Login</a></li>
+          <li><a href="build-cv.html">Build a CV</a></li>
         </ul>
+
+        <div class="nav-cta">
+          <a class="btn-solid btn-solid-primary" href="login.html">Login</a>
+        </div>
+
+        <button
+          class="menu-btn"
+          id="menuBtn"
+          type="button"
+          onclick="toggleMenu()"
+          aria-label="Open menu"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
+
+      <nav class="mobile-drawer" id="mobile-nav" aria-label="Mobile navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="build-cv.html">Build a CV</a>
+        <a class="mobile-cta active" href="login.html">Login</a>
+      </nav>
     </header>
 
     <!-- MAIN PAGE -->
-    <main class="page" role="main">
+    <main class="page page-offset" role="main">
       <!-- Loading Overlay -->
       <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-content">
@@ -736,11 +1040,11 @@
 
       <!-- LEFT: form & text -->
       <div>
-        <div class="step-bar" aria-hidden="true">
+        <div class="signup-step-row step-bar" id="step" aria-hidden="true">
           <div class="step-pill">Step 1 of 2</div>
-          <div class="progress-line" aria-hidden="true">
+          <div class="step-track progress-line" aria-hidden="true">
             <div
-              class="fill"
+              class="step-fill fill"
               role="progressbar"
               aria-valuenow="50"
               aria-valuemin="0"
@@ -751,7 +1055,7 @@
 
         <div class="page-heading">
           <h1>Create Employer Account</h1>
-          <a href="signup.html" class="candidate-cta">Sign up as Candidate →</a>
+          <a href="signup.html" class="candidate-cta">Sign up as Candidate -></a>
         </div>
 
         <p class="subtext">
@@ -765,8 +1069,8 @@
         </div>
 
         <form id="signupForm" class="signup-form" novalidate>
-          <!-- 🏢 Company Information Section -->
-          <div class="form-section">🏢 Company Information</div>
+          <!--  Company Information Section -->
+          <div class="form-section"> Company Information</div>
 
           <div class="field">
             <label for="companyName" class="required">Company Name</label>
@@ -826,10 +1130,10 @@
               <label for="companySize" class="required">Company Size</label>
               <select id="companySize" name="companySize" required>
                 <option value="">Select size</option>
-                <option>1–10 employees</option>
-                <option>11–50 employees</option>
-                <option>51–200 employees</option>
-                <option>201–1000 employees</option>
+                <option>1-10 employees</option>
+                <option>11-50 employees</option>
+                <option>51-200 employees</option>
+                <option>201-1000 employees</option>
                 <option>1000+ employees</option>
               </select>
             </div>
@@ -837,9 +1141,6 @@
             <div class="field">
               <label for="registrationNumber" id="registrationLabel">
                 Business Registration Number
-                <span class="optional-label"
-                  >(Required for Private Businesses)</span
-                >
               </label>
               <input
                 id="registrationNumber"
@@ -866,8 +1167,8 @@
             </div>
           </div>
 
-          <!-- 👤 Employer/Recruiter Details Section -->
-          <div class="form-section">👤 Employer / Recruiter Details</div>
+          <!--  Employer/Recruiter Details Section -->
+          <div class="form-section"> Employer / Recruiter Details</div>
 
           <div class="row-2">
             <div class="field">
@@ -895,31 +1196,19 @@
             </div>
           </div>
 
-          <div class="row-2">
-            <div class="field">
-              <label for="workEmail">Work Email Address</label>
-              <input
-                id="workEmail"
-                name="workEmail"
-                type="email"
-                placeholder="company@email.com (optional)"
-              />
-            </div>
-
-            <div class="field">
-              <label for="phone" class="required">Phone Number</label>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                placeholder="e.g. 0244123456"
-                required
-              />
-            </div>
+          <div class="field">
+            <label for="workEmail">Work Email Address</label>
+            <input
+              id="workEmail"
+              name="workEmail"
+              type="email"
+              autocomplete="email"
+              placeholder="company@email.com (optional)"
+            />
           </div>
 
-          <!-- 📍 Location & Contact Info Section -->
-          <div class="form-section">📍 Location & Contact Info</div>
+          <!--  Location & Contact Info Section -->
+          <div class="form-section"> Location & Contact Info</div>
 
           <div class="field">
             <label for="companyAddress" class="required">Company Address</label>
@@ -932,65 +1221,140 @@
             />
           </div>
 
-          <div class="field">
-            <label for="cityRegion" class="required">City / Region</label>
-            <select id="cityRegion" name="cityRegion" required>
-              <option value="">Select region</option>
-              <option>Greater Accra</option>
-              <option>Ashanti</option>
-              <option>Central</option>
-              <option>Western</option>
-              <option>Eastern</option>
-              <option>Volta</option>
-              <option>Northern</option>
-              <option>Upper East</option>
-              <option>Upper West</option>
-              <option>Bono</option>
-              <option>Ahafo</option>
-              <option>Other</option>
-            </select>
+          <div class="row-2">
+            <div class="field">
+              <label for="city" class="required">City</label>
+              <input
+                id="city"
+                name="city"
+                type="text"
+                placeholder="e.g. Kumasi"
+                required
+              />
+              <div class="field-help">Enter your city or major town.</div>
+            </div>
+
+            <div class="field">
+              <label for="region" class="required">Region</label>
+              <input
+                id="region"
+                name="region"
+                type="text"
+                placeholder="Region will be auto-selected"
+                readonly
+                disabled
+                required
+              />
+              <div class="field-help">Region is automatically selected based on your city.</div>
+            </div>
           </div>
 
-          <!-- 🔐 Account Security Section -->
-          <div class="form-section">🔐 Account Security</div>
+          <div class="field" id="socialMediaField">
+            <label>Social Media Links</label>
+            <div class="social-media-list" id="socialMediaRows"></div>
+            <button type="button" class="social-media-add" id="addSocialMediaRow">
+              + Add another
+            </button>
+            <div class="field-help" id="socialMediaHelp">
+              Optional. Add up to 3 links. For WhatsApp, use a number starting with 0, 233, or +233.
+            </div>
+          </div>
+
+          <!--  Account Security Section -->
+          <div class="form-section"> Account Security</div>
 
           <div class="field">
-            <label for="email">Email</label>
+            <label for="phone" class="required">Phone Number</label>
             <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Your email address (optional)"
+              id="phone"
+              name="phone"
+              type="tel"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              autocomplete="tel"
+              placeholder="Enter your phone number"
+              required
             />
+            <div class="field-help">This phone number is used to log in to your employer account.</div>
           </div>
 
           <div class="row-2">
             <div class="field">
               <label for="password" class="required">Password</label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Create password"
-                required
-              />
+              <div class="password-field">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Create password"
+                  minlength="8"
+                  required
+                />
+                <button
+                  type="button"
+                  class="password-toggle"
+                  data-target="password"
+                  aria-label="Show password"
+                  aria-pressed="false"
+                >
+                  <span class="icon-show" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </span>
+                  <span class="icon-hide" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 3l18 18"></path>
+                      <path d="M10.6 10.7a3 3 0 0 0 4.2 4.2"></path>
+                      <path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a18.7 18.7 0 0 1-3 3.8"></path>
+                      <path d="M6.6 6.7C4 8.6 2 12 2 12s3.5 7 10 7a10.5 10.5 0 0 0 4.1-.8"></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
             </div>
             <div class="field">
               <label for="confirmPassword" class="required"
                 >Confirm Password</label
               >
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                placeholder="Confirm password"
-                required
-              />
+              <div class="password-field">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="Confirm password"
+                  minlength="8"
+                  required
+                />
+                <button
+                  type="button"
+                  class="password-toggle"
+                  data-target="confirmPassword"
+                  aria-label="Show password"
+                  aria-pressed="false"
+                >
+                  <span class="icon-show" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </span>
+                  <span class="icon-hide" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 3l18 18"></path>
+                      <path d="M10.6 10.7a3 3 0 0 0 4.2 4.2"></path>
+                      <path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a18.7 18.7 0 0 1-3 3.8"></path>
+                      <path d="M6.6 6.7C4 8.6 2 12 2 12s3.5 7 10 7a10.5 10.5 0 0 0 4.1-.8"></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
 
-          <!-- ✅ Terms & Agreement Section -->
-          <div class="form-section">✅ Terms & Agreement</div>
+          <!--  Terms & Agreement Section -->
+          <div class="form-section"> Terms & Agreement</div>
 
           <!-- reCAPTCHA placeholder -->
           <div
@@ -1041,7 +1405,7 @@
           </div>
 
           <div class="actions">
-            <button id="continueBtn" type="button" class="btn-primary">
+            <button id="continueBtn" type="submit" class="btn-primary">
               <div class="loading-spinner" id="buttonSpinner"></div>
               <div class="success-checkmark" id="successCheck">
                 <svg class="check-icon" viewBox="0 0 52 52">
@@ -1064,13 +1428,13 @@
             <div class="helper-note">
               Already have an account?
               <a
-                href="login.html"
+                href="employer-login.html"
                 style="color: var(--deep-blue); font-weight: 700"
                 >Log in</a
               >
             </div>
             <div class="security-note">
-              🔒
+              
               <span
                 >We encrypt and store your data securely. Payment required to
                 activate employer account.</span
@@ -1097,7 +1461,7 @@
         color: var(--muted);
       "
     >
-      <div>© 2025 Job Assist Ghana. All rights reserved.</div>
+      <div>Copyright 2025 Job Assist Ghana. All rights reserved.</div>
       <div style="margin-top: 6px; font-size: 13px">
         <a href="privacy.html" style="color: inherit; text-decoration: none"
           >Privacy</a
@@ -1114,17 +1478,393 @@
     </footer>
 
     <!-- ---------- SCRIPTS: mobile menu, validation ---------- -->
+    <script src="assets/js/input-hardening.js"></script>
+    <script src="assets/js/password-toggle.js"></script>
     <script>
-      // Mobile menu functionality - matches homepage
-      function toggleMenu() {
-        const mobileNav = document.getElementById("mobile-menu");
-        mobileNav.classList.toggle("active");
+      const EMPLOYER_SOCIAL_PLATFORMS = [
+        "LinkedIn",
+        "Facebook",
+        "TikTok",
+        "Snapchat",
+        "Instagram",
+        "YouTube",
+        "Discord",
+        "WhatsApp",
+      ];
+
+      const GHANA_CITY_REGION_MAP = {
+        "accra": { city: "Accra", region: "Greater Accra" },
+        "tema": { city: "Tema", region: "Greater Accra" },
+        "ashaiman": { city: "Ashaiman", region: "Greater Accra" },
+        "madina": { city: "Madina", region: "Greater Accra" },
+        "adenta": { city: "Adenta", region: "Greater Accra" },
+        "dodowa": { city: "Dodowa", region: "Greater Accra" },
+        "kumasi": { city: "Kumasi", region: "Ashanti" },
+        "obuasi": { city: "Obuasi", region: "Ashanti" },
+        "ejisu": { city: "Ejisu", region: "Ashanti" },
+        "mampong": { city: "Mampong", region: "Ashanti" },
+        "konongo": { city: "Konongo", region: "Ashanti" },
+        "bekwai": { city: "Bekwai", region: "Ashanti" },
+        "offinso": { city: "Offinso", region: "Ashanti" },
+        "cape coast": { city: "Cape Coast", region: "Central" },
+        "winneba": { city: "Winneba", region: "Central" },
+        "kasoa": { city: "Kasoa", region: "Central" },
+        "mankessim": { city: "Mankessim", region: "Central" },
+        "agona swedru": { city: "Agona Swedru", region: "Central" },
+        "elmina": { city: "Elmina", region: "Central" },
+        "takoradi": { city: "Takoradi", region: "Western" },
+        "sekondi": { city: "Sekondi", region: "Western" },
+        "sekondi takoradi": { city: "Sekondi-Takoradi", region: "Western" },
+        "sekondi-takoradi": { city: "Sekondi-Takoradi", region: "Western" },
+        "tarkwa": { city: "Tarkwa", region: "Western" },
+        "axim": { city: "Axim", region: "Western" },
+        "sefwi wiawso": { city: "Sefwi Wiawso", region: "Western North" },
+        "wiawso": { city: "Sefwi Wiawso", region: "Western North" },
+        "bibiani": { city: "Bibiani", region: "Western North" },
+        "koforidua": { city: "Koforidua", region: "Eastern" },
+        "akim oda": { city: "Akim Oda", region: "Eastern" },
+        "akyem oda": { city: "Akim Oda", region: "Eastern" },
+        "nkawkaw": { city: "Nkawkaw", region: "Eastern" },
+        "suhum": { city: "Suhum", region: "Eastern" },
+        "akropong": { city: "Akropong", region: "Eastern" },
+        "ho": { city: "Ho", region: "Volta" },
+        "keta": { city: "Keta", region: "Volta" },
+        "hohoe": { city: "Hohoe", region: "Volta" },
+        "sogakope": { city: "Sogakope", region: "Volta" },
+        "aflao": { city: "Aflao", region: "Volta" },
+        "dambai": { city: "Dambai", region: "Oti" },
+        "jasikan": { city: "Jasikan", region: "Oti" },
+        "nkwanta": { city: "Nkwanta", region: "Oti" },
+        "tamale": { city: "Tamale", region: "Northern" },
+        "yendi": { city: "Yendi", region: "Northern" },
+        "savelugu": { city: "Savelugu", region: "Northern" },
+        "damongo": { city: "Damongo", region: "Savannah" },
+        "bole": { city: "Bole", region: "Savannah" },
+        "salaga": { city: "Salaga", region: "Savannah" },
+        "nalerigu": { city: "Nalerigu", region: "North East" },
+        "walewale": { city: "Walewale", region: "North East" },
+        "gambaga": { city: "Gambaga", region: "North East" },
+        "bolgatanga": { city: "Bolgatanga", region: "Upper East" },
+        "bawku": { city: "Bawku", region: "Upper East" },
+        "navrongo": { city: "Navrongo", region: "Upper East" },
+        "wa": { city: "Wa", region: "Upper West" },
+        "lawra": { city: "Lawra", region: "Upper West" },
+        "tumu": { city: "Tumu", region: "Upper West" },
+        "sunyani": { city: "Sunyani", region: "Bono" },
+        "berekum": { city: "Berekum", region: "Bono" },
+        "dormaa ahenkro": { city: "Dormaa Ahenkro", region: "Bono" },
+        "techiman": { city: "Techiman", region: "Bono East" },
+        "kintampo": { city: "Kintampo", region: "Bono East" },
+        "nkoranza": { city: "Nkoranza", region: "Bono East" },
+        "atebubu": { city: "Atebubu", region: "Bono East" },
+        "goaso": { city: "Goaso", region: "Ahafo" },
+        "bechem": { city: "Bechem", region: "Ahafo" },
+        "duayaw nkwanta": { city: "Duayaw Nkwanta", region: "Ahafo" },
+      };
+
+      function normalizeGhanaPhone(value) {
+        const rawValue = String(value || "").trim();
+        const digitsOnly = rawValue.replace(/\D/g, "");
+
+        if (/^0\d{9}$/.test(digitsOnly)) return digitsOnly;
+        if (/^233\d{9}$/.test(digitsOnly)) return digitsOnly;
+        if (/^\+233\d{9}$/.test(rawValue.replace(/\s+/g, ""))) return `+${digitsOnly}`;
+
+        return "";
       }
 
-      // Update the menu icon event listener
+      function isValidGhanaPhone(value) {
+        return Boolean(normalizeGhanaPhone(value));
+      }
+
+      function getInputHardener() {
+        return window.JobAssistInputHardening || null;
+      }
+
+      function formatEmployerDisplayText(value, maxLength = 0) {
+        const hardener = getInputHardener();
+        const sanitized = hardener?.sanitizeText
+          ? hardener.sanitizeText(value, { maxLength })
+          : String(value || "").trim();
+        return hardener?.formatDisplayText
+          ? hardener.formatDisplayText(sanitized, { maxLength })
+          : sanitized;
+      }
+
+      function isValidEmailAddress(value) {
+        const hardener = getInputHardener();
+        return hardener?.isValidEmail
+          ? hardener.isValidEmail(value)
+          : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(String(value || "").trim());
+      }
+
+      function formatSocialMediaLinks(links) {
+        return (Array.isArray(links) ? links : [])
+          .map((link) => {
+            const platform = String(link?.platform || "").trim();
+            const value = String(link?.value || "").trim();
+            return platform && value ? `${platform}: ${value}` : "";
+          })
+          .filter(Boolean)
+          .join("\n");
+      }
+
+      function getEmployerLocationDisplay(city, region) {
+        const cleanCity = formatEmployerDisplayText(city, 80);
+        const cleanRegion = formatEmployerDisplayText(region, 80);
+        if (cleanCity && cleanRegion) {
+          return cleanCity.toLowerCase() === cleanRegion.toLowerCase()
+            ? cleanCity
+            : `${cleanCity}, ${cleanRegion}`;
+        }
+        return cleanCity || cleanRegion || "";
+      }
+
+      function normalizeEmployerCityLookup(value) {
+        return String(value || "")
+          .trim()
+          .toLowerCase()
+          .replace(/-/g, " ")
+          .replace(/\s+/g, " ");
+      }
+
+      function resolveEmployerCityRegion(value) {
+        const normalized = normalizeEmployerCityLookup(value);
+        return GHANA_CITY_REGION_MAP[normalized] || null;
+      }
+
+      function sanitizeEmployerSocialValue(platform, value) {
+        const cleanPlatform = String(platform || "").trim();
+        const rawValue = String(value || "").trim();
+        if (!cleanPlatform || !rawValue) return "";
+
+        if (cleanPlatform.toLowerCase() === "whatsapp") {
+          return rawValue;
+        }
+
+        return rawValue
+          .replace(/^https?:\/\//i, "")
+          .replace(/^www\./i, "")
+          .replace(/\/+$/g, "")
+          .replace(/^facebook\.com\//i, "")
+          .replace(/^fb\.com\//i, "")
+          .replace(/^instagram\.com\//i, "")
+          .replace(/^tiktok\.com\//i, "")
+          .replace(/^x\.com\//i, "")
+          .replace(/^twitter\.com\//i, "")
+          .replace(/^linkedin\.com\/in\//i, "")
+          .replace(/^linkedin\.com\//i, "")
+          .replace(/^youtube\.com\//i, "")
+          .replace(/^youtu\.be\//i, "")
+          .replace(/^snapchat\.com\/add\//i, "")
+          .replace(/^discord\.gg\//i, "")
+          .replace(/^discord\.com\//i, "")
+          .replace(/^@+/, "")
+          .trim();
+      }
+
+      function escapeAttribute(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+
+      function createSocialPlatformOptions(selectedPlatform = "") {
+        return [
+          '<option value="">Select platform</option>',
+          ...EMPLOYER_SOCIAL_PLATFORMS.map((platform) => {
+            const selected = platform === selectedPlatform ? " selected" : "";
+            return `<option value="${platform}"${selected}>${platform}</option>`;
+          }),
+        ].join("");
+      }
+
+      function updateSocialMediaPlaceholders(row) {
+        const platformField = row?.querySelector(".social-platform");
+        const valueField = row?.querySelector(".social-handle");
+        if (!platformField || !valueField) return;
+
+        valueField.placeholder =
+          platformField.value === "WhatsApp"
+            ? "e.g. 0591234567, 233591234567, or +233591234567"
+            : "Username, handle, or profile link";
+      }
+
+      function renderSocialMediaRows(rows = [{ platform: "", value: "" }]) {
+        const container = document.getElementById("socialMediaRows");
+        const addButton = document.getElementById("addSocialMediaRow");
+        if (!container) return;
+
+        const safeRows = (Array.isArray(rows) && rows.length ? rows : [{ platform: "", value: "" }])
+          .slice(0, 3)
+          .map((row) => ({
+            platform: String(row?.platform || "").trim(),
+            value: String(row?.value || "").trim(),
+          }));
+
+        container.innerHTML = "";
+
+        safeRows.forEach((row, index) => {
+          const entry = document.createElement("div");
+          entry.className = "social-media-row";
+          entry.dataset.socialRow = String(index);
+          entry.innerHTML = `
+            <select class="social-platform" name="socialPlatform${index + 1}" aria-label="Social media platform ${index + 1}">
+              ${createSocialPlatformOptions(row.platform)}
+            </select>
+            <input
+              class="social-handle"
+              name="socialHandle${index + 1}"
+              type="text"
+              value="${escapeAttribute(row.value)}"
+              aria-label="Social media handle or link ${index + 1}"
+            />
+            <button type="button" class="social-media-remove" aria-label="Remove social media link">x</button>
+          `;
+
+          const removeButton = entry.querySelector(".social-media-remove");
+          removeButton.style.display = safeRows.length > 1 ? "" : "none";
+
+          entry.querySelector(".social-platform").addEventListener("change", function () {
+            updateSocialMediaPlaceholders(entry);
+            clearFieldError(this);
+          });
+          entry.querySelector(".social-handle").addEventListener("input", function () {
+            clearFieldError(this);
+          });
+          removeButton.addEventListener("click", function () {
+            const nextRows = getSocialMediaDraftRows().filter((_, rowIndex) => rowIndex !== index);
+            renderSocialMediaRows(nextRows.length ? nextRows : [{ platform: "", value: "" }]);
+            clearFieldErrors();
+          });
+
+          container.appendChild(entry);
+          updateSocialMediaPlaceholders(entry);
+        });
+
+        if (addButton) addButton.disabled = safeRows.length >= 3;
+      }
+
+      function getSocialMediaDraftRows() {
+        return Array.from(document.querySelectorAll("#socialMediaRows .social-media-row")).map((row) => ({
+          platform: String(row.querySelector(".social-platform")?.value || "").trim(),
+          value: String(row.querySelector(".social-handle")?.value || "").trim(),
+        }));
+      }
+
+      function getEmployerSocialMediaData() {
+        const rows = getSocialMediaDraftRows();
+        const links = [];
+
+        for (const row of rows) {
+          const platform = row.platform;
+          const rawValue = row.value;
+
+          if (!platform && !rawValue) continue;
+
+          const platformField = document.querySelector(`#socialMediaRows .social-media-row:nth-child(${rows.indexOf(row) + 1}) .social-platform`);
+          const valueField = document.querySelector(`#socialMediaRows .social-media-row:nth-child(${rows.indexOf(row) + 1}) .social-handle`);
+
+          if (!platform && rawValue) {
+            return {
+              links,
+              display: "",
+              error: "Please select a social media platform.",
+              errorTarget: platformField,
+            };
+          }
+
+          if (platform && !rawValue) {
+            return {
+              links,
+              display: "",
+              error: "Please enter the handle, link, or number for the selected platform.",
+              errorTarget: valueField,
+            };
+          }
+
+          if (platform === "WhatsApp") {
+            const normalizedWhatsApp = normalizeGhanaPhone(rawValue);
+            if (!normalizedWhatsApp) {
+              return {
+                links,
+                display: "",
+                error: "Enter a valid WhatsApp number starting with 0, 233, or +233.",
+                errorTarget: valueField,
+              };
+            }
+
+            links.push({ platform, value: normalizedWhatsApp });
+          } else {
+            links.push({ platform, value: rawValue });
+          }
+        }
+
+        return {
+          links: links.slice(0, 3),
+          display: formatSocialMediaLinks(links.slice(0, 3)),
+          error: "",
+          errorTarget: null,
+        };
+      }
+
+      // Mobile menu functionality - matches homepage
+      function toggleMenu() {
+        const drawer = document.getElementById("mobile-nav");
+        const icon = document.querySelector(".menu-btn i");
+        if (!drawer || !icon) return;
+        drawer.classList.toggle("active");
+        if (drawer.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-xmark");
+        } else {
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        }
+      }
+
+      document.addEventListener("click", function (event) {
+        const drawer = document.getElementById("mobile-nav");
+        const menuBtn = document.querySelector(".menu-btn");
+        const nav = document.querySelector(".site-nav");
+        if (!drawer || !menuBtn || !nav) return;
+        if (!nav.contains(event.target) && drawer.classList.contains("active")) {
+          drawer.classList.remove("active");
+          const icon = document.querySelector(".menu-btn i");
+          if (icon) {
+            icon.classList.remove("fa-xmark");
+            icon.classList.add("fa-bars");
+          }
+        }
+      });
+
+      document.querySelectorAll("#mobile-nav a").forEach((a) => {
+        a.addEventListener("click", () => {
+          const drawer = document.getElementById("mobile-nav");
+          const icon = document.querySelector(".menu-btn i");
+          if (drawer) drawer.classList.remove("active");
+          if (icon) {
+            icon.classList.remove("fa-xmark");
+            icon.classList.add("fa-bars");
+          }
+        });
+      });
+
       document.addEventListener("DOMContentLoaded", function () {
-        const menuBtn = document.getElementById("menuBtn");
-        const mobileMenu = document.getElementById("mobile-menu");
+        const hardener = getInputHardener();
+        const sanitizeText = (value, maxLength = 0) =>
+          hardener?.sanitizeText
+            ? hardener.sanitizeText(value, { maxLength })
+            : String(value || "").trim();
+        const sanitizeMultiline = (value, maxLength = 0) =>
+          hardener?.sanitizeMultilineText
+            ? hardener.sanitizeMultilineText(value, { maxLength })
+            : String(value || "").trim();
+        const sanitizeUrl = (value) =>
+          hardener?.sanitizeUrl ? hardener.sanitizeUrl(value) : String(value || "").trim();
+        const signupForm = document.getElementById("signupForm");
         const continueBtn = document.getElementById("continueBtn");
         const buttonSpinner = document.getElementById("buttonSpinner");
         const successCheck = document.getElementById("successCheck");
@@ -1134,25 +1874,12 @@
         const otherIndustryField =
           document.getElementById("otherIndustryField");
         const otherIndustryInput = document.getElementById("otherIndustry");
+        const addSocialMediaRow = document.getElementById("addSocialMediaRow");
+        const phoneField = document.getElementById("phone");
 
-        if (menuBtn && mobileMenu) {
-          menuBtn.addEventListener("click", function (e) {
-            e.stopPropagation();
-            mobileMenu.classList.toggle("active");
-          });
-
-          // Close menu when clicking outside
-          document.addEventListener("click", function (e) {
-            if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-              mobileMenu.classList.remove("active");
-            }
-          });
-
-          // Close menu when clicking on links
-          mobileMenu.querySelectorAll("a").forEach((link) => {
-            link.addEventListener("click", () => {
-              mobileMenu.classList.remove("active");
-            });
+        if (phoneField) {
+          phoneField.addEventListener("input", function () {
+            this.value = String(this.value || "").replace(/\D/g, "");
           });
         }
 
@@ -1166,14 +1893,41 @@
             otherIndustryInput.required = false;
             otherIndustryInput.value = "";
           }
-          // Update form validation
-          continueBtn.disabled = !allValid();
+        });
+
+        renderSocialMediaRows();
+
+        addSocialMediaRow?.addEventListener("click", function () {
+          const currentRows = getSocialMediaDraftRows();
+          const hasBlankRow = currentRows.some((row) => !row.platform && !row.value);
+
+          if (currentRows.length >= 3) return;
+
+          if (hasBlankRow) {
+            const blankRow = document.querySelector("#socialMediaRows .social-media-row");
+            const emptyTarget =
+              Array.from(document.querySelectorAll("#socialMediaRows .social-media-row"))
+                .find((row) => {
+                  const platform = row.querySelector(".social-platform")?.value;
+                  const value = row.querySelector(".social-handle")?.value;
+                  return !platform && !String(value || "").trim();
+                })?.querySelector(".social-platform") || blankRow;
+            setFieldError(emptyTarget, "Complete or remove the empty social media row first.");
+            focusFirstError();
+            return;
+          }
+
+          renderSocialMediaRows([...currentRows, { platform: "", value: "" }]);
         });
 
         // Handle form submission
-        continueBtn.addEventListener("click", function () {
-          if (!allValid()) {
-            showError("Please fill all required fields correctly.");
+        function handleEmployerSignupStep() {
+          clearFieldErrors();
+          errorMessage.classList.remove("show");
+          const validation = validateEmployerForm(true);
+
+          if (!validation.valid) {
+            focusFirstError();
             return;
           }
 
@@ -1197,28 +1951,127 @@
 
               // Redirect after showing success for a moment
               setTimeout(() => {
-                // Redirect to verify-info page
-                sessionStorage.setItem("signupType","employer");
-            window.location.href = "verify-info.html?type=employer";
+                try {
+                  // Save employer signup data for verify-info.html
+                  const companyName = formatEmployerDisplayText(
+                    document.getElementById("companyName").value,
+                    120,
+                  );
+                  const workEmail = sanitizeText(document.getElementById("workEmail").value, 120).toLowerCase();
+                  const loginPhone = hardener?.normalizeGhanaPhone
+                    ? hardener.normalizeGhanaPhone(document.getElementById("phone").value)
+                    : normalizeGhanaPhone(document.getElementById("phone").value);
+
+                  if (workEmail && !isValidEmailAddress(workEmail)) {
+                    throw new Error("Please enter a valid work email address.");
+                  }
+
+                  if (!loginPhone) {
+                    throw new Error("Please enter a valid Ghana phone number.");
+                  }
+
+                  localStorage.setItem("companyName", companyName);
+
+                  const industryValue = document.getElementById("industry").value;
+                  const otherIndustryValue = sanitizeText(document.getElementById("otherIndustry").value, 120);
+                  localStorage.setItem(
+                    "industry",
+                    formatEmployerDisplayText(
+                      industryValue === "Other" ? otherIndustryValue : industryValue,
+                      120,
+                    )
+  );
+
+                  localStorage.setItem(
+                    "businessType",
+                    formatEmployerDisplayText(document.getElementById("businessType").value, 80),
+                  );
+                  localStorage.setItem(
+                    "companySize",
+                    formatEmployerDisplayText(document.getElementById("companySize").value, 80),
+                  );
+                  localStorage.setItem("registrationNumber", sanitizeText(document.getElementById("registrationNumber").value, 60));
+                  localStorage.setItem("companyDescription", sanitizeMultiline(document.getElementById("companyDescription").value, 2000));
+
+                  localStorage.setItem(
+                    "fullName",
+                    formatEmployerDisplayText(document.getElementById("fullName").value, 120),
+                  );
+                  localStorage.setItem(
+                    "position",
+                    formatEmployerDisplayText(document.getElementById("position").value, 120),
+                  );
+                  localStorage.setItem("workEmail", workEmail);
+                  localStorage.setItem("phone", loginPhone);
+                  localStorage.setItem("loginPhone", loginPhone);
+
+                  const matchedLocation = syncEmployerCityRegion({ showError: true });
+                  if (!matchedLocation.matched) {
+                    throw new Error("City not recognized. Please check spelling or contact support.");
+                  }
+                  const employerCity = matchedLocation.city;
+                  const employerRegion = matchedLocation.region;
+                  localStorage.setItem(
+                    "companyAddress",
+                    formatEmployerDisplayText(document.getElementById("companyAddress").value, 180),
+                  );
+                  localStorage.setItem("city", employerCity);
+                  localStorage.setItem("region", employerRegion);
+                  localStorage.setItem(
+                    "cityRegion",
+                    getEmployerLocationDisplay(employerCity, employerRegion),
+                  );
+                  const socialMediaData = getEmployerSocialMediaData();
+                  const sanitizedSocialLinks = (Array.isArray(socialMediaData.links) ? socialMediaData.links : [])
+                    .map((link) => {
+                      const platform = formatEmployerDisplayText(link?.platform, 40);
+                      const normalizedValue = sanitizeEmployerSocialValue(platform, link?.value);
+                      return {
+                        platform,
+                        value: platform.toLowerCase() === "whatsapp"
+                          ? sanitizeText(normalizedValue, 20)
+                          : sanitizeText(normalizedValue, 120),
+                      };
+                    })
+                    .filter((link) => link.platform && link.value);
+                  localStorage.setItem("socialMediaLinks", JSON.stringify(sanitizedSocialLinks));
+                  localStorage.setItem("socialPlatform", sanitizedSocialLinks[0]?.platform || "");
+                  localStorage.setItem("socialHandle", sanitizedSocialLinks[0]?.value || "");
+                  localStorage.setItem("socialMedia", sanitizedSocialLinks.map((link) => `${link.platform}: ${link.value}`).join(", "));
+                  localStorage.setItem("password", document.getElementById("password").value);
+
+                  sessionStorage.setItem("signupType", "employer");
+                  window.location.href = "verify-info.html?type=employer";
+                } catch (error) {
+                  console.error("Employer signup persistence failed:", error);
+                  setLoadingState(false);
+                  showError(error?.message || "We couldn't continue to verification. Please review your details and try again.");
+                }
               }, 1000);
             } else {
               // Account creation failed
               setLoadingState(false);
               showError(
                 "There was an issue creating your account. Please try again.",
-              );
+);
             }
           }, delay);
+        }
+
+        signupForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+          handleEmployerSignupStep();
         });
 
         function setLoadingState(isLoading) {
           if (isLoading) {
+            window.scrollTo({ top: 0, behavior: "smooth" });
             continueBtn.disabled = true;
             continueBtn.classList.add("loading");
             buttonSpinner.classList.add("active");
             loadingOverlay.classList.add("active");
           } else {
-            continueBtn.disabled = !allValid();
+            continueBtn.disabled = false;
             continueBtn.classList.remove("loading");
             buttonSpinner.classList.remove("active");
             loadingOverlay.classList.remove("active");
@@ -1241,14 +2094,16 @@
           }
           errorMessage.classList.add("show");
 
-          // Scroll to error message for better UX
-          errorMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+          if (!document.querySelector(".input-error")) {
+            errorMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
         }
       });
 
       // Business Type logic to disable registration number for Government/NGO
       document.addEventListener("DOMContentLoaded", function () {
         const businessTypeField = document.getElementById("businessType");
+        const continueBtn = document.getElementById("continueBtn");
         const registrationNumberField =
           document.getElementById("registrationNumber");
         const registrationLabel = document.getElementById("registrationLabel");
@@ -1259,23 +2114,14 @@
           if (
             businessType === "Government Institution" ||
             businessType === "NGO"
-          ) {
-            registrationNumberField.disabled = true;
-            registrationNumberField.classList.add("disabled-field");
-            registrationNumberField.value =
-              "Not applicable for this business type";
-            registrationNumberField.placeholder = "Not applicable";
+) {
             registrationLabel.classList.remove("required");
           } else {
             registrationNumberField.disabled = false;
             registrationNumberField.classList.remove("disabled-field");
-            registrationNumberField.value = "";
             registrationNumberField.placeholder = "Enter registration number";
-            registrationLabel.classList.add("required");
+            registrationLabel.classList.remove("required");
           }
-
-          // Update form validation
-          continueBtn.disabled = !allValid();
         }
 
         // Initial setup
@@ -1296,7 +2142,8 @@
         "position",
         "phone",
         "companyAddress",
-        "cityRegion",
+        "city",
+        "region",
         "password",
         "confirmPassword",
         "agree",
@@ -1305,104 +2152,312 @@
       const inputs = requiredIds.map((id) => document.getElementById(id));
       const continueBtn = document.getElementById("continueBtn");
 
-      function allValid() {
-        try {
-          const companyName = document
-            .getElementById("companyName")
-            .value.trim();
-          const industry = document.getElementById("industry").value;
-          const businessType = document.getElementById("businessType").value;
-          const companySize = document.getElementById("companySize").value;
-          const registrationNumber = document
-            .getElementById("registrationNumber")
-            .value.trim();
-          const companyDescription = document
-            .getElementById("companyDescription")
-            .value.trim();
-          const fullName = document.getElementById("fullName").value.trim();
-          const position = document.getElementById("position").value.trim();
-          const phone = document.getElementById("phone").value.trim();
-          const companyAddress = document
-            .getElementById("companyAddress")
-            .value.trim();
-          const cityRegion = document.getElementById("cityRegion").value;
-          const pwd = document.getElementById("password").value;
-          const cpwd = document.getElementById("confirmPassword").value;
-          const agree = document.getElementById("agree").checked;
-          const rec = document.getElementById("fakeRecap").checked;
-          const otherIndustry = document
-            .getElementById("otherIndustry")
-            .value.trim();
+      function getFieldWrapper(target) {
+        if (!target) return null;
+        return target.closest(".field") || target.parentElement || null;
+      }
 
-          // Check all required fields
-          if (
-            !companyName ||
-            !industry ||
-            !businessType ||
-            !companySize ||
-            !companyDescription ||
-            !fullName ||
-            !position ||
-            !phone ||
-            !companyAddress ||
-            !cityRegion ||
-            !pwd ||
-            !cpwd
-          )
-            return false;
+      function clearFieldError(target) {
+        if (!target) return;
 
-          // Check if "Other" industry is selected and field is filled
-          if (industry === "Other" && !otherIndustry) return false;
-
-          // Check registration number only for private businesses
-          if (
-            (businessType === "Private-Owned Business" ||
-              businessType === "Others") &&
-            !registrationNumber
-          )
-            return false;
-
-          // Check password match
-          if (pwd !== cpwd) return false;
-
-          // Check terms agreement
-          if (!agree) return false;
-          if (!rec) return false;
-
-          // Check company description length
-          if (companyDescription.length > 200) return false;
-
-          return true;
-        } catch (e) {
-          return false;
+        const fieldWrapper = getFieldWrapper(target);
+        if (fieldWrapper) {
+          fieldWrapper.classList.remove("has-error");
+          const errorText = fieldWrapper.querySelector(".field-error-text");
+          if (errorText) errorText.remove();
         }
+
+        target.classList.remove("input-error", "checkbox-error");
+        if (target.style?.borderColor) {
+          target.style.borderColor = "";
+        }
+      }
+
+      function clearFieldErrors() {
+        document.querySelectorAll(".has-error").forEach((el) => {
+          el.classList.remove("has-error");
+        });
+        document.querySelectorAll(".input-error, .checkbox-error").forEach((el) => {
+          el.classList.remove("input-error", "checkbox-error");
+          if (el.style?.borderColor) {
+            el.style.borderColor = "";
+          }
+        });
+        document.querySelectorAll(".field-error-text").forEach((el) => el.remove());
+      }
+
+      function hideGlobalErrorMessage() {
+        document.getElementById("errorMessage")?.classList.remove("show");
+      }
+
+      function setFieldError(target, message) {
+        if (!target) return;
+
+        const fieldWrapper = getFieldWrapper(target);
+        if (fieldWrapper) {
+          fieldWrapper.classList.add("has-error");
+        }
+
+        const isCheckbox = target.type === "checkbox";
+        target.classList.add(isCheckbox ? "checkbox-error" : "input-error");
+        if (!isCheckbox) {
+          target.style.borderColor = "#ef4444";
+        }
+
+        const existing = fieldWrapper?.querySelector(".field-error-text");
+        if (existing) existing.remove();
+
+        if (message && fieldWrapper) {
+          const error = document.createElement("div");
+          error.className = "field-error-text";
+          error.textContent = message;
+          fieldWrapper.appendChild(error);
+        }
+      }
+
+      function focusFirstError() {
+        const firstError =
+          document.querySelector(".input-error") ||
+          document.querySelector(".checkbox-error") ||
+          document.querySelector(".has-error");
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+          if (typeof firstError.focus === "function" && firstError.type !== "checkbox") {
+            firstError.focus({ preventScroll: true });
+          }
+        }
+      }
+
+      function allValid() {
+        return validateEmployerForm(false).valid;
+      }
+
+      function initializePasswordToggles() {
+        window.JobAssistPasswordToggle?.initPasswordToggles?.();
+      }
+
+      function syncEmployerPasswordFeedback() {
+        const passwordField = document.getElementById("password");
+        const confirmPasswordField = document.getElementById("confirmPassword");
+        const pwd = String(passwordField?.value || "");
+        const cpwd = String(confirmPasswordField?.value || "");
+
+        if (pwd.length >= 8) {
+          clearFieldError(passwordField);
+        }
+
+        if (!cpwd) return;
+
+        if (cpwd.length >= 8 && pwd.length >= 8 && pwd === cpwd) {
+          clearFieldError(confirmPasswordField);
+        } else if (
+          cpwd.length >= 8 &&
+          pwd.length >= 8 &&
+          pwd !== cpwd &&
+          getFieldWrapper(confirmPasswordField)?.classList.contains("has-error")
+        ) {
+          setFieldError(confirmPasswordField, "Passwords do not match.");
+        } else if (
+          cpwd.length >= 8 &&
+          pwd.length < 8 &&
+          getFieldWrapper(confirmPasswordField)?.classList.contains("has-error")
+        ) {
+          clearFieldError(confirmPasswordField);
+        }
+      }
+
+      function syncEmployerCityRegion(options = {}) {
+        const cityField = document.getElementById("city");
+        const regionField = document.getElementById("region");
+        const showError = options.showError === true;
+
+        if (!cityField || !regionField) {
+          return { matched: false, city: "", region: "" };
+        }
+
+        const rawCity = String(cityField.value || "").trim();
+        if (!rawCity) {
+          regionField.value = "";
+          if (showError) clearFieldError(cityField);
+          return { matched: false, city: "", region: "" };
+        }
+
+        const match = resolveEmployerCityRegion(rawCity);
+
+        if (match) {
+          cityField.value = match.city;
+          regionField.value = match.region;
+          clearFieldError(cityField);
+          clearFieldError(regionField);
+          return { matched: true, city: match.city, region: match.region };
+        }
+
+        regionField.value = "";
+        if (showError) {
+          setFieldError(cityField, "City not recognized. Please check spelling or contact support.");
+        }
+        return { matched: false, city: rawCity, region: "" };
+      }
+
+      function validateEmployerForm(showErrors = false) {
+        const companyNameField = document.getElementById("companyName");
+        const industryField = document.getElementById("industry");
+        const businessTypeField = document.getElementById("businessType");
+        const companySizeField = document.getElementById("companySize");
+        const registrationNumberField = document.getElementById("registrationNumber");
+        const companyDescriptionField = document.getElementById("companyDescription");
+        const fullNameField = document.getElementById("fullName");
+        const positionField = document.getElementById("position");
+        const workEmailField = document.getElementById("workEmail");
+        const phoneField = document.getElementById("phone");
+        const companyAddressField = document.getElementById("companyAddress");
+        const cityField = document.getElementById("city");
+        const regionField = document.getElementById("region");
+        const passwordField = document.getElementById("password");
+        const confirmPasswordField = document.getElementById("confirmPassword");
+        const agreeField = document.getElementById("agree");
+        const recapField = document.getElementById("fakeRecap");
+        const otherIndustryField = document.getElementById("otherIndustry");
+        const socialMediaData = getEmployerSocialMediaData();
+
+        const companyName = companyNameField.value.trim();
+        const industry = industryField.value;
+        const businessType = businessTypeField.value;
+        const companySize = companySizeField.value;
+        const registrationNumber = registrationNumberField.value.trim();
+        const companyDescription = companyDescriptionField.value.trim();
+        const fullName = fullNameField.value.trim();
+        const position = positionField.value.trim();
+        const workEmail = String(workEmailField?.value || "").trim().toLowerCase();
+        const phone = String(phoneField.value || "").replace(/\D/g, "");
+        const companyAddress = companyAddressField.value.trim();
+        const city = cityField.value.trim();
+        const region = regionField.value;
+        const cityRegionMatch = city ? resolveEmployerCityRegion(city) : null;
+        const pwd = passwordField.value;
+        const cpwd = confirmPasswordField.value;
+        const agree = agreeField.checked;
+        const rec = recapField.checked;
+        const otherIndustry = otherIndustryField.value.trim();
+        const inputHardener = getInputHardener();
+        const normalizedPhone = inputHardener?.normalizeGhanaPhone
+          ? inputHardener.normalizeGhanaPhone(phone)
+          : normalizeGhanaPhone(phone);
+
+        const errors = [];
+
+        if (!companyName) errors.push([companyNameField, "This field is required."]);
+        if (!industry) errors.push([industryField, "This field is required."]);
+        if (!businessType) errors.push([businessTypeField, "This field is required."]);
+        if (!companySize) errors.push([companySizeField, "This field is required."]);
+        if (!companyDescription) {
+          errors.push([companyDescriptionField, "This field is required."]);
+        } else if (companyDescription.length > 200) {
+          errors.push([companyDescriptionField, "Company description must be 200 characters or less."]);
+        }
+        if (!fullName) errors.push([fullNameField, "This field is required."]);
+        if (!position) errors.push([positionField, "This field is required."]);
+        if (workEmail && !isValidEmailAddress(workEmail)) {
+          errors.push([workEmailField, "Enter a valid email address."]);
+        }
+        if (!phone) errors.push([phoneField, "This field is required."]);
+        if (phone && !normalizedPhone) {
+          errors.push([phoneField, "Enter a valid Ghana phone number."]);
+        }
+        if (!companyAddress) errors.push([companyAddressField, "This field is required."]);
+        if (!city) errors.push([cityField, "This field is required."]);
+        if (city && !cityRegionMatch) {
+          errors.push([cityField, "City not recognized. Please check spelling or contact support."]);
+        }
+        if (cityRegionMatch && !region) errors.push([regionField, "This field is required."]);
+        if (!pwd) {
+          errors.push([passwordField, "This field is required."]);
+        } else if (pwd.length < 8) {
+          errors.push([passwordField, "Password must be at least 8 characters."]);
+        }
+        if (!cpwd) {
+          errors.push([confirmPasswordField, "This field is required."]);
+        } else if (cpwd.length < 8) {
+          errors.push([confirmPasswordField, "Password must be at least 8 characters."]);
+        } else if (pwd.length >= 8 && pwd !== cpwd) {
+          errors.push([confirmPasswordField, "Passwords do not match."]);
+        }
+        if (industry === "Other" && !otherIndustry) {
+          errors.push([otherIndustryField, "This field is required."]);
+        }
+        if (socialMediaData.error) {
+          errors.push([socialMediaData.errorTarget, socialMediaData.error]);
+        }
+        if (!agree) errors.push([agreeField, "This field is required."]);
+        if (!rec) errors.push([recapField, "This field is required."]);
+
+        if (showErrors) {
+          if (cityRegionMatch) {
+            cityField.value = cityRegionMatch.city;
+            regionField.value = cityRegionMatch.region;
+          }
+          clearFieldErrors();
+          errors.forEach(([target, message]) => setFieldError(target, message));
+        }
+
+        return {
+          valid: errors.length === 0,
+          errors,
+        };
       }
 
       // attach change listeners to toggle button
       inputs.forEach((inp) => {
         if (!inp) return;
-        inp.addEventListener(
-          "input",
-          () => (continueBtn.disabled = !allValid()),
-        );
-        inp.addEventListener(
-          "change",
-          () => (continueBtn.disabled = !allValid()),
-        );
+        inp.addEventListener("input", () => clearFieldError(inp));
+        inp.addEventListener("change", () => clearFieldError(inp));
       });
 
-      // also listen to password confirm for immediate feedback
+      document.querySelectorAll("#signupForm input, #signupForm select, #signupForm textarea").forEach((field) => {
+        field.addEventListener("input", () => {
+          clearFieldError(field);
+          hideGlobalErrorMessage();
+        });
+        field.addEventListener("change", () => {
+          clearFieldError(field);
+          hideGlobalErrorMessage();
+        });
+      });
+
+      document.getElementById("city")?.addEventListener("input", function () {
+        const result = syncEmployerCityRegion({ showError: false });
+        if (!this.value.trim()) {
+          document.getElementById("region").value = "";
+        } else if (!result.matched) {
+          document.getElementById("region").value = "";
+        }
+      });
+
+      document.getElementById("city")?.addEventListener("blur", function () {
+        syncEmployerCityRegion({ showError: true });
+      });
+
+      document.getElementById("city")?.addEventListener("change", function () {
+        syncEmployerCityRegion({ showError: true });
+      });
+
+      document.getElementById("password")?.addEventListener("input", function () {
+        if (this.value.length >= 8) {
+          clearFieldError(this);
+        }
+        syncEmployerPasswordFeedback();
+      });
+
       document
         .getElementById("confirmPassword")
-        .addEventListener("input", function () {
-          const pw = document.getElementById("password").value;
-          const cp = this.value;
-          if (pw && cp && pw !== cp) {
-            this.style.borderColor = "#fca5a5";
-          } else {
-            this.style.borderColor = "";
+        ?.addEventListener("input", function () {
+          if (this.value.length >= 8) {
+            clearFieldError(this);
           }
+          syncEmployerPasswordFeedback();
         });
+
+      initializePasswordToggles();
 
       // Character counter for company description
       document
@@ -1415,8 +2470,8 @@
               const counter = document.createElement("div");
               counter.className = "char-counter";
               counter.style.fontSize = "13px";
-              counter.style.color = "var(--muted)";
-              counter.style.marginTop = "6px";
+            counter.style.color = "var(--muted)";
+            counter.style.marginTop = "6px";
               this.parentElement.appendChild(counter);
               return counter;
             }.bind(this)();
@@ -1430,5 +2485,7 @@
           }
         });
     </script>
+  
+    <script src='assets/js/product-polish.js'></script>
   </body>
 </html>

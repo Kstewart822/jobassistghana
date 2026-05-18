@@ -1,10 +1,10 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Candidate Dashboard | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -55,7 +55,7 @@
           180deg,
           var(--primary),
           var(--primary-dark)
-        );
+);
         color: white;
         height: 100vh;
         position: fixed;
@@ -85,6 +85,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        text-decoration: none;
       }
 
       .logo-img-placeholder {
@@ -348,43 +349,284 @@
 
       /* Dashboard Content */
       .dashboard-content {
-        padding: 20px;
+        padding: 24px;
         flex: 1;
+        background:
+          radial-gradient(circle at top right, rgba(248, 193, 46, 0.16), transparent 26%),
+          linear-gradient(180deg, #f8fbff 0%, #eef4fb 100%);
       }
 
       .welcome-section {
-        margin-bottom: 15px;
-        padding: 0 5px;
+        margin-bottom: 20px;
+      }
+
+      .hero-shell {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.9fr);
+        gap: 18px;
+        background:
+          linear-gradient(135deg, rgba(10, 42, 102, 0.98), rgba(7, 30, 77, 0.94)),
+          linear-gradient(90deg, rgba(248, 193, 46, 0.18), transparent);
+        color: white;
+        border-radius: 22px;
+        padding: 26px;
+        box-shadow: 0 18px 45px rgba(10, 42, 102, 0.16);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .hero-shell::after {
+        content: "";
+        position: absolute;
+        inset: auto -60px -80px auto;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(248, 193, 46, 0.22), transparent 68%);
+        pointer-events: none;
+      }
+
+      .hero-copy {
+        position: relative;
+        z-index: 1;
+      }
+
+      .welcome-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        padding: 7px 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        margin-bottom: 14px;
       }
 
       .welcome-title {
-        font-size: 1.4rem;
-        margin-bottom: 4px;
-        color: var(--primary);
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: white;
         font-weight: 700;
+        line-height: 1.1;
       }
 
       .welcome-subtitle {
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 0.98rem;
+        max-width: 640px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .hero-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 11px 16px;
+        border-radius: 999px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .hero-btn.primary {
+        background: var(--secondary);
+        color: var(--primary);
+        box-shadow: 0 10px 22px rgba(248, 193, 46, 0.24);
+      }
+
+      .hero-btn.secondary {
+        background: rgba(255, 255, 255, 0.08);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      .hero-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .hero-highlights {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .hero-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 0.84rem;
+      }
+
+      .hero-side {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-panel {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 18px;
+        padding: 18px;
+        backdrop-filter: blur(8px);
+      }
+
+      .hero-panel-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      .hero-panel-copy {
+        font-size: 0.86rem;
+        color: rgba(255, 255, 255, 0.82);
+        margin-bottom: 14px;
+      }
+
+      .hero-checklist {
+        display: grid;
+        gap: 10px;
+      }
+
+      .hero-check-item {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 12px;
+      }
+
+      .hero-check-item i {
+        color: var(--secondary);
+        margin-top: 3px;
+      }
+
+      .hero-check-label {
+        font-weight: 600;
+        font-size: 0.85rem;
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      .hero-check-text {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .quick-actions-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-bottom: 22px;
+      }
+
+      .action-card {
+        background: white;
+        border-radius: 18px;
+        padding: 18px;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+        transition: var(--transition);
+      }
+
+      .action-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 32px rgba(15, 23, 42, 0.1);
+      }
+
+      .action-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+        font-size: 1.1rem;
+        color: var(--primary);
+        background: linear-gradient(135deg, rgba(248, 193, 46, 0.22), rgba(255, 255, 255, 0.9));
+      }
+
+      .action-title {
+        font-size: 0.98rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 6px;
+      }
+
+      .action-copy {
         color: var(--gray);
-        font-size: 0.9rem;
+        font-size: 0.84rem;
+        line-height: 1.45;
+      }
+
+      .content-section {
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid rgba(10, 42, 102, 0.07);
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 14px 36px rgba(15, 23, 42, 0.06);
+        margin-bottom: 22px;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .section-caption {
+        color: var(--gray);
+        font-size: 0.84rem;
+      }
+
+      .section-link {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.85rem;
+      }
+
+      .section-link:hover {
+        color: var(--primary-dark);
       }
 
       /* Motivational Stats Cards */
       .stats-container {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 12px;
-        margin-bottom: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 14px;
+        margin-bottom: 22px;
       }
 
       .stat-card {
-        background-color: white;
-        border-radius: 8px;
-        padding: 16px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        text-align: center;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.95));
+        border-radius: 18px;
+        padding: 18px;
+        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
         transition: var(--transition);
-        border-top: 3px solid var(--primary);
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        border-top: 4px solid var(--primary);
       }
 
       .stat-card:hover {
@@ -405,9 +647,16 @@
       }
 
       .stat-icon {
-        font-size: 1.4rem;
-        margin-bottom: 8px;
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        margin-bottom: 12px;
         color: var(--primary);
+        background: rgba(10, 42, 102, 0.08);
       }
 
       .stat-card.performance .stat-icon {
@@ -423,10 +672,10 @@
       }
 
       .stat-number {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
         font-weight: 700;
         color: var(--primary);
-        margin-bottom: 4px;
+        margin-bottom: 6px;
       }
 
       .stat-card.performance .stat-number {
@@ -442,16 +691,16 @@
       }
 
       .stat-label {
-        color: var(--gray);
-        font-size: 0.85rem;
+        color: var(--dark);
+        font-size: 0.9rem;
         font-weight: 500;
-        margin-bottom: 3px;
+        margin-bottom: 4px;
       }
 
       .stat-subtitle {
-        font-size: 0.75rem;
+        font-size: 0.78rem;
         color: var(--gray);
-        margin-top: 3px;
+        margin-top: 4px;
       }
 
       /* Applications Section */
@@ -468,17 +717,17 @@
       .applications-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 12px;
-        margin-bottom: 25px;
+        gap: 14px;
       }
 
       .job-card {
         background-color: white;
-        border-radius: 8px;
-        padding: 16px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border-radius: 18px;
+        padding: 18px;
+        box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
         transition: var(--transition);
-        border-top: 3px solid var(--primary);
+        border: 1px solid rgba(10, 42, 102, 0.06);
+        border-top: 4px solid var(--primary);
       }
 
       .job-card:hover {
@@ -525,6 +774,12 @@
       }
 
       .job-card p {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-size: 0.85rem;
         color: var(--dark);
         margin-bottom: 12px;
@@ -593,16 +848,57 @@
 
       /* Accepted Offers Section */
       .accepted-offers-section {
-        margin-top: 20px;
+        margin-top: 0;
       }
 
       .accepted-offer-card {
         background-color: white;
-        border-radius: 8px;
-        padding: 16px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border-radius: 18px;
+        padding: 18px;
+        box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
         margin-bottom: 12px;
         border-left: 4px solid var(--success);
+      }
+
+      .empty-state {
+        background: linear-gradient(180deg, #ffffff, #f8fbff);
+        border: 1px dashed rgba(10, 42, 102, 0.16);
+        border-radius: 18px;
+        padding: 28px 22px;
+        text-align: center;
+      }
+
+      .empty-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(10, 42, 102, 0.08);
+        color: var(--primary);
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+      }
+
+      .empty-state h3 {
+        color: var(--primary);
+        font-size: 1.05rem;
+        margin-bottom: 6px;
+      }
+
+      .empty-state p {
+        color: var(--gray);
+        font-size: 0.9rem;
+        max-width: 520px;
+        margin: 0 auto 14px;
+      }
+
+      .empty-actions {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
       }
 
       .offer-header {
@@ -725,13 +1021,13 @@
       /* Notification Dropdown */
       .notification-dropdown {
         position: absolute;
-        top: 100%;
-        right: 20px;
+        top: calc(100% + 10px);
+        right: 0;
         background-color: white;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
-        width: 300px;
-        max-height: 350px;
+        width: 320px;
+        max-height: 400px;
         overflow-y: auto;
         display: none;
         z-index: 101;
@@ -742,11 +1038,13 @@
       }
 
       .notification-header {
-        padding: 12px 15px;
+        padding: 12px 16px;
         border-bottom: 1px solid var(--gray-light);
         display: flex;
         justify-content: space-between;
         align-items: center;
+        background-color: var(--light);
+        border-radius: 8px 8px 0 0;
       }
 
       .notification-title {
@@ -761,6 +1059,13 @@
         color: var(--primary);
         cursor: pointer;
         font-size: 0.8rem;
+        font-weight: 500;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+
+      .mark-all-read:hover {
+        background-color: rgba(10, 42, 102, 0.1);
       }
 
       .notification-list {
@@ -768,7 +1073,7 @@
       }
 
       .notification-item {
-        padding: 10px 15px;
+        padding: 12px 16px;
         border-bottom: 1px solid var(--gray-light);
         transition: var(--transition);
       }
@@ -779,6 +1084,7 @@
 
       .notification-item.unread {
         background-color: rgba(10, 42, 102, 0.05);
+        border-left: 3px solid var(--primary);
       }
 
       .notification-item:last-child {
@@ -788,11 +1094,16 @@
       .notification-content {
         font-size: 0.85rem;
         margin-bottom: 4px;
+        color: var(--dark);
+        line-height: 1.4;
       }
 
       .notification-time {
         font-size: 0.7rem;
         color: var(--gray);
+        display: flex;
+        align-items: center;
+        gap: 4px;
       }
 
       .notification-empty {
@@ -857,20 +1168,21 @@
       /* View More Button */
       .view-more-container {
         text-align: center;
-        margin-top: 15px;
-        margin-bottom: 20px;
+        margin-top: 16px;
+        margin-bottom: 0;
       }
 
       .view-more-btn {
-        background-color: var(--primary);
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
         color: white;
         border: none;
         padding: 10px 20px;
-        border-radius: 5px;
+        border-radius: 999px;
         cursor: pointer;
         font-weight: 600;
         transition: var(--transition);
         font-size: 0.9rem;
+        box-shadow: 0 10px 24px rgba(10, 42, 102, 0.18);
       }
 
       .view-more-btn:hover {
@@ -902,14 +1214,14 @@
         color: #3b82f6;
       }
 
-      /* ====================== */
+      /* ===============*/
       /* MOBILE OPTIMIZATIONS */
-      /* ====================== */
+      /* ===============*/
 
       /* Tablet (992px and below) */
       @media (max-width: 992px) {
         .dashboard-content {
-          padding: 15px;
+          padding: 16px;
         }
 
         .sidebar {
@@ -935,12 +1247,14 @@
           display: block;
         }
 
-        .applications-grid {
-          grid-template-columns: repeat(2, 1fr);
+        .hero-shell {
+          grid-template-columns: 1fr;
+          padding: 22px;
         }
 
-        .stats-container {
-          grid-template-columns: repeat(3, 1fr);
+        .quick-actions-grid,
+        .applications-grid {
+          grid-template-columns: repeat(2, 1fr);
         }
 
         .navbar {
@@ -1001,12 +1315,12 @@
         }
 
         .welcome-title {
-          font-size: 1.2rem;
+          font-size: 1.5rem;
           margin-bottom: 3px;
         }
 
         .welcome-subtitle {
-          font-size: 0.85rem;
+          font-size: 0.88rem;
         }
 
         .stats-container {
@@ -1014,9 +1328,17 @@
           gap: 10px;
         }
 
+        .quick-actions-grid,
         .applications-grid {
           grid-template-columns: 1fr;
           gap: 10px;
+        }
+
+        .hero-actions,
+        .hero-highlights,
+        .empty-actions {
+          flex-direction: column;
+          align-items: stretch;
         }
 
         .stat-card,
@@ -1119,7 +1441,7 @@
         }
 
         .welcome-title {
-          font-size: 1.1rem;
+          font-size: 1.3rem;
         }
 
         .welcome-subtitle {
@@ -1431,9 +1753,82 @@
           font-size: 0.7rem;
         }
       }
+      /* Candidate Notification Dropdown Standard */
+      .notification-dropdown {
+        top: calc(100% + 10px);
+        right: 0;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 320px;
+        max-height: 400px;
+      }
+
+      .notification-header {
+        padding: 12px 16px;
+        background-color: var(--light);
+        border-radius: 8px 8px 0 0;
+      }
+
+      .mark-all-read {
+        font-weight: 500;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+
+      .mark-all-read:hover {
+        background-color: rgba(10, 42, 102, 0.1);
+      }
+
+      .notification-item {
+        padding: 12px 16px;
+      }
+
+      .notification-item.unread {
+        background-color: rgba(10, 42, 102, 0.05);
+        border-left: 3px solid var(--primary);
+      }
+
+      .notification-content {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+        color: var(--dark);
+        line-height: 1.4;
+      }
+
+      .notification-time {
+        font-size: 0.7rem;
+        color: var(--gray);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      @media (max-width: 992px) {
+        .notification-dropdown {
+          right: 12px;
+          width: 280px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .notification-dropdown {
+          right: 10px;
+          width: 260px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .notification-dropdown {
+          width: 240px;
+          right: 8px;
+        }
+      }
     </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
   </head>
-  <body>
+  <body class="dashboard-premium candidate-dashboard-page">
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
@@ -1455,36 +1850,42 @@
     </div>
 
     <!-- Employer Details Modal -->
-    <div class="modal" id="employerDetailsModal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title">Employer Details</h3>
-          <button class="close-modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <div class="offer-details">
-            <div class="offer-detail">
-              <span class="detail-label">Email</span>
-              <span class="detail-value" id="employerEmail"
-                >hr@creativelabsgh.com</span
-              >
-            </div>
-            <div class="offer-detail">
-              <span class="detail-label">Phone Number</span>
-              <span class="detail-value" id="employerPhone"
-                >+233 24 123 4567</span
-              >
-            </div>
-            <div class="offer-detail">
-              <span class="detail-label">Company Address</span>
-              <span class="detail-value" id="employerAddress"
-                >123 Creative Street, Accra, Ghana</span
-              >
+      <div class="modal" id="employerDetailsModal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Employer Details</h3>
+            <button class="close-modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="offer-details">
+              <div class="offer-detail">
+                <span class="detail-label">Company Name</span>
+                <span class="detail-value" id="employerCompanyName">Not provided</span>
+              </div>
+              <div class="offer-detail">
+                <span class="detail-label">Employer Name</span>
+                <span class="detail-value" id="employerContactName">Not provided</span>
+              </div>
+              <div class="offer-detail">
+                <span class="detail-label">Position / Title</span>
+                <span class="detail-value" id="employerPosition">Not provided</span>
+              </div>
+              <div class="offer-detail">
+                <span class="detail-label">Email</span>
+                <span class="detail-value" id="employerEmail">Not provided</span>
+              </div>
+              <div class="offer-detail">
+                <span class="detail-label">Phone Number</span>
+                <span class="detail-value" id="employerPhone">Not provided</span>
+              </div>
+              <div class="offer-detail">
+                <span class="detail-label">Company Address</span>
+                <span class="detail-value" id="employerAddress">Not provided</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" id="closeEmployerDetails">
+          <div class="modal-footer">
+            <button class="btn btn-primary" id="closeEmployerDetails">
             Close
           </button>
         </div>
@@ -1494,13 +1895,13 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <div class="logo">
+        <a href="../index.html" class="logo" aria-label="Job Assist Ghana Home">
           <div class="logo-img-placeholder">JA</div>
           <div class="logo-text">
             <div class="logo-main">JobAssist</div>
             <div class="logo-sub">GHANA</div>
           </div>
-        </div>
+        </a>
         <button class="toggle-btn" id="sidebarToggle">
           <i class="fas fa-chevron-left"></i>
         </button>
@@ -1580,40 +1981,40 @@
           <div class="notification-dropdown" id="notificationDropdown">
             <div class="notification-header">
               <h3 class="notification-title">Notifications</h3>
-              <button class="mark-all-read">Mark all as read</button>
+              <button class="mark-all-read" type="button">Mark all as read</button>
             </div>
             <ul class="notification-list">
               <li class="notification-item unread">
                 <div class="notification-content">
                   Your application for Frontend Developer has been submitted
                 </div>
-                <div class="notification-time">2 hours ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 2 hours ago</div>
               </li>
               <li class="notification-item unread">
                 <div class="notification-content">
                   New job matches your profile: Data Analyst at Tech Solutions
                 </div>
-                <div class="notification-time">5 hours ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 5 hours ago</div>
               </li>
               <li class="notification-item unread">
                 <div class="notification-content">
                   Your profile has been viewed by 5 employers this week
                 </div>
-                <div class="notification-time">1 day ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 1 day ago</div>
               </li>
               <li class="notification-item">
                 <div class="notification-content">
                   Your application for UX Designer is being reviewed
                 </div>
-                <div class="notification-time">2 days ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 2 days ago</div>
               </li>
             </ul>
           </div>
           <div class="user-profile" id="userProfile">
             <div class="user-avatar">
-              <img src="https://i.pravatar.cc/150?img=12" alt="User" />
+              <img id="dashboardAvatar" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22160%22%20height%3D%22160%22%20viewBox%3D%220%200%20160%20160%22%20role%3D%22img%22%20aria-label%3D%22C%22%3E%3Crect%20width%3D%22160%22%20height%3D%22160%22%20rx%3D%2280%22%20fill%3D%22%230a2a66%22/%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22central%22%20text-anchor%3D%22middle%22%20fill%3D%22%23ffffff%22%20font-family%3D%22Poppins%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2272%22%20font-weight%3D%22700%22%3EC%3C/text%3E%3C/svg%3E" alt="User" />
             </div>
-            <div class="user-name">Nana</div>
+            <div class="user-name" id="dashboardUserName"></div>
             <i class="fas fa-chevron-down"></i>
           </div>
           <div class="dropdown-menu">
@@ -1632,151 +2033,162 @@
       <div class="dashboard-content">
         <!-- Welcome Section -->
         <div class="welcome-section">
-          <h1 class="welcome-title">Welcome, Nana Kwame 👋</h1>
-          <p class="welcome-subtitle">
-            Your journey to career success starts here
-          </p>
+          <div class="hero-shell ja-section-header-card">
+            <div class="hero-copy">
+              <div class="welcome-eyebrow">
+                <i class="fas fa-compass"></i>
+                Candidate workspace
+              </div>
+              <h1 class="welcome-title" id="dashboardWelcomeTitle">Welcome </h1>
+              <p class="welcome-subtitle" id="dashboardWelcomeSubtitle">
+                Your dashboard brings together your applications, accepted offers, and the next smart actions to help you move faster.
+              </p>
+              <div class="hero-actions">
+                <a class="hero-btn primary" href="browse-jobs.html">
+                  <i class="fas fa-search"></i>
+                  Browse Jobs
+                </a>
+                <a class="hero-btn secondary" href="candidate-profile.html">
+                  <i class="fas fa-user-edit"></i>
+                  Update Profile
+                </a>
+              </div>
+              <div class="hero-highlights">
+                <div class="hero-chip" id="heroApplicationChip">
+                  <i class="fas fa-file-alt"></i>
+                  <span>0 applications tracked</span>
+                </div>
+                <div class="hero-chip" id="heroAcceptedChip">
+                  <i class="fas fa-check-circle"></i>
+                  <span>0 accepted offers</span>
+                </div>
+                <div class="hero-chip" id="heroPremiumChip">
+                  <i class="fas fa-bolt"></i>
+                  <span>0 premium applications</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-side">
+              <div class="hero-panel">
+                <div class="hero-panel-title">Next best steps</div>
+                <div class="hero-panel-copy" id="heroPanelCopy">
+                  Start strong with a complete profile, active job search, and timely follow-up.
+                </div>
+                <div class="hero-checklist">
+                  <div class="hero-check-item">
+                    <i class="fas fa-search"></i>
+                    <div>
+                      <span class="hero-check-label">Discover new openings</span>
+                      <div class="hero-check-text">Browse jobs that match your interests and location preferences.</div>
+                    </div>
+                  </div>
+                  <div class="hero-check-item">
+                    <i class="fas fa-id-card"></i>
+                    <div>
+                      <span class="hero-check-label">Strengthen your profile</span>
+                      <div class="hero-check-text">Keep your profile details updated so employers can review you with confidence.</div>
+                    </div>
+                  </div>
+                  <div class="hero-check-item">
+                    <i class="fas fa-rocket"></i>
+                    <div>
+                      <span class="hero-check-label">Boost strong applications</span>
+                      <div class="hero-check-text">Use boost tools when you want extra visibility on important opportunities.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quick-actions-grid">
+          <a class="action-card" href="browse-jobs.html">
+            <div class="action-icon"><i class="fas fa-search"></i></div>
+            <div class="action-title">Browse Jobs</div>
+            <div class="action-copy">Explore current openings and apply to roles that fit your goals.</div>
+          </a>
+          <a class="action-card" href="candidate-profile.html">
+            <div class="action-icon"><i class="fas fa-user-circle"></i></div>
+            <div class="action-title">Build Your Profile</div>
+            <div class="action-copy">Keep your profile complete so employers get a stronger first impression.</div>
+          </a>
+          <a class="action-card" href="your-applications.html">
+            <div class="action-icon"><i class="fas fa-layer-group"></i></div>
+            <div class="action-title">Track Applications</div>
+            <div class="action-copy">Review all current submissions, statuses, and payment-backed upgrades.</div>
+          </a>
+          <a class="action-card" href="boost-profile.html">
+            <div class="action-icon"><i class="fas fa-rocket"></i></div>
+            <div class="action-title">Boost Visibility</div>
+            <div class="action-copy">Upgrade promising applications when you want extra visibility on important opportunities.</div>
+          </a>
         </div>
 
         <!-- Motivational Stats Cards -->
         <div class="stats-container">
           <div class="stat-card performance">
             <div class="stat-icon"><i class="fas fa-trophy"></i></div>
-            <div class="stat-number" id="successRate">72%</div>
-            <div class="stat-label">Application Success Rate</div>
-            <div class="stat-subtitle">Based on last 30 days activity</div>
+            <div class="stat-number" id="successRate">0</div>
+            <div class="stat-label">Total Applications</div>
+            <div class="stat-subtitle">Real applications saved for your account</div>
             <div class="performance-indicator performance-excellent">
-              Excellent
+              Tracking
             </div>
           </div>
           <div class="stat-card engagement">
             <div class="stat-icon"><i class="fas fa-bolt"></i></div>
-            <div class="stat-number" id="engagementScore">84</div>
-            <div class="stat-label">Profile Engagement Score</div>
-            <div class="stat-subtitle">Views + Applications + Updates</div>
+            <div class="stat-number" id="engagementScore">0%</div>
+            <div class="stat-label">Premium Rate</div>
+            <div class="stat-subtitle">Share of your applications using premium</div>
             <div class="performance-indicator performance-good">
-              High Activity
+              Standard Only
             </div>
           </div>
           <div class="stat-card success">
             <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-            <div class="stat-number" id="progressRate">+18%</div>
-            <div class="stat-label">Weekly Progress Rate</div>
-            <div class="stat-subtitle">Improvement from last week</div>
+            <div class="stat-number" id="progressRate">0</div>
+            <div class="stat-label">Active Applications</div>
+            <div class="stat-subtitle">Applications still in progress</div>
             <div class="performance-indicator performance-improving">
-              Improving
+              No Activity Yet
             </div>
           </div>
         </div>
 
-        <!-- Applications Section -->
-        <h2 class="section-title">
-          <i class="fas fa-file-alt"></i> Recent Applications
-        </h2>
-        <div class="applications-grid" id="applicationsGrid">
-          <!-- Job Card 1 -->
-          <div class="job-card">
-            <h3 class="job-title">Frontend Developer</h3>
-            <div class="job-meta">
-              <span>Two Southeast Las</span>
-              <span>Accra, Ghana</span>
-              <span>15 May 2023</span>
+        <div class="content-section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">
+                <i class="fas fa-file-alt"></i> Recent Applications
+              </h2>
+              <div class="section-caption">Your latest real applications appear here as soon as you apply.</div>
             </div>
-            <div class="job-status status-in-review">In Review</div>
-            <p>
-              We are looking for a skilled Frontend Developer with experience in
-              React and modern JavaScript.
-            </p>
-            <div class="job-actions">
-              <button
-                class="btn btn-primary"
-                onclick="viewJobDetails('frontend-developer', 'dashboard')"
-              >
-                View Details
-              </button>
-              <button
-                class="btn btn-accent"
-                onclick="contactEmployer('Two Southeast Las')"
-              >
-                Contact Employer
-              </button>
-            </div>
+            <a class="section-link" href="your-applications.html">See all applications</a>
           </div>
+          <div class="applications-grid" id="applicationsGrid"></div>
 
-          <!-- Job Card 2 -->
-          <div class="job-card">
-            <h3 class="job-title">Marketing Manager</h3>
-            <div class="job-meta">
-              <span>Global Emails Inc</span>
-              <span>Kumasi, Ghana</span>
-              <span>10 May 2023</span>
-            </div>
-            <div class="job-status status-accepted">Accepted</div>
-            <p>
-              Exciting opportunity for a Marketing Manager with 3+ years
-              experience in brand management.
-            </p>
-            <div class="job-actions">
-              <button
-                class="btn btn-primary"
-                onclick="viewJobDetails('marketing-manager', 'dashboard')"
-              >
-                View Details
-              </button>
-              <button
-                class="btn btn-accent"
-                onclick="contactEmployer('Global Emails Inc')"
-              >
-                Contact Employer
-              </button>
-            </div>
+          <div class="view-more-container">
+            <button
+              class="view-more-btn"
+              onclick="window.location.href='your-applications.html'">
+              View All Applications
+            </button>
           </div>
-
-          <!-- Job Card 3 -->
-          <div class="job-card">
-            <h3 class="job-title">Data Analyst</h3>
-            <div class="job-meta">
-              <span>Tech Solutions Ltd</span>
-              <span>Accra, Ghana</span>
-              <span>20 May 2023</span>
-            </div>
-            <div class="job-status status-accepted">Accepted</div>
-            <p>
-              Looking for a Data Analyst with experience in SQL, Python, and
-              data visualization tools.
-            </p>
-            <div class="job-actions">
-              <button
-                class="btn btn-primary"
-                onclick="viewJobDetails('data-analyst', 'dashboard')"
-              >
-                View Details
-              </button>
-              <button
-                class="btn btn-accent"
-                onclick="contactEmployer('Tech Solutions Ltd')"
-              >
-                Contact Employer
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- View More Button -->
-        <div class="view-more-container">
-          <button
-            class="view-more-btn"
-            onclick="window.location.href = 'your-applications.html'"
-          >
-            View All Applications
-          </button>
         </div>
 
         <!-- Accepted Offers Section -->
-        <div class="accepted-offers-section">
-          <h2 class="section-title">
-            <i class="fas fa-check-circle"></i> Accepted Offers
-          </h2>
+        <div class="content-section accepted-offers-section">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">
+                <i class="fas fa-check-circle"></i> Accepted Offers
+              </h2>
+              <div class="section-caption">When an employer accepts you, the next steps stay visible here.</div>
+            </div>
+            <a class="section-link" href="accepted-offers.html">Open accepted offers</a>
+          </div>
+          <div id="acceptedOffersGrid"></div>
 
           <div class="accepted-offer-card">
             <div class="offer-header">
@@ -1798,7 +2210,7 @@
               </div>
               <div class="offer-detail">
                 <span class="detail-label">Salary</span>
-                <span class="detail-value">₵4,500/month</span>
+                <span class="detail-value">GHS 4,500/month</span>
               </div>
             </div>
             <p>
@@ -1841,7 +2253,7 @@
               </div>
               <div class="offer-detail">
                 <span class="detail-label">Salary</span>
-                <span class="detail-value">₵5,200/month</span>
+                <span class="detail-value">GHS 5,200/month</span>
               </div>
             </div>
             <p>
@@ -1868,15 +2280,18 @@
       <!-- Simplified Footer -->
       <footer class="footer">
         <div class="footer-links">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="contact.html">Contact Us</a>
+          <a href="../privacy.html">Privacy Policy</a>
+          <a href="../contact.html">Contact Us</a>
         </div>
         <div class="footer-bottom">
-          <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+          <p>Copyright 2025 Job Assist Ghana. All rights reserved.</p>
         </div>
       </footer>
     </div>
 
+    <script src="../assets/js/application-store.js"></script>
+    <script src="../assets/js/candidate-session.js"></script>
+    <script src="../assets/js/input-hardening.js"></script>
     <script>
       // DOM Elements
       const sidebar = document.getElementById("sidebar");
@@ -1892,144 +2307,622 @@
       const notificationIcon = document.getElementById("notificationIcon");
       const notificationDropdown = document.getElementById(
         "notificationDropdown",
-      );
+);
       const employerDetailsModal = document.getElementById(
         "employerDetailsModal",
-      );
+);
       const closeEmployerDetails = document.getElementById(
         "closeEmployerDetails",
-      );
+);
+      function safeJSONParse(value) {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return null;
+        }
+      }
 
-      // User Stats Data with Realistic Calculations
-      const userStats = {
-        // Core application data
-        applications: {
-          total: 8,
-          accepted: 2,
-          inReview: 4,
-          submitted: 2,
-          last30Days: 5,
-        },
+      function getCurrentCandidate() {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getCurrentCandidate();
+        }
+        return safeJSONParse(localStorage.getItem("jobassist_current_user")) || {};
+      }
 
-        // Engagement metrics
-        engagement: {
-          profileViews: 24,
-          profileUpdates: 3,
-          applicationsThisWeek: 2,
-          jobMatches: 7,
-        },
+      function formatDisplayText(value, maxLength = 0) {
+        const hardener = window.JobAssistInputHardening;
+        const clean = String(value || "").trim();
+        if (!clean) return "";
+        return hardener?.formatDisplayText
+          ? hardener.formatDisplayText(clean, { maxLength })
+          : clean;
+      }
 
-        // Performance metrics
-        performance: {
-          // Success Rate Formula: (Accepted Applications / Total Applications) * 100
-          calculateSuccessRate: function () {
-            return Math.round(
-              (this.applications.accepted / this.applications.total) * 100,
+      function getCandidateFullName(candidate) {
+        return formatDisplayText(
+          candidate?.fullName ||
+            candidate?.name ||
+            candidate?.full_name ||
+            "",
+          120,
+        );
+      }
+
+      function getCandidateFirstName(candidate) {
+        const fullName = getCandidateFullName(candidate);
+        return fullName ? fullName.split(/\s+/)[0] : "";
+      }
+
+      function getCurrentCandidateIdentifier(candidate) {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getCandidateId(candidate);
+        }
+
+        return String(
+          candidate?.candidateId ||
+            candidate?.id ||
+            candidate?.userId ||
+            ""
+).trim();
+      }
+
+      function getCurrentCandidateEmail(candidate) {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getCandidateEmail(candidate);
+        }
+
+        return String(candidate?.email || "").trim().toLowerCase();
+      }
+
+      function isApplicationForCurrentCandidate(application, candidate) {
+        const candidateId = getCurrentCandidateIdentifier(candidate);
+        const candidateEmail = getCurrentCandidateEmail(candidate);
+        const applicationCandidateId = String(application?.candidateId || "").trim();
+        const applicationEmail = String(application?.email || "").trim().toLowerCase();
+
+        if (candidateId && applicationCandidateId) {
+          return applicationCandidateId === candidateId;
+        }
+
+        if (candidateEmail && applicationEmail) {
+          return applicationEmail === candidateEmail;
+        }
+
+        return false;
+      }
+
+      function getStoredEmployerJobs() {
+        const stored = safeJSONParse(localStorage.getItem("jobassist_employer_jobs"));
+        return Array.isArray(stored) ? stored : [];
+      }
+
+      function findStoredJobById(jobId) {
+        return (
+          getStoredEmployerJobs().find(
+            (job) => String(job.jobId || job.id || "") === String(jobId || "")
+  ) || null
+  );
+      }
+
+      function getStoredEmployers() {
+        const stored = safeJSONParse(localStorage.getItem("jobassist_employers"));
+        return Array.isArray(stored) ? stored : [];
+      }
+
+      function cleanEmployerValue(value, options = {}) {
+        const text = String(value || "").trim();
+        if (!text) return "Not provided";
+        return options.humanText ? formatDisplayText(text, options.maxLength || 120) : text;
+      }
+
+      function getEmployerProfileForJob(job = {}) {
+        const employers = getStoredEmployers();
+        const employerId = String(job?.employerId || "").trim();
+        const contactEmail = String(job?.contactEmail || "").trim().toLowerCase();
+        const companyName = String(
+          job?.companyName || job?.company || job?.businessName || ""
+        ).trim().toLowerCase();
+
+        return (
+          employers.find((employer) => {
+            const storedEmployerId = String(employer?.id || employer?.employerId || "").trim();
+            const storedEmail = String(employer?.workEmail || employer?.email || "")
+              .trim()
+              .toLowerCase();
+            const storedCompany = String(
+              employer?.companyName || employer?.businessName || ""
+            )
+              .trim()
+              .toLowerCase();
+
+            if (employerId && storedEmployerId) return storedEmployerId === employerId;
+            if (contactEmail && storedEmail) return storedEmail === contactEmail;
+            if (companyName && storedCompany) return storedCompany === companyName;
+            return false;
+          }) || {}
+        );
+      }
+
+      function getEmployerDetailsForRecord(application, job = {}) {
+        const employerProfile = getEmployerProfileForJob(job);
+
+        return {
+          companyName: cleanEmployerValue(
+            application?.company ||
+              application?.companyName ||
+              job?.companyName ||
+              job?.company ||
+              job?.businessName ||
+              employerProfile?.companyName,
+            { humanText: true, maxLength: 120 }
+          ),
+          employerName: cleanEmployerValue(
+            job?.employerName ||
+              employerProfile?.fullName ||
+              employerProfile?.name,
+            { humanText: true, maxLength: 120 }
+          ),
+          employerPosition: cleanEmployerValue(
+            job?.employerPosition ||
+              employerProfile?.position ||
+              employerProfile?.title,
+            { humanText: true, maxLength: 120 }
+          ),
+          contactEmail: cleanEmployerValue(
+            job?.contactEmail ||
+              employerProfile?.workEmail ||
+              employerProfile?.email ||
+              application?.contactEmail
+          ),
+          contactPhone: cleanEmployerValue(
+            job?.contactPhone ||
+              job?.companyPhone ||
+              employerProfile?.phone ||
+              application?.companyPhone
+          ),
+          contactAddress: cleanEmployerValue(
+            job?.companyAddress ||
+              employerProfile?.companyAddress ||
+              employerProfile?.address ||
+              application?.companyAddress,
+            { humanText: true, maxLength: 180 }
+          ),
+        };
+      }
+
+      function getJobTitleFromRecord(application, job) {
+        return formatDisplayText(
+          application?.title ||
+          application?.jobTitle ||
+          job?.jobTitle ||
+          job?.title ||
+          "Untitled Job",
+          120,
+        );
+      }
+
+      function getCompanyNameFromRecord(application, job) {
+        return formatDisplayText(
+          application?.company ||
+          job?.companyName ||
+          job?.company ||
+          job?.businessName ||
+          "Company not provided",
+          120,
+        );
+      }
+
+      function getLocationFromRecord(job) {
+        const city = formatDisplayText(job?.city || "", 80);
+        const region = formatDisplayText(job?.region || "", 80);
+
+        if (city && region) return `${city}, ${region}`;
+        return city || region || "Location not specified";
+      }
+
+      function getDescriptionFromRecord(application, job) {
+        return (
+          job?.jobDescription ||
+          job?.description ||
+          application?.description ||
+          "Application submitted successfully."
+);
+      }
+
+      function getStatusLabel(application) {
+        const normalizedStatus = normalizeDashboardApplicationStatus(application);
+
+        if (isAcceptedDashboardStatus(application)) {
+          return { label: "Accepted", className: "status-accepted" };
+        }
+
+        if (
+          normalizedStatus === "rejected" ||
+          normalizedStatus === "withdrawn" ||
+          application?.rejected
+        ) {
+          return { label: "Rejected", className: "status-in-review" };
+        }
+
+        return { label: "In Review", className: "status-in-review" };
+      }
+
+      function normalizeDashboardApplicationStatus(application) {
+        if (window.JobAssistApplications?.normalizeStatusValue) {
+          return String(
+            window.JobAssistApplications.normalizeStatusValue(application?.status, application) || ""
+          )
+            .toLowerCase()
+            .trim();
+        }
+
+        const rawStatus = String(application?.status || "")
+          .toLowerCase()
+          .replace(/[_\s]+/g, "-")
+          .trim();
+
+        if (application?.accepted || rawStatus === "accepted") return "accepted";
+        if (application?.rejected || rawStatus === "rejected" || rawStatus === "withdrawn") {
+          return rawStatus === "withdrawn" ? "withdrawn" : "rejected";
+        }
+
+        return rawStatus || "in-review";
+      }
+
+      function getDashboardApplicationsStore() {
+        if (window.JobAssistApplications?.loadApplications) {
+          const loadedApplications = window.JobAssistApplications.loadApplications();
+          return Array.isArray(loadedApplications) ? loadedApplications : [];
+        }
+
+        const storedApplications = safeJSONParse(localStorage.getItem("jobassist_applications"));
+        return Array.isArray(storedApplications) ? storedApplications : [];
+      }
+
+      function isAcceptedDashboardStatus(application) {
+        const rawStatus = String(application?.status || "").toLowerCase().trim();
+        const normalizedStatus = normalizeDashboardApplicationStatus(application);
+
+        return (
+          [
+            "accepted",
+            "offer accepted",
+            "offer_accepted",
+            "accepted-offer",
+            "accepted_offer",
+          ].includes(rawStatus) ||
+          normalizedStatus === "accepted" ||
+          application?.accepted === true ||
+          application?.offerAccepted === true
+        );
+      }
+
+      function isActiveDashboardStatus(application) {
+        const status = normalizeDashboardApplicationStatus(application);
+        return ["in-review", "pending", "submitted", "applied"].includes(status);
+      }
+
+      function showEmployerDetails(details = {}) {
+        document.getElementById("employerCompanyName").textContent =
+          cleanEmployerValue(details.companyName);
+        document.getElementById("employerContactName").textContent =
+          cleanEmployerValue(details.employerName);
+        document.getElementById("employerPosition").textContent =
+          cleanEmployerValue(details.employerPosition);
+        document.getElementById("employerEmail").textContent =
+          cleanEmployerValue(details.contactEmail);
+        document.getElementById("employerPhone").textContent =
+          cleanEmployerValue(details.contactPhone);
+        document.getElementById("employerAddress").textContent =
+          cleanEmployerValue(details.contactAddress);
+        employerDetailsModal.classList.add("show");
+      }
+
+      function attachEmployerDetailTriggers(container) {
+        if (!container) return;
+
+        container.querySelectorAll(".contact-employer-trigger").forEach((button) => {
+          button.addEventListener("click", function () {
+            showEmployerDetails({
+              companyName: this.getAttribute("data-company") || "",
+              employerName: this.getAttribute("data-name") || "",
+              employerPosition: this.getAttribute("data-position") || "",
+              contactEmail: this.getAttribute("data-email") || "",
+              contactPhone: this.getAttribute("data-phone") || "",
+              contactAddress: this.getAttribute("data-address") || "",
+            });
+          });
+        });
+      }
+
+      const currentCandidate = getCurrentCandidate();
+      const candidateFirstName = getCandidateFirstName(currentCandidate);
+      const dashboardWelcomeTitle = document.getElementById("dashboardWelcomeTitle");
+      const dashboardUserName = document.getElementById("dashboardUserName");
+      const dashboardAvatar = document.getElementById("dashboardAvatar");
+      const dashboardWelcomeSubtitle = document.getElementById("dashboardWelcomeSubtitle");
+      const heroApplicationChip = document.getElementById("heroApplicationChip");
+      const heroAcceptedChip = document.getElementById("heroAcceptedChip");
+      const heroPremiumChip = document.getElementById("heroPremiumChip");
+      const heroPanelCopy = document.getElementById("heroPanelCopy");
+
+      if (dashboardWelcomeTitle) {
+        dashboardWelcomeTitle.textContent = candidateFirstName
+          ? `Welcome, ${candidateFirstName} `
+          : "Welcome ";
+      }
+
+      if (dashboardUserName) {
+        dashboardUserName.textContent = candidateFirstName;
+      }
+
+        if (dashboardAvatar) {
+          const resolvedAvatar = window.JobAssistCandidateSession?.getCandidateAvatar
+            ? window.JobAssistCandidateSession.getCandidateAvatar(currentCandidate)
+            : window.JobAssistCandidateSession?.createInitialAvatarDataUri?.(
+                window.JobAssistCandidateSession?.getCandidateInitial?.(currentCandidate) || currentCandidate?.fullName || "C"
+              );
+          console.debug("Candidate dashboard avatar source:", {
+            candidateId: currentCandidate?.id || currentCandidate?.candidateId || "",
+            currentUserAvatarFields: {
+              avatar: currentCandidate?.avatar || "",
+              passportImage: currentCandidate?.passportImage || "",
+              image: currentCandidate?.image || "",
+              profileImage: currentCandidate?.profileImage || "",
+              photo: currentCandidate?.photo || "",
+            },
+            resolvedAvatar,
+          });
+          dashboardAvatar.src =
+            resolvedAvatar ||
+            window.JobAssistCandidateSession?.createInitialAvatarDataUri?.(
+              window.JobAssistCandidateSession?.getCandidateInitial?.(currentCandidate) || currentCandidate?.fullName || "C"
+            ) ||
+            "";
+        }
+
+      if (dashboardWelcomeSubtitle) {
+        dashboardWelcomeSubtitle.textContent = candidateFirstName
+          ? `${candidateFirstName}, this is your live application hub. Track progress, keep your profile ready, and move quickly on strong opportunities.`
+          : "This is your live application hub. Track progress, keep your profile ready, and move quickly on strong opportunities.";
+      }
+
+      const applicationsGrid = document.getElementById("applicationsGrid");
+      const acceptedOffersGrid = document.getElementById("acceptedOffersGrid");
+      const allDashboardApplications = getDashboardApplicationsStore()
+        .filter((application) => isApplicationForCurrentCandidate(application, currentCandidate))
+        .sort(
+          (a, b) =>
+            new Date(b?.appliedAt || b?.createdAt || b?.updatedAt || 0).getTime() -
+            new Date(a?.appliedAt || a?.createdAt || a?.updatedAt || 0).getTime()
+        );
+      const dashboardApplications = allDashboardApplications.slice(0, 3);
+      const escapeValue = (value, maxLength = 0) =>
+        window.JobAssistInputHardening?.escapeHtml
+          ? window.JobAssistInputHardening.escapeHtml(
+              window.JobAssistInputHardening.sanitizeText(value, { maxLength })
+            )
+          : String(value == null ? "" : value);
+
+      if (applicationsGrid) {
+        if (dashboardApplications.length === 0) {
+          applicationsGrid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+              <div class="empty-icon"><i class="fas fa-file-alt"></i></div>
+              <h3>No recent applications</h3>
+              <p>Your real applications will appear here after you apply for jobs.</p>
+              <div class="empty-actions">
+                <a class="hero-btn primary" href="browse-jobs.html"><i class="fas fa-search"></i> Browse Jobs</a>
+                <a class="hero-btn secondary" href="candidate-profile.html"><i class="fas fa-user-edit"></i> Complete Profile</a>
+              </div>
+            </div>
+          `;
+        } else {
+          applicationsGrid.innerHTML = dashboardApplications
+            .map((application) => {
+              const jobId = String(application.jobId || application.id || "");
+              const linkedJob = findStoredJobById(jobId);
+                const status = getStatusLabel(application);
+                const company = getCompanyNameFromRecord(application, linkedJob);
+                const location = getLocationFromRecord(linkedJob);
+                const description = getDescriptionFromRecord(application, linkedJob);
+                const employerDetails = getEmployerDetailsForRecord(application, linkedJob);
+
+                return `
+                  <div class="job-card">
+                    <h3 class="job-title">${escapeValue(getJobTitleFromRecord(application, linkedJob), 120)}</h3>
+                  <div class="job-meta">
+                    <span>${escapeValue(company, 120)}</span>
+                    <span>${escapeValue(location, 120)}</span>
+                    <span>${escapeValue(jobId, 40)}</span>
+                  </div>
+                  <div class="job-status ${status.className}">${status.label}</div>
+                  <p>${escapeValue(description, 2000)}</p>
+                  <div class="job-actions">
+                    <button class="btn btn-primary" onclick="viewJobDetails('${escapeValue(jobId, 40)}', 'dashboard')">
+                      View Details
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-accent contact-employer-trigger"
+                        data-company="${escapeValue(employerDetails.companyName, 120)}"
+                        data-name="${escapeValue(employerDetails.employerName, 120)}"
+                        data-position="${escapeValue(employerDetails.employerPosition, 120)}"
+                        data-email="${escapeValue(employerDetails.contactEmail, 120)}"
+                        data-phone="${escapeValue(employerDetails.contactPhone, 30)}"
+                        data-address="${escapeValue(employerDetails.contactAddress, 180)}"
+                      >
+                        Contact Employer
+                      </button>
+                    </div>
+                  </div>
+                `;
+              })
+              .join("");
+            attachEmployerDetailTriggers(applicationsGrid);
+          }
+        }
+
+      function updateDashboardMetrics(applications) {
+        const total = applications.length;
+        const premiumCount = applications.filter((application) => application?.tier === "premium").length;
+        const acceptedCount = applications.filter((application) =>
+          isAcceptedDashboardStatus(application)
+        ).length;
+        const activeCount = applications.filter((application) =>
+          isActiveDashboardStatus(application)
+        ).length;
+
+        const totalElement = document.getElementById("successRate");
+        const premiumElement = document.getElementById("engagementScore");
+        const activeElement = document.getElementById("progressRate");
+
+        if (totalElement) totalElement.textContent = String(total);
+        if (premiumElement) {
+          premiumElement.textContent = total ? `${Math.round((premiumCount / total) * 100)}%` : "0%";
+        }
+        if (activeElement) activeElement.textContent = String(activeCount);
+
+        const indicators = document.querySelectorAll(".stats-container .performance-indicator");
+        if (indicators[0]) indicators[0].textContent = total ? "Real Data" : "No Applications";
+        if (indicators[1]) indicators[1].textContent = premiumCount ? "Premium Active" : "Standard Only";
+        if (indicators[2]) indicators[2].textContent = activeCount ? "In Progress" : "No Activity Yet";
+
+        if (heroApplicationChip) {
+          heroApplicationChip.innerHTML = `<i class="fas fa-file-alt"></i><span>${total} ${total === 1 ? "application" : "applications"} tracked</span>`;
+        }
+
+        if (heroAcceptedChip) {
+          heroAcceptedChip.innerHTML = `<i class="fas fa-check-circle"></i><span>${acceptedCount} accepted ${acceptedCount === 1 ? "offer" : "offers"}</span>`;
+        }
+
+        if (heroPremiumChip) {
+          heroPremiumChip.innerHTML = `<i class="fas fa-bolt"></i><span>${premiumCount} premium ${premiumCount === 1 ? "application" : "applications"}</span>`;
+        }
+
+        if (heroPanelCopy) {
+          if (!total) {
+            heroPanelCopy.textContent = "You have a clean slate. Start with browsing jobs, then complete your profile so the first application feels effortless.";
+          } else if (!acceptedCount) {
+            heroPanelCopy.textContent = "You already have activity in motion. Keep applying consistently and boost your strongest applications when it matters.";
+          } else {
+            heroPanelCopy.textContent = "You have real momentum. Stay responsive to employers and keep your profile polished while new offers come in.";
+          }
+        }
+      }
+
+      function renderAcceptedOffers(applications) {
+        if (!acceptedOffersGrid) return;
+
+        document
+          .querySelectorAll(".accepted-offers-section > .accepted-offer-card")
+          .forEach((card) => card.remove());
+
+        const acceptedApplications = applications
+          .filter((application) => {
+            return (
+              isApplicationForCurrentCandidate(application, currentCandidate) &&
+              isAcceptedDashboardStatus(application)
             );
-          },
+          })
+          .sort((a, b) => {
+            const aTime = new Date(a?.acceptedAt || a?.updatedAt || a?.appliedAt || 0).getTime();
+            const bTime = new Date(b?.acceptedAt || b?.updatedAt || b?.appliedAt || 0).getTime();
+            return bTime - aTime;
+          })
+          .slice(0, 3);
 
-          // Engagement Score Formula: Profile Views (50%) + Applications (30%) + Profile Updates (20%)
-          calculateEngagementScore: function () {
-            const viewsScore = Math.min(this.engagement.profileViews * 2, 50); // Max 50 points
-            const appsScore = Math.min(
-              this.engagement.applicationsThisWeek * 15,
-              30,
-            ); // Max 30 points
-            const updatesScore = Math.min(
-              this.engagement.profileUpdates * 6.66,
-              20,
-            ); // Max 20 points
+        if (!acceptedApplications.length) {
+          acceptedOffersGrid.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-icon"><i class="fas fa-check-circle"></i></div>
+              <h3>No accepted offers yet</h3>
+              <p>Your accepted job offers will appear here when employers move an application to accepted.</p>
+              <div class="empty-actions">
+                <a class="hero-btn primary" href="your-applications.html"><i class="fas fa-layer-group"></i> Review Applications</a>
+                <a class="hero-btn secondary" href="browse-jobs.html"><i class="fas fa-search"></i> Find More Jobs</a>
+              </div>
+            </div>
+          `;
+          return;
+        }
 
-            return Math.round(viewsScore + appsScore + updatesScore);
-          },
+          acceptedOffersGrid.innerHTML = acceptedApplications
+            .map((application) => {
+              const jobId = String(application.jobId || application.id || "");
+              const linkedJob = findStoredJobById(jobId);
+              const company =
+                application.company ||
+                application.companyName ||
+                getCompanyNameFromRecord(application, linkedJob);
+              const location =
+                application.location ||
+                linkedJob?.location ||
+                [linkedJob?.city, linkedJob?.region].filter(Boolean).join(", ") ||
+                "Location not specified";
+              const salary =
+                linkedJob?.salaryRange ||
+                linkedJob?.salary ||
+                application?.salaryRange ||
+                "Negotiable";
+              const acceptedDate = formatDate(
+                application.acceptedAt || application.updatedAt || application.appliedAt
+  );
+              const employerDetails = getEmployerDetailsForRecord(application, linkedJob);
 
-          // Progress Rate Formula: ((Current Week Engagement - Last Week Engagement) / Last Week Engagement) * 100
-          calculateProgressRate: function () {
-            const lastWeekEngagement = 71; // Simulated last week's score
-            const currentEngagement = this.calculateEngagementScore();
-            const progress =
-              ((currentEngagement - lastWeekEngagement) / lastWeekEngagement) *
-              100;
-
-            return Math.round(progress);
-          },
-        },
-
-        // Accepted offers data
-        acceptedOffers: [
-          {
-            id: "senior-ux-designer",
-            title: "Senior UX Designer",
-            company: "Creative Labs Ghana",
-            location: "Accra, Ghana",
-            date: "22 May 2023",
-            salary: "₵4,500/month",
-            startDate: "05 June 2023",
-            employerEmail: "hr@creativelabsgh.com",
-            employerPhone: "+233 24 123 4567",
-            employerAddress: "123 Creative Street, Accra, Ghana",
-          },
-          {
-            id: "product-manager",
-            title: "Product Manager",
-            company: "FinTech Innovations",
-            location: "Accra, Ghana (Remote)",
-            date: "18 May 2023",
-            salary: "₵5,200/month",
-            startDate: "12 June 2023",
-            employerEmail: "careers@fintechinnovations.com",
-            employerPhone: "+233 20 987 6543",
-            employerAddress: "45 Innovation Avenue, Accra, Ghana",
-          },
-        ],
-
-        // Employer contact details
-        employerDetails: {
-          "Two Southeast Las": {
-            email: "careers@twosoutheast.com",
-            phone: "+233 30 111 2222",
-            address: "45 Business Lane, Accra, Ghana",
-          },
-          "Global Emails Inc": {
-            email: "hr@globalemails.com",
-            phone: "+233 50 111 2222",
-            address: "78 Business Avenue, Kumasi, Ghana",
-          },
-          "Tech Solutions Ltd": {
-            email: "recruitment@techsolutions.com",
-            phone: "+233 55 333 4444",
-            address: "12 Tech Hub, Accra, Ghana",
-          },
-          "Creative Labs Ghana": {
-            email: "hr@creativelabsgh.com",
-            phone: "+233 24 123 4567",
-            address: "123 Creative Street, Accra, Ghana",
-          },
-          "FinTech Innovations": {
-            email: "careers@fintechinnovations.com",
-            phone: "+233 20 987 6543",
-            address: "45 Innovation Avenue, Accra, Ghana",
-          },
-        },
-      };
+              return `
+                <div class="accepted-offer-card">
+                <div class="offer-header">
+                  <h3 class="offer-title">${escapeValue(getJobTitleFromRecord(application, linkedJob), 120)}</h3>
+                  <div class="offer-date">Accepted: ${escapeValue(acceptedDate, 40)}</div>
+                </div>
+                <div class="offer-details">
+                  <div class="offer-detail">
+                    <span class="detail-label">Company</span>
+                    <span class="detail-value">${escapeValue(company, 120)}</span>
+                  </div>
+                  <div class="offer-detail">
+                    <span class="detail-label">Location</span>
+                    <span class="detail-value">${escapeValue(location, 120)}</span>
+                  </div>
+                  <div class="offer-detail">
+                    <span class="detail-label">Status</span>
+                    <span class="detail-value">Accepted</span>
+                  </div>
+                  <div class="offer-detail">
+                    <span class="detail-label">Salary</span>
+                    <span class="detail-value">${salary}</span>
+                  </div>
+                </div>
+                <p>Congratulations. This accepted application is now tied to your real account data.</p>
+                <div class="offer-actions">
+                  <button class="btn btn-primary" onclick="viewJobDetails('${jobId}', 'dashboard')">
+                    View Details
+                    </button>
+                    <button
+                      class="btn btn-outline contact-employer-trigger"
+                      type="button"
+                      data-company="${employerDetails.companyName}"
+                      data-name="${employerDetails.employerName}"
+                      data-position="${employerDetails.employerPosition}"
+                      data-email="${employerDetails.contactEmail}"
+                      data-phone="${employerDetails.contactPhone}"
+                      data-address="${employerDetails.contactAddress}"
+                    >
+                      Contact Employer
+                    </button>
+                  </div>
+                </div>
+              `;
+            })
+            .join("");
+          attachEmployerDetailTriggers(acceptedOffersGrid);
+        }
 
       // Initialize dashboard with calculated stats
       function initializeDashboard() {
-        // Calculate and update stats
-        const successRate = userStats.performance.calculateSuccessRate();
-        const engagementScore =
-          userStats.performance.calculateEngagementScore();
-        const progressRate = userStats.performance.calculateProgressRate();
-
-        // Update stats display
-        document.getElementById("successRate").textContent = successRate + "%";
-        document.getElementById("engagementScore").textContent =
-          engagementScore;
-        document.getElementById("progressRate").textContent =
-          (progressRate > 0 ? "+" : "") + progressRate + "%";
-
-        // Update performance indicators based on scores
-        updatePerformanceIndicators(successRate, engagementScore, progressRate);
+        updateDashboardMetrics(allDashboardApplications);
+        renderAcceptedOffers(allDashboardApplications);
       }
 
       // Update performance indicators
@@ -2037,7 +2930,7 @@
         successRate,
         engagementScore,
         progressRate,
-      ) {
+) {
         // Success rate indicator
         const successIndicator = document
           .querySelector("#successRate")
@@ -2104,17 +2997,20 @@
       }
 
       // Contact Employer
-      function contactEmployer(companyName) {
-        const employer = userStats.employerDetails[companyName];
+        function contactEmployer(companyName) {
+          const employer = userStats.employerDetails[companyName];
 
-        if (employer) {
-          document.getElementById("employerEmail").textContent = employer.email;
-          document.getElementById("employerPhone").textContent = employer.phone;
-          document.getElementById("employerAddress").textContent =
-            employer.address;
-          employerDetailsModal.classList.add("show");
+          if (employer) {
+            showEmployerDetails({
+              companyName,
+              employerName: employer.name,
+              employerPosition: employer.position,
+              contactEmail: employer.email,
+              contactPhone: employer.phone,
+              contactAddress: employer.address,
+            });
+          }
         }
-      }
 
       // Toggle Sidebar (Desktop)
       sidebarToggle.addEventListener("click", function () {
@@ -2170,7 +3066,7 @@
           document.querySelector(".dropdown-menu").classList.remove("show");
         }
 
-        if (!event.target.closest(".notification-icon")) {
+        if (!event.target.closest(".notification-icon") && !event.target.closest(".notification-dropdown")) {
           notificationDropdown.classList.remove("show");
         }
       });
@@ -2201,6 +3097,9 @@
       // Initialize dashboard on page load
       window.addEventListener("load", function () {
         initializeDashboard();
+        if (window.JobAssistCandidateSession) {
+          window.JobAssistCandidateSession.renderCandidateHeader();
+        }
       });
 
       // Handle window resize
@@ -2227,36 +3126,18 @@
       confirmLogout.addEventListener("click", function () {
         // Redirect to login.html after successful logout
         logoutModal.classList.remove("show");
-        window.location.href = "login.html";
+        window.location.href="../login.html";
       });
 
       cancelLogout.addEventListener("click", function () {
         logoutModal.classList.remove("show");
       });
 
-      // Mark all notifications as read
-      document
-        .querySelector(".mark-all-read")
-        .addEventListener("click", function () {
-          document
-            .querySelectorAll(".notification-item.unread")
-            .forEach((item) => {
-              item.classList.remove("unread");
-            });
-          document.querySelector(".notification-badge").style.display = "none";
-        });
-
-      // Simulate real-time updates to stats (for demo purposes)
-      setInterval(() => {
-        // Randomly update engagement metrics
-        if (Math.random() > 0.7) {
-          userStats.engagement.profileViews += Math.floor(Math.random() * 3);
-          userStats.engagement.jobMatches += Math.floor(Math.random() * 2);
-
-          // Recalculate and update stats
-          initializeDashboard();
-        }
-      }, 30000); // Update every 30 seconds
+      // Dashboard metrics are derived from real localStorage application data.
     </script>
+  
+    <script src='../assets/js/product-polish.js'></script>
   </body>
 </html>
+
+

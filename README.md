@@ -52,15 +52,15 @@ This repository currently contains the **frontend (HTML/CSS/JS)** implementation
 ## Project Structure
 
 Job_Assist/
-├── index.html # Main landing page
-├── about.html
-├── login.html
-├── candidate/candidate-dashboard.html
-├── employer/employer/employer/employer/employer-dashboard.html├── post-job.html
-├── build-cv.html
-├── payment.html
-└── (many other pages)
-
+|- index.html # Main landing page
+|- about.html
+|- login.html
+|- candidate/candidate-dashboard.html
+|- employer/employer-dashboard.html
+|- employer/post-job.html
+|- build-cv.html
+|- payment.html
+- (many other pages)
 
 ---
 
@@ -97,10 +97,10 @@ Backend expectations, API contracts, roles, payment rules, and MVP milestones ar
 - `docs/BACKEND_REQUIREMENTS.md`
 
 ## Status
-✅ Frontend UI implemented  
-🛠 Backend integration pending (authentication, database, APIs)
+- Frontend UI implemented
+- Backend integration pending (authentication, database, APIs)
 
 ---
 
 ## License
-MIT (recommended) — add a LICENSE file when ready.
+MIT (recommended) - add a LICENSE file when ready.

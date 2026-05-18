@@ -1,11 +1,11 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Settings | Job Assist Ghana</title>
     <!-- Favicon - using your existing logo -->
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -54,7 +54,7 @@
           180deg,
           var(--primary),
           var(--primary-dark)
-        );
+);
         color: white;
         height: 100vh;
         position: fixed;
@@ -84,6 +84,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        text-decoration: none;
       }
 
       .logo-img-placeholder {
@@ -429,42 +430,67 @@
 
       /* Dashboard Content - Compact like browse-jobs */
       .settings-content {
-        padding: 20px;
+        padding: 24px;
         flex: 1;
         max-width: 1200px;
         margin: 0 auto;
         width: 100%;
+        background:
+          radial-gradient(circle at top right, rgba(248, 193, 46, 0.14), transparent 28%),
+          linear-gradient(180deg, #f8fbff 0%, #eef4fb 100%);
       }
 
-      /* Welcome Section - Compact like browse-jobs */
       .welcome-section {
-        margin-bottom: 15px;
-        padding: 0 5px;
+        margin-bottom: 18px;
+        padding: 26px;
+        background:
+          linear-gradient(135deg, rgba(10, 42, 102, 0.98), rgba(7, 30, 77, 0.94)),
+          linear-gradient(90deg, rgba(248, 193, 46, 0.18), transparent);
+        border-radius: 22px;
+        box-shadow: 0 18px 42px rgba(10, 42, 102, 0.14);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .welcome-section::after {
+        content: "";
+        position: absolute;
+        right: -50px;
+        bottom: -70px;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(248, 193, 46, 0.24), transparent 70%);
       }
 
       .welcome-title {
-        font-size: 1.4rem;
-        margin-bottom: 4px;
-        color: var(--primary);
+        font-size: 2rem;
+        margin-bottom: 8px;
+        color: white;
         font-weight: 700;
+        position: relative;
+        z-index: 1;
       }
 
       .welcome-subtitle {
-        color: var(--gray);
-        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 0.96rem;
+        max-width: 620px;
+        position: relative;
+        z-index: 1;
       }
 
       /* Success Message - Compact */
       .success-message {
         display: none;
-        background: var(--success);
+        background: linear-gradient(135deg, #10b981, #059669);
         color: white;
-        padding: 12px 16px;
-        border-radius: 8px;
+        padding: 14px 18px;
+        border-radius: 16px;
         margin-bottom: 15px;
         text-align: center;
         font-size: 0.9rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 12px 24px rgba(16, 185, 129, 0.2);
       }
 
       .success-message.show {
@@ -486,21 +512,21 @@
       /* Settings Container - Compact Grid */
       .settings-container {
         display: grid;
-        grid-template-columns: 220px 1fr;
-        gap: 20px;
+        grid-template-columns: 240px 1fr;
+        gap: 22px;
         margin-bottom: 30px;
       }
 
       /* Settings Sidebar - Compact */
       .settings-sidebar {
-        background: white;
-        border-radius: 8px;
-        padding: 16px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+        border-radius: 20px;
+        padding: 18px;
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
         height: fit-content;
         position: sticky;
         top: 90px;
-        border: 1px solid var(--gray-light);
+        border: 1px solid rgba(10, 42, 102, 0.08);
       }
 
       .settings-nav {
@@ -514,10 +540,10 @@
       .settings-nav a {
         display: flex;
         align-items: center;
-        padding: 10px 12px;
+        padding: 12px 14px;
         color: var(--gray);
         text-decoration: none;
-        border-radius: 6px;
+        border-radius: 14px;
         transition: var(--transition);
         font-weight: 500;
         font-size: 0.9rem;
@@ -525,8 +551,9 @@
 
       .settings-nav a:hover,
       .settings-nav a.active {
-        background-color: var(--primary);
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
         color: white;
+        box-shadow: 0 10px 22px rgba(10, 42, 102, 0.18);
       }
 
       .settings-nav i {
@@ -538,11 +565,11 @@
 
       /* Settings Content - Compact */
       .settings-section {
-        background-color: white;
-        border-radius: 8px;
-        padding: 20px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        border: 1px solid var(--gray-light);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+        border-radius: 20px;
+        padding: 24px;
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+        border: 1px solid rgba(10, 42, 102, 0.08);
         display: none;
       }
 
@@ -551,14 +578,14 @@
       }
 
       .section-title {
-        font-size: 1.1rem;
-        margin-bottom: 20px;
+        font-size: 1.16rem;
+        margin-bottom: 22px;
         display: flex;
         align-items: center;
         gap: 8px;
         color: var(--primary);
         font-weight: 700;
-        padding-bottom: 12px;
+        padding-bottom: 14px;
         border-bottom: 1px solid var(--gray-light);
       }
 
@@ -568,11 +595,12 @@
 
       /* Profile Info Card - Compact */
       .profile-info-card {
-        background: var(--light);
-        border-radius: 8px;
-        padding: 16px;
+        background: linear-gradient(180deg, #fbfdff, #f8fafc);
+        border-radius: 18px;
+        padding: 20px;
         margin-bottom: 20px;
         border-left: 4px solid var(--secondary);
+        border: 1px solid rgba(10, 42, 102, 0.06);
       }
 
       .profile-info-header {
@@ -635,6 +663,8 @@
         font-weight: 500;
         color: var(--dark);
         font-size: 0.9rem;
+        overflow-wrap: anywhere;
+        word-break: break-word;
       }
 
       .edit-profile-link {
@@ -670,9 +700,9 @@
       select,
       textarea {
         width: 100%;
-        padding: 10px 12px;
+        padding: 12px 14px;
         border: 2px solid var(--gray-light);
-        border-radius: 6px;
+        border-radius: 12px;
         font-size: 0.9rem;
         transition: var(--transition);
         background: white;
@@ -697,7 +727,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 12px 0;
+        padding: 14px 0;
         border-bottom: 1px solid var(--gray-light);
       }
 
@@ -763,8 +793,8 @@
 
       /* Buttons - Compact */
       .btn {
-        padding: 8px 12px;
-        border-radius: 5px;
+        padding: 10px 14px;
+        border-radius: 12px;
         font-weight: 600;
         cursor: pointer;
         transition: var(--transition);
@@ -816,10 +846,11 @@
 
       /* Notification Preferences - Compact */
       .notification-category {
-        background: var(--light);
-        padding: 16px;
-        border-radius: 8px;
+        background: linear-gradient(180deg, #fbfdff, #f8fafc);
+        padding: 18px;
+        border-radius: 18px;
         margin-bottom: 12px;
+        border: 1px solid rgba(10, 42, 102, 0.06);
       }
 
       .category-title {
@@ -1014,10 +1045,10 @@
         display: block;
       }
 
-      /* ====================== */
+      /* ===============*/
       /* MOBILE RESPONSIVENESS */
       /* Using browse-jobs principles */
-      /* ====================== */
+      /* ===============*/
 
       /* Tablet (992px and below) */
       @media (max-width: 992px) {
@@ -1218,8 +1249,6 @@
           right: 8px;
         }
 
-<<<<<<< HEAD:settings.html
-=======
         /* Modal Styles - EXACT SAME AS candidate/candidate-dashboard.html */
         .modal {
             display: none;
@@ -1354,7 +1383,6 @@
         }
 
         /* Footer - Dark blue minimal footer */
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/settings.html
         .footer {
           padding: 12px 15px 8px;
         }
@@ -1513,7 +1541,80 @@
           font-size: 0.7rem;
         }
       }
+      /* Candidate Notification Dropdown Standard */
+      .notification-dropdown {
+        top: calc(100% + 10px);
+        right: 0;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 320px;
+        max-height: 400px;
+      }
+
+      .notification-header {
+        padding: 12px 16px;
+        background-color: var(--light);
+        border-radius: 8px 8px 0 0;
+      }
+
+      .mark-all-read {
+        font-weight: 500;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+
+      .mark-all-read:hover {
+        background-color: rgba(10, 42, 102, 0.1);
+      }
+
+      .notification-item {
+        padding: 12px 16px;
+      }
+
+      .notification-item.unread {
+        background-color: rgba(10, 42, 102, 0.05);
+        border-left: 3px solid var(--primary);
+      }
+
+      .notification-content {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+        color: var(--dark);
+        line-height: 1.4;
+      }
+
+      .notification-time {
+        font-size: 0.7rem;
+        color: var(--gray);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      @media (max-width: 992px) {
+        .notification-dropdown {
+          right: 12px;
+          width: 280px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .notification-dropdown {
+          right: 10px;
+          width: 260px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .notification-dropdown {
+          width: 240px;
+          right: 8px;
+        }
+      }
     </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
   </head>
   <body>
     <!-- Mobile Overlay -->
@@ -1578,13 +1679,13 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <div class="logo">
+        <a href="../index.html" class="logo" aria-label="Job Assist Ghana Home">
           <div class="logo-img-placeholder">JA</div>
           <div class="logo-text">
             <div class="logo-main">JobAssist</div>
             <div class="logo-sub">GHANA</div>
           </div>
-        </div>
+        </a>
         <button class="toggle-btn" id="sidebarToggle">
           <i class="fas fa-chevron-left"></i>
         </button>
@@ -1665,44 +1766,44 @@
           <div class="notification-dropdown" id="notificationDropdown">
             <div class="notification-header">
               <h3 class="notification-title">Notifications</h3>
-              <button class="mark-all-read">Mark all as read</button>
+              <button class="mark-all-read" type="button">Mark all as read</button>
             </div>
             <ul class="notification-list">
               <li class="notification-item unread">
                 <div class="notification-content">
                   Your profile has been viewed by 3 employers this week
                 </div>
-                <div class="notification-time">2 hours ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 2 hours ago</div>
               </li>
               <li class="notification-item unread">
                 <div class="notification-content">
                   Your application for Frontend Developer is under review
                 </div>
-                <div class="notification-time">1 day ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 1 day ago</div>
               </li>
               <li class="notification-item unread">
                 <div class="notification-content">
                   Complete your profile to increase visibility by 40%
                 </div>
-                <div class="notification-time">2 days ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 2 days ago</div>
               </li>
               <li class="notification-item">
                 <div class="notification-content">
                   Welcome to JobAssist Ghana! Start exploring jobs now
                 </div>
-                <div class="notification-time">1 week ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 1 week ago</div>
               </li>
             </ul>
           </div>
           <div class="user-profile" id="userProfile">
             <div class="user-avatar">
               <img
-                src="https://i.pravatar.cc/150?img=12"
+                src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22160%22%20height%3D%22160%22%20viewBox%3D%220%200%20160%20160%22%20role%3D%22img%22%20aria-label%3D%22C%22%3E%3Crect%20width%3D%22160%22%20height%3D%22160%22%20rx%3D%2280%22%20fill%3D%22%230a2a66%22/%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22central%22%20text-anchor%3D%22middle%22%20fill%3D%22%23ffffff%22%20font-family%3D%22Poppins%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2272%22%20font-weight%3D%22700%22%3EC%3C/text%3E%3C/svg%3E"
                 alt="User"
                 id="currentUserAvatar"
               />
             </div>
-            <div class="user-name">Nana</div>
+            <div class="user-name" id="currentUserName">Candidate</div>
             <i class="fas fa-chevron-down"></i>
           </div>
           <div class="dropdown-menu">
@@ -1721,7 +1822,7 @@
       <div class="settings-content">
         <!-- Welcome Section -->
         <div class="welcome-section">
-          <h1 class="welcome-title">Settings ⚙️</h1>
+          <h1 class="welcome-title">Settings</h1>
           <p class="welcome-subtitle">
             Customize your JobAssist Ghana experience
           </p>
@@ -1773,33 +1874,33 @@
                 <div class="profile-info-header">
                   <div class="profile-avatar-large">
                     <img
-                      src="https://i.pravatar.cc/150?img=12"
+                      src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22160%22%20height%3D%22160%22%20viewBox%3D%220%200%20160%20160%22%20role%3D%22img%22%20aria-label%3D%22C%22%3E%3Crect%20width%3D%22160%22%20height%3D%22160%22%20rx%3D%2280%22%20fill%3D%22%230a2a66%22/%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22central%22%20text-anchor%3D%22middle%22%20fill%3D%22%23ffffff%22%20font-family%3D%22Poppins%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2272%22%20font-weight%3D%22700%22%3EC%3C/text%3E%3C/svg%3E"
                       alt="Profile"
                       id="settingsProfileAvatar"
                     />
                   </div>
                   <div class="profile-info-text">
-                    <h3>Nana Kwame</h3>
-                    <p>Software Developer</p>
+                    <h3 id="settingsProfileName">N/A</h3>
+                    <p id="settingsProfileTitle">N/A</p>
                   </div>
                 </div>
 
                 <div class="profile-details">
                   <div class="profile-detail-item">
                     <span class="detail-label">Email</span>
-                    <span class="detail-value">nana.kwame@example.com</span>
+                    <span class="detail-value" id="settingsProfileEmail">N/A</span>
                   </div>
                   <div class="profile-detail-item">
                     <span class="detail-label">Phone</span>
-                    <span class="detail-value">+233 24 123 4567</span>
+                    <span class="detail-value" id="settingsProfilePhone">N/A</span>
                   </div>
                   <div class="profile-detail-item">
                     <span class="detail-label">Location</span>
-                    <span class="detail-value">Accra, Ghana</span>
+                    <span class="detail-value" id="settingsProfileLocation">N/A</span>
                   </div>
                   <div class="profile-detail-item">
                     <span class="detail-label">Member Since</span>
-                    <span class="detail-value">Jan 15, 2024</span>
+                    <span class="detail-value" id="settingsProfileMemberSince">N/A</span>
                   </div>
                 </div>
 
@@ -2106,15 +2207,18 @@
       <!-- Footer -->
       <footer class="footer">
         <div class="footer-links">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="contact.html">Contact Us</a>
+          <a href="../privacy.html">Privacy Policy</a>
+          <a href="../contact.html">Contact Us</a>
         </div>
         <div class="footer-bottom">
-          <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+          <p>Copyright 2025 Job Assist Ghana. All rights reserved.</p>
         </div>
       </footer>
     </div>
 
+    <script src="../assets/js/candidate-session.js"></script>
+    <script src="../assets/js/input-hardening.js"></script>
+    <script src="../assets/js/toast.js"></script>
     <script>
       // DOM Elements
       const sidebar = document.getElementById("sidebar");
@@ -2133,13 +2237,32 @@
       const cancelDelete = document.getElementById("cancelDelete");
       const successMessage = document.getElementById("successMessage");
       const currentUserAvatar = document.getElementById("currentUserAvatar");
+      const currentUserName = document.getElementById("currentUserName");
       const settingsProfileAvatar = document.getElementById(
         "settingsProfileAvatar",
+);
+      const settingsProfileName = document.getElementById(
+        "settingsProfileName",
+      );
+      const settingsProfileTitle = document.getElementById(
+        "settingsProfileTitle",
+      );
+      const settingsProfileEmail = document.getElementById(
+        "settingsProfileEmail",
+      );
+      const settingsProfilePhone = document.getElementById(
+        "settingsProfilePhone",
+      );
+      const settingsProfileLocation = document.getElementById(
+        "settingsProfileLocation",
+      );
+      const settingsProfileMemberSince = document.getElementById(
+        "settingsProfileMemberSince",
       );
       const notificationIcon = document.getElementById("notificationIcon");
       const notificationDropdown = document.getElementById(
         "notificationDropdown",
-      );
+);
 
       // Settings Navigation
       const settingsNavLinks = document.querySelectorAll(".settings-nav a");
@@ -2152,6 +2275,7 @@
         document.getElementById("resetNotifications");
       const saveSecurityBtn = document.getElementById("saveSecurity");
       const deleteAccountBtn = document.getElementById("deleteAccount");
+      const CANDIDATE_SECURITY_SETTINGS_KEY = "candidateSecuritySettings";
 
       // Toggle Sidebar
       sidebarToggle.addEventListener("click", function () {
@@ -2237,7 +2361,7 @@
           // Hide all sections
           settingsSections.forEach((section) =>
             section.classList.remove("active"),
-          );
+);
 
           // Show target section
           const targetSection = this.getAttribute("data-section");
@@ -2247,32 +2371,296 @@
         });
       });
 
-      // Show Success Message
-      function showSuccessMessage() {
+      // Shared success feedback
+      function showSuccessMessage(message = "Changes saved successfully") {
+        if (window.JobAssistUI?.showSuccessToast) {
+          window.JobAssistUI.showSuccessToast(message);
+          return;
+        }
+        if (window.showSuccessToast) {
+          window.showSuccessToast(message);
+          return;
+        }
         successMessage.classList.add("show");
         setTimeout(() => {
           successMessage.classList.remove("show");
         }, 3000);
       }
 
+      function showErrorMessage(message) {
+        if (window.JobAssistUI?.showErrorToast) {
+          window.JobAssistUI.showErrorToast(message);
+          return;
+        }
+        if (window.showErrorToast) {
+          window.showErrorToast(message);
+          return;
+        }
+      }
+
+      function parseStoredObject(key) {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(key) || "null");
+          return parsed && typeof parsed === "object" && !Array.isArray(parsed)
+            ? parsed
+            : {};
+        } catch {
+          return {};
+        }
+      }
+
+      function isMeaningfulValue(value) {
+        return String(value ?? "").trim().length > 0;
+      }
+
+      function formatDisplayText(value, maxLength = 0) {
+        const hardener = window.JobAssistInputHardening;
+        const clean = String(value ?? "").trim();
+        if (!clean) return "";
+        return hardener?.formatDisplayText
+          ? hardener.formatDisplayText(clean, { maxLength })
+          : clean;
+      }
+
+      function displayValue(value) {
+        const clean = String(value ?? "").trim();
+        return clean || "N/A";
+      }
+
+      function displayHumanValue(value, maxLength = 0) {
+        const clean = formatDisplayText(value, maxLength);
+        return clean || "N/A";
+      }
+
+      function getRawCurrentCandidateProfile() {
+        const rawProfile = parseStoredObject("jobassist_current_user");
+        const userType = String(rawProfile.userType || "").trim().toLowerCase();
+        return userType === "candidate" ? rawProfile : {};
+      }
+
+      function getProfileDisplaySource() {
+        const currentCandidate = getCurrentCandidateProfile();
+        const rawCandidate = getRawCurrentCandidateProfile();
+        const savedProfileData = parseStoredObject("profileData");
+
+        return {
+          ...currentCandidate,
+          ...rawCandidate,
+          email: isMeaningfulValue(savedProfileData.email)
+            ? savedProfileData.email
+            : rawCandidate.email || currentCandidate.email || "",
+          phone: isMeaningfulValue(savedProfileData.phone)
+            ? savedProfileData.phone
+            : rawCandidate.phone || currentCandidate.phone || "",
+          region: isMeaningfulValue(savedProfileData.location)
+            ? savedProfileData.location
+            : rawCandidate.region ||
+              rawCandidate.location ||
+              currentCandidate.region ||
+              currentCandidate.location ||
+              "",
+          preferredIndustry: isMeaningfulValue(savedProfileData.profession)
+            ? savedProfileData.profession
+            : rawCandidate.preferredIndustry ||
+              rawCandidate.profession ||
+              currentCandidate.preferredIndustry ||
+              currentCandidate.profession ||
+              "",
+          experienceLevel: rawCandidate.experienceLevel || currentCandidate.experienceLevel || "",
+          fieldOfStudy:
+            rawCandidate.fieldOfStudy ||
+            rawCandidate.course ||
+            currentCandidate.fieldOfStudy ||
+            currentCandidate.course ||
+            "",
+          professionalTitle:
+            rawCandidate.professionalTitle ||
+            rawCandidate.title ||
+            currentCandidate.professionalTitle ||
+            currentCandidate.title ||
+            "",
+          createdAt:
+            rawCandidate.createdAt ||
+            rawCandidate.signupDate ||
+            rawCandidate.registeredAt ||
+            rawCandidate.dateCreated ||
+            "",
+          fullName:
+            rawCandidate.fullName ||
+            rawCandidate.name ||
+            (currentCandidate.fullName !== "Candidate" ? currentCandidate.fullName : "") ||
+            currentCandidate.name ||
+            "",
+          avatar:
+            rawCandidate.avatar ||
+            rawCandidate.passportImage ||
+            currentCandidate.avatar ||
+            currentCandidate.passportImage ||
+            "",
+        };
+      }
+
+      function resolveProfileTitle(profile) {
+        const candidates = [
+          profile.professionalTitle,
+          profile.preferredIndustry,
+          profile.fieldOfStudy,
+          profile.experienceLevel,
+        ];
+
+        for (const value of candidates) {
+          if (isMeaningfulValue(value)) {
+            return displayHumanValue(value, 120);
+          }
+        }
+
+        return "N/A";
+      }
+
+      function resolveProfileLocation(profile) {
+        const city = [
+          profile.city,
+          profile.location,
+          profile.town,
+          profile.preferredLocation,
+        ].find(isMeaningfulValue);
+        const region = [profile.region, profile.state, profile.county].find(
+          isMeaningfulValue,
+        );
+
+        if (isMeaningfulValue(city) && isMeaningfulValue(region)) {
+          const cleanCity = formatDisplayText(city, 120);
+          const cleanRegion = formatDisplayText(region, 120);
+          return cleanCity.toLowerCase() === cleanRegion.toLowerCase()
+            ? cleanCity
+            : `${cleanCity}, ${cleanRegion}`;
+        }
+
+        if (isMeaningfulValue(city)) {
+          return formatDisplayText(city, 120);
+        }
+
+        if (isMeaningfulValue(region)) {
+          return formatDisplayText(region, 120);
+        }
+
+        return "N/A";
+      }
+
+      function formatMemberSince(value) {
+        if (!isMeaningfulValue(value)) {
+          return "N/A";
+        }
+
+        const parsedDate = new Date(String(value).trim());
+        if (Number.isNaN(parsedDate.getTime())) {
+          return "N/A";
+        }
+
+        return parsedDate.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        });
+      }
+
+      function getProfileAvatarSource(profile) {
+        const currentCandidate = profile || getCurrentCandidateProfile();
+        if (window.JobAssistCandidateSession?.getCandidateAvatar) {
+          return window.JobAssistCandidateSession.getCandidateAvatar(currentCandidate);
+        }
+
+        const fallbackImage = String(
+          currentCandidate.avatar || currentCandidate.passportImage || ""
+        ).trim();
+        if (!/default-avatar|placeholder|pravatar/i.test(fallbackImage) && fallbackImage) {
+          return fallbackImage;
+        }
+
+        return window.JobAssistCandidateSession?.createInitialAvatarDataUri
+          ? window.JobAssistCandidateSession.createInitialAvatarDataUri(
+              window.JobAssistCandidateSession?.getCandidateInitial?.(currentCandidate) || currentCandidate?.fullName || "C"
+            )
+          : "";
+      }
+
+      function populateProfileInformation() {
+        const profile = getProfileDisplaySource();
+        const fullName = displayHumanValue(profile.fullName || profile.name, 120);
+        const firstName = isMeaningfulValue(fullName) && fullName !== "N/A"
+          ? fullName.split(/\s+/)[0]
+          : "Candidate";
+        const avatarSource = getProfileAvatarSource(profile);
+
+        if (currentUserName) {
+          currentUserName.textContent = firstName;
+        }
+
+        if (settingsProfileName) {
+          settingsProfileName.textContent = fullName;
+        }
+        if (settingsProfileTitle) {
+          settingsProfileTitle.textContent = resolveProfileTitle(profile);
+        }
+        if (settingsProfileEmail) {
+          settingsProfileEmail.textContent = displayValue(profile.email);
+        }
+        if (settingsProfilePhone) {
+          settingsProfilePhone.textContent = displayValue(profile.phone);
+        }
+        if (settingsProfileLocation) {
+          settingsProfileLocation.textContent = resolveProfileLocation(profile);
+        }
+        if (settingsProfileMemberSince) {
+          settingsProfileMemberSince.textContent = formatMemberSince(
+            profile.createdAt,
+          );
+        }
+
+        currentUserAvatar.src = avatarSource;
+        settingsProfileAvatar.src = avatarSource;
+      }
+
+      function getCurrentCandidateProfile() {
+        if (window.JobAssistCandidateSession?.getCurrentCandidate) {
+          return window.JobAssistCandidateSession.getCurrentCandidate();
+        }
+        return JSON.parse(localStorage.getItem("jobassist_current_user") || "null") || {};
+      }
+
+      function persistCurrentCandidateProfile(updates) {
+        const currentCandidate = getCurrentCandidateProfile();
+        const nextCandidate = { ...currentCandidate, ...updates };
+
+        if (window.JobAssistCandidateSession?.setCurrentUser) {
+          window.JobAssistCandidateSession.setCurrentUser(nextCandidate);
+        } else {
+          localStorage.setItem("jobassist_current_user", JSON.stringify(nextCandidate));
+        }
+
+        return nextCandidate;
+      }
+
       // Load saved profile photo from localStorage
       function loadSavedProfilePhoto() {
-        const savedPhoto = localStorage.getItem("profilePhoto");
-        if (savedPhoto) {
-          currentUserAvatar.src = savedPhoto;
-          settingsProfileAvatar.src = savedPhoto;
-        }
+        const currentCandidate = getProfileDisplaySource();
+        const savedPhoto = getProfileAvatarSource(currentCandidate);
+        currentUserAvatar.src = savedPhoto;
+        settingsProfileAvatar.src = savedPhoto;
       }
 
       // Profile Form Submission
       profileForm.addEventListener("submit", function (e) {
         e.preventDefault();
-        const jobAlerts = document.getElementById("jobAlerts").value;
+        const hardener = window.JobAssistInputHardening;
+        const jobAlerts = hardener?.sanitizeText
+          ? hardener.sanitizeText(document.getElementById("jobAlerts").value, { maxLength: 80 })
+          : document.getElementById("jobAlerts").value;
 
         // Save job alert preference
         localStorage.setItem("jobAlertPreference", jobAlerts);
 
-        showSuccessMessage();
+        showSuccessMessage("Changes saved successfully");
       });
 
       // Notification Preferences
@@ -2297,9 +2685,9 @@
             smsNotifications,
             pushNotifications,
           }),
-        );
+);
 
-        showSuccessMessage();
+        showSuccessMessage("Changes saved successfully");
       });
 
       resetNotificationsBtn.addEventListener("click", function () {
@@ -2310,7 +2698,18 @@
         document.getElementById("smsNotifications").checked = false;
         document.getElementById("pushNotifications").checked = true;
 
-        showSuccessMessage();
+        localStorage.setItem(
+          "notificationSettings",
+          JSON.stringify({
+            jobMatches: true,
+            applicationUpdates: true,
+            emailNotifications: true,
+            smsNotifications: false,
+            pushNotifications: true,
+          }),
+        );
+
+        showSuccessMessage("Changes saved successfully");
       });
 
       // Security Settings
@@ -2320,24 +2719,39 @@
         const newPassword = document.getElementById("newPassword").value;
         const confirmPassword =
           document.getElementById("confirmPassword").value;
+        const profileVisibility =
+          document.getElementById("profileVisibility").checked;
+        const dataSharing = document.getElementById("dataSharing").checked;
 
         if (newPassword && newPassword !== confirmPassword) {
-          alert("New passwords do not match!");
+          showErrorMessage("Passwords do not match.");
           return;
         }
 
-        if (newPassword && newPassword.length < 6) {
-          alert("Password must be at least 6 characters long!");
+        if (newPassword && newPassword.length < 8) {
+          showErrorMessage("Password must be at least 8 characters.");
           return;
         }
 
-        // Simulate saving security settings
-        setTimeout(() => {
-          document.getElementById("currentPassword").value = "";
-          document.getElementById("newPassword").value = "";
-          document.getElementById("confirmPassword").value = "";
-          showSuccessMessage();
-        }, 500);
+        const currentCandidate = getCurrentCandidateProfile();
+        const nextPassword = newPassword || currentCandidate.password || "";
+
+        persistCurrentCandidateProfile({
+          password: nextPassword,
+        });
+
+        localStorage.setItem(
+          CANDIDATE_SECURITY_SETTINGS_KEY,
+          JSON.stringify({
+            profileVisibility,
+            dataSharing,
+          }),
+        );
+
+        document.getElementById("currentPassword").value = "";
+        document.getElementById("newPassword").value = "";
+        document.getElementById("confirmPassword").value = "";
+        showSuccessMessage("Changes saved successfully");
       });
 
       // DELETE ACCOUNT FUNCTIONALITY
@@ -2359,7 +2773,7 @@
           // Clear localStorage for demo purposes
           localStorage.clear();
           // Redirect to login page
-          window.location.href = "login.html";
+          window.location.href="../login.html";
         }, 3000);
       });
 
@@ -2412,11 +2826,23 @@
           document.getElementById("pushNotifications").checked =
             notifications.pushNotifications;
         }
+
+        const savedSecuritySettings = localStorage.getItem(
+          CANDIDATE_SECURITY_SETTINGS_KEY,
+        );
+        if (savedSecuritySettings) {
+          const securitySettings = JSON.parse(savedSecuritySettings);
+          document.getElementById("profileVisibility").checked =
+            securitySettings.profileVisibility !== false;
+          document.getElementById("dataSharing").checked =
+            securitySettings.dataSharing === true;
+        }
       }
 
       // Initialize settings
       function initializeSettings() {
         loadSavedSettings();
+        populateProfileInformation();
         loadSavedProfilePhoto();
 
         // Make logout button red
@@ -2470,12 +2896,16 @@
       confirmLogout.addEventListener("click", function () {
         // Redirect to login page after logout
         logoutModal.classList.remove("show");
-        window.location.href = "login.html";
+        window.location.href="../login.html";
       });
 
       cancelLogout.addEventListener("click", function () {
         logoutModal.classList.remove("show");
       });
     </script>
+  
+    <script src='../assets/js/product-polish.js'></script>
   </body>
 </html>
+
+

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login | Job Assist Ghana</title>
-  <link rel="icon" type="image/png" href="tab-logo.png" />
+  <link rel="icon" type="image/png" href="assets/images/tab-logo.png" />
   <style>
     :root{
       --nav:#0b2a66;
@@ -17,80 +17,276 @@
     }
     *{box-sizing:border-box}
     body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:#111827}
-    header{background:linear-gradient(90deg,var(--nav),var(--nav2))}
-    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;position:relative}
-    .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-    .logo img{height:38px;width:auto;display:block}
-    .menu-btn{display:none;color:#fff;font-size:26px;cursor:pointer;user-select:none}
-    .nav-links{display:flex;align-items:center;gap:22px}
-    .nav-links a{color:#fff;text-decoration:none;font-weight:600}
-    .nav-links a:hover{opacity:.9}
-    .login-btn{background:var(--accent);color:var(--text);padding:10px 18px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;min-width:84px}
-    .login-btn:hover{opacity:1;filter:brightness(.98)}
-    /* Mobile nav */
-    @media (max-width: 768px){
-      .menu-btn{display:block}
-      .nav-links{
-        position:absolute;left:0;right:0;top:100%;
-        background:linear-gradient(180deg,var(--nav),var(--nav2));
-        padding:14px 18px;
-        display:none;flex-direction:column;align-items:flex-start;gap:14px;
-        border-top:1px solid rgba(255,255,255,.12);
-      }
-      .nav-links.show{display:flex}
-      .login-btn{width:100%;justify-content:center}
-    }
 
     /* Page */
     .login-wrapper{
-      min-height:calc(100vh - 86px);
-      display:flex;align-items:center;justify-content:center;
-      padding:38px 16px 60px;
-    }
-    .card{
-      width:440px;max-width:92vw;
-      background:#fff;border-radius:16px;
-      box-shadow:0 12px 30px rgba(17,24,39,.10);
-      padding:30px 28px;
-    }
-    .title{
-      text-align:center;
-      font-size:28px;line-height:1.2;
-      color:var(--text);
-      margin:0 0 14px;
-      font-weight:800;
-    }
-
-    /* Switcher (FIX) */
-    .user-type-toggle{
+      min-height:100vh;
       display:flex;
       align-items:center;
       justify-content:center;
-      gap:6px;
-      background:#eef2ff;
-      border:1px solid #dbe3ff;
-      border-radius:12px;
-      padding:6px;
-      width:260px;
-      max-width:100%;
-      margin:0 auto 16px;
+      padding:24px;
+      background:#f7f5ee;
     }
-    .user-type-btn{
-      flex:1;
-      border:0;
+
+    .login-shell{
+      width:min(1100px, 96vw);
+      height:680px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      background:#fff;
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:0 18px 50px rgba(11, 42, 102, 0.12);
+      border:4px solid #0a5a57;
+    }
+
+    .login-form-side{
+      padding:38px 42px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      background:#fff;
+      overflow-y: auto;
+    }
+
+    .login-image-side{
+      position:relative;
+      background:
+        linear-gradient(rgba(10,42,102,0.10), rgba(10,42,102,0.10)),
+        url("assets/images/right-image.png") center/cover no-repeat;
+    }
+
+    .login-brand{
+      display: inline-block;
+      margin-bottom: 32px;
+      text-decoration: none;
+    }
+
+    .login-brand img{
+      height: 42px;
+      width: auto;
+      display: block;
+    }
+
+    .login-error{
+      display:block;
+      min-height:18px;
+      margin-top:6px;
+      padding:0;
+      border-radius:0;
       background:transparent;
+      color:#c0392b;
+      font-size:12.5px;
+      line-height:1.35;
+      font-weight:600;
+      border:0;
+      visibility:hidden;
+    }
+
+    .field-inline-error{
+      display:block;
+      min-height:18px;
+      margin-top:6px;
+      padding:0;
+      border-radius:0;
+      background:transparent;
+      color:#c0392b;
+      font-size:12.5px;
+      line-height:1.35;
+      font-weight:600;
+      border:0;
+      visibility:hidden;
+    }
+
+    .login-error:empty,
+    .field-inline-error:empty{
+      min-height:0;
+      margin-top:0;
+    }
+
+    .field-error{
+      border-color:#e74c3c !important;
+      box-shadow:0 0 0 3px rgba(231,76,60,0.10) !important;
+    }
+
+    .input-wrap{
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:0 12px;
+      background:#fff;
+    }
+
+    .input-wrap.password-wrap{
+      position:relative;
+      padding:0 44px 0 12px;
+    }
+
+    .input-wrap:focus-within{
+      border-color:#c7d2fe;
+      box-shadow:0 0 0 3px rgba(199,210,254,.5);
+    }
+
+    .input{
+      width:100%;
+      border:0;
+      outline:none;
+      padding:12px 0;
+      font-size:14px;
+      background:transparent;
+      color:#111827;
+    }
+
+    .password-toggle{
+      position:absolute !important;
+      top:50% !important;
+      right:8px !important;
+      transform:translateY(-50%) !important;
+      width:32px !important;
+      height:32px !important;
+      min-width:32px !important;
+      min-height:32px !important;
+      margin:0 !important;
+      padding:0 !important;
+      border:0 !important;
+      background:transparent !important;
+      color:#64748b;
+      display:flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+      line-height:1 !important;
+      cursor:pointer;
+      z-index:2;
+    }
+
+    .password-toggle:hover,
+    .password-toggle:active,
+    .password-toggle:focus{
+      top:50% !important;
+      transform:translateY(-50%) !important;
+      margin:0 !important;
+      padding:0 !important;
+      background:transparent !important;
+      box-shadow:none !important;
+      color:#0a2a66;
+    }
+
+    .password-toggle svg{
+      width:18px;
+      height:18px;
+      pointer-events:none;
+      display:block;
+    }
+
+    .password-toggle:focus-visible{
+      outline:2px solid rgba(248, 193, 46, 0.8);
+      outline-offset:2px;
+      border-radius:8px;
+    }
+
+    .password-toggle .icon-hide{
+      display:none;
+    }
+
+    .password-toggle.is-visible .icon-show{
+      display:none;
+    }
+
+    .password-toggle.is-visible .icon-hide{
+      display:inline-flex;
+    }
+
+    .title{
+      text-align:left;
+      font-size:28px;
+      line-height:1.2;
       color:var(--text);
+      margin:0 0 10px;
       font-weight:800;
-      font-size:13px;
-      padding:9px 10px;
+    }
+
+    .subtitle{
+      color:var(--muted);
+      font-size:15px;
+      margin:0 0 28px;
+      text-align:left;
+    }
+
+    .form-actions{
+      display:flex;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .btn-secondary{
+      width:100%;
+      margin-top:16px;
+      background:#fff;
+      border:1.5px solid #0a5a57;
+      color:#0a5a57;
+      font-weight:800;
+      padding:12px 14px;
       border-radius:10px;
       cursor:pointer;
-      transition:background .15s ease, box-shadow .15s ease, transform .05s ease;
+      font-size:14px;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
     }
-    .user-type-btn:active{transform:scale(.99)}
-    .user-type-btn.active{
-      background:var(--accent);
-      box-shadow:0 6px 14px rgba(246,195,67,.35);
+
+    .btn-secondary:hover{
+      background:#f8fafc;
+    }
+
+    .meta-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-top:14px;
+      font-size:13px;
+    }
+
+    .meta-row a{
+      color:#d97706;
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    .footer-note{
+      margin-top:auto;
+      padding-top:26px;
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    @media (max-width: 900px){
+      .login-shell{
+        grid-template-columns:1fr;
+        height:auto;
+      }
+
+      .login-image-side{
+        min-height:260px;
+        order:-1;
+      }
+
+      .login-form-side{
+        padding:32px 22px;
+        overflow:visible;
+      }
+    }
+
+    @media (max-width: 768px){
+      .login-image-side{
+        display:none !important;
+      }
+
+      .login-shell{
+        grid-template-columns:1fr !important;
+        height:auto;
+      }
     }
 
     label{display:block;font-weight:700;color:var(--text);font-size:13px;margin:14px 0 8px}
@@ -142,115 +338,248 @@
     .links a:hover{text-decoration:underline}
     .muted{color:var(--muted)}
     @media (max-width: 420px){
-      .card{padding:24px 18px}
       .title{font-size:24px}
-      .user-type-toggle{width:100%}
     }
   </style>
-</head>
+
+    <link rel='stylesheet' href='assets/css/product-polish.css' />
+  </head>
 <body>
-  <header>
-    <div class="nav">
-      <!-- Make logo clickable to Home -->
-      <a href="index.html" class="logo" aria-label="Go to Home">
-        <img src="logo.png" alt="Job Assist Ghana" onerror="this.onerror=null;this.src='assets/images/logo.png';">
-      </a>
-
-      <div class="menu-btn" onclick="toggleMenu()" aria-label="Open menu" role="button">☰</div>
-
-      <div class="nav-links" id="navLinks">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="build-cv.html">Build a CV</a>
-        <a href="login.html" class="login-btn">Login</a>
-      </div>
-    </div>
-  </header>
-
   <div class="login-wrapper">
-    <div class="card">
-      <h1 class="title" id="loginTitle">Employer Login</h1>
+    <div class="login-shell">
+      <div class="login-form-side">
+        <a href="index.html" class="login-brand" aria-label="Go to home">
+          <img src="assets/images/logo2.png" alt="Job Assist Ghana" />
+        </a>
+        <h1 class="title">Candidate Login</h1>
+        <div class="subtitle">Access your dashboard, Browse jobs, and apply</div>
 
-      <div class="user-type-toggle" role="tablist" aria-label="Login type">
-        <button id="candidateBtn" class="user-type-btn" type="button">Candidate</button>
-        <button id="employerBtn" class="user-type-btn active" type="button">Employer</button>
+        <form id="loginForm">
+          <label for="phoneInput">Phone Number</label>
+          <div class="phone-row">
+            <div class="country-code">GH +233</div>
+            <input
+              id="phoneInput"
+              type="text"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              autocomplete="tel"
+              placeholder="241234567"
+            />
+          </div>
+          <div class="hint">Format: 9 digits without the first zero</div>
+
+          <label for="passInput">Password</label>
+          <div class="input-wrap password-wrap">
+            <input id="passInput" class="input" type="password" placeholder="Enter your password" minlength="8" />
+            <button
+              type="button"
+              class="password-toggle"
+              data-target="passInput"
+              aria-label="Show password"
+              aria-pressed="false"
+            >
+              <span class="icon-show" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </span>
+              <span class="icon-hide" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 3l18 18"></path>
+                  <path d="M10.6 10.7a3 3 0 0 0 4.2 4.2"></path>
+                  <path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a18.7 18.7 0 0 1-3 3.8"></path>
+                  <path d="M6.6 6.7C4 8.6 2 12 2 12s3.5 7 10 7a10.5 10.5 0 0 0 4.1-.8"></path>
+                </svg>
+              </span>
+            </button>
+          </div>
+          <div id="passwordError" class="field-inline-error"></div>
+          <div id="loginError" class="login-error"></div>
+
+          <div class="meta-row">
+            <label style="margin:0; font-weight:500; color:var(--muted); display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" />
+              Remember me
+            </label>
+            <a href="forgot-password.html">Forgot password?</a>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn" type="submit">Login</button>
+            <a href="signup.html" class="btn-secondary">Create account</a>
+          </div>
+
+          <div class="footer-note">
+            By signing in, you agree to our terms and privacy policy.
+          </div>
+        </form>
       </div>
 
-      <form onsubmit="return false;">
-        <label for="phoneInput">Phone Number</label>
-        <div class="phone-row">
-          <div class="country-code">GH +233</div>
-          <input id="phoneInput" type="text" inputmode="numeric" placeholder="241234567" value="241234567" />
-        </div>
-        <div class="hint">Format: 233241234567 (9 digits without the first zero)</div>
-
-        <label for="passInput">Password</label>
-        <input id="passInput" class="input" type="password" placeholder="Enter your password" />
-
-        <button class="btn" type="button" onclick="handleLogin()">Login</button>
-
-        <div class="links">
-          <div><a href="forgot-password.html">Forgot Password?</a></div>
-          <div class="muted" style="margin-top:6px;">
-            Don't have an account?
-            <a href="employer-signup.html" id="signupLink">Sign up as Employer</a>
-          </div>
-        </div>
-      </form>
+      <div class="login-image-side"></div>
     </div>
   </div>
 
-  <script>
-    function toggleMenu() {
-      var navLinks = document.getElementById("navLinks");
-      navLinks.classList.toggle("show");
-    }
+  <script src="assets/js/input-hardening.js"></script>
+  <script src="assets/js/candidate-session.js"></script>
+  <script src="assets/js/password-toggle.js"></script>
+    <script>
+      const loginForm = document.getElementById("loginForm");
 
-    // Close mobile menu when clicking a link
-    document.addEventListener("click", function(e){
-      var navLinks = document.getElementById("navLinks");
-      var menuBtn = document.querySelector(".menu-btn");
-      if (!navLinks || !menuBtn) return;
-      if (navLinks.classList.contains("show")) {
-        var clickedInsideNav = navLinks.contains(e.target) || menuBtn.contains(e.target);
-        if (!clickedInsideNav) navLinks.classList.remove("show");
+      function initializePasswordToggles() {
+        window.JobAssistPasswordToggle?.initPasswordToggles?.();
       }
-    });
 
-    let currentRole = "employer";
-    const candidateBtn = document.getElementById("candidateBtn");
-    const employerBtn = document.getElementById("employerBtn");
-    const loginTitle = document.getElementById("loginTitle");
-    const signupLink = document.getElementById("signupLink");
+      function showPasswordFieldError(message) {
+        const passInput = document.getElementById("passInput");
+        const passwordError = document.getElementById("passwordError");
+        passInput.closest(".input-wrap")?.classList.add("field-error");
+        passwordError.textContent = message;
+        passwordError.style.visibility = "visible";
+      }
 
-    function setRole(role){
-      currentRole = role;
-      if(role === "candidate"){
-        loginTitle.textContent = "Candidate Login";
-        candidateBtn.classList.add("active");
-        employerBtn.classList.remove("active");
-        signupLink.textContent = "Sign up as Candidate";
-        signupLink.href = "signup.html";
+      function clearPasswordFieldError() {
+        const passwordError = document.getElementById("passwordError");
+        document.getElementById("passInput")?.closest(".input-wrap")?.classList.remove("field-error");
+        if (passwordError) {
+          passwordError.textContent = "";
+          passwordError.style.visibility = "hidden";
+        }
+      }
+
+      function handleLogin() {
+        const phoneInput = document.getElementById("phoneInput");
+        const passInput = document.getElementById("passInput");
+        const loginError = document.getElementById("loginError");
+
+        phoneInput.closest(".phone-row")?.classList.remove("field-error");
+        clearPasswordFieldError();
+        loginError.style.visibility = "hidden";
+        loginError.textContent = "";
+
+      if (!phoneInput.value.trim() || !passInput.value.trim()) {
+        loginError.textContent = "Phone number and password are required.";
+        loginError.style.visibility = "visible";
+
+        if (!phoneInput.value.trim()) {
+          phoneInput.closest(".phone-row")?.classList.add("field-error");
+        }
+
+        if (!passInput.value.trim()) {
+          passInput.closest(".input-wrap")?.classList.add("field-error");
+        }
+
+          return;
+        }
+
+        if (String(passInput.value || "").trim().length < 8) {
+          showPasswordFieldError("Password must be at least 8 characters.");
+          return;
+        }
+
+        const normalizedPhone = window.JobAssistInputHardening?.normalizeGhanaPhone
+          ? window.JobAssistInputHardening.normalizeGhanaPhone(phoneInput.value)
+        : (
+            window.JobAssistCandidateSession
+              ? window.JobAssistCandidateSession.normalizePhone(phoneInput.value)
+              : String(phoneInput.value || "").replace(/\D/g, "")
+          );
+      const password = String(passInput.value || "").trim();
+
+      if (!normalizedPhone) {
+        loginError.textContent = "Enter a valid phone number to continue.";
+        loginError.style.visibility = "visible";
+        phoneInput.closest(".phone-row")?.classList.add("field-error");
+        return;
+      }
+
+      const authenticatedCandidate = window.JobAssistCandidateSession?.authenticateCandidate
+        ? window.JobAssistCandidateSession.authenticateCandidate(normalizedPhone, password)
+        : null;
+
+      if (!authenticatedCandidate) {
+        loginError.textContent = "Invalid phone number or password.";
+        loginError.style.visibility = "visible";
+        phoneInput.closest(".phone-row")?.classList.add("field-error");
+        passInput.closest(".input-wrap")?.classList.add("field-error");
+        return;
+      }
+
+      if (window.JobAssistCandidateSession) {
+        window.JobAssistCandidateSession.clearSession();
+        window.JobAssistCandidateSession.setCurrentUser({
+          ...authenticatedCandidate,
+          password: "",
+        });
       } else {
-        loginTitle.textContent = "Employer Login";
-        employerBtn.classList.add("active");
-        candidateBtn.classList.remove("active");
-        signupLink.textContent = "Sign up as Employer";
-        signupLink.href = "employer-signup.html";
+        localStorage.setItem("jobassist_current_user", JSON.stringify({
+          ...authenticatedCandidate,
+          password: "",
+        }));
       }
+
+      window.location.href = "candidate/candidate-dashboard.html";
     }
 
-    candidateBtn.addEventListener("click", () => setRole("candidate"));
-    employerBtn.addEventListener("click", () => setRole("employer"));
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        handleLogin();
+      });
 
-    function handleLogin(){
-      // Demo-only redirects (same as your previous flow)
-      if(currentRole === "candidate"){
-        window.location.href = "candidate/candidate-dashboard.html";
-      } else {
-        window.location.href = "employer/employer-dashboard.html";
-      }
+      initializePasswordToggles();
+
+    const candidateLoginPhoneInput = document.getElementById("phoneInput");
+
+    if (candidateLoginPhoneInput) {
+      candidateLoginPhoneInput.setAttribute("inputmode", "numeric");
+      candidateLoginPhoneInput.setAttribute("pattern", "[0-9]*");
+      candidateLoginPhoneInput.setAttribute("autocomplete", "tel");
+
+        candidateLoginPhoneInput.addEventListener("input", function () {
+          this.value = this.value.replace(/\D/g, "");
+          this.closest(".phone-row")?.classList.remove("field-error");
+          const loginError = document.getElementById("loginError");
+          loginError.style.visibility = "hidden";
+          loginError.textContent = "";
+        });
+
+      candidateLoginPhoneInput.addEventListener("paste", function (e) {
+        e.preventDefault();
+        const pasted = (e.clipboardData || window.clipboardData).getData("text");
+        this.value = pasted.replace(/\D/g, "");
+        this.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+
+      candidateLoginPhoneInput.addEventListener("keydown", function (e) {
+        const allowedKeys = [
+          "Backspace", "Delete", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown",
+          "Tab", "Home", "End", "Enter"
+        ];
+
+        if (allowedKeys.includes(e.key) || (e.ctrlKey || e.metaKey)) {
+          return;
+        }
+
+        if (!/^\d$/.test(e.key)) {
+          e.preventDefault();
+        }
+      });
     }
+
+      document.getElementById("passInput").addEventListener("input", function () {
+        if (String(this.value || "").trim().length >= 8) {
+          clearPasswordFieldError();
+        } else if (!String(this.value || "").trim()) {
+          clearPasswordFieldError();
+        }
+        const loginError = document.getElementById("loginError");
+        loginError.style.visibility = "hidden";
+        loginError.textContent = "";
+      });
   </script>
-</body>
+
+    <script src='assets/js/product-polish.js'></script>
+  </body>
 </html>
+

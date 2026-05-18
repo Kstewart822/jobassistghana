@@ -4,18 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Boost Job | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+
     <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
       }
 
       :root {
@@ -55,7 +56,7 @@
           180deg,
           var(--primary),
           var(--primary-dark)
-        );
+);
         color: white;
         height: 100vh;
         position: fixed;
@@ -79,12 +80,16 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         height: var(--navbar-height);
         min-height: var(--navbar-height);
+        gap: 10px;
       }
 
       .logo {
         display: flex;
         align-items: center;
         gap: 10px;
+        text-decoration: none;
+        color: inherit;
+        min-width: 0;
       }
 
       .logo-img-placeholder {
@@ -96,7 +101,7 @@
         align-items: center;
         justify-content: center;
         color: var(--primary);
-        font-weight: bold;
+        font-weight: 800;
         font-size: 1.1rem;
         flex-shrink: 0;
       }
@@ -104,19 +109,20 @@
       .logo-text {
         display: flex;
         flex-direction: column;
-        line-height: 1.2;
+        line-height: 1.1;
+        min-width: 0;
       }
 
       .logo-main {
-        font-size: 1.1rem;
-        font-weight: 700;
+        font-size: 1.05rem;
+        font-weight: 800;
         color: white;
       }
 
       .logo-sub {
         font-size: 0.7rem;
-        font-weight: 500;
-        opacity: 0.8;
+        font-weight: 600;
+        opacity: 0.85;
         color: white;
       }
 
@@ -136,7 +142,7 @@
       }
 
       .toggle-btn:hover {
-        transform: scale(1.1);
+        transform: scale(1.08);
         color: var(--secondary);
       }
 
@@ -153,7 +159,7 @@
         display: flex;
         align-items: center;
         padding: 12px 15px;
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(255, 255, 255, 0.85);
         text-decoration: none;
         transition: var(--transition);
         font-size: 0.9rem;
@@ -234,7 +240,7 @@
 
       .page-title {
         font-size: 1.2rem;
-        font-weight: 600;
+        font-weight: 700;
         color: var(--dark);
       }
 
@@ -242,6 +248,7 @@
         display: flex;
         align-items: center;
         gap: 12px;
+        position: relative; /* important for dropdown positioning */
       }
 
       /* Notification Dropdown */
@@ -274,8 +281,8 @@
 
       .notification-dropdown {
         position: absolute;
-        top: 100%;
-        right: 20px;
+        top: 120%;
+        right: 0;
         background-color: white;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
@@ -296,10 +303,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 10px;
       }
 
       .notification-title {
-        font-weight: 600;
+        font-weight: 700;
         color: var(--primary);
         font-size: 0.95rem;
       }
@@ -310,6 +318,7 @@
         color: var(--primary);
         cursor: pointer;
         font-size: 0.8rem;
+        white-space: nowrap;
       }
 
       .notification-list {
@@ -344,13 +353,7 @@
         color: var(--gray);
       }
 
-      .notification-empty {
-        padding: 20px;
-        text-align: center;
-        color: var(--gray);
-        font-size: 0.9rem;
-      }
-
+      /* User Dropdown */
       .user-profile {
         display: flex;
         align-items: center;
@@ -374,7 +377,7 @@
         align-items: center;
         justify-content: center;
         color: white;
-        font-weight: 600;
+        font-weight: 700;
         overflow: hidden;
         flex-shrink: 0;
       }
@@ -386,14 +389,14 @@
       }
 
       .user-name {
-        font-weight: 500;
+        font-weight: 600;
         font-size: 0.9rem;
       }
 
       .dropdown-menu {
         position: absolute;
-        top: 100%;
-        right: 20px;
+        top: 120%;
+        right: 0;
         background-color: white;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
@@ -421,7 +424,7 @@
         color: var(--primary);
       }
 
-      /* Dashboard Content */
+      /* Content */
       .dashboard-content {
         padding: 20px;
         flex: 1;
@@ -439,13 +442,13 @@
         font-size: 1.6rem;
         margin-bottom: 8px;
         color: var(--primary);
-        font-weight: 700;
+        font-weight: 800;
       }
 
       .welcome-subtitle {
         color: var(--gray);
         font-size: 0.95rem;
-        max-width: 600px;
+        max-width: 650px;
         margin: 0 auto;
         line-height: 1.4;
       }
@@ -468,11 +471,13 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 12px;
+        gap: 12px;
+        flex-wrap: wrap;
       }
 
       .job-title {
-        font-size: 1.3rem;
-        font-weight: 700;
+        font-size: 1.25rem;
+        font-weight: 800;
         color: var(--primary);
       }
 
@@ -482,7 +487,7 @@
         padding: 4px 10px;
         border-radius: 20px;
         font-size: 0.75rem;
-        font-weight: 600;
+        font-weight: 700;
       }
 
       .job-details {
@@ -504,7 +509,7 @@
       }
 
       .detail-value {
-        font-weight: 600;
+        font-weight: 700;
         color: var(--dark);
         font-size: 0.9rem;
       }
@@ -517,7 +522,7 @@
       }
 
       .explanation-title {
-        font-weight: 600;
+        font-weight: 800;
         margin-bottom: 8px;
         color: var(--primary);
         display: flex;
@@ -553,8 +558,8 @@
       }
 
       .no-jobs-title {
-        font-size: 1.4rem;
-        font-weight: 700;
+        font-size: 1.35rem;
+        font-weight: 800;
         margin-bottom: 10px;
         color: var(--primary);
       }
@@ -564,7 +569,7 @@
         font-size: 1rem;
         margin-bottom: 20px;
         line-height: 1.5;
-        max-width: 600px;
+        max-width: 650px;
         margin-left: auto;
         margin-right: auto;
       }
@@ -593,6 +598,7 @@
         font-size: 0.95rem;
         margin-bottom: 3px;
         color: var(--primary);
+        font-weight: 800;
       }
 
       .no-jobs-feature-text p {
@@ -601,7 +607,7 @@
         line-height: 1.4;
       }
 
-      /* Pricing Tiers - FIXED BOTTOM SPACING */
+      /* Pricing */
       .pricing-tiers {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
@@ -624,7 +630,7 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        height: 500px; /* Increased height for better button spacing */
+        min-height: 500px; /* stable on different feature lengths */
       }
 
       .pricing-tier:hover {
@@ -649,7 +655,7 @@
         color: var(--primary);
         padding: 6px 35px;
         font-size: 0.75rem;
-        font-weight: 700;
+        font-weight: 900;
         transform: rotate(45deg);
       }
 
@@ -661,14 +667,14 @@
 
       .tier-name {
         font-size: 1.3rem;
-        font-weight: 700;
+        font-weight: 900;
         margin-bottom: 8px;
         color: var(--primary);
       }
 
       .tier-price {
         font-size: 2.2rem;
-        font-weight: 800;
+        font-weight: 900;
         margin-bottom: 5px;
         color: var(--primary);
       }
@@ -681,9 +687,9 @@
 
       .tier-features {
         list-style: none;
-        margin-bottom: 25px; /* Increased bottom margin */
+        margin-bottom: 20px;
         text-align: left;
-        flex-grow: 1;
+        flex: 1;
       }
 
       .tier-features li {
@@ -705,7 +711,7 @@
       .btn {
         padding: 10px 20px;
         border-radius: 6px;
-        font-weight: 600;
+        font-weight: 800;
         cursor: pointer;
         transition: var(--transition);
         border: none;
@@ -730,19 +736,28 @@
       .btn-accent {
         background-color: var(--secondary);
         color: var(--primary);
-        font-weight: 700;
       }
 
       .btn-accent:hover {
         background-color: var(--secondary-dark);
       }
 
-      .btn-block {
-        width: 100%;
-        margin-top: auto; /* This pushes button to bottom */
+      .btn-outline {
+        background-color: transparent;
+        border: 1px solid var(--gray-light);
+        color: var(--dark);
       }
 
-      /* Benefits Section */
+      .btn-outline:hover {
+        background-color: var(--gray-light);
+      }
+
+      .btn-block {
+        width: 100%;
+        margin-top: auto;
+      }
+
+      /* Benefits */
       .benefits-section {
         margin-bottom: 40px;
         max-width: 85%;
@@ -751,11 +766,11 @@
       }
 
       .section-title {
-        font-size: 1.4rem;
+        font-size: 1.35rem;
         margin-bottom: 20px;
         text-align: center;
         color: var(--primary);
-        font-weight: 700;
+        font-weight: 900;
       }
 
       .benefits-grid {
@@ -786,8 +801,8 @@
       }
 
       .benefit-title {
-        font-size: 1.1rem;
-        font-weight: 700;
+        font-size: 1.05rem;
+        font-weight: 900;
         margin-bottom: 8px;
         color: var(--primary);
       }
@@ -798,13 +813,13 @@
         line-height: 1.4;
       }
 
-      /* Stats Section */
+      /* Stats */
       .stats-section {
         background: linear-gradient(
           135deg,
           var(--primary),
           var(--primary-dark)
-        );
+);
         color: white;
         border-radius: 12px;
         padding: 30px;
@@ -816,9 +831,9 @@
       }
 
       .stats-title {
-        font-size: 1.4rem;
+        font-size: 1.35rem;
         margin-bottom: 25px;
-        font-weight: 600;
+        font-weight: 800;
       }
 
       .stats-grid {
@@ -827,23 +842,19 @@
         gap: 25px;
       }
 
-      .stat-item {
-        text-align: center;
-      }
-
       .stat-number {
         font-size: 2rem;
-        font-weight: 800;
+        font-weight: 900;
         margin-bottom: 8px;
         color: var(--secondary);
       }
 
       .stat-label {
         font-size: 0.9rem;
-        opacity: 0.9;
+        opacity: 0.95;
       }
 
-      /* FAQ Section */
+      /* FAQ */
       .faq-section {
         margin-bottom: 30px;
         max-width: 85%;
@@ -875,9 +886,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-weight: 600;
+        font-weight: 900;
         color: var(--primary);
         font-size: 0.95rem;
+        gap: 10px;
       }
 
       .faq-answer {
@@ -917,7 +929,7 @@
         display: block;
       }
 
-      /* Premium Job Verification Section */
+      /* Premium Verification */
       .premium-verification {
         background: white;
         border-radius: 10px;
@@ -936,11 +948,13 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 12px;
+        gap: 12px;
+        flex-wrap: wrap;
       }
 
       .verification-title {
-        font-size: 1.3rem;
-        font-weight: 700;
+        font-size: 1.2rem;
+        font-weight: 900;
         color: var(--primary);
       }
 
@@ -950,7 +964,7 @@
         padding: 4px 10px;
         border-radius: 20px;
         font-size: 0.75rem;
-        font-weight: 600;
+        font-weight: 900;
       }
 
       .verification-features {
@@ -974,10 +988,10 @@
 
       .verification-cta {
         text-align: center;
-        margin-top: 15px;
+        margin-top: 10px;
       }
 
-      /* Modal Styles */
+      /* Modals */
       .modal {
         display: none;
         position: fixed;
@@ -1011,11 +1025,12 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 12px;
+        gap: 10px;
       }
 
       .modal-title {
         font-size: 1.1rem;
-        font-weight: 700;
+        font-weight: 900;
         color: var(--primary);
       }
 
@@ -1040,7 +1055,6 @@
         flex-wrap: wrap;
       }
 
-      /* Logout button style */
       .btn-logout {
         background-color: var(--danger);
         color: white;
@@ -1050,7 +1064,6 @@
         background-color: var(--danger-dark);
       }
 
-      /* Create First Modal */
       .create-first-modal {
         text-align: center;
       }
@@ -1061,11 +1074,7 @@
         margin-bottom: 15px;
       }
 
-      /* ====================== */
-      /* MOBILE OPTIMIZATIONS */
-      /* ====================== */
-
-      /* Tablet (992px and below) */
+      /* Responsive */
       @media (max-width: 992px) {
         .sidebar {
           transform: translateX(-100%);
@@ -1130,12 +1139,10 @@
         }
 
         .notification-dropdown {
-          right: 15px;
           width: 280px;
         }
       }
 
-      /* Mobile (768px and below) */
       @media (max-width: 768px) {
         .dashboard-content {
           padding: 12px;
@@ -1169,131 +1176,25 @@
           height: 35px;
         }
 
-        .dropdown-menu {
-          right: 12px;
-          width: 160px;
-        }
-
-        .welcome-section {
-          margin-bottom: 20px;
-          padding: 0 5px;
-        }
-
         .welcome-title {
           font-size: 1.4rem;
-          margin-bottom: 6px;
         }
 
         .welcome-subtitle {
           font-size: 0.9rem;
         }
 
-        .job-info,
-        .no-jobs-card,
-        .premium-verification,
-        .pricing-tier {
-          padding: 18px;
-        }
-
         .job-header {
           flex-direction: column;
           align-items: flex-start;
-          gap: 8px;
-          margin-bottom: 10px;
-        }
-
-        .job-title {
-          font-size: 1.2rem;
-        }
-
-        .job-status {
-          align-self: flex-start;
         }
 
         .job-details {
           grid-template-columns: 1fr;
-          gap: 10px;
-        }
-
-        .detail-label {
-          font-size: 0.75rem;
-        }
-
-        .detail-value {
-          font-size: 0.85rem;
-        }
-
-        .boost-explanation {
-          padding: 12px;
-        }
-
-        .explanation-title {
-          font-size: 0.9rem;
-          margin-bottom: 6px;
-        }
-
-        .explanation-text {
-          font-size: 0.85rem;
-        }
-
-        .no-jobs-icon {
-          font-size: 2.5rem;
-        }
-
-        .no-jobs-title {
-          font-size: 1.2rem;
-        }
-
-        .no-jobs-text {
-          font-size: 0.9rem;
-        }
-
-        .no-jobs-features {
-          grid-template-columns: 1fr;
-        }
-
-        .pricing-tiers {
-          gap: 15px;
-          margin-bottom: 30px;
-          max-width: 95%;
         }
 
         .pricing-tier {
-          padding: 18px;
-          height: 480px; /* Adjusted for mobile */
-        }
-
-        .popular-badge {
-          padding: 5px 30px;
-          font-size: 0.7rem;
-        }
-
-        .tier-icon {
-          font-size: 2rem;
-          margin-bottom: 10px;
-        }
-
-        .tier-name {
-          font-size: 1.2rem;
-        }
-
-        .tier-price {
-          font-size: 2rem;
-        }
-
-        .tier-duration {
-          font-size: 0.9rem;
-          margin-bottom: 15px;
-        }
-
-        .tier-features li {
-          padding: 4px 0;
-          font-size: 0.85rem;
-        }
-
-        .benefits-section {
-          margin-bottom: 30px;
-          max-width: 95%;
+          min-height: 480px;
         }
 
         .benefits-grid {
@@ -1301,38 +1202,8 @@
           gap: 15px;
         }
 
-        .benefit-card {
-          padding: 18px;
-        }
-
-        .benefit-icon {
-          font-size: 1.8rem;
-          margin-bottom: 10px;
-        }
-
-        .benefit-title {
-          font-size: 1rem;
-          margin-bottom: 6px;
-        }
-
-        .benefit-description {
-          font-size: 0.85rem;
-        }
-
-        .section-title {
-          font-size: 1.2rem;
-          margin-bottom: 15px;
-        }
-
         .stats-section {
           padding: 20px;
-          margin-bottom: 25px;
-          max-width: 95%;
-        }
-
-        .stats-title {
-          font-size: 1.2rem;
-          margin-bottom: 20px;
         }
 
         .stats-grid {
@@ -1340,263 +1211,53 @@
           gap: 20px;
         }
 
-        .stat-number {
-          font-size: 1.8rem;
-          margin-bottom: 6px;
-        }
-
-        .stat-label {
-          font-size: 0.85rem;
-        }
-
-        .faq-section {
-          margin-bottom: 25px;
-          max-width: 95%;
-        }
-
-        .faq-grid {
-          gap: 10px;
-        }
-
-        .faq-item {
-          padding: 15px;
-        }
-
-        .faq-question {
-          font-size: 0.9rem;
-        }
-
-        .faq-answer {
-          font-size: 0.85rem;
-          margin-top: 10px;
-        }
-
-        .btn {
-          padding: 8px 15px;
-          font-size: 0.85rem;
-        }
-
-        .verification-header {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 8px;
-        }
-
-        .verification-title {
-          font-size: 1.2rem;
-        }
-
         .notification-dropdown {
-          right: 10px;
           width: 260px;
         }
       }
 
-      /* Small Mobile (576px and below) */
       @media (max-width: 576px) {
-        .dashboard-content {
-          padding: 10px;
-        }
-
-        .navbar {
-          padding: 0 10px;
-        }
-
-        .mobile-menu-btn {
-          font-size: 1rem;
-        }
-
-        .page-title {
-          font-size: 1rem;
-        }
-
-        .welcome-title {
-          font-size: 1.2rem;
-        }
-
-        .welcome-subtitle {
-          font-size: 0.8rem;
-        }
-
-        .job-info,
-        .no-jobs-card,
-        .premium-verification,
-        .pricing-tier {
-          padding: 16px;
-          max-width: 95%;
-        }
-
-        .job-title,
-        .verification-title {
-          font-size: 1.1rem;
-        }
-
-        .job-details {
-          grid-template-columns: 1fr;
-        }
-
-        .no-jobs-title {
-          font-size: 1.1rem;
-        }
-
-        .pricing-tiers {
-          gap: 12px;
-          max-width: 100%;
-        }
-
-        .tier-icon {
-          font-size: 1.8rem;
-        }
-
-        .tier-name {
-          font-size: 1.1rem;
-        }
-
-        .tier-price {
-          font-size: 1.8rem;
-        }
-
-        .pricing-tier {
-          height: 460px;
-        }
-
         .stats-grid {
           grid-template-columns: 1fr;
           gap: 15px;
         }
 
-        .benefit-card {
-          padding: 16px;
+        .pricing-tiers {
+          max-width: 100%;
         }
 
-        .section-title {
-          font-size: 1.1rem;
-        }
-
-        .navbar {
-          padding: 0 12px;
-        }
-
-        .logo-main {
-          font-size: 1.1rem;
-        }
-
-        .logo-sub {
-          font-size: 0.65rem;
-        }
-
-        .logo-img-placeholder {
-          width: 35px;
-          height: 35px;
-          font-size: 1rem;
+        .notification-dropdown {
+          width: 240px;
         }
       }
 
-      /* Extra Small Mobile (480px and below) */
       @media (max-width: 480px) {
         .dashboard-content {
           padding: 8px;
         }
 
-        .job-info,
-        .no-jobs-card,
-        .premium-verification,
-        .pricing-tier {
-          padding: 14px;
-        }
-
         .welcome-title {
-          font-size: 1.1rem;
-        }
-
-        .job-title,
-        .verification-title {
-          font-size: 1rem;
-        }
-
-        .no-jobs-title {
-          font-size: 1rem;
-        }
-
-        .tier-price {
-          font-size: 1.6rem;
-        }
-
-        .tier-name {
-          font-size: 1rem;
+          font-size: 1.15rem;
         }
 
         .pricing-tier {
-          height: 440px;
+          min-height: 450px;
         }
 
         .btn {
-          padding: 7px 12px;
-          font-size: 0.8rem;
-        }
-
-        .navbar-right {
-          gap: 10px;
-        }
-
-        .notification-icon {
-          font-size: 1rem;
-        }
-
-        .notification-badge {
-          width: 16px;
-          height: 16px;
-          font-size: 0.65rem;
+          padding: 8px 14px;
+          font-size: 0.85rem;
         }
 
         .notification-dropdown {
-          width: 240px;
-          right: 8px;
-        }
-      }
-
-      /* Very Small Mobile (360px and below) */
-      @media (max-width: 360px) {
-        .dashboard-content {
-          padding: 6px;
-        }
-
-        .job-info,
-        .no-jobs-card,
-        .premium-verification,
-        .pricing-tier {
-          padding: 12px;
-        }
-
-        .welcome-title {
-          font-size: 1rem;
-        }
-
-        .section-title {
-          font-size: 1rem;
-        }
-
-        .btn {
-          padding: 6px 10px;
-          font-size: 0.75rem;
-        }
-
-        .logo-main {
-          font-size: 0.9rem;
-        }
-
-        .logo-img-placeholder {
-          width: 30px;
-          height: 30px;
-          font-size: 0.9rem;
-        }
-
-        .pricing-tier {
-          height: 420px;
+          width: 220px;
         }
       }
     </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
   </head>
+
   <body>
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
@@ -1606,14 +1267,18 @@
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title">Confirm Logout</h3>
-          <button class="close-modal">&times;</button>
+          <button class="close-modal" type="button">&times;</button>
         </div>
         <div class="modal-body">
           <p>Are you sure you want to log out?</p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-logout" id="confirmLogout">Log Out</button>
-          <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+          <button class="btn btn-logout" id="confirmLogout" type="button">
+            Log Out
+          </button>
+          <button class="btn btn-outline" id="cancelLogout" type="button">
+            Cancel
+          </button>
         </div>
       </div>
     </div>
@@ -1623,7 +1288,7 @@
       <div class="modal-content create-first-modal">
         <div class="modal-header">
           <h3 class="modal-title">Create a Job Listing First</h3>
-          <button class="close-modal">&times;</button>
+          <button class="close-modal" type="button">&times;</button>
         </div>
         <div class="modal-body">
           <div class="create-first-icon">
@@ -1639,42 +1304,37 @@
           </p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" id="createJobBtn">
+          <button class="btn btn-primary" id="createJobBtn" type="button">
             Create Job Listing
           </button>
-          <button class="btn btn-outline" id="closeCreateFirst">Cancel</button>
+          <button class="btn btn-outline" id="closeCreateFirst" type="button">
+            Cancel
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- Sidebar -->
+    <!-- Sidebar (FIXED: no duplicated header) -->
     <aside class="sidebar" id="sidebar">
-<<<<<<< HEAD:boost-job.html
       <div class="sidebar-header">
-        <div class="logo">
+        <a href="../index.html" class="logo" aria-label="JobAssist Home">
           <div class="logo-img-placeholder">JA</div>
           <div class="logo-text">
             <div class="logo-main">JobAssist</div>
             <div class="logo-sub">GHANA</div>
           </div>
-=======
-        <div class="sidebar-header">
-            <a href="../index.html" class="logo">
-                <div class="logo-img-placeholder">JA</div>
-                <div class="logo-text">
-                    <div class="logo-main">JobAssist</div>
-                    <div class="logo-sub">GHANA</div>
-                </div>
-            </a>
-            <button class="toggle-btn" id="sidebarToggle">
-                <i class="fas fa-chevron-left"></i>
-            </button>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:employer/boost-job.html
-        </div>
-        <button class="toggle-btn" id="sidebarToggle">
+        </a>
+
+        <button
+          class="toggle-btn"
+          id="sidebarToggle"
+          aria-label="Toggle sidebar"
+          type="button"
+        >
           <i class="fas fa-chevron-left"></i>
         </button>
       </div>
+
       <ul class="sidebar-menu">
         <li>
           <a href="employer-dashboard.html"
@@ -1725,59 +1385,36 @@
     <div class="main-content" id="mainContent">
       <!-- Navbar -->
       <nav class="navbar">
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
           <i class="fas fa-bars"></i>
         </button>
+
         <div class="page-title">Boost Job</div>
+
         <div class="navbar-right">
-          <!-- Notification Area -->
-          <div class="notification-icon" id="notificationIcon">
+          <div class="notification-icon" id="notificationIcon" title="Notifications">
             <i class="fas fa-bell"></i>
-            <span class="notification-badge">5</span>
+            <span class="notification-badge" id="notificationBadge">5</span>
           </div>
+
           <div class="notification-dropdown" id="notificationDropdown">
             <div class="notification-header">
               <h3 class="notification-title">Notifications</h3>
-              <button class="mark-all-read">Mark all as read</button>
+              <button class="mark-all-read" id="markAllRead" type="button">
+                Mark all as read
+              </button>
             </div>
-            <ul class="notification-list">
-              <li class="notification-item unread">
-                <div class="notification-content">
-                  5 new applicants for Frontend Developer position
-                </div>
-                <div class="notification-time">2 hours ago</div>
-              </li>
-              <li class="notification-item unread">
-                <div class="notification-content">
-                  Your job listing for Marketing Manager is about to expire
-                </div>
-                <div class="notification-time">5 hours ago</div>
-              </li>
-              <li class="notification-item unread">
-                <div class="notification-content">
-                  3 candidates have viewed your company profile this week
-                </div>
-                <div class="notification-time">1 day ago</div>
-              </li>
-              <li class="notification-item">
-                <div class="notification-content">
-                  Boost campaign for UX Designer has ended
-                </div>
-                <div class="notification-time">2 days ago</div>
-              </li>
-            </ul>
+            <ul class="notification-list" id="employerNotificationList"></ul>
           </div>
+
           <div class="user-profile" id="userProfile">
-            <div class="user-avatar">
-              <img src="https://i.pravatar.cc/150?img=5" alt="User" />
-            </div>
-            <div class="user-name">Nana Kwame</div>
+            <div class="user-avatar" id="employerBusinessAvatar">B</div>
+            <div class="user-name" id="employerBusinessShortName">Business</div>
             <i class="fas fa-chevron-down"></i>
           </div>
-          <div class="dropdown-menu">
-            <a href="esettings.html"
-              ><i class="fas fa-user"></i> View Profile</a
-            >
+
+          <div class="dropdown-menu" id="userDropdown">
+            <a href="esettings.html"><i class="fas fa-user"></i> View Profile</a>
             <a href="employer-payment.html"
               ><i class="fas fa-history"></i> Payment History</a
             >
@@ -1789,11 +1426,10 @@
         </div>
       </nav>
 
-      <!-- Dashboard Content -->
+      <!-- Content -->
       <div class="dashboard-content">
-        <!-- Welcome Section -->
         <div class="welcome-section">
-          <h1 class="welcome-title">Get More Qualified Applicants 🚀</h1>
+          <h1 class="welcome-title">Get More Qualified Applicants </h1>
           <p class="welcome-subtitle">
             Boost your job listing to reach top talent faster and fill your
             positions with the best candidates
@@ -1803,7 +1439,7 @@
         <!-- Premium Job Verification Section -->
         <div class="premium-verification" id="premiumVerificationSection">
           <div class="verification-header">
-            <h3 class="verification-title">Premium Job Listing Verified ✅</h3>
+            <h3 class="verification-title">Premium Job Listing Verified </h3>
             <span class="verification-badge">ACTIVE</span>
           </div>
 
@@ -1827,18 +1463,18 @@
           </div>
 
           <div class="verification-cta">
-            <p style="margin-bottom: 15px; color: var(--gray)">
+            <p style="margin-bottom: 0; color: var(--gray)">
               Your job listing is already verified. Consider boosting for even
               greater visibility to reach more candidates!
             </p>
           </div>
         </div>
 
-        <!-- Job Listing Info - WILL BE POPULATED DYNAMICALLY -->
+        <!-- Job Listing Info -->
         <div class="job-info" id="jobInfoCard" style="display: none">
           <div class="job-header">
             <h3 class="job-title" id="jobPosition">Loading job details...</h3>
-            <span class="job-status">Active</span>
+            <span class="job-status" id="jobStatusBadge">Active</span>
           </div>
 
           <div class="job-details">
@@ -1875,7 +1511,7 @@
           </div>
         </div>
 
-        <!-- No Jobs Card - FOR EMPLOYERS WITHOUT JOB LISTINGS -->
+        <!-- No Jobs Card -->
         <div class="no-jobs-card" id="noJobsCard" style="display: none">
           <div class="no-jobs-icon">
             <i class="fas fa-briefcase"></i>
@@ -1898,6 +1534,7 @@
                 </p>
               </div>
             </div>
+
             <div class="no-jobs-feature">
               <i class="fas fa-star"></i>
               <div class="no-jobs-feature-text">
@@ -1908,6 +1545,7 @@
                 </p>
               </div>
             </div>
+
             <div class="no-jobs-feature">
               <i class="fas fa-bolt"></i>
               <div class="no-jobs-feature-text">
@@ -1925,16 +1563,15 @@
           </a>
         </div>
 
-        <!-- Pricing Tiers - FIXED BOTTOM SPACING -->
+        <!-- Pricing -->
         <div class="pricing-tiers">
-          <!-- Standard Boost -->
           <div class="pricing-tier popular">
             <div class="popular-badge">MOST POPULAR</div>
             <div class="tier-icon">
               <i class="fas fa-gem"></i>
             </div>
             <h3 class="tier-name">Standard Boost</h3>
-            <div class="tier-price">₵250</div>
+            <div class="tier-price">GHS 250</div>
             <div class="tier-duration">Featured placement for 30 days</div>
             <ul class="tier-features">
               <li>
@@ -1948,8 +1585,10 @@
               </li>
               <li><i class="fas fa-check"></i> Applicant tracking dashboard</li>
             </ul>
+
             <button
               class="btn btn-accent btn-block boost-button"
+              type="button"
               data-tier="boost-standard"
               data-amount="250"
               data-name="Standard Boost"
@@ -1959,13 +1598,12 @@
             </button>
           </div>
 
-          <!-- Premium Boost -->
           <div class="pricing-tier">
             <div class="tier-icon">
               <i class="fas fa-rocket"></i>
             </div>
             <h3 class="tier-name">Premium Boost</h3>
-            <div class="tier-price">₵450</div>
+            <div class="tier-price">GHS 450</div>
             <div class="tier-duration">Maximum visibility for 60 days</div>
             <ul class="tier-features">
               <li><i class="fas fa-check"></i> Maximum priority placement</li>
@@ -1978,8 +1616,10 @@
               <li><i class="fas fa-check"></i> Dedicated employer support</li>
               <li><i class="fas fa-check"></i> Social media promotion</li>
             </ul>
+
             <button
               class="btn btn-primary btn-block boost-button"
+              type="button"
               data-tier="boost-premium"
               data-amount="450"
               data-name="Premium Boost"
@@ -1990,7 +1630,7 @@
           </div>
         </div>
 
-        <!-- Benefits Section -->
+        <!-- Benefits -->
         <div class="benefits-section">
           <h3 class="section-title">Why Boost Your Job Listing?</h3>
           <div class="benefits-grid">
@@ -2039,7 +1679,7 @@
           </div>
         </div>
 
-        <!-- Stats Section -->
+        <!-- Stats -->
         <div class="stats-section">
           <h3 class="stats-title">Boosted Job Listings Get Better Results</h3>
           <div class="stats-grid">
@@ -2062,7 +1702,7 @@
           </div>
         </div>
 
-        <!-- FAQ Section -->
+        <!-- FAQ -->
         <div class="faq-section">
           <h3 class="section-title">Frequently Asked Questions</h3>
           <div class="faq-grid">
@@ -2085,8 +1725,7 @@
               </div>
               <div class="faq-answer">
                 Yes, you can boost multiple job listings. Each listing requires
-                its own boost purchase. Many employers boost their most urgent
-                positions to maximize visibility.
+                its own boost purchase.
               </div>
             </div>
 
@@ -2097,8 +1736,7 @@
               </div>
               <div class="faq-answer">
                 We offer a 7-day money-back guarantee if you're not satisfied
-                with the boost service. Contact our support team for assistance
-                with refund requests.
+                with the boost service. Contact support for help.
               </div>
             </div>
 
@@ -2109,8 +1747,7 @@
               </div>
               <div class="faq-answer">
                 Your job listing will be boosted immediately after payment. Most
-                employers see increased candidate applications within 24-48
-                hours as job seekers view featured listings first.
+                employers see increased applications within 24-48 hours.
               </div>
             </div>
 
@@ -2121,8 +1758,7 @@
               </div>
               <div class="faq-answer">
                 Boosts cannot be paused, but you can choose not to renew when
-                your boost period ends. For cancellations during the active
-                period, contact our support team.
+                your boost period ends. For cancellations, contact support.
               </div>
             </div>
           </div>
@@ -2137,175 +1773,334 @@
       const mainContent = document.getElementById("mainContent");
       const mobileMenuBtn = document.getElementById("mobileMenuBtn");
       const mobileOverlay = document.getElementById("mobileOverlay");
+
       const boostButtons = document.querySelectorAll(".boost-button");
       const faqItems = document.querySelectorAll(".faq-item");
+
       const sidebarLogout = document.getElementById("sidebarLogout");
       const dropdownLogout = document.getElementById("dropdownLogout");
+
       const premiumVerificationSection = document.getElementById(
         "premiumVerificationSection",
-      );
+);
       const jobInfoCard = document.getElementById("jobInfoCard");
       const noJobsCard = document.getElementById("noJobsCard");
+
       const notificationIcon = document.getElementById("notificationIcon");
       const notificationDropdown = document.getElementById(
         "notificationDropdown",
-      );
+);
+      const notificationBadge = document.getElementById("notificationBadge");
+      const markAllReadBtn = document.getElementById("markAllRead");
+
       const logoutModal = document.getElementById("logoutModal");
       const confirmLogout = document.getElementById("confirmLogout");
       const cancelLogout = document.getElementById("cancelLogout");
+
       const createFirstModal = document.getElementById("createFirstModal");
       const createJobBtn = document.getElementById("createJobBtn");
       const closeCreateFirst = document.getElementById("closeCreateFirst");
 
-      // Employer job listings database
-      const employerJobDatabase = {
-        "frontend-developer": {
-          title: "Frontend Developer",
-          company: "Two Southeast Las",
-          location: "Accra, Greater Accra",
-          type: "Full-time",
-          salary: "₵3,500 - ₵4,500 monthly",
-          description:
-            "We are looking for a skilled Frontend Developer with 3+ years of experience in modern web technologies.",
-          postedDate: "May 15, 2024",
-          jobId: "JOB-789123",
-          applicants: 24,
-          status: "Active",
-          isPremium: true,
-        },
-        "marketing-manager": {
-          title: "Marketing Manager",
-          company: "Global Emails Inc",
-          location: "Kumasi, Ashanti",
-          type: "Full-time",
-          salary: "₵4,000 - ₵5,000 monthly",
-          description:
-            "Exciting opportunity for a Marketing Manager with 3+ years experience.",
-          postedDate: "May 10, 2024",
-          jobId: "JOB-654321",
-          applicants: 18,
-          status: "Active",
-          isPremium: false,
-        },
-        "senior-ux-designer": {
-          title: "Senior UX Designer",
-          company: "Creative Labs Ghana",
-          location: "Accra, Greater Accra",
-          type: "Full-time",
-          salary: "₵4,500 - ₵5,500 monthly",
-          description: "Join our innovative team as a Senior UX Designer.",
-          postedDate: "May 12, 2024",
-          jobId: "JOB-456789",
-          applicants: 15,
-          status: "Active",
-          isPremium: false,
-        },
-      };
+      const userProfile = document.getElementById("userProfile");
+      const userDropdown = document.getElementById("userDropdown");
 
-      // Initialize page with employer's job listings
-      function initializePage() {
-        // Get employer's job listings from localStorage
-        const employerJobs =
-          JSON.parse(localStorage.getItem("employerJobs")) || [];
+      let isMobileMenuOpen = false;
 
-        // Get the most recent job listing (last one in the array)
-        const mostRecentJob =
-          employerJobs.length > 0
-            ? employerJobs[employerJobs.length - 1]
-            : null;
+      function getCurrentEmployerProfile() {
+        return (
+          JSON.parse(localStorage.getItem("jobassist_current_employer") || "null") ||
+          JSON.parse(localStorage.getItem("employer") || "null") ||
+          {}
+        );
+      }
 
-        if (mostRecentJob) {
-          // Employer has job listings - show the job info card
-          noJobsCard.style.display = "none";
-          jobInfoCard.style.display = "block";
+      function normalizeEmployerMatchValue(value) {
+        return String(value || "").replace(/\s+/g, " ").trim().toLowerCase();
+      }
 
-          const jobData =
-            employerJobDatabase[mostRecentJob.id] ||
-            employerJobDatabase["frontend-developer"];
+      function showErrorFeedback(message) {
+        if (window.JobAssistUI?.showErrorToast) {
+          window.JobAssistUI.showErrorToast(message);
+          return;
+        }
+        if (window.showErrorToast) {
+          window.showErrorToast(message);
+          return;
+        }
+        alert(message);
+      }
 
-          // Update job listing info with real data
-          document.getElementById("jobPosition").textContent =
-            `${jobData.title} at ${jobData.company}`;
-          document.getElementById("postedDate").textContent =
-            jobData.postedDate;
-          document.getElementById("jobId").textContent = jobData.jobId;
-          document.getElementById("applicantCount").textContent =
-            `${jobData.applicants} applicants`;
+      function getBusinessName() {
+        const employer = getCurrentEmployerProfile();
+        return (
+          String(employer.companyName || employer.businessName || employer.company || "").trim() ||
+          localStorage.getItem("companyName")?.trim() ||
+          localStorage.getItem("businessName")?.trim() ||
+          localStorage.getItem("company")?.trim() ||
+          "Business"
+        );
+      }
 
-          // Show listing type and premium verification status
-          const listingType = jobData.isPremium
-            ? "Premium (Verified)"
-            : "Standard";
-          document.getElementById("listingType").textContent = listingType;
+      function getShortBusinessName(name) {
+        const clean = String(name || "").trim();
+        if (!clean) return "Business";
+        return clean.split(/\s+/)[0];
+      }
 
-          // Show premium verification section if job is premium
-          if (jobData.isPremium) {
-            premiumVerificationSection.style.display = "block";
-          } else {
-            premiumVerificationSection.style.display = "none";
-          }
+      function setEmployerIdentity() {
+        const businessName = getBusinessName();
+        const shortName = getShortBusinessName(businessName);
+        const firstLetter = shortName ? shortName.charAt(0).toUpperCase() : "B";
 
-          // Update page title to reflect the job being boosted
-          document.title = `Boost ${jobData.title} Listing | JobAssist Ghana`;
+        const nameEl = document.getElementById("employerBusinessShortName");
+        const avatarEl = document.getElementById("employerBusinessAvatar");
 
-          // Save current job data for payment
-          window.currentJobData = {
-            id: mostRecentJob.id,
-            title: jobData.title,
-            company: jobData.company,
-            jobId: jobData.jobId,
-          };
-        } else {
-          // Employer has no job listings - show the "no jobs" card
-          jobInfoCard.style.display = "none";
-          premiumVerificationSection.style.display = "none";
-          noJobsCard.style.display = "block";
+        if (nameEl) {
+          nameEl.textContent = shortName;
+        }
+
+        if (avatarEl) {
+          avatarEl.textContent = firstLetter;
         }
       }
 
-      // Toggle Sidebar
+      function getEmployerNotifications() {
+        const items = JSON.parse(localStorage.getItem("jobassist_employer_notifications") || "[]");
+        return Array.isArray(items) ? items : [];
+      }
+
+      function saveEmployerNotifications(items) {
+        localStorage.setItem("jobassist_employer_notifications", JSON.stringify(items));
+      }
+
+      function formatTimeAgo(dateString) {
+        const now = new Date();
+        const then = new Date(dateString);
+        const diffMs = now - then;
+
+        const minutes = Math.floor(diffMs / 60000);
+        const hours = Math.floor(diffMs / 3600000);
+        const days = Math.floor(diffMs / 86400000);
+
+        if (minutes < 1) return "Just now";
+        if (minutes < 60) return `${minutes} min ago`;
+        if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+        return `${days} day${days === 1 ? "" : "s"} ago`;
+      }
+
+      function renderEmployerNotifications() {
+        const notificationList = document.getElementById("employerNotificationList");
+        const badge = document.getElementById("notificationBadge");
+
+        if (!notificationList) return;
+
+        const notifications = getEmployerNotifications();
+        notificationList.innerHTML = "";
+
+        if (!notifications.length) {
+          notificationList.innerHTML = `
+            <li class="notification-item">
+              <div class="notification-content">No notifications yet</div>
+              <div class="notification-time">-</div>
+            </li>
+          `;
+          if (badge) badge.style.display = "none";
+          return;
+        }
+
+        notifications.forEach((item) => {
+          const li = document.createElement("li");
+          li.className = `notification-item ${item.isRead ? "" : "unread"}`;
+
+          li.innerHTML = `
+            <div class="notification-content">${item.message}</div>
+            <div class="notification-time">${formatTimeAgo(item.createdAt)}</div>
+          `;
+
+          notificationList.appendChild(li);
+        });
+
+        const unreadCount = notifications.filter((item) => !item.isRead).length;
+
+        if (badge) {
+          if (unreadCount > 0) {
+            badge.style.display = "flex";
+            badge.textContent = unreadCount > 99 ? "99+" : String(unreadCount);
+          } else {
+            badge.style.display = "none";
+          }
+        }
+      }
+
+      function markAllEmployerNotificationsRead() {
+        const notifications = getEmployerNotifications().map((item) => ({
+          ...item,
+          isRead: true
+        }));
+
+        saveEmployerNotifications(notifications);
+        renderEmployerNotifications();
+      }
+
+      function getEmployerJobs() {
+        const jobs = JSON.parse(localStorage.getItem("jobassist_employer_jobs") || "[]");
+        const allJobs = Array.isArray(jobs) ? jobs : [];
+        const employer = getCurrentEmployerProfile();
+        const employerId = String(
+          employer.id || employer.employerId || employer.userId || ""
+        ).trim();
+        const employerCompany = normalizeEmployerMatchValue(
+          employer.companyName || employer.businessName || employer.company || localStorage.getItem("companyName") || ""
+        );
+
+        return allJobs.filter((job) => {
+          const jobEmployerId = String(
+            job?.employerId || job?.ownerId || job?.employerUserId || ""
+          ).trim();
+          if (employerId && jobEmployerId && employerId === jobEmployerId) {
+            return true;
+          }
+
+          const jobCompany = normalizeEmployerMatchValue(
+            job?.companyName || job?.businessName || job?.company || ""
+          );
+          return Boolean(employerCompany && jobCompany && employerCompany === jobCompany);
+        });
+      }
+
+      function getApplications() {
+        const applications = JSON.parse(localStorage.getItem("jobassist_applications") || "[]");
+        return Array.isArray(applications) ? applications : [];
+      }
+
+      function getSelectedBoostJob() {
+        const jobs = getEmployerJobs();
+        if (!jobs.length) return null;
+
+        const params = new URLSearchParams(window.location.search);
+        const jobIdFromUrl = params.get("jobId");
+
+        if (jobIdFromUrl) {
+          const matchedJob = jobs.find(
+            (job) => String(job.jobId || job.id) === String(jobIdFromUrl)
+);
+          if (matchedJob) return matchedJob;
+        }
+
+        return [...jobs].sort(
+          (a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
+)[0];
+      }
+
+      function renderBoostJobInfo() {
+        const selectedJob = getSelectedBoostJob();
+
+        if (!selectedJob) {
+          jobInfoCard.style.display = "none";
+          premiumVerificationSection.style.display = "none";
+          noJobsCard.style.display = "block";
+          document.title = "Boost Job | Job Assist Ghana";
+          window.currentJobData = null;
+          return;
+        }
+
+        noJobsCard.style.display = "none";
+        jobInfoCard.style.display = "block";
+
+        const allApplications = getApplications();
+        const selectedJobId = String(selectedJob.jobId || selectedJob.id || "");
+        const applicantCount = allApplications.filter(
+          (app) => String(app.jobId || app.id) === selectedJobId
+).length;
+
+        const title = selectedJob.jobTitle || selectedJob.title || "Untitled Job";
+        const companyName =
+          selectedJob.companyName ||
+          selectedJob.company ||
+          selectedJob.businessName ||
+          getBusinessName();
+
+        const isPremium = String(selectedJob.jobType || "").toLowerCase() === "premium";
+        const lifecycle = window.JobPostingExpiry?.getJobLifecycle?.(selectedJob) || {
+          isActive: !(selectedJob.isClosed || String(selectedJob.status || "").toLowerCase() === "closed"),
+          isClosed: Boolean(selectedJob.isClosed || String(selectedJob.status || "").toLowerCase() === "closed"),
+          isExpired: false,
+          statusText: selectedJob.isClosed ? "Closed" : "Active",
+        };
+
+        document.getElementById("jobPosition").textContent = `${title} at ${companyName}`;
+        document.getElementById("postedDate").textContent = selectedJob.createdAt
+          ? new Date(selectedJob.createdAt).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })
+          : "Not specified";
+        document.getElementById("jobId").textContent = selectedJobId || "Not specified";
+        document.getElementById("applicantCount").textContent = `${applicantCount} applicant${applicantCount === 1 ? "" : "s"}`;
+        document.getElementById("listingType").textContent = isPremium ? "Premium" : "Standard";
+
+        const jobStatusBadge = document.getElementById("jobStatusBadge");
+        jobStatusBadge.textContent = lifecycle.statusText || "Active";
+        jobStatusBadge.style.background =
+          lifecycle.isClosed || lifecycle.isExpired ? "var(--danger)" : "var(--success)";
+
+        premiumVerificationSection.style.display = isPremium ? "block" : "none";
+        boostButtons.forEach((button) => {
+          button.disabled = !lifecycle.isActive;
+          button.title = lifecycle.isActive
+            ? "Boost this job"
+            : lifecycle.isExpired
+              ? "Expired jobs cannot be boosted."
+              : "Closed jobs cannot be boosted.";
+        });
+
+        document.title = `Boost ${title} Listing | JobAssist Ghana`;
+
+        window.currentJobData = {
+          id: selectedJob.id || selectedJob.jobId || "",
+          title: title,
+          company: companyName,
+          jobId: selectedJobId,
+          isBoostable: lifecycle.isActive,
+        };
+      }
+
+      function initializePage() {
+        renderBoostJobInfo();
+      }
+
+      // Sidebar toggle
       sidebarToggle.addEventListener("click", function () {
         sidebar.classList.toggle("collapsed");
         mainContent.classList.toggle("expanded");
 
         const icon = this.querySelector("i");
-        if (sidebar.classList.contains("collapsed")) {
-          icon.className = "fas fa-chevron-right";
-        } else {
-          icon.className = "fas fa-chevron-left";
-        }
+        icon.className = sidebar.classList.contains("collapsed")
+          ? "fas fa-chevron-right"
+          : "fas fa-chevron-left";
       });
 
-      // Mobile Menu Toggle
-      let isMobileMenuOpen = false;
-
+      // Mobile menu toggle
       mobileMenuBtn.addEventListener("click", function () {
-        if (isMobileMenuOpen) {
-          sidebar.classList.remove("mobile-open");
-          mobileOverlay.classList.remove("show");
-          isMobileMenuOpen = false;
-        } else {
-          sidebar.classList.add("mobile-open");
-          mobileOverlay.classList.add("show");
-          isMobileMenuOpen = true;
-        }
+        isMobileMenuOpen = !isMobileMenuOpen;
+        sidebar.classList.toggle("mobile-open", isMobileMenuOpen);
+        mobileOverlay.classList.toggle("show", isMobileMenuOpen);
       });
 
-      // Close mobile menu when clicking overlay
       mobileOverlay.addEventListener("click", function () {
         sidebar.classList.remove("mobile-open");
         mobileOverlay.classList.remove("show");
         isMobileMenuOpen = false;
       });
 
-      // User Profile Dropdown
-      document
-        .querySelector(".user-profile")
-        .addEventListener("click", function () {
-          document.querySelector(".dropdown-menu").classList.toggle("show");
-        });
+      // User dropdown
+      userProfile.addEventListener("click", function (e) {
+        e.stopPropagation();
+        userDropdown.classList.toggle("show");
+      });
 
-      // Notification Dropdown
+      // Notification dropdown
       notificationIcon.addEventListener("click", function (e) {
         e.stopPropagation();
         notificationDropdown.classList.toggle("show");
@@ -2313,48 +2108,50 @@
 
       // Close dropdowns when clicking outside
       document.addEventListener("click", function (event) {
-        if (!event.target.closest(".user-profile")) {
-          document.querySelector(".dropdown-menu").classList.remove("show");
+        if (!event.target.closest("#userProfile")) {
+          userDropdown.classList.remove("show");
         }
-
-        if (!event.target.closest(".notification-icon")) {
+        if (!event.target.closest("#notificationIcon")) {
           notificationDropdown.classList.remove("show");
         }
       });
 
-      // Boost Package Selection - Check if employer has job listings first
+      // Mark all notifications as read
+      markAllReadBtn.addEventListener("click", function () {
+        markAllEmployerNotificationsRead();
+      });
+
+      // Boost click
       boostButtons.forEach((button) => {
         button.addEventListener("click", function () {
-          // Get employer's job listings from localStorage
-          const employerJobs =
-            JSON.parse(localStorage.getItem("employerJobs")) || [];
+          if (this.dataset.loading === "true") return;
 
-          if (employerJobs.length === 0) {
-            // Employer has no job listings - show the create first modal
+          const employerJobs = getEmployerJobs();
+
+          if (employerJobs.length === 0 || !window.currentJobData) {
             createFirstModal.classList.add("show");
             return;
           }
 
-          // Employer has job listings - proceed with boost
+          if (!window.currentJobData.isBoostable) {
+            showErrorFeedback("Expired or closed jobs cannot be boosted.");
+            return;
+          }
+
           const tier = this.getAttribute("data-tier");
           const amount = this.getAttribute("data-amount");
           const name = this.getAttribute("data-name");
           const duration = this.getAttribute("data-duration");
 
-          // Get current job data
-          const jobData = window.currentJobData || {
-            id: "frontend-developer",
-            title: "Frontend Developer",
-            company: "Two Southeast Las",
-            jobId: "JOB-789123",
-          };
+          const jobData = window.currentJobData;
 
-          // Prepare payment data
           const paymentData = {
             service: "job_boost",
+            serviceType: "job_boost",
             boostTier: tier,
+            boostType: tier === "boost-premium" ? "premium" : "standard",
             boostName: name,
-            amount: amount.replace("₵", ""),
+            amount: String(amount).replace("GHS ", ""),
             duration: duration,
             jobId: jobData.jobId,
             jobTitle: jobData.title,
@@ -2362,45 +2159,86 @@
             description: `${name} for ${jobData.title} position - ${duration}`,
           };
 
-          // Save payment data to sessionStorage
-          sessionStorage.setItem("paymentData", JSON.stringify(paymentData));
-
-          // Show loading state
           const originalText = this.innerHTML;
+          this.dataset.loading = "true";
           this.innerHTML =
-            '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
+            '<i class="fas fa-spinner fa-spin"></i> Processing...';
           this.disabled = true;
+          try {
+            const pendingAction =
+              window.JobAssistPaymentGate?.registerPendingPaymentAction({
+                role: "employer",
+                flow: "employer",
+                serviceType: tier === "boost-premium" ? "job_boost_premium" : "job_boost_standard",
+                serviceName: name,
+                jobId: String(jobData.jobId || ""),
+                amount: Number(String(amount).replace("GHS ", "")),
+                displayAmount: `GHS ${Number(String(amount).replace("GHS ", "")).toFixed(2)}`,
+                payload: paymentData,
+              }) || null;
 
-          // Redirect to employer payment page
-          setTimeout(() => {
-            window.location.href = "employer-payment.html";
-          }, 500);
+            if (pendingAction?.actionId) {
+              paymentData.actionId = pendingAction.actionId;
+              paymentData.referenceCode = pendingAction.referenceCode || pendingAction.reference || "";
+            }
+
+            localStorage.removeItem("unlockApplicantId");
+            localStorage.removeItem("paymentType");
+            localStorage.removeItem("amount");
+            sessionStorage.removeItem("jobassist_payment_data");
+            sessionStorage.setItem("paymentData", JSON.stringify(paymentData));
+
+            setTimeout(() => {
+              try {
+                const boostService =
+                  tier === "boost-premium" ? "job_boost_premium" : "job_boost_standard";
+                const paymentUrl = new URL("employer-payment.html", window.location.href);
+                paymentUrl.searchParams.set("service", boostService);
+                paymentUrl.searchParams.set(
+                  "type",
+                  tier === "boost-premium" ? "premium" : "standard"
+                );
+                paymentUrl.searchParams.set(
+                  "amount",
+                  String(Number(String(amount).replace("GHS ", "")))
+                );
+                paymentUrl.searchParams.set("jobId", String(jobData.jobId || ""));
+                if (pendingAction?.actionId) {
+                  paymentUrl.searchParams.set("actionId", String(pendingAction.actionId));
+                }
+                if (paymentData.referenceCode) {
+                  paymentUrl.searchParams.set("ref", String(paymentData.referenceCode));
+                }
+                window.location.href = paymentUrl.toString();
+              } catch (error) {
+                console.error("Boost payment redirect failed.", error);
+                delete this.dataset.loading;
+                this.disabled = false;
+                this.innerHTML = originalText;
+                showErrorFeedback("Payment initialization failed. Please try again.");
+              }
+            }, 500);
+          } catch (error) {
+            console.error("Boost payment setup failed.", error);
+            delete this.dataset.loading;
+            this.disabled = false;
+            this.innerHTML = originalText;
+            showErrorFeedback("Payment initialization failed. Please try again.");
+          }
         });
       });
 
-      // FAQ Toggle
+      // FAQ toggle
       faqItems.forEach((item) => {
         item.addEventListener("click", function () {
-          faqItems.forEach((otherItem) => {
-            if (otherItem !== this) {
-              otherItem.classList.remove("active");
-            }
+          faqItems.forEach((other) => {
+            if (other !== this) other.classList.remove("active");
           });
-
           this.classList.toggle("active");
         });
       });
 
-      // Handle window resize
-      window.addEventListener("resize", function () {
-        if (window.innerWidth > 992) {
-          sidebar.classList.remove("mobile-open");
-          mobileOverlay.classList.remove("show");
-          isMobileMenuOpen = false;
-        }
-      });
-
-      // Logout functionality
+      // Logout
       sidebarLogout.addEventListener("click", function (e) {
         e.preventDefault();
         logoutModal.classList.add("show");
@@ -2408,34 +2246,20 @@
 
       dropdownLogout.addEventListener("click", function (e) {
         e.preventDefault();
-        document.querySelector(".dropdown-menu").classList.remove("show");
+        userDropdown.classList.remove("show");
         logoutModal.classList.add("show");
       });
 
-      // Logout modal buttons
       confirmLogout.addEventListener("click", function () {
-        // Redirect to login page after logout
         logoutModal.classList.remove("show");
-        window.location.href = "login.html";
+        window.location.href = "../employer-login.html";
       });
 
       cancelLogout.addEventListener("click", function () {
         logoutModal.classList.remove("show");
       });
 
-      // Mark all notifications as read
-      document
-        .querySelector(".mark-all-read")
-        .addEventListener("click", function () {
-          document
-            .querySelectorAll(".notification-item.unread")
-            .forEach((item) => {
-              item.classList.remove("unread");
-            });
-          document.querySelector(".notification-badge").style.display = "none";
-        });
-
-      // Create First Modal functionality
+      // Create-first modal
       createJobBtn.addEventListener("click", function () {
         createFirstModal.classList.remove("show");
         window.location.href = "job-type.html";
@@ -2445,51 +2269,41 @@
         createFirstModal.classList.remove("show");
       });
 
-      // Close modals when clicking outside
+      // Close modals on backdrop click
       window.addEventListener("click", function (event) {
-        if (event.target === logoutModal) {
-          logoutModal.classList.remove("show");
-        }
-        if (event.target === createFirstModal) {
+        if (event.target === logoutModal) logoutModal.classList.remove("show");
+        if (event.target === createFirstModal)
           createFirstModal.classList.remove("show");
-        }
       });
 
-      // Close modals with X button
-      document.querySelectorAll(".close-modal").forEach((button) => {
-        button.addEventListener("click", function () {
+      // Close modals on X
+      document.querySelectorAll(".close-modal").forEach((btn) => {
+        btn.addEventListener("click", function () {
           const modal = this.closest(".modal");
-          modal.classList.remove("show");
+          if (modal) modal.classList.remove("show");
         });
       });
 
-      // Initialize the page
-      document.addEventListener("DOMContentLoaded", function () {
-        initializePage();
-
-        // If localStorage doesn't have employerJobs, create some sample data
-        if (!localStorage.getItem("employerJobs")) {
-          const sampleEmployerJobs = [
-            {
-              id: "frontend-developer",
-              title: "Frontend Developer",
-              tier: "premium",
-              date: "2024-05-15",
-            },
-            {
-              id: "marketing-manager",
-              title: "Marketing Manager",
-              tier: "standard",
-              date: "2024-05-10",
-            },
-          ];
-          localStorage.setItem(
-            "employerJobs",
-            JSON.stringify(sampleEmployerJobs),
-          );
-          initializePage(); // Reinitialize with the sample data
+      // Resize handling
+      window.addEventListener("resize", function () {
+        if (window.innerWidth > 992) {
+          sidebar.classList.remove("mobile-open");
+          mobileOverlay.classList.remove("show");
+          isMobileMenuOpen = false;
         }
       });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        setEmployerIdentity();
+        renderEmployerNotifications();
+        initializePage();
+      });
     </script>
+  
+    <script src="../assets/js/job-posting-expiry.js"></script>
+    <script src="../assets/js/toast.js"></script>
+    <script src="../assets/js/payment-gating.js"></script>
+    <script src='../assets/js/product-polish.js'></script>
   </body>
 </html>
+

@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <title>About Us | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="assets/images/tab-logo.png" />
 
     <!-- Fonts + Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,6 +36,7 @@
         --shadow: 0 10px 30px rgba(10, 42, 102, 0.12);
         --shadow-soft: 0 8px 18px rgba(10, 42, 102, 0.1);
         --max: 1200px;
+        --nav-h: 68px;
       }
 
       * {
@@ -72,22 +73,23 @@
 
       /* =======================
        NAVBAR (MATCH HOMEPAGE)
-       ======================= */
-      header {
+       ================*/
+      .site-nav {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        z-index: 1000;
-        height: 70px;
-        background: #123a7a;
-        display: flex;
-        align-items: center;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        z-index: 2000;
+        height: var(--nav-h);
+        background: rgba(10, 42, 102, 0.97);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       }
-      .nav-wrap {
-        width: 100%;
-        max-width: var(--max);
+      .nav-inner {
+        height: var(--nav-h);
+        max-width: 1200px;
         margin: 0 auto;
         padding: 0 16px;
         display: flex;
@@ -99,50 +101,74 @@
       .brand {
         display: flex;
         align-items: center;
+        text-decoration: none;
         gap: 10px;
-        min-width: 160px;
+        min-width: 140px;
       }
       .brand img {
         height: 36px;
         width: auto;
+        display: block;
         filter: brightness(0) invert(1);
       }
 
-      /* Desktop nav */
-      .desktop-nav {
+      .nav-links {
         display: none;
-      }
-      .desktop-nav ul {
         list-style: none;
-        display: flex;
+        margin: 0;
+        padding: 0;
         align-items: center;
         gap: 18px;
       }
-      .desktop-nav a {
-        color: #fff;
-        font-weight: 600;
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.92);
+        text-decoration: none;
+        font-weight: 700;
         font-size: 14px;
-        padding: 10px 12px;
-        border-radius: 10px;
-        opacity: 0.95;
-        transition: all 0.2s ease;
+        padding: 10px 10px;
+        transition: color 0.2s ease, background 0.2s ease;
+        border-radius: 8px;
+        white-space: nowrap;
       }
-      .desktop-nav a:hover {
-        opacity: 1;
+      .nav-links a:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.08);
       }
-      .desktop-nav a.active {
-        background: rgba(248, 193, 46, 0.18);
+      .nav-links a.active {
         color: var(--gold);
-        box-shadow: inset 0 0 0 1px rgba(248, 193, 46, 0.25);
+        background: rgba(248, 193, 46, 0.14);
       }
 
-      /* Right actions (MATCH HOMEPAGE) */
-      .nav-actions {
+      .nav-cta {
         display: none;
         align-items: center;
         gap: 10px;
-        min-width: 200px;
-        justify-content: flex-end;
+      }
+      .btn-solid {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 14px;
+        padding: 12px 16px;
+        border-radius: 6px;
+        border: 1px solid transparent;
+        transition: transform 0.12s ease, filter 0.2s ease, box-shadow 0.2s ease,
+          background 0.2s ease;
+        white-space: nowrap;
+        line-height: 1;
+      }
+      .btn-solid-primary {
+        background: var(--gold);
+        color: var(--deep-blue);
+        box-shadow: 0 14px 26px rgba(248, 193, 46, 0.24);
+      }
+      .btn-solid-primary:hover {
+        background: var(--gold-2);
+        color: var(--deep-blue);
+        transform: translateY(-1px);
+        box-shadow: 0 18px 30px rgba(248, 193, 46, 0.28);
       }
       .btn {
         display: inline-flex;
@@ -188,71 +214,57 @@
         transform: translateY(-1px);
       }
 
-      /* Mobile */
-      .menu-icon {
+      .menu-btn {
         width: 44px;
         height: 44px;
-        display: inline-flex;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.06);
+        display: flex;
         align-items: center;
         justify-content: center;
         color: #fff;
-        font-size: 20px;
-        border-radius: 10px;
         cursor: pointer;
       }
-      .menu-icon:hover {
-        background: rgba(255, 255, 255, 0.08);
+      .menu-btn i {
+        font-size: 18px;
       }
 
-      .mobile-nav {
-        display: none;
+      .mobile-drawer {
         position: fixed;
-        top: 70px;
+        top: var(--nav-h);
         left: 0;
         right: 0;
-        background: #123a7a;
-        border-top: 1px solid rgba(255, 255, 255, 0.12);
-        z-index: 999;
-        max-height: calc(100vh - 70px);
+        z-index: 1999;
+        display: none;
+        background: rgba(10, 42, 102, 0.985);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        max-height: calc(100vh - var(--nav-h));
         overflow: auto;
-        -webkit-overflow-scrolling: touch;
       }
-      .mobile-nav.active {
+      .mobile-drawer.active {
         display: block;
       }
-      .mobile-nav .m-wrap {
-        padding: 14px 16px 18px;
-        max-width: var(--max);
-        margin: 0 auto;
+      .mobile-drawer a {
+        display: block;
+        padding: 14px 18px;
+        color: rgba(255, 255, 255, 0.92);
+        text-decoration: none;
+        font-weight: 700;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       }
-      .mobile-nav a {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+      .mobile-drawer a:hover {
+        background: rgba(255, 255, 255, 0.06);
         color: #fff;
-        font-weight: 600;
-        padding: 12px 12px;
-        border-radius: 12px;
-        opacity: 0.95;
       }
-      .mobile-nav a.active {
-        background: rgba(248, 193, 46, 0.18);
+      .mobile-drawer a.active {
         color: var(--gold);
-        box-shadow: inset 0 0 0 1px rgba(248, 193, 46, 0.25);
-      }
-      .mobile-actions {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-top: 12px;
-      }
-      .mobile-actions .btn {
-        width: 100%;
+        background: rgba(248, 193, 46, 0.14);
       }
 
       /* =======================
        PAGE HERO
-       ======================= */
+       ================*/
       .page-hero {
         padding: 110px 16px 44px;
         background:
@@ -260,10 +272,10 @@
             900px 300px at 20% 20%,
             rgba(248, 193, 46, 0.18),
             transparent 60%
-          ),
+),
           linear-gradient(135deg, #0a2a66 0%, #0a3f86 100%);
         color: #fff;
-        margin-top: 70px;
+        margin-top: var(--nav-h);
       }
       .hero-inner {
         max-width: var(--max);
@@ -307,7 +319,7 @@
 
       /* =======================
        CONTENT WRAPPER
-       ======================= */
+       ================*/
       .container {
         max-width: var(--max);
         margin: 0 auto;
@@ -367,18 +379,22 @@
       }
 
       /* Responsive */
-      @media (min-width: 900px) {
-        .desktop-nav {
-          display: block;
+      @media (min-width: 992px) {
+        .nav-links {
+          display: flex;
+          margin-left: auto;
         }
-        .nav-actions {
+        .nav-cta {
           display: flex;
         }
-        .menu-icon {
+        .menu-btn {
           display: none;
         }
-        .mobile-nav {
+        .mobile-drawer {
           display: none !important;
+        }
+        .nav-inner {
+          padding: 0 20px;
         }
         .hero-inner {
           grid-template-columns: 1fr;
@@ -389,57 +405,47 @@
         .grid-2 {
           grid-template-columns: 1fr 1fr;
         }
-        header {
-          height: 70px;
-        }
       }
     </style>
+  
+    <link rel='stylesheet' href='assets/css/product-polish.css' />
   </head>
 
   <body>
     <!-- NAVBAR (EXACT MATCH WITH HOMEPAGE LAYOUT) -->
-    <header>
-      <div class="nav-wrap">
+    <header class="site-nav">
+      <div class="nav-inner">
         <a class="brand" href="index.html" aria-label="Job Assist Ghana Home">
-          <img src="logo.png" alt="Job Assist Ghana Logo" />
+          <img src="assets/images/logo.png" alt="Job Assist Ghana Logo" />
         </a>
 
-        <nav class="desktop-nav" aria-label="Primary">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html" class="active">About</a></li>
-            <li><a href="build-cv.html">Build a CV</a></li>
-          </ul>
-        </nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="build-cv.html">Build a CV</a></li>
+        </ul>
 
-        <div class="nav-actions">
-          <a class="btn btn-gold" href="login.html">Get Started</a>
+        <div class="nav-cta">
+          <a class="btn-solid btn-solid-primary" href="login.html">Login</a>
         </div>
 
-        <div
-          class="menu-icon"
+        <button
+          class="menu-btn"
+          type="button"
           onclick="toggleMenu()"
           aria-label="Open menu"
-          role="button"
-          tabindex="0"
         >
           <i class="fas fa-bars"></i>
-        </div>
+        </button>
       </div>
-    </header>
 
-    <!-- MOBILE MENU -->
-    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
-      <div class="m-wrap">
+      <nav class="mobile-drawer" id="mobile-nav" aria-label="Mobile navigation">
         <a href="index.html">Home</a>
         <a href="about.html" class="active">About</a>
         <a href="build-cv.html">Build a CV</a>
-
-        <div class="mobile-actions">
-          <a class="btn btn-gold" href="login.html">Get Started</a>
-        </div>
-      </div>
-    </nav>
+        <a class="mobile-cta" href="login.html">Login</a>
+      </nav>
+    </header>
 
     <!-- HERO -->
     <section class="page-hero">
@@ -447,7 +453,7 @@
         <h1>About Job Assist Ghana</h1>
         <p>
           We connect skilled job seekers with credible employers across
-          Ghana—helping candidates get discovered faster, and helping businesses
+          Ghana-helping candidates get discovered faster, and helping businesses
           hire with confidence.
         </p>
 
@@ -470,7 +476,7 @@
       <!-- Mission & Vision -->
       <h2 class="section-title">Our Mission & Vision</h2>
       <p class="section-subtitle">
-        We’re focused on practical outcomes: helping candidates present
+        We're focused on practical outcomes: helping candidates present
         themselves professionally and helping employers find the right fit.
       </p>
 
@@ -489,8 +495,8 @@
           <div class="icon"><i class="fa-solid fa-eye"></i></div>
           <h3>Our Vision</h3>
           <p>
-            To become Ghana’s most trusted platform where candidates gain
-            visibility and employers discover dependable talent— supporting
+            To become Ghana's most trusted platform where candidates gain
+            visibility and employers discover dependable talent- supporting
             long-term growth for people and businesses.
           </p>
         </div>
@@ -518,7 +524,7 @@
             <div class="v-icon"><i class="fa-solid fa-bolt"></i></div>
             <h4>Simplicity</h4>
             <p>
-              We keep the experience fast and easy—especially on mobile—so users
+              We keep the experience fast and easy-especially on mobile-so users
               can act quickly.
             </p>
           </div>
@@ -547,8 +553,7 @@
       <section class="snapshot" aria-label="Platform Snapshot">
         <h2 class="snap-title">Platform Snapshot</h2>
         <p class="snap-subtitle">
-          These numbers can be updated anytime — they are here to quickly show
-          credibility and growth.
+          Our growing platform at a glance.
         </p>
 
         <div class="snap-grid">
@@ -560,13 +565,13 @@
 
           <div class="snap-card">
             <div class="snap-ico"><i class="fa-solid fa-building"></i></div>
-            <div class="snap-num">800+</div>
+            <div class="snap-num">100+</div>
             <div class="snap-label">Employers Joined</div>
           </div>
 
           <div class="snap-card">
             <div class="snap-ico"><i class="fa-solid fa-file-lines"></i></div>
-            <div class="snap-num">3,000+</div>
+            <div class="snap-num">1,000+</div>
             <div class="snap-label">CVs Built</div>
           </div>
 
@@ -584,18 +589,16 @@
       <section class="cta-bar" aria-label="Ready to Get Started">
         <div class="cta-inner">
           <div class="cta-left">
-            <h3>Ready to Get Started?</h3>
+            <h3>Ready to hire or get hired?</h3>
             <p>
-              Sign in and create your account as a candidate or employer. Your
-              “Get Started” button takes everyone to the same login page.
+              Employers can move faster with a clearer hiring workflow, while
+              candidates can build a stronger profile and start applying with confidence.
             </p>
           </div>
 
           <div class="cta-right">
-            <a class="btn btn-gold cta-btn" href="login.html">Get Started</a>
-            <a class="btn btn-outline cta-btn" href="build-cv.html"
-              >Build Your CV</a
-            >
+            <a class="btn btn-gold cta-btn" href="employer-login.html">Start Hiring</a>
+            <a class="btn btn-outline cta-btn" href="login.html">Find a Job</a>
           </div>
         </div>
       </section>
@@ -633,7 +636,7 @@
               <a href="index.html">Home</a>
               <a href="about.html">About</a>
               <a href="build-cv.html">Build a CV</a>
-              <a href="login.html">Get Started</a>
+              <a href="employer-login.html">Get Started</a>
             </div>
           </div>
 
@@ -646,7 +649,7 @@
         </div>
 
         <div class="footer-bottom">
-          <div class="copy">© 2026 Job Assist Ghana. All rights reserved.</div>
+          <div class="copy">Copyright <span id="year"></span> Job Assist Ghana. All rights reserved.</div>
           <div class="legal">
             <a href="privacy.html">Privacy</a>
             <a href="terms.html">Terms</a>
@@ -771,7 +774,7 @@
             800px 260px at 85% 30%,
             rgba(248, 193, 46, 0.18),
             transparent 60%
-          ),
+),
           linear-gradient(135deg, #0a2a66 0%, #0a3f86 100%);
         border-radius: 18px;
         padding: 22px 16px;
@@ -943,84 +946,52 @@
     </style>
 
     <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
       // ===== Mobile Menu (same behavior across pages) =====
-      const navToggle = document.querySelector(".nav-toggle");
-      const mobileNav = document.getElementById("mobileNav");
-      const navIcon = document.querySelector(".nav-toggle i");
-
-      function closeMenu() {
-        mobileNav.classList.remove("active");
-        navToggle.setAttribute("aria-expanded", "false");
-        if (navIcon) {
-          navIcon.classList.remove("fa-xmark");
-          navIcon.classList.add("fa-bars");
-        }
-      }
-
-      function openMenu() {
-        mobileNav.classList.add("active");
-        navToggle.setAttribute("aria-expanded", "true");
-        if (navIcon) {
-          navIcon.classList.remove("fa-bars");
-          navIcon.classList.add("fa-xmark");
-        }
-      }
-
       function toggleMenu() {
-        const isOpen = mobileNav.classList.contains("active");
-        if (isOpen) closeMenu();
-        else openMenu();
+        const drawer = document.getElementById("mobile-nav");
+        const icon = document.querySelector(".menu-btn i");
+
+        drawer.classList.toggle("active");
+
+        if (drawer.classList.contains("active")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-xmark");
+        } else {
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        }
       }
 
-      // Click toggle
-      if (navToggle && mobileNav) {
-        navToggle.addEventListener("click", toggleMenu);
+      document.addEventListener("click", function (event) {
+        const drawer = document.getElementById("mobile-nav");
+        const menuBtn = document.querySelector(".menu-btn");
+        const nav = document.querySelector(".site-nav");
 
-        // Keyboard toggle (Enter / Space)
-        navToggle.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            toggleMenu();
-          }
-        });
-      }
+        if (!drawer || !menuBtn || !nav) return;
 
-      // Close when clicking outside
-      document.addEventListener("click", (e) => {
-        if (!navToggle || !mobileNav) return;
-        const clickedInsideToggle = navToggle.contains(e.target);
-        const clickedInsideNav = mobileNav.contains(e.target);
-        if (!clickedInsideToggle && !clickedInsideNav) closeMenu();
+        const clickedInsideNav = nav.contains(event.target);
+        if (!clickedInsideNav && drawer.classList.contains("active")) {
+          drawer.classList.remove("active");
+          const icon = document.querySelector(".menu-btn i");
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        }
       });
 
-      // Close after clicking a menu link
-      document.querySelectorAll("#mobileNav a").forEach((link) => {
-        link.addEventListener("click", () => closeMenu());
-      });
-
-      // Close on resize to desktop to prevent stuck state
-      window.addEventListener("resize", () => {
-        if (window.innerWidth >= 768) closeMenu();
-      });
-
-      // Optional: highlight active link in mobile nav too (based on filename)
-      (function setActiveLinks() {
-        const path = (
-          window.location.pathname.split("/").pop() || ""
-        ).toLowerCase();
-
-        // Desktop links
-        document.querySelectorAll(".nav-links a").forEach((a) => {
-          const href = (a.getAttribute("href") || "").toLowerCase();
-          if (href && path && href === path) a.classList.add("active");
+      document.querySelectorAll("#mobile-nav a").forEach((link) => {
+        link.addEventListener("click", () => {
+          const drawer = document.getElementById("mobile-nav");
+          drawer.classList.remove("active");
+          const icon = document.querySelector(".menu-btn i");
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
         });
-
-        // Mobile links
-        document.querySelectorAll("#mobileNav a").forEach((a) => {
-          const href = (a.getAttribute("href") || "").toLowerCase();
-          if (href && path && href === path) a.classList.add("active");
-        });
-      })();
+      });
     </script>
+  
+    <script src='assets/js/product-polish.js'></script>
   </body>
 </html>
+

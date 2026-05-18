@@ -1,10 +1,10 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Applications | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -14,8 +14,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       }
 
       :root {
@@ -48,14 +47,9 @@
         line-height: 1.4;
       }
 
-      /* Sidebar Styles */
       .sidebar {
         width: var(--sidebar-width);
-        background: linear-gradient(
-          180deg,
-          var(--primary),
-          var(--primary-dark)
-        );
+        background: linear-gradient(180deg, var(--primary), var(--primary-dark));
         color: white;
         height: 100vh;
         position: fixed;
@@ -85,6 +79,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        text-decoration: none;
       }
 
       .logo-img-placeholder {
@@ -190,14 +185,12 @@
         justify-content: center;
       }
 
-      /* Premium indicator */
       .premium-indicator {
         color: var(--secondary);
         margin-left: auto;
         font-size: 0.8rem;
       }
 
-      /* Main Content Area */
       .main-content {
         flex: 1;
         margin-left: var(--sidebar-width);
@@ -213,7 +206,6 @@
         width: calc(100% - var(--sidebar-collapsed));
       }
 
-      /* Navbar Styles */
       .navbar {
         height: var(--navbar-height);
         background-color: white;
@@ -346,50 +338,75 @@
         color: var(--primary);
       }
 
-      /* Dashboard Content */
       .dashboard-content {
-        padding: 20px;
+        padding: 24px;
         flex: 1;
+        background:
+          radial-gradient(circle at top right, rgba(248, 193, 46, 0.15), transparent 28%),
+          linear-gradient(180deg, #f8fbff 0%, #eef4fb 100%);
       }
 
       .welcome-section {
-        margin-bottom: 15px;
-        padding: 0 5px;
+        margin-bottom: 18px;
+        padding: 24px 26px;
+        background:
+          linear-gradient(135deg, rgba(10, 42, 102, 0.98), rgba(7, 30, 77, 0.94)),
+          linear-gradient(90deg, rgba(248, 193, 46, 0.18), transparent);
+        border-radius: 22px;
+        box-shadow: 0 18px 42px rgba(10, 42, 102, 0.14);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .welcome-section::after {
+        content: "";
+        position: absolute;
+        right: -50px;
+        bottom: -70px;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(248, 193, 46, 0.24), transparent 70%);
       }
 
       .welcome-title {
-        font-size: 1.4rem;
-        margin-bottom: 4px;
-        color: var(--primary);
+        font-size: 2rem;
+        margin-bottom: 8px;
+        color: white;
         font-weight: 700;
+        position: relative;
+        z-index: 1;
       }
 
       .welcome-subtitle {
-        color: var(--gray);
-        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 0.96rem;
+        max-width: 620px;
+        position: relative;
+        z-index: 1;
       }
 
-      /* Stats Cards */
       .stats-container {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        margin-bottom: 20px;
+        gap: 14px;
+        margin: 18px 0 22px;
       }
 
       .stat-card {
-        background-color: white;
-        border-radius: 8px;
-        padding: 16px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        text-align: center;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+        border-radius: 18px;
+        padding: 18px;
+        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+        text-align: left;
         transition: var(--transition);
-        border-top: 3px solid var(--primary);
+        border: 1px solid rgba(10, 42, 102, 0.07);
+        border-top: 4px solid var(--primary);
       }
 
       .stat-card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 10px 24px rgba(248, 193, 46, 0.14);
       }
 
       .stat-card:nth-child(1) {
@@ -398,6 +415,8 @@
 
       .stat-card:nth-child(2) {
         border-top-color: var(--secondary);
+        border-color: rgba(248, 193, 46, 0.28);
+        background: linear-gradient(180deg, rgba(255, 251, 235, 0.96), rgba(255, 255, 255, 0.98));
       }
 
       .stat-card:nth-child(3) {
@@ -405,9 +424,9 @@
       }
 
       .stat-number {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         font-weight: 700;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
         line-height: 1;
       }
 
@@ -425,13 +444,13 @@
 
       .stat-label {
         color: var(--dark);
-        font-size: 0.85rem;
+        font-size: 0.92rem;
         font-weight: 600;
-        margin-bottom: 3px;
+        margin-bottom: 4px;
       }
 
       .stat-subtitle {
-        font-size: 0.75rem;
+        font-size: 0.78rem;
         color: var(--gray);
       }
 
@@ -449,75 +468,104 @@
         color: var(--success);
       }
 
-      .performance-good {
-        background-color: rgba(248, 193, 46, 0.2);
-        color: var(--secondary);
-      }
-
       .performance-improving {
         background-color: rgba(59, 130, 246, 0.2);
         color: #3b82f6;
       }
 
-      /* Application Tabs */
       .application-tabs {
         display: flex;
-        gap: 8px;
-        margin-bottom: 16px;
+        gap: 10px;
+        margin-bottom: 18px;
         flex-wrap: wrap;
+        padding: 6px;
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        border-radius: 18px;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
       }
 
       .tab {
-        padding: 8px 16px;
-        background-color: white;
-        border-radius: 6px;
+        padding: 10px 16px;
+        background-color: transparent;
+        border-radius: 999px;
         cursor: pointer;
         transition: var(--transition);
-        font-weight: 500;
-        border: 1px solid var(--gray-light);
+        font-weight: 600;
+        border: 1px solid transparent;
         font-size: 0.85rem;
       }
 
       .tab.active {
-        background-color: var(--primary);
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
         color: white;
-        border-color: var(--primary);
+        border-color: rgba(248, 193, 46, 0.8);
+        box-shadow: 0 10px 20px rgba(10, 42, 102, 0.18), inset 0 0 0 1px rgba(248, 193, 46, 0.24);
       }
 
       .tab:hover:not(.active) {
-        background-color: var(--gray-light);
+        background-color: rgba(248, 193, 46, 0.12);
+        border-color: rgba(248, 193, 46, 0.35);
+        color: var(--primary);
       }
 
-      /* Applications Grid */
       .applications-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 12px;
-        margin-bottom: 25px;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 16px;
+        margin-bottom: 28px;
       }
 
       .job-card {
         background-color: white;
-        border-radius: 8px;
-        padding: 16px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border-radius: 20px;
+        padding: 18px;
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
         transition: var(--transition);
-        border-top: 3px solid var(--primary);
+        border: 1px solid rgba(248, 193, 46, 0.22);
+        border-top: 4px solid var(--primary);
         display: flex;
         flex-direction: column;
+        position: relative;
       }
 
       .job-card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-color: rgba(248, 193, 46, 0.52);
+        box-shadow: 0 16px 32px rgba(248, 193, 46, 0.14);
+      }
+
+      .job-card.withdrawn {
+        opacity: 0.75;
+        border-top-color: var(--gray);
+      }
+
+      .job-header-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 8px;
       }
 
       .job-title {
         font-size: 1rem;
         font-weight: 700;
-        margin-bottom: 6px;
         color: var(--primary);
         line-height: 1.3;
+      }
+
+      .job-id-badge {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, rgba(248, 193, 46, 0.14), rgba(248, 193, 46, 0.08));
+        border: 1px solid rgba(248, 193, 46, 0.4);
+        color: var(--primary);
+        font-size: 0.72rem;
+        font-weight: 700;
+        white-space: nowrap;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
       }
 
       .job-meta {
@@ -536,17 +584,16 @@
 
       .job-status {
         display: inline-block;
-        padding: 4px 8px;
+        padding: 6px 10px;
         border-radius: 20px;
         font-size: 0.75rem;
         font-weight: 600;
-        margin-bottom: 12px;
         width: fit-content;
       }
 
       .status-in-review {
         background-color: rgba(248, 193, 46, 0.2);
-        color: var(--secondary);
+        color: #b88300;
         border: 1px solid var(--secondary);
       }
 
@@ -556,24 +603,92 @@
         border: 1px solid var(--success);
       }
 
+      .status-withdrawn {
+        background-color: rgba(100, 116, 139, 0.15);
+        color: var(--gray);
+        border: 1px solid var(--gray-light);
+      }
+
+      .application-tier {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        width: fit-content;
+      }
+
+      .application-status-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+
+      .tier-free {
+        background-color: rgba(16, 185, 129, 0.15);
+        color: var(--success);
+      }
+
+      .tier-premium {
+        background-color: rgba(248, 193, 46, 0.2);
+        color: var(--primary);
+      }
+
+      .job-categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 10px;
+      }
+
+      .category-pill {
+        background: rgba(10, 42, 102, 0.08);
+        color: var(--primary);
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        padding: 4px 8px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 600;
+      }
+
       .job-description {
         color: var(--dark);
-        font-size: 0.85rem;
-        line-height: 1.4;
-        margin-bottom: 15px;
+        font-size: 0.88rem;
+        line-height: 1.5;
+        margin-bottom: 16px;
         flex-grow: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 3em;
       }
 
       .job-actions {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        align-items: stretch;
         margin-top: auto;
       }
 
+      .job-actions .btn,
+      .job-actions button,
+      .job-actions a {
+        flex: 1 1 0;
+        min-width: 0;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.2;
+        padding: 10px;
+      }
+
       .btn {
-        padding: 8px 12px;
-        border-radius: 5px;
+        padding: 10px 12px;
+        border-radius: 12px;
         font-weight: 600;
         cursor: pointer;
         transition: var(--transition);
@@ -593,28 +708,30 @@
 
       .btn-primary:hover {
         background-color: var(--primary-dark);
+        box-shadow: 0 8px 18px rgba(10, 42, 102, 0.2);
       }
 
       .btn-outline {
-        background-color: transparent;
-        border: 1px solid var(--gray-light);
-        color: var(--dark);
+        background-color: var(--secondary);
+        border: none;
+        color: var(--primary);
+        font-weight: 600;
       }
 
       .btn-outline:hover {
-        background-color: var(--gray-light);
+        background-color: var(--secondary-dark);
       }
 
       .btn-danger {
         background-color: var(--danger);
         color: white;
+        border: 1px solid rgba(239, 68, 68, 0.12);
       }
 
       .btn-danger:hover {
         background-color: var(--danger-dark);
       }
 
-      /* Logout button style - matching notification badge red */
       .btn-logout {
         background-color: var(--danger);
         color: white;
@@ -624,7 +741,40 @@
         background-color: var(--danger-dark);
       }
 
-      /* Footer */
+      .empty-state {
+        background: linear-gradient(180deg, #ffffff, #f8fbff);
+        border-radius: 20px;
+        padding: 40px 24px;
+        text-align: center;
+        color: var(--gray);
+        border: 1px dashed rgba(10, 42, 102, 0.18);
+        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.04);
+      }
+
+      .empty-state i {
+        font-size: 2.4rem;
+        margin-bottom: 12px;
+        color: var(--primary);
+      }
+
+      .view-more-btn {
+        background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        color: white;
+        border: none;
+        padding: 12px 22px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        box-shadow: 0 12px 24px rgba(10, 42, 102, 0.18);
+      }
+
+      .view-more-btn:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      }
+
       .footer {
         background-color: var(--primary);
         color: white;
@@ -660,7 +810,6 @@
         font-size: 0.8rem;
       }
 
-      /* Mobile Overlay */
       .mobile-overlay {
         display: none;
         position: fixed;
@@ -676,7 +825,6 @@
         display: block;
       }
 
-      /* Notification Dropdown */
       .notification-dropdown {
         position: absolute;
         top: 100%;
@@ -749,7 +897,6 @@
         color: var(--gray);
       }
 
-      /* Modal Styles */
       .modal {
         display: none;
         position: fixed;
@@ -812,7 +959,6 @@
         flex-wrap: wrap;
       }
 
-      /* Employer Details Modal */
       .offer-details {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -835,7 +981,6 @@
         font-size: 0.85rem;
       }
 
-      /* View More Button */
       .view-more-container {
         text-align: center;
         margin-top: 15px;
@@ -857,11 +1002,6 @@
         background-color: var(--primary-dark);
       }
 
-      /* ====================== */
-      /* MOBILE OPTIMIZATIONS */
-      /* ====================== */
-
-      /* Tablet (992px and below) */
       @media (max-width: 992px) {
         .dashboard-content {
           padding: 15px;
@@ -912,7 +1052,6 @@
         }
       }
 
-      /* Mobile (768px and below) */
       @media (max-width: 768px) {
         .dashboard-content {
           padding: 12px;
@@ -983,11 +1122,6 @@
           font-size: 1.4rem;
         }
 
-        .section-title {
-          font-size: 1rem;
-          margin-bottom: 10px;
-        }
-
         .job-title {
           font-size: 0.95rem;
         }
@@ -1025,8 +1159,7 @@
         }
 
         .job-actions {
-          grid-template-columns: 1fr 1fr;
-          gap: 6px;
+          gap: 8px;
         }
 
         .notification-dropdown {
@@ -1057,7 +1190,6 @@
         }
       }
 
-      /* Small Mobile (576px and below) */
       @media (max-width: 576px) {
         .dashboard-content {
           padding: 10px;
@@ -1084,7 +1216,7 @@
         }
 
         .stats-container {
-          grid-template-columns: 1fr;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 8px;
         }
 
@@ -1092,21 +1224,32 @@
           gap: 8px;
         }
 
-        .stat-card,
+        .stat-card {
+          padding: 10px 6px;
+          min-height: auto;
+        }
+
         .job-card {
           padding: 12px;
         }
 
         .stat-number {
-          font-size: 1.3rem;
+          font-size: 1.05rem;
+          margin-bottom: 3px;
+          line-height: 1.1;
         }
 
         .stat-label {
-          font-size: 0.8rem;
+          font-size: 0.68rem;
+          line-height: 1.15;
+          margin-bottom: 2px;
+          word-break: break-word;
         }
 
         .stat-subtitle {
-          font-size: 0.7rem;
+          font-size: 0.58rem;
+          line-height: 1.15;
+          word-break: break-word;
         }
 
         .performance-indicator {
@@ -1123,8 +1266,7 @@
         }
 
         .job-actions {
-          grid-template-columns: 1fr;
-          gap: 6px;
+          gap: 8px;
         }
 
         .btn {
@@ -1165,7 +1307,6 @@
         }
       }
 
-      /* Extra Small Mobile (480px and below) */
       @media (max-width: 480px) {
         .dashboard-content {
           padding: 8px;
@@ -1213,27 +1354,25 @@
           font-size: 0.75rem;
         }
 
-        .stat-card,
+        .stat-card {
+          padding: 9px 5px;
+        }
+
         .job-card {
           padding: 10px;
         }
 
-        .stat-icon {
-          font-size: 1.1rem;
-          margin-bottom: 4px;
-        }
-
         .stat-number {
-          font-size: 1.2rem;
+          font-size: 0.98rem;
           margin-bottom: 3px;
         }
 
         .stat-label {
-          font-size: 0.75rem;
+          font-size: 0.64rem;
         }
 
         .stat-subtitle {
-          font-size: 0.7rem;
+          font-size: 0.55rem;
         }
 
         .performance-indicator {
@@ -1259,6 +1398,17 @@
 
         .detail-value {
           font-size: 0.75rem;
+        }
+
+        .job-actions {
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+
+        .job-actions .btn,
+        .job-actions button,
+        .job-actions a {
+          flex: 1 1 48%;
         }
 
         .btn {
@@ -1318,7 +1468,6 @@
         }
       }
 
-      /* Very Small Mobile (360px and below) */
       @media (max-width: 360px) {
         .dashboard-content {
           padding: 6px;
@@ -1346,17 +1495,24 @@
           font-size: 0.95rem;
         }
 
-        .stat-card,
+        .stat-card {
+          padding: 8px 4px;
+        }
+
         .job-card {
           padding: 8px;
         }
 
-        .stat-icon {
-          font-size: 1rem;
+        .stat-number {
+          font-size: 0.95rem;
         }
 
-        .stat-number {
-          font-size: 1.1rem;
+        .stat-label {
+          font-size: 0.62rem;
+        }
+
+        .stat-subtitle {
+          font-size: 0.54rem;
         }
 
         .job-title {
@@ -1380,103 +1536,190 @@
           font-size: 0.7rem;
         }
       }
+      /* Candidate Notification Dropdown Standard */
+      .notification-dropdown {
+        top: calc(100% + 10px);
+        right: 0;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 320px;
+        max-height: 400px;
+      }
+
+      .notification-header {
+        padding: 12px 16px;
+        background-color: var(--light);
+        border-radius: 8px 8px 0 0;
+      }
+
+      .mark-all-read {
+        font-weight: 500;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+
+      .mark-all-read:hover {
+        background-color: rgba(10, 42, 102, 0.1);
+      }
+
+      .notification-item {
+        padding: 12px 16px;
+      }
+
+      .notification-item.unread {
+        background-color: rgba(10, 42, 102, 0.05);
+        border-left: 3px solid var(--primary);
+      }
+
+      .notification-content {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+        color: var(--dark);
+        line-height: 1.4;
+      }
+
+      .notification-time {
+        font-size: 0.7rem;
+        color: var(--gray);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      @media (max-width: 992px) {
+        .notification-dropdown {
+          right: 12px;
+          width: 280px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .notification-dropdown {
+          right: 10px;
+          width: 260px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .notification-dropdown {
+          width: 240px;
+          right: 8px;
+        }
+      }
     </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
   </head>
   <body>
-    <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
-    <!-- Logout Modal -->
     <div class="modal" id="logoutModal">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title">Confirm Logout</h3>
-          <button class="close-modal">&times;</button>
+          <button class="close-modal" type="button" aria-label="Close">
+            &times;
+          </button>
         </div>
         <div class="modal-body">
           <p>Are you sure you want to log out?</p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-logout" id="confirmLogout">Log Out</button>
-          <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+          <button class="btn btn-logout" id="confirmLogout" type="button">
+            Log Out
+          </button>
+          <button class="btn btn-outline" id="cancelLogout" type="button">
+            Cancel
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- Withdraw Modal -->
     <div class="modal" id="withdrawModal">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 class="modal-title">Withdraw Application</h3>
-          <button class="close-modal">&times;</button>
+          <h3 class="modal-title">Discard Application</h3>
+          <button class="close-modal" type="button" aria-label="Close">
+            &times;
+          </button>
         </div>
         <div class="modal-body">
           <p>
-            Are you sure you want to withdraw your application for
+            Are you sure you want to discard your application for
             <strong id="withdrawJobTitle">this job</strong>?
           </p>
           <p>This action cannot be undone.</p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-danger" id="confirmWithdraw">
-            Yes, Withdraw
+          <button class="btn btn-danger" id="confirmWithdraw" type="button">
+            Yes, Discard
           </button>
-          <button class="btn btn-outline" id="cancelWithdraw">Cancel</button>
+          <button class="btn btn-outline" id="cancelWithdraw" type="button">
+            Cancel
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- Employer Details Modal -->
     <div class="modal" id="employerDetailsModal">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title">Employer Details</h3>
-          <button class="close-modal">&times;</button>
+          <button class="close-modal" type="button" aria-label="Close">
+            &times;
+          </button>
         </div>
         <div class="modal-body">
           <div class="offer-details">
-            <div class="offer-detail">
+            <div class="offer-detail" id="employerCompanyRow">
+              <span class="detail-label">Company Name</span>
+              <span class="detail-value" id="employerCompanyName"></span>
+            </div>
+            <div class="offer-detail" id="employerNameRow">
+              <span class="detail-label">Employer Name</span>
+              <span class="detail-value" id="employerContactName"></span>
+            </div>
+            <div class="offer-detail" id="employerPositionRow">
+              <span class="detail-label">Position / Title</span>
+              <span class="detail-value" id="employerPosition"></span>
+            </div>
+            <div class="offer-detail" id="employerEmailRow" style="display: none">
               <span class="detail-label">Email</span>
-              <span class="detail-value" id="employerEmail"
-                >hr@creativelabsgh.com</span
-              >
+              <span class="detail-value" id="employerEmail"></span>
             </div>
-            <div class="offer-detail">
+            <div class="offer-detail" id="employerPhoneRow" style="display: none">
               <span class="detail-label">Phone Number</span>
-              <span class="detail-value" id="employerPhone"
-                >+233 24 123 4567</span
-              >
+              <span class="detail-value" id="employerPhone"></span>
             </div>
-            <div class="offer-detail">
+            <div class="offer-detail" id="employerAddressRow" style="display: none">
               <span class="detail-label">Company Address</span>
-              <span class="detail-value" id="employerAddress"
-                >123 Creative Street, Accra, Ghana</span
-              >
+              <span class="detail-value" id="employerAddress"></span>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" id="closeEmployerDetails">
+          <button class="btn btn-primary" id="closeEmployerDetails" type="button">
             Close
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <div class="logo">
+        <a href="../index.html" class="logo" aria-label="Job Assist Ghana Home">
           <div class="logo-img-placeholder">JA</div>
           <div class="logo-text">
             <div class="logo-main">JobAssist</div>
             <div class="logo-sub">GHANA</div>
           </div>
-        </div>
-        <button class="toggle-btn" id="sidebarToggle">
+        </a>
+        <button class="toggle-btn" id="sidebarToggle" type="button">
           <i class="fas fa-chevron-left"></i>
         </button>
       </div>
+
       <ul class="sidebar-menu">
         <li>
           <a href="candidate-dashboard.html"
@@ -1507,7 +1750,8 @@
             ><i class="fas fa-rocket"></i>
             <span class="menu-text">Boost Application</span>
             <i class="fas fa-crown premium-indicator"></i
-          ></a>
+          ></a
+          >
         </li>
         <li>
           <a href="browse-jobs.html"
@@ -1536,52 +1780,55 @@
       </ul>
     </aside>
 
-    <!-- Main Content -->
     <div class="main-content" id="mainContent">
-      <!-- Navbar -->
       <nav class="navbar">
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
           <i class="fas fa-bars"></i>
         </button>
+
         <div class="page-title">My Applications</div>
+
         <div class="navbar-right">
-          <div class="notification-icon" id="notificationIcon">
+          <div class="notification-icon" id="notificationIcon" title="Notifications">
             <i class="fas fa-bell"></i>
-            <span class="notification-badge">3</span>
+            <span class="notification-badge" id="notificationBadge">3</span>
           </div>
+
           <div class="notification-dropdown" id="notificationDropdown">
             <div class="notification-header">
               <h3 class="notification-title">Notifications</h3>
-              <button class="mark-all-read">Mark all as read</button>
+              <button class="mark-all-read" type="button">Mark all as read</button>
             </div>
             <ul class="notification-list">
               <li class="notification-item unread">
                 <div class="notification-content">
-                  Your application for Frontend Developer has been submitted
+                  Your latest application was submitted successfully.
                 </div>
-                <div class="notification-time">2 hours ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 2 hours ago</div>
               </li>
               <li class="notification-item unread">
                 <div class="notification-content">
-                  New job matches your profile: Data Analyst at Tech Solutions
+                  A recruiter viewed one of your applications.
                 </div>
-                <div class="notification-time">5 hours ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 5 hours ago</div>
               </li>
               <li class="notification-item unread">
                 <div class="notification-content">
-                  Your application for Marketing Manager is being reviewed
+                  New jobs matching your profile are available.
                 </div>
-                <div class="notification-time">1 day ago</div>
+                <div class="notification-time"><i class="far fa-clock"></i> 1 day ago</div>
               </li>
             </ul>
           </div>
+
           <div class="user-profile" id="userProfile">
             <div class="user-avatar">
-              <img src="https://i.pravatar.cc/150?img=12" alt="User" />
+              <img id="dashboardAvatar" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22160%22%20height%3D%22160%22%20viewBox%3D%220%200%20160%20160%22%20role%3D%22img%22%20aria-label%3D%22C%22%3E%3Crect%20width%3D%22160%22%20height%3D%22160%22%20rx%3D%2280%22%20fill%3D%22%230a2a66%22/%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22central%22%20text-anchor%3D%22middle%22%20fill%3D%22%23ffffff%22%20font-family%3D%22Poppins%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2272%22%20font-weight%3D%22700%22%3EC%3C/text%3E%3C/svg%3E" alt="User" />
             </div>
-            <div class="user-name">Nana</div>
+            <div class="user-name" id="applicationsUserName"></div>
             <i class="fas fa-chevron-down"></i>
           </div>
+
           <div class="dropdown-menu">
             <a href="candidate-profile.html"
               ><i class="fas fa-user"></i> View Profile</a
@@ -1594,352 +1841,78 @@
         </div>
       </nav>
 
-<<<<<<< HEAD:your-applications.html
-      <!-- Main Content Area -->
       <div class="dashboard-content">
-        <!-- Welcome Section -->
         <div class="welcome-section">
           <h1 class="welcome-title">My Applications</h1>
           <p class="welcome-subtitle">
             Track all your job applications in one place
           </p>
-=======
-            <!-- Stats Cards -->
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-number" id="totalApplications">8</div>
-                    <div class="stat-label">Total Applications</div>
-                    <div class="stat-subtitle">Showing all time applications</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="successRate">67%</div>
-                    <div class="stat-label">Success Rate</div>
-                    <div class="stat-subtitle">Based on last 30 days activity</div>
-                    <div class="performance-indicator performance-excellent">Excellent</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="progressRate">+18%</div>
-                    <div class="stat-label">Weekly Progress Rate</div>
-                    <div class="stat-subtitle">Improvement from last week</div>
-                    <div class="performance-indicator performance-improving">Improving</div>
-                </div>
-            </div>
-
-            <!-- Application Tabs -->
-            <div class="application-tabs">
-                <div class="tab active" data-filter="all">All Applications (<span id="allCount">8</span>)</div>
-                <div class="tab" data-filter="in-review">In Review (<span id="inReviewCount">3</span>)</div>
-                <div class="tab" data-filter="accepted">Accepted (<span id="acceptedCount">2</span>)</div>
-                <div class="tab" data-filter="withdrawn">Withdrawn (<span id="withdrawnCount">0</span>)</div>
-            </div>
-
-            <!-- Applications Grid -->
-            <div class="applications-grid" id="applicationsContainer">
-                <!-- Application 1 - In Review -->
-                <div class="job-card" data-status="in-review">
-                    <h3 class="job-title">Frontend Developer</h3>
-                    <div class="job-meta">
-                        <span>Two Southeast Las</span>
-                        <span>Accra, Ghana</span>
-                        <span>Applied: 15 May 2023</span>
-                    </div>
-                    <div class="job-status status-in-review">In Review</div>
-                    <p class="job-description">We are looking for a skilled Frontend Developer with experience in React and modern JavaScript.</p>
-                    <div class="job-actions">
-                        <button class="btn btn-primary" onclick="viewJobDetails('frontend-developer')">View Details</button>
-                        <button class="btn btn-outline withdraw-application" data-job="Frontend Developer" data-company="Two Southeast Las">Withdraw Application</button>
-                    </div>
-                </div>
-
-                <!-- Application 2 - Accepted -->
-                <div class="job-card" data-status="accepted">
-                    <h3 class="job-title">Marketing Manager</h3>
-                    <div class="job-meta">
-                        <span>Global Emails Inc</span>
-                        <span>Kumasi, Ghana</span>
-                        <span>Applied: 10 May 2023</span>
-                    </div>
-                    <div class="job-status status-accepted">Accepted</div>
-                    <p class="job-description">Exciting opportunity for a Marketing Manager with 3+ years experience in brand management.</p>
-                    <div class="job-actions">
-                        <button class="btn btn-primary" onclick="viewJobDetails('marketing-manager')">View Details</button>
-                        <button class="btn btn-outline contact-employer" data-company="Global Emails Inc">Contact Employer</button>
-                    </div>
-                </div>
-
-                <!-- Application 3 - In Review -->
-                <div class="job-card" data-status="in-review">
-                    <h3 class="job-title">Data Analyst</h3>
-                    <div class="job-meta">
-                        <span>Tech Solutions Ltd</span>
-                        <span>Accra, Ghana</span>
-                        <span>Applied: 20 May 2023</span>
-                    </div>
-                    <div class="job-status status-in-review">In Review</div>
-                    <p class="job-description">Looking for a Data Analyst with experience in SQL, Python, and data visualization tools.</p>
-                    <div class="job-actions">
-                        <button class="btn btn-primary" onclick="viewJobDetails('data-analyst')">View Details</button>
-                        <button class="btn btn-outline withdraw-application" data-job="Data Analyst" data-company="Tech Solutions Ltd">Withdraw Application</button>
-                    </div>
-                </div>
-
-                <!-- Application 4 - In Review -->
-                <div class="job-card" data-status="in-review">
-                    <h3 class="job-title">UX Designer</h3>
-                    <div class="job-meta">
-                        <span>Design Studio</span>
-                        <span>Accra, Ghana</span>
-                        <span>Applied: 22 May 2023</span>
-                    </div>
-                    <div class="job-status status-in-review">In Review</div>
-                    <p class="job-description">Creative UX Designer needed for innovative projects with modern design tools.</p>
-                    <div class="job-actions">
-                        <button class="btn btn-primary" onclick="viewJobDetails('ux-designer')">View Details</button>
-                        <button class="btn btn-outline withdraw-application" data-job="UX Designer" data-company="Design Studio">Withdraw Application</button>
-                    </div>
-                </div>
-
-                <!-- Application 5 - Accepted -->
-                <div class="job-card" data-status="accepted">
-                    <h3 class="job-title">Senior UX Designer</h3>
-                    <div class="job-meta">
-                        <span>Creative Labs Ghana</span>
-                        <span>Accra, Ghana</span>
-                        <span>Applied: 18 May 2023</span>
-                    </div>
-                    <div class="job-status status-accepted">Accepted</div>
-                    <p class="job-description">Senior UX Designer position with focus on user-centered design methodologies.</p>
-                    <div class="job-actions">
-                        <button class="btn btn-primary" onclick="viewJobDetails('senior-ux-designer')">View Details</button>
-                        <button class="btn btn-outline contact-employer" data-company="Creative Labs Ghana">Contact Employer</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- View More Button -->
-            <div class="view-more-container">
-                <button class="view-more-btn" onclick="window.location.href='candidate/browse-jobs.html'">Browse More Jobs</button>
-            </div>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/your-applications.html
         </div>
 
-        <!-- Stats Cards -->
         <div class="stats-container">
           <div class="stat-card">
-            <div class="stat-number" id="totalApplications">8</div>
+            <div class="stat-number" id="totalApplications">0</div>
             <div class="stat-label">Total Applications</div>
-            <div class="stat-subtitle">Showing all time applications</div>
+            <div class="stat-subtitle">All applications saved</div>
           </div>
+
           <div class="stat-card">
-            <div class="stat-number" id="successRate">67%</div>
-            <div class="stat-label">Success Rate</div>
-            <div class="stat-subtitle">Based on last 30 days activity</div>
-            <div class="performance-indicator performance-excellent">
-              Excellent
-            </div>
+            <div class="stat-number" id="successRate">0%</div>
+            <div class="stat-label">Premium Rate</div>
+            <div class="stat-subtitle">Premium applications ratio</div>
+            <div class="performance-indicator performance-excellent" id="premiumIndicator">Tracking</div>
           </div>
+
           <div class="stat-card">
-            <div class="stat-number" id="progressRate">+18%</div>
-            <div class="stat-label">Weekly Progress Rate</div>
-            <div class="stat-subtitle">Improvement from last week</div>
-            <div class="performance-indicator performance-improving">
-              Improving
-            </div>
+            <div class="stat-number" id="progressRate">0</div>
+            <div class="stat-label">Active Applications</div>
+            <div class="stat-subtitle">Currently in review</div>
+            <div class="performance-indicator performance-improving">Live</div>
           </div>
         </div>
 
-        <!-- Application Tabs -->
         <div class="application-tabs">
           <div class="tab active" data-filter="all">
-            All Applications (<span id="allCount">8</span>)
+            All Applications (<span id="allCount">0</span>)
           </div>
           <div class="tab" data-filter="in-review">
-            In Review (<span id="inReviewCount">3</span>)
+            In Review (<span id="inReviewCount">0</span>)
           </div>
           <div class="tab" data-filter="accepted">
-            Accepted (<span id="acceptedCount">2</span>)
+            Accepted (<span id="acceptedCount">0</span>)
           </div>
-          <div class="tab" data-filter="withdrawn">
-            Withdrawn (<span id="withdrawnCount">0</span>)
-          </div>
-        </div>
-
-        <!-- Applications Grid -->
-        <div class="applications-grid" id="applicationsContainer">
-          <!-- Application 1 - In Review -->
-          <div class="job-card" data-status="in-review">
-            <h3 class="job-title">Frontend Developer</h3>
-            <div class="job-meta">
-              <span>Two Southeast Las</span>
-              <span>Accra, Ghana</span>
-              <span>Applied: 15 May 2023</span>
-            </div>
-            <div class="job-status status-in-review">In Review</div>
-            <p class="job-description">
-              We are looking for a skilled Frontend Developer with experience in
-              React and modern JavaScript.
-            </p>
-            <div class="job-actions">
-              <button
-                class="btn btn-primary"
-                onclick="viewJobDetails('frontend-developer')"
-              >
-                View Details
-              </button>
-              <button
-                class="btn btn-outline withdraw-application"
-                data-job="Frontend Developer"
-                data-company="Two Southeast Las"
-              >
-                Withdraw Application
-              </button>
-            </div>
-          </div>
-
-          <!-- Application 2 - Accepted -->
-          <div class="job-card" data-status="accepted">
-            <h3 class="job-title">Marketing Manager</h3>
-            <div class="job-meta">
-              <span>Global Emails Inc</span>
-              <span>Kumasi, Ghana</span>
-              <span>Applied: 10 May 2023</span>
-            </div>
-            <div class="job-status status-accepted">Accepted</div>
-            <p class="job-description">
-              Exciting opportunity for a Marketing Manager with 3+ years
-              experience in brand management.
-            </p>
-            <div class="job-actions">
-              <button
-                class="btn btn-primary"
-                onclick="viewJobDetails('marketing-manager')"
-              >
-                View Details
-              </button>
-              <button
-                class="btn btn-outline contact-employer"
-                data-company="Global Emails Inc"
-              >
-                Contact Employer
-              </button>
-            </div>
-          </div>
-
-          <!-- Application 3 - In Review -->
-          <div class="job-card" data-status="in-review">
-            <h3 class="job-title">Data Analyst</h3>
-            <div class="job-meta">
-              <span>Tech Solutions Ltd</span>
-              <span>Accra, Ghana</span>
-              <span>Applied: 20 May 2023</span>
-            </div>
-            <div class="job-status status-in-review">In Review</div>
-            <p class="job-description">
-              Looking for a Data Analyst with experience in SQL, Python, and
-              data visualization tools.
-            </p>
-            <div class="job-actions">
-              <button
-                class="btn btn-primary"
-                onclick="viewJobDetails('data-analyst')"
-              >
-                View Details
-              </button>
-              <button
-                class="btn btn-outline withdraw-application"
-                data-job="Data Analyst"
-                data-company="Tech Solutions Ltd"
-              >
-                Withdraw Application
-              </button>
-            </div>
-          </div>
-
-          <!-- Application 4 - In Review -->
-          <div class="job-card" data-status="in-review">
-            <h3 class="job-title">UX Designer</h3>
-            <div class="job-meta">
-              <span>Design Studio</span>
-              <span>Accra, Ghana</span>
-              <span>Applied: 22 May 2023</span>
-            </div>
-            <div class="job-status status-in-review">In Review</div>
-            <p class="job-description">
-              Creative UX Designer needed for innovative projects with modern
-              design tools.
-            </p>
-            <div class="job-actions">
-              <button
-                class="btn btn-primary"
-                onclick="viewJobDetails('ux-designer')"
-              >
-                View Details
-              </button>
-              <button
-                class="btn btn-outline withdraw-application"
-                data-job="UX Designer"
-                data-company="Design Studio"
-              >
-                Withdraw Application
-              </button>
-            </div>
-          </div>
-
-          <!-- Application 5 - Accepted -->
-          <div class="job-card" data-status="accepted">
-            <h3 class="job-title">Senior UX Designer</h3>
-            <div class="job-meta">
-              <span>Creative Labs Ghana</span>
-              <span>Accra, Ghana</span>
-              <span>Applied: 18 May 2023</span>
-            </div>
-            <div class="job-status status-accepted">Accepted</div>
-            <p class="job-description">
-              Senior UX Designer position with focus on user-centered design
-              methodologies.
-            </p>
-            <div class="job-actions">
-              <button
-                class="btn btn-primary"
-                onclick="viewJobDetails('senior-ux-designer')"
-              >
-                View Details
-              </button>
-              <button
-                class="btn btn-outline contact-employer"
-                data-company="Creative Labs Ghana"
-              >
-                Contact Employer
-              </button>
-            </div>
+          <div class="tab" data-filter="rejected">
+            Rejected (<span id="rejectedCount">0</span>)
           </div>
         </div>
 
-        <!-- View More Button -->
+        <div class="applications-grid" id="applicationsContainer"></div>
+
         <div class="view-more-container">
-          <button
-            class="view-more-btn"
-            onclick="window.location.href = 'browse-jobs.html'"
-          >
+          <button class="view-more-btn" type="button" onclick="window.location.href='browse-jobs.html'">
             Browse More Jobs
           </button>
         </div>
       </div>
 
-      <!-- Footer -->
       <footer class="footer">
         <div class="footer-links">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="contact.html">Contact Us</a>
+          <a href="../privacy.html">Privacy Policy</a>
+          <a href="../contact.html">Contact Us</a>
         </div>
         <div class="footer-bottom">
-          <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+          <p>Copyright 2025 Job Assist Ghana. All rights reserved.</p>
         </div>
       </footer>
     </div>
 
+    <script src="../assets/js/application-store.js"></script>
+    <script src="../assets/js/candidate-session.js"></script>
+    <script src="../assets/js/input-hardening.js"></script>
     <script>
-      // DOM Elements
+      const JOB_POSTS_KEY = "jobassist_employer_jobs";
+      const APPLIED_JOBS_KEY = "jobassist_applications";
+
       const sidebar = document.getElementById("sidebar");
       const sidebarToggle = document.getElementById("sidebarToggle");
       const mainContent = document.getElementById("mainContent");
@@ -1947,201 +1920,597 @@
       const mobileOverlay = document.getElementById("mobileOverlay");
       const logoutModal = document.getElementById("logoutModal");
       const withdrawModal = document.getElementById("withdrawModal");
-      const employerDetailsModal = document.getElementById(
-        "employerDetailsModal",
-      );
+      const employerDetailsModal = document.getElementById("employerDetailsModal");
       const notificationIcon = document.getElementById("notificationIcon");
-      const notificationDropdown = document.getElementById(
-        "notificationDropdown",
-      );
+      const notificationDropdown = document.getElementById("notificationDropdown");
       const userProfile = document.getElementById("userProfile");
       const dropdownMenu = document.querySelector(".dropdown-menu");
       const tabs = document.querySelectorAll(".tab");
-      const closeEmployerDetails = document.getElementById(
-        "closeEmployerDetails",
-      );
+      const closeEmployerDetails = document.getElementById("closeEmployerDetails");
+      const applicationsContainer = document.getElementById("applicationsContainer");
 
-      // Employer Details Data
-      const employerDetails = {
-        "Global Emails Inc": {
-          email: "hr@globalemails.com",
-          phone: "+233 50 111 2222",
-          address: "78 Business Avenue, Kumasi, Ghana",
-        },
-        "Tech Solutions Ltd": {
-          email: "recruitment@techsolutions.com",
-          phone: "+233 55 333 4444",
-          address: "12 Tech Hub, Accra, Ghana",
-        },
-        "Creative Labs Ghana": {
-          email: "hr@creativelabsgh.com",
-          phone: "+233 24 123 4567",
-          address: "123 Creative Street, Accra, Ghana",
-        },
-        "FinTech Innovations": {
-          email: "careers@fintechinnovations.com",
-          phone: "+233 20 987 6543",
-          address: "45 Innovation Avenue, Accra, Ghana",
-        },
-        "Two Southeast Las": {
-          email: "careers@twosoutheast.com",
-          phone: "+233 30 111 2222",
-          address: "45 Business Lane, Accra, Ghana",
-        },
-        "Design Studio": {
-          email: "info@designstudiogh.com",
-          phone: "+233 27 555 6666",
-          address: "89 Design Avenue, Accra, Ghana",
-        },
-      };
+      let currentWithdrawJobId = null;
+      let currentFilter = "all";
 
-      // Initialize page
-      function initializePage() {
-        // Set stats
-        document.getElementById("totalApplications").textContent = "8";
-        document.getElementById("successRate").textContent = "67%";
-        document.getElementById("progressRate").textContent = "+18%";
-
-        // Set tab counts
-        document.getElementById("allCount").textContent = "8";
-        document.getElementById("inReviewCount").textContent = "3";
-        document.getElementById("acceptedCount").textContent = "2";
-        document.getElementById("withdrawnCount").textContent = "0";
-
-        // Show all applications by default
-        filterApplications("all");
-
-        // Setup event listeners for contact employer buttons
-        setupContactEmployerButtons();
-        setupWithdrawButtons();
-      }
-
-      // View job details
-      function viewJobDetails(jobId) {
-        window.location.href = `view-details.html?id=${jobId}`;
-      }
-
-      // Contact employer
-      function contactEmployer(companyName) {
-        const employer = employerDetails[companyName];
-
-        if (employer) {
-          document.getElementById("employerEmail").textContent = employer.email;
-          document.getElementById("employerPhone").textContent = employer.phone;
-          document.getElementById("employerAddress").textContent =
-            employer.address;
-          employerDetailsModal.classList.add("show");
+      function safeJSONParse(value) {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return null;
         }
       }
 
-      // Setup contact employer button listeners
-      function setupContactEmployerButtons() {
-        document.querySelectorAll(".contact-employer").forEach((button) => {
-          button.addEventListener("click", function (e) {
-            e.preventDefault();
-            const companyName = this.getAttribute("data-company");
-            contactEmployer(companyName);
+      function getStoredEmployerJobs() {
+        const stored = safeJSONParse(localStorage.getItem(JOB_POSTS_KEY));
+        return Array.isArray(stored) ? stored : [];
+      }
+
+      function getAppliedJobs() {
+        if (window.JobAssistApplications) {
+          return window.JobAssistApplications.loadApplications();
+        }
+
+        const stored = safeJSONParse(localStorage.getItem(APPLIED_JOBS_KEY));
+        return Array.isArray(stored) ? stored : [];
+      }
+
+      function saveAppliedJobs(applications) {
+        if (window.JobAssistApplications) {
+          window.JobAssistApplications.saveApplications(applications);
+          return;
+        }
+
+        localStorage.setItem(APPLIED_JOBS_KEY, JSON.stringify(applications));
+      }
+
+      function normalizeCategories(job) {
+        let categories = [];
+
+        if (Array.isArray(job?.jobCategory)) {
+          categories = [...job.jobCategory];
+        } else if (typeof job?.jobCategory === "string" && job.jobCategory.trim()) {
+          categories = [job.jobCategory.trim()];
+        }
+
+        if (job?.otherCategory && categories.includes("Other")) {
+          categories = categories.map((cat) => (cat === "Other" ? job.otherCategory : cat));
+        }
+
+        return categories.filter(Boolean);
+      }
+
+      function getAllJobs() {
+        const storedJobs = getStoredEmployerJobs().filter((job) => !job.isClosed && job.status !== "closed");
+        return storedJobs;
+      }
+
+      function findJobById(jobId) {
+        return getAllJobs().find((job) => String(job.jobId || job.id) === String(jobId)) || null;
+      }
+
+      function getCompanyName(job) {
+        return job?.companyName || job?.company || job?.businessName || "";
+      }
+
+      function getLocation(job, application = {}) {
+        const city = job?.city || application?.city || "";
+        const region = job?.region || application?.region || "";
+        if (city && region) return `${city}, ${region}`;
+        return application?.location || city || region || "Location not specified";
+      }
+
+      function getApplicationStatus(application) {
+        const normalizedStatus = String(application?.status || "").toLowerCase();
+        if (normalizedStatus === "accepted") return "accepted";
+        if (normalizedStatus === "rejected") return "rejected";
+        if (normalizedStatus === "in-review") return "in-review";
+        if (application?.accepted) return "accepted";
+        if (application?.rejected) return "rejected";
+        return "in-review";
+      }
+
+      function getStatusLabel(status) {
+        if (status === "accepted") return "Accepted";
+        if (status === "rejected") return "Rejected";
+        return "In Review";
+      }
+
+      function getStatusClass(status) {
+        if (status === "accepted") return "status-accepted";
+        if (status === "rejected") return "status-withdrawn";
+        return "status-in-review";
+      }
+
+      function formatDate(dateString) {
+        if (!dateString) return "Unknown";
+        const date = new Date(dateString);
+        if (Number.isNaN(date.getTime())) return "Unknown";
+
+        return date.toLocaleDateString("en-GB", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        });
+      }
+
+      function getApplicationDescription(job, application = {}) {
+        return (
+          job?.jobDescription ||
+          job?.description ||
+          application?.description ||
+          "No description available."
+);
+      }
+
+      function getCurrentCandidate() {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getCurrentCandidate();
+        }
+
+        return safeJSONParse(localStorage.getItem("jobassist_current_user")) || {};
+      }
+
+      function getCurrentCandidateIdentifier(candidate) {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getCandidateId(candidate);
+        }
+
+        return String(
+          candidate?.candidateId ||
+            candidate?.id ||
+            candidate?.userId ||
+            ""
+).trim();
+      }
+
+      function getCurrentCandidateEmail(candidate) {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getCandidateEmail(candidate);
+        }
+
+        return String(candidate?.email || "").trim().toLowerCase();
+      }
+
+      function getCurrentCandidateFirstName(candidate) {
+        if (window.JobAssistCandidateSession) {
+          return window.JobAssistCandidateSession.getCandidateFirstName(candidate);
+        }
+
+        const fullName = String(
+          candidate?.fullName ||
+            candidate?.name ||
+            candidate?.full_name ||
+            ""
+).trim();
+        return fullName ? fullName.split(/\s+/)[0] : "";
+      }
+
+      function getUnlockedApplicationsStore() {
+        const parsed = safeJSONParse(localStorage.getItem("jobassist_unlocked_applications"));
+        return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+      }
+
+      function getEmployersStore() {
+        const parsed = safeJSONParse(localStorage.getItem("jobassist_employers"));
+        return Array.isArray(parsed) ? parsed : [];
+      }
+
+      function getEmployerProfileForJob(job = {}) {
+        const employers = getEmployersStore();
+        const employerId = String(job?.employerId || "").trim();
+        const contactEmail = String(job?.contactEmail || "").trim().toLowerCase();
+        const companyName = String(
+          job?.companyName || job?.company || job?.businessName || ""
+        ).trim().toLowerCase();
+
+        return (
+          employers.find((employer) => {
+            const storedEmployerId = String(employer?.id || employer?.employerId || "").trim();
+            const storedEmail = String(employer?.workEmail || "").trim().toLowerCase();
+            const storedCompany = String(employer?.companyName || "").trim().toLowerCase();
+
+            if (employerId && storedEmployerId) {
+              return storedEmployerId === employerId;
+            }
+
+            if (contactEmail && storedEmail) {
+              return storedEmail === contactEmail;
+            }
+
+            if (companyName && storedCompany) {
+              return storedCompany === companyName;
+            }
+
+            return false;
+          }) || {}
+        );
+      }
+
+      function cleanEmployerValue(value) {
+        const text = String(value || "").trim();
+        return text && text !== "Not provided" ? text : "";
+      }
+
+      function isEmployerUnlockedForApplication(record) {
+        const applicationId = String(record?.applicationId || record?.id || "").trim();
+        if (!applicationId) return false;
+
+        const unlockStore = getUnlockedApplicationsStore();
+        const linkedEmployerId = String(
+          record?.linkedJob?.employerId ||
+            record?.employerId ||
+            record?.employerProfile?.id ||
+            record?.employerProfile?.employerId ||
+            ""
+        ).trim();
+
+        if (!linkedEmployerId) return false;
+
+        const employerUnlocks = Array.isArray(unlockStore[linkedEmployerId])
+          ? unlockStore[linkedEmployerId].map(String)
+          : [];
+
+        return employerUnlocks.includes(applicationId);
+      }
+
+      function isApplicationForCurrentCandidate(application, candidate) {
+        const candidateId = getCurrentCandidateIdentifier(candidate);
+        const candidateEmail = getCurrentCandidateEmail(candidate);
+        const applicationCandidateId = String(application?.candidateId || "").trim();
+        const applicationEmail = String(application?.email || "").trim().toLowerCase();
+
+        if (candidateId && applicationCandidateId) {
+          return applicationCandidateId === candidateId;
+        }
+
+        if (candidateEmail && applicationEmail) {
+          return applicationEmail === candidateEmail;
+        }
+
+        return false;
+      }
+
+      function buildApplicationRecord(application) {
+        const linkedJob = findJobById(application.jobId || application.id) || {};
+        const employerProfile = getEmployerProfileForJob(linkedJob);
+        const isEmployerUnlocked = isEmployerUnlockedForApplication({
+          ...application,
+          linkedJob,
+        });
+
+        return {
+          ...application,
+          linkedJob,
+          employerProfile,
+          isEmployerUnlocked,
+          applicationId: application.applicationId || application.id,
+          jobId: application.jobId || application.id,
+          title:
+            application.title ||
+            application.jobTitle ||
+            linkedJob.jobTitle ||
+            linkedJob.title ||
+            "Untitled Job",
+          company:
+            application.company ||
+            getCompanyName(linkedJob) ||
+            "Company not provided",
+          location: getLocation(linkedJob, application),
+          appliedDate: application.dateApplied
+            ? formatDate(application.dateApplied)
+            : application.appliedAt
+            ? formatDate(application.appliedAt)
+            : "Unknown",
+          status: getApplicationStatus(application),
+          tier:
+            application.tier ||
+            (application.isPremium ? "premium" : "free"),
+          description: getApplicationDescription(linkedJob, application),
+          categories: normalizeCategories(linkedJob),
+          salaryRange: linkedJob.salaryRange || linkedJob.salary || "Negotiable",
+          employerCompanyName: cleanEmployerValue(
+            linkedJob.companyName ||
+            linkedJob.company ||
+            linkedJob.businessName ||
+            employerProfile.companyName
+          ),
+          employerName: cleanEmployerValue(
+            linkedJob.employerName ||
+            employerProfile.fullName
+          ),
+          employerPosition: cleanEmployerValue(
+            linkedJob.employerPosition ||
+            employerProfile.position
+          ),
+          contactEmail: cleanEmployerValue(
+            linkedJob.contactEmail ||
+            employerProfile.workEmail ||
+            employerProfile.email ||
+            application.contactEmail
+          ),
+          contactPhone: cleanEmployerValue(
+            linkedJob.contactPhone ||
+            linkedJob.companyPhone ||
+            employerProfile.phone ||
+            application.companyPhone
+          ),
+          contactAddress: cleanEmployerValue(
+            linkedJob.companyAddress ||
+            linkedJob.address ||
+            employerProfile.companyAddress ||
+            application.companyAddress
+          ),
+        };
+      }
+
+      function getApplicationRecords() {
+        const currentCandidate = getCurrentCandidate();
+        return (window.JobAssistApplications
+          ? window.JobAssistApplications.getApplicationsForCandidate(currentCandidate)
+          : getAppliedJobs().filter((application) =>
+              isApplicationForCurrentCandidate(application, currentCandidate)
+            ))
+          .map(buildApplicationRecord);
+      }
+
+      function updateStats(records) {
+        const total = records.length;
+        const active = records.filter((item) => item.status === "in-review").length;
+        const premium = records.filter((item) => item.tier === "premium").length;
+        const premiumRate = total ? Math.round((premium / total) * 100) : 0;
+
+        document.getElementById("totalApplications").textContent = total;
+        document.getElementById("successRate").textContent = `${premiumRate}%`;
+        document.getElementById("progressRate").textContent = active;
+
+        const premiumIndicator = document.getElementById("premiumIndicator");
+        premiumIndicator.textContent = premium > 0 ? "Premium Active" : "Standard Only";
+
+        const inReview = records.filter((item) => item.status === "in-review").length;
+        const accepted = records.filter((item) => item.status === "accepted").length;
+        const rejected = records.filter((item) => item.status === "rejected").length;
+
+        document.getElementById("allCount").textContent = total;
+        document.getElementById("inReviewCount").textContent = inReview;
+        document.getElementById("acceptedCount").textContent = accepted;
+        document.getElementById("rejectedCount").textContent = rejected;
+      }
+
+      function createApplicationCard(record) {
+        const card = document.createElement("div");
+        card.className = `job-card ${record.status === "rejected" ? "withdrawn" : ""}`;
+        card.dataset.status = record.status;
+        const escapeValue = (value, maxLength = 0) =>
+          window.JobAssistInputHardening?.escapeHtml
+            ? window.JobAssistInputHardening.escapeHtml(
+                window.JobAssistInputHardening.sanitizeText(value, { maxLength })
+              )
+            : String(value == null ? "" : value);
+
+        const categoriesHtml = record.categories.length
+          ? `<div class="job-categories">
+              ${record.categories
+                .slice(0, 4)
+                .map((cat) => `<span class="category-pill">${escapeValue(cat, 60)}</span>`)
+                .join("")}
+            </div>`
+          : "";
+
+        const tierClass = record.tier === "premium" ? "tier-premium" : "tier-free";
+        const tierLabel = record.tier === "premium" ? "Premium Application" : "Free Application";
+
+        const secondaryAction =
+          record.status === "rejected"
+            ? `<button class="btn btn-outline" disabled>
+                Rejected
+              </button>`
+            : `<button
+                class="btn btn-outline employer-details-trigger"
+                data-company="${escapeValue(record.employerCompanyName, 120)}"
+                data-name="${escapeValue(record.employerName, 120)}"
+                data-position="${escapeValue(record.employerPosition, 120)}"
+                data-email="${escapeValue(record.contactEmail, 120)}"
+                data-phone="${escapeValue(record.contactPhone, 30)}"
+                data-address="${escapeValue(record.contactAddress, 180)}"
+                data-unlocked="${record.isEmployerUnlocked ? "true" : "false"}"
+              >
+                ${record.isEmployerUnlocked ? "Contact Employer" : "View Employer"}
+              </button>`;
+
+        const discardAction =
+          record.status !== "rejected"
+            ? `<button class="btn btn-danger discard-application" data-application-id="${escapeValue(record.applicationId || record.id, 40)}" data-job="${escapeValue(record.title, 120)}">
+                Discard
+              </button>`
+            : "";
+
+        card.innerHTML = `
+          <div class="job-header-row">
+            <h3 class="job-title">${escapeValue(record.title, 120)}</h3>
+            <span class="job-id-badge">${escapeValue(record.applicationId, 40)}</span>
+          </div>
+
+          <div class="job-meta">
+            <span>${escapeValue(record.company, 120)}</span>
+            <span>${escapeValue(record.location, 120)}</span>
+            <span>Job: ${escapeValue(record.jobId, 40)}</span>
+            <span>Applied: ${escapeValue(record.appliedDate, 40)}</span>
+          </div>
+
+          <div class="application-status-row">
+            <div class="job-status ${getStatusClass(record.status)}">${getStatusLabel(record.status)}</div>
+            <div class="application-tier ${tierClass}">${tierLabel}</div>
+          </div>
+
+          ${categoriesHtml}
+
+          <p class="job-description">${escapeValue(record.description, 2000)}</p>
+
+          <div class="job-actions">
+            <button class="btn btn-primary view-details" data-job-id="${escapeValue(record.jobId, 40)}">
+              View Details
+            </button>
+            ${secondaryAction}
+            ${discardAction}
+          </div>
+        `;
+
+        return card;
+      }
+
+      function renderApplications() {
+        const records = getApplicationRecords();
+        updateStats(records);
+
+        let filtered = records;
+        if (currentFilter !== "all") {
+          filtered = records.filter((item) => item.status === currentFilter);
+        }
+
+        applicationsContainer.innerHTML = "";
+
+        if (!filtered.length) {
+          applicationsContainer.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+              <i class="fas fa-folder-open"></i>
+              <h3>No applications found</h3>
+              <p>Your real applications will appear here as soon as you apply for verified jobs.</p>
+            </div>
+          `;
+          return;
+        }
+
+        filtered.forEach((record) => {
+          applicationsContainer.appendChild(createApplicationCard(record));
+        });
+
+        setupDynamicButtons();
+      }
+
+      function setupDynamicButtons() {
+        document.querySelectorAll(".view-details").forEach((button) => {
+          button.addEventListener("click", function () {
+            const jobId = this.getAttribute("data-job-id");
+            window.location.href = `view-details.html?id=${encodeURIComponent(jobId)}&source=your-applications`;
           });
         });
-      }
 
-      // Filter applications by status
-      function filterApplications(status) {
-        const jobCards = document.querySelectorAll(".job-card");
-        jobCards.forEach((card) => {
-          if (status === "all") {
-            card.style.display = "flex";
-          } else {
-            if (card.getAttribute("data-status") === status) {
-              card.style.display = "flex";
-            } else {
-              card.style.display = "none";
+        document.querySelectorAll(".employer-details-trigger").forEach((button) => {
+          button.addEventListener("click", function () {
+            const unlocked = this.getAttribute("data-unlocked") === "true";
+            const email = this.getAttribute("data-email") || "";
+            const phone = this.getAttribute("data-phone") || "";
+            const address = this.getAttribute("data-address") || "";
+            const company = this.getAttribute("data-company") || "";
+            const name = this.getAttribute("data-name") || "";
+            const position = this.getAttribute("data-position") || "";
+
+            document.getElementById("employerCompanyRow").style.display = company ? "flex" : "none";
+            document.getElementById("employerNameRow").style.display = name ? "flex" : "none";
+            document.getElementById("employerPositionRow").style.display = position ? "flex" : "none";
+            document.getElementById("employerCompanyName").textContent = company;
+            document.getElementById("employerContactName").textContent = name;
+            document.getElementById("employerPosition").textContent = position;
+
+            document.getElementById("employerEmailRow").style.display =
+              unlocked && email ? "flex" : "none";
+            document.getElementById("employerPhoneRow").style.display =
+              unlocked && phone ? "flex" : "none";
+            document.getElementById("employerAddressRow").style.display =
+              unlocked && address ? "flex" : "none";
+
+            if (unlocked) {
+              document.getElementById("employerEmail").textContent = email;
+              document.getElementById("employerPhone").textContent = phone;
+              document.getElementById("employerAddress").textContent = address;
             }
-          }
-        });
-      }
 
-      // Withdraw application
-      function setupWithdrawButtons() {
-        document.querySelectorAll(".withdraw-application").forEach((button) => {
-          button.addEventListener("click", function (e) {
-            e.preventDefault();
-            const jobTitle = this.getAttribute("data-job");
-            document.getElementById("withdrawJobTitle").textContent = jobTitle;
+            employerDetailsModal.classList.add("show");
+          });
+        });
+
+        document.querySelectorAll(".discard-application").forEach((button) => {
+          button.addEventListener("click", function () {
+            currentWithdrawJobId = this.getAttribute("data-application-id");
+            document.getElementById("withdrawJobTitle").textContent =
+              this.getAttribute("data-job") || "this job";
             withdrawModal.classList.add("show");
           });
         });
       }
 
-      // Toggle sidebar
+      function withdrawApplication(applicationId) {
+        if (window.JobAssistApplications) {
+          window.JobAssistApplications.deleteApplication(applicationId);
+        } else {
+          const applications = getAppliedJobs().filter(
+            (item) => String(item.applicationId || item.id) !== String(applicationId)
+          );
+          saveAppliedJobs(applications);
+        }
+
+        renderApplications();
+      }
+
+      function initializePage() {
+        const currentCandidate = getCurrentCandidate();
+        const applicationsUserName = document.getElementById("applicationsUserName");
+        if (applicationsUserName) {
+          applicationsUserName.textContent = getCurrentCandidateFirstName(currentCandidate);
+        }
+        renderApplications();
+      }
+
       sidebarToggle.addEventListener("click", function () {
         sidebar.classList.toggle("collapsed");
         mainContent.classList.toggle("expanded");
 
         const icon = this.querySelector("i");
-        if (sidebar.classList.contains("collapsed")) {
-          icon.className = "fas fa-chevron-right";
-        } else {
-          icon.className = "fas fa-chevron-left";
-        }
+        icon.className = sidebar.classList.contains("collapsed")
+          ? "fas fa-chevron-right"
+          : "fas fa-chevron-left";
       });
 
-      // Mobile menu toggle
       let isMobileMenuOpen = false;
 
       mobileMenuBtn.addEventListener("click", function () {
-        if (isMobileMenuOpen) {
-          sidebar.classList.remove("mobile-open");
-          mobileOverlay.classList.remove("show");
-          isMobileMenuOpen = false;
-        } else {
-          sidebar.classList.add("mobile-open");
-          mobileOverlay.classList.add("show");
-          isMobileMenuOpen = true;
-        }
+        isMobileMenuOpen = !isMobileMenuOpen;
+        sidebar.classList.toggle("mobile-open", isMobileMenuOpen);
+        mobileOverlay.classList.toggle("show", isMobileMenuOpen);
       });
 
-      // Close mobile menu on overlay click
       mobileOverlay.addEventListener("click", function () {
+        isMobileMenuOpen = false;
         sidebar.classList.remove("mobile-open");
         mobileOverlay.classList.remove("show");
-        isMobileMenuOpen = false;
       });
 
-      // Toggle user dropdown
       userProfile.addEventListener("click", function (e) {
         e.stopPropagation();
         dropdownMenu.classList.toggle("show");
       });
 
-      // Toggle notification dropdown
       notificationIcon.addEventListener("click", function (e) {
         e.stopPropagation();
         notificationDropdown.classList.toggle("show");
       });
 
-      // Close dropdowns when clicking outside
       document.addEventListener("click", function (event) {
-        if (!event.target.closest(".user-profile")) {
-          dropdownMenu.classList.remove("show");
-        }
-
-        if (!event.target.closest(".notification-icon")) {
+        if (!event.target.closest(".user-profile")) dropdownMenu.classList.remove("show");
+        if (!event.target.closest(".notification-icon") && !event.target.closest("#notificationDropdown")) {
           notificationDropdown.classList.remove("show");
         }
       });
 
-      // Tab functionality
       tabs.forEach((tab) => {
         tab.addEventListener("click", function () {
           tabs.forEach((t) => t.classList.remove("active"));
           this.classList.add("active");
-          const filter = this.getAttribute("data-filter");
-          filterApplications(filter);
+          currentFilter = this.getAttribute("data-filter");
+          renderApplications();
         });
       });
 
-      // Modal close buttons
       document.querySelectorAll(".close-modal").forEach((button) => {
         button.addEventListener("click", function () {
           const modal = this.closest(".modal");
@@ -2149,83 +2518,55 @@
         });
       });
 
-      // Close employer details modal
       closeEmployerDetails.addEventListener("click", function () {
         employerDetailsModal.classList.remove("show");
       });
 
-      // Close modals on outside click
       window.addEventListener("click", function (event) {
-        if (event.target === logoutModal) {
-          logoutModal.classList.remove("show");
-        }
-        if (event.target === withdrawModal) {
-          withdrawModal.classList.remove("show");
-        }
-        if (event.target === employerDetailsModal) {
-          employerDetailsModal.classList.remove("show");
-        }
+        if (event.target === logoutModal) logoutModal.classList.remove("show");
+        if (event.target === withdrawModal) withdrawModal.classList.remove("show");
+        if (event.target === employerDetailsModal) employerDetailsModal.classList.remove("show");
       });
 
-      // Logout functionality
-      document
-        .getElementById("sidebarLogout")
-        .addEventListener("click", function (e) {
-          e.preventDefault();
-          logoutModal.classList.add("show");
-        });
+      document.getElementById("sidebarLogout").addEventListener("click", function (e) {
+        e.preventDefault();
+        logoutModal.classList.add("show");
+      });
 
-      document
-        .getElementById("dropdownLogout")
-        .addEventListener("click", function (e) {
-          e.preventDefault();
-          dropdownMenu.classList.remove("show");
-          logoutModal.classList.add("show");
-        });
+      document.getElementById("dropdownLogout").addEventListener("click", function (e) {
+        e.preventDefault();
+        dropdownMenu.classList.remove("show");
+        logoutModal.classList.add("show");
+      });
 
-      document
-        .getElementById("confirmLogout")
-        .addEventListener("click", function () {
-          // Redirect to login.html after successful logout
-          logoutModal.classList.remove("show");
-          window.location.href = "login.html";
-        });
+      document.getElementById("confirmLogout").addEventListener("click", function () {
+        logoutModal.classList.remove("show");
+        window.location.href = "../login.html";
+      });
 
-      document
-        .getElementById("cancelLogout")
-        .addEventListener("click", function () {
-          logoutModal.classList.remove("show");
-        });
+      document.getElementById("cancelLogout").addEventListener("click", function () {
+        logoutModal.classList.remove("show");
+      });
 
-      // Withdraw functionality
-      document
-        .getElementById("confirmWithdraw")
-        .addEventListener("click", function () {
-          const jobTitle =
-            document.getElementById("withdrawJobTitle").textContent;
-          alert(`Application for ${jobTitle} has been withdrawn.`);
-          withdrawModal.classList.remove("show");
-        });
+      document.getElementById("confirmWithdraw").addEventListener("click", function () {
+        if (currentWithdrawJobId) {
+          withdrawApplication(currentWithdrawJobId);
+        }
+        currentWithdrawJobId = null;
+        withdrawModal.classList.remove("show");
+      });
 
-      document
-        .getElementById("cancelWithdraw")
-        .addEventListener("click", function () {
-          withdrawModal.classList.remove("show");
-        });
+      document.getElementById("cancelWithdraw").addEventListener("click", function () {
+        currentWithdrawJobId = null;
+        withdrawModal.classList.remove("show");
+      });
 
-      // Mark all notifications as read
-      document
-        .querySelector(".mark-all-read")
-        .addEventListener("click", function () {
-          document
-            .querySelectorAll(".notification-item.unread")
-            .forEach((item) => {
-              item.classList.remove("unread");
-            });
-          document.querySelector(".notification-badge").style.display = "none";
-        });
+      document.querySelector(".mark-all-read").addEventListener("click", function () {
+        document.querySelectorAll(".notification-item.unread").forEach((item) => item.classList.remove("unread"));
+        const badge = document.getElementById("notificationBadge");
+        if (badge) badge.style.display = "none";
+      });
 
-      // Handle window resize
       window.addEventListener("resize", function () {
         if (window.innerWidth > 992) {
           sidebar.classList.remove("mobile-open");
@@ -2234,10 +2575,17 @@
         }
       });
 
-      // Initialize page when loaded
       window.addEventListener("DOMContentLoaded", function () {
         initializePage();
       });
+
+      window.addEventListener("storage", function () {
+        renderApplications();
+      });
     </script>
+  
+    <script src='../assets/js/product-polish.js'></script>
   </body>
 </html>
+
+

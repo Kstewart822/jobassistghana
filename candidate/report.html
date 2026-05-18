@@ -1,10 +1,12 @@
-<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Report a Business | Job Assist Ghana</title>
-    <link rel="icon" type="image/png" href="tab-logo.png" />
+
+    <!-- IMPORTANT: adjust favicon path to match your project -->
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
 
     <!-- Font -->
     <link
@@ -16,6 +18,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <script src="../assets/js/input-hardening.js"></script>
 
     <style>
       :root {
@@ -47,13 +50,11 @@
         background-color: var(--light);
       }
 
-      /* Header Styles */
+      /* =========================
+         HEADER (KEPT SIMPLE)
+         ========================= */
       .site-header {
-        background: linear-gradient(
-          135deg,
-          var(--primary),
-          var(--primary-dark)
-        );
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         color: white;
         padding: 1rem 0;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -66,6 +67,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 0 20px;
+        gap: 16px;
       }
 
       .logo {
@@ -85,12 +87,16 @@
       .logo-img img {
         height: 100%;
         width: auto;
+        display: block;
+        filter: brightness(0) invert(1);
       }
 
       .nav-links {
         display: flex;
         gap: 2rem;
         align-items: center;
+        flex-wrap: wrap;
+        justify-content: flex-end;
       }
 
       .nav-links a {
@@ -119,14 +125,15 @@
         transform: translateY(-2px);
       }
 
-      /* Main Content */
+      /* =========================
+         MAIN CONTENT
+         ========================= */
       .container {
-        max-width: 800px;
+        max-width: 860px;
         margin: 0 auto;
         padding: 20px;
       }
 
-      /* Page Header */
       .page-header {
         text-align: center;
         margin: 3rem 0 2rem;
@@ -135,17 +142,16 @@
       .page-header h1 {
         color: var(--primary);
         font-size: 2.5rem;
-        margin-bottom: 1rem;
+        margin-bottom: 0.65rem;
       }
 
       .page-header p {
         color: var(--gray);
         font-size: 1.1rem;
-        max-width: 600px;
+        max-width: 640px;
         margin: 0 auto;
       }
 
-      /* Report Container */
       .report-container {
         background: white;
         border-radius: 12px;
@@ -156,90 +162,141 @@
         overflow: hidden;
       }
 
-      /* Job Preview Section */
-      .job-preview-section {
-        background: rgba(10, 42, 102, 0.1);
-        border-left: 4px solid var(--primary);
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-        border-radius: 0 8px 8px 0;
+      /* subtle top accent */
+      .report-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(
+          90deg,
+          var(--secondary),
+          rgba(248, 193, 46, 0.2),
+          var(--secondary)
+);
       }
 
+      /* =========================
+         TRUST + ANONYMITY BLOCKS
+         ========================= */
+      .job-preview-section,
+      .anonymous-notice,
+      .important-notice,
+      .assurance-notice {
+        padding: 1.5rem;
+        margin-bottom: 1.35rem;
+        border-radius: 0 10px 10px 0;
+      }
+
+      .job-preview-section {
+        background: rgba(10, 42, 102, 0.08);
+        border-left: 5px solid var(--primary);
+      }
       .job-preview-section h3 {
         color: var(--primary);
-        margin-bottom: 1rem;
+        margin-bottom: 0.8rem;
         display: flex;
         align-items: center;
         gap: 10px;
+        font-size: 1.05rem;
       }
 
       .job-preview-info {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 15px;
-        margin-top: 15px;
+        margin-top: 10px;
       }
-
       .preview-item {
         display: flex;
         flex-direction: column;
+        gap: 2px;
       }
-
       .preview-label {
         font-size: 0.85rem;
         color: var(--gray);
-        margin-bottom: 4px;
-        font-weight: 500;
-      }
-
-      .preview-value {
         font-weight: 600;
+      }
+      .preview-value {
+        font-weight: 700;
         color: var(--dark);
         font-size: 1rem;
       }
 
-      /* Anonymous Notice */
       .anonymous-notice {
         background: rgba(59, 130, 246, 0.1);
-        border-left: 4px solid var(--info);
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-        border-radius: 0 8px 8px 0;
+        border-left: 5px solid var(--info);
       }
-
       .anonymous-notice h3 {
         color: var(--info);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.45rem;
         display: flex;
         align-items: center;
         gap: 10px;
+        font-size: 1.05rem;
+      }
+      .anonymous-notice p {
+        color: var(--dark);
       }
 
-      /* Important Notice */
+      /* NEW: extra anonymity reassurance (stronger wording + bullets) */
+      .assurance-notice {
+        background: rgba(16, 185, 129, 0.08);
+        border-left: 5px solid var(--success);
+      }
+      .assurance-notice h3 {
+        color: var(--success);
+        margin-bottom: 0.45rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.05rem;
+      }
+      .assurance-list {
+        margin-top: 10px;
+        display: grid;
+        gap: 8px;
+      }
+      .assurance-item {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        color: var(--dark);
+      }
+      .assurance-item i {
+        color: var(--success);
+        margin-top: 3px;
+      }
+      .assurance-item span {
+        font-size: 0.97rem;
+        line-height: 1.55;
+      }
+
       .important-notice {
-        background: rgba(239, 68, 68, 0.1);
-        border-left: 4px solid var(--danger);
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-        border-radius: 0 8px 8px 0;
+        background: rgba(239, 68, 68, 0.08);
+        border-left: 5px solid var(--danger);
       }
-
       .important-notice h3 {
         color: var(--danger);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.45rem;
         display: flex;
         align-items: center;
         gap: 10px;
+        font-size: 1.05rem;
       }
 
-      /* Form Styles */
+      /* =========================
+         FORM STYLES
+         ========================= */
       .form-group {
         margin-bottom: 1.8rem;
       }
 
       label {
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 700;
         display: block;
         margin-bottom: 8px;
         color: var(--primary);
@@ -252,7 +309,7 @@
       .field-note {
         font-size: 0.85rem;
         color: var(--gray);
-        margin-top: 4px;
+        margin-top: 6px;
         font-style: italic;
       }
 
@@ -267,9 +324,8 @@
         border-radius: 8px;
         font-size: 15px;
         font-family: "Segoe UI", sans-serif;
-        transition:
-          border 0.3s ease,
-          box-shadow 0.3s ease;
+        transition: border 0.3s ease, box-shadow 0.3s ease;
+        background: #fff;
       }
 
       input[type="text"]:focus,
@@ -290,7 +346,7 @@
       .radio-group {
         display: flex;
         flex-wrap: wrap;
-        gap: 1.5rem;
+        gap: 1.2rem 1.6rem;
         margin-top: 10px;
       }
 
@@ -299,6 +355,7 @@
         align-items: center;
         gap: 8px;
         cursor: pointer;
+        user-select: none;
       }
 
       .radio-option input[type="radio"] {
@@ -306,53 +363,54 @@
         height: 18px;
       }
 
-      /* Checkbox for consent */
       .checkbox-option {
         display: flex;
         align-items: flex-start;
         gap: 10px;
         cursor: pointer;
-        padding: 10px;
-        border-radius: 8px;
+        padding: 12px;
+        border-radius: 10px;
         background-color: var(--light);
         transition: background-color 0.3s ease;
+        border: 1px solid rgba(226, 232, 240, 0.9);
       }
 
       .checkbox-option:hover {
-        background-color: rgba(10, 42, 102, 0.05);
+        background-color: rgba(10, 42, 102, 0.04);
       }
 
       .checkbox-option input[type="checkbox"] {
         width: 20px;
         height: 20px;
-        margin-top: 3px;
+        margin-top: 2px;
         flex-shrink: 0;
       }
 
       /* File Upload */
       .file-upload {
         border: 2px dashed var(--gray-light);
-        border-radius: 8px;
-        padding: 2rem;
+        border-radius: 10px;
+        padding: 1.8rem;
         text-align: center;
         background: var(--light);
-        transition: border 0.3s ease;
+        transition: border 0.3s ease, background 0.3s ease;
         cursor: pointer;
       }
 
       .file-upload:hover {
         border-color: var(--secondary);
+        background: rgba(248, 193, 46, 0.05);
       }
 
       .file-upload i {
-        font-size: 2.5rem;
+        font-size: 2.3rem;
         color: var(--gray);
-        margin-bottom: 1rem;
+        margin-bottom: 0.8rem;
       }
 
       .file-upload p {
         color: var(--gray);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.35rem;
       }
 
       .file-upload span {
@@ -367,16 +425,16 @@
         background: #cccccc;
         color: white;
         border: none;
-        border-radius: 8px;
+        border-radius: 10px;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 10px;
-        margin-top: 1rem;
+        margin-top: 0.8rem;
       }
 
       .submit-btn.enabled {
@@ -396,7 +454,9 @@
         box-shadow: none;
       }
 
-      /* Submission Animation Overlay */
+      /* =========================
+         SUBMISSION OVERLAY
+         ========================= */
       .submission-overlay {
         position: fixed;
         top: 0;
@@ -412,9 +472,7 @@
         z-index: 1000;
         opacity: 0;
         visibility: hidden;
-        transition:
-          opacity 0.5s ease,
-          visibility 0.5s ease;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
       }
 
       .submission-overlay.active {
@@ -426,11 +484,7 @@
         width: 120px;
         height: 120px;
         border-radius: 50%;
-        background: linear-gradient(
-          135deg,
-          var(--primary),
-          var(--primary-dark)
-        );
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -461,8 +515,8 @@
       }
 
       .submission-title {
-        font-size: 2.5rem;
-        font-weight: 700;
+        font-size: 2.4rem;
+        font-weight: 800;
         color: var(--primary);
         margin-bottom: 1rem;
         text-align: center;
@@ -472,11 +526,11 @@
       }
 
       .submission-message {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
         color: var(--dark);
         text-align: center;
-        margin-bottom: 3rem;
-        max-width: 600px;
+        margin-bottom: 2.2rem;
+        max-width: 650px;
         line-height: 1.7;
         animation: fadeInUp 0.6s ease forwards;
         animation-delay: 0.8s;
@@ -487,13 +541,12 @@
         color: var(--primary);
       }
 
-      /* Processing Animation */
       .processing-animation {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin-bottom: 2rem;
+        margin-bottom: 1.8rem;
         animation: fadeInUp 0.6s ease forwards;
         animation-delay: 1s;
         opacity: 0;
@@ -504,8 +557,8 @@
         align-items: center;
         justify-content: center;
         gap: 40px;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
+        margin-top: 1.6rem;
+        margin-bottom: 1.6rem;
       }
 
       .processing-step {
@@ -548,13 +601,9 @@
         transition: all 0.5s ease;
       }
 
-      .processing-step.completed ~ .processing-step-line {
-        background: var(--success);
-      }
-
       .processing-step-text {
         font-size: 1rem;
-        font-weight: 600;
+        font-weight: 700;
         color: var(--gray);
         text-align: center;
         transition: all 0.3s ease;
@@ -568,13 +617,12 @@
         color: var(--success);
       }
 
-      /* Serious Investigation Message */
       .investigation-message {
-        background: rgba(10, 42, 102, 0.1);
+        background: rgba(10, 42, 102, 0.08);
         border-radius: 12px;
         padding: 1.5rem;
-        margin-top: 2rem;
-        max-width: 600px;
+        margin-top: 1.2rem;
+        max-width: 650px;
         text-align: center;
         animation: fadeInUp 0.6s ease forwards;
         animation-delay: 1.5s;
@@ -593,10 +641,10 @@
       .investigation-message p {
         color: var(--dark);
         font-size: 1rem;
-        line-height: 1.5;
+        line-height: 1.55;
       }
 
-      /* Animation Keyframes */
+      /* Animations */
       @keyframes scaleIn {
         0% {
           transform: scale(0);
@@ -683,7 +731,9 @@
         }
       }
 
-      /* Footer */
+      /* =========================
+         FOOTER
+         ========================= */
       .site-footer {
         background: var(--primary);
         color: white;
@@ -703,10 +753,11 @@
         justify-content: center;
         gap: 2rem;
         margin-top: 1rem;
+        flex-wrap: wrap;
       }
 
       .footer-links a {
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(255, 255, 255, 0.85);
         text-decoration: none;
         transition: color 0.3s ease;
       }
@@ -740,11 +791,6 @@
           gap: 1rem;
         }
 
-        .footer-links {
-          flex-direction: column;
-          gap: 1rem;
-        }
-
         .submission-icon {
           width: 100px;
           height: 100px;
@@ -759,7 +805,7 @@
         }
 
         .submission-message {
-          font-size: 1.1rem;
+          font-size: 1.05rem;
         }
 
         .processing-steps {
@@ -821,35 +867,25 @@
         }
       }
     </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
   </head>
+
   <body>
+    <!-- Header -->
     <header class="site-header">
-<<<<<<< HEAD:report.html
       <div class="header-content">
-        <a href="index.html" class="logo">
+        <!-- IMPORTANT: adjust home link to your new structure -->
+        <a href="../index.html" class="logo" aria-label="Job Assist Ghana Home">
           <div class="logo-img">
-            <img src="logo.png" alt="Job Assist Ghana" />
+            <img src="../assets/images/logo.png" alt="Job Assist Ghana" />
           </div>
         </a>
 
         <div class="nav-links">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="login.html" class="login-btn">Login</a>
-=======
-        <div class="header-content">
-            <a href="../index.html" class="logo">
-                <div class="logo-img">
-                    <img src="logo.png" alt="Job Assist Ghana">
-                </div>
-            </a>
-            
-            <div class="nav-links">
-                <a href="../index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="login.html" class="login-btn">Login</a>
-            </div>
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/report.html
+          <a href="../index.html">Home</a>
+          <a href="../about.html">About</a>
+          <a href="../login.html" class="login-btn">Login</a>
         </div>
       </div>
     </header>
@@ -859,25 +895,19 @@
         <h1>Report a Business/Company</h1>
         <p>
           Help us maintain a safe and trustworthy job platform by reporting
-          suspicious or fraudulent activities
+          suspicious or fraudulent activities.
         </p>
       </div>
 
       <div class="report-container">
         <!-- Job Preview Section -->
-        <div
-          class="job-preview-section"
-          id="jobPreviewSection"
-          style="display: none"
-        >
+        <div class="job-preview-section" id="jobPreviewSection" style="display: none">
           <h3><i class="fas fa-file-alt"></i> Reporting this Job/Business:</h3>
-          <div class="job-preview-info" id="jobPreviewInfo">
-            <!-- Job information will be dynamically inserted here -->
-          </div>
+          <div class="job-preview-info" id="jobPreviewInfo"></div>
           <p style="margin-top: 10px; font-size: 0.9rem; color: var(--gray)">
-            <i class="fas fa-info-circle"></i> Job/business details are
-            pre-filled from your report. You only need to provide your
-            information and report details.
+            <i class="fas fa-info-circle"></i> Job/business details are pre-filled
+            from your report. You only need to provide your information and report
+            details.
           </p>
         </div>
 
@@ -885,25 +915,48 @@
         <div class="anonymous-notice">
           <h3><i class="fas fa-user-secret"></i> Anonymous Reporting</h3>
           <p>
-            This report is <strong>completely anonymous</strong>. We do not
-            require or store your personal name. Your identity will be protected
-            throughout the investigation process.
+            This report is <strong>completely anonymous</strong>. We do not require
+            or store your personal name. Your identity will be protected throughout
+            the investigation process.
           </p>
+        </div>
+
+        <!-- Extra assurance (stronger + clearer) -->
+        <div class="assurance-notice">
+          <h3><i class="fas fa-lock"></i> Your Privacy & Safety</h3>
+          <div class="assurance-list">
+            <div class="assurance-item">
+              <i class="fas fa-check-circle"></i>
+              <span><strong>No name required.</strong> We never ask for your full name.</span>
+            </div>
+            <div class="assurance-item">
+              <i class="fas fa-check-circle"></i>
+              <span
+                ><strong>Confidential contact.</strong> Phone/email are used only if we need clarification and are not shown to employers.</span
+              >
+            </div>
+            <div class="assurance-item">
+              <i class="fas fa-check-circle"></i>
+              <span
+                ><strong>Evidence protected.</strong> Uploads are treated as confidential supporting documents for review.</span
+              >
+            </div>
+            <div class="assurance-item">
+              <i class="fas fa-check-circle"></i>
+              <span
+                ><strong>Fair process.</strong> We investigate carefully to protect reporters and ensure due process.</span
+              >
+            </div>
+          </div>
         </div>
 
         <!-- Important Notice -->
         <div class="important-notice">
-          <h3>
-            <i class="fas fa-exclamation-triangle"></i> Important Information
-          </h3>
+          <h3><i class="fas fa-exclamation-triangle"></i> Important Information</h3>
           <p>
             This reporting system is for
-            <strong
-              >suspected fraudulent activities, scams, or unethical business
-              practices</strong
-            >
-            only. All reports are taken seriously and investigated according to
-            Ghanaian laws including the
+            <strong>suspected fraudulent activities, scams, or unethical business practices</strong>
+            only. All reports are taken seriously and investigated according to Ghanaian laws including the
             <strong>Labour Act, 2003 (Act 651)</strong> and
             <strong>Electronic Transactions Act, 2008 (Act 772)</strong>.
           </p>
@@ -911,37 +964,23 @@
 
         <!-- Report Form -->
         <form id="reportForm">
-          <!-- Your Information - ANONYMOUS -->
+          <!-- Your Info (Anonymous) -->
           <div class="form-group">
-            <label for="reporter-phone"
-              >Your Phone Number <span class="required">*</span></label
-            >
-            <input
-              type="tel"
-              id="reporter-phone"
-              placeholder="Enter your phone number"
-              required
-            />
+            <label for="reporter-phone">Your Phone Number <span class="required">*</span></label>
+            <input type="tel" id="reporter-phone" placeholder="Enter your phone number" required />
             <div class="field-note">
-              We need your phone number so we can reach you if we need to follow
-              up on your report. Your phone number will be kept confidential.
+              We only request a phone number so we can reach you if we need to follow up. Your phone number is kept confidential.
             </div>
           </div>
 
           <div class="form-group">
             <label for="reporter-email">Your Email Address (Optional)</label>
-            <input
-              type="email"
-              id="reporter-email"
-              placeholder="Enter your email address (optional)"
-            />
+            <input type="email" id="reporter-email" placeholder="Enter your email address (optional)" />
           </div>
 
-          <!-- Business Information (Pre-filled from job details) -->
+          <!-- Business Information (pre-filled if job param exists) -->
           <div class="form-group">
-            <label for="business-name"
-              >Business/Company Name <span class="required">*</span></label
-            >
+            <label for="business-name">Business/Company Name <span class="required">*</span></label>
             <input
               type="text"
               id="business-name"
@@ -992,54 +1031,36 @@
 
           <!-- Incident Details -->
           <div class="form-group">
-            <label for="incident-details"
-              >Incident Details <span class="required">*</span></label
-            >
+            <label for="incident-details">Incident Details <span class="required">*</span></label>
             <textarea
               id="incident-details"
               placeholder="Please provide detailed information about what happened, including dates, communication, and any evidence you have..."
               required
             ></textarea>
             <small style="color: var(--gray); font-size: 0.9rem"
-              >Be as specific as possible. Include dates, names, communication
-              methods, and what was promised vs. what was delivered.</small
+              >Be as specific as possible. Include dates, names (if known), communication methods, and what was promised vs. what was delivered.</small
             >
           </div>
 
           <!-- Evidence Upload -->
           <div class="form-group">
             <label>Evidence (Optional but Recommended)</label>
-            <p
-              style="
-                color: var(--gray);
-                margin-bottom: 10px;
-                font-size: 0.95rem;
-              "
-            >
-              Upload screenshots, emails, documents, or other evidence that
-              supports your report.
+            <p style="color: var(--gray); margin-bottom: 10px; font-size: 0.95rem">
+              Upload screenshots, emails, documents, or other evidence that supports your report.
             </p>
 
-            <div class="file-upload" id="fileUploadArea">
+            <div class="file-upload" id="fileUploadArea" role="button" tabindex="0" aria-label="Upload evidence files">
               <i class="fas fa-cloud-upload-alt"></i>
-              <p>Drag & drop files here or click to browse</p>
+              <p>Drag &amp; drop files here or click to browse</p>
               <span>Maximum file size: 5MB each (Images, PDF, DOC)</span>
-              <input
-                type="file"
-                id="evidence-files"
-                multiple
-                style="display: none"
-              />
+              <input type="file" id="evidence-files" multiple style="display: none" />
             </div>
             <div id="fileList" style="margin-top: 10px"></div>
           </div>
 
           <!-- Action Requested -->
           <div class="form-group">
-            <label for="action-requested"
-              >What action would you like us to take?
-              <span class="required">*</span></label
-            >
+            <label for="action-requested">What action would you like us to take? <span class="required">*</span></label>
             <select id="action-requested" required>
               <option value="">Select preferred action</option>
               <option value="investigate">Investigate the business</option>
@@ -1055,21 +1076,14 @@
             <label class="checkbox-option">
               <input type="checkbox" id="consent" required />
               <span
-                >I understand that this anonymous report will be investigated
-                and I may be contacted for additional information. I confirm
-                that the information provided is accurate to the best of my
-                knowledge. <span class="required">*</span></span
+                >I understand that this anonymous report will be investigated and I may be contacted for additional information. I confirm that the information provided is accurate to the best of my knowledge.
+                <span class="required">*</span></span
               >
             </label>
           </div>
 
           <!-- Submit Button -->
-          <button
-            type="submit"
-            class="submit-btn"
-            id="submitReportBtn"
-            disabled
-          >
+          <button type="submit" class="submit-btn" id="submitReportBtn" disabled>
             <i class="fas fa-flag"></i> Submit Anonymous Report
           </button>
         </form>
@@ -1083,10 +1097,8 @@
       </div>
       <h2 class="submission-title">Report Submitted Successfully!</h2>
       <p class="submission-message">
-        <strong>Thank you for your courage in reporting this issue.</strong
-        ><br /><br />
-        Your report has been received and is now entering our investigation
-        process.
+        <strong>Thank you for your courage in reporting this issue.</strong><br /><br />
+        Your report has been received and is now entering our investigation process.
       </p>
 
       <div class="processing-animation">
@@ -1112,30 +1124,26 @@
       <div class="investigation-message">
         <h4><i class="fas fa-gavel"></i> Investigation in Progress</h4>
         <p>
-          Our team will conduct a thorough review of your report. This process
-          ensures we take appropriate action while maintaining fairness and due
-          process. Investigations may take time as we gather all necessary
-          information and follow proper procedures.
+          Our team will conduct a thorough review of your report. This process ensures we take appropriate action while maintaining fairness and due process.
+          Investigations may take time as we gather all necessary information and follow proper procedures.
         </p>
       </div>
 
-      <p
-        class="submission-message"
-        style="font-size: 1rem; color: var(--gray); margin-top: 2rem"
-      >
+      <p class="submission-message" style="font-size: 1rem; color: var(--gray); margin-top: 2rem">
         You will be redirected to browse jobs in a moment...
       </p>
     </div>
 
     <footer class="site-footer">
       <div class="footer-content">
-        <p>© 2025 Job Assist Ghana. All rights reserved.</p>
+        <p>Copyright 2025 Job Assist Ghana. All rights reserved.</p>
         <div class="footer-links">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="terms.html">Terms & Conditions</a>
-          <a href="contact.html">Contact Us</a>
+          <!-- IMPORTANT: adjust paths if needed -->
+          <a href="../privacy.html">Privacy Policy</a>
+          <a href="../terms.html">Terms &amp; Conditions</a>
+          <a href="../contact.html">Contact Us</a>
         </div>
-        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8">
+        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.85">
           Committed to maintaining a safe and trustworthy job platform
         </p>
       </div>
@@ -1143,6 +1151,30 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        const hardener = window.JobAssistInputHardening || null;
+        const sanitizeText = (value, maxLength = 200) =>
+          hardener?.sanitizeText
+            ? hardener.sanitizeText(value, { maxLength })
+            : String(value || "").trim().slice(0, maxLength);
+        const sanitizeMultiline = (value, maxLength = 2000) =>
+          hardener?.sanitizeMultilineText
+            ? hardener.sanitizeMultilineText(value, { maxLength })
+            : String(value || "").trim().slice(0, maxLength);
+        const sanitizeEmail = (value) =>
+          hardener?.sanitizeEmail
+            ? hardener.sanitizeEmail(value)
+            : String(value || "").trim().toLowerCase();
+        const normalizePhone = (value) =>
+          hardener?.normalizeGhanaPhone
+            ? hardener.normalizeGhanaPhone(value)
+            : String(value || "").replace(/\D/g, "").slice(0, 10);
+        const isValidEmailAddress = (value) =>
+          !value || (hardener?.isValidEmail ? hardener.isValidEmail(value) : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim()));
+        const isValidPhone = (value) =>
+          hardener?.isValidGhanaPhone
+            ? hardener.isValidGhanaPhone(value)
+            : /^0\d{9}$/.test(String(value || "").trim());
+
         // Get job data from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const jobDataParam = urlParams.get("job");
@@ -1151,41 +1183,50 @@
 
         if (jobDataParam) {
           try {
-            jobData = JSON.parse(decodeURIComponent(jobDataParam));
+            const parsedJobData = JSON.parse(decodeURIComponent(jobDataParam));
+            jobData = {
+              title: sanitizeText(parsedJobData?.title, 160),
+              company: sanitizeText(parsedJobData?.company, 160),
+              id: sanitizeText(parsedJobData?.id, 60),
+              contactEmail: sanitizeEmail(parsedJobData?.contactEmail),
+            };
 
             // Show job preview section
-            document.getElementById("jobPreviewSection").style.display =
-              "block";
+            document.getElementById("jobPreviewSection").style.display = "block";
 
             // Update job preview information
             const jobPreviewInfo = document.getElementById("jobPreviewInfo");
             jobPreviewInfo.innerHTML = `
-                        <div class="preview-item">
-                            <div class="preview-label">Job Title</div>
-                            <div class="preview-value">${jobData.title}</div>
-                        </div>
-                        <div class="preview-item">
-                            <div class="preview-label">Company</div>
-                            <div class="preview-value">${jobData.company}</div>
-                        </div>
-                        <div class="preview-item">
-                            <div class="preview-label">Job ID</div>
-                            <div class="preview-value">${jobData.id}</div>
-                        </div>
-                    `;
+              <div class="preview-item">
+                <div class="preview-label">Job Title</div>
+                <div class="preview-value">${escapeHtml(jobData.title || "")}</div>
+              </div>
+              <div class="preview-item">
+                <div class="preview-label">Company</div>
+                <div class="preview-value">${escapeHtml(jobData.company || "")}</div>
+              </div>
+              <div class="preview-item">
+                <div class="preview-label">Job ID</div>
+                <div class="preview-value">${escapeHtml(jobData.id || "")}</div>
+              </div>
+            `;
 
             // Pre-fill business information in the form
-            document.getElementById("business-name").value = jobData.company;
+            document.getElementById("business-name").value = sanitizeText(
+              jobData.company,
+              160,
+            );
 
             if (jobData.contactEmail) {
-              document.getElementById("business-contact").value =
-                jobData.contactEmail;
+              document.getElementById("business-contact").value = sanitizeEmail(
+                jobData.contactEmail,
+              );
             }
           } catch (error) {
             console.error("Error parsing job data:", error);
           }
         } else {
-          // If no job data, set business name as required text field
+          // If no job data, let user type business name
           const businessNameInput = document.getElementById("business-name");
           businessNameInput.readOnly = false;
           businessNameInput.style.backgroundColor = "white";
@@ -1202,9 +1243,13 @@
 
         let uploadedFiles = [];
 
-        // File upload click event
-        fileUploadArea.addEventListener("click", () => {
-          fileInput.click();
+        // Click / keyboard open
+        fileUploadArea.addEventListener("click", () => fileInput.click());
+        fileUploadArea.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            fileInput.click();
+          }
         });
 
         // File input change event
@@ -1212,7 +1257,7 @@
           handleFiles(e.target.files);
         });
 
-        // Drag and drop functionality
+        // Drag and drop
         fileUploadArea.addEventListener("dragover", (e) => {
           e.preventDefault();
           fileUploadArea.style.borderColor = "var(--secondary)";
@@ -1235,20 +1280,17 @@
           }
         });
 
-        // Handle uploaded files
         function handleFiles(files) {
           for (let i = 0; i < files.length; i++) {
             const file = files[i];
 
-            // Check file size (5MB limit)
+            // 5MB limit
             if (file.size > 5 * 1024 * 1024) {
-              alert(
-                `File "${file.name}" exceeds the 5MB size limit and was not uploaded.`,
-              );
+              alert(`File "${file.name}" exceeds the 5MB size limit and was not uploaded.`);
               continue;
             }
 
-            // Check file type
+            // Allowed types
             const allowedTypes = [
               "image/jpeg",
               "image/png",
@@ -1257,10 +1299,11 @@
               "application/msword",
               "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             ];
+
             if (!allowedTypes.includes(file.type)) {
               alert(
-                `File "${file.name}" is not an allowed file type. Please upload images, PDF, or DOC files only.`,
-              );
+                `File "${file.name}" is not an allowed type. Please upload images, PDF, or DOC files only.`
+);
               continue;
             }
 
@@ -1268,11 +1311,9 @@
             displayFile(file);
           }
 
-          // Reset file input
           fileInput.value = "";
         }
 
-        // Display uploaded file
         function displayFile(file) {
           const fileItem = document.createElement("div");
           fileItem.style.display = "flex";
@@ -1280,60 +1321,59 @@
           fileItem.style.gap = "10px";
           fileItem.style.padding = "8px";
           fileItem.style.backgroundColor = "var(--light)";
-          fileItem.style.borderRadius = "6px";
+          fileItem.style.borderRadius = "8px";
           fileItem.style.marginBottom = "8px";
+          fileItem.style.border = "1px solid rgba(226, 232, 240, 0.9)";
 
-          // File icon based on type
           let icon = "fa-file";
           if (file.type.startsWith("image/")) icon = "fa-file-image";
           else if (file.type === "application/pdf") icon = "fa-file-pdf";
           else if (file.type.includes("word")) icon = "fa-file-word";
 
           fileItem.innerHTML = `
-                    <i class="fas ${icon}" style="color: var(--primary);"></i>
-                    <span style="flex: 1; font-size: 0.9rem;">${file.name} (${formatFileSize(file.size)})</span>
-                    <button type="button" class="remove-file" style="background: none; border: none; color: var(--danger); cursor: pointer;">
-                        <i class="fas fa-times"></i>
-                    </button>
-                `;
-<<<<<<< HEAD:report.html
+            <i class="fas ${icon}" style="color: var(--primary);"></i>
+            <span style="flex: 1; font-size: 0.9rem;">
+              ${escapeHtml(file.name)} (${formatFileSize(file.size)})
+            </span>
+            <button type="button" class="remove-file" aria-label="Remove file"
+              style="background: none; border: none; color: var(--danger); cursor: pointer;">
+              <i class="fas fa-times"></i>
+            </button>
+          `;
 
           fileList.appendChild(fileItem);
 
-          // Add remove functionality
-          const removeBtn = fileItem.querySelector(".remove-file");
-          removeBtn.addEventListener("click", () => {
+          fileItem.querySelector(".remove-file").addEventListener("click", () => {
             uploadedFiles = uploadedFiles.filter((f) => f !== file);
             fileItem.remove();
           });
         }
 
-        // Format file size
         function formatFileSize(bytes) {
           if (bytes < 1024) return bytes + " bytes";
-          else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
-          else return (bytes / 1048576).toFixed(1) + " MB";
+          if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
+          return (bytes / 1048576).toFixed(1) + " MB";
         }
 
-        // Form validation function
+        // Form validation
         function validateForm() {
-          const phone = document.getElementById("reporter-phone").value.trim();
-          const businessName = document
-            .getElementById("business-name")
-            .value.trim();
-          const reportType = document.querySelector(
-            'input[name="report-type"]:checked',
+          const phone = normalizePhone(
+            document.getElementById("reporter-phone").value,
           );
-          const incidentDetails = document
-            .getElementById("incident-details")
-            .value.trim();
-          const actionRequested =
-            document.getElementById("action-requested").value;
+          const businessName = sanitizeText(
+            document.getElementById("business-name").value,
+            160,
+          );
+          const reportType = document.querySelector('input[name="report-type"]:checked');
+          const incidentDetails = sanitizeMultiline(
+            document.getElementById("incident-details").value,
+            2000,
+          );
+          const actionRequested = document.getElementById("action-requested").value;
           const consent = document.getElementById("consent").checked;
 
-          // Check all required fields
           if (
-            phone &&
+            isValidPhone(phone) &&
             businessName &&
             reportType &&
             incidentDetails &&
@@ -1348,7 +1388,6 @@
           }
         }
 
-        // Add event listeners to all required fields
         const requiredFields = [
           document.getElementById("reporter-phone"),
           document.getElementById("business-name"),
@@ -1357,193 +1396,33 @@
           document.getElementById("consent"),
         ];
 
-        // Add event listeners to radio buttons
-        const reportTypeRadios = document.querySelectorAll(
-          'input[name="report-type"]',
-        );
-        reportTypeRadios.forEach((radio) => {
+        document.querySelectorAll('input[name="report-type"]').forEach((radio) => {
           radio.addEventListener("change", validateForm);
-=======
-                
-                fileList.appendChild(fileItem);
-                
-                // Add remove functionality
-                const removeBtn = fileItem.querySelector('.remove-file');
-                removeBtn.addEventListener('click', () => {
-                    uploadedFiles = uploadedFiles.filter(f => f !== file);
-                    fileItem.remove();
-                });
-            }
-            
-            // Format file size
-            function formatFileSize(bytes) {
-                if (bytes < 1024) return bytes + ' bytes';
-                else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-                else return (bytes / 1048576).toFixed(1) + ' MB';
-            }
-            
-            // Form validation function
-            function validateForm() {
-                const phone = document.getElementById('reporter-phone').value.trim();
-                const businessName = document.getElementById('business-name').value.trim();
-                const reportType = document.querySelector('input[name="report-type"]:checked');
-                const incidentDetails = document.getElementById('incident-details').value.trim();
-                const actionRequested = document.getElementById('action-requested').value;
-                const consent = document.getElementById('consent').checked;
-                
-                // Check all required fields
-                if (phone && businessName && reportType && incidentDetails && actionRequested && consent) {
-                    submitBtn.disabled = false;
-                    submitBtn.classList.add('enabled');
-                } else {
-                    submitBtn.disabled = true;
-                    submitBtn.classList.remove('enabled');
-                }
-            }
-            
-            // Add event listeners to all required fields
-            const requiredFields = [
-                document.getElementById('reporter-phone'),
-                document.getElementById('business-name'),
-                document.getElementById('incident-details'),
-                document.getElementById('action-requested'),
-                document.getElementById('consent')
-            ];
-            
-            // Add event listeners to radio buttons
-            const reportTypeRadios = document.querySelectorAll('input[name="report-type"]');
-            reportTypeRadios.forEach(radio => {
-                radio.addEventListener('change', validateForm);
-            });
-            
-            // Add event listeners to required fields
-            requiredFields.forEach(field => {
-                if (field.type === 'checkbox') {
-                    field.addEventListener('change', validateForm);
-                } else {
-                    field.addEventListener('input', validateForm);
-                }
-            });
-            
-            // Form submission
-            reportForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Basic validation
-                const requiredFields = reportForm.querySelectorAll('[required]');
-                let isValid = true;
-                
-                requiredFields.forEach(field => {
-                    if (field.type === 'checkbox' && !field.checked) {
-                        isValid = false;
-                        field.parentElement.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
-                    } else if (field.type !== 'checkbox' && !field.value.trim()) {
-                        isValid = false;
-                        field.style.borderColor = 'var(--danger)';
-                    } else {
-                        if (field.type === 'checkbox') {
-                            field.parentElement.style.backgroundColor = '';
-                        } else {
-                            field.style.borderColor = '';
-                        }
-                    }
-                });
-                
-                if (!isValid) {
-                    alert('Please fill in all required fields marked with *');
-                    return;
-                }
-                
-                // Disable submit button and show loading
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting Report...';
-                
-                // Simulate API call/processing delay
-                setTimeout(() => {
-                    // Prepare report data
-                    const reportData = {
-                        reporterPhone: document.getElementById('reporter-phone').value,
-                        reporterEmail: document.getElementById('reporter-email').value,
-                        businessName: document.getElementById('business-name').value,
-                        businessContact: document.getElementById('business-contact').value,
-                        reportType: document.querySelector('input[name="report-type"]:checked').value,
-                        incidentDetails: document.getElementById('incident-details').value,
-                        actionRequested: document.getElementById('action-requested').value,
-                        evidenceFiles: uploadedFiles.length,
-                        originalJobData: jobData,
-                        submittedAt: new Date().toISOString()
-                    };
-                    
-                    // In a real application, you would send this data to your server
-                    console.log('Anonymous report submitted:', reportData);
-                    
-                    // Show submission animation overlay
-                    submissionOverlay.classList.add('active');
-                    
-                    // Animate processing steps
-                    setTimeout(() => {
-                        document.getElementById('step1').classList.add('completed');
-                        document.getElementById('step1').style.animation = 'stepIn 0.5s ease forwards';
-                        document.getElementById('step1').style.opacity = '1';
-                        
-                        setTimeout(() => {
-                            document.getElementById('step2').classList.add('active');
-                            document.getElementById('step2').style.animation = 'stepIn 0.5s ease forwards';
-                            document.getElementById('step2').style.opacity = '1';
-                            
-                            // Keep "Under Review" active (not completed)
-                            setTimeout(() => {
-                                // Auto-redirect to candidate/browse-jobs.html after 4 seconds
-                                setTimeout(() => {
-                                    window.location.href = 'candidate/browse-jobs.html';
-                                }, 4000);
-                                
-                            }, 2000);
-                        }, 1500);
-                    }, 500);
-                    
-                }, 1500); // Simulate 1.5 second processing time
-            });
-            
-            // Initialize form validation on page load
-            validateForm();
-            
-            // Set focus to phone field
-            document.getElementById('reporter-phone').focus();
->>>>>>> a46c0ab3e7d0fbef1797e5e03243290afa309047:candidate/report.html
         });
 
-        // Add event listeners to required fields
         requiredFields.forEach((field) => {
-          if (field.type === "checkbox") {
-            field.addEventListener("change", validateForm);
-          } else {
-            field.addEventListener("input", validateForm);
-          }
+          if (field.type === "checkbox") field.addEventListener("change", validateForm);
+          else field.addEventListener("input", validateForm);
         });
 
-        // Form submission
+        // Submit
         reportForm.addEventListener("submit", function (e) {
           e.preventDefault();
 
-          // Basic validation
-          const requiredFields = reportForm.querySelectorAll("[required]");
+          // Basic required check (extra)
+          const required = reportForm.querySelectorAll("[required]");
           let isValid = true;
 
-          requiredFields.forEach((field) => {
+          required.forEach((field) => {
             if (field.type === "checkbox" && !field.checked) {
               isValid = false;
-              field.parentElement.style.backgroundColor =
-                "rgba(239, 68, 68, 0.1)";
+              field.parentElement.style.backgroundColor = "rgba(239, 68, 68, 0.08)";
             } else if (field.type !== "checkbox" && !field.value.trim()) {
               isValid = false;
               field.style.borderColor = "var(--danger)";
             } else {
-              if (field.type === "checkbox") {
-                field.parentElement.style.backgroundColor = "";
-              } else {
-                field.style.borderColor = "";
-              }
+              if (field.type === "checkbox") field.parentElement.style.backgroundColor = "";
+              else field.style.borderColor = "";
             }
           });
 
@@ -1552,69 +1431,100 @@
             return;
           }
 
-          // Disable submit button and show loading
-          submitBtn.disabled = true;
-          submitBtn.innerHTML =
-            '<i class="fas fa-spinner fa-spin"></i> Submitting Report...';
+          const reporterPhone = normalizePhone(
+            document.getElementById("reporter-phone").value,
+          );
+          const reporterEmail = sanitizeEmail(
+            document.getElementById("reporter-email").value,
+          );
+          const businessContact = sanitizeEmail(
+            document.getElementById("business-contact").value,
+          );
 
-          // Simulate API call/processing delay
+          if (!isValidPhone(reporterPhone)) {
+            alert("Please enter a valid Ghana phone number.");
+            return;
+          }
+
+          if (!isValidEmailAddress(reporterEmail) || !isValidEmailAddress(businessContact)) {
+            alert("Please enter a valid email address where required.");
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting Report...';
+
+          // Simulate processing
           setTimeout(() => {
-            // Prepare report data
             const reportData = {
-              reporterPhone: document.getElementById("reporter-phone").value,
-              reporterEmail: document.getElementById("reporter-email").value,
-              businessName: document.getElementById("business-name").value,
-              businessContact:
-                document.getElementById("business-contact").value,
-              reportType: document.querySelector(
-                'input[name="report-type"]:checked',
-              ).value,
-              incidentDetails:
+              reporterPhone,
+              reporterEmail,
+              businessName: sanitizeText(
+                document.getElementById("business-name").value,
+                160,
+              ),
+              businessContact,
+              reportType: sanitizeText(
+                document.querySelector('input[name="report-type"]:checked').value,
+                80,
+              ),
+              incidentDetails: sanitizeMultiline(
                 document.getElementById("incident-details").value,
-              actionRequested:
+                2000,
+              ),
+              actionRequested: sanitizeText(
                 document.getElementById("action-requested").value,
+                120,
+              ),
               evidenceFiles: uploadedFiles.length,
               originalJobData: jobData,
               submittedAt: new Date().toISOString(),
             };
 
-            // In a real application, you would send this data to your server
+            // In a real app, send reportData to your backend
             console.log("Anonymous report submitted:", reportData);
 
-            // Show submission animation overlay
             submissionOverlay.classList.add("active");
 
-            // Animate processing steps
             setTimeout(() => {
-              document.getElementById("step1").classList.add("completed");
-              document.getElementById("step1").style.animation =
-                "stepIn 0.5s ease forwards";
-              document.getElementById("step1").style.opacity = "1";
+              const step1 = document.getElementById("step1");
+              const step2 = document.getElementById("step2");
+
+              step1.classList.add("completed");
+              step1.style.animation = "stepIn 0.5s ease forwards";
+              step1.style.opacity = "1";
 
               setTimeout(() => {
-                document.getElementById("step2").classList.add("active");
-                document.getElementById("step2").style.animation =
-                  "stepIn 0.5s ease forwards";
-                document.getElementById("step2").style.opacity = "1";
+                step2.classList.add("active");
+                step2.style.animation = "stepIn 0.5s ease forwards";
+                step2.style.opacity = "1";
 
-                // Keep "Under Review" active (not completed)
+                // redirect after a short delay
                 setTimeout(() => {
-                  // Auto-redirect to browse-jobs.html after 4 seconds
-                  setTimeout(() => {
-                    window.location.href = "browse-jobs.html";
-                  }, 4000);
-                }, 2000);
-              }, 1500);
+                  window.location.href = "browse-jobs.html";
+                }, 4000);
+              }, 1400);
             }, 500);
-          }, 1500); // Simulate 1.5 second processing time
+          }, 1500);
         });
 
-        // Initialize form validation on page load
+        // Init
         validateForm();
-
-        // Set focus to phone field
         document.getElementById("reporter-phone").focus();
+
+        // Small helper to prevent HTML injection
+        function escapeHtml(str) {
+          return String(str)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+        }
       });
     </script>
+  
+    <script src='../assets/js/product-polish.js'></script>
   </body>
 </html>
+
