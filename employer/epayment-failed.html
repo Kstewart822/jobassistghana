@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Failed | Job Assist Ghana</title>
+    <link rel="icon" type="image/png" href="../assets/images/tab-logo.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+
+      :root {
+        --primary: #0a2a66;
+        --primary-dark: #071e4d;
+        --secondary: #f8c12e;
+        --secondary-dark: #e6af1a;
+        --danger: #ef4444;
+        --danger-dark: #dc2626;
+        --light: #f8fafc;
+        --dark: #1e293b;
+        --gray: #64748b;
+        --gray-light: #e2e8f0;
+      }
+
+      body {
+        background:
+          radial-gradient(circle at top right, rgba(239, 68, 68, 0.1), transparent 22%),
+          radial-gradient(circle at top left, rgba(248, 193, 46, 0.12), transparent 24%),
+          linear-gradient(180deg, #f7f9fc 0%, #eef3fb 100%);
+        color: var(--dark);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .failure-container {
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: 28px;
+        box-shadow: 0 28px 55px rgba(17, 38, 85, 0.14);
+        padding: 30px;
+        max-width: 520px;
+        width: 100%;
+        text-align: center;
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .failure-container::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 132px;
+        background: linear-gradient(135deg, #0a2a66 0%, #123a87 58%, #1b4ca9 100%);
+      }
+
+      .failure-container::after {
+        content: "";
+        position: absolute;
+        right: -58px;
+        top: 42px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(248, 193, 46, 0.18);
+      }
+
+      .failure-icon {
+        font-size: 2.8rem;
+        color: var(--danger);
+        margin-bottom: 16px;
+        position: relative;
+        z-index: 1;
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 16px 32px rgba(239, 68, 68, 0.16);
+      }
+
+      .failure-title {
+        font-size: 1.7rem;
+        color: var(--primary);
+        margin-bottom: 12px;
+        font-weight: 800;
+        position: relative;
+        z-index: 1;
+      }
+
+      .failure-message {
+        color: #61708e;
+        margin-bottom: 24px;
+        font-size: 0.98rem;
+        line-height: 1.7;
+        position: relative;
+        z-index: 1;
+      }
+
+      .payment-info {
+        background: rgba(248, 250, 255, 0.95);
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        border-radius: 20px;
+        padding: 18px;
+        margin-bottom: 18px;
+        text-align: left;
+        box-shadow: 0 14px 28px rgba(17, 38, 85, 0.08);
+      }
+
+      .payment-info-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 0.88rem;
+        gap: 12px;
+      }
+
+      .payment-label {
+        color: #6c7b97;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      .payment-value {
+        font-weight: 600;
+        text-align: right;
+        word-break: break-word;
+      }
+
+      .reference-text {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        letter-spacing: 0.04em;
+      }
+
+      .error-details {
+        background: linear-gradient(180deg, rgba(254, 242, 242, 0.98), rgba(254, 247, 247, 0.95));
+        border: 1px solid rgba(239, 68, 68, 0.14);
+        border-radius: 20px;
+        padding: 18px;
+        margin-bottom: 18px;
+        text-align: left;
+        box-shadow: 0 14px 28px rgba(239, 68, 68, 0.08);
+      }
+
+      .error-title {
+        color: var(--danger);
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .error-description {
+        color: #6a7284;
+        font-size: 0.9rem;
+        line-height: 1.65;
+      }
+
+      .suggestions {
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 20px;
+        padding: 18px;
+        margin-bottom: 22px;
+        text-align: left;
+        border: 1px solid rgba(10, 42, 102, 0.08);
+        box-shadow: 0 14px 28px rgba(17, 38, 85, 0.08);
+      }
+
+      .suggestions-title {
+        color: var(--primary);
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .suggestions-list {
+        font-size: 0.88rem;
+        color: #61708e;
+        padding-left: 18px;
+        line-height: 1.65;
+      }
+
+      .suggestions-list li {
+        margin-bottom: 6px;
+      }
+
+      .btn {
+        padding: 13px 18px;
+        border-radius: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        font-size: 0.95rem;
+        width: 100%;
+        margin-bottom: 10px;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 14px 24px rgba(10, 42, 102, 0.1);
+      }
+
+      .btn-danger {
+        background-color: var(--danger);
+        color: white;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 1px solid rgba(10, 42, 102, 0.12);
+        color: var(--dark);
+      }
+
+      .support-contact {
+        margin-top: 22px;
+        border-top: 1px solid rgba(10, 42, 102, 0.08);
+        padding-top: 18px;
+        font-size: 0.85rem;
+        color: var(--gray);
+      }
+
+      .support-email {
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .failure-container {
+        max-width: 500px;
+        padding: 26px 22px 18px;
+        border-radius: 24px;
+      }
+
+      .failure-container::before {
+        height: 6px;
+      }
+
+      .failure-container::after {
+        display: none;
+      }
+
+      .failure-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 20px;
+        margin: 0 auto 14px;
+        box-shadow: 0 12px 24px rgba(239, 68, 68, 0.14);
+      }
+
+      .failure-title {
+        font-size: 1.55rem;
+        color: var(--primary);
+        margin-bottom: 10px;
+      }
+
+      .failure-message {
+        color: #61708e;
+        margin-bottom: 16px;
+        font-size: 0.94rem;
+        line-height: 1.55;
+      }
+
+      .payment-info,
+      .error-details,
+      .suggestions,
+      .support-contact {
+        padding: 14px;
+        margin-bottom: 12px;
+        border-radius: 16px;
+        box-shadow: none;
+      }
+
+      .payment-info-item {
+        margin: 0;
+        padding: 6px 0;
+      }
+
+      .error-title,
+      .suggestions-title {
+        margin-bottom: 6px;
+        font-size: 0.92rem;
+      }
+
+      .error-description {
+        font-size: 0.84rem;
+        line-height: 1.5;
+      }
+
+      .suggestions-list {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+        display: grid;
+        gap: 4px;
+        font-size: 0.82rem;
+        line-height: 1.45;
+      }
+
+      .suggestions-list li {
+        position: relative;
+        padding-left: 14px;
+        margin: 0;
+      }
+
+      .suggestions-list li::before {
+        content: "\2022";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--secondary-dark);
+        font-weight: 700;
+      }
+
+      .btn-group {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin: 4px 0 12px;
+      }
+
+      .btn {
+        width: 100%;
+        min-height: 44px;
+        padding: 12px 14px;
+        box-shadow: none;
+      }
+
+      .support-contact {
+        margin-top: 0;
+        color: var(--gray);
+        font-size: 0.8rem;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 14px;
+          align-items: center;
+        }
+
+        .failure-container {
+          padding: 22px 18px 16px;
+        }
+
+        .failure-title {
+          font-size: 1.32rem;
+        }
+
+        .btn-group {
+          grid-template-columns: 1fr;
+        }
+
+        .payment-info-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 4px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 10px;
+          align-items: center;
+        }
+
+        .failure-container {
+          padding: 16px;
+          border-radius: 20px;
+        }
+
+        .failure-icon {
+          width: 46px;
+          height: 46px;
+          font-size: 1.35rem;
+          margin-bottom: 10px;
+        }
+
+        .failure-title {
+          font-size: 1.18rem;
+          margin-bottom: 4px;
+        }
+
+        .failure-message {
+          margin-bottom: 10px;
+          font-size: 0.84rem;
+          line-height: 1.4;
+        }
+
+        .payment-info,
+        .error-details,
+        .suggestions,
+        .support-contact {
+          padding: 10px 11px;
+          margin-bottom: 8px;
+          border-radius: 14px;
+        }
+
+        .payment-info-item {
+          padding: 5px 0;
+          gap: 3px;
+        }
+
+        .payment-label {
+          font-size: 0.68rem;
+        }
+
+        .payment-value {
+          font-size: 0.82rem;
+        }
+
+        .error-title,
+        .suggestions-title {
+          font-size: 0.86rem;
+          margin-bottom: 5px;
+        }
+
+        .error-description {
+          font-size: 0.8rem;
+          line-height: 1.4;
+        }
+
+        .suggestions-list {
+          display: none;
+        }
+
+        .suggestions::after {
+          content: "Please try your payment again to continue.";
+          display: block;
+          font-size: 0.8rem;
+          color: #475569;
+          line-height: 1.4;
+        }
+
+        .btn-group {
+          gap: 8px;
+          margin: 4px 0 8px;
+        }
+
+        .btn {
+          min-height: 40px;
+          padding: 10px 12px;
+          font-size: 0.8rem;
+        }
+
+        .support-contact {
+          font-size: 0.72rem;
+          line-height: 1.35;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .btn-group {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  
+    <link rel='stylesheet' href='../assets/css/product-polish.css' />
+  </head>
+
+  <body>
+    <div class="failure-container">
+      <div class="failure-icon">
+        <i class="fas fa-times-circle"></i>
+      </div>
+
+      <h1 class="failure-title">Payment Failed</h1>
+
+      <p class="failure-message" id="failureMessage">
+        We couldn't process your payment. Please check your details and try again.
+      </p>
+
+      <div class="payment-info" id="paymentInfo" style="display: none">
+        <div class="payment-info-item">
+          <span class="payment-label">Service:</span>
+          <span class="payment-value" id="paymentService">Service</span>
+        </div>
+        <div class="payment-info-item">
+          <span class="payment-label">Amount:</span>
+          <span class="payment-value" id="paymentAmount">GHS 0.00</span>
+        </div>
+        <div class="payment-info-item" id="paymentApplicantsRow" style="display: none">
+          <span class="payment-label">Applicants:</span>
+          <span class="payment-value" id="paymentApplicants">0</span>
+        </div>
+        <div class="payment-info-item" id="paymentJobRow" style="display: none">
+          <span class="payment-label">Job ID:</span>
+          <span class="payment-value" id="paymentJobId">N/A</span>
+        </div>
+        <div class="payment-info-item" id="paymentRefRow" style="display: none">
+          <span class="payment-label">Reference:</span>
+          <span class="payment-value" id="paymentRef">N/A</span>
+        </div>
+      </div>
+
+      <div class="error-details">
+        <div class="error-title">
+          <i class="fas fa-exclamation-triangle"></i>
+          Common Payment Issues
+        </div>
+        <p class="error-description">
+          Insufficient funds, incorrect card details, expired card, network
+          interruption, or a temporary provider issue may have caused this.
+        </p>
+      </div>
+
+      <div class="suggestions">
+        <div class="suggestions-title">
+          <i class="fas fa-lightbulb"></i>
+          What you can do
+        </div>
+        <ul class="suggestions-list">
+          <li>Check your payment details and try again</li>
+          <li>Ensure you have enough funds</li>
+          <li>Try a different payment method</li>
+          <li>Contact your bank or mobile money provider if needed</li>
+        </ul>
+      </div>
+
+      <div class="btn-group">
+        <a href="#" class="btn btn-danger" id="retryButton">
+          <i class="fas fa-redo"></i> Retry Payment
+        </a>
+
+        <a href="#" class="btn btn-primary" id="dashboardButton">
+          <i class="fas fa-home"></i> Return to Dashboard
+        </a>
+      </div>
+
+      <div class="support-contact">
+        <p>
+          Need help? Contact us at
+          <a href="mailto:support@jobassistgh.com" class="support-email">
+            support@jobassistgh.com
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      function safeJSONParse(value) {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return null;
+        }
+      }
+
+      function getQueryParam(name) {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(name) || "";
+      }
+
+      function normalizeText(value) {
+        return String(value || "").trim();
+      }
+
+      function formatCurrencyValue(amount) {
+        if (!amount) return "GHS 0.00";
+
+        const raw = String(amount).trim();
+        if (raw.includes("GHS ")) return raw;
+
+        const numeric = Number(raw);
+        return Number.isFinite(numeric) ? `GHS ${numeric.toFixed(2)}` : raw;
+      }
+
+      function buildFailureReference(serviceType, existingRef) {
+        if (existingRef) return existingRef;
+        if (!window.JobAssistIdGenerator?.generatePaymentReference) {
+          return "JAG-0001";
+        }
+        return window.JobAssistIdGenerator.generatePaymentReference(serviceType || "employer");
+      }
+
+      function getFormattedReference(ref) {
+        return window.JobAssistPaymentGate?.formatReference?.(ref) || ref || "N/A";
+      }
+
+      function getStoredFailureContext() {
+        const unlockPayment = safeJSONParse(sessionStorage.getItem("jobassist_payment_data"));
+        const genericPayment = safeJSONParse(sessionStorage.getItem("paymentData"));
+
+        if (unlockPayment && String(unlockPayment.serviceType || "") === "unlock_applicants") {
+          return unlockPayment;
+        }
+
+        return genericPayment || unlockPayment || {};
+      }
+
+      function formatServiceName(service) {
+        const serviceMap = {
+          job_posting: "Job Posting",
+          job_posting_premium: "Premium Job Posting",
+          job_posting_standard: "Standard Job Posting",
+          unlock_applicants: "Unlock Applicants",
+          job_boost: "Job Boost",
+          job_boost_standard: "Standard Job Boost",
+          job_boost_premium: "Premium Job Boost",
+        };
+
+        return (
+          serviceMap[service] ||
+          String(service || "Payment")
+            .replace(/[_-]/g, " ")
+            .replace(/\b\w/g, (l) => l.toUpperCase())
+);
+      }
+
+      function getFailureMessage(serviceType) {
+        if (serviceType === "unlock_applicants") {
+          return "Your applicant unlock payment could not be completed. Please try again.";
+        }
+
+        if (
+          serviceType === "job_posting" ||
+          serviceType === "job_posting_standard" ||
+          serviceType === "job_posting_premium"
+) {
+          return "Your job posting payment could not be completed. Please try again.";
+        }
+
+        if (
+          serviceType === "job_boost" ||
+          serviceType === "job_boost_standard" ||
+          serviceType === "job_boost_premium"
+) {
+          return "Your job boost payment could not be completed. Please try again.";
+        }
+
+        return "We couldn't process your payment. Please check your details and try again.";
+      }
+
+      function getRetryUrl(serviceType, context) {
+        if (serviceType === "unlock_applicants") {
+          const retryParams = new URLSearchParams();
+          retryParams.set("service", "unlock_applicants");
+
+          if (context.jobId) {
+            retryParams.set("jobId", String(context.jobId));
+          }
+
+          if (context.amount) {
+            retryParams.set("amount", String(context.amount));
+          }
+
+          if (context.selectedCount || context.applicantCount) {
+            retryParams.set(
+              "count",
+              String(context.selectedCount || context.applicantCount)
+);
+          }
+
+          return `employer-payment.html?${retryParams.toString()}`;
+        }
+
+        if (
+          serviceType === "job_posting" ||
+          serviceType === "job_posting_standard" ||
+          serviceType === "job_posting_premium" ||
+          serviceType === "job_boost" ||
+          serviceType === "job_boost_standard" ||
+          serviceType === "job_boost_premium"
+) {
+          const fullQueryString = new URLSearchParams(window.location.search).toString();
+          return fullQueryString
+            ? `employer-payment.html?${fullQueryString}`
+            : "employer-payment.html";
+        }
+
+        return "employer-payment.html";
+      }
+
+      function getDashboardUrl(serviceType, context) {
+        if (serviceType === "unlock_applicants") {
+          return context.jobId
+            ? `view-applicants.html?jobId=${encodeURIComponent(String(context.jobId))}`
+            : "my-job-post.html";
+        }
+
+        return "employer-dashboard.html";
+      }
+
+      function initializeFailurePage() {
+        const storedContext = getStoredFailureContext();
+        const serviceParam = normalizeText(getQueryParam("service"));
+        const refParam = normalizeText(getQueryParam("ref"));
+        const actionIdParam = normalizeText(getQueryParam("actionId"));
+        const amountParam = normalizeText(getQueryParam("amount"));
+        const jobIdParam = normalizeText(getQueryParam("jobId"));
+        const applicantCountParam = normalizeText(getQueryParam("applicantCount"));
+        const selectedCountParam = normalizeText(getQueryParam("selectedCount"));
+
+        const paymentInfo = document.getElementById("paymentInfo");
+        const failureMessage = document.getElementById("failureMessage");
+        const retryButton = document.getElementById("retryButton");
+        const dashboardButton = document.getElementById("dashboardButton");
+        const paymentApplicantsRow = document.getElementById("paymentApplicantsRow");
+        const paymentApplicants = document.getElementById("paymentApplicants");
+        const paymentJobRow = document.getElementById("paymentJobRow");
+        const paymentJobId = document.getElementById("paymentJobId");
+        const paymentRefRow = document.getElementById("paymentRefRow");
+        const paymentRefValue = document.getElementById("paymentRef");
+
+        const serviceType = normalizeText(
+          storedContext.serviceType || serviceParam || storedContext.serviceName
+);
+
+        const context = {
+          ...storedContext,
+          actionId: normalizeText(storedContext.actionId || actionIdParam),
+          serviceType,
+          serviceName: formatServiceName(serviceType),
+          amount: normalizeText(storedContext.amount || amountParam),
+          displayAmount: formatCurrencyValue(
+            storedContext.displayAmount || amountParam || storedContext.amount
+),
+          referenceCode: buildFailureReference(
+            serviceType,
+            normalizeText(storedContext.referenceCode || refParam)
+          ),
+          jobId: normalizeText(storedContext.jobId || jobIdParam),
+          selectedCount: Number(
+            storedContext.selectedCount ||
+              storedContext.applicantCount ||
+              selectedCountParam ||
+              applicantCountParam ||
+              0
+),
+          applicantCount: Number(
+            storedContext.applicantCount ||
+              storedContext.selectedCount ||
+              applicantCountParam ||
+              selectedCountParam ||
+              0
+),
+          selectedApplicants: Array.isArray(storedContext.selectedApplicants)
+            ? storedContext.selectedApplicants.map(String)
+            : [],
+        };
+
+        window.JobAssistPaymentGate?.failPendingPaymentAction(
+          {
+            actionId: context.actionId,
+            referenceCode: context.referenceCode,
+            serviceType: context.serviceType,
+            role: "employer",
+            jobId: context.jobId,
+            applicationId: normalizeText(storedContext.applicationId || getQueryParam("applicationId")),
+          },
+          {
+            failedReason: "payment_failed_page",
+          }
+        );
+
+        const isUnlockApplicants = context.serviceType === "unlock_applicants";
+
+        if (
+          context.serviceType ||
+          context.amount ||
+          context.jobId ||
+          context.referenceCode
+) {
+          paymentInfo.style.display = "block";
+          document.getElementById("paymentService").textContent = context.serviceName;
+          document.getElementById("paymentAmount").textContent = context.displayAmount;
+
+          if (isUnlockApplicants && context.selectedCount > 0) {
+            paymentApplicantsRow.style.display = "flex";
+            paymentApplicants.textContent = String(context.selectedCount);
+          }
+
+          if (isUnlockApplicants && context.jobId) {
+            paymentJobRow.style.display = "flex";
+            paymentJobId.textContent = context.jobId;
+          }
+
+          if (context.referenceCode) {
+            paymentRefRow.style.display = "flex";
+            paymentRefValue.textContent = getFormattedReference(context.referenceCode);
+            paymentRefValue.title = context.referenceCode;
+            paymentRefValue.classList.add("reference-text");
+          }
+        }
+
+        failureMessage.textContent = "Payment failed. No service has been activated.";
+
+        if (isUnlockApplicants) {
+          const retrySession = {
+            serviceType: "unlock_applicants",
+            serviceName: "unlock_applicants",
+            jobId: context.jobId,
+            jobTitle: normalizeText(storedContext.jobTitle || ""),
+            amount: Number(context.amount || 0),
+            displayAmount: context.displayAmount,
+            selectedCount: Number(context.selectedCount || 0),
+            applicantCount: Number(context.applicantCount || context.selectedCount || 0),
+            selectedApplicants: context.selectedApplicants,
+            referenceCode: context.referenceCode,
+          };
+
+          sessionStorage.setItem(
+            "jobassist_payment_data",
+            JSON.stringify(retrySession)
+);
+          sessionStorage.setItem("paymentData", JSON.stringify(retrySession));
+        }
+
+        retryButton.href = getRetryUrl(context.serviceType, context);
+        dashboardButton.href = getDashboardUrl(context.serviceType, context);
+        retryButton.innerHTML = '<i class="fas fa-redo"></i> Try Again';
+        dashboardButton.innerHTML = '<i class="fas fa-home"></i> Back to Dashboard';
+
+        if (context.serviceType) {
+          document.title = `${context.serviceName} Payment Failed | Job Assist Ghana`;
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", initializeFailurePage);
+    </script>
+  
+    <script src="../assets/js/id-generator.js"></script>
+    <script src="../assets/js/payment-gating.js"></script>
+    <script src='../assets/js/product-polish.js'></script>
+  </body>
+</html>
+

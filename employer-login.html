@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Job Assist Ghana</title>
+  <link rel="icon" type="image/png" href="assets/images/tab-logo.png" />
+  <style>
+    :root{
+      --nav:#0b2a66;
+      --nav2:#0a2660;
+      --accent:#f6c343;
+      --bg:#f5f7fb;
+      --text:#0b2a66;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:#111827}
+
+    /* Page */
+    .login-wrapper{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      background:#f7f5ee;
+    }
+
+    .login-shell{
+      width:min(1100px, 96vw);
+      height:680px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      background:#fff;
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:0 18px 50px rgba(11, 42, 102, 0.12);
+      border:4px solid #0a5a57;
+    }
+
+    .login-form-side{
+      padding:38px 42px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-start;
+      background:#fff;
+      overflow-y: auto;
+    }
+
+    .login-image-side{
+      position:relative;
+      background:
+        linear-gradient(rgba(10,42,102,0.20), rgba(10,42,102,0.20)),
+        url("assets/images/background1.png") center/cover no-repeat;
+    }
+
+    .login-brand{
+      display: inline-block;
+      margin-bottom: 32px;
+      text-decoration: none;
+    }
+
+    .login-brand img{
+      height: 42px;
+      width: auto;
+      display: block;
+    }
+
+    .login-error{
+      display:block;
+      min-height:18px;
+      margin-top:6px;
+      padding:0;
+      border-radius:0;
+      background:transparent;
+      color:#c0392b;
+      font-size:12.5px;
+      line-height:1.35;
+      font-weight:600;
+      border:0;
+      visibility:hidden;
+    }
+
+    .field-inline-error{
+      display:block;
+      min-height:18px;
+      margin-top:6px;
+      padding:0;
+      border-radius:0;
+      background:transparent;
+      color:#c0392b;
+      font-size:12.5px;
+      line-height:1.35;
+      font-weight:600;
+      border:0;
+      visibility:hidden;
+    }
+
+    .login-error:empty,
+    .field-inline-error:empty{
+      min-height:0;
+      margin-top:0;
+    }
+
+    .field-error{
+      border-color:#e74c3c !important;
+      box-shadow:0 0 0 3px rgba(231,76,60,0.10) !important;
+    }
+
+    .input-wrap{
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:0 12px;
+      background:#fff;
+    }
+
+    .input-wrap.password-wrap{
+      position:relative;
+      padding:0 44px 0 12px;
+    }
+
+    .input-wrap:focus-within{
+      border-color:#c7d2fe;
+      box-shadow:0 0 0 3px rgba(199,210,254,.5);
+    }
+
+    .input{
+      width:100%;
+      border:0;
+      outline:none;
+      padding:12px 0;
+      font-size:14px;
+      background:transparent;
+      color:#111827;
+    }
+
+    .password-toggle{
+      position:absolute !important;
+      top:50% !important;
+      right:8px !important;
+      transform:translateY(-50%) !important;
+      width:32px !important;
+      height:32px !important;
+      min-width:32px !important;
+      min-height:32px !important;
+      margin:0 !important;
+      padding:0 !important;
+      border:0 !important;
+      background:transparent !important;
+      color:#64748b;
+      display:flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+      line-height:1 !important;
+      cursor:pointer;
+      z-index:2;
+    }
+
+    .password-toggle:hover,
+    .password-toggle:active,
+    .password-toggle:focus{
+      top:50% !important;
+      transform:translateY(-50%) !important;
+      margin:0 !important;
+      padding:0 !important;
+      background:transparent !important;
+      box-shadow:none !important;
+      color:#0a2a66;
+    }
+
+    .password-toggle svg{
+      width:18px;
+      height:18px;
+      pointer-events:none;
+      display:block;
+    }
+
+    .password-toggle:focus-visible{
+      outline:2px solid rgba(248, 193, 46, 0.8);
+      outline-offset:2px;
+      border-radius:8px;
+    }
+
+    .password-toggle .icon-hide{
+      display:none;
+    }
+
+    .password-toggle.is-visible .icon-show{
+      display:none;
+    }
+
+    .password-toggle.is-visible .icon-hide{
+      display:inline-flex;
+    }
+
+    .title{
+      text-align:left;
+      font-size:28px;
+      line-height:1.2;
+      color:var(--text);
+      margin:0 0 10px;
+      font-weight:800;
+    }
+
+    .subtitle{
+      color:var(--muted);
+      font-size:15px;
+      margin:0 0 28px;
+      text-align:left;
+    }
+
+    .subtitle-note{
+      color:var(--muted);
+      font-size:13px;
+      margin: -12px 0 20px;
+    }
+
+    .form-actions{
+      display:flex;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .btn-secondary{
+      width:100%;
+      margin-top:16px;
+      background:var(--nav);
+      border:0;
+      color:#fff;
+      font-weight:900;
+      padding:12px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:14px;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .btn-secondary:hover{
+      background:#0a2660;
+    }
+
+    .meta-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-top:14px;
+      font-size:13px;
+    }
+
+    .meta-row a{
+      color:#d97706;
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    .footer-note{
+      margin-top:auto;
+      padding-top:26px;
+      font-size:12px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    @media (max-width: 900px){
+      .login-shell{
+        grid-template-columns:1fr;
+        height:auto;
+      }
+
+      .login-image-side{
+        min-height:260px;
+        order:-1;
+      }
+
+      .login-form-side{
+        padding:32px 22px;
+        overflow:visible;
+      }
+    }
+
+    @media (max-width: 768px){
+      .login-image-side{
+        display:none !important;
+      }
+
+      .login-shell{
+        grid-template-columns:1fr !important;
+        height:auto;
+      }
+    }
+
+    label{display:block;font-weight:700;color:var(--text);font-size:13px;margin:14px 0 8px}
+    .phone-row{
+      display:flex;align-items:center;gap:10px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:10px 12px;
+      background:#fff;
+    }
+    .country-code{
+      font-weight:800;color:#374151;font-size:12px;
+      padding:6px 10px;border-radius:8px;background:#f3f4f6;border:1px solid var(--border);
+      white-space:nowrap;
+    }
+    input[type="text"], input[type="password"]{
+      border:0;outline:none;width:100%;
+      font-size:14px;background:transparent;color:#111827;
+    }
+    .hint{color:var(--muted);font-size:12px;margin:8px 0 0}
+    .input{
+      width:100%;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:12px;
+      font-size:14px;
+      outline:none;
+    }
+    .input:focus, .phone-row:focus-within{border-color:#c7d2fe;box-shadow:0 0 0 3px rgba(199,210,254,.5)}
+    .btn{
+      width:100%;
+      margin-top:16px;
+      background:var(--accent);
+      border:0;
+      color:#111827;
+      font-weight:900;
+      padding:12px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:14px;
+    }
+    .btn:hover{filter:brightness(.98)}
+    .links{
+      text-align:center;
+      margin-top:14px;
+      font-size:13px;
+    }
+    .links a{color:#f59e0b;text-decoration:none;font-weight:800}
+    .links a:hover{text-decoration:underline}
+    .muted{color:var(--muted)}
+    @media (max-width: 420px){
+      .title{font-size:24px}
+    }
+  </style>
+
+    <link rel='stylesheet' href='assets/css/product-polish.css' />
+  </head>
+<body>
+  <div class="login-wrapper">
+    <div class="login-shell">
+      <div class="login-form-side">
+        <a href="index.html" class="login-brand" aria-label="Go to home">
+          <img src="assets/images/logo2.png" alt="Job Assist Ghana" />
+        </a>
+        <h1 class="title">Employer Login</h1>
+        <div class="subtitle">Access your dashboard, manage job posts, and review applicants.</div>
+        <div class="subtitle-note">Post jobs, manage applicants, and hire faster.</div>
+
+        <form id="loginForm">
+          <label for="phoneInput">Phone Number</label>
+          <div class="phone-row">
+            <div class="country-code">GH +233</div>
+            <input
+              id="phoneInput"
+              type="text"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              autocomplete="tel"
+              placeholder="241234567"
+            />
+          </div>
+          <div class="hint">Format: 9 digits without the first zero</div>
+
+          <label for="passInput">Password</label>
+          <div class="input-wrap password-wrap">
+            <input id="passInput" class="input" type="password" placeholder="Enter your password" minlength="8" />
+            <button
+              type="button"
+              class="password-toggle"
+              data-target="passInput"
+              aria-label="Show password"
+              aria-pressed="false"
+            >
+              <span class="icon-show" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </span>
+              <span class="icon-hide" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 3l18 18"></path>
+                  <path d="M10.6 10.7a3 3 0 0 0 4.2 4.2"></path>
+                  <path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a18.7 18.7 0 0 1-3 3.8"></path>
+                  <path d="M6.6 6.7C4 8.6 2 12 2 12s3.5 7 10 7a10.5 10.5 0 0 0 4.1-.8"></path>
+                </svg>
+              </span>
+            </button>
+          </div>
+          <div id="passwordError" class="field-inline-error"></div>
+          <div id="loginError" class="login-error"></div>
+
+          <div class="meta-row">
+            <label style="margin:0; font-weight:500; color:var(--muted); display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" />
+              Remember me
+            </label>
+            <a href="forgot-password.html">Forgot password?</a>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn" type="submit">Login</button>
+            <a href="employer-signup.html" class="btn-secondary">Create  account</a>
+          </div>
+
+          <div class="footer-note">
+            By signing in, you agree to our terms and privacy policy.
+          </div>
+        </form>
+      </div>
+
+      <div class="login-image-side"></div>
+    </div>
+  </div>
+
+  <script src="assets/js/input-hardening.js"></script>
+  <script src="assets/js/password-toggle.js"></script>
+    <script>
+      const loginForm = document.getElementById("loginForm");
+
+      function initializePasswordToggles() {
+        window.JobAssistPasswordToggle?.initPasswordToggles?.();
+      }
+
+      function showPasswordFieldError(message) {
+        const passInput = document.getElementById("passInput");
+        const passwordError = document.getElementById("passwordError");
+        passInput.closest(".input-wrap")?.classList.add("field-error");
+        passwordError.textContent = message;
+        passwordError.style.visibility = "visible";
+      }
+
+      function clearPasswordFieldError() {
+        const passwordError = document.getElementById("passwordError");
+        document.getElementById("passInput")?.closest(".input-wrap")?.classList.remove("field-error");
+        if (passwordError) {
+          passwordError.textContent = "";
+          passwordError.style.visibility = "hidden";
+        }
+      }
+
+    function safeJSONParse(value) {
+      try {
+        return JSON.parse(value);
+      } catch {
+        return null;
+      }
+    }
+
+    function normalizePhone(value) {
+      if (window.JobAssistInputHardening?.normalizeGhanaPhone) {
+        return window.JobAssistInputHardening.normalizeGhanaPhone(value);
+      }
+
+      const digits = String(value || "").replace(/\D/g, "");
+      return digits.length > 9 ? digits.slice(-9) : digits;
+    }
+
+    function getStoredEmployers() {
+      const storedEmployers = safeJSONParse(localStorage.getItem("jobassist_employers"));
+      const currentEmployer = safeJSONParse(localStorage.getItem("jobassist_current_employer"));
+      const employers = Array.isArray(storedEmployers) ? [...storedEmployers] : [];
+
+      if (currentEmployer && typeof currentEmployer === "object") {
+        const employerId = String(currentEmployer.id || currentEmployer.employerId || "").trim();
+        const alreadyExists = employers.some(
+          (entry) =>
+            String(entry?.id || entry?.employerId || "").trim() === employerId ||
+            (
+              String(entry?.workEmail || "").trim().toLowerCase() &&
+              String(entry?.workEmail || "").trim().toLowerCase() ===
+                String(currentEmployer.workEmail || "").trim().toLowerCase()
+)
+);
+
+        if (!alreadyExists) {
+          employers.push(currentEmployer);
+        }
+      }
+
+      return employers;
+    }
+
+    function persistCurrentEmployerSession(employerProfile) {
+      localStorage.setItem("jobassist_current_employer", JSON.stringify(employerProfile));
+    }
+
+      function handleLogin() {
+        const phoneInput = document.getElementById("phoneInput");
+        const passInput = document.getElementById("passInput");
+        const loginError = document.getElementById("loginError");
+
+        phoneInput.closest(".phone-row")?.classList.remove("field-error");
+        clearPasswordFieldError();
+        loginError.style.visibility = "hidden";
+        loginError.textContent = "";
+
+      if (!phoneInput.value.trim() || !passInput.value.trim()) {
+        loginError.textContent = "Phone number and password are required.";
+        loginError.style.visibility = "visible";
+
+        if (!phoneInput.value.trim()) {
+          phoneInput.closest(".phone-row")?.classList.add("field-error");
+        }
+
+        if (!passInput.value.trim()) {
+          passInput.closest(".input-wrap")?.classList.add("field-error");
+        }
+
+        return;
+      }
+
+        const normalizedPhone = normalizePhone(phoneInput.value);
+        const password = passInput.value;
+
+        if (String(password || "").trim().length < 8) {
+          showPasswordFieldError("Password must be at least 8 characters.");
+          return;
+        }
+
+        const matchedEmployer = getStoredEmployers().find((employer) => {
+          const employerPhone = normalizePhone(employer?.phone);
+          return employerPhone === normalizedPhone && String(employer?.password || "") === password;
+      });
+
+      if (!matchedEmployer) {
+        loginError.textContent = "Invalid phone number or password.";
+        loginError.style.visibility = "visible";
+        phoneInput.closest(".phone-row")?.classList.add("field-error");
+        passInput.closest(".input-wrap")?.classList.add("field-error");
+        return;
+      }
+
+      persistCurrentEmployerSession(matchedEmployer);
+      window.location.href = "employer/employer-dashboard.html";
+    }
+
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        handleLogin();
+      });
+
+      initializePasswordToggles();
+
+    document.getElementById("phoneInput").addEventListener("input", function () {
+      this.value = String(this.value || "").replace(/\D/g, "");
+      this.closest(".phone-row")?.classList.remove("field-error");
+      const loginError = document.getElementById("loginError");
+      loginError.style.visibility = "hidden";
+      loginError.textContent = "";
+    });
+
+    document.getElementById("phoneInput").addEventListener("paste", function (e) {
+      e.preventDefault();
+      const pasted = (e.clipboardData || window.clipboardData).getData("text");
+      this.value = pasted.replace(/\D/g, "");
+      this.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+
+    document.getElementById("phoneInput").addEventListener("keydown", function (e) {
+      const allowedKeys = [
+        "Backspace", "Delete", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown",
+        "Tab", "Home", "End", "Enter"
+      ];
+
+      if (allowedKeys.includes(e.key) || (e.ctrlKey || e.metaKey)) {
+        return;
+      }
+
+      if (!/^\d$/.test(e.key)) {
+        e.preventDefault();
+      }
+    });
+
+    document.getElementById("passInput").addEventListener("input", function () {
+      if (String(this.value || "").trim().length >= 8) {
+        clearPasswordFieldError();
+      } else if (!String(this.value || "").trim()) {
+        clearPasswordFieldError();
+      }
+      const loginError = document.getElementById("loginError");
+      loginError.style.visibility = "hidden";
+      loginError.textContent = "";
+    });
+  </script>
+
+    <script src='assets/js/product-polish.js'></script>
+  </body>
+</html>
+
