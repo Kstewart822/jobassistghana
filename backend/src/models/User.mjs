@@ -1,48 +1,47 @@
 /**
  * Mongoose User model
  */
-import mongoose from 'mongoose';
-import bcryptjs from 'bcryptjs';
-import { config } from '../config/environment.mjs';
+import mongoose from "mongoose";
+import bcryptjs from "bcryptjs";
+import { config } from "../config/environment.mjs";
 
 const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      required: [true, 'Email is required'],
+      required: [true, "Email is required"],
       unique: true,
       lowercase: true,
-      match: [/.+@.+\..+/, 'Please provide a valid email address'],
+      match: [/.+@.+\..+/, "Please provide a valid email address"],
       index: true,
     },
     password: {
       type: String,
-      required: [true, 'Password is required'],
-      minlength: [8, 'Password must be at least 8 characters'],
+      required: [true, "Password is required"],
+      minlength: [8, "Password must be at least 8 characters"],
       select: false, // Don't include by default
     },
     name: {
       type: String,
-      required: [true, 'Name is required'],
-      minlength: [2, 'Name must be at least 2 characters'],
+      required: [true, "Name is required"],
+      minlength: [2, "Name must be at least 2 characters"],
     },
     role: {
       type: String,
       enum: {
-        values: ['candidate', 'employer', 'admin'],
-        message: 'Role must be one of: candidate, employer, admin',
+        values: ["candidate", "employer", "admin"],
+        message: "Role must be one of: candidate, employer, admin",
       },
-      default: 'candidate',
-      index: true,
+      default: "candidate",
     },
     status: {
       type: String,
       enum: {
-        values: ['active', 'inactive', 'suspended', 'verified', 'unverified'],
-        message: 'Status must be one of: active, inactive, suspended, verified, unverified',
+        values: ["active", "inactive", "suspended", "verified", "unverified"],
+        message:
+          "Status must be one of: active, inactive, suspended, verified, unverified",
       },
-      default: 'unverified',
-      index: true,
+      default: "unverified",
     },
     profile: {
       bio: String,
@@ -75,7 +74,7 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-  }
+  },
 );
 
 // Create indexes
@@ -85,8 +84,8 @@ userSchema.index({ status: 1 });
 userSchema.index({ createdAt: -1 });
 
 // Hash password before saving
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
 
   try {
     const salt = await bcryptjs.genSalt(config.security.bcryptRounds);
@@ -139,16 +138,17 @@ userSchema.methods.resetLoginAttempts = function () {
 };
 
 // Virtual for account status
-userSchema.virtual('isLocked').get(function () {
+userSchema.virtual("isLocked").get(function () {
   return !!(this.lockUntil && this.lockUntil > Date.now());
 });
 
 // Don't return password, tokens, etc. by default
 userSchema.methods.toJSON = function () {
-  const { password, emailVerificationToken, passwordResetToken, ...rest } = this.toObject();
+  const { password, emailVerificationToken, passwordResetToken, ...rest } =
+    this.toObject();
   return rest;
 };
 
-export const User = mongoose.model('User', userSchema);
+export const User = mongoose.model("User", userSchema);
 
 export default User;

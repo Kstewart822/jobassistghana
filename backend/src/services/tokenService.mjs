@@ -19,8 +19,6 @@ class TokenService {
 
     return jwt.sign(payload, config.jwt.secret, {
       expiresIn: config.jwt.expiresIn,
-      issuer: config.jwt.issuer,
-      audience: config.jwt.audience,
     });
   }
 
@@ -34,7 +32,6 @@ class TokenService {
 
     return jwt.sign(payload, config.jwt.refreshSecret, {
       expiresIn: config.jwt.refreshExpiresIn,
-      issuer: config.jwt.issuer,
     });
   }
 
@@ -43,10 +40,7 @@ class TokenService {
    */
   verifyAccessToken(token) {
     try {
-      return jwt.verify(token, config.jwt.secret, {
-        issuer: config.jwt.issuer,
-        audience: config.jwt.audience,
-      });
+      return jwt.verify(token, config.jwt.secret);
     } catch (error) {
       logger.warn('Access token verification failed', { error: error.message });
       return null;
@@ -58,9 +52,7 @@ class TokenService {
    */
   verifyRefreshToken(token) {
     try {
-      return jwt.verify(token, config.jwt.refreshSecret, {
-        issuer: config.jwt.issuer,
-      });
+      return jwt.verify(token, config.jwt.refreshSecret);
     } catch (error) {
       logger.warn('Refresh token verification failed', { error: error.message });
       return null;

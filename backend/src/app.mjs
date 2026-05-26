@@ -8,6 +8,11 @@ import { config } from './config/environment.mjs';
 import logger from './utils/logger.mjs';
 import { errorHandler, asyncHandler, notFoundHandler } from './middleware/errorHandler.mjs';
 
+// Module routes
+import authRoutes from './modules/auth/routes.mjs';
+import jobRoutes from './modules/job/routes.mjs';
+import applicationRoutes from './modules/application/routes.mjs';
+
 const app = express();
 
 // ===== Security & Parsing Middleware =====
@@ -56,10 +61,12 @@ app.get('/health', (req, res) => {
 });
 
 // ===== API Routes =====
-// TODO: Import and register module routes
-// Example: app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/jobs', jobRoutes);
+app.use('/api/applications', applicationRoutes);
+// TODO: Import and register other module routes
 // Example: app.use('/api/users', userRoutes);
-// Example: app.use('/api/jobs', jobRoutes);
+// Example: app.use('/api/payments', paymentRoutes);
 
 // ===== Serve Static Files =====
 if (config.isDevelopment) {

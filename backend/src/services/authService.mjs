@@ -31,6 +31,7 @@ export class AuthService extends BaseService {
         password: data.password,
         name: data.name,
         role: data.role || 'candidate',
+        status: 'active', // Set to active immediately; email verification is separate
       });
 
       await user.save();
@@ -41,7 +42,15 @@ export class AuthService extends BaseService {
         role: user.role,
       });
 
-      return this.formatUserResponse(user);
+      // Generate tokens for immediate login after registration
+      const accessToken = tokenService.generateAccessToken(user);
+      const refreshToken = tokenService.generateRefreshToken(user);
+
+      return {
+        user: this.formatUserResponse(user),
+        accessToken,
+        refreshToken,
+      };
     } catch (error) {
       if (error instanceof ConflictError) throw error;
       logger.error('Registration failed', { error: error.message });
@@ -122,9 +131,12 @@ export class AuthService extends BaseService {
       }
 
       const newAccessToken = tokenService.generateAccessToken(user);
+      const newRefreshToken = tokenService.generateRefreshToken(user);
 
       return {
+        user: this.formatUserResponse(user),
         accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
       };
     } catch (error) {
       if (error instanceof AuthenticationError) throw error;
@@ -142,6 +154,11 @@ export class AuthService extends BaseService {
 
       if (!user) {
         throw new NotFoundError('User');
+      }
+
+      if (!user.password) {
+        logger.error('User password not found', { userId, hasPassword: !!user.password });
+        throw new AuthenticationError('User password field missing');
       }
 
       // Verify old password
