@@ -108,7 +108,9 @@
         font-weight: 700;
         font-size: 14px;
         padding: 10px 10px;
-        transition: color 0.2s ease, background 0.2s ease;
+        transition:
+          color 0.2s ease,
+          background 0.2s ease;
         border-radius: 8px;
         white-space: nowrap;
       }
@@ -707,7 +709,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.5);
+        background: rgba(0, 0, 0, 0.5);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1095,8 +1097,8 @@
         }
       }
     </style>
-  
-    <link rel='stylesheet' href='assets/css/product-polish.css' />
+
+    <link rel="stylesheet" href="assets/css/product-polish.css" />
   </head>
   <body>
     <!-- NAVBAR -->
@@ -1204,8 +1206,7 @@
                 <span
                   class="tooltip"
                   data-tip="We use your NSS number to verify your graduate status. It is kept private and only used for verification."
-                  ></span
-                >
+                ></span>
               </label>
               <input
                 id="nss"
@@ -1213,9 +1214,7 @@
                 type="text"
                 placeholder="Enter your NSS Number"
               />
-              <div class="nss-format">
-                Eg. NSS############
-              </div>
+              <div class="nss-format">Eg. NSS############</div>
               <div class="checkbox-group">
                 <input type="checkbox" id="isShsGraduate" />
                 <label for="isShsGraduate">I am an SHS Graduate</label>
@@ -1260,12 +1259,7 @@
             </div>
             <div class="field">
               <label for="dob">Date of Birth (Optional)</label>
-              <input
-                id="dob"
-                name="dob"
-                type="date"
-                class="input"
-              />
+              <input id="dob" name="dob" type="date" class="input" />
             </div>
           </div>
 
@@ -1276,8 +1270,7 @@
               <span
                 class="tooltip"
                 data-tip="Your Ghana Card number helps confirm your national identity; it will be used only for verification."
-                ></span
-              >
+              ></span>
             </label>
             <input
               id="ghanacard"
@@ -1386,8 +1379,14 @@
           </div>
 
           <div class="field">
-            <label for="highestEducationLevel" class="required">Highest Level of Education</label>
-            <select id="highestEducationLevel" name="highestEducationLevel" required>
+            <label for="highestEducationLevel" class="required"
+              >Highest Level of Education</label
+            >
+            <select
+              id="highestEducationLevel"
+              name="highestEducationLevel"
+              required
+            >
               <option value="">Select Education Level</option>
               <option>High School</option>
               <option>Diploma</option>
@@ -1437,8 +1436,14 @@
                 placeholder="e.g. Microsoft Excel"
                 autocomplete="off"
               />
-              <div class="skills-helper">Add up to 3 skills. Press Enter after each skill.</div>
-              <div class="skills-chip-list" id="skillsChipList" aria-live="polite"></div>
+              <div class="skills-helper">
+                Add up to 3 skills. Press Enter after each skill.
+              </div>
+              <div
+                class="skills-chip-list"
+                id="skillsChipList"
+                aria-live="polite"
+              ></div>
             </div>
           </div>
 
@@ -1473,17 +1478,41 @@
                   aria-pressed="false"
                 >
                   <span class="icon-show" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="18"
+                      height="18"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
+                      ></path>
                       <circle cx="12" cy="12" r="3"></circle>
                     </svg>
                   </span>
                   <span class="icon-hide" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="18"
+                      height="18"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
                       <path d="M3 3l18 18"></path>
                       <path d="M10.6 10.7a3 3 0 0 0 4.2 4.2"></path>
-                      <path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a18.7 18.7 0 0 1-3 3.8"></path>
-                      <path d="M6.6 6.7C4 8.6 2 12 2 12s3.5 7 10 7a10.5 10.5 0 0 0 4.1-.8"></path>
+                      <path
+                        d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a18.7 18.7 0 0 1-3 3.8"
+                      ></path>
+                      <path
+                        d="M6.6 6.7C4 8.6 2 12 2 12s3.5 7 10 7a10.5 10.5 0 0 0 4.1-.8"
+                      ></path>
                     </svg>
                   </span>
                 </button>
@@ -1510,17 +1539,41 @@
                   aria-pressed="false"
                 >
                   <span class="icon-show" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="18"
+                      height="18"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"
+                      ></path>
                       <circle cx="12" cy="12" r="3"></circle>
                     </svg>
                   </span>
                   <span class="icon-hide" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="18"
+                      height="18"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
                       <path d="M3 3l18 18"></path>
                       <path d="M10.6 10.7a3 3 0 0 0 4.2 4.2"></path>
-                      <path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a18.7 18.7 0 0 1-3 3.8"></path>
-                      <path d="M6.6 6.7C4 8.6 2 12 2 12s3.5 7 10 7a10.5 10.5 0 0 0 4.1-.8"></path>
+                      <path
+                        d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.5 0 10 7 10 7a18.7 18.7 0 0 1-3 3.8"
+                      ></path>
+                      <path
+                        d="M6.6 6.7C4 8.6 2 12 2 12s3.5 7 10 7a10.5 10.5 0 0 0 4.1-.8"
+                      ></path>
                     </svg>
                   </span>
                 </button>
@@ -1559,7 +1612,8 @@
               </button>
             </div>
             <div class="helper-note">
-              Adding a clear profile photo can help employers recognize your profile and build more confidence in your application.
+              Adding a clear profile photo can help employers recognize your
+              profile and build more confidence in your application.
             </div>
           </div>
 
@@ -1614,7 +1668,6 @@
               >
             </div>
             <div class="security-note">
-              
               <span
                 >We encrypt and store your data securely. Only verified
                 employers can view profiles.</span
@@ -1696,7 +1749,10 @@
         const menuBtn = document.querySelector(".menu-btn");
         const nav = document.querySelector(".site-nav");
         if (!drawer || !menuBtn || !nav) return;
-        if (!nav.contains(event.target) && drawer.classList.contains("active")) {
+        if (
+          !nav.contains(event.target) &&
+          drawer.classList.contains("active")
+        ) {
           drawer.classList.remove("active");
           const icon = document.querySelector(".menu-btn i");
           if (icon) {
@@ -1769,21 +1825,26 @@
 
         function addCandidateSkill(rawSkill) {
           const skill = formatSkillValue(
-            String(rawSkill || "").trim().replace(/\s+/g, " "),
+            String(rawSkill || "")
+              .trim()
+              .replace(/\s+/g, " "),
             60,
           );
           if (!skill) return false;
 
           const duplicate = candidateSkills.some(
-            (existingSkill) => existingSkill.toLowerCase() === skill.toLowerCase()
+            (existingSkill) =>
+              existingSkill.toLowerCase() === skill.toLowerCase(),
           );
           if (duplicate) {
-            if (skillsInput) setFieldError(skillsInput, "This skill has already been added.");
+            if (skillsInput)
+              setFieldError(skillsInput, "This skill has already been added.");
             return false;
           }
 
           if (candidateSkills.length >= 3) {
-            if (skillsInput) setFieldError(skillsInput, "You can add up to 3 skills only.");
+            if (skillsInput)
+              setFieldError(skillsInput, "You can add up to 3 skills only.");
             return false;
           }
 
@@ -1878,7 +1939,9 @@
             ? hardener.sanitizeEmail(document.getElementById("email").value)
             : document.getElementById("email").value.trim().toLowerCase();
           const normalizedPhone = hardener?.normalizeGhanaPhone
-            ? hardener.normalizeGhanaPhone(document.getElementById("phone").value)
+            ? hardener.normalizeGhanaPhone(
+                document.getElementById("phone").value,
+              )
             : document.getElementById("phone").value.trim();
 
           if (
@@ -1895,9 +1958,15 @@
           }
 
           const studyValue = document.getElementById("study").value;
-          const studyOther = sanitizeText(document.getElementById("studyOther").value, 120);
+          const studyOther = sanitizeText(
+            document.getElementById("studyOther").value,
+            120,
+          );
           const industryValue = document.getElementById("industry").value;
-          const industryOther = sanitizeText(document.getElementById("industryOther").value, 120);
+          const industryOther = sanitizeText(
+            document.getElementById("industryOther").value,
+            120,
+          );
           const passportPreview = document.getElementById("previewImage");
           const passportSource =
             passportPreview &&
@@ -1907,19 +1976,44 @@
               : "";
 
           const signupData = {
-            fullName: formatDisplayText(document.getElementById("fullName").value, 120),
+            fullName: formatDisplayText(
+              document.getElementById("fullName").value,
+              120,
+            ),
             nssNumber: sanitizeText(document.getElementById("nss").value, 20),
-            isShsGraduate: document.getElementById("isShsGraduate")?.checked || false,
+            isShsGraduate:
+              document.getElementById("isShsGraduate")?.checked || false,
             email: normalizedEmail,
             phone: normalizedPhone,
             gender: sanitizeText(document.getElementById("gender").value, 40),
-            dateOfBirth: sanitizeText(document.getElementById("dob")?.value || "", 20),
-            ghanaCard: sanitizeText(document.getElementById("ghanacard").value, 30),
-            digitalAddress: sanitizeText(document.getElementById("digitalAddress").value, 40),
-            region: formatDisplayText(document.getElementById("region").value, 60),
-            workOutside: formatDisplayText(document.getElementById("outside").value, 60),
-            fieldOfStudy: formatDisplayText(studyValue === "other" ? studyOther : studyValue, 120),
-            experience: formatDisplayText(document.getElementById("experience").value, 80),
+            dateOfBirth: sanitizeText(
+              document.getElementById("dob")?.value || "",
+              20,
+            ),
+            ghanaCard: sanitizeText(
+              document.getElementById("ghanacard").value,
+              30,
+            ),
+            digitalAddress: sanitizeText(
+              document.getElementById("digitalAddress").value,
+              40,
+            ),
+            region: formatDisplayText(
+              document.getElementById("region").value,
+              60,
+            ),
+            workOutside: formatDisplayText(
+              document.getElementById("outside").value,
+              60,
+            ),
+            fieldOfStudy: formatDisplayText(
+              studyValue === "other" ? studyOther : studyValue,
+              120,
+            ),
+            experience: formatDisplayText(
+              document.getElementById("experience").value,
+              80,
+            ),
             highestEducationLevel: formatDisplayText(
               document.getElementById("highestEducationLevel").value,
               80,
@@ -1931,7 +2025,10 @@
             skills: getCandidateSkills()
               .map((skill) => formatSkillValue(skill, 60))
               .filter(Boolean),
-            disabled: sanitizeText(document.getElementById("disabled").value, 40),
+            disabled: sanitizeText(
+              document.getElementById("disabled").value,
+              40,
+            ),
             password: document.getElementById("password").value,
           };
 
@@ -1959,9 +2056,15 @@
           };
 
           try {
-            sessionStorage.setItem("jobassist_candidate_signup_temp", JSON.stringify(candidateSignupTemp));
+            sessionStorage.setItem(
+              "jobassist_candidate_signup_temp",
+              JSON.stringify(candidateSignupTemp),
+            );
           } catch (error) {
-            console.warn("Temporary candidate signup data could not be written to sessionStorage:", error);
+            console.warn(
+              "Temporary candidate signup data could not be written to sessionStorage:",
+              error,
+            );
           }
 
           try {
@@ -1975,7 +2078,10 @@
             try {
               sessionStorage.setItem("jobassist_passport_temp", passportSource);
             } catch (error) {
-              console.warn("Temporary passport image could not be written to sessionStorage:", error);
+              console.warn(
+                "Temporary passport image could not be written to sessionStorage:",
+                error,
+              );
             }
           }
 
@@ -2012,7 +2118,9 @@
             window.location.href = "verify-info.html?type=candidate";
           } catch (error) {
             console.error("Candidate signup step failed:", error);
-            showError("We could not continue to verification. Please review your details and try again.");
+            showError(
+              "We could not continue to verification. Please review your details and try again.",
+            );
             setLoadingState(false);
             isSubmitting = false;
           }
@@ -2052,45 +2160,50 @@
           errorMessage.scrollIntoView({ behavior: "smooth", block: "center" });
         }
 
-      // NSS validation function - 3 letters followed by numbers only
-      function validNssFormat(value) {
-        if (!value || value.trim() === "") return true;
-        return /^[A-Za-z]{3}\d+$/.test(value.trim());
-      }
-
-      function initializePasswordToggles() {
-        window.JobAssistPasswordToggle?.initPasswordToggles?.();
-      }
-
-      function syncCandidatePasswordFeedback() {
-        const passwordField = document.getElementById("password");
-        const confirmPasswordField = document.getElementById("confirmPassword");
-        const pwd = String(passwordField?.value || "");
-        const cpwd = String(confirmPasswordField?.value || "");
-
-        if (pwd.length >= 8) {
-          clearFieldError(passwordField);
+        // NSS validation function - 3 letters followed by numbers only
+        function validNssFormat(value) {
+          if (!value || value.trim() === "") return true;
+          return /^[A-Za-z]{3}\d+$/.test(value.trim());
         }
 
-        if (!cpwd) return;
-
-        if (cpwd.length >= 8 && pwd.length >= 8 && pwd === cpwd) {
-          clearFieldError(confirmPasswordField);
-        } else if (
-          cpwd.length >= 8 &&
-          pwd.length >= 8 &&
-          pwd !== cpwd &&
-          getFieldWrapper(confirmPasswordField)?.classList.contains("has-error")
-        ) {
-          setFieldError(confirmPasswordField, "Passwords do not match.");
-        } else if (
-          cpwd.length >= 8 &&
-          pwd.length < 8 &&
-          getFieldWrapper(confirmPasswordField)?.classList.contains("has-error")
-        ) {
-          clearFieldError(confirmPasswordField);
+        function initializePasswordToggles() {
+          window.JobAssistPasswordToggle?.initPasswordToggles?.();
         }
-      }
+
+        function syncCandidatePasswordFeedback() {
+          const passwordField = document.getElementById("password");
+          const confirmPasswordField =
+            document.getElementById("confirmPassword");
+          const pwd = String(passwordField?.value || "");
+          const cpwd = String(confirmPasswordField?.value || "");
+
+          if (pwd.length >= 8) {
+            clearFieldError(passwordField);
+          }
+
+          if (!cpwd) return;
+
+          if (cpwd.length >= 8 && pwd.length >= 8 && pwd === cpwd) {
+            clearFieldError(confirmPasswordField);
+          } else if (
+            cpwd.length >= 8 &&
+            pwd.length >= 8 &&
+            pwd !== cpwd &&
+            getFieldWrapper(confirmPasswordField)?.classList.contains(
+              "has-error",
+            )
+          ) {
+            setFieldError(confirmPasswordField, "Passwords do not match.");
+          } else if (
+            cpwd.length >= 8 &&
+            pwd.length < 8 &&
+            getFieldWrapper(confirmPasswordField)?.classList.contains(
+              "has-error",
+            )
+          ) {
+            clearFieldError(confirmPasswordField);
+          }
+        }
       });
 
       document.querySelectorAll("input, select, textarea").forEach((el) => {
@@ -2165,7 +2278,6 @@
 
           // Update form validation
           checkFormValidity();
-
         }
 
         // Initial setup
@@ -2275,11 +2387,11 @@
         el.addEventListener(
           "mouseenter",
           () => (tipBox.style.display = "block"),
-);
+        );
         el.addEventListener(
           "mouseleave",
           () => (tipBox.style.display = "none"),
-);
+        );
         el.addEventListener("focus", () => (tipBox.style.display = "block"));
         el.addEventListener("blur", () => (tipBox.style.display = "none"));
       });
@@ -2380,12 +2492,14 @@
           el.classList.remove("has-error");
         });
 
-        document.querySelectorAll(".input-error, .checkbox-error").forEach((el) => {
-          el.classList.remove("input-error", "checkbox-error");
-          if (el.style?.borderColor) {
-            el.style.borderColor = "";
-          }
-        });
+        document
+          .querySelectorAll(".input-error, .checkbox-error")
+          .forEach((el) => {
+            el.classList.remove("input-error", "checkbox-error");
+            if (el.style?.borderColor) {
+              el.style.borderColor = "";
+            }
+          });
 
         document.querySelectorAll(".field-error-text").forEach((el) => {
           el.remove();
@@ -2427,7 +2541,10 @@
 
         if (firstError) {
           firstError.scrollIntoView({ behavior: "smooth", block: "center" });
-          if (typeof firstError.focus === "function" && firstError.type !== "checkbox") {
+          if (
+            typeof firstError.focus === "function" &&
+            firstError.type !== "checkbox"
+          ) {
             firstError.focus({ preventScroll: true });
           }
         }
@@ -2459,7 +2576,9 @@
         const studyField = document.getElementById("study");
         const studyOtherField = document.getElementById("studyOther");
         const experienceField = document.getElementById("experience");
-        const highestEducationLevelField = document.getElementById("highestEducationLevel");
+        const highestEducationLevelField = document.getElementById(
+          "highestEducationLevel",
+        );
         const industryField = document.getElementById("industry");
         const industryOtherField = document.getElementById("industryOther");
         const disabledField = document.getElementById("disabled");
@@ -2475,7 +2594,9 @@
         const isShsGraduate = shsGraduateField?.checked;
         const full = fullNameField.value.trim();
         const nss = nssFieldEl.value.trim();
-        const email = String(emailField?.value || "").trim().toLowerCase();
+        const email = String(emailField?.value || "")
+          .trim()
+          .toLowerCase();
         const phone = String(phoneField.value || "").replace(/\D/g, "");
         const gender = genderField.value;
         const ghanacard = ghanaCardField.value.trim();
@@ -2497,7 +2618,8 @@
         const passport =
           passportField.files.length > 0 ||
           /^data:image\//i.test(String(previewImage?.src || ""));
-        const normalizedPhone = window.JobAssistInputHardening?.normalizeGhanaPhone
+        const normalizedPhone = window.JobAssistInputHardening
+          ?.normalizeGhanaPhone
           ? window.JobAssistInputHardening.normalizeGhanaPhone(phone)
           : phone;
         const validEmail = window.JobAssistInputHardening?.isValidEmail
@@ -2517,7 +2639,10 @@
           errors.push([ghanaCardField, "This field is required."]);
         }
         if (digital && !validDigital(digital)) {
-          errors.push([digitalAddressField, "Please enter a valid digital address."]);
+          errors.push([
+            digitalAddressField,
+            "Please enter a valid digital address.",
+          ]);
         }
         if (!region) errors.push([regionField, "This field is required."]);
         if (!outside) errors.push([outsideField, "This field is required."]);
@@ -2549,12 +2674,18 @@
         if (!pwd) {
           errors.push([passwordField, "This field is required."]);
         } else if (pwd.length < 8) {
-          errors.push([passwordField, "Password must be at least 8 characters."]);
+          errors.push([
+            passwordField,
+            "Password must be at least 8 characters.",
+          ]);
         }
         if (!cpwd) {
           errors.push([confirmPasswordField, "This field is required."]);
         } else if (cpwd.length < 8) {
-          errors.push([confirmPasswordField, "Password must be at least 8 characters."]);
+          errors.push([
+            confirmPasswordField,
+            "Password must be at least 8 characters.",
+          ]);
         } else if (pwd.length >= 8 && pwd !== cpwd) {
           errors.push([confirmPasswordField, "Passwords do not match."]);
         }
@@ -2580,12 +2711,15 @@
       }
 
       function getValidationDebug() {
-
         const full = document.getElementById("fullName").value.trim();
         const nss = document.getElementById("nss").value.trim();
         const isShsGraduate = document.getElementById("isShsGraduate").checked;
-        const email = String(document.getElementById("email").value || "").trim().toLowerCase();
-        const phone = String(document.getElementById("phone").value || "").replace(/\D/g, "");
+        const email = String(document.getElementById("email").value || "")
+          .trim()
+          .toLowerCase();
+        const phone = String(
+          document.getElementById("phone").value || "",
+        ).replace(/\D/g, "");
         const gender = document.getElementById("gender").value;
         const ghanacard = document.getElementById("ghanacard").value.trim();
         const digital = document.getElementById("digitalAddress").value.trim();
@@ -2594,9 +2728,13 @@
         const study = document.getElementById("study").value;
         const studyOther = document.getElementById("studyOther").value.trim();
         const experience = document.getElementById("experience").value;
-        const highestEducationLevel = document.getElementById("highestEducationLevel").value;
+        const highestEducationLevel = document.getElementById(
+          "highestEducationLevel",
+        ).value;
         const industry = document.getElementById("industry").value;
-        const industryOther = document.getElementById("industryOther").value.trim();
+        const industryOther = document
+          .getElementById("industryOther")
+          .value.trim();
         const skills = getCandidateSkills();
         const disabled = document.getElementById("disabled").value;
         const pwd = document.getElementById("password").value;
@@ -2606,7 +2744,9 @@
 
         const passport =
           document.getElementById("passportPicture").files.length > 0 ||
-          /^data:image\//i.test(String(document.getElementById("previewImage").src || ""));
+          /^data:image\//i.test(
+            String(document.getElementById("previewImage").src || ""),
+          );
         const validEmail = window.JobAssistInputHardening?.isValidEmail
           ? window.JobAssistInputHardening.isValidEmail(email)
           : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(email);
@@ -2637,12 +2777,12 @@
           passwordsMatch: pwd === cpwd,
           agree,
           recaptcha: rec,
-          passport: true
+          passport: true,
         };
 
         return {
           valid: Object.values(checks).every(Boolean),
-          checks
+          checks,
         };
       }
 
@@ -2691,13 +2831,15 @@
         .getElementById("industryOther")
         ?.addEventListener("input", checkFormValidity);
 
-      document.getElementById("password")?.addEventListener("input", function () {
-        if (this.value.length >= 8) {
-          clearFieldError(this);
-        }
-        syncCandidatePasswordFeedback();
-        checkFormValidity();
-      });
+      document
+        .getElementById("password")
+        ?.addEventListener("input", function () {
+          if (this.value.length >= 8) {
+            clearFieldError(this);
+          }
+          syncCandidatePasswordFeedback();
+          checkFormValidity();
+        });
 
       document
         .getElementById("confirmPassword")
@@ -2745,8 +2887,7 @@
         checkFormValidity();
       });
     </script>
-  
-    <script src='assets/js/product-polish.js'></script>
+
+    <script src="assets/js/product-polish.js"></script>
   </body>
 </html>
-

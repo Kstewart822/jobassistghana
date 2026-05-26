@@ -512,7 +512,9 @@
       </div>
     </div>
 
-    <script src="assets/js/api-integration.js"></script>  <script src="assets/js/token-manager.js"></script>    <script src="assets/js/input-hardening.js"></script>
+    <script src="assets/js/api-integration.js"></script>
+    <script src="assets/js/token-manager.js"></script>
+    <script src="assets/js/input-hardening.js"></script>
     <script src="assets/js/candidate-session.js"></script>
     <script src="assets/js/password-toggle.js"></script>
     <script>
@@ -529,7 +531,9 @@
 
       function showError(element, message) {
         if (element.closest) {
-          element.closest(".input-wrap, .phone-row")?.classList.add("field-error");
+          element
+            .closest(".input-wrap, .phone-row")
+            ?.classList.add("field-error");
         }
         element.textContent = message;
         element.style.visibility = "visible";
@@ -537,7 +541,9 @@
 
       function clearError(element, inputElement) {
         if (inputElement?.closest) {
-          inputElement.closest(".input-wrap, .phone-row")?.classList.remove("field-error");
+          inputElement
+            .closest(".input-wrap, .phone-row")
+            ?.classList.remove("field-error");
         }
         element.textContent = "";
         element.style.visibility = "hidden";
@@ -590,14 +596,17 @@
           if (result.success) {
             // Store user data and redirect
             const user = result.data?.data?.user;
-            if (user?.role === 'employer') {
+            if (user?.role === "employer") {
               window.location.href = "employer/employer-dashboard.html";
             } else {
               window.location.href = "candidate/candidate-dashboard.html";
             }
           } else {
             // Show error
-            const errorMessage = result.data?.message || result.message || "Login failed. Please try again.";
+            const errorMessage =
+              result.data?.message ||
+              result.message ||
+              "Login failed. Please try again.";
             showError(loginError, errorMessage);
           }
         } catch (error) {
