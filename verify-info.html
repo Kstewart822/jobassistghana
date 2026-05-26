@@ -759,6 +759,9 @@
   <!-- ---------- SCRIPTS: tooltips, mobile menu, validation ---------- -->
     <script src="assets/js/id-generator.js"></script>
     <script src="assets/js/input-hardening.js"></script>
+    <script src="assets/js/api-integration.js"></script>
+    <script src="assets/js/signup-api.js"></script>
+    <script src="assets/js/token-manager.js"></script>
     <script src="assets/js/candidate-session.js"></script>
     <script src="assets/js/toast.js"></script>
     <script>
@@ -1183,217 +1186,100 @@
       }
 
       // Handle Create Account button click
-      createAccountBtn.addEventListener('click', function() {
+      createAccountBtn.addEventListener('click', async function() {
         setCreateAccountLoadingState(true);
-        
-        // Simulate API call delay (1-2 seconds)
-        const delay = Math.random() * 1000 + 1000;
-        
-        setTimeout(() => {
-          // In a real application, this would be an actual API call
-          // For now, we'll simulate a successful account creation
-          const accountCreated = true; // Simulate successful account creation
-          
-          if (accountCreated) {
-            if (userType === 'candidate') {
-              const passportImage = getCandidateSignupPassportImage();
-              const candidateSignupData = getCandidateSignupData();
-              const normalizedPhone = String(candidateSignupData.phone || '').replace(/\D/g, '');
-              const normalizedEmail = String(candidateSignupData.email || '').trim().toLowerCase();
-              const candidateId = normalizedPhone
-                ? `temp-candidate-${normalizedPhone}`
-                : `temp-candidate-${normalizedEmail.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}`;
-              const candidateProfile = {
-                id: candidateId,
-                candidateId: candidateId,
-                userType: 'candidate',
-                fullName: formatDisplayText(candidateSignupData.fullName || '', 120),
-                email: sanitizeText(candidateSignupData.email || '', 120).toLowerCase(),
-                phone: hardener?.normalizeGhanaPhone
-                  ? hardener.normalizeGhanaPhone(candidateSignupData.phone || '')
-                  : sanitizeText(candidateSignupData.phone || '', 20),
-                password: candidateSignupData.password || '',
-                gender: sanitizeText(candidateSignupData.gender || '', 40),
-                dateOfBirth: sanitizeText(candidateSignupData.dateOfBirth || '', 20),
-                isShsGraduate: Boolean(candidateSignupData.isShsGraduate),
-                ghanaCardNumber: sanitizeText(candidateSignupData.ghanaCard || '', 30),
-                digitalAddress: sanitizeText(candidateSignupData.digitalAddress || '', 40),
-                region: formatDisplayText(candidateSignupData.region || '', 80),
-                willingToRelocate: formatDisplayText(candidateSignupData.willingToRelocate || candidateSignupData.workOutside || '', 80),
-                fieldOfStudy: formatDisplayText(candidateSignupData.course || candidateSignupData.fieldOfStudy || '', 120),
-                highestEducationLevel: formatDisplayText(candidateSignupData.highestEducationLevel || candidateSignupData.educationLevel || '', 120),
-                educationLevel: formatDisplayText(candidateSignupData.highestEducationLevel || candidateSignupData.educationLevel || '', 120),
-                experienceLevel: formatDisplayText(candidateSignupData.experience || '', 80),
-                preferredIndustry: formatDisplayText(candidateSignupData.preferredIndustry || '', 120),
-                skills: normalizeCandidateSkills(candidateSignupData.skills),
-                disabilityStatus: sanitizeText(candidateSignupData.disabled || '', 40),
-                nssNumber: candidateSignupData.isShsGraduate
-                  ? ''
-                  : sanitizeText(candidateSignupData.nssNumber || '', 20),
-                createdAt: new Date().toISOString(),
-                passportImage: passportImage || '',
-                avatar: passportImage || '',
-                image: passportImage || '',
-                profileImage: passportImage || '',
-                photo: passportImage || '',
-                profilePicture: passportImage || '',
-                passportPhoto: passportImage || '',
-                picture: passportImage || '',
-                candidateImage: passportImage || '',
-                candidatePhoto: passportImage || ''
-              };
 
-              try {
-                console.log('Candidate account creation debug:', {
-                  hasPassportImage: Boolean(passportImage),
-                  candidateEmail: candidateProfile.email,
-                  candidateFullName: candidateProfile.fullName
-                });
+        try {
+          if (userType === 'candidate') {
+            // Get signup data
+            const candidateData = window.JobAssistSignupAPI?.getCandidateSignupData?.() || getCandidateSignupData();
+            const passportImage = window.JobAssistSignupAPI?.getCandidateProfilePicture?.() || getCandidateSignupPassportImage();
 
-                const imageStoreKey = 'jobassist_candidate_images';
-                let imageStore = {};
-                try {
-                  const parsedImageStore = JSON.parse(localStorage.getItem(imageStoreKey) || '{}');
-                  imageStore =
-                    parsedImageStore && typeof parsedImageStore === 'object' && !Array.isArray(parsedImageStore)
-                      ? parsedImageStore
-                      : {};
-                } catch (imageStoreError) {
-                  console.warn('Candidate image store could not be read safely:', imageStoreError);
-                  imageStore = {};
-                }
-                const candidateImageKey = String(candidateProfile.id || '').trim();
+            // Validate data
+            const validation = window.JobAssistSignupAPI?.validateCandidateData?.(candidateData) || { isValid: true };
+            if (!validation.isValid) {
+              const errorMsg = Object.values(validation.errors || {})[0] || 'Please review your information and try again.';
+              showErrorMessage(errorMsg);
+              setCreateAccountLoadingState(false);
+              return;
+            }
 
-                if (candidateImageKey) {
-                  if (window.JobAssistCandidateSession?.persistCandidateImage) {
-                    window.JobAssistCandidateSession.persistCandidateImage(candidateProfile, passportImage || '');
-                  } else {
-                    if (passportImage) {
-                      imageStore[candidateImageKey] = passportImage;
-                    } else {
-                      delete imageStore[candidateImageKey];
-                    }
+            // Call API
+            const result = await window.JobAssistSignupAPI?.registerCandidate?.(candidateData, passportImage);
 
-                    try {
-                      localStorage.setItem(imageStoreKey, JSON.stringify(imageStore));
-                    } catch (imageError) {
-                      console.warn('Candidate passport image could not be persisted:', imageError);
-                    }
-                  }
-                }
+            if (result?.success) {
+              // Clear signup data
+              window.JobAssistSignupAPI?.clearSignupData?.('candidate');
 
-                window.JobAssistCandidateSession?.upsertCandidateAccount?.(candidateProfile);
-
-                const candidateSessionProfile = {
-                  ...stripCandidateImageFields(candidateProfile),
-                  password: ''
-                };
-
-                if (window.JobAssistCandidateSession?.setCurrentUser) {
-                  window.JobAssistCandidateSession.setCurrentUser(candidateSessionProfile);
-                } else {
-                  writeStorageProfile('jobassist_current_user', candidateSessionProfile);
-                }
-                localStorage.removeItem('jobassist_current_candidate');
-                localStorage.removeItem('candidate');
-                sessionStorage.removeItem('jobassist_passport_temp');
-                sessionStorage.removeItem('jobassist_candidate_signup_temp');
-                sessionStorage.removeItem('jobassist_candidate_signup');
-                sessionStorage.removeItem('jobassist_candidate_signup_data');
-                sessionStorage.removeItem('jobassist_candidate_signup_image');
-                sessionStorage.removeItem('jobassist_temp_candidate');
-                localStorage.removeItem('profilePhoto');
-                localStorage.removeItem('candidatePhoto');
-                localStorage.removeItem('candidateImage');
-                localStorage.removeItem('passportPhoto');
-                localStorage.removeItem('profilePicture');
-                localStorage.removeItem('picture');
-                sessionStorage.removeItem('profilePhoto');
-                sessionStorage.removeItem('candidatePhoto');
-                sessionStorage.removeItem('candidateImage');
-                sessionStorage.removeItem('passportPhoto');
-                sessionStorage.removeItem('profilePicture');
-                sessionStorage.removeItem('picture');
-
-                window.location.href = 'candidate/candidate-dashboard.html';
-              } catch (error) {
-                console.error('Candidate account creation failed:', error);
-                setCreateAccountLoadingState(false);
-                const message = 'Account creation failed: ' + (error?.message || error);
-                if (window.JobAssistUI?.showErrorToast) {
-                  window.JobAssistUI.showErrorToast(message);
-                } else if (window.showErrorToast) {
-                  window.showErrorToast(message);
-                }
-              }
+              // Redirect to dashboard
+              window.location.href = 'candidate/candidate-dashboard.html';
             } else {
-              const existingEmployers = JSON.parse(localStorage.getItem('jobassist_employers') || '[]');
-              const employerSocialMediaLinks = getEmployerSocialMediaLinks();
-              const employerSocialMediaDisplay = formatEmployerSocialMediaLinks(employerSocialMediaLinks);
-              const employerLocation = getEmployerLocationParts({
-                city: localStorage.getItem('city') || '',
-                region: localStorage.getItem('region') || '',
-                cityRegion: localStorage.getItem('cityRegion') || '',
-              });
-              if (!window.JobAssistIdGenerator) {
-                throw new Error('Employer ID generator unavailable.');
-              }
-              const employerId = window.JobAssistIdGenerator.generateUniqueId(
-                'EMP',
-                Array.isArray(existingEmployers)
-                  ? existingEmployers.map((employer) => employer?.id)
-                  : []
-              );
-              const employerProfile = {
-              id: employerId,
-              companyName: formatDisplayText(localStorage.getItem('companyName') || '', 120),
-              industry: formatDisplayText(localStorage.getItem('industry') || '', 120),
-              businessType: formatDisplayText(localStorage.getItem('businessType') || '', 80),
-              companySize: sanitizeText(localStorage.getItem('companySize') || '', 80),
-              registrationNumber: sanitizeText(localStorage.getItem('registrationNumber') || '', 60),
-              fullName: formatDisplayText(localStorage.getItem('fullName') || '', 120),
-              position: formatDisplayText(localStorage.getItem('position') || '', 120),
-              workEmail: sanitizeText(localStorage.getItem('workEmail') || '', 120).toLowerCase(),
-              phone: sanitizeText(localStorage.getItem('phone') || '', 20),
-              loginPhone: sanitizeText(localStorage.getItem('loginPhone') || localStorage.getItem('phone') || '', 20),
+              const errorMsg = result?.message || 'Account creation failed. Please try again.';
+              showErrorMessage(errorMsg);
+              setCreateAccountLoadingState(false);
+            }
+          } else {
+            // Employer signup
+            const employerData = {
+              companyName: localStorage.getItem('companyName') || '',
+              industry: localStorage.getItem('industry') || '',
+              businessType: localStorage.getItem('businessType') || '',
+              companySize: localStorage.getItem('companySize') || '',
+              registrationNumber: localStorage.getItem('registrationNumber') || '',
+              fullName: localStorage.getItem('fullName') || '',
+              position: localStorage.getItem('position') || '',
+              workEmail: localStorage.getItem('workEmail') || '',
+              phone: localStorage.getItem('phone') || '',
               password: localStorage.getItem('password') || '',
-              companyAddress: formatDisplayText(localStorage.getItem('companyAddress') || '', 180),
-              city: employerLocation.city,
-              region: employerLocation.region,
-              cityRegion: employerLocation.cityRegion,
-              socialMediaLinks: employerSocialMediaLinks,
-              socialMedia: sanitizeText(employerSocialMediaDisplay, 500),
-              socialPlatform: formatDisplayText(employerSocialMediaLinks[0]?.platform || '', 40),
-              socialHandle: sanitizeText(employerSocialMediaLinks[0]?.value || '', 300),
-              companyDescription: sanitizeMultiline(localStorage.getItem('companyDescription') || '', 2000),
-              createdAt: new Date().toISOString()
+              companyAddress: localStorage.getItem('companyAddress') || '',
+              city: localStorage.getItem('city') || '',
+              region: localStorage.getItem('region') || '',
+              cityRegion: localStorage.getItem('cityRegion') || '',
+              companyDescription: localStorage.getItem('companyDescription') || '',
+              socialMediaLinks: getEmployerSocialMediaLinks?.() || []
             };
 
-            localStorage.setItem('jobassist_current_employer', JSON.stringify(employerProfile));
-            localStorage.setItem('jobassist_employer_profile', JSON.stringify(employerProfile));
-
-              const allEmployers = Array.isArray(existingEmployers) ? existingEmployers : [];
-            const existingEmployerIndex = allEmployers.findIndex(
-              e =>
-                (e.phone && e.phone === employerProfile.phone) ||
-                (e.loginPhone && e.loginPhone === employerProfile.loginPhone) ||
-                (e.workEmail && e.workEmail === employerProfile.workEmail) ||
-                (e.companyName && e.companyName === employerProfile.companyName)
-);
-
-            if (existingEmployerIndex >= 0) {
-              allEmployers[existingEmployerIndex] = employerProfile;
-            } else {
-              allEmployers.push(employerProfile);
+            // Validate data
+            const validation = window.JobAssistSignupAPI?.validateEmployerData?.(employerData) || { isValid: true };
+            if (!validation.isValid) {
+              const errorMsg = Object.values(validation.errors || {})[0] || 'Please review your information and try again.';
+              showErrorMessage(errorMsg);
+              setCreateAccountLoadingState(false);
+              return;
             }
 
-            localStorage.setItem('jobassist_employers', JSON.stringify(allEmployers));
-            localStorage.removeItem('password');
-            window.location.href = 'employer/employer-dashboard.html';
+            // Call API
+            const result = await window.JobAssistSignupAPI?.registerEmployer?.(employerData);
+
+            if (result?.success) {
+              // Clear signup data
+              window.JobAssistSignupAPI?.clearSignupData?.('employer');
+
+              // Redirect to dashboard
+              window.location.href = 'employer/employer-dashboard.html';
+            } else {
+              const errorMsg = result?.message || 'Account creation failed. Please try again.';
+              showErrorMessage(errorMsg);
+              setCreateAccountLoadingState(false);
             }
           }
-        }, delay);
+        } catch (error) {
+          console.error('Account creation error:', error);
+          const message = 'Account creation failed: ' + (error?.message || error);
+          showErrorMessage(message);
+          setCreateAccountLoadingState(false);
+        }
       });
+
+      function showErrorMessage(message) {
+        if (window.JobAssistUI?.showErrorToast) {
+          window.JobAssistUI.showErrorToast(message);
+        } else if (window.showErrorToast) {
+          window.showErrorToast(message);
+        } else {
+          alert(message);
+        }
+      }
 
       function setCreateAccountLoadingState(isLoading) {
         if (isLoading) {
