@@ -362,19 +362,17 @@
         <div class="subtitle-note">Post jobs, manage applicants, and hire faster.</div>
 
         <form id="loginForm">
-          <label for="phoneInput">Phone Number</label>
-          <div class="phone-row">
-            <div class="country-code">GH +233</div>
+          <label for="emailInput">Email Address</label>
+          <div class="input-wrap">
             <input
-              id="phoneInput"
-              type="text"
-              inputmode="numeric"
-              pattern="[0-9]*"
-              autocomplete="tel"
-              placeholder="241234567"
+              id="emailInput"
+              class="input"
+              type="email"
+              placeholder="your@email.com"
+              required
             />
           </div>
-          <div class="hint">Format: 9 digits without the first zero</div>
+          <div id="emailError" class="field-inline-error"></div>
 
           <label for="passInput">Password</label>
           <div class="input-wrap password-wrap">
@@ -428,175 +426,97 @@
     </div>
   </div>
 
+  <script src="assets/js/api-integration.js"></script>
+  <script src="assets/js/token-manager.js"></script>
   <script src="assets/js/input-hardening.js"></script>
   <script src="assets/js/password-toggle.js"></script>
     <script>
       const loginForm = document.getElementById("loginForm");
+      const emailInput = document.getElementById("emailInput");
+      const passInput = document.getElementById("passInput");
+      const loginError = document.getElementById("loginError");
+      const emailError = document.getElementById("emailError");
+      const passwordError = document.getElementById("passwordError");
 
       function initializePasswordToggles() {
         window.JobAssistPasswordToggle?.initPasswordToggles?.();
       }
 
-      function showPasswordFieldError(message) {
-        const passInput = document.getElementById("passInput");
-        const passwordError = document.getElementById("passwordError");
-        passInput.closest(".input-wrap")?.classList.add("field-error");
-        passwordError.textContent = message;
-        passwordError.style.visibility = "visible";
-      }
-
-      function clearPasswordFieldError() {
-        const passwordError = document.getElementById("passwordError");
-        document.getElementById("passInput")?.closest(".input-wrap")?.classList.remove("field-error");
-        if (passwordError) {
-          passwordError.textContent = "";
-          passwordError.style.visibility = "hidden";
+      function showError(element, message) {
+        if (element.closest) {
+          element.closest(".input-wrap")?.classList.add("field-error");
         }
+        element.textContent = message;
+        element.style.visibility = "visible";
       }
 
-    function safeJSONParse(value) {
-      try {
-        return JSON.parse(value);
-      } catch {
-        return null;
-      }
-    }
-
-    function normalizePhone(value) {
-      if (window.JobAssistInputHardening?.normalizeGhanaPhone) {
-        return window.JobAssistInputHardening.normalizeGhanaPhone(value);
-      }
-
-      const digits = String(value || "").replace(/\D/g, "");
-      return digits.length > 9 ? digits.slice(-9) : digits;
-    }
-
-    function getStoredEmployers() {
-      const storedEmployers = safeJSONParse(localStorage.getItem("jobassist_employers"));
-      const currentEmployer = safeJSONParse(localStorage.getItem("jobassist_current_employer"));
-      const employers = Array.isArray(storedEmployers) ? [...storedEmployers] : [];
-
-      if (currentEmployer && typeof currentEmployer === "object") {
-        const employerId = String(currentEmployer.id || currentEmployer.employerId || "").trim();
-        const alreadyExists = employers.some(
-          (entry) =>
-            String(entry?.id || entry?.employerId || "").trim() === employerId ||
-            (
-              String(entry?.workEmail || "").trim().toLowerCase() &&
-              String(entry?.workEmail || "").trim().toLowerCase() ===
-                String(currentEmployer.workEmail || "").trim().toLowerCase()
-)
-);
-
-        if (!alreadyExists) {
-          employers.push(currentEmployer);
+      function clearError(element, inputElement) {
+        if (inputElement?.closest) {
+          inputElement.closest(".input-wrap")?.classList.remove("field-error");
         }
+        element.textContent = "";
+        element.style.visibility = "hidden";
       }
 
-      return employers;
-    }
-
-    function persistCurrentEmployerSession(employerProfile) {
-      localStorage.setItem("jobassist_current_employer", JSON.stringify(employerProfile));
-    }
-
-      function handleLogin() {
-        const phoneInput = document.getElementById("phoneInput");
-        const passInput = document.getElementById("passInput");
-        const loginError = document.getElementById("loginError");
-
-        phoneInput.closest(".phone-row")?.classList.remove("field-error");
-        clearPasswordFieldError();
-        loginError.style.visibility = "hidden";
-        loginError.textContent = "";
-
-      if (!phoneInput.value.trim() || !passInput.value.trim()) {
-        loginError.textContent = "Phone number and password are required.";
-        loginError.style.visibility = "visible";
-
-        if (!phoneInput.value.trim()) {
-          phoneInput.closest(".phone-row")?.classList.add("field-error");
-        }
-
-        if (!passInput.value.trim()) {
-          passInput.closest(".input-wrap")?.classList.add("field-error");
-        }
-
-        return;
-      }
-
-        const normalizedPhone = normalizePhone(phoneInput.value);
-        const password = passInput.value;
-
-        if (String(password || "").trim().length < 8) {
-          showPasswordFieldError("Password must be at least 8 characters.");
-          return;
-        }
-
-        const matchedEmployer = getStoredEmployers().find((employer) => {
-          const employerPhone = normalizePhone(employer?.phone);
-          return employerPhone === normalizedPhone && String(employer?.password || "") === password;
-      });
-
-      if (!matchedEmployer) {
-        loginError.textContent = "Invalid phone number or password.";
-        loginError.style.visibility = "visible";
-        phoneInput.closest(".phone-row")?.classList.add("field-error");
-        passInput.closest(".input-wrap")?.classList.add("field-error");
-        return;
-      }
-
-      persistCurrentEmployerSession(matchedEmployer);
-      window.location.href = "employer/employer-dashboard.html";
-    }
-
-      loginForm.addEventListener("submit", function (e) {
+      async function handleLogin(e) {
         e.preventDefault();
-        handleLogin();
-      });
 
+        const email = emailInput.value.trim();
+        const password = passInput.value.trim();
+
+        clearError(loginError, emailInput);
+        clearError(emailError, emailInput);
+        clearError(passwordError, passInput);
+
+        if (!email) { showError(emailError, "Email is required."); return; }
+        if (!password) { showError(passwordError, "Password is required."); return; }
+        if (password.length < 8) { showError(passwordError, "Password must be at least 8 characters."); return; }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) { showError(emailError, "Please enter a valid email address."); return; }
+
+        const submitBtn = loginForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Logging in...";
+
+        try {
+          localStorage.removeItem('jobassist_user');
+          localStorage.removeItem('jobassist_current_user');
+          localStorage.removeItem('jobassist_access_token');
+          localStorage.removeItem('jobassist_refresh_token');
+          localStorage.removeItem('jobassist_current_employer');
+
+          const result = await window.JobAssistAPI.Auth.login(email, password);
+
+          if (result?.success) {
+            const user = result?.data?.data?.user;
+            if (user && user.role) {
+              if (user.role === "employer") {
+                window.location.href = "/employer/employer-dashboard.html";
+              } else {
+                window.location.href = "/candidate/candidate-dashboard.html";
+              }
+            } else {
+              showError(loginError, "Invalid user data. Please try again.");
+            }
+          } else {
+            const errorMessage = result?.data?.message || result?.message || "Login failed. Please try again.";
+            showError(loginError, errorMessage);
+          }
+        } catch (error) {
+          showError(loginError, "Network error. Please check your connection.");
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      }
+
+      loginForm.addEventListener("submit", handleLogin);
       initializePasswordToggles();
 
-    document.getElementById("phoneInput").addEventListener("input", function () {
-      this.value = String(this.value || "").replace(/\D/g, "");
-      this.closest(".phone-row")?.classList.remove("field-error");
-      const loginError = document.getElementById("loginError");
-      loginError.style.visibility = "hidden";
-      loginError.textContent = "";
-    });
-
-    document.getElementById("phoneInput").addEventListener("paste", function (e) {
-      e.preventDefault();
-      const pasted = (e.clipboardData || window.clipboardData).getData("text");
-      this.value = pasted.replace(/\D/g, "");
-      this.dispatchEvent(new Event("input", { bubbles: true }));
-    });
-
-    document.getElementById("phoneInput").addEventListener("keydown", function (e) {
-      const allowedKeys = [
-        "Backspace", "Delete", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown",
-        "Tab", "Home", "End", "Enter"
-      ];
-
-      if (allowedKeys.includes(e.key) || (e.ctrlKey || e.metaKey)) {
-        return;
-      }
-
-      if (!/^\d$/.test(e.key)) {
-        e.preventDefault();
-      }
-    });
-
-    document.getElementById("passInput").addEventListener("input", function () {
-      if (String(this.value || "").trim().length >= 8) {
-        clearPasswordFieldError();
-      } else if (!String(this.value || "").trim()) {
-        clearPasswordFieldError();
-      }
-      const loginError = document.getElementById("loginError");
-      loginError.style.visibility = "hidden";
-      loginError.textContent = "";
-    });
+      emailInput.addEventListener("input", function () { clearError(emailError, this); clearError(loginError); });
+      passInput.addEventListener("input", function () { if (this.value.length >= 8) clearError(passwordError, this); clearError(loginError); });
   </script>
 
     <script src='assets/js/product-polish.js'></script>
