@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - Login Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #4ec9b0;
+        }
+        .section {
+            background: #252526;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 3px solid #0e639c;
+            border-radius: 4px;
+        }
+        .success {
+            border-left-color: #4ec9b0;
+        }
+        .error {
+            border-left-color: #f48771;
+            color: #f48771;
+        }
+        .warning {
+            border-left-color: #dcdcaa;
+            color: #dcdcaa;
+        }
+        button {
+            background: #0e639c;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #1177bb;
+        }
+        pre {
+            background: #1e1e1e;
+            padding: 10px;
+            overflow-x: auto;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Login Debug Dashboard</h1>
+    
+    <div class="section">
+        <h2>1. LocalStorage Check</h2>
+        <div id="storageStatus"></div>
+        <button onclick="checkStorage()">Check Storage</button>
+    </div>
+
+    <div class="section">
+        <h2>2. API Test</h2>
+        <input type="email" id="debugEmail" placeholder="Email" value="candidate@test.com">
+        <input type="password" id="debugPassword" placeholder="Password" value="password123">
+        <button onclick="testLogin()">Test Login API</button>
+        <pre id="apiResponse"></pre>
+    </div>
+
+    <div class="section">
+        <h2>3. Session Check</h2>
+        <button onclick="checkSession()">Check Current Session</button>
+        <pre id="sessionResponse"></pre>
+    </div>
+
+    <div class="section">
+        <h2>4. Redirect Test</h2>
+        <button onclick="testRedirect()">Test Redirect to Dashboard</button>
+        <pre id="redirectStatus"></pre>
+    </div>
+
+    <script src="assets/js/api-integration.js"></script>
+    <script src="assets/js/token-manager.js"></script>
+    <script>
+        function checkStorage() {
+            const result = document.getElementById('storageStatus');
+            const token = localStorage.getItem('jobassist_access_token');
+            const user = localStorage.getItem('jobassist_user');
+            
+            let html = '';
+            html += `<div class="section ${token ? 'success' : 'error'}">`;
+            html += `<strong>Access Token:</strong> ${token ? '✅ Present (' + token.substring(0, 30) + '...)' : '❌ Missing'}</div>`;
+            
+            html += `<div class="section ${user ? 'success' : 'error'}">`;
+            html += `<strong>User Data:</strong> ${user ? '✅ Present - ' + JSON.parse(user).email : '❌ Missing'}</div>`;
+            
+            const refreshToken = localStorage.getItem('jobassist_refresh_token');
+            html += `<div class="section ${refreshToken ? 'success' : 'error'}">`;
+            html += `<strong>Refresh Token:</strong> ${refreshToken ? '✅ Present' : '❌ Missing'}</div>`;
+            
+            result.innerHTML = html;
+        }
+
+        async function testLogin() {
+            const result = document.getElementById('apiResponse');
+            const email = document.getElementById('debugEmail').value;
+            const password = document.getElementById('debugPassword').value;
+            
+            result.textContent = 'Testing login...';
+            
+            try {
+                const response = await window.JobAssistAPI.Auth.login(email, password);
+                result.textContent = JSON.stringify(response, null, 2);
+                
+                console.log('✅ Login Response:', response);
+                if (response.success) {
+                    console.log('✅ Login successful!');
+                    checkStorage();
+                }
+            } catch (error) {
+                result.textContent = 'ERROR: ' + error.message + '\n\n' + JSON.stringify(error, null, 2);
+                console.error('❌ Login error:', error);
+            }
+        }
+
+        async function checkSession() {
+            const result = document.getElementById('sessionResponse');
+            result.textContent = 'Checking session...';
+            
+            try {
+                const response = await window.JobAssistAPI.Sessions.getCurrentSession();
+                result.textContent = JSON.stringify(response, null, 2);
+            } catch (error) {
+                result.textContent = 'ERROR: ' + error.message;
+            }
+        }
+
+        function testRedirect() {
+            const result = document.getElementById('redirectStatus');
+            const user = localStorage.getItem('jobassist_user');
+            
+            if (!user) {
+                result.innerHTML = '<div class="error">❌ No user data in localStorage</div>';
+                return;
+            }
+            
+            const userData = JSON.parse(user);
+            result.innerHTML = `<div class="success">✅ User found: ${userData.email}</div>`;
+            result.innerHTML += `<div class="success">✅ Role: ${userData.role}</div>`;
+            
+            const redirectUrl = userData.role === "employer" 
+                ? "employer/employer-dashboard.html"
+                : "candidate/candidate-dashboard.html";
+            
+            result.innerHTML += `<div class="warning">→ Will redirect to: ${redirectUrl}</div>`;
+            result.innerHTML += `<button onclick="window.location.href='${redirectUrl}'">Execute Redirect</button>`;
+        }
+
+        // Auto-check on load
+        window.addEventListener('load', function() {
+            console.log('🔍 Debug page loaded');
+            console.log('API available:', !!window.JobAssistAPI);
+            console.log('Token Manager available:', !!window.JobAssistTokenManager);
+        });
+    </script>
+</body>
+</html>

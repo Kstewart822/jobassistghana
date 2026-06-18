@@ -591,27 +591,100 @@
 
         try {
           // Call API
+          console.log('=== LOGIN DEBUG START ===');
+          console.log('Email:', email);
+          console.log('API Available:', !!window.JobAssistAPI?.Auth);
+          
+          // Clear localStorage before login
+          console.log('Clearing old auth data...');
+          localStorage.removeItem('jobassist_user');
+          localStorage.removeItem('jobassist_current_user');
+          localStorage.removeItem('jobassist_access_token');
+          localStorage.removeItem('jobassist_refresh_token');
+          
           const result = await window.JobAssistAPI.Auth.login(email, password);
+          console.log('=== LOGIN RESPONSE ===');
+          console.log('Result:', result);
+          console.log('Result.success:', result?.success);
+          console.log('Result.status:', result?.status);
+          console.log('Result.data:', result?.data);
+          
+          const userData = result?.data?.data;
+          if (userData) {
+            console.log('Response data.data keys:', Object.keys(userData));
+            console.log('User object:', userData.user);
+            console.log('Has accessToken:', !!userData.accessToken);
+            console.log('Has refreshToken:', !!userData.refreshToken);
+          }
 
-          if (result.success) {
-            // Store user data and redirect
-            const user = result.data?.data?.user;
-            if (user?.role === "employer") {
-              window.location.href = "employer/employer-dashboard.html";
+          // Check what was stored in localStorage
+          console.log('=== CHECKING LOCALSTORAGE AFTER LOGIN ===');
+          const storedUser1 = localStorage.getItem("jobassist_user");
+          const storedUser2 = localStorage.getItem("jobassist_current_user");
+          const storedToken = localStorage.getItem("jobassist_access_token");
+          console.log('jobassist_user:', storedUser1 ? 'Present' : 'Missing');
+          console.log('jobassist_current_user:', storedUser2 ? 'Present' : 'Missing');
+          console.log('jobassist_access_token:', storedToken ? 'Present' : 'Missing');
+
+          if (result?.success) {
+            console.log('✓ Login successful');
+            
+            const user = result?.data?.data?.user;
+            console.log('User from response:', user);
+            console.log('User.id:', user?.id);
+            console.log('User.role:', user?.role);
+            console.log('User.email:', user?.email);
+            
+            if (user && user.role) {
+              console.log('✓ User found, role:', user.role);
+              const redirectUrl =
+                user.role === "employer"
+                  ? "/employer/employer-dashboard.html"
+                  : "/candidate/candidate-dashboard.html";
+              console.log('→ Redirecting to:', redirectUrl);
+              console.log('→ Will execute in 300ms...');
+              
+              setTimeout(() => {
+                console.log('=== REDIRECT EXECUTION ===');
+                console.log('Verifying localStorage again...');
+                const verifyUser = localStorage.getItem("jobassist_current_user");
+                console.log('jobassist_current_user present:', !!verifyUser);
+                if (verifyUser) {
+                  try {
+                    const parsed = JSON.parse(verifyUser);
+                    console.log('Parsed user id:', parsed?.id);
+                    console.log('Parsed user role:', parsed?.role);
+                  } catch (e) {
+                    console.error('Failed to parse stored user:', e);
+                  }
+                }
+                console.log('EXECUTING: window.location.href =', redirectUrl);
+                window.location.href = redirectUrl;
+              }, 300);
+            } else if (user && !user.role) {
+              console.error('✗ User object missing role field');
+              console.log('User object keys:', Object.keys(user || {}));
+              showError(loginError, "Invalid user data. Please try again.");
             } else {
-              window.location.href = "candidate/candidate-dashboard.html";
+              console.error('✗ No user data in response');
+              showError(loginError, "User data not found. Please try again.");
             }
           } else {
-            // Show error
+            console.log('✗ Login failed');
             const errorMessage =
-              result.data?.message ||
-              result.message ||
+              result?.data?.message ||
+              result?.message ||
               "Login failed. Please try again.";
+            console.error('Error:', errorMessage);
             showError(loginError, errorMessage);
           }
+          console.log('=== LOGIN DEBUG END ===');
         } catch (error) {
+          console.error('=== LOGIN EXCEPTION ===');
+          console.error('Error:', error);
+          console.error('Message:', error?.message);
+          console.error('Stack:', error?.stack);
           showError(loginError, "Network error. Please check your connection.");
-          console.error("Login error:", error);
         } finally {
           submitBtn.disabled = false;
           submitBtn.textContent = originalText;

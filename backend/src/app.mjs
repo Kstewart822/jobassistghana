@@ -12,6 +12,7 @@ import { errorHandler, asyncHandler, notFoundHandler } from './middleware/errorH
 import authRoutes from './modules/auth/routes.mjs';
 import jobRoutes from './modules/job/routes.mjs';
 import applicationRoutes from './modules/application/routes.mjs';
+import sessionRoutes from './modules/session/routes.mjs';
 
 const app = express();
 
@@ -64,6 +65,7 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/applications', applicationRoutes);
+app.use('/api/sessions', sessionRoutes);
 // TODO: Import and register other module routes
 // Example: app.use('/api/users', userRoutes);
 // Example: app.use('/api/payments', paymentRoutes);

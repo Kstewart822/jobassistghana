@@ -46,7 +46,11 @@
   function storeAuthData(accessToken, refreshToken, user) {
     if (accessToken) localStorage.setItem(TOKEN_KEY, accessToken);
     if (refreshToken) localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
-    if (user) localStorage.setItem(USER_KEY, JSON.stringify(user));
+    if (user) {
+      localStorage.setItem(USER_KEY, JSON.stringify(user));
+      // Also store in jobassist_current_user for candidate-session.js compatibility
+      localStorage.setItem('jobassist_current_user', JSON.stringify(user));
+    }
   }
 
   /**
@@ -56,6 +60,8 @@
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(REFRESH_TOKEN_KEY);
     localStorage.removeItem(USER_KEY);
+    // Also clear candidate session key
+    localStorage.removeItem('jobassist_current_user');
   }
 
   /**
@@ -371,6 +377,47 @@
   };
 
   /**
+   * SESSION ENDPOINTS
+   */
+  const Sessions = {
+    // Get current session
+    async getCurrentSession() {
+      return request("GET", "/sessions/current");
+    },
+
+    // Get all active sessions
+    async getActiveSessions() {
+      return request("GET", "/sessions/active");
+    },
+
+    // Logout current session
+    async logoutCurrentSession() {
+      return request("DELETE", "/sessions/current");
+    },
+
+    // Logout specific session
+    async logoutSession(sessionId) {
+      return request("DELETE", `/sessions/${sessionId}`);
+    },
+
+    // Logout all sessions
+    async logoutAllSessions() {
+      return request("DELETE", "/sessions");
+    },
+
+    // Sync localStorage with backend session
+    async syncSessionData() {
+      const result = await this.getCurrentSession();
+      if (result.success && result.data) {
+        // Store session data if needed
+        localStorage.setItem("jobassist_session", JSON.stringify(result.data));
+        return result.data;
+      }
+      return null;
+    },
+  };
+
+  /**
    * UTILITY FUNCTIONS
    */
   const Utils = {
@@ -435,6 +482,7 @@
     Auth,
     Jobs,
     Applications,
+    Sessions,
     Utils,
     config: API_CONFIG,
     getAccessToken,
