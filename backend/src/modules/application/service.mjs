@@ -226,11 +226,11 @@ class ApplicationService extends BaseService {
 
       // Update stage based on status
       if (newStatus === 'shortlisted') {
-        application.stage = 'screening';
+        application.stage = 'initial_screening';
       } else if (newStatus === 'offer_extended') {
-        application.stage = 'offer';
+        application.stage = 'offer_stage';
       } else if (newStatus === 'offer_accepted') {
-        application.stage = 'hired';
+        application.stage = 'completed';
       } else if (newStatus === 'rejected') {
         application.stage = 'rejected';
       }

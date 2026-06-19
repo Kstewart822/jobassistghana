@@ -7,6 +7,7 @@ import BaseService from '../lib/baseService.mjs';
 import { tokenService } from './tokenService.mjs';
 import { config } from '../config/environment.mjs';
 import logger from '../utils/logger.mjs';
+import crypto from 'node:crypto';
 import { AuthenticationError, ConflictError, NotFoundError, ValidationError } from '../lib/errors.mjs';
 
 export class AuthService extends BaseService {
@@ -201,7 +202,7 @@ export class AuthService extends BaseService {
 
       // Generate reset token (6 digits + timestamp hash)
       const resetToken = Math.random().toString(36).slice(2, 8).toUpperCase();
-      const resetTokenHash = await require('crypto').createHash('sha256').update(resetToken).digest('hex');
+      const resetTokenHash = crypto.createHash('sha256').update(resetToken).digest('hex');
 
       user.passwordResetToken = resetTokenHash;
       user.passwordResetExpires = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
