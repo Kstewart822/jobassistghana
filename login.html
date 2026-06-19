@@ -637,10 +637,14 @@
             
             if (user && user.role) {
               console.log('✓ User found, role:', user.role);
-              const redirectUrl =
-                user.role === "employer"
-                  ? "/employer/employer-dashboard.html"
-                  : "/candidate/candidate-dashboard.html";
+              let redirectUrl;
+              if (user.role === "employer") {
+                redirectUrl = "/employer/employer-dashboard.html";
+              } else if (user.role === "admin") {
+                redirectUrl = "/candidate/candidate-dashboard.html";
+              } else {
+                redirectUrl = "/candidate/candidate-dashboard.html";
+              }
               console.log('→ Redirecting to:', redirectUrl);
               console.log('→ Will execute in 300ms...');
               

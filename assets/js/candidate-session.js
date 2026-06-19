@@ -131,11 +131,15 @@
     return user && typeof user === "object" ? user : null;
   }
 
+  function getEffectiveRole(user) {
+    return (user?.role || user?.userType || "").toString().trim().toLowerCase();
+  }
+
   function getCurrentCandidate() {
     const user = getCurrentUser();
-    if (!user || String(user.userType || "").trim().toLowerCase() !== "candidate") {
-      return {};
-    }
+    if (!user) return {};
+    const role = getEffectiveRole(user);
+    if (role !== "candidate" && role !== "admin") return {};
     return createCandidateSessionProfile(user);
   }
 
@@ -222,7 +226,7 @@
     const currentUser = getCurrentUser();
     if (
       currentUser &&
-      String(currentUser.userType || "").trim().toLowerCase() === "candidate" &&
+      getEffectiveRole(currentUser) === "candidate" &&
       normalizePhone(currentUser?.phone) === normalizedPhone &&
       String(currentUser?.password || "").trim() === normalizedPassword
     ) {
@@ -426,7 +430,7 @@
     const currentUser = getCurrentUser();
     const currentSessionMatch =
       currentUser &&
-      String(currentUser.userType || "").trim().toLowerCase() === "candidate" &&
+      getEffectiveRole(currentUser) === "candidate" &&
       getCandidateId(currentUser) === getCandidateId(baseProfile)
         ? currentUser
         : null;

@@ -47,12 +47,17 @@
     if (accessToken) localStorage.setItem(TOKEN_KEY, accessToken);
     if (refreshToken) localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
     if (user) {
-      localStorage.setItem(USER_KEY, JSON.stringify(user));
+      // Ensure userType is set from role for full compatibility
+      const userData = { ...user };
+      if (!userData.userType && userData.role) {
+        userData.userType = userData.role;
+      }
+      localStorage.setItem(USER_KEY, JSON.stringify(userData));
       // Store in jobassist_current_user for candidate-session.js compatibility
-      localStorage.setItem('jobassist_current_user', JSON.stringify(user));
+      localStorage.setItem('jobassist_current_user', JSON.stringify(userData));
       // Store in jobassist_current_employer for employer pages compatibility
-      if (user.role === 'employer') {
-        localStorage.setItem('jobassist_current_employer', JSON.stringify(user));
+      if (userData.role === 'employer') {
+        localStorage.setItem('jobassist_current_employer', JSON.stringify(userData));
       } else {
         localStorage.removeItem('jobassist_current_employer');
       }
