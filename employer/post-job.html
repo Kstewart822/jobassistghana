@@ -2007,7 +2007,21 @@
         });
       });
 
-      jobPostForm.addEventListener("submit", function (e) {
+      // Try API first
+      async function submitJobViaAPI(jobData) {
+        if (!window.JobAssistAPI) return false;
+        try {
+          const result = await JobAssistAPI.Jobs.createJob(jobData);
+          if (result?.success) {
+            return true;
+          }
+        } catch (e) {
+          console.warn('API job creation failed, using localStorage:', e);
+        }
+        return false;
+      }
+
+      jobPostForm.addEventListener("submit", async function (e) {
         e.preventDefault();
         if (submitBtn.dataset.loading === "true") return;
         if (submitBtn.dataset.locationLocked === "missing") return;
@@ -2101,6 +2115,29 @@
                   status: "draft_payment_pending",
                   createdAt: new Date().toISOString(),
                 };
+
+        // Attempt API submission
+        const salaryMatch = formData.salaryRange.match(/GHS\s*([\d,]+)\s*-\s*GHS\s*([\d,]+)/);
+        const apiJobData = {
+          title: formData.jobTitle,
+          description: formData.jobDescription,
+          category: Array.isArray(formData.jobCategory) ? formData.jobCategory[0] : formData.jobCategory || 'Other',
+          jobType: formData.jobTypeCategory,
+          experienceLevel: formData.experienceLevel,
+          salary: {
+            min: salaryMatch ? parseInt(salaryMatch[1].replace(/,/g, '')) : 0,
+            max: salaryMatch ? parseInt(salaryMatch[2].replace(/,/g, '')) : 0,
+            currency: 'GHS'
+          },
+          location: formData.location,
+          skills: (formData.requirements || '').split(',').map(s => s.trim()).filter(Boolean),
+          applicationDeadline: formData.applicationDeadline || formData.deadline || ''
+        };
+        const apiSuccess = await submitJobViaAPI(apiJobData);
+        if (apiSuccess) {
+          window.location.href = 'employer-dashboard.html';
+          return;
+        }
 
         try {
           const isPremiumPosting = selectedJobTypeInput.value === "premium";

@@ -48,8 +48,14 @@
     if (refreshToken) localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
     if (user) {
       localStorage.setItem(USER_KEY, JSON.stringify(user));
-      // Also store in jobassist_current_user for candidate-session.js compatibility
+      // Store in jobassist_current_user for candidate-session.js compatibility
       localStorage.setItem('jobassist_current_user', JSON.stringify(user));
+      // Store in jobassist_current_employer for employer pages compatibility
+      if (user.role === 'employer') {
+        localStorage.setItem('jobassist_current_employer', JSON.stringify(user));
+      } else {
+        localStorage.removeItem('jobassist_current_employer');
+      }
     }
   }
 
@@ -60,8 +66,10 @@
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(REFRESH_TOKEN_KEY);
     localStorage.removeItem(USER_KEY);
-    // Also clear candidate session key
     localStorage.removeItem('jobassist_current_user');
+    localStorage.removeItem('jobassist_current_employer');
+    localStorage.removeItem('jobassist_employer_jobs');
+    localStorage.removeItem('jobassist_applications');
   }
 
   /**
@@ -470,6 +478,13 @@
 
     // Logout and redirect
     logout: async () => {
+      try {
+        if (getAccessToken()) {
+          await request("POST", "/auth/logout");
+        }
+      } catch (e) {
+        // Ignore API errors during logout
+      }
       clearAuthData();
       window.location.href = "/index.html";
     },

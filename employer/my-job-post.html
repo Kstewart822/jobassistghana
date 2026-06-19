@@ -2355,7 +2355,47 @@
       let currentJobToDelete = null;
       let currentJobId = null;
 
-      document.addEventListener("DOMContentLoaded", function () {
+      async function loadJobsFromAPI() {
+        if (!window.JobAssistAPI) return false;
+        try {
+          const employer = getCurrentEmployerProfile();
+          const employerId = employer.id || employer.employerId || employer.userId || '';
+          if (!employerId) return false;
+          const result = await JobAssistAPI.Jobs.getJobsByEmployer(employerId);
+          if (result?.success && Array.isArray(result.data)) {
+            localStorage.setItem('jobassist_employer_jobs', JSON.stringify(result.data));
+            return true;
+          }
+        } catch (e) {
+          console.warn('API job loading failed, using localStorage:', e);
+        }
+        return false;
+      }
+
+      async function publishJobViaAPI(jobId) {
+        if (!window.JobAssistAPI) return false;
+        try {
+          const result = await JobAssistAPI.Jobs.publishJob(jobId);
+          if (result?.success) return true;
+        } catch (e) {
+          console.warn('API publish failed:', e);
+        }
+        return false;
+      }
+
+      async function closeJobViaAPI(jobId) {
+        if (!window.JobAssistAPI) return false;
+        try {
+          const result = await JobAssistAPI.Jobs.closeJob(jobId);
+          if (result?.success) return true;
+        } catch (e) {
+          console.warn('API close failed:', e);
+        }
+        return false;
+      }
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        await loadJobsFromAPI();
         setEmployerIdentity();
         renderEmployerNotifications();
         setupEventListeners();
@@ -2830,7 +2870,14 @@
         deleteModal.classList.add("show");
       }
 
-      function deleteJob(jobId) {
+      async function deleteJob(jobId) {
+        if (window.JobAssistAPI) {
+          try {
+            await JobAssistAPI.Jobs.deleteJob(jobId);
+          } catch (e) {
+            console.warn('API delete failed, using localStorage:', e);
+          }
+        }
         const jobs = getEmployerJobsRaw().filter(
           (job) => String(job.jobId || job.id) !== String(jobId)
         );

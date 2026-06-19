@@ -2687,6 +2687,30 @@
           : "This is your live application hub. Track progress, keep your profile ready, and move quickly on strong opportunities.";
       }
 
+      // API integration - fetch real data
+      async function loadDashboardFromAPI() {
+        if (!window.JobAssistAPI) return;
+        try {
+          const appsResult = await JobAssistAPI.Applications.getMyApplications({ limit: 100 });
+          if (appsResult?.success && appsResult?.data?.data?.applications) {
+            const apps = appsResult.data.data.applications;
+            const total = apps.length;
+            const inReview = apps.filter(a => a.status === 'pending' || a.status === 'review').length;
+            const accepted = apps.filter(a => a.status === 'accepted' || a.status === 'shortlisted').length;
+            const rejected = apps.filter(a => a.status === 'rejected' || a.status === 'withdrawn').length;
+
+            document.querySelectorAll('.stat-number, .stat-value').forEach(el => {
+              const text = el.textContent.trim();
+              if (text === '0' || /^\d+$/.test(text)) {
+              }
+            });
+          }
+        } catch (e) {
+          console.warn('API dashboard load failed, using localStorage fallback:', e);
+        }
+      }
+      loadDashboardFromAPI();
+
       const applicationsGrid = document.getElementById("applicationsGrid");
       const acceptedOffersGrid = document.getElementById("acceptedOffersGrid");
       const allDashboardApplications = getDashboardApplicationsStore()
