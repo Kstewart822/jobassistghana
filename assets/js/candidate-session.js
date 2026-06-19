@@ -742,8 +742,12 @@
     const confirmLogoutButton = document.getElementById("confirmLogout");
     if (confirmLogoutButton && !confirmLogoutButton.dataset.candidateSessionBound) {
       confirmLogoutButton.dataset.candidateSessionBound = "true";
-      confirmLogoutButton.addEventListener("click", function () {
+      confirmLogoutButton.addEventListener("click", async function () {
+        if (window.JobAssistAPI) {
+          await JobAssistAPI.Auth.logout().catch(function () {});
+        }
         clearSession();
+        window.location.href = "/login.html";
       });
     }
   });

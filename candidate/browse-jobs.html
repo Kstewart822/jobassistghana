@@ -2573,9 +2573,9 @@
       let currentSearchQuery = "";
       let currentQuickFilter = "all";
 
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("DOMContentLoaded", async function () {
         jobsPerPage = getJobsPerPage();
-        allJobs = loadAllJobs();
+        allJobs = await loadAllJobs();
         filteredJobs = [...allJobs];
         displayJobs();
         setupEventListeners();
@@ -2894,6 +2894,50 @@
         };
       }
 
+      function mapApiJobToLocalFormat(apiJob) {
+        return {
+          jobId: apiJob._id,
+          id: apiJob._id,
+          jobTitle: apiJob.title,
+          jobDescription: apiJob.description,
+          category: apiJob.category,
+          jobType: apiJob.jobType,
+          location: apiJob.location,
+          salaryRange: apiJob.salary ? (typeof apiJob.salary === 'object' ? `${apiJob.salary.min || ''} - ${apiJob.salary.max || ''}` : apiJob.salary) : '',
+          employerId: apiJob.employerId,
+          skills: apiJob.skills || [],
+          datePosted: apiJob.createdAt,
+          expiryDate: apiJob.expiresAt,
+          status: apiJob.status,
+          applications: apiJob.applicationCount || 0,
+          company: apiJob.company || apiJob.employerProfileId?.companyName || '',
+        };
+      }
+
+      async function fetchJobsFromAPI() {
+        if (!window.JobAssistAPI) return null;
+        try {
+          const result = await JobAssistAPI.Jobs.listJobs({ limit: 50 });
+          if (result?.success && result?.data?.data?.jobs) {
+            return result.data.data.jobs;
+          }
+        } catch (e) {
+          console.warn('API job fetch failed:', e);
+        }
+        return null;
+      }
+
+      async function submitApplicationViaAPI(jobId, coverLetter) {
+        if (!window.JobAssistAPI) return false;
+        try {
+          const result = await JobAssistAPI.Applications.submitApplication(jobId, coverLetter || '');
+          return result?.success === true;
+        } catch (e) {
+          console.warn('API application submission failed:', e);
+        }
+        return false;
+      }
+
       function getApplicationForCurrentJob(jobId) {
         const normalizedJobId = String(jobId || "").trim();
         if (!normalizedJobId) return null;
@@ -2930,8 +2974,16 @@
         return `boost-profile.html?jobId=${encodeURIComponent(normalizedJobId)}`;
       }
 
-      function loadAllJobs() {
-        const employerJobs = getStoredEmployerJobs()
+      async function loadAllJobs() {
+        const apiJobs = await fetchJobsFromAPI();
+        let sourceJobs;
+        if (apiJobs && apiJobs.length > 0) {
+          sourceJobs = apiJobs.map(mapApiJobToLocalFormat);
+        } else {
+          sourceJobs = getStoredEmployerJobs();
+        }
+
+        const employerJobs = sourceJobs
           .filter((job) => {
             if (!jobPostingExpiry?.getJobLifecycle) {
               if (job.isClosed) return false;
@@ -3376,7 +3428,7 @@
         }, 500);
       }
 
-      function resetFilters() {
+      async function resetFilters() {
         regionFilter.value = "";
         jobTypeFilter.value = "";
         salaryFilter.value = "";
@@ -3393,7 +3445,7 @@
         });
 
         currentQuickFilter = "all";
-        allJobs = loadAllJobs();
+        allJobs = await loadAllJobs();
         filteredJobs = [...allJobs];
         currentPage = 1;
         displayJobs();
@@ -3412,13 +3464,13 @@
         `;
       }
 
-      function displayJobs(options = {}) {
+      async function displayJobs(options = {}) {
         const { scrollToTop = false } = options;
 
         appliedJobs = window.JobAssistApplications
           ? window.JobAssistApplications.loadApplications()
           : JSON.parse(localStorage.getItem(APPLICATIONS_KEY)) || [];
-        allJobs = loadAllJobs();
+        allJobs = await loadAllJobs();
         jobsPerPage = getJobsPerPage();
 
         const filteredIds = new Set(filteredJobs.map((job) => job.id));
@@ -3587,7 +3639,7 @@
         applicationModal.classList.remove("show");
       }
 
-      function submitApplication(tierType, allowWithoutDocuments = false) {
+      async function submitApplication(tierType, allowWithoutDocuments = false) {
         if (!currentJobData) return;
 
         const candidateProfile = getCurrentCandidateProfile();
@@ -3693,6 +3745,14 @@
           isPremium: tierType === "premium",
           status: "In Review",
         };
+
+        const apiSuccess = await submitApplicationViaAPI(normalizedJobId, currentJobData.title || currentJobData.jobTitle || '');
+        if (apiSuccess) {
+          const mockApplication = { ...applicationData, applicationId: `API-${Date.now()}` };
+          lastSubmittedApplication = mockApplication;
+          showApplicationSuccess(tierType, mockApplication);
+          return;
+        }
 
         if (tierType === "free") {
           let createdApplication = applicationData;

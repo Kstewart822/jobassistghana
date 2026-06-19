@@ -1940,6 +1940,41 @@
         }
       }
 
+      async function fetchMyApplicationsFromAPI() {
+        if (!window.JobAssistAPI) return null;
+        try {
+          const result = await JobAssistAPI.Applications.getMyApplications({ limit: 100 });
+          if (result?.success && result?.data?.data?.applications) {
+            return result.data.data.applications;
+          }
+        } catch (e) {
+          console.warn('API application fetch failed:', e);
+        }
+        return null;
+      }
+
+      async function withdrawApplicationViaAPI(applicationId) {
+        if (!window.JobAssistAPI) return false;
+        try {
+          const result = await JobAssistAPI.Applications.withdrawApplication(applicationId);
+          return result?.success === true;
+        } catch (e) {
+          console.warn('API withdraw failed:', e);
+        }
+        return false;
+      }
+
+      async function deleteApplicationViaAPI(applicationId) {
+        if (!window.JobAssistAPI) return false;
+        try {
+          const result = await JobAssistAPI.Applications.deleteApplication(applicationId);
+          return result?.success === true;
+        } catch (e) {
+          console.warn('API delete failed:', e);
+        }
+        return false;
+      }
+
       function getStoredEmployerJobs() {
         const stored = safeJSONParse(localStorage.getItem(JOB_POSTS_KEY));
         return Array.isArray(stored) ? stored : [];
@@ -2439,24 +2474,47 @@
         });
       }
 
-      function withdrawApplication(applicationId) {
-        if (window.JobAssistApplications) {
-          window.JobAssistApplications.deleteApplication(applicationId);
-        } else {
-          const applications = getAppliedJobs().filter(
-            (item) => String(item.applicationId || item.id) !== String(applicationId)
-          );
-          saveAppliedJobs(applications);
+      async function withdrawApplication(applicationId) {
+        const viaAPI = await withdrawApplicationViaAPI(applicationId);
+        if (!viaAPI) {
+          if (window.JobAssistApplications) {
+            window.JobAssistApplications.deleteApplication(applicationId);
+          } else {
+            const applications = getAppliedJobs().filter(
+              (item) => String(item.applicationId || item.id) !== String(applicationId)
+            );
+            saveAppliedJobs(applications);
+          }
         }
 
         renderApplications();
       }
 
-      function initializePage() {
+      async function deleteApplication(applicationId) {
+        const viaAPI = await deleteApplicationViaAPI(applicationId);
+        if (!viaAPI) {
+          if (window.JobAssistApplications) {
+            window.JobAssistApplications.deleteApplication(applicationId);
+          } else {
+            const applications = getAppliedJobs().filter(
+              (item) => String(item.applicationId || item.id) !== String(applicationId)
+            );
+            saveAppliedJobs(applications);
+          }
+        }
+
+        renderApplications();
+      }
+
+      async function initializePage() {
         const currentCandidate = getCurrentCandidate();
         const applicationsUserName = document.getElementById("applicationsUserName");
         if (applicationsUserName) {
           applicationsUserName.textContent = getCurrentCandidateFirstName(currentCandidate);
+        }
+        const apiData = await fetchMyApplicationsFromAPI();
+        if (apiData) {
+          saveAppliedJobs(apiData);
         }
         renderApplications();
       }

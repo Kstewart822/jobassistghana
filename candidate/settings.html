@@ -2628,6 +2628,18 @@
         return JSON.parse(localStorage.getItem("jobassist_current_user") || "null") || {};
       }
 
+      async function updateProfileViaAPI(updates) {
+        if (!window.JobAssistAPI) return false;
+        try { const r = await JobAssistAPI.Auth.updateProfile(updates); return r?.success === true; }
+        catch(e) { return false; }
+      }
+
+      async function changePasswordViaAPI(oldPwd, newPwd, confirmPwd) {
+        if (!window.JobAssistAPI) return false;
+        try { const r = await JobAssistAPI.Auth.changePassword(oldPwd, newPwd, confirmPwd); return r?.success === true; }
+        catch(e) { return false; }
+      }
+
       function persistCurrentCandidateProfile(updates) {
         const currentCandidate = getCurrentCandidateProfile();
         const nextCandidate = { ...currentCandidate, ...updates };
@@ -2650,12 +2662,14 @@
       }
 
       // Profile Form Submission
-      profileForm.addEventListener("submit", function (e) {
+      profileForm.addEventListener("submit", async function (e) {
         e.preventDefault();
         const hardener = window.JobAssistInputHardening;
         const jobAlerts = hardener?.sanitizeText
           ? hardener.sanitizeText(document.getElementById("jobAlerts").value, { maxLength: 80 })
           : document.getElementById("jobAlerts").value;
+
+        await updateProfileViaAPI({ jobAlerts });
 
         // Save job alert preference
         localStorage.setItem("jobAlertPreference", jobAlerts);
@@ -2713,7 +2727,7 @@
       });
 
       // Security Settings
-      saveSecurityBtn.addEventListener("click", function () {
+      saveSecurityBtn.addEventListener("click", async function () {
         const currentPassword =
           document.getElementById("currentPassword").value;
         const newPassword = document.getElementById("newPassword").value;
@@ -2731,6 +2745,10 @@
         if (newPassword && newPassword.length < 8) {
           showErrorMessage("Password must be at least 8 characters.");
           return;
+        }
+
+        if (newPassword) {
+          await changePasswordViaAPI(currentPassword, newPassword, confirmPassword);
         }
 
         const currentCandidate = getCurrentCandidateProfile();

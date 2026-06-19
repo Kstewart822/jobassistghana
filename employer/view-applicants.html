@@ -2720,7 +2720,37 @@
         return getStoredUnlockedApplicantIds().includes(String(applicationId || ""));
       }
 
-      function syncApplicantsForJob(jobId) {
+      async function syncApplicantsForJob(jobId) {
+        const jobKey = String(jobId || "");
+        const storedUnlockedIds = getStoredUnlockedApplicantIds();
+
+        const apiApplicants = await fetchApplicantsFromAPI(jobId);
+        if (Array.isArray(apiApplicants) && apiApplicants.length) {
+          const jobApplicants = apiApplicants.filter(
+            (app) => String(app.jobId || app.id || "") === jobKey
+          );
+          if (window.JobAssistApplications?.compareApplicationsByPriority) {
+            jobApplicants.sort(window.JobAssistApplications.compareApplicationsByPriority);
+          } else {
+            jobApplicants.sort((a, b) => {
+              const rank = (user) => {
+                if (user?.boostType === "enterprise") return 4;
+                if (user?.boostType === "professional") return 3;
+                if (user?.isPremium) return 2;
+                return 1;
+              };
+              const rankDifference = rank(b) - rank(a);
+              if (rankDifference !== 0) return rankDifference;
+              return new Date(b?.appliedAt || 0) - new Date(a?.appliedAt || 0);
+            });
+          }
+          unlockedApplicants = jobApplicants.filter((app) =>
+            storedUnlockedIds.includes(String(app.applicationId || app.id || ""))
+          );
+          allApplicants = jobApplicants;
+          return;
+        }
+
         if (!findJobById(jobId)) {
           unlockedApplicants = [];
           allApplicants = [];
@@ -2733,8 +2763,6 @@
               const allApplications = safeJSONParse(localStorage.getItem(APPLICATIONS_KEY));
               return Array.isArray(allApplications) ? allApplications : [];
             })();
-        const jobKey = String(jobId || "");
-        const storedUnlockedIds = getStoredUnlockedApplicantIds();
 
         const jobApplicants = applications.filter(
           (app) => String(app.jobId || app.id || "") === jobKey
@@ -3305,6 +3333,7 @@
                 <div class="applicant-actions">
                   <button class="btn btn-secondary status-action" data-action="accept" data-id="${escapeHtml(applicationId)}" type="button">Accept</button>
                   <button class="btn btn-danger status-action" data-action="reject" data-id="${escapeHtml(applicationId)}" type="button">Reject</button>
+                  <button class="btn btn-secondary status-action" data-action="interview" data-id="${escapeHtml(applicationId)}" type="button">Schedule Interview</button>
                 </div>
               </div>
             </div>
@@ -3338,7 +3367,12 @@
         card.querySelectorAll(".status-action").forEach((button) => {
           button.addEventListener("click", function (event) {
             event.stopPropagation();
-            const nextStatus = this.getAttribute("data-action") === "accept" ? "Accepted" : "Rejected";
+            const action = this.getAttribute("data-action");
+            if (action === "interview") {
+              scheduleInterviewForApplicant(this.getAttribute("data-id"));
+              return;
+            }
+            const nextStatus = action === "accept" ? "Accepted" : "Rejected";
             const feedbackMessage =
               nextStatus === "Accepted"
                 ? "Accepted. Candidate has been notified."
@@ -3523,25 +3557,33 @@
         return { label: "In Review", className: "" };
       }
 
-      function updateApplicantStatus(applicationId, status) {
+      async function updateApplicantStatus(applicationId, status) {
         const feedbackMessage =
           status === "Accepted"
             ? "Accepted. Candidate has been notified."
             : "Rejected. Candidate has been notified.";
 
-        if (!window.JobAssistApplications) {
+        const apiSuccess = await updateStatusViaAPI(applicationId, status);
+
+        if (!apiSuccess && !window.JobAssistApplications) {
           showToast("Application store unavailable. Please refresh the page.");
           return;
         }
 
-        const updatedApplication = window.JobAssistApplications.setApplicationStatus(applicationId, status);
-        if (!updatedApplication) {
+        const updatedLocally = window.JobAssistApplications?.setApplicationStatus(applicationId, status);
+        if (!updatedLocally && !apiSuccess) {
           showToast(feedbackMessage, "success");
           return;
         }
 
-        createCandidateStatusNotification(updatedApplication, status);
-        syncApplicantsForJob(currentJobId);
+        const app = allApplicants.find(a => (a.applicationId || a.id) == applicationId);
+        if (app) {
+          app.status = status;
+          createCandidateStatusNotification(app, status);
+        }
+
+        showToast(feedbackMessage, "success");
+        await syncApplicantsForJob(currentJobId);
         applyApplicantFiltersToList();
         renderApplicants();
         renderUnlockedApplicants();
@@ -3711,10 +3753,10 @@
         return applicants;
       }
 
-      document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("DOMContentLoaded", async () => {
         const jobIdKey = getJobIdFromUrl();
         currentJobId = jobIdKey;
-        syncApplicantsForJob(currentJobId);
+        await syncApplicantsForJob(currentJobId);
         setFilterPanelOpen(false);
 
         filteredApplicants = [...allApplicants];
@@ -3780,7 +3822,7 @@
         setupUnlockedPagination();
       });
 
-      function handlePaymentReturn(safeJobIdKey) {
+      async function handlePaymentReturn(safeJobIdKey) {
         const paymentSuccess = getPaymentSuccessFromUrl();
         if (paymentSuccess !== "true") return;
 
@@ -3788,7 +3830,7 @@
           safeJSONParse(sessionStorage.getItem("jobassist_payment_data")) ||
           safeJSONParse(sessionStorage.getItem("paymentData"));
 
-        syncApplicantsForJob(currentJobId);
+        await syncApplicantsForJob(currentJobId);
         filteredApplicants = [...allApplicants];
         filteredUnlockedApplicants = [...unlockedApplicants];
         currentPage = 1;
@@ -4331,6 +4373,77 @@
         const normalizedMessage = String(message || "").trim();
         if (!normalizedMessage) return;
         showToast(normalizedMessage, "success");
+      }
+
+      async function fetchApplicantsFromAPI(jobId) {
+        if (!window.JobAssistAPI) return null;
+        try {
+          const filters = {};
+          if (jobId) filters.jobId = jobId;
+          const result = await JobAssistAPI.Applications.getEmployerApplications(filters);
+          if (result?.success && result?.data?.data?.applications) {
+            return result.data.data.applications;
+          }
+        } catch (e) {
+          console.warn('API applicant fetch failed:', e);
+        }
+        return null;
+      }
+
+      async function updateStatusViaAPI(applicationId, newStatus) {
+        if (!window.JobAssistAPI) return false;
+        try {
+          const result = await JobAssistAPI.Applications.updateApplicationStatus(applicationId, newStatus);
+          return result?.success === true;
+        } catch (e) {
+          console.warn('API status update failed:', e);
+        }
+        return false;
+      }
+
+      async function scheduleInterviewViaAPI(applicationId, interviewData) {
+        if (!window.JobAssistAPI) return false;
+        try {
+          const result = await JobAssistAPI.Applications.scheduleInterview(applicationId, interviewData);
+          return result?.success === true;
+        } catch (e) {
+          console.warn('API interview scheduling failed:', e);
+        }
+        return false;
+      }
+
+      async function scheduleInterviewForApplicant(applicationId) {
+        const applicantName = allApplicants.find(a => (a.applicationId || a.id) == applicationId)?.name || 'this applicant';
+        const scheduledDate = prompt(`Schedule interview for ${applicantName}\n\nEnter date and time (e.g., 2026-07-15 10:00):`);
+        if (!scheduledDate || !scheduledDate.trim()) return;
+        const dateObj = new Date(scheduledDate);
+        if (isNaN(dateObj.getTime())) {
+          showToast("Invalid date format. Please try again.", "error");
+          return;
+        }
+        const interviewData = {
+          scheduledAt: dateObj.toISOString(),
+          notes: prompt('Optional: Add interview notes or instructions:') || '',
+        };
+        const apiSuccess = await scheduleInterviewViaAPI(applicationId, interviewData);
+        if (apiSuccess) {
+          if (window.JobAssistApplications?.setApplicationStatus) {
+            const updated = window.JobAssistApplications.setApplicationStatus(applicationId, 'Interview Scheduled');
+            if (updated) createCandidateStatusNotification(updated, 'Interview Scheduled');
+          }
+          showToast("Interview scheduled successfully!", "success");
+        } else {
+          if (window.JobAssistApplications?.setApplicationStatus) {
+            window.JobAssistApplications.setApplicationStatus(applicationId, 'Interview Scheduled');
+          }
+          showToast("Interview scheduled (local). Sync with server may be needed.", "success");
+        }
+        syncApplicantsForJob(currentJobId);
+        applyApplicantFiltersToList();
+        renderApplicants();
+        renderUnlockedApplicants();
+        setupPagination();
+        setupUnlockedPagination();
       }
 
       function populateSelectOptions(selectEl, values, defaultLabel) {

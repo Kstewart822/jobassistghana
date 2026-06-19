@@ -2242,7 +2242,7 @@
         document.getElementById("applicationModal").classList.remove("show");
       }
 
-      function submitApplication(tierType, allowWithoutDocuments = false) {
+      async function submitApplication(tierType, allowWithoutDocuments = false) {
         if (!currentJobData) return;
         if (jobPostingExpiry?.isJobExpired?.(currentJobData)) {
           document.getElementById("expiredJobNotice").style.display = "block";
@@ -2338,6 +2338,9 @@
 
         if (tierType === "free") {
           let createdApplication = applicationData;
+
+          // Try API first, fall back to localStorage
+          await submitApplicationViaAPI(normalizedJobId, '');
 
           try {
             if (!window.JobAssistApplications) {
@@ -2583,9 +2586,53 @@
         window.location.href = `report.html?job=${jobData}`;
       }
 
-      function initializePage() {
+      async function fetchJobFromAPI(jobId) {
+        if (!window.JobAssistAPI) return null;
+        try {
+          const result = await JobAssistAPI.Jobs.getJobById(jobId);
+          if (result?.success && result?.data?.data) {
+            const apiJob = result.data.data;
+            return {
+              jobId: apiJob._id,
+              id: apiJob._id,
+              jobTitle: apiJob.title,
+              jobDescription: apiJob.description,
+              category: apiJob.category,
+              jobType: apiJob.jobType,
+              location: apiJob.location,
+              salaryRange: apiJob.salary ? (typeof apiJob.salary === 'object' ? `${apiJob.salary.min || ''} - ${apiJob.salary.max || ''}` : apiJob.salary) : '',
+              employerId: apiJob.employerId,
+              skills: apiJob.skills || [],
+              datePosted: apiJob.createdAt,
+              expiryDate: apiJob.expiresAt,
+              status: apiJob.status,
+              applications: apiJob.applicationCount || 0,
+              company: apiJob.company || '',
+            };
+          }
+        } catch (e) {
+          console.warn('API job detail fetch failed:', e);
+        }
+        return null;
+      }
+
+      async function submitApplicationViaAPI(jobId, coverLetter) {
+        if (!window.JobAssistAPI) return false;
+        try {
+          const result = await JobAssistAPI.Applications.submitApplication(jobId, coverLetter || '');
+          return result?.success === true;
+        } catch (e) {
+          console.warn('API application submission failed:', e);
+        }
+        return false;
+      }
+
+      async function initializePage() {
         const jobId = getJobIdFromURL();
-        const jobData = findJobById(jobId);
+        let jobData = await fetchJobFromAPI(jobId);
+        if (!jobData) {
+          jobData = findJobById(jobId);
+        }
         const sourcePage = getSourcePage();
 
         if (!jobData) {

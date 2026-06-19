@@ -2062,6 +2062,32 @@
         return JSON.parse(localStorage.getItem("jobassist_applications") || "[]");
       }
 
+      async function loadProfileFromAPI() {
+        if (!window.JobAssistAPI) return;
+        try {
+          const result = await JobAssistAPI.Auth.getProfile();
+          if (result?.success && result?.data?.data) {
+            const profile = result.data.data;
+            const nameEl = document.getElementById('profileName') || document.querySelector('.profile-name');
+            const emailEl = document.getElementById('profileEmail') || document.querySelector('.profile-email');
+            const phoneEl = document.getElementById('profilePhone') || document.querySelector('.profile-phone');
+            if (nameEl) nameEl.textContent = profile.name || profile.fullName || '';
+            if (emailEl) emailEl.textContent = profile.email || '';
+            if (phoneEl) phoneEl.textContent = profile.phone || '';
+            localStorage.setItem('jobassist_current_user', JSON.stringify(profile));
+            localStorage.setItem('jobassist_current_user', JSON.stringify(profile));
+          }
+        } catch (e) {}
+      }
+
+      async function updateProfileViaAPI(updates) {
+        if (!window.JobAssistAPI) return false;
+        try {
+          const result = await JobAssistAPI.Auth.updateProfile(updates);
+          return result?.success === true;
+        } catch (e) { return false; }
+      }
+
       function persistCandidateProfileUpdates(updates) {
         const currentProfile = getCurrentCandidateProfile();
         const nextProfile = { ...currentProfile, ...updates };
@@ -2303,7 +2329,7 @@
       }
 
       // Handle form submission
-      profileForm.addEventListener("submit", function (e) {
+      profileForm.addEventListener("submit", async function (e) {
         e.preventDefault();
 
         try {
@@ -2341,6 +2367,8 @@
               formatSkillDisplay(skill, 60)
             ),
           };
+
+          await updateProfileViaAPI(formData);
 
           localStorage.setItem("profileData", JSON.stringify(formData));
 
@@ -2461,6 +2489,7 @@
         initializeProfile();
         loadSavedProfilePhoto();
         loadSavedFormData();
+        loadProfileFromAPI();
 
         // Change the logout button to red
         const logoutButton = document.getElementById("confirmLogout");

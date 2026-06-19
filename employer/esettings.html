@@ -1787,6 +1787,18 @@
         return profile;
       }
 
+      async function updateProfileViaAPI(updates) {
+        if (!window.JobAssistAPI) return false;
+        try { const r = await JobAssistAPI.Auth.updateProfile(updates); return r?.success === true; }
+        catch(e) { return false; }
+      }
+
+      async function changePasswordViaAPI(oldPwd, newPwd, confirmPwd) {
+        if (!window.JobAssistAPI) return false;
+        try { const r = await JobAssistAPI.Auth.changePassword(oldPwd, newPwd, confirmPwd); return r?.success === true; }
+        catch(e) { return false; }
+      }
+
       function persistEmployerProfileUpdates(updates) {
         const currentProfile = getCurrentEmployerProfile();
         const nextProfile = { ...currentProfile, ...updates };
@@ -2188,7 +2200,7 @@
         renderSettingsSocialMediaRows([...currentRows, { platform: "", value: "" }]);
       });
 
-      companyProfileForm.addEventListener("submit", function (e) {
+      companyProfileForm.addEventListener("submit", async function (e) {
         e.preventDefault();
         const hardener = window.JobAssistInputHardening;
         const socialMediaData = collectSettingsSocialMediaLinks();
@@ -2196,6 +2208,18 @@
         if (socialMediaData.error) {
           return showToast(socialMediaData.error, true);
         }
+
+        await updateProfileViaAPI({
+          companyName: formatDisplayText(getDisplayInputValue(document.getElementById("companyName")), 120),
+          industry: formatDisplayText(getDisplayInputValue(document.getElementById("companyIndustry")), 120),
+          businessType: formatDisplayText(getDisplayInputValue(document.getElementById("businessType")), 80),
+          companySize: formatDisplayText(getDisplayInputValue(document.getElementById("companySize")), 80),
+          registrationNumber: hardener?.sanitizeText ? hardener.sanitizeText(getDisplayInputValue(document.getElementById("registrationNumber")), { maxLength: 60 }) : getDisplayInputValue(document.getElementById("registrationNumber")),
+          companyAddress: formatDisplayText(getDisplayInputValue(document.getElementById("companyAddress")), 180),
+          city: formatDisplayText(getDisplayInputValue(document.getElementById("city")), 80),
+          region: formatDisplayText(getDisplayInputValue(document.getElementById("region")), 80),
+          companyDescription: hardener?.sanitizeMultilineText ? hardener.sanitizeMultilineText(getDisplayInputValue(document.getElementById("companyDescription")), { maxLength: 2000 }) : getDisplayInputValue(document.getElementById("companyDescription")),
+        });
 
         persistEmployerProfileUpdates({
           companyName: formatDisplayText(getDisplayInputValue(document.getElementById("companyName")), 120),
@@ -2228,7 +2252,7 @@
         showToast("Changes saved successfully");
       });
 
-      accountSettingsForm.addEventListener("submit", function (e) {
+      accountSettingsForm.addEventListener("submit", async function (e) {
         e.preventDefault();
         const hardener = window.JobAssistInputHardening;
         const normalizedPhone = normalizeGhanaPhone(getDisplayInputValue(document.getElementById("phone")));
@@ -2241,6 +2265,13 @@
         if (workEmail && !(hardener?.isValidEmail?.(workEmail) || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(workEmail))) {
           return showToast("Enter a valid work email address", true);
         }
+
+        await updateProfileViaAPI({
+          fullName: formatDisplayText(getDisplayInputValue(document.getElementById("fullName")), 120),
+          position: formatDisplayText(getDisplayInputValue(document.getElementById("position")), 120),
+          workEmail: workEmail,
+          phone: normalizedPhone,
+        });
 
         persistEmployerProfileUpdates({
           fullName: formatDisplayText(getDisplayInputValue(document.getElementById("fullName")), 120),
@@ -2256,7 +2287,7 @@
         showToast("Changes saved successfully");
       });
 
-      securitySettingsForm.addEventListener("submit", function (e) {
+      securitySettingsForm.addEventListener("submit", async function (e) {
         e.preventDefault();
 
         const currentPassword = document.getElementById("currentPassword").value;
@@ -2266,6 +2297,8 @@
         if (!currentPassword) return showToast("Please enter your current password", true);
         if (newPassword.length < 8) return showToast("New password must be at least 8 characters long", true);
         if (newPassword !== confirmPassword) return showToast("New passwords do not match", true);
+
+        await changePasswordViaAPI(currentPassword, newPassword, confirmPassword);
 
         persistEmployerProfileUpdates({
           password: newPassword || getCurrentEmployerProfile().password || "",

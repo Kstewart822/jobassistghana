@@ -2,6 +2,7 @@ import http from 'http';
 import app from './app.mjs';
 import { config, validateConfig } from './config/environment.mjs';
 import { connectDatabase, disconnectDatabase } from './database/mongoose.mjs';
+import { connectDatabase as connectRawDatabase, disconnectDatabase as disconnectRawDatabase } from './database/connection.mjs';
 import logger from './utils/logger.mjs';
 
 const server = http.createServer(app);
@@ -14,8 +15,9 @@ async function startServer() {
     validateConfig();
     logger.info('Configuration validated successfully');
 
-    // Connect to database
+    // Connect to database (Mongoose + raw)
     await connectDatabase();
+    await connectRawDatabase();
     logger.info('Database connection established');
 
     // Start server
@@ -42,6 +44,7 @@ async function gracefulShutdown() {
   try {
     // Disconnect database
     await disconnectDatabase();
+    await disconnectRawDatabase();
     
     // Close server
     server.close(() => {

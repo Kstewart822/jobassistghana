@@ -2308,6 +2308,67 @@
         }, 2000);
       }
 
+      async function loadDashboardFromApi() {
+        try {
+          if (typeof window.JobAssistAPI === 'undefined') return;
+          const profile = await window.JobAssistAPI.Auth.getProfile();
+          const employerId = profile?.id || profile?.userId || profile?.employerId;
+          if (!employerId) return;
+
+          const [jobsResponse, applicationsResponse] = await Promise.all([
+            window.JobAssistAPI.Jobs.getJobsByEmployer(employerId),
+            window.JobAssistAPI.Applications.getEmployerApplications({limit: 100})
+          ]);
+
+          const apiJobs = Array.isArray(jobsResponse) ? jobsResponse : (jobsResponse?.jobs || jobsResponse?.data || []);
+          const apiApplications = Array.isArray(applicationsResponse) ? applicationsResponse : (applicationsResponse?.applications || applicationsResponse?.data || []);
+
+          const activeJobs = apiJobs.filter(j => {
+            const status = String(j.status || '').toLowerCase();
+            return status !== 'closed' && status !== 'expired';
+          }).length;
+
+          const totalApplicants = apiApplications.length;
+
+          const jobIds = new Set(apiJobs.map(j => String(j.id || j._id || '')));
+          const relevantApplicants = apiApplications.filter(a => jobIds.has(String(a.jobId || a.job?._id || '')));
+
+          const unlockedCount = relevantApplicants.filter(a => a.isUnlocked || a.unlocked).length;
+
+          const updateEl = (id, val) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = String(val);
+          };
+
+          updateEl('activeJobsCount', activeJobs);
+          updateEl('totalApplicantsCount', totalApplicants);
+          updateEl('unlockedApplicantsCount', unlockedCount);
+
+          const chipActive = document.getElementById('heroActiveJobsChip');
+          if (chipActive) chipActive.innerHTML = `<i class="fas fa-briefcase"></i><span>${activeJobs} active ${activeJobs === 1 ? 'job' : 'jobs'}</span>`;
+
+          const chipApplicants = document.getElementById('heroApplicantsChip');
+          if (chipApplicants) chipApplicants.innerHTML = `<i class="fas fa-user-check"></i><span>${totalApplicants} ${totalApplicants === 1 ? 'applicant' : 'applicants'} received</span>`;
+
+          const chipUnlocked = document.getElementById('heroUnlockedChip');
+          if (chipUnlocked) chipUnlocked.innerHTML = `<i class="fas fa-unlock-alt"></i><span>${unlockedCount} unlocked ${unlockedCount === 1 ? 'candidate' : 'candidates'}</span>`;
+
+          const panelCopy = document.getElementById('heroPanelCopy');
+          if (panelCopy) {
+            if (!activeJobs) {
+              panelCopy.textContent = 'You have a clean hiring workspace. Start by posting a role, then review applicants as soon as they begin to arrive.';
+            } else if (!totalApplicants) {
+              panelCopy.textContent = 'Your roles are live. Keep job descriptions sharp and stay ready to review applicants as soon as new interest arrives.';
+            } else if (!unlockedCount) {
+              panelCopy.textContent = 'You already have interest coming in. Review applicants closely and unlock contact details when you are ready to move forward.';
+            } else {
+              panelCopy.textContent = 'You have real hiring momentum. Keep roles current, follow up quickly, and continue unlocking the strongest candidates.';
+            }
+          }
+        } catch (e) {
+        }
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
         setEmployerIdentity();
         renderRecentJobPosts();
@@ -2315,6 +2376,7 @@
         syncReviewApplicantsTargets();
         initializeEmployerNotifications();
         checkBoostPrompt();
+        loadDashboardFromApi();
       });
     </script>
   
